@@ -401,9 +401,26 @@ if(parseFloat(_STANDBY_AFTER_MINUTES)>0){
 function loadMaps(b,map){
 	var random = getRandomInt(1,100000);
 	
+	if(typeof(map.link)!=='undefined'){
+		var html = '<div class="modal fade" id="trafficmap_frame_'+b+'" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
+		  html+='<div class="modal-dialog">';
+			html+='<div class="modal-content">';
+			  html+='<div class="modal-header">';
+				html+='<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
+			  html+='</div>';
+			  html+='<div class="modal-body">';
+				  html+='<iframe data-src="'+map.link+'" width="100%" height="570" frameborder="0" allowtransparency="true"></iframe> '; 
+			  html+='</div>';
+			html+='</div>';
+		  html+='</div>';
+		html+='</div>';
+		$('body').append(html);
+	}
+	
 	var width = 12;
 	if(typeof(map.width)!=='undefined') width=map.width;
-	var html='<div class="col-xs-'+width+' mh swiper-no-swiping transbg block_trafficmap">';
+	if(typeof(map.link)!=='undefined') var html='<div class="col-xs-'+width+' mh hover swiper-no-swiping transbg block_trafficmap" data-toggle="modal" data-target="#trafficmap_frame_'+b+'" onclick="setSrc(this);">';
+	else var html='<div class="col-xs-'+width+' mh swiper-no-swiping transbg block_trafficmap">';
 	html+='<div id="trafficmap_'+b+'" class="trafficmap"></div>';
 	html+='</div>';
 	setTimeout(function(){showMap('trafficmap_'+b,map);},1000)
