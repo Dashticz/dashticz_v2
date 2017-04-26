@@ -30,5 +30,5 @@ Fill in the full path for Domoticz, e.g.: http://username:password@192.168.1.3:8
 Unfortunately, this occurs when the dashboard is installed into Domoticz's www-directory.
 When Domoticz installs an update, it complete removes the www-directory, before placing the updated version back. Currently, there is no solution for this (except for installing the dashboard on another webserver), you have to re-install this dashboard.
 
-<b>Where I can get help?</b><br />
-You can check out our helpful community in [Dashticz topic](https://www.domoticz.com/forum/viewtopic.php?f=8&t=16526) on the Domoticz forum.
+<b>Where can I get any help?</b><br />
+You can check out our helpfull community in [Dashticz topic](https://www.domoticz.com/forum/viewtopic.php?f=8&t=16526) on the Domoticz forum.
