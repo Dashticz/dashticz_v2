@@ -312,7 +312,7 @@ function showMap(mapid,map) {
 			});
 	}
 
-	var transitLayer = new google.maps.TransitLayer();
+	var transitLayer = new google.maps.TrafficLayer();
     transitLayer.setMap(map);
 }
 
