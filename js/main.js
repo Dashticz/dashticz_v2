@@ -419,8 +419,10 @@ function loadMaps(b,map){
 	
 	var width = 12;
 	if(typeof(map.width)!=='undefined') width=map.width;
-	if(typeof(map.link)!=='undefined') var html='<div class="col-xs-'+width+' mh hover swiper-no-swiping transbg block_trafficmap" data-toggle="modal" data-target="#trafficmap_frame_'+b+'" onclick="setSrc(this);">';
-	else var html='<div class="col-xs-'+width+' mh swiper-no-swiping transbg block_trafficmap">';
+	if(typeof(map.link)!=='undefined') var html='<div class="col-xs-'+width+' mh hover swiper-no-swiping transbg block_trafficmap" data-toggle="modal" data-target="#trafficmap_frame_'+b+'" onclick="setSrc(this);" ';
+	else var html='<div class="col-xs-'+width+' mh swiper-no-swiping transbg block_trafficmap" ';
+	if(typeof(map.height)!=='undefined') html+=' style="height:'+map.height+'px !important;"';
+	html+='>';
 	html+='<div id="trafficmap_'+b+'" class="trafficmap"></div>';
 	html+='</div>';
 	setTimeout(function(){showMap('trafficmap_'+b,map);},1000)
