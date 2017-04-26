@@ -29,7 +29,7 @@ $.ajax({url: 'vendor/jquery/touchpunch.js', async: false,dataType: "script"});
 $.ajax({url: 'vendor/bootstrap/js/bootstrap.min.js', async: false,dataType: "script"});
 $.ajax({url: 'js/functions.js', async: false,dataType: "script"});
 		
-$.ajax({url: 'CONFIG.js', async: false,dataType: "script"});
+$.ajax({url: 'custom/CONFIG.js', async: false,dataType: "script"});
 $.ajax({url: 'lang/'+_LANGUAGE+'.js', async: false,dataType: "script"});
 
 $.ajax({url: 'vendor/raphael/raphael-min.js', async: false,dataType: "script"});
@@ -40,10 +40,10 @@ $.ajax({url: 'vendor/moment-with-locales.js', async: false,dataType: "script"});
 $.ajax({url: 'vendor/jquery.newsTicker.min.js', async: false,dataType: "script"});
 $.ajax({url: 'js/switches.js', async: false,dataType: "script"});
 if(typeof(_DEBUG)!=='undefined' && _DEBUG){
-	$.ajax({url: 'js/json_vb.js', async: false,dataType: "script"});
-	$.ajax({url: 'js/graph_vb.js', async: false,dataType: "script"});
+	$.ajax({url: 'custom/json_vb.js', async: false,dataType: "script"});
+	$.ajax({url: 'custom/graph_vb.js', async: false,dataType: "script"});
 }
-$.ajax({url: 'js/custom.js', async: false,dataType: "script"});
+$.ajax({url: 'custom/custom.js', async: false,dataType: "script"});
 $.ajax({url: 'js/blocks.js', async: false,dataType: "script"});
 $.ajax({url: 'js/graphs.js', async: false,dataType: "script"});
 

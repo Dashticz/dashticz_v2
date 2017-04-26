@@ -1,5 +1,3 @@
-/CONFIG.js
-/css/custom.css
-/js/custom.js
-/js/json_vb.js
-/js/graph_vb.js
+/custom/CONFIG.js
+/custom/graph_vb.js
+/custom/json_vb.js
