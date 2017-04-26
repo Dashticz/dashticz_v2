@@ -294,26 +294,26 @@ function buildScreens(){
 }
 
 function initMap() {
-	showMap('trafficm');
+      showMap('trafficm');
 }
 function showMap(mapid,map) {
 	if(typeof(_APIKEY_MAPS)=='undefined' || _APIKEY_MAPS=="") alert('Please, set var _APIKEY_MAPS!');
-	
+
 	if(typeof(map)!=='undefined'){
-		var map = new google.maps.Map(document.getElementById(mapid), {
-		  zoom: map.zoom,
-		  center: {lat: map.latitude, lng: map.longitude}
-		});
+			var map = new google.maps.Map(document.getElementById(mapid), {
+			  zoom: map.zoom,
+			  center: {lat: map.latitude, lng: map.longitude}
+			});
 	}
 	else {
-		var map = new google.maps.Map(document.getElementById(mapid), {
-		  zoom: _MAPS_ZOOMLEVEL,
-		  center: {lat: _MAPS_LATITUDE, lng: _MAPS_LONGITUDE}
-		});
+			var map = new google.maps.Map(document.getElementById(mapid), {
+			  zoom: _MAPS_ZOOMLEVEL,
+			  center: {lat: _MAPS_LATITUDE, lng: _MAPS_LONGITUDE}
+			});
 	}
 
-	var trafficLayer = new google.maps.TrafficLayer();
-	trafficLayer.setMap(map);
+	var transitLayer = new google.maps.TransitLayer();
+    transitLayer.setMap(map);
 }
 
 function setClassByTime(){
