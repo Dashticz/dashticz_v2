@@ -403,7 +403,7 @@ function loadMaps(b,map){
 	
 	var width = 12;
 	if(typeof(map.width)!=='undefined') width=map.width;
-	var html='<div class="col-xs-'+width+' mh transbg block_trafficmap">';
+	var html='<div class="col-xs-'+width+' mh swiper-no-swiping transbg block_trafficmap">';
 	html+='<div id="trafficmap_'+b+'" class="trafficmap"></div>';
 	html+='</div>';
 	setTimeout(function(){showMap('trafficmap_'+b,map);},1000)
@@ -447,7 +447,7 @@ function loadFrame(f,frame){
 	
 	var width = 12;
 	if(typeof(frame.width)!=='undefined') width=frame.width;
-	var html='<div class="col-xs-'+width+' hover transbg imgblock imgblock'+f+'" style="height:'+frame.height+'px;padding:0px !important;">';
+	var html='<div class="col-xs-'+width+' hover transbg swiper-no-swiping imgblock imgblock'+f+'" style="height:'+frame.height+'px;padding:0px !important;">';
 		html+='<div class="col-xs-12 col-data" style="padding:0px !important;">';
 			html+='<iframe src="'+frame.frameurl+'" style="width:100%;border:0px;height:'+(frame.height-14)+'px;"></iframe>';
 		html+='</div>';
@@ -1002,7 +1002,7 @@ function getDevices(){
 									if(device['Status']=='Off') html+=iconORimage(idx,'',buttonimg+'.png','off icon iconslider','',2,'data-light="'+device['idx']+'" onclick="switchDevice(this);"');
 									else html+=iconORimage(idx,'',buttonimg+'.png','on icon iconslider','',2,'data-light="'+device['idx']+'" onclick="switchDevice(this);"');
 								}
-								html+='<div class="col-xs-10 col-data">';
+								html+='<div class="col-xs-10 swiper-no-swiping col-data">';
 									html+='<strong class="title">'+device['Name']+': '+device['Level']+'%'+'</strong>';
 									if(_SHOW_LASTUPDATE) html+=' / <span class="lastupdate">'+moment(device['LastUpdate']).format(_LASTUPDATE_FORMAT)+'</span>';
 									html+='<br />';
