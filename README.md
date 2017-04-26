@@ -20,14 +20,6 @@ Visit the wikipage at: http://www.domoticz.com/wiki/Dashticz-v2
 
 
 
-# Reported bugs and features
-
-You can find reported bugs and features over here:
-https://trello.com/b/qsNqHtie/dashboard
-
-
-
-
 # Frequently Asked Questions
 
 <b>How to use this dashboard if Domoticz is password protected?</b><br />
