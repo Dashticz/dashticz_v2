@@ -1,4 +1,5 @@
 
+if(typeof(_HOST_DOMOTICZ)=='undefined') var _HOST_DOMOTICZ='';
 if(typeof(_LANGUAGE)=='undefined') var _LANGUAGE='nl_NL';
 if(typeof(_USE_FAVORITES)=='undefined') var _USE_FAVORITES=false;
 if(typeof(_USE_AUTO_POSITIONING)=='undefined') var _USE_AUTO_POSITIONING=false;
@@ -272,7 +273,7 @@ function buildScreens(){
 			$('body .row').append('<div class="col-xs-2 col3"><div class="auto_clock"></div><div class="auto_sunrise"></div><div class="auto_buttons"></div></div>');
 
 			$('.col2').prepend('<div class="mh transbg big block_currentweather_big col-xs-12 containsweather"><div class="col-xs-1"><div class="weather" id="weather"></div></div><div class="col-xs-11"><span class="title weatherdegrees" id="weatherdegrees"></span> <span class="weatherloc" id="weatherloc"></span></div></div>');
-			if(_APIKEY_WUNDERGROUND!=="" && _WEATHER_CITY!==""){
+			if(typeof(_APIKEY_WUNDERGROUND)!=='undefined' && _APIKEY_WUNDERGROUND!=="" && typeof(_WEATHER_CITY)!=='undefined' && _WEATHER_CITY!==""){
 				if(typeof(loadWeatherFull)!=='function') $.ajax({url: 'js/weather.js', async: false,dataType: "script"});
 							loadWeatherFull(_WEATHER_CITY,_WEATHER_COUNTRY,$('#weatherfull'));
 				loadWeather(_WEATHER_CITY,_WEATHER_COUNTRY);
