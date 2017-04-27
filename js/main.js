@@ -254,7 +254,8 @@ function buildScreens(){
 								html+='</div>';
 							$('div.screen'+s+' .row .col'+c).append(html);	
 
-							addCalendar('.containsicalendar'+random);				
+							addCalendar('.containsicalendar'+random);
+							$('.containsicalendar'+random).css('text-transform','capitalize');			
 						}
 						else if(columns[c]['blocks'][b]=='streamplayer'){
 							var random = getRandomInt(1,100000);
