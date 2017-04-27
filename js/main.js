@@ -51,13 +51,16 @@ $.ajax({url: 'js/graphs.js', async: false,dataType: "script"});
 var standby=true;
 var standbyActive=false;
 var standbyTime=0;
+
+var swipebackTime=0;
+
 var req;
 var slide;
 var sliding = false;
 var defaultcolumns=false;
 var allblocks={}
 var alldevices={}
-
+var myswiper;
 var isMobile = false; //initiate as false
 // device detection
 if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|ipad|iris|kindle|Android|Silk|lge |maemo|midp|mmp|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino/i.test(navigator.userAgent) 
@@ -106,7 +109,7 @@ $(document).ready(function(){
 	
 	setTimeout(function(){
 		if(objectlength(screens)>1){
-			var swiper = new Swiper('.swiper-container', {
+			myswiper = new Swiper('.swiper-container', {
 				pagination: '.swiper-pagination',
 				paginationClickable: true,
 				loop: true,
@@ -133,6 +136,10 @@ $(document).ready(function(){
 	
 }); 
 
+function toSlide(num){
+	myswiper.slideTo( num,1000,false );
+	
+}
 function buildStandby(){
 	
 	if($('.screenstandby').length==0){
@@ -312,7 +319,7 @@ function showMap(mapid,map) {
 			});
 	}
 
-	var transitLayer = new google.maps.TransitLayer();
+	var transitLayer = new google.maps.TrafficLayer();
     transitLayer.setMap(map);
 }
 
@@ -345,38 +352,57 @@ function setClassByTime(){
 	//}
 }
 
-//STANDBY FUNCTION
-if(parseFloat(_STANDBY_AFTER_MINUTES)>0){
-   setInterval(function(){
-      standbyTime+=1000;
-   },1000);
+if(typeof(_AUTO_SWIPEBACK_TO)!=='undefined' && typeof(_AUTO_SWIPEBACK_TIME)!=='undefined'){
+	if(parseFloat(_AUTO_SWIPEBACK_TIME)>0){
+	   setInterval(function(){
+		  swipebackTime+=1000;
+		
+		 if(swipebackTime>=(_AUTO_SWIPEBACK_TIME*1000)){
+			toSlide(_AUTO_SWIPEBACK_TO);
+			swipebackTime=0;
+		 }
+	   },1000);
+		
+	}
+}
 
+//STANDBY FUNCTION
+setInterval(function(){
+  standbyTime+=1000;
+},1000);
+
+
+if(!isMobile){
+	$('body').bind('mousemove', function(e){
+		standbyTime=0;
+		swipebackTime=0;
+		disableStandby();
+	});
+}
+
+$('body').bind('touchend click', function(e){
+	
+	setTimeout(function(){ 
+		standbyTime=0;
+		swipebackTime=0;
+		disableStandby(); 
+	},100);
+});
+
+if(parseFloat(_STANDBY_AFTER_MINUTES)>0){
    setInterval(function(){
       if(standbyActive!=true){
          if(standbyTime>=((_STANDBY_AFTER_MINUTES*1000)*60)){
             $('body').addClass('standby');
+			$('.swiper-container').hide();
 			if(objectlength(columns_standby)>0) buildStandby();
             if(typeof(_STANDBY_CALL_URL)!=='undefined' && _STANDBY_CALL_URL!==''){
                $.get(_STANDBY_CALL_URL);
                standbyActive=true;
-				
             }
          }
       }
    },5000);
-
-   
-   if(!isMobile){
-	$('body').bind('mousemove', function(e){
-		standbyTime=0;
-		disableStandby();
-	});
-   }
-	
-   $('body').bind('touchstart click', function(e){
-      standbyTime=0;
-      disableStandby();
-   });
 
    function disableStandby(){
      
@@ -392,6 +418,7 @@ if(parseFloat(_STANDBY_AFTER_MINUTES)>0){
 	  	$('.screenstandby').remove();
 	  }
       $('body').removeClass('standby');
+	  $('.swiper-container').show();
       standbyActive=false;
 	 
    }
@@ -401,9 +428,28 @@ if(parseFloat(_STANDBY_AFTER_MINUTES)>0){
 function loadMaps(b,map){
 	var random = getRandomInt(1,100000);
 	
+	if(typeof(map.link)!=='undefined'){
+		var html = '<div class="modal fade" id="trafficmap_frame_'+b+'" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
+		  html+='<div class="modal-dialog">';
+			html+='<div class="modal-content">';
+			  html+='<div class="modal-header">';
+				html+='<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
+			  html+='</div>';
+			  html+='<div class="modal-body">';
+				  html+='<iframe data-src="'+map.link+'" width="100%" height="570" frameborder="0" allowtransparency="true"></iframe> '; 
+			  html+='</div>';
+			html+='</div>';
+		  html+='</div>';
+		html+='</div>';
+		$('body').append(html);
+	}
+	
 	var width = 12;
 	if(typeof(map.width)!=='undefined') width=map.width;
-	var html='<div class="col-xs-'+width+' mh transbg block_trafficmap">';
+	if(typeof(map.link)!=='undefined') var html='<div class="col-xs-'+width+' mh hover swiper-no-swiping transbg block_trafficmap" data-toggle="modal" data-target="#trafficmap_frame_'+b+'" onclick="setSrc(this);" ';
+	else var html='<div class="col-xs-'+width+' mh swiper-no-swiping transbg block_trafficmap" ';
+	if(typeof(map.height)!=='undefined') html+=' style="height:'+map.height+'px !important;"';
+	html+='>';
 	html+='<div id="trafficmap_'+b+'" class="trafficmap"></div>';
 	html+='</div>';
 	setTimeout(function(){showMap('trafficmap_'+b,map);},1000)
@@ -447,7 +493,7 @@ function loadFrame(f,frame){
 	
 	var width = 12;
 	if(typeof(frame.width)!=='undefined') width=frame.width;
-	var html='<div class="col-xs-'+width+' hover transbg imgblock imgblock'+f+'" style="height:'+frame.height+'px;padding:0px !important;">';
+	var html='<div class="col-xs-'+width+' hover transbg swiper-no-swiping imgblock imgblock'+f+'" style="height:'+frame.height+'px;padding:0px !important;">';
 		html+='<div class="col-xs-12 col-data" style="padding:0px !important;">';
 			html+='<iframe src="'+frame.frameurl+'" style="width:100%;border:0px;height:'+(frame.height-14)+'px;"></iframe>';
 		html+='</div>';
@@ -851,7 +897,9 @@ function getDevices(){
 								  html+='<strong class="title">'+device['Name']+'</strong><br />';
 								  if(device['Status']=='Off') html+='<span class="state">AFWEZIG</span>';
 								  else html+='<span class="state">AANWEZIG</span>';
-									if(_SHOW_LASTUPDATE) html+='<br /><span class="lastupdate">'+moment(device['LastUpdate']).format(_LASTUPDATE_FORMAT)+'</span>';
+									if(_SHOW_LASTUPDATE && (typeof(blocks[idx])=='undefined' || typeof(blocks[idx]['hide_lastupdate'])=='undefined' || blocks[idx]['hide_lastupdate']===false)){
+										html+='<br /><span class="lastupdate">'+moment(device['LastUpdate']).format(_LASTUPDATE_FORMAT)+'</span>';
+									}
 							   html+='</div>';
 							}
 							else if(device['HardwareType']=='Logitech Media Server'){
@@ -1002,9 +1050,11 @@ function getDevices(){
 									if(device['Status']=='Off') html+=iconORimage(idx,'',buttonimg+'.png','off icon iconslider','',2,'data-light="'+device['idx']+'" onclick="switchDevice(this);"');
 									else html+=iconORimage(idx,'',buttonimg+'.png','on icon iconslider','',2,'data-light="'+device['idx']+'" onclick="switchDevice(this);"');
 								}
-								html+='<div class="col-xs-10 col-data">';
+								html+='<div class="col-xs-10 swiper-no-swiping col-data">';
 									html+='<strong class="title">'+device['Name']+': '+device['Level']+'%'+'</strong>';
-									if(_SHOW_LASTUPDATE) html+=' / <span class="lastupdate">'+moment(device['LastUpdate']).format(_LASTUPDATE_FORMAT)+'</span>';
+									if(_SHOW_LASTUPDATE && (typeof(blocks[idx])=='undefined' || typeof(blocks[idx]['hide_lastupdate'])=='undefined' || blocks[idx]['hide_lastupdate']===false)){
+										html+=' / <span class="lastupdate">'+moment(device['LastUpdate']).format(_LASTUPDATE_FORMAT)+'</span>';
+									}
 									html+='<br />';
 									html+='<div class="slider slider'+device['idx']+'" data-light="'+device['idx']+'"></div>';
 								html+='</div>';
@@ -1092,7 +1142,9 @@ function getDevices(){
 										html+='<strong class="title">'+device['Data']+_TEMP_SYMBOL+'</strong><br />';
 										html+='<span class="state">'+device['Name']+'</span>';
 									}
-									if(_SHOW_LASTUPDATE) html+='<br /><span class="lastupdate">'+moment(device['LastUpdate']).format(_LASTUPDATE_FORMAT)+'</span>';
+									if(_SHOW_LASTUPDATE && (typeof(blocks[idx])=='undefined' || typeof(blocks[idx]['hide_lastupdate'])=='undefined' || blocks[idx]['hide_lastupdate']===false)){
+										html+='<br /><span class="lastupdate">'+moment(device['LastUpdate']).format(_LASTUPDATE_FORMAT)+'</span>';
+									}
 								html+='</div>';
 								
 								$('div.block_'+idx+'_1').html(html);
@@ -1151,7 +1203,9 @@ function getDevices(){
 										html+='<strong class="title">'+device['Name']+'</strong><br />';
 										html+='<span class="state">'+device['Data']+'</span>';
 									}
-									if(_SHOW_LASTUPDATE) html+='<br /><span class="lastupdate">'+moment(device['LastUpdate']).format(_LASTUPDATE_FORMAT)+'</span>';
+									if(_SHOW_LASTUPDATE && (typeof(blocks[idx])=='undefined' || typeof(blocks[idx]['hide_lastupdate'])=='undefined' || blocks[idx]['hide_lastupdate']===false)){
+										html+='<br /><span class="lastupdate">'+moment(device['LastUpdate']).format(_LASTUPDATE_FORMAT)+'</span>';
+									}
 								html+='</div>';
 							}
 							else if(device['SwitchType']=='Venetian Blinds EU' || device['SwitchType']=='Blinds' || 
@@ -1163,6 +1217,7 @@ function getDevices(){
 								html+='</div>';
 								html+='<div class="col-xs-8 col-data">';
 								   html+='<strong class="title">'+device['Name']+'</strong><br />';
+								   html+='<span class="state">'+device['Data'].toUpperCase()+'</span>';
 								html+='</div>';
 										
 								if(typeof(blocks[idx])=='undefined' || typeof(blocks[idx]['hide_stop'])=='undefined' || blocks[idx]['hide_stop']===false){
