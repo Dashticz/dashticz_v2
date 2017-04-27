@@ -386,7 +386,7 @@ $('body').bind('touchend click', function(e){
 		standbyTime=0;
 		swipebackTime=0;
 		disableStandby(); 
-	},200);
+	},100);
 });
 
 if(parseFloat(_STANDBY_AFTER_MINUTES)>0){
