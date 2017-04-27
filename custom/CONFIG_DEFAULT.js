@@ -30,6 +30,8 @@ var _APIKEY_MAPS			= '';
 var _MAPS_LATITUDE			= '';
 var _MAPS_LONGITUDE			= '';
 
+var _AUTO_SWIPEBACK_TO		= 1; //when no activity, swipe back to main screen after x seconds
+var _AUTO_SWIPEBACK_TIME	= 10; //seconds
 
 // Online Radio Stream Plugin, Note: you must enable  plugin in column section 'streamplayer', see columns[3]['blocks'] example below.
 var _STREAMPLAYER_TRACKS  	= [

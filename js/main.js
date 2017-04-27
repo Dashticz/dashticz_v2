@@ -367,24 +367,26 @@ if(typeof(_AUTO_SWIPEBACK_TO)!=='undefined' && typeof(_AUTO_SWIPEBACK_TIME)!=='u
 }
 
 //STANDBY FUNCTION
-
 setInterval(function(){
   standbyTime+=1000;
 },1000);
 
 
 if(!isMobile){
-$('body').bind('mousemove', function(e){
-	standbyTime=0;
-	swipebackTime=0;
-	disableStandby();
-});
+	$('body').bind('mousemove', function(e){
+		standbyTime=0;
+		swipebackTime=0;
+		disableStandby();
+	});
 }
 
-$('body').bind('touchstart click', function(e){
-   standbyTime=0;
-   swipebackTime=0;
-   disableStandby();
+$('body').bind('touchend click', function(e){
+	
+	setTimeout(function(){ 
+		standbyTime=0;
+		swipebackTime=0;
+		disableStandby(); 
+	},200);
 });
 
 if(parseFloat(_STANDBY_AFTER_MINUTES)>0){
@@ -392,11 +394,11 @@ if(parseFloat(_STANDBY_AFTER_MINUTES)>0){
       if(standbyActive!=true){
          if(standbyTime>=((_STANDBY_AFTER_MINUTES*1000)*60)){
             $('body').addClass('standby');
+			$('.swiper-container').hide();
 			if(objectlength(columns_standby)>0) buildStandby();
             if(typeof(_STANDBY_CALL_URL)!=='undefined' && _STANDBY_CALL_URL!==''){
                $.get(_STANDBY_CALL_URL);
                standbyActive=true;
-				
             }
          }
       }
@@ -416,6 +418,7 @@ if(parseFloat(_STANDBY_AFTER_MINUTES)>0){
 	  	$('.screenstandby').remove();
 	  }
       $('body').removeClass('standby');
+	  $('.swiper-container').show();
       standbyActive=false;
 	 
    }
