@@ -595,7 +595,7 @@ img.icon {
 }
 
 .modal-dialog {
-    min-width: 80% !important;
+    min-width: 90% !important;
 }
 div.screen {
   -webkit-background-size: cover;

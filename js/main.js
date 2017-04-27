@@ -51,13 +51,16 @@ $.ajax({url: 'js/graphs.js', async: false,dataType: "script"});
 var standby=true;
 var standbyActive=false;
 var standbyTime=0;
+
+var swipebackTime=0;
+
 var req;
 var slide;
 var sliding = false;
 var defaultcolumns=false;
 var allblocks={}
 var alldevices={}
-
+var myswiper;
 var isMobile = false; //initiate as false
 // device detection
 if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|ipad|iris|kindle|Android|Silk|lge |maemo|midp|mmp|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino/i.test(navigator.userAgent) 
@@ -106,7 +109,7 @@ $(document).ready(function(){
 	
 	setTimeout(function(){
 		if(objectlength(screens)>1){
-			var swiper = new Swiper('.swiper-container', {
+			myswiper = new Swiper('.swiper-container', {
 				pagination: '.swiper-pagination',
 				paginationClickable: true,
 				loop: true,
@@ -133,6 +136,10 @@ $(document).ready(function(){
 	
 }); 
 
+function toSlide(num){
+	myswiper.slideTo( num,1000,false );
+	
+}
 function buildStandby(){
 	
 	if($('.screenstandby').length==0){
@@ -345,12 +352,42 @@ function setClassByTime(){
 	//}
 }
 
-//STANDBY FUNCTION
-if(parseFloat(_STANDBY_AFTER_MINUTES)>0){
-   setInterval(function(){
-      standbyTime+=1000;
-   },1000);
+if(typeof(_AUTO_SWIPEBACK_TO)!=='undefined' && typeof(_AUTO_SWIPEBACK_TIME)!=='undefined'){
+	if(parseFloat(_AUTO_SWIPEBACK_TIME)>0){
+	   setInterval(function(){
+		  swipebackTime+=1000;
+		
+		 if(swipebackTime>=(_AUTO_SWIPEBACK_TIME*1000)){
+			toSlide(_AUTO_SWIPEBACK_TO);
+			swipebackTime=0;
+		 }
+	   },1000);
+		
+	}
+}
 
+//STANDBY FUNCTION
+
+setInterval(function(){
+  standbyTime+=1000;
+},1000);
+
+
+if(!isMobile){
+$('body').bind('mousemove', function(e){
+	standbyTime=0;
+	swipebackTime=0;
+	disableStandby();
+});
+}
+
+$('body').bind('touchstart click', function(e){
+   standbyTime=0;
+   swipebackTime=0;
+   disableStandby();
+});
+
+if(parseFloat(_STANDBY_AFTER_MINUTES)>0){
    setInterval(function(){
       if(standbyActive!=true){
          if(standbyTime>=((_STANDBY_AFTER_MINUTES*1000)*60)){
@@ -364,19 +401,6 @@ if(parseFloat(_STANDBY_AFTER_MINUTES)>0){
          }
       }
    },5000);
-
-   
-   if(!isMobile){
-	$('body').bind('mousemove', function(e){
-		standbyTime=0;
-		disableStandby();
-	});
-   }
-	
-   $('body').bind('touchstart click', function(e){
-      standbyTime=0;
-      disableStandby();
-   });
 
    function disableStandby(){
      
