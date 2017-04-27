@@ -21,6 +21,9 @@ if(typeof(_MAPS_LATITUDE)=='undefined') var _MAPS_LATITUDE = 51;
 if(typeof(_MAPS_LONGITUDE)=='undefined') var _MAPS_LONGITUDE = 5;
 if(typeof(_MAPS_ZOOMLEVEL)=='undefined') var _MAPS_ZOOMLEVEL = 13;
 if(typeof(_SCREENSLIDER_EFFECT )=='undefined') var _SCREENSLIDER_EFFECT  = 'slide';
+if(typeof(_ICALENDAR_URL )=='undefined') var _ICALENDAR_URL  = '';
+if(typeof(_ICALENDAR_DATEFORMAT )=='undefined') var _ICALENDAR_DATEFORMAT  = 'DD.MM.YYYY HH:mm';
+if(typeof(_ICALENDAR_LOCALE )=='undefined') var _ICALENDAR_LOCALE  = 'en';
 
 var _TEMP_SYMBOL = '°C';
 if(_USE_FAHRENHEIT) _TEMP_SYMBOL = '°F';
@@ -242,6 +245,15 @@ function buildScreens(){
 									html+='</div>';
 								html+='</div>';
 							$('div.screen'+s+' .row .col'+c).append(html);
+						}
+						else if(columns[c]['blocks'][b]=='icalendar'){
+							var random = getRandomInt(1,100000);
+							var html ='<div class="transbg containsicalendar'+random+'">';
+									html+='<div class="col-xs-12 transbg"></div>';
+								html+='</div>';
+							$('div.screen'+s+' .row .col'+c).append(html);	
+
+							addCalendar('.containsicalendar'+random);				
 						}
 						else if(columns[c]['blocks'][b]=='streamplayer'){
 							var random = getRandomInt(1,100000);
@@ -635,6 +647,27 @@ function getMoonInfo(image){
          }
            }   
    });
+}
+
+function addCalendar(calendarelement){
+var icsUrl = _ICALENDAR_URL;
+	new ical_parser(icsUrl, function(cal) {
+		var events = cal.getFutureEvents();
+		var counter = 0;
+		events.forEach(function(event) {
+			if (counter < 5) {
+				var date = event.start_date;
+				var time = event.start_time;
+					if(_ICALENDAR_DATEFORMAT == 'friendly') {
+						var widget = '<li style="list-style:none;">' + moment(date+' '+time,'DD/MM/YYYY HH:mm').locale(_ICALENDAR_LOCALE).calendar() + ' - <b>' + event.SUMMARY + '</b></li>';	
+					} else { 
+						var widget = '<li style="list-style:none;">' + moment(date+' '+time,'DD/MM/YYYY HH:mm').format(_ICALENDAR_DATEFORMAT) + ' - <b>' + event.SUMMARY + '</b></li>';		
+					}
+					$(calendarelement+' .transbg').append(widget);
+			}
+			counter++;
+		});
+	});
 }
 
 function addStreamPlayer(streamelement){
