@@ -1,4 +1,4 @@
-# Dashboard
+# Dashticz v2
 Alternative dashboard for Domoticz
 
 
