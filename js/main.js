@@ -655,7 +655,15 @@ function getMoonInfo(image){
 }
 
 function addCalendar(calendarelement){
-var icsUrl = _ICALENDAR_URL;
+
+	var icsUrl = _ICALENDAR_URL;
+
+	//replace webcal protocol with https
+	if (icsUrl.split('://')[0] == 'webcal') {
+		icsUrl = icsUrl.replace(/^webcal?\:\/\//i, "https://");
+	}
+	icsUrl = 'https://crossorigin.me/'+icsUrl;
+	
 	new ical_parser(icsUrl, function(cal) {
 		var events = cal.getFutureEvents();
 		var counter = 0;

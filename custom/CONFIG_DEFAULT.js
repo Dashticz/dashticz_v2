@@ -41,7 +41,7 @@ var _STREAMPLAYER_TRACKS  	= [
 							  ]; 
 
 // iCalendar Plugin, supports all .ics calendar types like Google Calendar, Apple Calendar
-var _ICALENDAR_URL			= 'https://crossorigin.me/https://testurl.com/ical.ics'; //supports .ics type calendars (Google Calendar, Apple Calendar etc.)
+var _ICALENDAR_URL			= 'https://testurl.com/ical.ics'; //supports .ics type calendars (Google Calendar, Apple Calendar etc.)
 var _ICALENDAR_DATEFORMAT	= 'friendly'; //'friendly', 'MM.DD.YYYY HH:mm', 'DD.MM.YYYY HH:mm', 'YYYY.MM.DD HH:mm'
 var _ICALENDAR_LOCALE		= 'en'; //en,hu, etc. 
 
