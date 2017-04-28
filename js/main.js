@@ -320,7 +320,7 @@ function buildScreens(){
 		addCalendar();
 		setInterval(function(){
 			addCalendar();
-		},(60000*1));
+		},(60000*5));
 	}
 }
 
