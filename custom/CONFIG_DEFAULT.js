@@ -40,6 +40,11 @@ var _STREAMPLAYER_TRACKS  	= [
 								{"track":3,"name":"Test FM","file":"http://213.181.210.106:8000/high.mp3"},
 							  ]; 
 
+// iCalendar Plugin, supports all .ics calendar types like Google Calendar, Apple Calendar
+var _ICALENDAR_URL			= 'https://crossorigin.me/https://testurl.com/ical.ics'; //supports .ics type calendars (Google Calendar, Apple Calendar etc.)
+var _ICALENDAR_DATEFORMAT	= 'friendly'; //'friendly', 'MM.DD.YYYY HH:mm', 'DD.MM.YYYY HH:mm', 'YYYY.MM.DD HH:mm'
+var _ICALENDAR_LOCALE		= 'en'; //en,hu, etc. 
+
 //Buttons or images to open webpages in an iframe, like a news website or weather forecast
 var buttons = {}
 buttons.buienradar = {width:12, isimage:true, refreshimage:60000, image: 'http://api.buienradar.nl/image/1.0/RadarMapNL?w=285&h=256', url: 'http://www.weeronline.nl/Europa/Nederland/Son/4058667'}
