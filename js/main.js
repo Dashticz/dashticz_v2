@@ -250,12 +250,10 @@ function buildScreens(){
 						}
 						else if(columns[c]['blocks'][b]=='icalendar'){
 							var random = getRandomInt(1,100000);
-							var html ='<div class="transbg containsicalendar'+random+'">';
+							var html ='<div class="transbg containsicalendar containsicalendar'+random+'">';
 									html+='<div class="col-xs-12 transbg"></div>';
 								html+='</div>';
 							$('div.screen'+s+' .row .col'+c).append(html);	
-
-							addCalendar('.containsicalendar'+random);
 							$('.containsicalendar'+random).css('text-transform','capitalize');			
 						}
 						else if(columns[c]['blocks'][b]=='streamplayer'){
@@ -313,7 +311,16 @@ function buildScreens(){
 		num++;
 	}
 	if(typeof(_EDIT_MODE)!=='undefined' && _EDIT_MODE==true){
-		setTimeout(function(){ startSortable(); },2000);
+		setTimeout(function(){ 
+			startSortable(); 
+		},2000);
+	}
+	
+	if($('.containsicalendar').length>0){
+		addCalendar();
+		setInterval(function(){
+			addCalendar();
+		},(60000*1));
 	}
 }
 
@@ -654,31 +661,35 @@ function getMoonInfo(image){
    });
 }
 
-function addCalendar(calendarelement){
+function addCalendar(){
+	$('.containsicalendar').each(function(){
+		var calobject = $(this);
+		var icsUrl = _ICALENDAR_URL;
 
-	var icsUrl = _ICALENDAR_URL;
+		//replace webcal protocol with https
+		if (icsUrl.split('://')[0] == 'webcal') {
+			icsUrl = icsUrl.replace(/^webcal?\:\/\//i, "https://");
+		}
+		icsUrl = 'https://crossorigin.me/'+icsUrl;
 
-	//replace webcal protocol with https
-	if (icsUrl.split('://')[0] == 'webcal') {
-		icsUrl = icsUrl.replace(/^webcal?\:\/\//i, "https://");
-	}
-	icsUrl = 'https://crossorigin.me/'+icsUrl;
-	
-	new ical_parser(icsUrl, function(cal) {
-		var events = cal.getFutureEvents();
-		var counter = 0;
-		events.forEach(function(event) {
-			if (counter < 5) {
-				var date = event.start_date;
-				var time = event.start_time;
-					if(_ICALENDAR_DATEFORMAT == 'friendly') {
-						var widget = '<li style="list-style:none;">' + moment(date+' '+time,'DD/MM/YYYY HH:mm').locale(_ICALENDAR_LOCALE).calendar() + ' - <b>' + event.SUMMARY + '</b></li>';	
-					} else { 
-						var widget = '<li style="list-style:none;">' + moment(date+' '+time,'DD/MM/YYYY HH:mm').format(_ICALENDAR_DATEFORMAT) + ' - <b>' + event.SUMMARY + '</b></li>';		
-					}
-					$(calendarelement+' .transbg').append(widget);
-			}
-			counter++;
+		new ical_parser(icsUrl, function(cal) {
+			var events = cal.getFutureEvents();
+			var counter = 0;
+			calobject.find('.transbg').html('');
+			counter=0;
+			events.forEach(function(event) {
+				if (counter < 5) {
+					var date = event.start_date;
+					var time = event.start_time;
+						if(_ICALENDAR_DATEFORMAT == 'friendly') {
+							var widget = '<li style="list-style:none;">' + moment(date+' '+time,'DD/MM/YYYY HH:mm').locale(_ICALENDAR_LOCALE).calendar() + ' - <b>' + event.SUMMARY + '</b></li>';	
+						} else { 
+							var widget = '<li style="list-style:none;">' + moment(date+' '+time,'DD/MM/YYYY HH:mm').format(_ICALENDAR_DATEFORMAT) + ' - <b>' + event.SUMMARY + '</b></li>';		
+						}
+						calobject.find('.transbg').append(widget);
+				}
+				counter++;
+			});
 		});
 	});
 }
