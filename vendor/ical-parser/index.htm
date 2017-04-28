@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head> 
+		<title>Ical Parser Demo</title> 
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+		<script type="text/javascript" src='ical_parser.js'></script>
+		<script type="text/javascript">
+			var ical_file = 'https://crossorigin.me/https://calendar.google.com/calendar/ical/5koqucna65ibl7ftp9kep76gko%40group.calendar.google.com/public/basic.ics';
+		
+			//run ical parser on load
+			window.addEventListener("load", function(){
+				//Create new ical parser
+				new ical_parser(ical_file, function(cal){
+					//When ical parser has loaded file
+					//get future events
+					events = cal.getFutureEvents();
+					//And display them
+					displayDemo(events);
+				});			
+			}, false);
+			
+			//Display All future events in ical file as list.
+			function displayDemo(events){
+				//Foreach event
+				events.forEach(function(event){
+					//Create a list item
+					var li = document.createElement('li');
+					//Add details from cal file.
+					li.innerHTML = '<strong>' +event.SUMMARY + '</strong><br/> ' +
+					event.day + ': ' +event.start_time + ' - ' + event.end_time + ' ('+event.start_date+ ')' ;
+					//Add list item to list.
+					document.getElementById('calendar').appendChild(li);	
+				});
+			}
+		</script>
+		<style type='text/css'>
+			#calendar li { padding:6px;margin:2px auto;  border:solid 1px #eee; list-style:none;width:400px; }
+			#calendar li.header { background-color:#eee;font-size:1.1em;}
+		</style>
+	</head> 
+	<body> 
+		
+		<ul id='calendar'><li class='header'>Upcoming Events.</li></ul>
+	</body> 
+</html> 
