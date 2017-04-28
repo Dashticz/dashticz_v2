@@ -39,6 +39,7 @@ $.ajax({url: 'vendor/moment.js', async: false,dataType: "script"});
 $.ajax({url: 'vendor/moment-with-locales.js', async: false,dataType: "script"});
 //$.ajax({url: 'vendor/nzbget/nzbget.js', async: false,dataType: "script"});
 $.ajax({url: 'vendor/jquery.newsTicker.min.js', async: false,dataType: "script"});
+$.ajax({url: 'js/sortable.js', async: false,dataType: "script"});
 $.ajax({url: 'js/switches.js', async: false,dataType: "script"});
 if(typeof(_DEBUG)!=='undefined' && _DEBUG){
 	$.ajax({url: 'custom/json_vb.js', async: false,dataType: "script"});
@@ -108,7 +109,7 @@ $(document).ready(function(){
 	if(typeof(_APIKEY_MAPS)!=='undefined' && _APIKEY_MAPS!=="") $.ajax({url: 'https://maps.googleapis.com/maps/api/js?key='+_APIKEY_MAPS+'&callback=initMap', async: true,dataType: "script"});
 	
 	setTimeout(function(){
-		if(objectlength(screens)>1){
+		if(objectlength(screens)>1 && (typeof(_EDIT_MODE)=='undefined' || _EDIT_MODE===false)){
 			myswiper = new Swiper('.swiper-container', {
 				pagination: '.swiper-pagination',
 				paginationClickable: true,
@@ -168,7 +169,7 @@ function buildScreens(){
 			for(cs in screens[s]['columns']){
 				c = screens[s]['columns'][cs];
 				if(typeof(columns[c])!=='undefined'){
-					$('div.screen'+s+' .row').append('<div class="col-xs-'+columns[c]['width']+' col'+c+'"></div>');
+					$('div.screen'+s+' .row').append('<div class="col-xs-'+columns[c]['width']+' sortable col'+c+'"></div>');
 					for(b in columns[c]['blocks']){
 						
 						var width=12;
@@ -182,28 +183,28 @@ function buildScreens(){
 						}
 						else if(columns[c]['blocks'][b]=='weather'){
 							if(typeof(loadWeatherFull)!=='function') $.ajax({url: 'js/weather.js', async: false,dataType: "script"});
-							$('div.screen'+s+' .row .col'+c).append('<div class="block_'+columns[c]['blocks'][b]+' containsweatherfull"></div>');
+							$('div.screen'+s+' .row .col'+c).append('<div data-id="weather" class="block_'+columns[c]['blocks'][b]+' containsweatherfull"></div>');
 							if(_APIKEY_WUNDERGROUND!=="" && _WEATHER_CITY!=="") loadWeatherFull(_WEATHER_CITY,_WEATHER_COUNTRY,$('.weatherfull'));
 						}
 						else if(columns[c]['blocks'][b]=='currentweather' || columns[c]['blocks'][b]=='currentweather_big'){
 							if(typeof(loadWeather)!=='function') $.ajax({url: 'js/weather.js', async: false,dataType: "script"});
 							var cl = '';
 							if(columns[c]['blocks'][b]=='currentweather_big') $('div.screen'+s+' .row .col'+c).append('<div class="mh transbg big block_'+columns[c]['blocks'][b]+' col-xs-'+width+' containsweather"><div class="col-xs-1"><div class="weather" id="weather"></div></div><div class="col-xs-11"><span class="title weatherdegrees" id="weatherdegrees"></span> <span class="weatherloc" id="weatherloc"></span></div></div>');
-							else $('div.screen'+s+' .row .col'+c).append('<div class="mh transbg block_'+columns[c]['blocks'][b]+' col-xs-'+width+' containsweather"><div class="col-xs-4"><div class="weather" id="weather"></div></div><div class="col-xs-8"><strong class="title weatherdegrees" id="weatherdegrees"></strong><br /><span class="weatherloc" id="weatherloc"></span></div></div>');
+							else $('div.screen'+s+' .row .col'+c).append('<div data-id="currentweather" class="mh transbg block_'+columns[c]['blocks'][b]+' col-xs-'+width+' containsweather"><div class="col-xs-4"><div class="weather" id="weather"></div></div><div class="col-xs-8"><strong class="title weatherdegrees" id="weatherdegrees"></strong><br /><span class="weatherloc" id="weatherloc"></span></div></div>');
 							if(_APIKEY_WUNDERGROUND!=="" && _WEATHER_CITY!=="") loadWeather(_WEATHER_CITY,_WEATHER_COUNTRY);
 						}
 						else if(columns[c]['blocks'][b]=='train'){
 							if(typeof(getTrainInfo)!=='function') $.ajax({url: 'js/ns.js', async: false,dataType: "script"});
-							$('div.screen'+s+' .row .col'+c).append('<div class="train"></div>');
+							$('div.screen'+s+' .row .col'+c).append('<div data-id="train" class="train"></div>');
 							getTrainInfo();
 						}
 						else if(columns[c]['blocks'][b]=='traffic'){
 							if(typeof(getTraffic)!=='function') $.ajax({url: 'js/traffic.js', async: false,dataType: "script"});
-							$('div.screen'+s+' .row .col'+c).append('<div class="traffic"></div>');
+							$('div.screen'+s+' .row .col'+c).append('<div data-id="traffic" class="traffic"></div>');
 							getTraffic();
 						}
 						else if(columns[c]['blocks'][b]=='trafficmap'){
-							$('div.screen'+s+' .row .col'+c).append('<div class="mh transbg block_trafficmap col-xs-12"><div id="trafficm" class="trafficmap"></div></div>');
+							$('div.screen'+s+' .row .col'+c).append('<div data-id="trafficmap" class="mh transbg block_trafficmap col-xs-12"><div id="trafficm" class="trafficmap"></div></div>');
 						}
 						else if(typeof(columns[c]['blocks'][b])=='object' && typeof(columns[c]['blocks'][b]['latitude'])!=='undefined'){
 							var random = getRandomInt(1,100000);
@@ -211,7 +212,7 @@ function buildScreens(){
 						}
 						else if(columns[c]['blocks'][b]=='news'){
 							if(typeof(getNews)!=='function') $.ajax({url: 'js/news.js', async: false,dataType: "script"});
-							$('div.screen'+s+' .row .col'+c).append('<div class="news"></div>');
+							$('div.screen'+s+' .row .col'+c).append('<div data-id="news" class="news"></div>');
 							getNews('news',_NEWS_RSSFEED);
 						}
 						else if(typeof(columns[c]['blocks'][b])=='string' && columns[c]['blocks'][b].substring(0,5)=='news_'){
@@ -220,17 +221,17 @@ function buildScreens(){
 							getNews(columns[c]['blocks'][b],blocks[columns[c]['blocks'][b]]['feed']);
 						}
 						else if(columns[c]['blocks'][b]=='clock'){
-							$('div.screen'+s+' .row .col'+c).append('<div class="transbg block_'+columns[c]['blocks'][b]+' col-xs-'+width+' text-center"><h1 class="clock"></h1><h4 class="weekday"></h4><h4 class="date"></h4></div>');
+							$('div.screen'+s+' .row .col'+c).append('<div data-id="clock" class="transbg block_'+columns[c]['blocks'][b]+' col-xs-'+width+' text-center"><h1 class="clock"></h1><h4 class="weekday"></h4><h4 class="date"></h4></div>');
 						}
 						else if(columns[c]['blocks'][b]=='sunrise'){
-							$('div.screen'+s+' .row .col'+c).append('<div class="block_'+columns[c]['blocks'][b]+' col-xs-'+width+' transbg text-center sunriseholder"><em class="wi wi-sunrise"></em><span class="sunrise"></span><em class="wi wi-sunset"></em><span class="sunset"></span></div>');
+							$('div.screen'+s+' .row .col'+c).append('<div data-id="sunrise" class="block_'+columns[c]['blocks'][b]+' col-xs-'+width+' transbg text-center sunriseholder"><em class="wi wi-sunrise"></em><span class="sunrise"></span><em class="wi wi-sunset"></em><span class="sunset"></span></div>');
 						}
 						else if(typeof(columns[c]['blocks'][b])=='object' && typeof(columns[c]['blocks'][b]['isimage'])!=='undefined'){
 							var random = getRandomInt(1,100000);
 							$('div.screen'+s+' .row .col'+c).append(loadImage(random,columns[c]['blocks'][b]));
 						}
 						else if(columns[c]['blocks'][b]=='horizon'){
-							var html ='<div class="containshorizon">';
+							var html ='<div data-id="horizon" class="containshorizon">';
 									html+='<div class="col-xs-4 transbg hover text-center" onclick="ziggoRemote(\'E0x07\')">';
 										html+='<em class="fa fa-chevron-left fa-small"></em>';
 									html+='</div>';
@@ -245,7 +246,7 @@ function buildScreens(){
 						}
 						else if(columns[c]['blocks'][b]=='streamplayer'){
 							var random = getRandomInt(1,100000);
-							var html ='<div class="transbg containsstreamplayer'+random+'">';
+							var html ='<div data-id="streamplayer" class="transbg containsstreamplayer'+random+'">';
 									html+='<div class="col-xs-12 transbg smalltitle"><h3></h3></div>';
 									html+='<audio class="audio1" preload="none"></audio>';
 									html+='<div class="col-xs-4 transbg hover text-center btnPrev">';
@@ -275,9 +276,9 @@ function buildScreens(){
 			}
 		}
 		else {
-			$('body .row').append('<div class="col-xs-5 col1"><div class="auto_switches"></div><div class="auto_dimmers"></div></div>');
-			$('body .row').append('<div class="col-xs-5 col2"><div class="block_weather containsweatherfull"></div><div class="auto_media"></div><div class="auto_states"></div></div>');
-			$('body .row').append('<div class="col-xs-2 col3"><div class="auto_clock"></div><div class="auto_sunrise"></div><div class="auto_buttons"></div></div>');
+			$('body .row').append('<div class="col-xs-5 sortable col1"><div class="auto_switches"></div><div class="auto_dimmers"></div></div>');
+			$('body .row').append('<div class="col-xs-5 sortable"><div class="block_weather containsweatherfull"></div><div class="auto_media"></div><div class="auto_states"></div></div>');
+			$('body .row').append('<div class="col-xs-2 sortable"><div class="auto_clock"></div><div class="auto_sunrise"></div><div class="auto_buttons"></div></div>');
 
 			$('.col2').prepend('<div class="mh transbg big block_currentweather_big col-xs-12 containsweather"><div class="col-xs-1"><div class="weather" id="weather"></div></div><div class="col-xs-11"><span class="title weatherdegrees" id="weatherdegrees"></span> <span class="weatherloc" id="weatherloc"></span></div></div>');
 			if(typeof(_APIKEY_WUNDERGROUND)!=='undefined' && _APIKEY_WUNDERGROUND!=="" && typeof(_WEATHER_CITY)!=='undefined' && _WEATHER_CITY!==""){
@@ -297,7 +298,9 @@ function buildScreens(){
 		}
 		num++;
 	}
-
+	if(typeof(_EDIT_MODE)!=='undefined' && _EDIT_MODE==true){
+		setTimeout(function(){ startSortable(); },2000);
+	}
 }
 
 function initMap() {
