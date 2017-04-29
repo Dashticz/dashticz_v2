@@ -32,6 +32,17 @@ function ical_parser(feed_url, callback){
 		xmlhttp.send(null);
 	}
 	
+	/* @wizjos fix ConvertUTCTimeToLocalTime.
+	** 
+	*/
+	function ConvertUTCTimeToLocalTime(UTCDateString)
+		{
+		   var convertdLocalTime = new Date(UTCDateString);
+		   var hourOffset = convertdLocalTime.getTimezoneOffset() / 60;
+		   convertdLocalTime.setHours( convertdLocalTime.getHours() + hourOffset ); 
+		   return convertdLocalTime;
+		}
+
 	/**
 	 * makeDate
 	 * Convert the dateformat used by ICalendar in to one more suitable for javascript.
@@ -48,7 +59,8 @@ function ical_parser(feed_url, callback){
 			minute: ical_date.substr(11,2)
 		}
 		//Create JS date (months start at 0 in JS - don't ask)
-                var utcdatems = Date.UTC(dtutc.year, (dtutc.month-1), dtutc.day, dtutc.hour, dtutc.minute);
+                //var utcdatems = Date.UTC(dtutc.year, (dtutc.month-1), dtutc.day, dtutc.hour, dtutc.minute);
+                var utcdatems = ConvertUTCTimeToLocalTime(Date.UTC(dtutc.year, (dtutc.month-1), dtutc.day, dtutc.hour, dtutc.minute));
                 var dt = {};
                 dt.date = new Date(utcdatems);
                 
