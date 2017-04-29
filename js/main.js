@@ -672,7 +672,8 @@ function addCalendar(){
 		if (icsUrl.split('://')[0] == 'webcal') {
 			icsUrl = icsUrl.replace(/^webcal?\:\/\//i, "https://");
 		}
-
+		icsUrl = 'https://crossorigin.me/'+icsUrl;
+		
 		new ical_parser(icsUrl, function(cal) {
 			var events = cal.getFutureEvents();
 			var counter = 0;

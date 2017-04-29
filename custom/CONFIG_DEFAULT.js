@@ -83,7 +83,7 @@ buttons.nunl = {width:12, icon: 'fa-newspaper-o', title: 'Nu.nl', url: 'http://w
 //columns[2]['width'] = 5; 
 
 //columns[3] = {}
-//columns[3]['blocks'] = ['clock','sunrise','horizon','streamplayer',buttons.buienradar,buttons.radio,buttons.calendar,buttons.nunl,buttons.nzbget]
+//columns[3]['blocks'] = ['clock','sunrise','horizon','streamplayer','icalendar',buttons.buienradar,buttons.radio,buttons.calendar,buttons.nunl,buttons.nzbget]
 //columns[3]['width'] = 2;
 
 //var columns_standby = {}
