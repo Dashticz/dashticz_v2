@@ -142,7 +142,7 @@ $(document).ready(function(){
 }); 
 
 function toSlide(num){
-	myswiper.slideTo( num,1000,false );
+	if(typeof(myswiper)!=='undefined') myswiper.slideTo( num,1000,false );
 	
 }
 function buildStandby(){
@@ -250,11 +250,9 @@ function buildScreens(){
 						}
 						else if(columns[c]['blocks'][b]=='icalendar'){
 							var random = getRandomInt(1,100000);
-							var html ='<div class="transbg containsicalendar containsicalendar'+random+'">';
-									html+='<div class="col-xs-12 transbg"></div>';
-								html+='</div>';
+							var html ='<div class="transbg containsicalendar containsicalendar'+random+'"><div class="col-xs-12 transbg"></div></div>';
 							$('div.screen'+s+' .row .col'+c).append(html);	
-							$('.containsicalendar'+random).css('text-transform','capitalize');			
+							addCalendar($('.containsicalendar'+random),_ICALENDAR_URL);
 						}
 						else if(columns[c]['blocks'][b]=='streamplayer'){
 							var random = getRandomInt(1,100000);
@@ -277,7 +275,15 @@ function buildScreens(){
 						}
 						else if(typeof(columns[c]['blocks'][b])=='object'){
 							var random = getRandomInt(1,100000);
-							if(typeof(columns[c]['blocks'][b]['frameurl'])!=='undefined') $('div.screen'+s+' .row .col'+c).append(loadFrame(random,columns[c]['blocks'][b]));
+							if(typeof(columns[c]['blocks'][b]['icalurl'])!=='undefined'){
+								var random = getRandomInt(1,100000);
+								var html ='';
+								if(typeof(columns[c]['blocks'][b]['title'])!=='undefined') html+='<div class="col-xs-12 mh titlegroups transbg"><h3>'+columns[c]['blocks'][b]['title']+'</h3></div>';
+								html+='<div class="transbg containsicalendar containsicalendar'+random+'"><div class="col-xs-12 transbg"></div></div>';
+								$('div.screen'+s+' .row .col'+c).append(html);	
+								addCalendar($('.containsicalendar'+random),columns[c]['blocks'][b]['icalurl']);
+							}
+							else if(typeof(columns[c]['blocks'][b]['frameurl'])!=='undefined') $('div.screen'+s+' .row .col'+c).append(loadFrame(random,columns[c]['blocks'][b]));
 							else $('div.screen'+s+' .row .col'+c).append(loadButton(b,columns[c]['blocks'][b]));
 						}
 						else {
@@ -314,13 +320,6 @@ function buildScreens(){
 		setTimeout(function(){ 
 			startSortable(); 
 		},2000);
-	}
-	
-	if($('.containsicalendar').length>0){
-		addCalendar();
-		setInterval(function(){
-			addCalendar();
-		},(60000*5));
 	}
 }
 
@@ -663,35 +662,36 @@ function getMoonInfo(image){
    });
 }
 
-function addCalendar(){
-	$('.containsicalendar').each(function(){
-		var calobject = $(this);
-		var icsUrl = _ICALENDAR_URL;
+function addCalendar(calobject,icsUrl){
 
-		//replace webcal protocol with https
-		if (icsUrl.split('://')[0] == 'webcal') {
-			icsUrl = icsUrl.replace(/^webcal?\:\/\//i, "https://");
-		}
+	//replace webcal protocol with https
+	if (icsUrl.split('://')[0] == 'webcal') {
+		icsUrl = icsUrl.replace(/^webcal?\:\/\//i, "https://");
+	}
 
-		new ical_parser(icsUrl, function(cal) {
-			var events = cal.getFutureEvents();
-			var counter = 0;
-			calobject.find('.transbg').html('');
-			counter=0;
-			events.forEach(function(event) {
-				if (counter < 5) {
-					var date = event.start_date;
-					var time = event.start_time;
-						if(_ICALENDAR_DATEFORMAT == 'friendly') {
-							var widget = '<li style="list-style:none;">' + moment(date+' '+time,'DD/MM/YYYY HH:mm').locale(_ICALENDAR_LOCALE).calendar() + ' - <b>' + event.SUMMARY + '</b></li>';	
-						} else { 
-							var widget = '<li style="list-style:none;">' + moment(date+' '+time,'DD/MM/YYYY HH:mm').format(_ICALENDAR_DATEFORMAT) + ' - <b>' + event.SUMMARY + '</b></li>';		
-						}
-						calobject.find('.transbg').append(widget);
-				}
-				counter++;
-			});
+	new ical_parser(icsUrl, function(cal) {
+		var events = cal.getFutureEvents();
+		var counter = 0;
+		calobject.find('.transbg').html('');
+		counter=0;
+		events.forEach(function(event) {
+			if (counter < 5) {
+				var date = event.start_date;
+				var time = event.start_time;
+					if(_ICALENDAR_DATEFORMAT == 'friendly') {
+						var widget = '<li style="list-style:none;">' + moment(date+' '+time,'DD/MM/YYYY HH:mm').locale(_ICALENDAR_LOCALE).calendar() + ' - <b>' + event.SUMMARY + '</b></li>';	
+					} else { 
+						var widget = '<li style="list-style:none;">' + moment(date+' '+time,'DD/MM/YYYY HH:mm').format(_ICALENDAR_DATEFORMAT) + ' - <b>' + event.SUMMARY + '</b></li>';		
+					}
+					calobject.find('.transbg').append(widget);
+			}
+			counter++;
 		});
+		
+		setInterval(function(){
+			addCalendar(calobject,icsUrl)
+		},(60000*5));
+		
 	});
 }
 
