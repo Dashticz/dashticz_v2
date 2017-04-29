@@ -329,22 +329,24 @@ function initMap() {
 }
 function showMap(mapid,map) {
 	if(typeof(_APIKEY_MAPS)=='undefined' || _APIKEY_MAPS=="") alert('Please, set var _APIKEY_MAPS!');
+	
+	if($('#'+mapid).length>0){
+		if(typeof(map)!=='undefined'){
+				var map = new google.maps.Map(document.getElementById(mapid), {
+				  zoom: map.zoom,
+				  center: {lat: map.latitude, lng: map.longitude}
+				});
+		}
+		else {
+				var map = new google.maps.Map(document.getElementById(mapid), {
+				  zoom: _MAPS_ZOOMLEVEL,
+				  center: {lat: _MAPS_LATITUDE, lng: _MAPS_LONGITUDE}
+				});
+		}
 
-	if(typeof(map)!=='undefined'){
-			var map = new google.maps.Map(document.getElementById(mapid), {
-			  zoom: map.zoom,
-			  center: {lat: map.latitude, lng: map.longitude}
-			});
+		var transitLayer = new google.maps.TrafficLayer();
+		transitLayer.setMap(map);
 	}
-	else {
-			var map = new google.maps.Map(document.getElementById(mapid), {
-			  zoom: _MAPS_ZOOMLEVEL,
-			  center: {lat: _MAPS_LATITUDE, lng: _MAPS_LONGITUDE}
-			});
-	}
-
-	var transitLayer = new google.maps.TrafficLayer();
-    transitLayer.setMap(map);
 }
 
 function setClassByTime(){
@@ -670,7 +672,6 @@ function addCalendar(){
 		if (icsUrl.split('://')[0] == 'webcal') {
 			icsUrl = icsUrl.replace(/^webcal?\:\/\//i, "https://");
 		}
-		icsUrl = 'https://crossorigin.me/'+icsUrl;
 
 		new ical_parser(icsUrl, function(cal) {
 			var events = cal.getFutureEvents();
