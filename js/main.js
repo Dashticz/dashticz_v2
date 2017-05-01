@@ -1129,6 +1129,10 @@ function getDevices(){
 											sliding = true;
 											slideDevice($(this).data('light'),ui.value);
 										},
+										change:function( event, ui ) {
+											sliding = true;
+											slideDevice($(this).data('light'),ui.value);
+										},
 										stop: function( event, ui ) {
 											sliding = false;
 										}
@@ -1141,6 +1145,10 @@ function getDevices(){
 										min:2,
 										max:15,
 										slide: function( event, ui ) {
+											sliding = true;
+											slideDevice($(this).data('light'),ui.value);
+										},
+										change:function( event, ui ) {
 											sliding = true;
 											slideDevice($(this).data('light'),ui.value);
 										},
