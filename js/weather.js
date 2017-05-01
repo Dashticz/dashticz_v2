@@ -13,13 +13,18 @@ function loadWeather(location,country) {
 		}
 		else {
 			currentweather = weather.current_observation;
-			//var wiclass= getIcon(currentweather.icon);
+			var wiclass= getIcon(currentweather.icon);
 			var temp = currentweather.temp_c;
 			if(_USE_FAHRENHEIT) temp = currentweather.temp_f;
 			
-			html += '<h2><span>'+Math.round(temp)+_TEMP_SYMBOL+'</span> '+getSkycon(currentweather.icon,'skyconsmall')+'</h2>';
-			$(".weather").html(getSkycon(currentweather.icon,'skyconsmall'));
-			//$(".weather").html('<i class="wi '+wiclass+'"></i>');
+			if(_USE_STATIC_WEATHERICONS){
+				html += '<h2><span>'+Math.round(temp)+_TEMP_SYMBOL+'</span> <i class="wi '+wiclass+'"></i></h2>';
+				$(".weather").html('<i class="wi '+wiclass+'"></i>');
+			}
+			else{
+				html += '<h2><span>'+Math.round(temp)+_TEMP_SYMBOL+'</span> '+getSkycon(currentweather.icon,'skyconsmall')+'</h2>';
+				$(".weather").html(getSkycon(currentweather.icon,'skyconsmall'));
+			}
 			$(".weatherdegrees").html('<strong>'+Math.round(temp)+_TEMP_SYMBOL+'</strong><span class="rainrate"></span>');
 			
 			if(_WEATHER_CITYNAME!=='') $(".weatherloc").html(_WEATHER_CITYNAME);
@@ -90,8 +95,7 @@ function loadWeatherFull(location,country) {
 					case 'Sun': dayNL = lang.sunday; break;
 				}
 
-				//var wiclass = getIcon(curfor.icon);
-				//var skycon = 
+				var wiclass = getIcon(curfor.icon);
 				var lowtemp = curfor.low.celsius
 				var hightemp = curfor.high.celsius;
 				if(_USE_FAHRENHEIT){
@@ -100,9 +104,8 @@ function loadWeatherFull(location,country) {
 				} 
 					
 				html = '<div class="day">'+dayNL.toLowerCase()+'<br />'+curfor.date.day+'/'+curfor.date.month+'</div>';
-				//html += '<div class="icon"><i class="wi '+wiclass+'"></i></div>';
-	
-				html += getSkycon(curfor.icon,'skycon');
+				if(_USE_STATIC_WEATHERICONS) html += '<div class="icon"><i class="wi '+wiclass+'"></i></div>';
+				else html += getSkycon(curfor.icon,'skycon');
 				html += '<div class="temp"><span class="dayT">'+hightemp+_TEMP_SYMBOL+'</span><span class="nightT">'+lowtemp+_TEMP_SYMBOL+'</span></div>';
 
 				$('.weatherfull').each(function(){
