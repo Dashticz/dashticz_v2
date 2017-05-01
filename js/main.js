@@ -24,6 +24,7 @@ if(typeof(_SCREENSLIDER_EFFECT )=='undefined') var _SCREENSLIDER_EFFECT  = 'slid
 if(typeof(_ICALENDAR_URL )=='undefined') var _ICALENDAR_URL  = '';
 if(typeof(_ICALENDAR_DATEFORMAT )=='undefined') var _ICALENDAR_DATEFORMAT  = 'DD.MM.YYYY HH:mm';
 if(typeof(_ICALENDAR_LOCALE )=='undefined') var _ICALENDAR_LOCALE  = 'en';
+if(typeof(_DASHTICZ_REFRESH )=='undefined') var _DASHTICZ_REFRESH  = 60;
 
 var _TEMP_SYMBOL = '°C';
 if(_USE_FAHRENHEIT) _TEMP_SYMBOL = '°F';
@@ -138,6 +139,11 @@ $(document).ready(function(){
 	setInterval(function(){ 
 		setClassByTime();
 	},(60000));
+	
+	
+	setTimeout(function(){
+		document.location.href=document.location.href;
+	},(_DASHTICZ_REFRESH*60*1000));
 	
 }); 
 
