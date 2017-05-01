@@ -936,10 +936,10 @@ function getDevices(){
 							}
 							
 							try {
-								html+= eval('getBlock'+idx+'(device,idx)');
+								html+= eval('getBlock_'+idx+'(device,idx)');
 							}
 							catch(err) {
-								if(err.message!=='getBlock'+idx+' is not defined'){
+								if(err.message!=='getBlock_'+idx+' is not defined'){
 									console.log(idx+" > "+err.message);
 								}
 								
