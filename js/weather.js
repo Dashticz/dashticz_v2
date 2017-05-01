@@ -13,12 +13,13 @@ function loadWeather(location,country) {
 		}
 		else {
 			currentweather = weather.current_observation;
-			var wiclass= getIcon(currentweather.icon);
+			//var wiclass= getIcon(currentweather.icon);
 			var temp = currentweather.temp_c;
 			if(_USE_FAHRENHEIT) temp = currentweather.temp_f;
 			
-			html += '<h2><span>'+Math.round(temp)+_TEMP_SYMBOL+'</span> <i class="wi '+wiclass+'"></i></h2>';
-			$(".weather").html('<i class="wi '+wiclass+'"></i>');
+			html += '<h2><span>'+Math.round(temp)+_TEMP_SYMBOL+'</span> '+getSkycon(currentweather.icon,'skyconsmall')+'</h2>';
+			$(".weather").html(getSkycon(currentweather.icon,'skyconsmall'));
+			//$(".weather").html('<i class="wi '+wiclass+'"></i>');
 			$(".weatherdegrees").html('<strong>'+Math.round(temp)+_TEMP_SYMBOL+'</strong><span class="rainrate"></span>');
 			
 			if(_WEATHER_CITYNAME!=='') $(".weatherloc").html(_WEATHER_CITYNAME);
@@ -89,8 +90,8 @@ function loadWeatherFull(location,country) {
 					case 'Sun': dayNL = lang.sunday; break;
 				}
 
-				var wiclass = getIcon(curfor.icon);
-				
+				//var wiclass = getIcon(curfor.icon);
+				//var skycon = 
 				var lowtemp = curfor.low.celsius
 				var hightemp = curfor.high.celsius;
 				if(_USE_FAHRENHEIT){
@@ -99,7 +100,9 @@ function loadWeatherFull(location,country) {
 				} 
 					
 				html = '<div class="day">'+dayNL.toLowerCase()+'<br />'+curfor.date.day+'/'+curfor.date.month+'</div>';
-				html += '<div class="icon"><i class="wi '+wiclass+'"></i></div>';
+				//html += '<div class="icon"><i class="wi '+wiclass+'"></i></div>';
+	
+				html += getSkycon(curfor.icon,'skycon');
 				html += '<div class="temp"><span class="dayT">'+hightemp+_TEMP_SYMBOL+'</span><span class="nightT">'+lowtemp+_TEMP_SYMBOL+'</span></div>';
 
 				$('.weatherfull').each(function(){
@@ -117,7 +120,38 @@ function loadWeatherFull(location,country) {
 	});
 }
 
+function getSkycon(code,classname){
+	var random = getRandomInt(1,100000);
+	
+	var icon="PARTLY_CLOUDY_DAY";
+	if(code=='chanceflurries') 	icon="WIND";
+	if(code=='chancerain') 		icon="RAIN";
+	if(code=='chancesleet') 	icon="SLEET";
+	if(code=='chancesnow') 		icon="SNOW";
+	if(code=='chancetstorms') 	icon="WIND";
+	if(code=='clear') 			icon="CLEAR_DAY";
+	if(code=='cloudy') 			icon="CLOUDY";
+	if(code=='flurries') 		icon="WIND";
+	if(code=='fog') 			icon="FOG";
+	if(code=='hazy') 			icon="PARTLY_CLOUDY_DAY";
+	if(code=='mostlycloudy') 	icon="CLOUDY";
+	if(code=='mostlysunny') 	icon="CLEAR_DAY";
+	if(code=='partlycloudy') 	icon="PARTLY_CLOUDY_DAY";
+	if(code=='partlysunny') 	icon="PARTLY_CLOUDY_DAY";
+	if(code=='sleet') 			icon="SLEET";
+	if(code=='rain') 			icon="RAIN";
+	if(code=='snow') 			icon="SNOW";
+	if(code=='sunny') 			icon="CLEAR_DAY";
+	if(code=='tstorms') 		icon="WIND";
 
+	var skycon ='<script>';
+	skycon+='var skycons = new Skycons({"color": "white"});';
+  	skycon+='skycons.add("icon'+random+'", Skycons.'+icon+');';
+	skycon+='skycons.play();';
+	skycon+='</script>';
+	skycon+='<canvas class="'+classname+'" id="icon'+random+'"></canvas>';
+	return skycon;
+}
 
 function getIcon(code){
 	var wiclass='wi-cloudy';
