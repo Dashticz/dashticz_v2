@@ -935,448 +935,457 @@ function getDevices(){
 								getGraphs(device,false);
 							}
 							
-							if(typeof(device['SubType'])!=='undefined' && device['SubType'] in blocktypes['SubType']){
-								html+= getStatusBlock(device,blocktypes['SubType'][device['SubType']]);
+							try {
+								html+= eval('getBlock'+idx+'(device,idx)');
 							}
-							else if(typeof(device['HardwareType'])!=='undefined' && device['HardwareType'] in blocktypes['HardwareType']){
-								html+= getStatusBlock(device,blocktypes['HardwareType'][device['HardwareType']]);
-							}
-							else if(typeof(device['HardwareName'])!=='undefined' && device['HardwareName'] in blocktypes['HardwareName']){
-								html+= getStatusBlock(device,blocktypes['HardwareName'][device['HardwareName']]);
-							}
-							else if(typeof(device['SensorUnit'])!=='undefined' && device['SensorUnit'] in blocktypes['SensorUnit']){
-								html+= getStatusBlock(device,blocktypes['SensorUnit'][device['SensorUnit']]);
-							}
-							else if(typeof(device['Type'])!=='undefined' && device['Type'] in blocktypes['Type']){
-								html+= getStatusBlock(device,blocktypes['Type'][device['Type']]);
-							}
-							else if(typeof(device['Name'])!=='undefined' && device['Name'] in blocktypes['Name']){
-								html+= getStatusBlock(device,blocktypes['Name'][device['Name']]);
-							}
-							else if(parseFloat(device['idx'])==6 && device['Name']=='Thuis'){ //Special made for HansieNL! :)
-							   $('.block_'+idx).attr('onclick','switchDevice(this)');
-							   html+='<div class="col-xs-4 col-icon">';
-								  if(device['Status']=='Off') html+='<img src="img/switch_off.png" class="off icon" />';
-								  else html+='<img src="img/switch_on.png" class="on icon" />';
-							   html+='</div>';
-							   html+='<div class="col-xs-8 col-data">';
-								  html+='<strong class="title">'+device['Name']+'</strong><br />';
-								  if(device['Status']=='Off') html+='<span class="state">AFWEZIG</span>';
-								  else html+='<span class="state">AANWEZIG</span>';
-									if(_SHOW_LASTUPDATE && (typeof(blocks[idx])=='undefined' || typeof(blocks[idx]['hide_lastupdate'])=='undefined' || blocks[idx]['hide_lastupdate']===false)){
-										html+='<br /><span class="lastupdate">'+moment(device['LastUpdate']).format(_LASTUPDATE_FORMAT)+'</span>';
-									}
-							   html+='</div>';
-							}
-							else if(device['HardwareType']=='Logitech Media Server'){
-								html+=iconORimage(idx,'fa-music','','on icon','',2);
-								html+='<div class="col-xs-10 col-data">';
-								html+='<strong class="title">'+device['Name']+'</strong><br />';
-								html+='<span class="h4">'+device['Data']+'</span>';
-								html+='<div>';
-									html+='<a href="javascript:controlLogitech('+device['idx']+',\'Rewind\');"><em class="fa fa-arrow-circle-left fa-small"></em></a> ';
-									html+='<a href="javascript:controlLogitech('+device['idx']+',\'Stop\');"><em class="fa fa-stop-circle fa-small"></em></a> ';
-									if(device['Status']=='Playing') html+='<a href="javascript:controlLogitech('+device['idx']+',\'Pause\');"><em class="fa fa-pause-circle fa-small"></em></a> ';
-									else html+='<a href="javascript:controlLogitech('+device['idx']+',\'Play\');"><em class="fa fa-play-circle fa-small"></em></a> ';
-									html+='<a href="javascript:controlLogitech('+device['idx']+',\'Forward\');"><em class="fa fa-arrow-circle-right fa-small"></em></a>';
-								html+='</div>';
-								html+='</div>';
+							catch(err) {
+								if(err.message!=='getBlock'+idx+' is not defined'){
+									console.log(idx+" > "+err.message);
+								}
 								
-								$('div.block_'+idx).addClass('with_controls');
-							}
-							else if(device['SwitchType'] == 'Media Player'){
-								if(device['HardwareType']=='Kodi Media Server') html+=iconORimage(idx,'','kodi.png','on icon','',2);
-								else html+=iconORimage(idx,'fa-film','','on icon','',2);
-								html+='<div class="col-xs-10 col-data">';
-								html+='<strong class="title">'+device['Name']+'</strong><br />';
-								if(device['Data']==''){
-									device['Data']=lang.mediaplayer_nothing_playing;
-									if(_HIDE_MEDIAPLAYER_WHEN_OFF) $('div.block_'+idx).hide();
+								if(typeof(device['SubType'])!=='undefined' && device['SubType'] in blocktypes['SubType']){
+									html+= getStatusBlock(device,blocktypes['SubType'][device['SubType']]);
 								}
-								else {
-									$('div.block_'+idx).show();
+								else if(typeof(device['HardwareType'])!=='undefined' && device['HardwareType'] in blocktypes['HardwareType']){
+									html+= getStatusBlock(device,blocktypes['HardwareType'][device['HardwareType']]);
 								}
-								html+='<span class="h4">'+device['Data']+'</span>';
-							}
-							else if((device['HardwareType']=='Toon Thermostat' && device['SubType']!=='SetPoint' && device['SubType']!=='AC') || device['Type']=='P1 Smart Meter' || device['HardwareType']=='P1 Smart Meter USB'){
-								if(device['Type']=='P1 Smart Meter' && device['SubType']=='Energy'){
+								else if(typeof(device['HardwareName'])!=='undefined' && device['HardwareName'] in blocktypes['HardwareName']){
+									html+= getStatusBlock(device,blocktypes['HardwareName'][device['HardwareName']]);
+								}
+								else if(typeof(device['SensorUnit'])!=='undefined' && device['SensorUnit'] in blocktypes['SensorUnit']){
+									html+= getStatusBlock(device,blocktypes['SensorUnit'][device['SensorUnit']]);
+								}
+								else if(typeof(device['Type'])!=='undefined' && device['Type'] in blocktypes['Type']){
+									html+= getStatusBlock(device,blocktypes['Type'][device['Type']]);
+								}
+								else if(typeof(device['Name'])!=='undefined' && device['Name'] in blocktypes['Name']){
+									html+= getStatusBlock(device,blocktypes['Name'][device['Name']]);
+								}
+								else if(parseFloat(device['idx'])==6 && device['Name']=='Thuis'){ //Special made for HansieNL! :)
+								   $('.block_'+idx).attr('onclick','switchDevice(this)');
+								   html+='<div class="col-xs-4 col-icon">';
+									  if(device['Status']=='Off') html+='<img src="img/switch_off.png" class="off icon" />';
+									  else html+='<img src="img/switch_on.png" class="on icon" />';
+								   html+='</div>';
+								   html+='<div class="col-xs-8 col-data">';
+									  html+='<strong class="title">'+device['Name']+'</strong><br />';
+									  if(device['Status']=='Off') html+='<span class="state">AFWEZIG</span>';
+									  else html+='<span class="state">AANWEZIG</span>';
+										if(_SHOW_LASTUPDATE && (typeof(blocks[idx])=='undefined' || typeof(blocks[idx]['hide_lastupdate'])=='undefined' || blocks[idx]['hide_lastupdate']===false)){
+											html+='<br /><span class="lastupdate">'+moment(device['LastUpdate']).format(_LASTUPDATE_FORMAT)+'</span>';
+										}
+								   html+='</div>';
+								}
+								else if(device['HardwareType']=='Logitech Media Server'){
+									html+=iconORimage(idx,'fa-music','','on icon','',2);
+									html+='<div class="col-xs-10 col-data">';
+									html+='<strong class="title">'+device['Name']+'</strong><br />';
+									html+='<span class="h4">'+device['Data']+'</span>';
+									html+='<div>';
+										html+='<a href="javascript:controlLogitech('+device['idx']+',\'Rewind\');"><em class="fa fa-arrow-circle-left fa-small"></em></a> ';
+										html+='<a href="javascript:controlLogitech('+device['idx']+',\'Stop\');"><em class="fa fa-stop-circle fa-small"></em></a> ';
+										if(device['Status']=='Playing') html+='<a href="javascript:controlLogitech('+device['idx']+',\'Pause\');"><em class="fa fa-pause-circle fa-small"></em></a> ';
+										else html+='<a href="javascript:controlLogitech('+device['idx']+',\'Play\');"><em class="fa fa-play-circle fa-small"></em></a> ';
+										html+='<a href="javascript:controlLogitech('+device['idx']+',\'Forward\');"><em class="fa fa-arrow-circle-right fa-small"></em></a>';
+									html+='</div>';
+									html+='</div>';
+
+									$('div.block_'+idx).addClass('with_controls');
+								}
+								else if(device['SwitchType'] == 'Media Player'){
+									if(device['HardwareType']=='Kodi Media Server') html+=iconORimage(idx,'','kodi.png','on icon','',2);
+									else html+=iconORimage(idx,'fa-film','','on icon','',2);
+									html+='<div class="col-xs-10 col-data">';
+									html+='<strong class="title">'+device['Name']+'</strong><br />';
+									if(device['Data']==''){
+										device['Data']=lang.mediaplayer_nothing_playing;
+										if(_HIDE_MEDIAPLAYER_WHEN_OFF) $('div.block_'+idx).hide();
+									}
+									else {
+										$('div.block_'+idx).show();
+									}
+									html+='<span class="h4">'+device['Data']+'</span>';
+								}
+								else if((device['HardwareType']=='Toon Thermostat' && device['SubType']!=='SetPoint' && device['SubType']!=='AC') || device['Type']=='P1 Smart Meter' || device['HardwareType']=='P1 Smart Meter USB'){
+									if(device['Type']=='P1 Smart Meter' && device['SubType']=='Energy'){
+										if($('div.block_'+idx).length>0){
+											allblocks[idx] = true;
+										}
+
+										var title=lang.energy_usage;
+										if(typeof(blocks[idx+'_1'])!=='undefined' && typeof(blocks[idx+'_1']['title'])!=='undefined') title=blocks[idx+'_1']['title'];
+										html+= getStateBlock(device['idx']+'sub1','fa fa-plug',title,device['Usage'],device);
+										if(!$('div.block_'+idx).hasClass('block_'+idx+'_1')) $('div.block_'+idx).addClass('block_'+idx+'_1');
+										$('div.block_'+idx+'_1').html(html);
+										addHTML=false;
+
+										var title=lang.energy_usagetoday;
+										if(typeof(blocks[idx+'_2'])!=='undefined' && typeof(blocks[idx+'_2']['title'])!=='undefined') title=blocks[idx+'_2']['title'];
+										html = getStateBlock(device['idx']+'sub2','fa fa-plug',title,device['CounterToday'],device);
+										if(typeof(allblocks[idx])!=='undefined' && $('div.block_'+idx+'_2').length==0) var duplicate = $('div.block_'+idx+'_1').last().clone().removeClass('block_'+idx+'_1').addClass('block_'+idx+'_2').insertAfter($('div.block_'+idx+'_1'));
+										$('div.block_'+idx+'_2').html(html);
+										addHTML=false;
+									}
+								}
+								else if(
+									(device['Type']=='RFXMeter' && device['SubType']=='RFXMeter counter') || device['Type']=='YouLess Meter'){
 									if($('div.block_'+idx).length>0){
 										allblocks[idx] = true;
 									}
-									
-									var title=lang.energy_usage;
+
+									var rfxicon='fa fa-fire';
+									if(device['Name']=='Water'){
+										var rfxicon='fa fa-tint';
+									}
+									var title=device['Name'];
 									if(typeof(blocks[idx+'_1'])!=='undefined' && typeof(blocks[idx+'_1']['title'])!=='undefined') title=blocks[idx+'_1']['title'];
-									html+= getStateBlock(device['idx']+'sub1','fa fa-plug',title,device['Usage'],device);
+									html+= getStateBlock(device['idx']+'a',rfxicon,title,device['CounterToday'],device);
 									if(!$('div.block_'+idx).hasClass('block_'+idx+'_1')) $('div.block_'+idx).addClass('block_'+idx+'_1');
 									$('div.block_'+idx+'_1').html(html);
 									addHTML=false;
-									
-									var title=lang.energy_usagetoday;
-									if(typeof(blocks[idx+'_2'])!=='undefined' && typeof(blocks[idx+'_2']['title'])!=='undefined') title=blocks[idx+'_2']['title'];
-									html = getStateBlock(device['idx']+'sub2','fa fa-plug',title,device['CounterToday'],device);
-									if(typeof(allblocks[idx])!=='undefined' && $('div.block_'+idx+'_2').length==0) var duplicate = $('div.block_'+idx+'_1').last().clone().removeClass('block_'+idx+'_1').addClass('block_'+idx+'_2').insertAfter($('div.block_'+idx+'_1'));
-									$('div.block_'+idx+'_2').html(html);
-									addHTML=false;
-								}
-							}
-							else if(
-								(device['Type']=='RFXMeter' && device['SubType']=='RFXMeter counter') || device['Type']=='YouLess Meter'){
-								if($('div.block_'+idx).length>0){
-									allblocks[idx] = true;
-								}
-								
-								var rfxicon='fa fa-fire';
-								if(device['Name']=='Water'){
-									var rfxicon='fa fa-tint';
-								}
-								var title=device['Name'];
-								if(typeof(blocks[idx+'_1'])!=='undefined' && typeof(blocks[idx+'_1']['title'])!=='undefined') title=blocks[idx+'_1']['title'];
-								html+= getStateBlock(device['idx']+'a',rfxicon,title,device['CounterToday'],device);
-								if(!$('div.block_'+idx).hasClass('block_'+idx+'_1')) $('div.block_'+idx).addClass('block_'+idx+'_1');
-								$('div.block_'+idx+'_1').html(html);
-								addHTML=false;
-									
-								var title=lang.energy_totals+' '+device['Name'];
-								if(typeof(blocks[idx+'_2'])!=='undefined' && typeof(blocks[idx+'_2']['title'])!=='undefined') title=blocks[idx+'_2']['title'];
-								html= getStateBlock(device['idx']+'b',rfxicon,title,device['Counter'],device);
-								if(typeof(allblocks[idx])!=='undefined' && $('div.block_'+idx+'_2').length==0) var duplicate = $('div.block_'+idx+'_1').last().clone().removeClass('block_'+idx+'_1').addClass('block_'+idx+'_2').insertAfter($('div.block_'+idx+'_1'));
-								$('div.block_'+idx+'_2').html(html);
-								addHTML=false;
-							}
 
-							else if(device['Type']=='General' && device['SubType']=='kWh'){
-								if($('div.block_'+idx).length>0){
-									allblocks[idx] = true;
-								}
-								
-								var title=device['Name']+' '+lang.energy_now;
-								if(typeof(blocks[idx+'_1'])!=='undefined' && typeof(blocks[idx+'_1']['title'])!=='undefined') title=blocks[idx+'_1']['title'];
-								html+= getStateBlock(device['idx']+'a','fa fa-plug',title,number_format(device['Usage'],2,',','.')+' W',device);
-								if(!$('div.block_'+idx).hasClass('block_'+idx+'_1')) $('div.block_'+idx).addClass('block_'+idx+'_1');
-								$('div.block_'+idx+'_1').html(html);
-								addHTML=false;
-									
-								var title=device['Name']+' '+lang.energy_today;
-								if(typeof(blocks[idx+'_2'])!=='undefined' && typeof(blocks[idx+'_2']['title'])!=='undefined') title=blocks[idx+'_2']['title'];
-								html= getStateBlock(device['idx']+'b','fa fa-plug',title,number_format(device['CounterToday'],2,',','.')+' kWh',device);
-								if(typeof(allblocks[idx])!=='undefined' && $('div.block_'+idx+'_2').length==0) var duplicate = $('div.block_'+idx+'_1').last().clone().removeClass('block_'+idx+'_1').addClass('block_'+idx+'_2').insertAfter($('div.block_'+idx+'_1'));
-								$('div.block_'+idx+'_2').html(html);
-								addHTML=false;
-								
-								var title=device['Name']+' '+lang.energy_total;
-								if(typeof(blocks[idx+'_3'])!=='undefined' && typeof(blocks[idx+'_3']['title'])!=='undefined') title=blocks[idx+'_3']['title'];
-								html= getStateBlock(device['idx']+'c','fa fa-plug',title,number_format(device['Data'],2,',','.')+' kWh',device);
-								if(typeof(allblocks[idx])!=='undefined' && $('div.block_'+idx+'_3').length==0) var duplicate = $('div.block_'+idx+'_2').last().clone().removeClass('block_'+idx+'_2').addClass('block_'+idx+'_3').insertAfter($('div.block_'+idx+'_2'));
-								$('div.block_'+idx+'_3').html(html);
-								addHTML=false;
-								
-							}
-							else if(
-								device['Type']=='Temp + Humidity + Baro' || 
-								device['Type']=='Temp + Humidity' || 
-								device['Type']=='Humidity'
-							){
-								
-								if($('div.block_'+idx).length>0){
-									allblocks[idx] = true;
-								}
-								
-								var title=device['Name'];
-								if(typeof(blocks[idx+'_1'])!=='undefined' && typeof(blocks[idx+'_1']['title'])!=='undefined') title=blocks[idx+'_1']['title'];
-								html+= getStateBlock(device['idx']+'a','fa fa-thermometer-half',title,number_format(device['Temp'],1,',','.')+_TEMP_SYMBOL,device);
-								if(!$('div.block_'+idx).hasClass('block_'+idx+'_1')) $('div.block_'+idx).addClass('block_'+idx+'_1');
-								$('div.block_'+idx+'_1').html(html);
-								addHTML=false;
-									
-								if(typeof(device['Humidity'])!=='undefined'){
-									var title=device['Name'];
+									var title=lang.energy_totals+' '+device['Name'];
 									if(typeof(blocks[idx+'_2'])!=='undefined' && typeof(blocks[idx+'_2']['title'])!=='undefined') title=blocks[idx+'_2']['title'];
-									html= getStateBlock(device['idx']+'b','wi wi-humidity',title,number_format(device['Humidity'],2,',','.')+'%',device);
+									html= getStateBlock(device['idx']+'b',rfxicon,title,device['Counter'],device);
 									if(typeof(allblocks[idx])!=='undefined' && $('div.block_'+idx+'_2').length==0) var duplicate = $('div.block_'+idx+'_1').last().clone().removeClass('block_'+idx+'_1').addClass('block_'+idx+'_2').insertAfter($('div.block_'+idx+'_1'));
 									$('div.block_'+idx+'_2').html(html);
 									addHTML=false;
 								}
-								
-								if(typeof(device['Barometer'])!=='undefined'){
-									var title=device['Name'];
+
+								else if(device['Type']=='General' && device['SubType']=='kWh'){
+									if($('div.block_'+idx).length>0){
+										allblocks[idx] = true;
+									}
+
+									var title=device['Name']+' '+lang.energy_now;
+									if(typeof(blocks[idx+'_1'])!=='undefined' && typeof(blocks[idx+'_1']['title'])!=='undefined') title=blocks[idx+'_1']['title'];
+									html+= getStateBlock(device['idx']+'a','fa fa-plug',title,number_format(device['Usage'],2,',','.')+' W',device);
+									if(!$('div.block_'+idx).hasClass('block_'+idx+'_1')) $('div.block_'+idx).addClass('block_'+idx+'_1');
+									$('div.block_'+idx+'_1').html(html);
+									addHTML=false;
+
+									var title=device['Name']+' '+lang.energy_today;
+									if(typeof(blocks[idx+'_2'])!=='undefined' && typeof(blocks[idx+'_2']['title'])!=='undefined') title=blocks[idx+'_2']['title'];
+									html= getStateBlock(device['idx']+'b','fa fa-plug',title,number_format(device['CounterToday'],2,',','.')+' kWh',device);
+									if(typeof(allblocks[idx])!=='undefined' && $('div.block_'+idx+'_2').length==0) var duplicate = $('div.block_'+idx+'_1').last().clone().removeClass('block_'+idx+'_1').addClass('block_'+idx+'_2').insertAfter($('div.block_'+idx+'_1'));
+									$('div.block_'+idx+'_2').html(html);
+									addHTML=false;
+
+									var title=device['Name']+' '+lang.energy_total;
 									if(typeof(blocks[idx+'_3'])!=='undefined' && typeof(blocks[idx+'_3']['title'])!=='undefined') title=blocks[idx+'_3']['title'];
-									html= getStateBlock(device['idx']+'c','wi wi-barometer',title,device['Barometer']+' hPa',device);
+									html= getStateBlock(device['idx']+'c','fa fa-plug',title,number_format(device['Data'],2,',','.')+' kWh',device);
 									if(typeof(allblocks[idx])!=='undefined' && $('div.block_'+idx+'_3').length==0) var duplicate = $('div.block_'+idx+'_2').last().clone().removeClass('block_'+idx+'_2').addClass('block_'+idx+'_3').insertAfter($('div.block_'+idx+'_2'));
 									$('div.block_'+idx+'_3').html(html);
 									addHTML=false;
-								}
-								
-							}
-							else if(device['SwitchType']=='Dimmer'){
-								if(buttonimg==''){
-									if(device['Status']=='Off') html+=iconORimage(idx,'fa-lightbulb-o','','off icon iconslider','',2,'data-light="'+device['idx']+'" onclick="switchDevice(this);"');
-									else html+=iconORimage(idx,'fa-lightbulb-o','','on icon iconslider','',2,'data-light="'+device['idx']+'" onclick="switchDevice(this);"');
-								}
-								else {
-									if(device['Status']=='Off') html+=iconORimage(idx,'',buttonimg+'.png','off icon iconslider','',2,'data-light="'+device['idx']+'" onclick="switchDevice(this);"');
-									else html+=iconORimage(idx,'',buttonimg+'.png','on icon iconslider','',2,'data-light="'+device['idx']+'" onclick="switchDevice(this);"');
-								}
-								html+='<div class="col-xs-10 swiper-no-swiping col-data">';
-									html+='<strong class="title">'+device['Name']+': '+device['Level']+'%'+'</strong>';
-									if(_SHOW_LASTUPDATE && (typeof(blocks[idx])=='undefined' || typeof(blocks[idx]['hide_lastupdate'])=='undefined' || blocks[idx]['hide_lastupdate']===false)){
-										html+=' / <span class="lastupdate">'+moment(device['LastUpdate']).format(_LASTUPDATE_FORMAT)+'</span>';
-									}
-									html+='<br />';
-									html+='<div class="slider slider'+device['idx']+'" data-light="'+device['idx']+'"></div>';
-								html+='</div>';
 
-								$('div.block_'+idx).html(html);
-								addHTML=false;
-								if(parseFloat(device['MaxDimLevel'])==100){
-									$( ".slider"+device['idx'] ).slider({
-										value:device['Level'],
-										step: 1,
-										min:1,
-										max:100,
-										slide: function( event, ui ) {
-											sliding = true;
-											slideDevice($(this).data('light'),ui.value);
-										},
-										change:function( event, ui ) {
-											sliding = true;
-											slideDevice($(this).data('light'),ui.value);
-										},
-										stop: function( event, ui ) {
-											sliding = false;
-										}
-									});
 								}
-								else /*if(parseFloat(device['MaxDimLevel'])==15)*/{
-									$( ".slider"+device['idx'] ).slider({
-										value:Math.ceil((device['Level']/100)*15),
-										step: 1,
-										min:2,
-										max:15,
-										slide: function( event, ui ) {
-											sliding = true;
-											slideDevice($(this).data('light'),ui.value);
-										},
-										change:function( event, ui ) {
-											sliding = true;
-											slideDevice($(this).data('light'),ui.value);
-										},
-										stop: function( event, ui ) {
-											sliding = false;
-										}
-									});
-								}
-							}
-							else if(device['Type']=='Group' || device['Type']=='Scene'){
-								if(device['Type']=='Group') $('.block_'+idx).attr('onclick','switchDevice(this)');
-								if(device['Type']=='Scene') $('.block_'+idx).attr('onclick','switchGroup(this)');
-								
-								if(buttonimg==''){
-									if(device['Status']=='Off') html+=iconORimage(idx,'fa-lightbulb-o','','off icon');
-									else html+=iconORimage(idx,'fa-lightbulb-o','','on icon');
-								}
-								else {
-									if(device['Status']=='Off') html+=iconORimage(idx,'',buttonimg+'.png','off icon');
-									else html+=iconORimage(idx,'',buttonimg+'.png','on icon');	
-								}
-								
-								html+=getBlockData(device,idx,lang.state_on,lang.state_off);
-							}
-							else if(typeof(device['LevelActions'])!=='undefined' && device['LevelActions']!==""){
-								var names = device['LevelNames'].split('|');
-	
-								if(buttonimg==''){
-									html+=iconORimage(idx,'fa-lightbulb-o','','on icon');
-								}
-								else {
-									html+=iconORimage(idx,'',buttonimg+'.png','on icon');	
-								}
-										
-								html+='<div class="col-xs-8 col-data">';
-									html+='<strong class="title">'+device['Name']+'</strong><br />';
-									html+='<select onchange="slideDevice('+device['idx']+',this.value);">';
-									html+='<option value="">'+lang.select+'</option>';
-									for(a in names){
-										var s='';
-										if((a*10)==parseFloat(device['Level'])) s = 'selected';
-										html+='<option value="'+(a*10)+'" '+s+'>'+names[a]+'</option>';
+								else if(
+									device['Type']=='Temp + Humidity + Baro' || 
+									device['Type']=='Temp + Humidity' || 
+									device['Type']=='Humidity'
+								){
+
+									if($('div.block_'+idx).length>0){
+										allblocks[idx] = true;
 									}
-									html+='</select>';
-								html+='</div>';
-							}
-							else if((device['Type']=='Thermostat' || device['HardwareType']=='Toon Thermostat') && device['SubType']=='SetPoint'){
-								
-								html+=iconORimage(idx+'_1','','heating.png','on icon','style="max-height:35px;"');
-								html+='<div class="col-xs-8 col-data">';
-									if(typeof(blocks[idx])!=='undefined' && typeof(blocks[idx]['switch'])!=='undefined' && blocks[idx]['switch']==true){
+
+									var title=device['Name'];
+									if(typeof(blocks[idx+'_1'])!=='undefined' && typeof(blocks[idx+'_1']['title'])!=='undefined') title=blocks[idx+'_1']['title'];
+									html+= getStateBlock(device['idx']+'a','fa fa-thermometer-half',title,number_format(device['Temp'],1,',','.')+_TEMP_SYMBOL,device);
+									if(!$('div.block_'+idx).hasClass('block_'+idx+'_1')) $('div.block_'+idx).addClass('block_'+idx+'_1');
+									$('div.block_'+idx+'_1').html(html);
+									addHTML=false;
+
+									if(typeof(device['Humidity'])!=='undefined'){
+										var title=device['Name'];
+										if(typeof(blocks[idx+'_2'])!=='undefined' && typeof(blocks[idx+'_2']['title'])!=='undefined') title=blocks[idx+'_2']['title'];
+										html= getStateBlock(device['idx']+'b','wi wi-humidity',title,number_format(device['Humidity'],2,',','.')+'%',device);
+										if(typeof(allblocks[idx])!=='undefined' && $('div.block_'+idx+'_2').length==0) var duplicate = $('div.block_'+idx+'_1').last().clone().removeClass('block_'+idx+'_1').addClass('block_'+idx+'_2').insertAfter($('div.block_'+idx+'_1'));
+										$('div.block_'+idx+'_2').html(html);
+										addHTML=false;
+									}
+
+									if(typeof(device['Barometer'])!=='undefined'){
+										var title=device['Name'];
+										if(typeof(blocks[idx+'_3'])!=='undefined' && typeof(blocks[idx+'_3']['title'])!=='undefined') title=blocks[idx+'_3']['title'];
+										html= getStateBlock(device['idx']+'c','wi wi-barometer',title,device['Barometer']+' hPa',device);
+										if(typeof(allblocks[idx])!=='undefined' && $('div.block_'+idx+'_3').length==0) var duplicate = $('div.block_'+idx+'_2').last().clone().removeClass('block_'+idx+'_2').addClass('block_'+idx+'_3').insertAfter($('div.block_'+idx+'_2'));
+										$('div.block_'+idx+'_3').html(html);
+										addHTML=false;
+									}
+
+								}
+								else if(device['SwitchType']=='Dimmer'){
+									if(buttonimg==''){
+										if(device['Status']=='Off') html+=iconORimage(idx,'fa-lightbulb-o','','off icon iconslider','',2,'data-light="'+device['idx']+'" onclick="switchDevice(this);"');
+										else html+=iconORimage(idx,'fa-lightbulb-o','','on icon iconslider','',2,'data-light="'+device['idx']+'" onclick="switchDevice(this);"');
+									}
+									else {
+										if(device['Status']=='Off') html+=iconORimage(idx,'',buttonimg+'.png','off icon iconslider','',2,'data-light="'+device['idx']+'" onclick="switchDevice(this);"');
+										else html+=iconORimage(idx,'',buttonimg+'.png','on icon iconslider','',2,'data-light="'+device['idx']+'" onclick="switchDevice(this);"');
+									}
+									html+='<div class="col-xs-10 swiper-no-swiping col-data">';
+										html+='<strong class="title">'+device['Name']+': '+device['Level']+'%'+'</strong>';
+										if(_SHOW_LASTUPDATE && (typeof(blocks[idx])=='undefined' || typeof(blocks[idx]['hide_lastupdate'])=='undefined' || blocks[idx]['hide_lastupdate']===false)){
+											html+=' / <span class="lastupdate">'+moment(device['LastUpdate']).format(_LASTUPDATE_FORMAT)+'</span>';
+										}
+										html+='<br />';
+										html+='<div class="slider slider'+device['idx']+'" data-light="'+device['idx']+'"></div>';
+									html+='</div>';
+
+									$('div.block_'+idx).html(html);
+									addHTML=false;
+									if(parseFloat(device['MaxDimLevel'])==100){
+										$( ".slider"+device['idx'] ).slider({
+											value:device['Level'],
+											step: 1,
+											min:1,
+											max:100,
+											slide: function( event, ui ) {
+												sliding = true;
+												slideDevice($(this).data('light'),ui.value);
+											},
+											change:function( event, ui ) {
+												sliding = true;
+												slideDevice($(this).data('light'),ui.value);
+											},
+											stop: function( event, ui ) {
+												sliding = false;
+											}
+										});
+									}
+									else /*if(parseFloat(device['MaxDimLevel'])==15)*/{
+										$( ".slider"+device['idx'] ).slider({
+											value:Math.ceil((device['Level']/100)*15),
+											step: 1,
+											min:2,
+											max:15,
+											slide: function( event, ui ) {
+												sliding = true;
+												slideDevice($(this).data('light'),ui.value);
+											},
+											change:function( event, ui ) {
+												sliding = true;
+												slideDevice($(this).data('light'),ui.value);
+											},
+											stop: function( event, ui ) {
+												sliding = false;
+											}
+										});
+									}
+								}
+								else if(device['Type']=='Group' || device['Type']=='Scene'){
+									if(device['Type']=='Group') $('.block_'+idx).attr('onclick','switchDevice(this)');
+									if(device['Type']=='Scene') $('.block_'+idx).attr('onclick','switchGroup(this)');
+
+									if(buttonimg==''){
+										if(device['Status']=='Off') html+=iconORimage(idx,'fa-lightbulb-o','','off icon');
+										else html+=iconORimage(idx,'fa-lightbulb-o','','on icon');
+									}
+									else {
+										if(device['Status']=='Off') html+=iconORimage(idx,'',buttonimg+'.png','off icon');
+										else html+=iconORimage(idx,'',buttonimg+'.png','on icon');	
+									}
+
+									html+=getBlockData(device,idx,lang.state_on,lang.state_off);
+								}
+								else if(typeof(device['LevelActions'])!=='undefined' && device['LevelActions']!==""){
+									var names = device['LevelNames'].split('|');
+
+									if(buttonimg==''){
+										html+=iconORimage(idx,'fa-lightbulb-o','','on icon');
+									}
+									else {
+										html+=iconORimage(idx,'',buttonimg+'.png','on icon');	
+									}
+
+									html+='<div class="col-xs-8 col-data">';
 										html+='<strong class="title">'+device['Name']+'</strong><br />';
-										html+='<span class="state">'+device['Data']+_TEMP_SYMBOL+'</span>';
-										
+										html+='<select onchange="slideDevice('+device['idx']+',this.value);">';
+										html+='<option value="">'+lang.select+'</option>';
+										for(a in names){
+											var s='';
+											if((a*10)==parseFloat(device['Level'])) s = 'selected';
+											html+='<option value="'+(a*10)+'" '+s+'>'+names[a]+'</option>';
+										}
+										html+='</select>';
+									html+='</div>';
+								}
+								else if((device['Type']=='Thermostat' || device['HardwareType']=='Toon Thermostat') && device['SubType']=='SetPoint'){
+
+									html+=iconORimage(idx+'_1','','heating.png','on icon','style="max-height:35px;"');
+									html+='<div class="col-xs-8 col-data">';
+										if(typeof(blocks[idx])!=='undefined' && typeof(blocks[idx]['switch'])!=='undefined' && blocks[idx]['switch']==true){
+											html+='<strong class="title">'+device['Name']+'</strong><br />';
+											html+='<span class="state">'+device['Data']+_TEMP_SYMBOL+'</span>';
+
+										}
+										else {
+											html+='<strong class="title">'+device['Data']+_TEMP_SYMBOL+'</strong><br />';
+											html+='<span class="state">'+device['Name']+'</span>';
+										}
+										if(_SHOW_LASTUPDATE && (typeof(blocks[idx])=='undefined' || typeof(blocks[idx]['hide_lastupdate'])=='undefined' || blocks[idx]['hide_lastupdate']===false)){
+											html+='<br /><span class="lastupdate">'+moment(device['LastUpdate']).format(_LASTUPDATE_FORMAT)+'</span>';
+										}
+									html+='</div>';
+
+									$('div.block_'+idx+'_1').html(html);
+									addHTML=false;
+
+									html='';
+									var random = getRandomInt(1,100000);
+									html+='<ul class="col-thermostat input-groupBtn">';
+									  html+='<li class="up"><a href="javascript:void(0)" class="btn btn-number plus" data-type="plus" data-field="quant['+device['idx']+']" onclick="this.blur();">';
+												html+='<em class="fa fa-plus fa-small fa-thermostat"></em>';
+											html+='</a></li>';
+									  html+='<li class="down"><a href="javascript:void(0)" class="btn btn-number min" data-type="minus" data-field="quant['+device['idx']+']" onclick="this.blur();">';
+									  html+='<em class="fa fa-minus fa-small fa-thermostat"></em>';
+											html+='</a></li>';
+									html+='</ul>';
+
+									html+=iconORimage(idx+'_2','','heating.png','on icon iconheating','','2');
+									html+='<div class="col-xs-8 col-data">';
+										html+='<strong class="title input-number title-input" min="12" max="25" data-light="'+device['idx']+'">'+device['Data']+_TEMP_SYMBOL+'</strong>';
+										html+='<div class="state stateheating">'+device['Name']+'</div>';
+
+									html+='</div>';
+
+									$('div.block_'+idx+'_2').addClass('thermostat'+random).html(html);
+									$('div.block_'+idx).addClass('thermostat'+random).html(html);
+									addHTML=false;
+
+									addThermostatFunctions('.thermostat'+random);
+								}
+								else if(device['SwitchType']=='Door Contact' || device['SwitchType']=='Door Lock'){
+									html+='<div class="col-xs-4 col-icon">';
+										if(device['Status']=='Closed') html+='<img src="img/door_closed.png" class="off icon" />';
+										else html+='<img src="img/door_open.png" class="on icon" />';
+									html+='</div>';
+									html+=getBlockData(device,idx,lang.state_open,lang.state_closed);
+								}
+								else if(device['SwitchType']=='Contact'){
+									html+='<div class="col-xs-4 col-icon">';
+										if(device['Status']=='Closed') html+='<img src="img/door_closed.png" class="off icon" />';
+										else html+='<img src="img/door_open.png" class="on icon" />';
+									html+='</div>';
+									html+=getBlockData(device,idx,lang.state_open,lang.state_closed);
+								}
+								else if(device['SubType']=='Custom Sensor'){
+
+									if(device['Image']=='Water') html+=iconORimage(idx,'fa-tint','','on icon');
+									else if(device['Image']=='Heating') html+=iconORimage(idx,'fa-cutlery','','on icon');
+									else html+=iconORimage(idx,'fa-question','','on icon');
+
+									html+='<div class="col-xs-8 col-data">';
+										if(typeof(blocks[idx])!=='undefined' && typeof(blocks[idx]['switch'])!=='undefined' && blocks[idx]['switch']==true){
+											html+='<strong class="title">'+device['Data']+'</strong><br />';
+											html+='<span class="state">'+device['Name']+'</span>';
+										}
+										else {
+											html+='<strong class="title">'+device['Name']+'</strong><br />';
+											html+='<span class="state">'+device['Data']+'</span>';
+										}
+										if(_SHOW_LASTUPDATE && (typeof(blocks[idx])=='undefined' || typeof(blocks[idx]['hide_lastupdate'])=='undefined' || blocks[idx]['hide_lastupdate']===false)){
+											html+='<br /><span class="lastupdate">'+moment(device['LastUpdate']).format(_LASTUPDATE_FORMAT)+'</span>';
+										}
+									html+='</div>';
+								}
+								else if(device['SwitchType']=='Venetian Blinds EU' || device['SwitchType']=='Blinds' || 
+									   device['SwitchType']=='Venetian Blinds EU Percentage' || device['SwitchType']=='Blinds Percentage' || 
+									   device['SwitchType']=='Venetian Blinds EU Inverted' || device['SwitchType']=='Blinds Inverted'){
+									html+='<div class="col-xs-4 col-icon">';
+									   if(device['Status']=='Closed') html+='<img src="img/blinds_closed.png" class="off icon" />';
+									   else html+='<img src="img/blinds_open.png" class="on icon" />';
+									html+='</div>';
+									html+='<div class="col-xs-8 col-data">';
+									   html+='<strong class="title">'+device['Name']+'</strong><br />';
+
+									   if(device['Status']=='Closed') html+='<span class="state">'+lang.state_closed+'</span>';
+									   else html+='<span class="state">'+lang.state_open+'</span>';
+
+									html+='</div>';
+
+									if(typeof(blocks[idx])=='undefined' || typeof(blocks[idx]['hide_stop'])=='undefined' || blocks[idx]['hide_stop']===false){
+										var hidestop = false;
+										html+='<ul class="input-groupBtn input-chevron">';
 									}
 									else {
-										html+='<strong class="title">'+device['Data']+_TEMP_SYMBOL+'</strong><br />';
-										html+='<span class="state">'+device['Name']+'</span>';
+										var hidestop = true;
+										html+='<ul class="input-groupBtn input-chevron hidestop">';
 									}
-									if(_SHOW_LASTUPDATE && (typeof(blocks[idx])=='undefined' || typeof(blocks[idx]['hide_lastupdate'])=='undefined' || blocks[idx]['hide_lastupdate']===false)){
-										html+='<br /><span class="lastupdate">'+moment(device['LastUpdate']).format(_LASTUPDATE_FORMAT)+'</span>';
-									}
-								html+='</div>';
-								
-								$('div.block_'+idx+'_1').html(html);
-								addHTML=false;
+										if(device['SwitchType']=='Venetian Blinds EU Inverted' || device['SwitchType']=='Blinds Inverted'){
+											html+='<li class="up"><a href="javascript:void(0)" class="btn btn-number plus" onclick="switchBlinds('+device['idx']+',\'On\');">';
+											html+='<em class="fa fa-chevron-up fa-small"></em>';
+											html+='</a></li>';
 
-								html='';
-								var random = getRandomInt(1,100000);
-								html+='<ul class="col-thermostat input-groupBtn">';
-								  html+='<li class="up"><a href="javascript:void(0)" class="btn btn-number plus" data-type="plus" data-field="quant['+device['idx']+']" onclick="this.blur();">';
-											html+='<em class="fa fa-plus fa-small fa-thermostat"></em>';
-										html+='</a></li>';
-								  html+='<li class="down"><a href="javascript:void(0)" class="btn btn-number min" data-type="minus" data-field="quant['+device['idx']+']" onclick="this.blur();">';
-								  html+='<em class="fa fa-minus fa-small fa-thermostat"></em>';
-										html+='</a></li>';
-								html+='</ul>';
-								
-								html+=iconORimage(idx+'_2','','heating.png','on icon iconheating','','2');
-								html+='<div class="col-xs-8 col-data">';
-									html+='<strong class="title input-number title-input" min="12" max="25" data-light="'+device['idx']+'">'+device['Data']+_TEMP_SYMBOL+'</strong>';
-									html+='<div class="state stateheating">'+device['Name']+'</div>';
-									
-								html+='</div>';
-								
-								$('div.block_'+idx+'_2').addClass('thermostat'+random).html(html);
-								$('div.block_'+idx).addClass('thermostat'+random).html(html);
-								addHTML=false;
+											html+='<li class="down"><a href="javascript:void(0)" class="btn btn-number min" onclick="switchBlinds('+device['idx']+',\'Off\');">';
+											html+='<em class="fa fa-chevron-down fa-small"></em>';
+											html+='</a></li>';
 
-								addThermostatFunctions('.thermostat'+random);
-							}
-							else if(device['SwitchType']=='Door Contact' || device['SwitchType']=='Door Lock'){
-								html+='<div class="col-xs-4 col-icon">';
-									if(device['Status']=='Closed') html+='<img src="img/door_closed.png" class="off icon" />';
-									else html+='<img src="img/door_open.png" class="on icon" />';
-								html+='</div>';
-								html+=getBlockData(device,idx,lang.state_open,lang.state_closed);
-							}
-							else if(device['SwitchType']=='Contact'){
-								html+='<div class="col-xs-4 col-icon">';
-									if(device['Status']=='Closed') html+='<img src="img/door_closed.png" class="off icon" />';
-									else html+='<img src="img/door_open.png" class="on icon" />';
-								html+='</div>';
-								html+=getBlockData(device,idx,lang.state_open,lang.state_closed);
-							}
-							else if(device['SubType']=='Custom Sensor'){
-								
-								if(device['Image']=='Water') html+=iconORimage(idx,'fa-tint','','on icon');
-								else if(device['Image']=='Heating') html+=iconORimage(idx,'fa-cutlery','','on icon');
-								else html+=iconORimage(idx,'fa-question','','on icon');
-								
-								html+='<div class="col-xs-8 col-data">';
-									if(typeof(blocks[idx])!=='undefined' && typeof(blocks[idx]['switch'])!=='undefined' && blocks[idx]['switch']==true){
-										html+='<strong class="title">'+device['Data']+'</strong><br />';
-										html+='<span class="state">'+device['Name']+'</span>';
-									}
-									else {
-										html+='<strong class="title">'+device['Name']+'</strong><br />';
-										html+='<span class="state">'+device['Data']+'</span>';
-									}
-									if(_SHOW_LASTUPDATE && (typeof(blocks[idx])=='undefined' || typeof(blocks[idx]['hide_lastupdate'])=='undefined' || blocks[idx]['hide_lastupdate']===false)){
-										html+='<br /><span class="lastupdate">'+moment(device['LastUpdate']).format(_LASTUPDATE_FORMAT)+'</span>';
-									}
-								html+='</div>';
-							}
-							else if(device['SwitchType']=='Venetian Blinds EU' || device['SwitchType']=='Blinds' || 
-								   device['SwitchType']=='Venetian Blinds EU Percentage' || device['SwitchType']=='Blinds Percentage' || 
-								   device['SwitchType']=='Venetian Blinds EU Inverted' || device['SwitchType']=='Blinds Inverted'){
-								html+='<div class="col-xs-4 col-icon">';
-								   if(device['Status']=='Closed') html+='<img src="img/blinds_closed.png" class="off icon" />';
-								   else html+='<img src="img/blinds_open.png" class="on icon" />';
-								html+='</div>';
-								html+='<div class="col-xs-8 col-data">';
-								   html+='<strong class="title">'+device['Name']+'</strong><br />';
-								
-								   if(device['Status']=='Closed') html+='<span class="state">'+lang.state_closed+'</span>';
-								   else html+='<span class="state">'+lang.state_open+'</span>';
-								
-								html+='</div>';
-										
-								if(typeof(blocks[idx])=='undefined' || typeof(blocks[idx]['hide_stop'])=='undefined' || blocks[idx]['hide_stop']===false){
-									var hidestop = false;
-									html+='<ul class="input-groupBtn input-chevron">';
+											if(!hidestop){
+												html+='<li class="stop"><a href="javascript:void(0)" class="btn btn-number stop" onclick="switchBlinds('+device['idx']+',\'Stop\');">';
+												html+='STOP';
+												html+='</a></li>';
+											}
+										}
+										else {
+											html+='<li><a href="javascript:void(0)" class="btn btn-number plus" onclick="switchBlinds('+device['idx']+',\'Off\');">';
+											html+='<em class="fa fa-chevron-up fa-small"></em>';
+											html+='</a></li>';
+
+											html+='<li><a href="javascript:void(0)" class="btn btn-number min" onclick="switchBlinds('+device['idx']+',\'On\');">';
+											html+='<em class="fa fa-chevron-down fa-small"></em>';
+											html+='</a></li>';
+
+											if(!hidestop){
+												html+='<li class="stop"><a href="javascript:void(0)" class="btn btn-number stop" onclick="switchBlinds('+device['idx']+',\'Stop\');">';
+												html+='STOP';
+												html+='</a></li>';
+											}
+										}
+
+									html+='</ul>';
+								}
+								else if(device['SwitchType']=='Motion Sensor'){
+									html+='<div class="col-xs-4 col-icon">';
+
+										if(device['Status']=='Off' || device['Status']=='Normal') html+='<img src="img/motion_off.png" class="off icon" style="max-height:35px;" />';
+										else html+='<img src="img/motion_on.png" class="on icon" style="max-height:35px;" />';	
+
+									html+='</div>';
+									html+=getBlockData(device,idx,lang.state_movement,lang.state_nomovement);
+								}
+								else if(device['SwitchType']=='Smoke Detector'){
+									if(device['Status']=='Off' || device['Status']=='Normal') html+=iconORimage(idx,'','heating.png','off icon','style="max-height:35px;"');
+									else html+=iconORimage(idx,'','heating.png','on icon','style="max-height:35px;border: 5px solid #F05F40;"');	
+									html+=getBlockData(device,idx,lang.state_smoke,lang.state_nosmoke);
+								}
+								else if(device['HardwareName']=='Dummy') { 
+									$('.block_'+idx).attr('onclick','switchDevice(this)');
+
+									if(device['Status']=='Off') html+=iconORimage(idx,'fa-toggle-off','','off icon');
+									else html+=iconORimage(idx,'fa-toggle-on','','on icon');
+
+									html+=getBlockData(device,idx,lang.state_on,lang.state_off);
+								}
+								else if(device['Image']=='Alarm') { 
+									if(device['Status']=='Off') html+=iconORimage(idx,'fa-warning','','off icon');
+									else html+=iconORimage(idx,'fa-warning','','on icon','style="color:#F05F40;"');
+
+									html+=getBlockData(device,idx,lang.state_on,lang.state_off);
 								}
 								else {
-									var hidestop = true;
-									html+='<ul class="input-groupBtn input-chevron hidestop">';
-								}
-									if(device['SwitchType']=='Venetian Blinds EU Inverted' || device['SwitchType']=='Blinds Inverted'){
-										html+='<li class="up"><a href="javascript:void(0)" class="btn btn-number plus" onclick="switchBlinds('+device['idx']+',\'On\');">';
-										html+='<em class="fa fa-chevron-up fa-small"></em>';
-										html+='</a></li>';
-
-										html+='<li class="down"><a href="javascript:void(0)" class="btn btn-number min" onclick="switchBlinds('+device['idx']+',\'Off\');">';
-										html+='<em class="fa fa-chevron-down fa-small"></em>';
-										html+='</a></li>';
-
-										if(!hidestop){
-											html+='<li class="stop"><a href="javascript:void(0)" class="btn btn-number stop" onclick="switchBlinds('+device['idx']+',\'Stop\');">';
-											html+='STOP';
-											html+='</a></li>';
-										}
+									$('.block_'+idx).attr('onclick','switchDevice(this)');
+									if(buttonimg==''){
+										if(device['Status']=='Off') html+=iconORimage(idx,'fa-lightbulb-o','','off icon');
+										else html+=iconORimage(idx,'fa-lightbulb-o','','on icon');
 									}
 									else {
-										html+='<li><a href="javascript:void(0)" class="btn btn-number plus" onclick="switchBlinds('+device['idx']+',\'Off\');">';
-										html+='<em class="fa fa-chevron-up fa-small"></em>';
-										html+='</a></li>';
-
-										html+='<li><a href="javascript:void(0)" class="btn btn-number min" onclick="switchBlinds('+device['idx']+',\'On\');">';
-										html+='<em class="fa fa-chevron-down fa-small"></em>';
-										html+='</a></li>';
-
-										if(!hidestop){
-											html+='<li class="stop"><a href="javascript:void(0)" class="btn btn-number stop" onclick="switchBlinds('+device['idx']+',\'Stop\');">';
-											html+='STOP';
-											html+='</a></li>';
-										}
+										if(device['Status']=='Off') html+=iconORimage(idx,'',buttonimg+'.png','off icon');
+										else html+=iconORimage(idx,'',buttonimg+'.png','on icon');
 									}
-
-								html+='</ul>';
-							}
-							else if(device['SwitchType']=='Motion Sensor'){
-								html+='<div class="col-xs-4 col-icon">';
-								
-									if(device['Status']=='Off' || device['Status']=='Normal') html+='<img src="img/motion_off.png" class="off icon" style="max-height:35px;" />';
-									else html+='<img src="img/motion_on.png" class="on icon" style="max-height:35px;" />';	
-								
-								html+='</div>';
-								html+=getBlockData(device,idx,lang.state_movement,lang.state_nomovement);
-							}
-							else if(device['SwitchType']=='Smoke Detector'){
-								if(device['Status']=='Off' || device['Status']=='Normal') html+=iconORimage(idx,'','heating.png','off icon','style="max-height:35px;"');
-								else html+=iconORimage(idx,'','heating.png','on icon','style="max-height:35px;border: 5px solid #F05F40;"');	
-								html+=getBlockData(device,idx,lang.state_smoke,lang.state_nosmoke);
-							}
-							else if(device['HardwareName']=='Dummy') { 
-								$('.block_'+idx).attr('onclick','switchDevice(this)');
-								
-								if(device['Status']=='Off') html+=iconORimage(idx,'fa-toggle-off','','off icon');
-								else html+=iconORimage(idx,'fa-toggle-on','','on icon');
-								
-								html+=getBlockData(device,idx,lang.state_on,lang.state_off);
-							}
-							else if(device['Image']=='Alarm') { 
-								if(device['Status']=='Off') html+=iconORimage(idx,'fa-warning','','off icon');
-								else html+=iconORimage(idx,'fa-warning','','on icon','style="color:#F05F40;"');
-								
-								html+=getBlockData(device,idx,lang.state_on,lang.state_off);
-							}
-							else {
-								$('.block_'+idx).attr('onclick','switchDevice(this)');
-								if(buttonimg==''){
-									if(device['Status']=='Off') html+=iconORimage(idx,'fa-lightbulb-o','','off icon');
-									else html+=iconORimage(idx,'fa-lightbulb-o','','on icon');
+									html+=getBlockData(device,idx,lang.state_on,lang.state_off);
 								}
-								else {
-									if(device['Status']=='Off') html+=iconORimage(idx,'',buttonimg+'.png','off icon');
-									else html+=iconORimage(idx,'',buttonimg+'.png','on icon');
-								}
-								html+=getBlockData(device,idx,lang.state_on,lang.state_off);
 							}
 							
 							if(typeof($('.block_'+idx).attr('onclick'))!=='undefined'){
