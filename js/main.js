@@ -1291,7 +1291,10 @@ function getDevices(){
 								html+='</div>';
 								html+='<div class="col-xs-8 col-data">';
 								   html+='<strong class="title">'+device['Name']+'</strong><br />';
-								   html+='<span class="state">'+device['Data'].toUpperCase()+'</span>';
+								
+								   if(device['Status']=='Closed') html+='<span class="state">'+lang.state_closed+'</span>';
+								   else html+='<span class="state">'+lang.state_open+'</span>';
+								
 								html+='</div>';
 										
 								if(typeof(blocks[idx])=='undefined' || typeof(blocks[idx]['hide_stop'])=='undefined' || blocks[idx]['hide_stop']===false){
