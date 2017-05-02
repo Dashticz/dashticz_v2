@@ -426,12 +426,10 @@ p {
 .trainrow,
 .trafficrow{
     font-size: 14px !important;
-     padding-top: 20px !important;
 }
 
 .trainrow strong,
 .trafficrow strong{
-     margin-top: 5px !important;
     display: inline-block;
 }
 
