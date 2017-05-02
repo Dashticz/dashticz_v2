@@ -675,7 +675,7 @@ function addCalendar(calobject,icsUrl){
 
 	//replace webcal protocol with https
 	icsUrl = icsUrl.replace(/webcal?\:\/\//i, "https://");
-alert(icsUrl);
+
 	new ical_parser(icsUrl, function(cal) {
 		var events = cal.getFutureEvents();
 		var counter = 0;
