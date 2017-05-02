@@ -3,7 +3,7 @@ var _LANGUAGE 				= 'nl_NL'; //or: en_US, fr_FR, hu_HU
 var _HOST_DOMOTICZ		  	= 'http://192.168.1.3:8084';
 var _DOMOTICZ_REFRESH		= 5; //in seconds
 var _DASHTICZ_REFRESH		= 30; //in minutes
-
+var _THEME 					= 'default'; // default = dashticz default theme
 /*
 IF YOU HAVE A MEDIABOX FROM ZIGGO (HORIZON), COPY SWITCH_HORIZON.PHP ON A WEBSERVER INSIDE YOUR NETWORK AND CHANGE THE IP.
 ENTER THE PATH TO THIS FILE BELOW.

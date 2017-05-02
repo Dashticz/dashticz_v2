@@ -27,18 +27,37 @@ if(typeof(_ICALENDAR_LOCALE )=='undefined') var _ICALENDAR_LOCALE  = 'en';
 if(typeof(_DASHTICZ_REFRESH )=='undefined') var _DASHTICZ_REFRESH  = 60;
 if(typeof(_USE_STATIC_WEATHERICONS )=='undefined') var _USE_STATIC_WEATHERICONS  = false;
 if(typeof(_SAVED_COLORS )=='undefined') var _SAVED_COLORS  = [];
+if(typeof(_THEME )=='undefined') var _THEME  = 'default';
 
 var _TEMP_SYMBOL = '°C';
 if(_USE_FAHRENHEIT) _TEMP_SYMBOL = '°F';
 
+var cache = new Date().getTime();
+$('<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">').appendTo("head");
+$('<link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">').appendTo("head");
+$('<link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">').appendTo("head");
+$('<link rel="stylesheet" type="text/css" href="vendor/weather/css/weather-icons.min.css?cache=1488963384" />').appendTo("head");
+
+$('<link href="vendor/jquery/jquery-ui.css" rel="stylesheet">').appendTo("head");
+$('<link href="vendor/morrisjs/morris.css" rel="stylesheet">').appendTo("head");
+$('<link href="vendor/swiper/css/swiper.min.css" rel="stylesheet">').appendTo("head");
+$('<link href="vendor/spectrum/spectrum.css" rel="stylesheet">').appendTo("head");
+$('<link href="css/creative.css?v='+cache+'" rel="stylesheet">').appendTo("head");
+$('<link href="css/sortable.css?v='+cache+'" rel="stylesheet">').appendTo("head");
+$('<link href="custom/custom.css?v='+cache+'" rel="stylesheet">').appendTo("head");
+
+
+
 $.ajax({url: 'vendor/jquery/jquery-ui.js', async: false,dataType: "script"});
 $.ajax({url: 'vendor/jquery/touchpunch.js', async: false,dataType: "script"});
 $.ajax({url: 'vendor/bootstrap/js/bootstrap.min.js', async: false,dataType: "script"});
-$.ajax({url: 'js/functions.js', async: false,dataType: "script"});
+$.ajax({url: 'js/functions.js?v='+cache, async: false,dataType: "script"});
 		
-$.ajax({url: 'custom/CONFIG.js', async: false,dataType: "script"});
-$.ajax({url: 'lang/'+_LANGUAGE+'.js', async: false,dataType: "script"});
-
+$.ajax({url: 'custom/CONFIG.js?v='+cache, async: false,dataType: "script"});
+$.ajax({url: 'lang/'+_LANGUAGE+'.js?v='+cache, async: false,dataType: "script"});
+if(_THEME!=='default'){
+	$('<link rel="stylesheet" type="text/css" href="themes/'+_THEME+'/'+_THEME+'.css?v='+cache+'" />').appendTo("head");
+}
 $.ajax({url: 'vendor/raphael/raphael-min.js', async: false,dataType: "script"});
 $.ajax({url: 'vendor/morrisjs/morris.min.js', async: false,dataType: "script"});
 $.ajax({url: 'vendor/moment.js', async: false,dataType: "script"});
@@ -50,11 +69,13 @@ $.ajax({url: 'vendor/skycons/skycons.js', async: false,dataType: "script"});
 $.ajax({url: 'vendor/spectrum/spectrum.js', async: false,dataType: "script"});
 $.ajax({url: 'js/sortable.js', async: false,dataType: "script"});
 $.ajax({url: 'js/switches.js', async: false,dataType: "script"});
+
 if(typeof(_DEBUG)!=='undefined' && _DEBUG){
 	$.ajax({url: 'custom/json_vb.js', async: false,dataType: "script"});
 	$.ajax({url: 'custom/graph_vb.js', async: false,dataType: "script"});
 }
-$.ajax({url: 'custom/custom.js', async: false,dataType: "script"});
+
+$.ajax({url: 'custom/custom.js?v='+cache, async: false,dataType: "script"});
 $.ajax({url: 'js/blocks.js', async: false,dataType: "script"});
 $.ajax({url: 'js/graphs.js', async: false,dataType: "script"});
 
