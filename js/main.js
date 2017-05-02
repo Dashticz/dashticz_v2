@@ -46,6 +46,7 @@ $.ajax({url: 'vendor/moment-with-locales.js', async: false,dataType: "script"});
 $.ajax({url: 'vendor/ical-parser/ical_parser.js', async: false,dataType: "script"});
 $.ajax({url: 'vendor/jquery.newsTicker.min.js', async: false,dataType: "script"});
 $.ajax({url: 'vendor/skycons/skycons.js', async: false,dataType: "script"});
+$.ajax({url: 'vendor/spectrum/spectrum.js', async: false,dataType: "script"});
 $.ajax({url: 'js/sortable.js', async: false,dataType: "script"});
 $.ajax({url: 'js/switches.js', async: false,dataType: "script"});
 if(typeof(_DEBUG)!=='undefined' && _DEBUG){
@@ -673,10 +674,8 @@ function getMoonInfo(image){
 function addCalendar(calobject,icsUrl){
 
 	//replace webcal protocol with https
-	if (icsUrl.split('://')[0] == 'webcal') {
-		icsUrl = icsUrl.replace(/^webcal?\:\/\//i, "https://");
-	}
-
+	icsUrl = icsUrl.replace(/webcal?\:\/\//i, "https://");
+alert(icsUrl);
 	new ical_parser(icsUrl, function(cal) {
 		var events = cal.getFutureEvents();
 		var counter = 0;
@@ -1131,10 +1130,20 @@ function getDevices(){
 										}
 										html+='<br />';
 										html+='<div class="slider slider'+device['idx']+'" data-light="'+device['idx']+'"></div>';
+										if(device['SubType']=='RGBW'){
+											html+='<div id="rgbw"></div>';
+										}
 									html+='</div>';
 
 									$('div.block_'+idx).html(html);
 									addHTML=false;
+									
+									if(device['SubType']=='RGBW'){
+										$("#custom").spectrum({
+											color: "#f00"
+										});
+									}
+									
 									if(parseFloat(device['MaxDimLevel'])==100){
 										$( ".slider"+device['idx'] ).slider({
 											value:device['Level'],
