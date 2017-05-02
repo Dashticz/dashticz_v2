@@ -14,7 +14,18 @@
     height: 30px;
 }
 
+.skycon {
+	margin: 10px auto 10px auto;
+    display: block;
+    width: 100%;
+    max-width: 125px;
+}
 
+.skyconsmall {
+    display: block;
+    width: 100%;
+    max-width: 125px;
+}
 /* Thermostat CSS: */
 
 .input-groupBtn .btn-number {
@@ -595,7 +606,7 @@ img.icon {
 }
 
 .modal-dialog {
-    min-width: 80% !important;
+    min-width: 90% !important;
 }
 div.screen {
   -webkit-background-size: cover;

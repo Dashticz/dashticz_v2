@@ -2,6 +2,7 @@
 var _LANGUAGE 				= 'nl_NL'; //or: en_US, fr_FR, hu_HU
 var _HOST_DOMOTICZ		  	= 'http://192.168.1.3:8084';
 var _DOMOTICZ_REFRESH		= 5; //in seconds
+var _DASHTICZ_REFRESH		= 30; //in minutes
 
 /*
 IF YOU HAVE A MEDIABOX FROM ZIGGO (HORIZON), COPY SWITCH_HORIZON.PHP ON A WEBSERVER INSIDE YOUR NETWORK AND CHANGE THE IP.
@@ -30,6 +31,8 @@ var _APIKEY_MAPS			= '';
 var _MAPS_LATITUDE			= '';
 var _MAPS_LONGITUDE			= '';
 
+var _AUTO_SWIPEBACK_TO		= 1; //when no activity, swipe back to main screen after x seconds
+var _AUTO_SWIPEBACK_TIME	= 10; //seconds
 
 // Online Radio Stream Plugin, Note: you must enable  plugin in column section 'streamplayer', see columns[3]['blocks'] example below.
 var _STREAMPLAYER_TRACKS  	= [
@@ -37,6 +40,11 @@ var _STREAMPLAYER_TRACKS  	= [
 								{"track":2,"name":"Radio 1","file":"http://213.181.210.106:8000/high.mp3"},
 								{"track":3,"name":"Test FM","file":"http://213.181.210.106:8000/high.mp3"},
 							  ]; 
+
+// iCalendar Plugin, supports all .ics calendar types like Google Calendar, Apple Calendar
+var _ICALENDAR_URL			= 'https://testurl.com/ical.ics'; //supports .ics type calendars (Google Calendar, Apple Calendar etc.)
+var _ICALENDAR_DATEFORMAT	= 'friendly'; //'friendly', 'MM.DD.YYYY HH:mm', 'DD.MM.YYYY HH:mm', 'YYYY.MM.DD HH:mm'
+var _ICALENDAR_LOCALE		= 'en'; //en,hu, etc. 
 
 //Buttons or images to open webpages in an iframe, like a news website or weather forecast
 var buttons = {}
