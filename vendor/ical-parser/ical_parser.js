@@ -18,14 +18,14 @@ function ical_parser(feed_url, callback){
 	 * @param url URL of .ics file
 	 * @param callback Function to call on completion.
 	 */
-	this.loadFile = function(url, callback){
+	this.loadFile = function(url, color, callback){
 		//Create request object
 		try {xmlhttp = window.XMLHttpRequest?new XMLHttpRequest(): new ActiveXObject("Microsoft.XMLHTTP");}  catch (e) { }
 		//Grab file
 		xmlhttp.onreadystatechange = function(){
 			if ((xmlhttp.readyState == 4) && (xmlhttp.status == 200)) {
 				//On success, run callback.
-				callback(xmlhttp.responseText);
+				callback(xmlhttp.responseText,color);
 			}
 		}
 		xmlhttp.open("GET", url, true);
@@ -90,14 +90,19 @@ function ical_parser(feed_url, callback){
 		
 		//Clean string and split the file so we can handle it (line by line)
 		cal_array = data.replace(new RegExp( "\\r", "g" ), "").replace(/\n /g,"").split("\n");
-		console.log(cal_array);
 		//Keep track of when we are activly parsing an event
 		var in_event = false;
 		//Use as a holder for the current event being proccessed.
 		var cur_event = null;
+		var color='';
 		for(var i=0;i<cal_array.length;i++){
 			ln = cal_array[i];
 			//If we encounted a new Event, create a blank event object + set in event options.
+			if (ln.indexOf('COLOR') >= 0) {
+				color = ln.split(':');
+				color = color[1];
+			}
+			
 			if(!in_event && ln == 'BEGIN:VEVENT'){
 				in_event = true;
 				cur_event = {};
@@ -105,6 +110,7 @@ function ical_parser(feed_url, callback){
 			//If we encounter end event, complete the object and add it to our events array then clear it for reuse.
             if(in_event && ln == 'END:VEVENT'){
 				in_event = false;
+				cur_event.color=color;
 				this.events.push(cur_event);
 				cur_event = null;
 			}
@@ -241,11 +247,11 @@ function ical_parser(feed_url, callback){
 	 * @param ical file url
 	 */
 	
-	this.load = function(ical_file){
+	this.load = function(ical_file,color){
 
 		var tmp_this = this;
 		this.raw_data = null;
-		this.loadFile(ical_file, function(data){
+		this.loadFile(ical_file,color, function(data,c){
 			//if the file loads, store the data and invoke the parser
 
 			tmp_this.raw_data = data;
@@ -258,8 +264,9 @@ function ical_parser(feed_url, callback){
 	//Store the feed url
 	this.feed_url = feed_url;
 	
-	this.loadSingle = function(cfile,ical_file){
-		this.loadFile(cfile, function(data){
+	this.loadSingle = function(cfile,color,ical_file){
+		this.loadFile(cfile, color, function(data,c){
+			data = "COLOR:"+c+"\n"+data;
 			if(tmp_this.raw_data==null) tmp_this.raw_data = data;
 			else tmp_this.raw_data = tmp_this.raw_data+data;
 			
@@ -268,7 +275,7 @@ function ical_parser(feed_url, callback){
 			}
 			else {
 				for(i in ical_file){
-					tmp_this.loadSingle(ical_file[i].calendar.icalurl,ical_file);
+					tmp_this.loadSingle(ical_file[i].calendar.icalurl,ical_file[i].color,ical_file);
 					delete ical_file[i];
 					break;
 				}
@@ -279,13 +286,13 @@ function ical_parser(feed_url, callback){
 	//Load the file
 	if(typeof(feed_url)=='object'){
 		for(i in feed_url){
-			this.loadSingle(feed_url[i].calendar.icalurl,feed_url);
+			this.loadSingle(feed_url[i].calendar.icalurl,feed_url[i].color,feed_url);
 			delete feed_url[i];
 			break;
 		}
 	}
 	else {
-		this.load(this.feed_url);
+		this.load(this.feed_url,'');
 	}
 
 }

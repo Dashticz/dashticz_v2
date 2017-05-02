@@ -708,10 +708,10 @@ function addCalendar(calobject,icsUrl){
 				var date = event.start_date;
 				var time = event.start_time;
 				if(_ICALENDAR_DATEFORMAT == 'friendly') {
-					var widget = '<li style="list-style:none;">' + moment(date+' '+time,'DD/MM/YYYY HH:mm').locale(_ICALENDAR_LOCALE).calendar() + ' - <b>' + event.SUMMARY + '</b></li>';	
+					var widget = '<li style="list-style:none;color:'+event.color+';">' + moment(date+' '+time,'DD/MM/YYYY HH:mm').locale(_ICALENDAR_LOCALE).calendar() + ' - <b>' + event.SUMMARY + '</b></li>';	
 				} 
 				else { 
-					var widget = '<li style="list-style:none;">' + moment(date+' '+time,'DD/MM/YYYY HH:mm').format(_ICALENDAR_DATEFORMAT) + ' - <b>' + event.SUMMARY + '</b></li>';		
+					var widget = '<li style="list-style:none;color:'+event.color+'">' + moment(date+' '+time,'DD/MM/YYYY HH:mm').format(_ICALENDAR_DATEFORMAT) + ' - <b>' + event.SUMMARY + '</b></li>';		
 				}
 				calobject.find('.transbg').append(widget);
 			}
