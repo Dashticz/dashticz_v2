@@ -155,7 +155,7 @@ function getSkycon(code,classname){
   	skycon+='skycons.add("icon'+random+'", Skycons.'+icon+');';
 	skycon+='skycons.play();';
 	skycon+='</script>';
-	skycon+='<canvas class="'+classname+'" id="icon'+random+'"></canvas>';
+	skycon+='<canvas class="'+classname+'" data-icon="'+icon+'" id="icon'+random+'"></canvas>';
 	return skycon;
 }
 

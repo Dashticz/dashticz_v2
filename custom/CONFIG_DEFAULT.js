@@ -34,6 +34,9 @@ var _MAPS_LONGITUDE			= '';
 var _AUTO_SWIPEBACK_TO		= 1; //when no activity, swipe back to main screen after x seconds
 var _AUTO_SWIPEBACK_TIME	= 10; //seconds
 
+//predefined colors, when you have RGB-lamps
+var _SAVED_COLORS = ['black', 'white', 'blanchedalmond','rgb(255, 128, 0);', 'hsv 100 70 50', 'lightyellow'];
+
 // Online Radio Stream Plugin, Note: you must enable  plugin in column section 'streamplayer', see columns[3]['blocks'] example below.
 var _STREAMPLAYER_TRACKS  	= [
 								{"track":1,"name":"Music FM","file":"http://stream.musicfm.hu:8000/musicfm.mp3"},

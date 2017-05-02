@@ -26,6 +26,7 @@ if(typeof(_ICALENDAR_DATEFORMAT )=='undefined') var _ICALENDAR_DATEFORMAT  = 'DD
 if(typeof(_ICALENDAR_LOCALE )=='undefined') var _ICALENDAR_LOCALE  = 'en';
 if(typeof(_DASHTICZ_REFRESH )=='undefined') var _DASHTICZ_REFRESH  = 60;
 if(typeof(_USE_STATIC_WEATHERICONS )=='undefined') var _USE_STATIC_WEATHERICONS  = false;
+if(typeof(_SAVED_COLORS )=='undefined') var _SAVED_COLORS  = [];
 
 var _TEMP_SYMBOL = '°C';
 if(_USE_FAHRENHEIT) _TEMP_SYMBOL = '°F';
@@ -164,7 +165,25 @@ function buildStandby(){
 		for(c in columns_standby){
 			$('div.screenstandby .row').append('<div class="col-xs-'+columns_standby[c]['width']+' colstandby'+c+'"></div>');
 			for(b in columns_standby[c]['blocks']){
-				$('.block_'+columns_standby[c]['blocks'][b]).first().clone().appendTo('.colstandby'+c);
+				var block =$('.block_'+columns_standby[c]['blocks'][b]).first().clone();
+				var icon = '';
+				if(block.find('canvas').length>0){
+					block.find('canvas').each(function(){
+						var random = getRandomInt(1,100000);
+						icon = $(this).data('icon');
+						$(this).attr('id','icon'+random);
+						
+						var skycon ='<script>';
+						skycon+='var skycons = new Skycons({"color": "white"});';
+						skycon+='skycons.add("icon'+random+'", Skycons.'+icon+');';
+						skycon+='skycons.play();';
+						skycon+='</script>';
+						
+						block.html(block.html()+skycon);
+					});
+				}
+				block.appendTo('.colstandby'+c);
+				
 			}
 		}
 	}
@@ -1129,19 +1148,31 @@ function getDevices(){
 											html+=' / <span class="lastupdate">'+moment(device['LastUpdate']).format(_LASTUPDATE_FORMAT)+'</span>';
 										}
 										html+='<br />';
-										html+='<div class="slider slider'+device['idx']+'" data-light="'+device['idx']+'"></div>';
 										if(device['SubType']=='RGBW'){
-											html+='<div id="rgbw"></div>';
+											html+='<input type="text" class="rgbw" />';
+											html+='<div class="slider slider'+device['idx']+'" style="margin-left:55px;" data-light="'+device['idx']+'"></div>';
 										}
+										else {
+											html+='<div class="slider slider'+device['idx']+'" data-light="'+device['idx']+'"></div>';
+										}
+										
 									html+='</div>';
 
 									$('div.block_'+idx).html(html);
 									addHTML=false;
 									
 									if(device['SubType']=='RGBW'){
-										$("#custom").spectrum({
-											color: "#f00"
+										$(".rgbw").spectrum({
+											color: "#f00",
+											showPalette: true,
+											palette: [_SAVED_COLORS]
 										});
+										
+										$(".rgbw").on("dragstop.spectrum",function(e, color) {
+											color = color.toHexString(); // #ff0000
+											alert(color);
+										});
+										
 									}
 									
 									if(parseFloat(device['MaxDimLevel'])==100){
@@ -1313,7 +1344,7 @@ function getDevices(){
 									   else html+='<span class="state">'+lang.state_open+'</span>';
 
 									html+='</div>';
-
+									
 									if(typeof(blocks[idx])=='undefined' || typeof(blocks[idx]['hide_stop'])=='undefined' || blocks[idx]['hide_stop']===false){
 										var hidestop = false;
 										html+='<ul class="input-groupBtn input-chevron">';
@@ -1322,6 +1353,7 @@ function getDevices(){
 										var hidestop = true;
 										html+='<ul class="input-groupBtn input-chevron hidestop">';
 									}
+									
 										if(device['SwitchType']=='Venetian Blinds EU Inverted' || device['SwitchType']=='Blinds Inverted'){
 											html+='<li class="up"><a href="javascript:void(0)" class="btn btn-number plus" onclick="switchBlinds('+device['idx']+',\'On\');">';
 											html+='<em class="fa fa-chevron-up fa-small"></em>';
@@ -1408,11 +1440,11 @@ function getDevices(){
 					if(typeof(afterGetDevices)=='function') afterGetDevices();
 				}
 				
-				if(typeof(_DEBUG)=='undefined' || _DEBUG===false) setTimeout(function(){ getDevices(); },(_DOMOTICZ_REFRESH*1000));
+				//if(typeof(_DEBUG)=='undefined' || _DEBUG===false) setTimeout(function(){ getDevices(); },(_DOMOTICZ_REFRESH*1000));
 			}
 		});
 	}
 	else {
-		if(typeof(_DEBUG)=='undefined' || _DEBUG===false) setTimeout(function(){ getDevices(); },(_DOMOTICZ_REFRESH*1000));
+		//if(typeof(_DEBUG)=='undefined' || _DEBUG===false) setTimeout(function(){ getDevices(); },(_DOMOTICZ_REFRESH*1000));
 	}
 }
