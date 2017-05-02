@@ -416,7 +416,7 @@ if(typeof(_AUTO_SWIPEBACK_TO)!=='undefined' && typeof(_AUTO_SWIPEBACK_TIME)!=='u
 		  swipebackTime+=1000;
 		
 		 if(swipebackTime>=(_AUTO_SWIPEBACK_TIME*1000)){
-			toSlide(_AUTO_SWIPEBACK_TO);
+			toSlide((_AUTO_SWIPEBACK_TO-1));
 			swipebackTime=0;
 		 }
 	   },1000);
@@ -1153,7 +1153,7 @@ function getDevices(){
 											html+=' / <span class="lastupdate">'+moment(device['LastUpdate']).format(_LASTUPDATE_FORMAT)+'</span>';
 										}
 										html+='<br />';
-										if(device['SubType']=='RGBW'){
+										if(device['SubType']=='RGBW_TEMP'){
 											html+='<input type="text" class="rgbw" />';
 											html+='<div class="slider slider'+device['idx']+'" style="margin-left:55px;" data-light="'+device['idx']+'"></div>';
 										}
@@ -1166,7 +1166,7 @@ function getDevices(){
 									$('div.block_'+idx).html(html);
 									addHTML=false;
 									
-									if(device['SubType']=='RGBW'){
+									if(device['SubType']=='RGBW_TEMP'){
 										$(".rgbw").spectrum({
 											color: "#f00",
 											showPalette: true,
