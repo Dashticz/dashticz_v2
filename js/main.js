@@ -44,7 +44,6 @@ $('<link href="vendor/swiper/css/swiper.min.css" rel="stylesheet">').appendTo("h
 $('<link href="vendor/spectrum/spectrum.css" rel="stylesheet">').appendTo("head");
 $('<link href="css/creative.css?v='+cache+'" rel="stylesheet">').appendTo("head");
 $('<link href="css/sortable.css?v='+cache+'" rel="stylesheet">').appendTo("head");
-$('<link href="custom/custom.css?v='+cache+'" rel="stylesheet">').appendTo("head");
 
 
 
@@ -58,6 +57,7 @@ $.ajax({url: 'lang/'+_LANGUAGE+'.js?v='+cache, async: false,dataType: "script"})
 if(_THEME!=='default'){
 	$('<link rel="stylesheet" type="text/css" href="themes/'+_THEME+'/'+_THEME+'.css?v='+cache+'" />').appendTo("head");
 }
+$('<link href="custom/custom.css?v='+cache+'" rel="stylesheet">').appendTo("head");
 $.ajax({url: 'vendor/raphael/raphael-min.js', async: false,dataType: "script"});
 $.ajax({url: 'vendor/morrisjs/morris.min.js', async: false,dataType: "script"});
 $.ajax({url: 'vendor/moment.js', async: false,dataType: "script"});
