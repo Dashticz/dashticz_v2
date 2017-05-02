@@ -117,33 +117,19 @@ $(document).ready(function(){
 	
 	if(typeof(_APIKEY_MAPS)!=='undefined' && _APIKEY_MAPS!=="") $.ajax({url: 'https://maps.googleapis.com/maps/api/js?key='+_APIKEY_MAPS+'&callback=initMap', async: true,dataType: "script"});
 	
-	setTimeout(function(){
-		if(objectlength(screens)>1 && (typeof(_EDIT_MODE)=='undefined' || _EDIT_MODE===false)){
-			myswiper = new Swiper('.swiper-container', {
-				pagination: '.swiper-pagination',
-				paginationClickable: true,
-				loop: true,
-				effect: _SCREENSLIDER_EFFECT,
-				keyboardControl:true
-			});
-		}
-	},2000);
-	setTimeout(function(){
-		setInterval(function(){ 
-			if(_HIDE_SECONDS_IN_CLOCK==true) $('.clock').html(moment().locale(_LANGUAGE.substr(0,2)).format('HH:mm'));
-			else $('.clock').html(moment().locale(_LANGUAGE.substr(0,2)).format('HH:mm:ss'));
-			$('.date').html(moment().locale(_LANGUAGE.substr(0,2)).format('D MMMM YYYY'));
-			$('.weekday').html(moment().locale(_LANGUAGE.substr(0,2)).format('dddd'));
-		},1000);
-		
-		getDevices(); 		
-	},750);
+	setInterval(function(){ 
+		if(_HIDE_SECONDS_IN_CLOCK==true) $('.clock').html(moment().locale(_LANGUAGE.substr(0,2)).format('HH:mm'));
+		else $('.clock').html(moment().locale(_LANGUAGE.substr(0,2)).format('HH:mm:ss'));
+		$('.date').html(moment().locale(_LANGUAGE.substr(0,2)).format('D MMMM YYYY'));
+		$('.weekday').html(moment().locale(_LANGUAGE.substr(0,2)).format('dddd'));
+	},1000);
+
+	getDevices(); 	
 	
 	setClassByTime();
 	setInterval(function(){ 
 		setClassByTime();
 	},(60000));
-	
 	
 	setTimeout(function(){
 		document.location.href=document.location.href;
@@ -303,13 +289,18 @@ function buildScreens(){
 						}
 						else if(typeof(columns[c]['blocks'][b])=='object'){
 							var random = getRandomInt(1,100000);
-							if(typeof(columns[c]['blocks'][b]['icalurl'])!=='undefined'){
+							if(typeof(columns[c]['blocks'][b]['icalurl'])!=='undefined' || (typeof(columns[c]['blocks'][b][0])!=='undefined' && typeof(columns[c]['blocks'][b][0]['color'])!=='undefined')){
 								var random = getRandomInt(1,100000);
 								var html ='';
 								if(typeof(columns[c]['blocks'][b]['title'])!=='undefined') html+='<div class="col-xs-12 mh titlegroups transbg"><h3>'+columns[c]['blocks'][b]['title']+'</h3></div>';
 								html+='<div class="transbg containsicalendar containsicalendar'+random+'"><div class="col-xs-12 transbg"></div></div>';
 								$('div.screen'+s+' .row .col'+c).append(html);	
-								addCalendar($('.containsicalendar'+random),columns[c]['blocks'][b]['icalurl']);
+								if(typeof(columns[c]['blocks'][b]['icalurl'])!=='undefined'){
+									addCalendar($('.containsicalendar'+random),columns[c]['blocks'][b]['icalurl']);
+								}
+								else {
+									addCalendar($('.containsicalendar'+random),columns[c]['blocks'][b]);
+								}
 							}
 							else if(typeof(columns[c]['blocks'][b]['frameurl'])!=='undefined') $('div.screen'+s+' .row .col'+c).append(loadFrame(random,columns[c]['blocks'][b]));
 							else $('div.screen'+s+' .row .col'+c).append(loadButton(b,columns[c]['blocks'][b]));
@@ -348,6 +339,20 @@ function buildScreens(){
 		setTimeout(function(){ 
 			startSortable(); 
 		},2000);
+	}
+	
+	startSwiper();
+}
+
+function startSwiper(){
+	if(objectlength(screens)>1 && (typeof(_EDIT_MODE)=='undefined' || _EDIT_MODE===false)){
+		myswiper = new Swiper('.swiper-container', {
+			pagination: '.swiper-pagination',
+			paginationClickable: true,
+			loop: false,
+			effect: _SCREENSLIDER_EFFECT,
+			keyboardControl:true
+		});
 	}
 }
 
@@ -692,9 +697,7 @@ function getMoonInfo(image){
 
 function addCalendar(calobject,icsUrl){
 
-	//replace webcal protocol with https
-	icsUrl = icsUrl.replace(/webcal?\:\/\//i, "https://");
-
+	if(typeof(icsUrl)=='string') icsUrl = icsUrl.replace(/webcal?\:\/\//i, "https://");
 	new ical_parser(icsUrl, function(cal) {
 		var events = cal.getFutureEvents();
 		var counter = 0;
@@ -704,21 +707,23 @@ function addCalendar(calobject,icsUrl){
 			if (counter < 5) {
 				var date = event.start_date;
 				var time = event.start_time;
-					if(_ICALENDAR_DATEFORMAT == 'friendly') {
-						var widget = '<li style="list-style:none;">' + moment(date+' '+time,'DD/MM/YYYY HH:mm').locale(_ICALENDAR_LOCALE).calendar() + ' - <b>' + event.SUMMARY + '</b></li>';	
-					} else { 
-						var widget = '<li style="list-style:none;">' + moment(date+' '+time,'DD/MM/YYYY HH:mm').format(_ICALENDAR_DATEFORMAT) + ' - <b>' + event.SUMMARY + '</b></li>';		
-					}
-					calobject.find('.transbg').append(widget);
+				if(_ICALENDAR_DATEFORMAT == 'friendly') {
+					var widget = '<li style="list-style:none;">' + moment(date+' '+time,'DD/MM/YYYY HH:mm').locale(_ICALENDAR_LOCALE).calendar() + ' - <b>' + event.SUMMARY + '</b></li>';	
+				} 
+				else { 
+					var widget = '<li style="list-style:none;">' + moment(date+' '+time,'DD/MM/YYYY HH:mm').format(_ICALENDAR_DATEFORMAT) + ' - <b>' + event.SUMMARY + '</b></li>';		
+				}
+				calobject.find('.transbg').append(widget);
 			}
 			counter++;
 		});
-		
+
 		setInterval(function(){
 			addCalendar(calobject,icsUrl)
 		},(60000*5));
-		
+
 	});
+	
 }
 
 function addStreamPlayer(streamelement){

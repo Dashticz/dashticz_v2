@@ -294,6 +294,9 @@ select option {
     margin-left: 5px;
     margin-top: 4px;
 }
+.fa.fa-bolt {
+    margin-left: 8px;
+}
 .wi.wi-wind-direction {
     margin-left: 4px;
     margin-top: 2px;

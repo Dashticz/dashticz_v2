@@ -29,6 +29,7 @@ function ical_parser(feed_url, callback){
 			}
 		}
 		xmlhttp.open("GET", url, true);
+		xmlhttp.setRequestHeader("x-requested-with", "DashticzV2");
 		xmlhttp.send(null);
 	}
 	
@@ -89,7 +90,7 @@ function ical_parser(feed_url, callback){
 		
 		//Clean string and split the file so we can handle it (line by line)
 		cal_array = data.replace(new RegExp( "\\r", "g" ), "").replace(/\n /g,"").split("\n");
-		
+		console.log(cal_array);
 		//Keep track of when we are activly parsing an event
 		var in_event = false;
 		//Use as a holder for the current event being proccessed.
@@ -102,7 +103,7 @@ function ical_parser(feed_url, callback){
 				cur_event = {};
 			}
 			//If we encounter end event, complete the object and add it to our events array then clear it for reuse.
-                        if(in_event && ln == 'END:VEVENT'){
+            if(in_event && ln == 'END:VEVENT'){
 				in_event = false;
 				this.events.push(cur_event);
 				cur_event = null;
@@ -210,7 +211,9 @@ function ical_parser(feed_url, callback){
 		
 		this.events.forEach(function(itm){
 			//If the event ends after the current time, add it to the array to return.
-			if(itm.DTEND > current_date) future_events.push(itm);
+			//console.log(itm.DTEND+" > "+current_date);
+			if(itm.DTEND > current_date) 
+				future_events.push(itm);
 		});
 		return future_events;
 	}
@@ -237,11 +240,14 @@ function ical_parser(feed_url, callback){
 	 *
 	 * @param ical file url
 	 */
+	
 	this.load = function(ical_file){
+
 		var tmp_this = this;
 		this.raw_data = null;
 		this.loadFile(ical_file, function(data){
 			//if the file loads, store the data and invoke the parser
+
 			tmp_this.raw_data = data;
 			tmp_this.parseICAL(data);
 		});
@@ -251,6 +257,35 @@ function ical_parser(feed_url, callback){
 	var tmp_this = this;
 	//Store the feed url
 	this.feed_url = feed_url;
+	
+	this.loadSingle = function(cfile,ical_file){
+		this.loadFile(cfile, function(data){
+			if(tmp_this.raw_data==null) tmp_this.raw_data = data;
+			else tmp_this.raw_data = tmp_this.raw_data+data;
+			
+			if(objectlength(ical_file)==0){
+				tmp_this.parseICAL(tmp_this.raw_data);
+			}
+			else {
+				for(i in ical_file){
+					tmp_this.loadSingle(ical_file[i].calendar.icalurl,ical_file);
+					delete ical_file[i];
+					break;
+				}
+			}
+		});
+	}
+	
 	//Load the file
-	this.load(this.feed_url);
+	if(typeof(feed_url)=='object'){
+		for(i in feed_url){
+			this.loadSingle(feed_url[i].calendar.icalurl,feed_url);
+			delete feed_url[i];
+			break;
+		}
+	}
+	else {
+		this.load(this.feed_url);
+	}
+
 }

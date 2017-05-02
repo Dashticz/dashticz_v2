@@ -53,7 +53,7 @@ function getNews(divToFill,newsfeed){
 					visible: 1,
 					mousePause: 0
 				}).data('easyTicker');
-				
+
 				var maxHeight = -1;
 
 				$('#rss-styled_'+divToFill+' li').each(function() {
