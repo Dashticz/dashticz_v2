@@ -310,18 +310,13 @@ function buildScreens(){
 						}
 						else if(typeof(columns[c]['blocks'][b])=='object'){
 							var random = getRandomInt(1,100000);
-							if(typeof(columns[c]['blocks'][b]['icalurl'])!=='undefined' || (typeof(columns[c]['blocks'][b][0])!=='undefined' && typeof(columns[c]['blocks'][b][0]['color'])!=='undefined')){
-								var random = getRandomInt(1,100000);
+							if(typeof(columns[c]['blocks'][b]['icalurl'])!=='undefined' || typeof(columns[c]['blocks'][b]['calendars'])!=='undefined'){
 								var html ='';
 								if(typeof(columns[c]['blocks'][b]['title'])!=='undefined') html+='<div class="col-xs-12 mh titlegroups transbg"><h3>'+columns[c]['blocks'][b]['title']+'</h3></div>';
 								html+='<div class="transbg containsicalendar containsicalendar'+random+'"><div class="col-xs-12 transbg"></div></div>';
 								$('div.screen'+s+' .row .col'+c).append(html);	
-								if(typeof(columns[c]['blocks'][b]['icalurl'])!=='undefined'){
-									addCalendar($('.containsicalendar'+random),columns[c]['blocks'][b]['icalurl']);
-								}
-								else {
-									addCalendar($('.containsicalendar'+random),columns[c]['blocks'][b]);
-								}
+								addCalendar($('.containsicalendar'+random),columns[c]['blocks'][b]);
+								
 							}
 							else if(typeof(columns[c]['blocks'][b]['frameurl'])!=='undefined') $('div.screen'+s+' .row .col'+c).append(loadFrame(random,columns[c]['blocks'][b]));
 							else $('div.screen'+s+' .row .col'+c).append(loadButton(b,columns[c]['blocks'][b]));
@@ -716,9 +711,34 @@ function getMoonInfo(image){
    });
 }
 
-function addCalendar(calobject,icsUrl){
-
-	if(typeof(icsUrl)=='string') icsUrl = icsUrl.replace(/webcal?\:\/\//i, "https://");
+function addCalendar(calobject,icsUrlorg){
+	icsUrl = icsUrlorg;
+	
+	if(typeof(icsUrl.url)!=='undefined'){
+		var random = getRandomInt(1,100000);
+		var html = '<div class="modal fade" id="calendar_'+random+'" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
+		  html+='<div class="modal-dialog">';
+			html+='<div class="modal-content">';
+			  html+='<div class="modal-header">';
+				html+='<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
+			  html+='</div>';
+			  html+='<div class="modal-body">';
+				  html+='<iframe data-src="'+icsUrl.url+'" width="100%" height="570" frameborder="0" allowtransparency="true"></iframe> '; 
+			  html+='</div>';
+			html+='</div>';
+		  html+='</div>';
+		html+='</div>';
+		$('body').append(html);
+		calobject.find('.transbg').addClass('hover');
+		calobject.attr('data-toggle','modal');
+		calobject.attr('data-target','#calendar_'+random);
+		calobject.attr('onclick','setSrc(this);');
+	}
+	
+	if(typeof(icsUrl.icalurl)!=='undefined'){
+		icsUrl = icsUrl.icalurl.replace(/webcal?\:\/\//i, "https://");
+	}
+	
 	new ical_parser(icsUrl, function(cal) {
 		var events = cal.getFutureEvents();
 		var counter = 0;
@@ -729,10 +749,10 @@ function addCalendar(calobject,icsUrl){
 				var date = event.start_date;
 				var time = event.start_time;
 				if(_ICALENDAR_DATEFORMAT == 'friendly') {
-					var widget = '<li style="list-style:none;color:'+event.color+';">' + moment(date+' '+time,'DD/MM/YYYY HH:mm').locale(_ICALENDAR_LOCALE).calendar() + ' - <b>' + event.SUMMARY + '</b></li>';	
+					var widget = '<div style="color:'+event.color+';">' + moment(date+' '+time,'DD/MM/YYYY HH:mm').locale(_ICALENDAR_LOCALE).calendar() + ' - <b>' + event.SUMMARY + '</b></div>';	
 				} 
 				else { 
-					var widget = '<li style="list-style:none;color:'+event.color+'">' + moment(date+' '+time,'DD/MM/YYYY HH:mm').format(_ICALENDAR_DATEFORMAT) + ' - <b>' + event.SUMMARY + '</b></li>';		
+					var widget = '<div style="color:'+event.color+'">' + moment(date+' '+time,'DD/MM/YYYY HH:mm').format(_ICALENDAR_DATEFORMAT) + ' - <b>' + event.SUMMARY + '</b></div>';		
 				}
 				calobject.find('.transbg').append(widget);
 			}
@@ -740,7 +760,7 @@ function addCalendar(calobject,icsUrl){
 		});
 
 		setInterval(function(){
-			addCalendar(calobject,icsUrl)
+			addCalendar(calobject,icsUrlorg)
 		},(60000*5));
 
 	});

@@ -52,7 +52,7 @@ function ical_parser(feed_url, callback){
 	 */
 	this.makeDate = function(ical_date){
 		//break date apart
-                var dtutc =  {
+        var dtutc =  {
 			year: ical_date.substr(0,4),
 			month: ical_date.substr(4,2),
 			day: ical_date.substr(6,2),
@@ -60,16 +60,16 @@ function ical_parser(feed_url, callback){
 			minute: ical_date.substr(11,2)
 		}
 		//Create JS date (months start at 0 in JS - don't ask)
-                //var utcdatems = Date.UTC(dtutc.year, (dtutc.month-1), dtutc.day, dtutc.hour, dtutc.minute);
-                var utcdatems = ConvertUTCTimeToLocalTime(Date.UTC(dtutc.year, (dtutc.month-1), dtutc.day, dtutc.hour, dtutc.minute));
-                var dt = {};
-                dt.date = new Date(utcdatems);
-                
-                dt.year = dt.date.getFullYear();
-                dt.month = ('0' + (dt.date.getMonth()+1)).slice(-2);
-                dt.day = ('0' + dt.date.getDate()).slice(-2);
-                dt.hour = ('0' + dt.date.getHours()).slice(-2);
-                dt.minute = ('0' + dt.date.getMinutes()).slice(-2);
+		//var utcdatems = ConvertUTCTimeToLocalTime(Date.UTC(dtutc.year, (dtutc.month-1), dtutc.day, dtutc.hour, dtutc.minute));
+		var utcdatems = Date.UTC(dtutc.year, (dtutc.month-1), dtutc.day, dtutc.hour, dtutc.minute);
+		var dt = {};
+		dt.date = new Date(utcdatems);
+
+		dt.year = dt.date.getFullYear();
+		dt.month = ('0' + (dt.date.getMonth()+1)).slice(-2);
+		dt.day = ('0' + dt.date.getDate()).slice(-2);
+		dt.hour = ('0' + dt.date.getHours()).slice(-2);
+		dt.minute = ('0' + dt.date.getMinutes()).slice(-2);
 
 		//Get the full name of the given day
 		dt.dayname =["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"][dt.date.getDay()];
@@ -115,39 +115,43 @@ function ical_parser(feed_url, callback){
 				cur_event = null;
 			}
 			//If we are in an event
-                        else if(in_event){
-                                //var lntrim = ln.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
-                                //var lnsplit = lntrim.split(':');
-                                //type = lnsplit[0];
-                                //val = lnsplit[1];
+			else if(in_event){
+				//var lntrim = ln.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+				//var lnsplit = lntrim.split(':');
+				//type = lnsplit[0];
+				//val = lnsplit[1];
 
-			//Chech for ; in DTSTART (Apple Calendar use TZID after DTSART)
-			if (ln.indexOf(';') >= 0) {
-				//Split the item based on the first ":"
-				idx = ln.indexOf(':');
+				//Chech for ; in DTSTART (Apple Calendar use TZID after DTSART)
+				if (ln.indexOf(';') >= 0) {
+					//Split the item based on the first ":"
+					idx = ln.indexOf(':');
 
-				//Apply trimming to values to reduce risks of badly formatted ical files.
-				type = ln.substr(0,idx).replace(/^\s\s*/, '').replace(/\s\s*$/, '');//Trim
-				
-				//Split the item based on the first ";"
-				idx2 = type.indexOf(';');
-				//Get DTSTART
-				type = ln.substr(0,idx2);
+					//Apply trimming to values to reduce risks of badly formatted ical files.
+					type = ln.substr(0,idx).replace(/^\s\s*/, '').replace(/\s\s*$/, '');//Trim
 
-				val = ln.substr(idx+1).replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+					//Split the item based on the first ";"
+					idx2 = type.indexOf(';');
+					//Get DTSTART
+					type = ln.substr(0,idx2);
 
-			} else {
-				//Split the item based on the first ":"
-				idx = ln.indexOf(':');
-			
-				//Apply trimming to values to reduce risks of badly formatted ical files.
-				type = ln.substr(0,idx).replace(/^\s\s*/, '').replace(/\s\s*$/, '');//Trim
+					val = ln.substr(idx+1).replace(/^\s\s*/, '').replace(/\s\s*$/, '');
 
-				val = ln.substr(idx+1).replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+				} else {
+					//Split the item based on the first ":"
+					idx = ln.indexOf(':');
 
-			}
+					//Apply trimming to values to reduce risks of badly formatted ical files.
+					type = ln.substr(0,idx).replace(/^\s\s*/, '').replace(/\s\s*$/, '');//Trim
+
+					val = ln.substr(idx+1).replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+
+				}
 				
 				//If the type is a start date, proccess it and store details
+				if(type =='SUMMARY'){
+					//console.log(val+" > "+cur_event.start_date+" "+cur_event.start_time);
+				}
+				
 				if(type =='DTSTART'){
 					dt = this.makeDate(val);
 					val = dt.date;
@@ -155,10 +159,10 @@ function ical_parser(feed_url, callback){
 					cur_event.start_time = dt.hour+':'+dt.minute;
 					cur_event.start_date = dt.day+'/'+dt.month+'/'+dt.year;
 					cur_event.day = dt.dayname;
-                                        cur_event.start_date_long = dt.day+'. '+dt.monthname+' '+dt.year ;
+                    cur_event.start_date_long = dt.day+'. '+dt.monthname+' '+dt.year ;
 				}
 				//If the type is an end date, do the same as above
-                                else if(type =='DTEND'){
+                else if(type =='DTEND'){
 					dt = this.makeDate(val);
 					val = dt.date;
 					//These are helpful for display
@@ -167,15 +171,17 @@ function ical_parser(feed_url, callback){
 					cur_event.day = dt.dayname;
 				}
 				//Convert timestamp
-                                else if(type =='DTSTAMP'){ 
-                                        val = this.makeDate(val).date;
-                                }
-                                else {
-                                    val = val
-                                        .replace(/\\r\\n/g,'<br />')
-                                        .replace(/\\n/g,'<br />')
-                                        .replace(/\\,/g,',');
-                                }
+				/*
+				else if(type =='DTSTAMP'){ 
+						val = this.makeDate(val).date;
+				}
+				*/
+				else {
+					val = val
+						.replace(/\\r\\n/g,'<br />')
+						.replace(/\\n/g,'<br />')
+						.replace(/\\,/g,',');
+				}
 
 				//Add the value to our event object.
 				cur_event[type] = val;
@@ -264,19 +270,19 @@ function ical_parser(feed_url, callback){
 	//Store the feed url
 	this.feed_url = feed_url;
 	
-	this.loadSingle = function(cfile,color,ical_file){
+	this.loadSingle = function(cfile,color){
 		this.loadFile(cfile, color, function(data,c){
 			data = "COLOR:"+c+"\n"+data;
 			if(tmp_this.raw_data==null) tmp_this.raw_data = data;
 			else tmp_this.raw_data = tmp_this.raw_data+data;
 			
-			if(objectlength(ical_file)==0){
+			if(objectlength(feed_url.calendars)==0){
 				tmp_this.parseICAL(tmp_this.raw_data);
 			}
 			else {
-				for(i in ical_file){
-					tmp_this.loadSingle(ical_file[i].calendar.icalurl,ical_file[i].color,ical_file);
-					delete ical_file[i];
+				for(i in feed_url.calendars){
+					tmp_this.loadSingle(feed_url.calendars[i].calendar.icalurl,feed_url.calendars[i].color);
+					delete feed_url.calendars[i];
 					break;
 				}
 			}
@@ -285,9 +291,9 @@ function ical_parser(feed_url, callback){
 	
 	//Load the file
 	if(typeof(feed_url)=='object'){
-		for(i in feed_url){
-			this.loadSingle(feed_url[i].calendar.icalurl,feed_url[i].color,feed_url);
-			delete feed_url[i];
+		for(i in feed_url.calendars){
+			this.loadSingle(feed_url.calendars[i].calendar.icalurl,feed_url.calendars[i].color);
+			delete feed_url.calendars[i];
 			break;
 		}
 	}

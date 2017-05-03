@@ -410,6 +410,11 @@ p {
 		padding-left: 5px !important;
 	}
 
+.containsicalendar .transbg {
+    padding-left: 11px !important;
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+}
 .column1.col-xs-5,
 .column2.col-xs-5,
 .column3.col-xs-2 {
