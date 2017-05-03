@@ -1009,23 +1009,6 @@ function getDevices(){
 								else if(typeof(device['Name'])!=='undefined' && device['Name'] in blocktypes['Name']){
 									html+= getStatusBlock(device,blocktypes['Name'][device['Name']]);
 								}
-								else if(parseFloat(device['idx'])==6 && device['Name']=='Thuis'){ //Special made for HansieNL! :)
-								   $('.block_'+idx).attr('onclick','switchDevice(this)');
-								   html+='<div class="col-xs-4 col-icon">';
-									  if(device['Status']=='Off') html+='<img src="img/switch_off.png" class="off icon" />';
-									  else html+='<img src="img/switch_on.png" class="on icon" />';
-								   html+='</div>';
-								   html+='<div class="col-xs-8 col-data">';
-									  html+='<strong class="title">'+device['Name']+'</strong><br />';
-									  if(device['Status']=='Off') html+='<span class="state">AFWEZIG</span>';
-									  else html+='<span class="state">AANWEZIG</span>';
-										if((_SHOW_LASTUPDATE && (typeof(blocks[idx])=='undefined' || typeof(blocks[idx]['hide_lastupdate'])=='undefined' || blocks[idx]['hide_lastupdate']===false)) || 
-										  (!_SHOW_LASTUPDATE && (typeof(blocks[idx])!=='undefined' && typeof(blocks[idx]['show_lastupdate'])!=='undefined' && blocks[idx]['show_lastupdate']==true)) 
-										  ){
-											html+='<br /><span class="lastupdate">'+moment(device['LastUpdate']).format(_LASTUPDATE_FORMAT)+'</span>';
-										}
-								   html+='</div>';
-								}
 								else if(device['HardwareType']=='Logitech Media Server'){
 									html+=iconORimage(idx,'fa-music','','on icon','',2);
 									html+='<div class="col-xs-10 col-data">';
