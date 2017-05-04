@@ -68,6 +68,28 @@ function loadTrash (random,trashobject) {
 			});
 		});
 	}
+	if(service=='mijnafvalwijzer'){
+		$.getJSON('http://json.mijnafvalwijzer.nl/?method=postcodecheck&postcode=' + postcode + '&street=&huisnummer=' + homenumber + '&toevoeging=',function(data){
+			data = data.data.ophaaldagen.data;
+			for(d in data){
+				if(typeof(returnDates[curr])=='undefined'){
+					returnDates[curr] = {}
+				}
+				
+				var startDate = moment(moment().format("DD-MM-YYYY"), "DD-MM-YYYY");
+				var endDate = moment(moment(Date.now() + 32 * 24 * 3600 * 1000).format("DD-MM-YYYY"), "DD-MM-YYYY");
+				var testDate = moment(data[d]['date'], "YYYY-MM-DD");
+
+				if(testDate.isBetween(startDate, endDate, 'days', true)){
+						
+					returnDates[curr][moment(moment(data[d]['date'], "YYYY-MM-DD")).format("YYYY-MM-DD")]='<div>'+data[d]['nameType']+': '+moment(moment(data[d]['date'], "YYYY-MM-DD")).format("DD-MM-YYYY")+'</div>';
+				}
+			}
+			
+			addToContainer(random,returnDates);
+
+		});
+	}
 	return html;
 			
 }
