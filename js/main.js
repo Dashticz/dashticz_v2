@@ -24,7 +24,7 @@ if(typeof(_SCREENSLIDER_EFFECT )=='undefined') var _SCREENSLIDER_EFFECT  = 'slid
 if(typeof(_ICALENDAR_URL )=='undefined') var _ICALENDAR_URL  = '';
 if(typeof(_ICALENDAR_DATEFORMAT )=='undefined') var _ICALENDAR_DATEFORMAT  = 'DD.MM.YYYY HH:mm';
 if(typeof(_ICALENDAR_LOCALE )=='undefined') var _ICALENDAR_LOCALE  = 'en';
-if(typeof(_DASHTICZ_REFRESH )=='undefined') var _DASHTICZ_REFRESH  = 60;
+if(typeof(_DASHTICZ_REFRESH )=='undefined') var _DASHTICZ_REFRESH  = 120;
 if(typeof(_USE_STATIC_WEATHERICONS )=='undefined') var _USE_STATIC_WEATHERICONS  = false;
 if(typeof(_SAVED_COLORS )=='undefined') var _SAVED_COLORS  = [];
 if(typeof(_THEME )=='undefined') var _THEME  = 'default';
@@ -35,7 +35,7 @@ if(_USE_FAHRENHEIT) _TEMP_SYMBOL = '°F';
 var cache = new Date().getTime();
 $('<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">').appendTo("head");
 $('<link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">').appendTo("head");
-$('<link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">').appendTo("head");
+$('<link href="fonts/opensans/open-sans.css" rel="stylesheet" type="text/css">').appendTo("head");
 $('<link rel="stylesheet" type="text/css" href="vendor/weather/css/weather-icons.min.css?cache=1488963384" />').appendTo("head");
 
 $('<link href="vendor/jquery/jquery-ui.css" rel="stylesheet">').appendTo("head");
@@ -124,6 +124,10 @@ $.ajax({url: 'js/switches.js', async: false,dataType: "script"});
 $.ajax({url: 'js/blocks.js', async: false,dataType: "script"});
 $.ajax({url: 'js/graphs.js', async: false,dataType: "script"});
 $(document).ready(function(){	
+	if(_EDIT_MODE){
+		$('body').append('<div class="editmode">EDIT MODE</div>');	
+	}
+	
 	$('body').attr('unselectable','on')
      .css({'-moz-user-select':'-moz-none',
            '-moz-user-select':'none',
@@ -235,7 +239,7 @@ function getBlock(cols,c,columndiv,standby){
 			if(typeof(blocks[cols['blocks'][b]])!=='undefined' && typeof(blocks[cols['blocks'][b]]['type'])!=='undefined') blocktype = blocks[cols['blocks'][b]]['type'];
 
 			if(blocktype=='blocktitle'){
-				$(columndiv).append('<div class="col-xs-12 mh titlegroups transbg"><h3>'+blocks[cols['blocks'][b]]['title']+'</h3></div>');
+				$(columndiv).append('<div data-id="'+cols['blocks'][b]+'" class="col-xs-12 mh titlegroups transbg"><h3>'+blocks[cols['blocks'][b]]['title']+'</h3></div>');
 			}
 			else if(cols['blocks'][b]=='weather'){
 				if(typeof(loadWeatherFull)!=='function') $.ajax({url: 'js/weather.js', async: false,dataType: "script"});
@@ -339,7 +343,7 @@ function getBlock(cols,c,columndiv,standby){
 				else $(columndiv).append(loadButton(b,cols['blocks'][b]));
 			}
 			else {
-				$(columndiv).append('<div class="mh transbg block_'+cols['blocks'][b]+'"></div>');
+				$(columndiv).append('<div data-id="'+cols['blocks'][b]+'" class="mh transbg block_'+cols['blocks'][b]+'"></div>');
 			}
 		}
 	}
@@ -609,7 +613,7 @@ function loadImage(i,image){
 	if(typeof(image.width)!=='undefined') width=image.width;
 	var html='';
 	
-	if(typeof(image.url)!=='undefined') html+='<div class="col-xs-'+width+' hover transbg imgblock imgblock'+i+'" data-toggle="modal" data-target="#'+i+'" onclick="setSrc(this);">';
+	if(typeof(image.url)!=='undefined') html+='<div data-id="" class="col-xs-'+width+' hover transbg imgblock imgblock'+i+'" data-toggle="modal" data-target="#'+i+'" onclick="setSrc(this);">';
 	else html+='<div class="col-xs-'+width+' transbg imgblock imgblock'+i+'">';
 	html+='<div class="col-xs-12">';
 
@@ -715,6 +719,7 @@ function addCalendar(calobject,icsUrlorg){
 		$('body').append(html);
 		calobject.find('.transbg').addClass('hover');
 		calobject.attr('data-toggle','modal');
+		calobject.attr('data-id','');
 		calobject.attr('data-target','#calendar_'+random);
 		calobject.attr('onclick','setSrc(this);');
 	}

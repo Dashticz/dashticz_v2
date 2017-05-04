@@ -28,6 +28,16 @@
 }
 /* Thermostat CSS: */
 
+.editmode {
+	color:white;
+	background-color:red;
+	bottom:0;
+	font-weight:bold;
+	right:0;
+	padding:10px;
+	position:absolute;
+	z-index:9999;
+}
 .input-groupBtn .btn-number {
     opacity: 0.5;
     color: white;
