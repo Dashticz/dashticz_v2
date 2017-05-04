@@ -36,8 +36,7 @@ var cache = new Date().getTime();
 $('<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">').appendTo("head");
 $('<link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">').appendTo("head");
 $('<link href="fonts/opensans/open-sans.css" rel="stylesheet" type="text/css">').appendTo("head");
-$('<link rel="stylesheet" type="text/css" href="vendor/weather/css/weather-icons.min.css?cache=1488963384" />').appendTo("head");
-
+$('<link href="vendor/weather/css/weather-icons.min.css?v='+cache+'" rel="stylesheet">').appendTo("head");
 $('<link href="vendor/jquery/jquery-ui.css" rel="stylesheet">').appendTo("head");
 $('<link href="vendor/morrisjs/morris.css" rel="stylesheet">').appendTo("head");
 $('<link href="vendor/swiper/css/swiper.min.css" rel="stylesheet">').appendTo("head");
