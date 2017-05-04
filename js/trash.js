@@ -3,10 +3,9 @@ function loadTrash (random,trashobject) {
 	var service = trashobject.trashapp;
 	var postcode = trashobject.zipcode;
 	var homenumber = trashobject.housenumber;
-	var country = trashobject.country;
+	if(typeof(trashobject.country)!=='undefined') var country = trashobject.country;
 	
 	var dates = {};
-	var done = {};
     var curr = '';
     var data = '';
 	
@@ -47,27 +46,12 @@ function loadTrash (random,trashobject) {
 				}
 			}
 			
-			var returnDatesSimple={}
-			for(c in returnDates){
-				for(cr in returnDates[c]){
-					//if(typeof(done[c])=='undefined'){
-						returnDatesSimple[cr] = returnDates[c][cr];
-						done[c]=true;
-					//}
-				}
-			}
-			
-			$('.trash'+random+' .state').html('');
-			var c=1;
-			Object.keys(returnDatesSimple).sort().forEach(function(key) {
-				if(c<=3) $('.trash'+random+' .state').append(returnDatesSimple[key]);
-				c++;
-			});
+			addToContainer(random,returnDates);
 		});
 	}
 	if(service=='cure'){
 		$('.trash'+random+' .state').html('');
-		var returnDates={};
+	
 		$.getJSON('https://afvalkalender.cure-afvalbeheer.nl/rest/adressen/' + postcode + '-' + homenumber,function(data){
 			$.getJSON('https://afvalkalender.cure-afvalbeheer.nl/rest/adressen/'+data[0].bagId+'/afvalstromen',function(data){
 				for(d in data){
@@ -76,30 +60,32 @@ function loadTrash (random,trashobject) {
 							returnDates[curr] = {}
 						}
 						returnDates[curr][moment(moment(data[d]['ophaaldatum'], "YYYY-MM-DD")).format("YYYY-MM-DD")]='<div>'+data[d]['menu_title']+': '+moment(moment(data[d]['ophaaldatum'], "YYYY-MM-DD")).format("DD-MM-YYYY")+'</div>';
-					
-						//$('.trash'+random+' .state').append('<div>'+data[d]['menu_title']+': '+moment(moment(data[d]['ophaaldatum'], "YYYY-MM-DD")).format("DD-MM-YYYY")+'</div>');
 					}
 				}
 				
-				var returnDatesSimple={}
-				for(c in returnDates){
-					for(cr in returnDates[c]){
-						//if(typeof(done[c])=='undefined'){
-							returnDatesSimple[cr] = returnDates[c][cr];
-							done[c]=true;
-						//}
-					}
-				}
-
-				$('.trash'+random+' .state').html('');
-				var c=1;
-				Object.keys(returnDatesSimple).sort().forEach(function(key) {
-					if(c<=3) $('.trash'+random+' .state').append(returnDatesSimple[key]);
-					c++;
-				});
+				addToContainer(random,returnDates);
+				
 			});
 		});
 	}
 	return html;
 			
+}
+
+function addToContainer(random,returnDates){
+	var returnDatesSimple={}
+	var done = {};
+	for(c in returnDates){
+		for(cr in returnDates[c]){
+			returnDatesSimple[cr] = returnDates[c][cr];
+			done[c]=true;
+		}
+	}
+
+	$('.trash'+random+' .state').html('');
+	var c=1;
+	Object.keys(returnDatesSimple).sort().forEach(function(key) {
+		if(c<=3) $('.trash'+random+' .state').append(returnDatesSimple[key]);
+		c++;
+	});
 }
