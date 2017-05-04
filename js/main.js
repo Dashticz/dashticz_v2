@@ -27,7 +27,7 @@ if(typeof(_ICALENDAR_LOCALE )=='undefined') var _ICALENDAR_LOCALE  = 'en';
 if(typeof(_DASHTICZ_REFRESH )=='undefined') var _DASHTICZ_REFRESH  = 120;
 if(typeof(_USE_STATIC_WEATHERICONS )=='undefined') var _USE_STATIC_WEATHERICONS  = false;
 if(typeof(_SAVED_COLORS )=='undefined') var _SAVED_COLORS  = [];
-if(typeof(_THEME )=='undefined') var _THEME  = 'default';
+if(typeof(_EDIT_MODE )=='undefined') var _EDIT_MODE  = false;
 
 var _TEMP_SYMBOL = '°C';
 if(_USE_FAHRENHEIT) _TEMP_SYMBOL = '°F';
@@ -68,6 +68,7 @@ $.ajax({url: 'vendor/skycons/skycons.js', async: false,dataType: "script"});
 $.ajax({url: 'vendor/spectrum/spectrum.js', async: false,dataType: "script"});
 $.ajax({url: 'js/sortable.js', async: false,dataType: "script"});
 $.ajax({url: 'js/switches.js', async: false,dataType: "script"});
+$.ajax({url: 'js/trash.js', async: false,dataType: "script"});
 
 if(typeof(_DEBUG)!=='undefined' && _DEBUG){
 	$.ajax({url: 'custom/json_vb.js', async: false,dataType: "script"});
@@ -123,6 +124,7 @@ $.ajax({url: 'js/switches.js', async: false,dataType: "script"});
 $.ajax({url: 'js/blocks.js', async: false,dataType: "script"});
 $.ajax({url: 'js/graphs.js', async: false,dataType: "script"});
 $(document).ready(function(){	
+	
 	if(_EDIT_MODE){
 		$('body').append('<div class="editmode">EDIT MODE</div>');	
 	}
@@ -338,6 +340,7 @@ function getBlock(cols,c,columndiv,standby){
 					addCalendar($('.containsicalendar'+random),cols['blocks'][b]);
 
 				}
+				else if(typeof(cols['blocks'][b]['trashapp'])!=='undefined') $(columndiv).append(loadTrash(random,cols['blocks'][b]));
 				else if(typeof(cols['blocks'][b]['frameurl'])!=='undefined') $(columndiv).append(loadFrame(random,cols['blocks'][b]));
 				else $(columndiv).append(loadButton(b,cols['blocks'][b]));
 			}

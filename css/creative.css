@@ -302,6 +302,9 @@ select option {
     margin-left: 5px;
     margin-top: 4px;
 }
+.fa.fa-trash {
+    margin-left: 8px;
+}
 .fa.fa-bolt {
     margin-left: 8px;
 }
