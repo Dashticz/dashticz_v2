@@ -13,7 +13,10 @@
     width: 30px;
     height: 30px;
 }
-
+.trashcan {
+    width: 100%;
+	margin-left:-4px;
+}
 .skycon {
 	margin: 10px auto 10px auto;
     display: block;
@@ -133,6 +136,9 @@
 	}
 }
 @media only screen and (max-width: 1000px) {
+.trashcan {
+	margin-left:0px !important;
+}
 
 	.input-groupBtn .stop {
 		width: 60px;
@@ -168,7 +174,6 @@
 /************************/
   
 @media only screen and (max-width: 767px) {
-
   .control label {
       font-size: 35px;
   }

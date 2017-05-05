@@ -13,7 +13,7 @@ function loadTrash (random,trashobject) {
 	if(typeof(trashobject.width)!=='undefined') width=trashobject.width;
 	var html='<div class="trash'+random+' col-xs-'+width+' mh transbg">';
 		html+='<div class="col-xs-4 col-icon">';
-			html+='<em class="fa fa-trash fa-small"></em>';
+			html+='<img class="trashcan" src="img/kliko.png" />';
 		html+='</div>';
 		html+='<div class="col-xs-8 col-data">';
 			html+='<span class="state"></span>';
@@ -95,19 +95,27 @@ function loadTrash (random,trashobject) {
 }
 
 function addToContainer(random,returnDates){
-	var returnDatesSimple={}
-	var done = {};
-	for(c in returnDates){
-		for(cr in returnDates[c]){
-			returnDatesSimple[cr] = returnDates[c][cr];
-			done[c]=true;
-		}
-	}
+   
+   var returnDatesSimple={}
+   var done = {};
+   for(c in returnDates){
+      for(cr in returnDates[c]){
+         returnDatesSimple[cr] = returnDates[c][cr];
+         done[c]=true;
+      }
+   }
 
-	$('.trash'+random+' .state').html('');
-	var c=1;
-	Object.keys(returnDatesSimple).sort().forEach(function(key) {
-		if(c<=3) $('.trash'+random+' .state').append(returnDatesSimple[key]);
-		c++;
-	});
+   $('.trash'+random+' .state').html('');
+   var c=1;
+   Object.keys(returnDatesSimple).sort().forEach(function(key) {
+
+      var date = moment(key).format("DD-MM-YYYY");
+      var currentdate = moment(Date.now()).format("DD-MM-YYYY");
+      if(date == currentdate){
+		  returnDatesSimple[key] = (returnDatesSimple[key]).replace(date, "Vandaag");
+	  }
+         
+      if(c<=3) $('.trash'+random+' .state').append(returnDatesSimple[key]);
+      c++;
+   });
 }
