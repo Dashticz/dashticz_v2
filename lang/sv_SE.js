@@ -1,4 +1,3 @@
-
 var lang = new Object();
 lang['state_on'] = 'PÅ';
 lang['state_off'] = 'AV';
@@ -17,6 +16,9 @@ lang['thursday'] = 'Torsdag';
 lang['friday'] = 'Fredag';
 lang['saturday'] = 'Lördag';
 lang['sunday'] = 'Söndag';
+
+lang['today'] = 'idag';
+lang['tomorrow'] = 'i morgon';
 
 lang['graph_last_hours'] = 'senaste timmen';
 lang['graph_today'] = 'idag';

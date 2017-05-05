@@ -18,6 +18,9 @@ lang['friday'] = 'Friday';
 lang['saturday'] = 'Saturday';
 lang['sunday'] = 'Sunday';
 
+lang['today'] = 'Today';
+lang['tomorrow'] = 'Tomorrow';
+
 lang['graph_last_hours'] = 'last hours';
 lang['graph_today'] = 'today';
 lang['graph_last_month'] = 'last month';

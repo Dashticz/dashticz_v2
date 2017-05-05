@@ -49,11 +49,19 @@ function loadTrash (random,trashobject) {
 			addToContainer(random,returnDates);
 		});
 	}
-	if(service=='cure'){
+	
+	if(service=='cure' || service=='cyclusnv' || service=='gemeenteberkelland' || service=='meerlanden' || service=='venray'){
 		$('.trash'+random+' .state').html('');
 	
-		$.getJSON('https://afvalkalender.cure-afvalbeheer.nl/rest/adressen/' + postcode + '-' + homenumber,function(data){
-			$.getJSON('https://afvalkalender.cure-afvalbeheer.nl/rest/adressen/'+data[0].bagId+'/afvalstromen',function(data){
+		var baseURL = '';
+		if(service=='cure') baseURL = 'https://afvalkalender.cure-afvalbeheer.nl';
+		if(service=='cyclusnv') baseURL = 'https://afvalkalender.cyclusnv.nl';
+		if(service=='gemeenteberkelland') baseURL = 'https://afvalkalender.gemeenteberkelland.nl';
+		if(service=='meerlanden') baseURL = 'https://afvalkalender.meerlanden.nl';
+		if(service=='venray') baseURL = 'https://afvalkalender.venray.nl';
+			
+		$.getJSON(baseURL + '/rest/adressen/' + postcode + '-' + homenumber,function(data){
+			$.getJSON(baseURL + '/rest/adressen/'+data[0].bagId+'/afvalstromen',function(data){
 				for(d in data){
 					if(data[d]['ophaaldatum']!==null){
 						if(typeof(returnDates[curr])=='undefined'){
