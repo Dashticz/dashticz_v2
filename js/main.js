@@ -285,6 +285,22 @@ function getBlock(cols,c,columndiv,standby){
 			else if(cols['blocks'][b]=='clock'){
 				$(columndiv).append('<div data-id="clock" class="transbg block_'+cols['blocks'][b]+' col-xs-'+width+' text-center"><h1 class="clock"></h1><h4 class="weekday"></h4><h4 class="date"></h4></div>');
 			}
+			else if(cols['blocks'][b]=='stationclock'){
+				$(columndiv).append('<div data-id="clock" class="transbg block_'+cols['blocks'][b]+' col-xs-'+width+' text-center"><canvas id="clock" width="200" height="200">Your browser is unfortunately not supported.</canvas></div>');
+				if(typeof(StationClock)!=='function') $.ajax({url: 'vendor/stationclock.js', async: false,dataType: "script"});
+				
+				var clock = new StationClock("clock");
+				  clock.body = StationClock.RoundBody;
+				  clock.dial = StationClock.GermanStrokeDial;
+				  clock.hourHand = StationClock.PointedHourHand;
+				  clock.minuteHand = StationClock.PointedMinuteHand;
+				  clock.secondHand = StationClock.HoleShapedSecondHand;
+				  clock.boss = StationClock.NoBoss;
+				  clock.minuteHandBehavoir = StationClock.BouncingMinuteHand;
+				  clock.secondHandBehavoir = StationClock.OverhastySecondHand;
+
+				  window.setInterval(function() { clock.draw() }, 50);
+			}
 			else if(cols['blocks'][b]=='sunrise'){
 				$(columndiv).append('<div data-id="sunrise" class="block_'+cols['blocks'][b]+' col-xs-'+width+' transbg text-center sunriseholder"><em class="wi wi-sunrise"></em><span class="sunrise"></span><em class="wi wi-sunset"></em><span class="sunset"></span></div>');
 			}
