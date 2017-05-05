@@ -35,6 +35,8 @@ function loadTrash (random,trashobject) {
 				if (isNaN(parseInt(respArray[i]))) {
 					dates[respArray[i]] = [];
 					curr = respArray[i];
+					curr = capitalizeFirstLetter(curr.toLowerCase());
+						
 				}
 				else {
 					
@@ -44,7 +46,7 @@ function loadTrash (random,trashobject) {
 						if(typeof(returnDates[curr])=='undefined'){
 							returnDates[curr] = {}
 						}
-						returnDates[curr][moment(moment(respArray[i], "DD-MM-YYYY")).format("YYYY-MM-DD")+teller]='<div>'+curr+': '+respArray[i]+'</div>';
+						returnDates[curr][testDate.format("YYYY-MM-DD")+teller]=getTrashRow(curr,testDate);
 					}
 				}
 			}
@@ -71,11 +73,13 @@ function loadTrash (random,trashobject) {
 				
 				for(d in data){
 					if(data[d]['ophaaldatum']!==null){
+						var curr = data[d]['menu_title'];
+						curr = capitalizeFirstLetter(curr.toLowerCase());
 						if(typeof(returnDates[curr])=='undefined'){
 							returnDates[curr] = {}
 						}
 						var testDate = moment(moment(data[d]['ophaaldatum'], "YYYY-MM-DD"));
-						returnDates[curr][testDate.format("YYYY-MM-DD")+'_'+teller]='<div>'+data[d]['menu_title']+': '+testDate.format("DD-MM-YYYY")+'</div>';
+						returnDates[curr][testDate.format("YYYY-MM-DD")+'_'+teller]=getTrashRow(curr,testDate);
 					}
 				}
 				
@@ -91,9 +95,12 @@ function loadTrash (random,trashobject) {
 					returnDates[curr] = {}
 				}
 				
+				var curr = data[d]['nameType'];
+				curr = capitalizeFirstLetter(curr.toLowerCase());
+				
 				var testDate = moment(data[d]['date'], "YYYY-MM-DD");
 				if(testDate.isBetween(startDate, endDate, 'days', true)){
-					returnDates[curr][testDate.format("YYYY-MM-DD")+'_'+teller]='<div>'+data[d]['nameType']+': '+testDate.format("DD-MM-YYYY")+'</div>';
+					returnDates[curr][testDate.format("YYYY-MM-DD")+'_'+teller]=getTrashRow(curr,testDate);
 					teller++;
 				}
 			}
@@ -102,10 +109,12 @@ function loadTrash (random,trashobject) {
 
 		});
 	}
+	
 	if(service=='hvc'){
 		$.getJSON('https://cors-anywhere.herokuapp.com/http://inzamelkalender.hvcgroep.nl/push/calendar?postcode=' + postcode + '&huisnummer=' + homenumber,function(data){
 			for(d in data){
-				curr = data[d].naam;
+				var curr = data[d].naam;
+				curr = capitalizeFirstLetter(curr.toLowerCase());
 				if(typeof(returnDates[curr])=='undefined'){
 					returnDates[curr] = {}
 				}
@@ -114,7 +123,7 @@ function loadTrash (random,trashobject) {
 					
 					var testDate = moment(data[d].dateTime[dt].date);
 					if(testDate.isBetween(startDate, endDate, 'days', true)){
-						returnDates[curr][testDate.format("YYYY-MM-DD")+'_'+teller]='<div>'+curr+': '+testDate.format("DD-MM-YYYY")+'</div>';
+						returnDates[curr][testDate.format("YYYY-MM-DD")+'_'+teller]=getTrashRow(curr,testDate);
 					}
 				}
 			}
@@ -126,14 +135,15 @@ function loadTrash (random,trashobject) {
 		$.getJSON('https://vpn-wec-api.recyclemanager.nl/v2/calendars?postalcode=' + postcode + '&number=' + homenumber,function(data){
 			for(d in data.data){
 				for(o in data.data[d].occurrences){
-					curr = data.data[d].occurrences[o].title;
+					var curr = data.data[d].occurrences[o].title;
+					curr = capitalizeFirstLetter(curr.toLowerCase());
 					if(typeof(returnDates[curr])=='undefined'){
 						returnDates[curr] = {}
 					}
 
 					var testDate = moment(moment(data.data[d].occurrences[o].from.date), "YYYY-MM-DD");
 					if(testDate.isBetween(startDate, endDate, 'days', true)){
-						returnDates[curr][testDate.format("YYYY-MM-DD")+'_'+teller]='<div>'+curr+': '+testDate.format("DD-MM-YYYY")+'</div>';
+						returnDates[curr][testDate.format("YYYY-MM-DD")+'_'+teller]=getTrashRow(curr,testDate);
 					}
 				}
 			}
@@ -146,8 +156,13 @@ function loadTrash (random,trashobject) {
 			
 }
 
+function getTrashRow(c,d){
+	return '<div>'+c+': '+d.format("DD-MM-YYYY")+'</div>';
+}
+
 function addToContainer(random,returnDates){
-   
+   //console.log(returnDates);
+	
    var returnDatesSimple={}
    var done = {};
    for(c in returnDates){
@@ -159,6 +174,7 @@ function addToContainer(random,returnDates){
 
    $('.trash'+random+' .state').html('');
    var c=1;
+	
    Object.keys(returnDatesSimple).sort().forEach(function(key) {
 	  
 	   var skey = key.split('_');
@@ -169,18 +185,18 @@ function addToContainer(random,returnDates){
       var nextweek = (moment(new Date()).add(6,'days').format("DD-MM-YYYY"))
    
       if(date == currentdate){
-         returnDatesSimple[key] = (returnDatesSimple[key]).replace(date, lang['today']);
-         }   
+         returnDatesSimple[key] = returnDatesSimple[key].replace(date, lang['today']);
+      }   
       else if(date == tomorrow){
-         returnDatesSimple[key] = (returnDatesSimple[key]).replace(date, lang['tomorrow']);
-         }
+         returnDatesSimple[key] = returnDatesSimple[key].replace(date, lang['tomorrow']);
+      }
       else if(date <= nextweek){
-	 	returnDatesSimple[key] = (returnDatesSimple[key]).replace(date, moment(moment(date).format("DD-MM-YYYY")).locale('nl').format("dddd"));
+	 	returnDatesSimple[key] = returnDatesSimple[key].replace(date, moment(moment(date).format("DD-MM-YYYY")).locale('nl').format("dddd"));
 	  }   
       else {
          //console.log(date)
       }
-         
+        
       if(c<=4) $('.trash'+random+' .state').append(returnDatesSimple[key]);
       c++;
    });
