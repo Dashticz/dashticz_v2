@@ -22,6 +22,10 @@ function loadTrash (random,trashobject) {
 	html+='</div>';
 	
 	var returnDates={};
+	
+	var startDate = moment();
+	var endDate = moment(Date.now() + 32 * 24 * 3600 * 1000);
+	
 	if(service=='deafvalapp'){
 		$.get('https://cors-anywhere.herokuapp.com/http://dataservice.deafvalapp.nl/dataservice/DataServiceServlet?type=ANDROID&service=OPHAALSCHEMA&land=' +
 			country + '&postcode=' + postcode + '&straatId=0&huisnr=' + homenumber + '&huisnrtoev=',function(data){
@@ -34,8 +38,6 @@ function loadTrash (random,trashobject) {
 				}
 				else {
 					
-					var startDate = moment(moment().format("DD-MM-YYYY"), "DD-MM-YYYY");
-					var endDate = moment(moment(Date.now() + 32 * 24 * 3600 * 1000).format("DD-MM-YYYY"), "DD-MM-YYYY");
 					var testDate = moment(respArray[i], "DD-MM-YYYY");
 
 					if(testDate.isBetween(startDate, endDate, 'days', true)){
@@ -67,18 +69,17 @@ function loadTrash (random,trashobject) {
 		$.getJSON('https://cors-anywhere.herokuapp.com/'+baseURL + '/rest/adressen/' + postcode + '-' + homenumber,function(data){
 			$.getJSON('https://cors-anywhere.herokuapp.com/'+baseURL + '/rest/adressen/'+data[0].bagId+'/afvalstromen',function(data){
 				
-				console.log(data);
 				for(d in data){
 					if(data[d]['ophaaldatum']!==null){
 						if(typeof(returnDates[curr])=='undefined'){
 							returnDates[curr] = {}
 						}
-						returnDates[curr][moment(moment(data[d]['ophaaldatum'], "YYYY-MM-DD")).format("YYYY-MM-DD")+teller]='<div>'+data[d]['menu_title']+': '+moment(moment(data[d]['ophaaldatum'], "YYYY-MM-DD")).format("DD-MM-YYYY")+'</div>';
+						var testDate = moment(moment(data[d]['ophaaldatum'], "YYYY-MM-DD"));
+						returnDates[curr][testDate.format("YYYY-MM-DD")+'_'+teller]='<div>'+data[d]['menu_title']+': '+testDate.format("DD-MM-YYYY")+'</div>';
 					}
 				}
 				
 				addToContainer(random,returnDates);
-				console.log(returnDates);
 			});
 		});
 	}
@@ -90,19 +91,35 @@ function loadTrash (random,trashobject) {
 					returnDates[curr] = {}
 				}
 				
-				var startDate = moment(moment().format("DD-MM-YYYY"), "DD-MM-YYYY");
-				var endDate = moment(moment(Date.now() + 32 * 24 * 3600 * 1000).format("DD-MM-YYYY"), "DD-MM-YYYY");
 				var testDate = moment(data[d]['date'], "YYYY-MM-DD");
-
 				if(testDate.isBetween(startDate, endDate, 'days', true)){
-						
-					returnDates[curr][moment(moment(data[d]['date'], "YYYY-MM-DD")).format("YYYY-MM-DD")+teller]='<div>'+data[d]['nameType']+': '+moment(moment(data[d]['date'], "YYYY-MM-DD")).format("DD-MM-YYYY")+'</div>';
+					returnDates[curr][testDate.format("YYYY-MM-DD")+'_'+teller]='<div>'+data[d]['nameType']+': '+testDate.format("DD-MM-YYYY")+'</div>';
 					teller++;
 				}
 			}
 			
 			addToContainer(random,returnDates);
 
+		});
+	}
+	if(service=='hvc'){
+		$.getJSON('https://cors-anywhere.herokuapp.com/http://inzamelkalender.hvcgroep.nl/push/calendar?postcode=' + postcode + '&huisnummer=' + homenumber,function(data){
+			for(d in data){
+				curr = data[d].naam;
+				if(typeof(returnDates[curr])=='undefined'){
+					returnDates[curr] = {}
+				}
+
+				for(dt in data[d].dateTime){
+					
+					var testDate = moment(data[d].dateTime[dt].date);
+					if(testDate.isBetween(startDate, endDate, 'days', true)){
+						returnDates[curr][testDate.format("YYYY-MM-DD")+'_'+teller]='<div>'+curr+': '+testDate.format("DD-MM-YYYY")+'</div>';
+					}
+				}
+			}
+			
+			addToContainer(random,returnDates);
 		});
 	}
 	if(service=='recyclemanager'){
@@ -114,12 +131,9 @@ function loadTrash (random,trashobject) {
 						returnDates[curr] = {}
 					}
 
-					var startDate = moment(moment().format("DD-MM-YYYY"), "DD-MM-YYYY");
-					var endDate = moment(moment(Date.now() + 32 * 24 * 3600 * 1000).format("DD-MM-YYYY"), "DD-MM-YYYY");
 					var testDate = moment(moment(data.data[d].occurrences[o].from.date), "YYYY-MM-DD");
 					if(testDate.isBetween(startDate, endDate, 'days', true)){
-
-						returnDates[curr][moment(moment(data.data[d].occurrences[o].from.date)).format("YYYY-MM-DD")+teller]='<div>'+curr+': '+moment(moment(data.data[d].occurrences[o].from.date)).format("DD-MM-YYYY")+'</div>';
+						returnDates[curr][testDate.format("YYYY-MM-DD")+'_'+teller]='<div>'+curr+': '+testDate.format("DD-MM-YYYY")+'</div>';
 					}
 				}
 			}
@@ -146,8 +160,10 @@ function addToContainer(random,returnDates){
    $('.trash'+random+' .state').html('');
    var c=1;
    Object.keys(returnDatesSimple).sort().forEach(function(key) {
-
-      var date = moment(key).format("DD-MM-YYYY");
+	  
+	   var skey = key.split('_');
+	   skey = skey[0];
+      var date = moment(skey).format("DD-MM-YYYY");
       var currentdate = moment(Date.now()).format("DD-MM-YYYY");
       var tomorrow = moment(new Date()).add(1,'days').format("DD-MM-YYYY")
       var nextweek = (moment(new Date()).add(6,'days').format("DD-MM-YYYY"))
