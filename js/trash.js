@@ -50,7 +50,7 @@ function loadTrash (random,trashobject) {
 		});
 	}
 	
-	if(service=='cure' || service=='cyclusnv' || service=='rmn' || service=='circulusberkel' || service=='gemeenteberkelland' || service=='meerlanden' || service=='venray'){
+	if(service=='cure' || service=='cyclusnv' || service=='alphenaandenrijn' || service=='rmn' || service=='circulusberkel' || service=='gemeenteberkelland' || service=='meerlanden' || service=='venray'){
 		$('.trash'+random+' .state').html('');
 	
 		var baseURL = '';
@@ -61,9 +61,12 @@ function loadTrash (random,trashobject) {
 		if(service=='venray') baseURL = 'https://afvalkalender.venray.nl';
 		if(service=='circulusberkel') baseURL = 'https://afvalkalender.circulus-berkel.nl';
 		if(service=='rmn') baseURL = 'https://inzamelschema.rmn.nl';
+		if(service=='alphenaandenrijn') baseURL = 'http://afvalkalender.alphenaandenrijn.nl';
 		
-		$.getJSON(baseURL + '/rest/adressen/' + postcode + '-' + homenumber,function(data){
-			$.getJSON(baseURL + '/rest/adressen/'+data[0].bagId+'/afvalstromen',function(data){
+		$.getJSON('https://cors-anywhere.herokuapp.com/'+baseURL + '/rest/adressen/' + postcode + '-' + homenumber,function(data){
+			$.getJSON('https://cors-anywhere.herokuapp.com/'+baseURL + '/rest/adressen/'+data[0].bagId+'/afvalstromen',function(data){
+				
+				console.log(data);
 				for(d in data){
 					if(data[d]['ophaaldatum']!==null){
 						if(typeof(returnDates[curr])=='undefined'){
@@ -74,12 +77,12 @@ function loadTrash (random,trashobject) {
 				}
 				
 				addToContainer(random,returnDates);
-				
+				console.log(returnDates);
 			});
 		});
 	}
 	if(service=='mijnafvalwijzer'){
-		$.getJSON('http://json.mijnafvalwijzer.nl/?method=postcodecheck&postcode=' + postcode + '&street=&huisnummer=' + homenumber + '&toevoeging=',function(data){
+		$.getJSON('https://cors-anywhere.herokuapp.com/http://json.mijnafvalwijzer.nl/?method=postcodecheck&postcode=' + postcode + '&street=&huisnummer=' + homenumber + '&toevoeging=',function(data){
 			data = data.data.ophaaldagen.data;
 			for(d in data){
 				if(typeof(returnDates[curr])=='undefined'){
