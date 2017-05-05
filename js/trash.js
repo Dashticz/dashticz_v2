@@ -50,7 +50,7 @@ function loadTrash (random,trashobject) {
 		});
 	}
 	
-	if(service=='cure' || service=='cyclusnv' || service=='gemeenteberkelland' || service=='meerlanden' || service=='venray'){
+	if(service=='cure' || service=='cyclusnv' || service=='circulusberkel' || service=='gemeenteberkelland' || service=='meerlanden' || service=='venray'){
 		$('.trash'+random+' .state').html('');
 	
 		var baseURL = '';
@@ -59,6 +59,7 @@ function loadTrash (random,trashobject) {
 		if(service=='gemeenteberkelland') baseURL = 'https://afvalkalender.gemeenteberkelland.nl';
 		if(service=='meerlanden') baseURL = 'https://afvalkalender.meerlanden.nl';
 		if(service=='venray') baseURL = 'https://afvalkalender.venray.nl';
+		if(service=='circulusberkel') baseURL = 'https://afvalkalender.circulus-berkel.nl';
 			
 		$.getJSON(baseURL + '/rest/adressen/' + postcode + '-' + homenumber,function(data){
 			$.getJSON(baseURL + '/rest/adressen/'+data[0].bagId+'/afvalstromen',function(data){
@@ -91,6 +92,29 @@ function loadTrash (random,trashobject) {
 				if(testDate.isBetween(startDate, endDate, 'days', true)){
 						
 					returnDates[curr][moment(moment(data[d]['date'], "YYYY-MM-DD")).format("YYYY-MM-DD")]='<div>'+data[d]['nameType']+': '+moment(moment(data[d]['date'], "YYYY-MM-DD")).format("DD-MM-YYYY")+'</div>';
+				}
+			}
+			
+			addToContainer(random,returnDates);
+
+		});
+	}
+	if(service=='recyclemanager'){
+		$.getJSON('https://vpn-wec-api.recyclemanager.nl/v2/calendars?postalcode=' + postcode + '&number=' + homenumber,function(data){
+			for(d in data.data){
+				for(o in data.data[d].occurrences){
+					curr = data.data[d].occurrences[o].title;
+					if(typeof(returnDates[curr])=='undefined'){
+						returnDates[curr] = {}
+					}
+
+					var startDate = moment(moment().format("DD-MM-YYYY"), "DD-MM-YYYY");
+					var endDate = moment(moment(Date.now() + 32 * 24 * 3600 * 1000).format("DD-MM-YYYY"), "DD-MM-YYYY");
+					var testDate = moment(moment(data.data[d].occurrences[o].from.date), "YYYY-MM-DD");
+					if(testDate.isBetween(startDate, endDate, 'days', true)){
+
+						returnDates[curr][moment(moment(data.data[d].occurrences[o].from.date)).format("YYYY-MM-DD")]='<div>'+curr+': '+moment(moment(data.data[d].occurrences[o].from.date)).format("DD-MM-YYYY")+'</div>';
+					}
 				}
 			}
 			
