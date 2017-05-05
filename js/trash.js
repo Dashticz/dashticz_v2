@@ -12,7 +12,7 @@ function loadTrash (random,trashobject) {
 	
 	var width = 12;
 	if(typeof(trashobject.width)!=='undefined') width=trashobject.width;
-	var html='<div class="trash'+random+' col-xs-'+width+' mh transbg">';
+	var html='<div class="trash'+random+' col-xs-'+width+' transbg">';
 		html+='<div class="col-xs-4 col-icon">';
 			html+='<img class="trashcan" src="img/kliko.png" />';
 		html+='</div>';
@@ -159,8 +159,8 @@ function addToContainer(random,returnDates){
          returnDatesSimple[key] = (returnDatesSimple[key]).replace(date, lang['tomorrow']);
          }
       else if(date <= nextweek){
-         returnDatesSimple[key] = (returnDatesSimple[key]).replace(date, moment(moment(date).format("DD-MM-YYYY")).locale('nl').format("dddd"));
-         }   
+	 	returnDatesSimple[key] = (returnDatesSimple[key]).replace(date, moment(moment(date).format("DD-MM-YYYY")).locale('nl').format("dddd"));
+	  }   
       else {
          //console.log(date)
       }
