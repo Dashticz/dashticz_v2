@@ -149,11 +149,23 @@ function addToContainer(random,returnDates){
 
       var date = moment(key).format("DD-MM-YYYY");
       var currentdate = moment(Date.now()).format("DD-MM-YYYY");
+      var tomorrow = moment(new Date()).add(1,'days').format("DD-MM-YYYY")
+      var nextweek = (moment(new Date()).add(6,'days').format("DD-MM-YYYY"))
+   
       if(date == currentdate){
-		  returnDatesSimple[key] = (returnDatesSimple[key]).replace(date, "Vandaag");
-	  }
+         returnDatesSimple[key] = (returnDatesSimple[key]).replace(date, lang['today']);
+         }   
+      else if(date == tomorrow){
+         returnDatesSimple[key] = (returnDatesSimple[key]).replace(date, lang['tomorrow']);
+         }
+      else if(date <= nextweek){
+         returnDatesSimple[key] = (returnDatesSimple[key]).replace(date, moment(moment(date).format("DD-MM-YYYY")).locale('nl').format("dddd"));
+         }   
+      else {
+         //console.log(date)
+      }
          
-      if(c<=3) $('.trash'+random+' .state').append(returnDatesSimple[key]);
+      if(c<=4) $('.trash'+random+' .state').append(returnDatesSimple[key]);
       c++;
    });
 }
