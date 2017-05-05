@@ -8,6 +8,7 @@ function loadTrash (random,trashobject) {
 	var dates = {};
     var curr = '';
     var data = '';
+	var teller=0;
 	
 	var width = 12;
 	if(typeof(trashobject.width)!=='undefined') width=trashobject.width;
@@ -41,7 +42,7 @@ function loadTrash (random,trashobject) {
 						if(typeof(returnDates[curr])=='undefined'){
 							returnDates[curr] = {}
 						}
-						returnDates[curr][moment(moment(respArray[i], "DD-MM-YYYY")).format("YYYY-MM-DD")]='<div>'+curr+': '+respArray[i]+'</div>';
+						returnDates[curr][moment(moment(respArray[i], "DD-MM-YYYY")).format("YYYY-MM-DD")+teller]='<div>'+curr+': '+respArray[i]+'</div>';
 					}
 				}
 			}
@@ -72,7 +73,7 @@ function loadTrash (random,trashobject) {
 						if(typeof(returnDates[curr])=='undefined'){
 							returnDates[curr] = {}
 						}
-						returnDates[curr][moment(moment(data[d]['ophaaldatum'], "YYYY-MM-DD")).format("YYYY-MM-DD")]='<div>'+data[d]['menu_title']+': '+moment(moment(data[d]['ophaaldatum'], "YYYY-MM-DD")).format("DD-MM-YYYY")+'</div>';
+						returnDates[curr][moment(moment(data[d]['ophaaldatum'], "YYYY-MM-DD")).format("YYYY-MM-DD")+teller]='<div>'+data[d]['menu_title']+': '+moment(moment(data[d]['ophaaldatum'], "YYYY-MM-DD")).format("DD-MM-YYYY")+'</div>';
 					}
 				}
 				
@@ -95,7 +96,8 @@ function loadTrash (random,trashobject) {
 
 				if(testDate.isBetween(startDate, endDate, 'days', true)){
 						
-					returnDates[curr][moment(moment(data[d]['date'], "YYYY-MM-DD")).format("YYYY-MM-DD")]='<div>'+data[d]['nameType']+': '+moment(moment(data[d]['date'], "YYYY-MM-DD")).format("DD-MM-YYYY")+'</div>';
+					returnDates[curr][moment(moment(data[d]['date'], "YYYY-MM-DD")).format("YYYY-MM-DD")+teller]='<div>'+data[d]['nameType']+': '+moment(moment(data[d]['date'], "YYYY-MM-DD")).format("DD-MM-YYYY")+'</div>';
+					teller++;
 				}
 			}
 			
@@ -117,7 +119,7 @@ function loadTrash (random,trashobject) {
 					var testDate = moment(moment(data.data[d].occurrences[o].from.date), "YYYY-MM-DD");
 					if(testDate.isBetween(startDate, endDate, 'days', true)){
 
-						returnDates[curr][moment(moment(data.data[d].occurrences[o].from.date)).format("YYYY-MM-DD")]='<div>'+curr+': '+moment(moment(data.data[d].occurrences[o].from.date)).format("DD-MM-YYYY")+'</div>';
+						returnDates[curr][moment(moment(data.data[d].occurrences[o].from.date)).format("YYYY-MM-DD")+teller]='<div>'+curr+': '+moment(moment(data.data[d].occurrences[o].from.date)).format("DD-MM-YYYY")+'</div>';
 					}
 				}
 			}
