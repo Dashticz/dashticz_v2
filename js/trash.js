@@ -50,7 +50,7 @@ function loadTrash (random,trashobject) {
 		});
 	}
 	
-	if(service=='cure' || service=='cyclusnv' || service=='circulusberkel' || service=='gemeenteberkelland' || service=='meerlanden' || service=='venray'){
+	if(service=='cure' || service=='cyclusnv' || service=='rmn' || service=='circulusberkel' || service=='gemeenteberkelland' || service=='meerlanden' || service=='venray'){
 		$('.trash'+random+' .state').html('');
 	
 		var baseURL = '';
@@ -60,7 +60,8 @@ function loadTrash (random,trashobject) {
 		if(service=='meerlanden') baseURL = 'https://afvalkalender.meerlanden.nl';
 		if(service=='venray') baseURL = 'https://afvalkalender.venray.nl';
 		if(service=='circulusberkel') baseURL = 'https://afvalkalender.circulus-berkel.nl';
-			
+		if(service=='rmn') baseURL = 'https://inzamelschema.rmn.nl';
+		
 		$.getJSON(baseURL + '/rest/adressen/' + postcode + '-' + homenumber,function(data){
 			$.getJSON(baseURL + '/rest/adressen/'+data[0].bagId+'/afvalstromen',function(data){
 				for(d in data){
