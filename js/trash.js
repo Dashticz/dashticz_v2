@@ -192,6 +192,7 @@ function addToContainer(random,returnDates){
       }
       else if(date <= nextweek){
 	 	returnDatesSimple[key] = returnDatesSimple[key].replace(date, moment(moment(date).format("DD-MM-YYYY")).locale('nl').format("dddd"));
+		returnDatesSimple[key] = returnDatesSimple[key].charAt(0).toUpperCase() + date.slice(1);
 	  }   
       else {
          //console.log(date)
