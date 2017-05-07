@@ -841,7 +841,7 @@ function addStreamPlayer(streamelement){
 
 function addThermostatFunctions(thermelement){
 									
-	$(thermelement+' .btn-number').click(function(e) {
+	$(document).delegate((thermelement+' .btn-number'),"click",function(e){
 		sliding=true;
 	  fieldName = $(this).attr('data-field');
 	  type = $(this).attr('data-type');
