@@ -161,43 +161,39 @@ function getTrashRow(c,d){
 }
 
 function addToContainer(random,returnDates){
-   //console.log(returnDates);
-	
-   var returnDatesSimple={}
-   var done = {};
-   for(c in returnDates){
-      for(cr in returnDates[c]){
-         returnDatesSimple[cr] = returnDates[c][cr];
-         done[c]=true;
-      }
-   }
+	var returnDatesSimple={}
+	var done = {};
+	for(c in returnDates){
+		for(cr in returnDates[c]){
+			returnDatesSimple[cr] = returnDates[c][cr];
+			done[c]=true;
+		}
+	}
 
-   $('.trash'+random+' .state').html('');
-   var c=1;
+	$('.trash'+random+' .state').html('');
+	var c=1;
 	
-   Object.keys(returnDatesSimple).sort().forEach(function(key) {
-	  
-	   var skey = key.split('_');
-	   skey = skey[0];
-      var date = moment(skey).format("DD-MM-YYYY");
-      var currentdate = moment(Date.now()).format("DD-MM-YYYY");
-      var tomorrow = moment(new Date()).add(1,'days').format("DD-MM-YYYY")
-      var nextweek = (moment(new Date()).add(6,'days').format("DD-MM-YYYY"))
-   
-      if(date == currentdate){
-         returnDatesSimple[key] = returnDatesSimple[key].replace(date, lang['today']);
-      }   
-      else if(date == tomorrow){
-         returnDatesSimple[key] = returnDatesSimple[key].replace(date, lang['tomorrow']);
-      }
-      else if(date <= nextweek){
-	 	returnDatesSimple[key] = returnDatesSimple[key].replace(date, moment(moment(date).format("DD-MM-YYYY")).locale('nl').format("dddd"));
-	  }   
-      else {
-         //console.log(date)
-      }
-        
-      if(c<=4) $('.trash'+random+' .state').append(returnDatesSimple[key]);
-      c++;
-   });
+	Object.keys(returnDatesSimple).sort().forEach(function(key) {
+
+		var skey = key.split('_');
+		skey = skey[0];
+		var date = moment(skey).format("DD-MM-YYYY");
+		var currentdate = moment(Date.now()).format("DD-MM-YYYY");
+		var tomorrow = moment(new Date()).add(1,'days').format("DD-MM-YYYY")
+		var nextweek = (moment(new Date()).add(6,'days').format("DD-MM-YYYY"))
+
+		if(date == currentdate){
+			returnDatesSimple[key] = returnDatesSimple[key].replace(date, lang['today']);
+		}   
+		else if(date == tomorrow){
+			returnDatesSimple[key] = returnDatesSimple[key].replace(date, lang['tomorrow']);
+		}
+		else if(date <= nextweek){
+			returnDatesSimple[key] = returnDatesSimple[key].replace(date, moment(moment(date).format("DD-MM-YYYY")).locale('nl').format("dddd"));
+		}  
+
+		if(c<=4) $('.trash'+random+' .state').append(returnDatesSimple[key]);
+		c++;
+		
+	});
 }
