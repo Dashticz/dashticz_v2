@@ -183,6 +183,7 @@ function loadTrash (random,trashobject) {
 }
 
 function getTrashRow(c,d){
+	if(typeof(trashnames[c])!=='undefined') c = trashnames[c];
 	return '<div>'+c+': '+d.format("DD-MM-YYYY")+'</div>';
 }
 
@@ -215,8 +216,9 @@ function addToContainer(random,returnDates){
 			returnDatesSimple[key] = returnDatesSimple[key].replace(date, lang['tomorrow']);
 		}
 		else if(date <= nextweek){
-			returnDatesSimple[key] = returnDatesSimple[key].replace(date, moment(moment(date).format("DD-MM-YYYY")).locale('nl').format("dddd"));
-			returnDatesSimple[key] = returnDatesSimple[key].charAt(0).toUpperCase() + returnDatesSimple[key].slice(1);
+			var datename = moment(moment(date).format("DD-MM-YYYY")).locale('nl').format("dddd");
+			datename = datename.charAt(0).toUpperCase() + datename.slice(1);
+			returnDatesSimple[key] = returnDatesSimple[key].replace(date, datename);
 		}  
 
 		if(c<=4) $('.trash'+random+' .state').append(returnDatesSimple[key]);
