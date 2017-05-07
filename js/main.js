@@ -485,24 +485,24 @@ if(parseFloat(_STANDBY_AFTER_MINUTES)>0){
       }
    },5000);
 
-   function disableStandby(){
-     
-	 if(standbyActive==true){
-         standbyTime=0;
-         if(typeof(_END_STANDBY_CALL_URL)!=='undefined' && _END_STANDBY_CALL_URL!==''){
-               $.get(_END_STANDBY_CALL_URL);
-         }
-      }
-	  
-	  if(objectlength(columns_standby)>0){
-		$('div.screen').show();
-	  }
-	  $('.screenstandby').remove();
-      $('body').removeClass('standby');
-	  $('.swiper-container').show();
-      standbyActive=false;
-	 
-   }
+}
+function disableStandby(){
+
+ if(standbyActive==true){
+	 standbyTime=0;
+	 if(typeof(_END_STANDBY_CALL_URL)!=='undefined' && _END_STANDBY_CALL_URL!==''){
+		   $.get(_END_STANDBY_CALL_URL);
+	 }
+  }
+
+  if(objectlength(columns_standby)>0){
+	$('div.screen').show();
+  }
+  $('.screenstandby').remove();
+  $('body').removeClass('standby');
+  $('.swiper-container').show();
+  standbyActive=false;
+
 }
 //END OF STANDBY FUNCTION
 
