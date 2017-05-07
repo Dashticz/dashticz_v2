@@ -183,8 +183,10 @@ function loadTrash (random,trashobject) {
 }
 
 function getTrashRow(c,d){
+	color='';
+	if(typeof(trashcolors[c])!=='undefined') color=' style="color:'+trashcolors[c]+'";';
 	if(typeof(trashnames[c])!=='undefined') c = trashnames[c];
-	return '<div>'+c+': '+d.format("DD-MM-YYYY")+'</div>';
+	return '<div'+color+'>'+c+': '+d.format("DD-MM-YYYY")+'</div>';
 }
 
 function addToContainer(random,returnDates){
