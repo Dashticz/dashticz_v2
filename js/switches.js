@@ -45,13 +45,16 @@ function switchDevice(cur){
 }
 
 function switchThermostat(setpoint,cur){
+	sliding = true;
 	var idx = $(cur).data('light');	
 	if(typeof(req)!=='undefined') req.abort();
-	$.ajax({
+	req = $.ajax({
 		url: _HOST_DOMOTICZ+'/json.htm?type=command&param=setsetpoint&idx='+idx+'&setpoint='+setpoint+'&jsoncallback=?',
 		type: 'GET',async: false,contentType: "application/json",dataType: 'jsonp',
 		success:function(data) {
-			getDevices(true);
+			
+			sliding = false;
+			//getDevices(true);
 		}
 	});
 }
