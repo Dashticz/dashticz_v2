@@ -184,8 +184,8 @@ function loadTrash (random,trashobject) {
 
 function getTrashRow(c,d){
 	color='';
-	if(typeof(trashcolors[c])!=='undefined') color=' style="color:'+trashcolors[c]+'";';
-	if(typeof(trashnames[c])!=='undefined') c = trashnames[c];
+	if(typeof(trashcolors)!=='undefined' && typeof(trashcolors[c])!=='undefined') color=' style="color:'+trashcolors[c]+'";';
+	if(typeof(trashnames)!=='undefined' && typeof(trashnames[c])!=='undefined') c = trashnames[c];
 	return '<div'+color+'>'+c+': '+d.format("DD-MM-YYYY")+'</div>';
 }
 
