@@ -1294,7 +1294,7 @@ function getDevices(override){
 									html+='</div>';
 								}
 								else if((device['Type']=='Thermostat' || device['HardwareType']=='Toon Thermostat') && device['SubType']=='SetPoint'){
-
+									
 									html+=iconORimage(idx+'_1','','heating.png','on icon','style="max-height:35px;"');
 									html+='<div class="col-xs-8 col-data">';
 										if(typeof(blocks[idx])!=='undefined' && typeof(blocks[idx]['switch'])!=='undefined' && blocks[idx]['switch']==true){
@@ -1334,11 +1334,11 @@ function getDevices(override){
 
 									html+='</div>';
 
-									$('div.block_'+idx+'_2').addClass('thermostat'+random).html(html);
-									$('div.block_'+idx).addClass('thermostat'+random).html(html);
+									$('div.block_'+idx+'_2').html(html);
+									$('div.block_'+idx).html(html);
 									addHTML=false;
 
-									addThermostatFunctions('.thermostat'+random);
+									addThermostatFunctions('.block_'+idx+'_2');
 								}
 								else if(device['SwitchType']=='Door Contact' || device['SwitchType']=='Door Lock'){
 									html+='<div class="col-xs-4 col-icon">';
