@@ -29,7 +29,7 @@ function switchDevice(cur){
 			url: _HOST_DOMOTICZ+'/json.htm?type=command&param=switchscene&idx='+idx.replace('s','')+'&switchcmd='+doStatus+'&level=0&passcode=&jsoncallback=?',
 			type: 'GET',async: false,contentType: "application/json",dataType: 'jsonp',
 			success:function(data) {
-				getDevices();
+				getDevices(true);
 			}
 		});
 	}
@@ -38,7 +38,7 @@ function switchDevice(cur){
 			url: _HOST_DOMOTICZ+'/json.htm?type=command&param=switchlight&idx='+idx+'&switchcmd='+doStatus+'&level=0&passcode=&jsoncallback=?',
 			type: 'GET',async: false,contentType: "application/json",dataType: 'jsonp',
 			success:function(data) {
-				getDevices();
+				getDevices(true);
 			}
 		});
 	}
@@ -51,7 +51,7 @@ function switchThermostat(setpoint,cur){
 		url: _HOST_DOMOTICZ+'/json.htm?type=command&param=setsetpoint&idx='+idx+'&setpoint='+setpoint+'&jsoncallback=?',
 		type: 'GET',async: false,contentType: "application/json",dataType: 'jsonp',
 		success:function(data) {
-			getDevices();
+			getDevices(true);
 		}
 	});
 }
@@ -71,7 +71,7 @@ function switchBlinds(idx,action){
 		url: _HOST_DOMOTICZ+'/json.htm?type=command&param=switchlight&idx='+idx+'&switchcmd='+action+'&level=0&passcode=&jsoncallback=?',
 		type: 'GET',async: false,contentType: "application/json",dataType: 'jsonp',
 		success:function(data) {
-			getDevices();
+			getDevices(true);
 		}
 	});
 }
@@ -79,15 +79,14 @@ function switchBlinds(idx,action){
 function switchDeviceBtn(cur,url){
 	if(url!==""){
 		sliding = true;
-		setTimeout(function(){ sliding = false; },5000);
 		if(typeof(req)!=='undefined') req.abort();	
 		
 		var url = decodeURIComponent(url);
 		$.ajax({
 			url: url+'&jsoncallback=?',
 			type: 'GET',async: false,contentType: "application/json",dataType: 'jsonp',
-			success:function(data) {
-				getDevices();
+			done:function(data) {
+				getDevices(true);
 			}
 		});
 	}
@@ -112,18 +111,29 @@ function switchGroup(cur){
 		url: _HOST_DOMOTICZ+'/json.htm?type=command&param=switchscene&idx='+idx.replace('s','')+'&switchcmd='+doStatus+'&level=0&passcode=&jsoncallback=?',
 		type: 'GET',async: false,contentType: "application/json",dataType: 'jsonp',
 		success:function(data) {
-			getDevices();
+			getDevices(true);
 		}
 	});
 }
 
 function slideDevice(idx,status){
 	if(typeof(slide)!=='undefined') slide.abort();
+	
+	var doStatus='On';
+	$('.block_'+idx).find('.icon').removeClass('off');
+	$('.block_'+idx).find('.icon').addClass('on');
+
+	if($('.block_'+idx).find('.fa-toggle-off').length>0){
+		$('.block_'+idx).find('.fa-toggle-off').addClass('fa-toggle-on').removeClass('fa-toggle-off');
+	}
+
+	$('.block_'+idx).find('.state').html(lang.state_on);
+	
 	slide = $.ajax({
 		url: _HOST_DOMOTICZ+'/json.htm?type=command&param=switchlight&idx='+idx+'&switchcmd=Set%20Level&level='+status+'&jsoncallback=?',
 		type: 'GET',async: false,contentType: "application/json",dataType: 'jsonp',
 		success:function(data) {
-			getDevices();
+			getDevices(true);
 		}
 	});
 }
@@ -137,7 +147,7 @@ function controlLogitech(idx,action){
 		url: _HOST_DOMOTICZ+'/json.htm?type=command&param=lmsmediacommand&idx='+idx+'&action='+action+'&jsoncallback=?',
 		type: 'GET',async: true,contentType: "application/json",dataType: 'jsonp',
 		success: function(data) {
-			getDevices();
+			getDevices(true);
 		}
 	});
 }

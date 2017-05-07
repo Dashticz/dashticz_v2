@@ -898,8 +898,9 @@ function addThermostatFunctions(thermelement){
 	});
 }
 
-function getDevices(){
-	if(!sliding){
+function getDevices(override){
+	if(typeof(override)=='undefined') override=false;
+	if(!sliding || override){
 		if(typeof(req)!=='undefined') req.abort();
 		req = $.getJSONP({
 			url: _HOST_DOMOTICZ+'/json.htm?type=devices&filter=all&used=true&order=Name&jsoncallback=?',
@@ -909,7 +910,7 @@ function getDevices(){
 			},
 			success: function(data) {
 				if(typeof(_DEBUG)!=='undefined' && _DEBUG) data = $.parseJSON(jsonexample);
-				if(!sliding){
+				if(!sliding || override){
 					$('.solar').remove();
 				
 					if($('.sunrise').length>0) $('.sunrise').html(data.Sunrise);
@@ -1237,7 +1238,7 @@ function getDevices(){
 									}
 									else /*if(parseFloat(device['MaxDimLevel'])==15)*/{
 										$( ".slider"+device['idx'] ).slider({
-											value:Math.ceil((device['Level']/100)*15),
+											value:Math.ceil((device['Level']/100)*16),
 											step: 1,
 											min:2,
 											max:15,
