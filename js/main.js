@@ -24,20 +24,40 @@ if(typeof(_SCREENSLIDER_EFFECT )=='undefined') var _SCREENSLIDER_EFFECT  = 'slid
 if(typeof(_ICALENDAR_URL )=='undefined') var _ICALENDAR_URL  = '';
 if(typeof(_ICALENDAR_DATEFORMAT )=='undefined') var _ICALENDAR_DATEFORMAT  = 'DD.MM.YYYY HH:mm';
 if(typeof(_ICALENDAR_LOCALE )=='undefined') var _ICALENDAR_LOCALE  = 'en';
-if(typeof(_DASHTICZ_REFRESH )=='undefined') var _DASHTICZ_REFRESH  = 60;
+if(typeof(_DASHTICZ_REFRESH )=='undefined') var _DASHTICZ_REFRESH  = 120;
 if(typeof(_USE_STATIC_WEATHERICONS )=='undefined') var _USE_STATIC_WEATHERICONS  = false;
+if(typeof(_SAVED_COLORS )=='undefined') var _SAVED_COLORS  = [];
+if(typeof(_EDIT_MODE )=='undefined') var _EDIT_MODE  = false;
+if(typeof(_THEME)=='undefined') var _THEME  = 'default';
 
 var _TEMP_SYMBOL = '°C';
 if(_USE_FAHRENHEIT) _TEMP_SYMBOL = '°F';
 
+var cache = new Date().getTime();
+$('<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">').appendTo("head");
+$('<link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">').appendTo("head");
+$('<link href="fonts/opensans/open-sans.css" rel="stylesheet" type="text/css">').appendTo("head");
+$('<link href="vendor/weather/css/weather-icons.min.css?v='+cache+'" rel="stylesheet">').appendTo("head");
+$('<link href="vendor/jquery/jquery-ui.css" rel="stylesheet">').appendTo("head");
+$('<link href="vendor/morrisjs/morris.css" rel="stylesheet">').appendTo("head");
+$('<link href="vendor/swiper/css/swiper.min.css" rel="stylesheet">').appendTo("head");
+$('<link href="vendor/spectrum/spectrum.css" rel="stylesheet">').appendTo("head");
+$('<link href="css/creative.css?v='+cache+'" rel="stylesheet">').appendTo("head");
+$('<link href="css/sortable.css?v='+cache+'" rel="stylesheet">').appendTo("head");
+
+
+
 $.ajax({url: 'vendor/jquery/jquery-ui.js', async: false,dataType: "script"});
 $.ajax({url: 'vendor/jquery/touchpunch.js', async: false,dataType: "script"});
 $.ajax({url: 'vendor/bootstrap/js/bootstrap.min.js', async: false,dataType: "script"});
-$.ajax({url: 'js/functions.js', async: false,dataType: "script"});
+$.ajax({url: 'js/functions.js?v='+cache, async: false,dataType: "script"});
 		
-$.ajax({url: 'custom/CONFIG.js', async: false,dataType: "script"});
-$.ajax({url: 'lang/'+_LANGUAGE+'.js', async: false,dataType: "script"});
-
+$.ajax({url: 'custom/CONFIG.js?v='+cache, async: false,dataType: "script"});
+$.ajax({url: 'lang/'+_LANGUAGE+'.js?v='+cache, async: false,dataType: "script"});
+if(_THEME!=='default'){
+	$('<link rel="stylesheet" type="text/css" href="themes/'+_THEME+'/'+_THEME+'.css?v='+cache+'" />').appendTo("head");
+}
+$('<link href="custom/custom.css?v='+cache+'" rel="stylesheet">').appendTo("head");
 $.ajax({url: 'vendor/raphael/raphael-min.js', async: false,dataType: "script"});
 $.ajax({url: 'vendor/morrisjs/morris.min.js', async: false,dataType: "script"});
 $.ajax({url: 'vendor/moment.js', async: false,dataType: "script"});
@@ -49,11 +69,14 @@ $.ajax({url: 'vendor/skycons/skycons.js', async: false,dataType: "script"});
 $.ajax({url: 'vendor/spectrum/spectrum.js', async: false,dataType: "script"});
 $.ajax({url: 'js/sortable.js', async: false,dataType: "script"});
 $.ajax({url: 'js/switches.js', async: false,dataType: "script"});
+$.ajax({url: 'js/trash.js', async: false,dataType: "script"});
+
 if(typeof(_DEBUG)!=='undefined' && _DEBUG){
 	$.ajax({url: 'custom/json_vb.js', async: false,dataType: "script"});
 	$.ajax({url: 'custom/graph_vb.js', async: false,dataType: "script"});
 }
-$.ajax({url: 'custom/custom.js', async: false,dataType: "script"});
+
+$.ajax({url: 'custom/custom.js?v='+cache, async: false,dataType: "script"});
 $.ajax({url: 'js/blocks.js', async: false,dataType: "script"});
 $.ajax({url: 'js/graphs.js', async: false,dataType: "script"});
 
@@ -102,6 +125,11 @@ $.ajax({url: 'js/switches.js', async: false,dataType: "script"});
 $.ajax({url: 'js/blocks.js', async: false,dataType: "script"});
 $.ajax({url: 'js/graphs.js', async: false,dataType: "script"});
 $(document).ready(function(){	
+	
+	if(_EDIT_MODE){
+		$('body').append('<div class="editmode">EDIT MODE</div>');	
+	}
+	
 	$('body').attr('unselectable','on')
      .css({'-moz-user-select':'-moz-none',
            '-moz-user-select':'none',
@@ -116,33 +144,19 @@ $(document).ready(function(){
 	
 	if(typeof(_APIKEY_MAPS)!=='undefined' && _APIKEY_MAPS!=="") $.ajax({url: 'https://maps.googleapis.com/maps/api/js?key='+_APIKEY_MAPS+'&callback=initMap', async: true,dataType: "script"});
 	
-	setTimeout(function(){
-		if(objectlength(screens)>1 && (typeof(_EDIT_MODE)=='undefined' || _EDIT_MODE===false)){
-			myswiper = new Swiper('.swiper-container', {
-				pagination: '.swiper-pagination',
-				paginationClickable: true,
-				loop: true,
-				effect: _SCREENSLIDER_EFFECT,
-				keyboardControl:true
-			});
-		}
-	},2000);
-	setTimeout(function(){
-		setInterval(function(){ 
-			if(_HIDE_SECONDS_IN_CLOCK==true) $('.clock').html(moment().locale(_LANGUAGE.substr(0,2)).format('HH:mm'));
-			else $('.clock').html(moment().locale(_LANGUAGE.substr(0,2)).format('HH:mm:ss'));
-			$('.date').html(moment().locale(_LANGUAGE.substr(0,2)).format('D MMMM YYYY'));
-			$('.weekday').html(moment().locale(_LANGUAGE.substr(0,2)).format('dddd'));
-		},1000);
-		
-		getDevices(); 		
-	},750);
+	setInterval(function(){ 
+		if(_HIDE_SECONDS_IN_CLOCK==true) $('.clock').html(moment().locale(_LANGUAGE.substr(0,2)).format('HH:mm'));
+		else $('.clock').html(moment().locale(_LANGUAGE.substr(0,2)).format('HH:mm:ss'));
+		$('.date').html(moment().locale(_LANGUAGE.substr(0,2)).format('D MMMM YYYY'));
+		$('.weekday').html(moment().locale(_LANGUAGE.substr(0,2)).format('dddd'));
+	},1000);
+
+	getDevices(); 	
 	
 	setClassByTime();
 	setInterval(function(){ 
 		setClassByTime();
 	},(60000));
-	
 	
 	setTimeout(function(){
 		document.location.href=document.location.href;
@@ -152,8 +166,8 @@ $(document).ready(function(){
 
 function toSlide(num){
 	if(typeof(myswiper)!=='undefined') myswiper.slideTo( num,1000,false );
-	
 }
+
 function buildStandby(){
 	
 	if($('.screenstandby').length==0){
@@ -163,12 +177,11 @@ function buildStandby(){
 
 		for(c in columns_standby){
 			$('div.screenstandby .row').append('<div class="col-xs-'+columns_standby[c]['width']+' colstandby'+c+'"></div>');
-			for(b in columns_standby[c]['blocks']){
-				$('.block_'+columns_standby[c]['blocks'][b]).first().clone().appendTo('.colstandby'+c);
-			}
+			getBlock(columns_standby[c],c,'div.screenstandby .row .colstandby'+c,true);	
 		}
 	}
 }
+
 function buildScreens(){
 	var num=1;
 
@@ -181,125 +194,7 @@ function buildScreens(){
 		if(defaultcolumns===false){
 			for(cs in screens[s]['columns']){
 				c = screens[s]['columns'][cs];
-				if(typeof(columns[c])!=='undefined'){
-					$('div.screen'+s+' .row').append('<div class="col-xs-'+columns[c]['width']+' sortable col'+c+'"></div>');
-					for(b in columns[c]['blocks']){
-						
-						var width=12;
-						if(typeof(blocks[columns[c]['blocks'][b]])!=='undefined' && typeof(blocks[columns[c]['blocks'][b]]['width'])!=='undefined') width = blocks[columns[c]['blocks'][b]]['width'];
-
-						var blocktype='';
-						if(typeof(blocks[columns[c]['blocks'][b]])!=='undefined' && typeof(blocks[columns[c]['blocks'][b]]['type'])!=='undefined') blocktype = blocks[columns[c]['blocks'][b]]['type'];
-
-						if(blocktype=='blocktitle'){
-							$('div.screen'+s+' .row .col'+c).append('<div class="col-xs-12 mh titlegroups transbg"><h3>'+blocks[columns[c]['blocks'][b]]['title']+'</h3></div>');
-						}
-						else if(columns[c]['blocks'][b]=='weather'){
-							if(typeof(loadWeatherFull)!=='function') $.ajax({url: 'js/weather.js', async: false,dataType: "script"});
-							$('div.screen'+s+' .row .col'+c).append('<div data-id="weather" class="block_'+columns[c]['blocks'][b]+' containsweatherfull"></div>');
-							if(_APIKEY_WUNDERGROUND!=="" && _WEATHER_CITY!=="") loadWeatherFull(_WEATHER_CITY,_WEATHER_COUNTRY,$('.weatherfull'));
-						}
-						else if(columns[c]['blocks'][b]=='currentweather' || columns[c]['blocks'][b]=='currentweather_big'){
-							if(typeof(loadWeather)!=='function') $.ajax({url: 'js/weather.js', async: false,dataType: "script"});
-							var cl = '';
-							if(columns[c]['blocks'][b]=='currentweather_big') $('div.screen'+s+' .row .col'+c).append('<div class="mh transbg big block_'+columns[c]['blocks'][b]+' col-xs-'+width+' containsweather"><div class="col-xs-1"><div class="weather" id="weather"></div></div><div class="col-xs-11"><span class="title weatherdegrees" id="weatherdegrees"></span> <span class="weatherloc" id="weatherloc"></span></div></div>');
-							else $('div.screen'+s+' .row .col'+c).append('<div data-id="currentweather" class="mh transbg block_'+columns[c]['blocks'][b]+' col-xs-'+width+' containsweather"><div class="col-xs-4"><div class="weather" id="weather"></div></div><div class="col-xs-8"><strong class="title weatherdegrees" id="weatherdegrees"></strong><br /><span class="weatherloc" id="weatherloc"></span></div></div>');
-							if(_APIKEY_WUNDERGROUND!=="" && _WEATHER_CITY!=="") loadWeather(_WEATHER_CITY,_WEATHER_COUNTRY);
-						}
-						else if(columns[c]['blocks'][b]=='train'){
-							if(typeof(getTrainInfo)!=='function') $.ajax({url: 'js/ns.js', async: false,dataType: "script"});
-							$('div.screen'+s+' .row .col'+c).append('<div data-id="train" class="train"></div>');
-							getTrainInfo();
-						}
-						else if(columns[c]['blocks'][b]=='traffic'){
-							if(typeof(getTraffic)!=='function') $.ajax({url: 'js/traffic.js', async: false,dataType: "script"});
-							$('div.screen'+s+' .row .col'+c).append('<div data-id="traffic" class="traffic"></div>');
-							getTraffic();
-						}
-						else if(columns[c]['blocks'][b]=='trafficmap'){
-							$('div.screen'+s+' .row .col'+c).append('<div data-id="trafficmap" class="mh transbg block_trafficmap col-xs-12"><div id="trafficm" class="trafficmap"></div></div>');
-						}
-						else if(typeof(columns[c]['blocks'][b])=='object' && typeof(columns[c]['blocks'][b]['latitude'])!=='undefined'){
-							var random = getRandomInt(1,100000);
-							$('div.screen'+s+' .row .col'+c).append(loadMaps(random,columns[c]['blocks'][b]));
-						}
-						else if(columns[c]['blocks'][b]=='news'){
-							if(typeof(getNews)!=='function') $.ajax({url: 'js/news.js', async: false,dataType: "script"});
-							$('div.screen'+s+' .row .col'+c).append('<div data-id="news" class="news"></div>');
-							getNews('news',_NEWS_RSSFEED);
-						}
-						else if(typeof(columns[c]['blocks'][b])=='string' && columns[c]['blocks'][b].substring(0,5)=='news_'){
-							if(typeof(getNews)!=='function') $.ajax({url: 'js/news.js', async: false,dataType: "script"});
-							$('div.screen'+s+' .row .col'+c).append('<div class="'+columns[c]['blocks'][b]+'"></div>');
-							getNews(columns[c]['blocks'][b],blocks[columns[c]['blocks'][b]]['feed']);
-						}
-						else if(columns[c]['blocks'][b]=='clock'){
-							$('div.screen'+s+' .row .col'+c).append('<div data-id="clock" class="transbg block_'+columns[c]['blocks'][b]+' col-xs-'+width+' text-center"><h1 class="clock"></h1><h4 class="weekday"></h4><h4 class="date"></h4></div>');
-						}
-						else if(columns[c]['blocks'][b]=='sunrise'){
-							$('div.screen'+s+' .row .col'+c).append('<div data-id="sunrise" class="block_'+columns[c]['blocks'][b]+' col-xs-'+width+' transbg text-center sunriseholder"><em class="wi wi-sunrise"></em><span class="sunrise"></span><em class="wi wi-sunset"></em><span class="sunset"></span></div>');
-						}
-						else if(typeof(columns[c]['blocks'][b])=='object' && typeof(columns[c]['blocks'][b]['isimage'])!=='undefined'){
-							var random = getRandomInt(1,100000);
-							$('div.screen'+s+' .row .col'+c).append(loadImage(random,columns[c]['blocks'][b]));
-						}
-						else if(columns[c]['blocks'][b]=='horizon'){
-							var html ='<div data-id="horizon" class="containshorizon">';
-									html+='<div class="col-xs-4 transbg hover text-center" onclick="ziggoRemote(\'E0x07\')">';
-										html+='<em class="fa fa-chevron-left fa-small"></em>';
-									html+='</div>';
-									html+='<div class="col-xs-4 transbg hover text-center" onclick="ziggoRemote(\'E4x00\')">';
-										html+='<em class="fa fa-pause fa-small"></em>';
-									html+='</div>';
-									html+='<div class="col-xs-4 transbg hover text-center" onclick="ziggoRemote(\'E0x06\')">';
-										html+='<em class="fa fa-chevron-right fa-small"></em>';
-									html+='</div>';
-								html+='</div>';
-							$('div.screen'+s+' .row .col'+c).append(html);
-						}
-						else if(columns[c]['blocks'][b]=='icalendar'){
-							var random = getRandomInt(1,100000);
-							var html ='<div class="transbg containsicalendar containsicalendar'+random+'"><div class="col-xs-12 transbg"></div></div>';
-							$('div.screen'+s+' .row .col'+c).append(html);	
-							addCalendar($('.containsicalendar'+random),_ICALENDAR_URL);
-						}
-						else if(columns[c]['blocks'][b]=='streamplayer'){
-							var random = getRandomInt(1,100000);
-							var html ='<div data-id="streamplayer" class="transbg containsstreamplayer'+random+'">';
-									html+='<div class="col-xs-12 transbg smalltitle"><h3></h3></div>';
-									html+='<audio class="audio1" preload="none"></audio>';
-									html+='<div class="col-xs-4 transbg hover text-center btnPrev">';
-										html+='<em class="fa fa-chevron-left fa-small"></em>';
-									html+='</div>';
-									html+='<div class="col-xs-4 transbg hover text-center playStream">';
-										html+='<em class="fa fa-play fa-small stateicon"></em>';
-									html+='</div>';
-									html+='<div class="col-xs-4 transbg hover text-center btnNext">';
-										html+='<em class="fa fa-chevron-right fa-small"></em>';
-									html+='</div>';
-								html+='</div>';
-							$('div.screen'+s+' .row .col'+c).append(html);
-							
-							addStreamPlayer('.containsstreamplayer'+random);					
-						}
-						else if(typeof(columns[c]['blocks'][b])=='object'){
-							var random = getRandomInt(1,100000);
-							if(typeof(columns[c]['blocks'][b]['icalurl'])!=='undefined'){
-								var random = getRandomInt(1,100000);
-								var html ='';
-								if(typeof(columns[c]['blocks'][b]['title'])!=='undefined') html+='<div class="col-xs-12 mh titlegroups transbg"><h3>'+columns[c]['blocks'][b]['title']+'</h3></div>';
-								html+='<div class="transbg containsicalendar containsicalendar'+random+'"><div class="col-xs-12 transbg"></div></div>';
-								$('div.screen'+s+' .row .col'+c).append(html);	
-								addCalendar($('.containsicalendar'+random),columns[c]['blocks'][b]['icalurl']);
-							}
-							else if(typeof(columns[c]['blocks'][b]['frameurl'])!=='undefined') $('div.screen'+s+' .row .col'+c).append(loadFrame(random,columns[c]['blocks'][b]));
-							else $('div.screen'+s+' .row .col'+c).append(loadButton(b,columns[c]['blocks'][b]));
-						}
-						else {
-							$('div.screen'+s+' .row .col'+c).append('<div class="mh transbg block_'+columns[c]['blocks'][b]+'"></div>');
-						}
-					}
-				}
+				getBlock(columns[c],c,'div.screen'+s+' .row .col'+c,false);
 			}
 		}
 		else {
@@ -329,6 +224,158 @@ function buildScreens(){
 		setTimeout(function(){ 
 			startSortable(); 
 		},2000);
+	}
+	
+	startSwiper();
+}
+
+function getBlock(cols,c,columndiv,standby){
+	if(typeof(cols)!=='undefined'){
+		if(!standby) $('div.screen'+s+' .row').append('<div class="col-xs-'+cols['width']+' sortable col'+c+'"></div>');
+		for(b in cols['blocks']){
+
+			var width=12;
+			if(typeof(blocks[cols['blocks'][b]])!=='undefined' && typeof(blocks[cols['blocks'][b]]['width'])!=='undefined') width = blocks[cols['blocks'][b]]['width'];
+
+			var blocktype='';
+			if(typeof(blocks[cols['blocks'][b]])!=='undefined' && typeof(blocks[cols['blocks'][b]]['type'])!=='undefined') blocktype = blocks[cols['blocks'][b]]['type'];
+
+			if(blocktype=='blocktitle'){
+				$(columndiv).append('<div data-id="'+cols['blocks'][b]+'" class="col-xs-12 mh titlegroups transbg"><h3>'+blocks[cols['blocks'][b]]['title']+'</h3></div>');
+			}
+			else if(cols['blocks'][b]=='weather'){
+				if(typeof(loadWeatherFull)!=='function') $.ajax({url: 'js/weather.js', async: false,dataType: "script"});
+				$(columndiv).append('<div data-id="weather" class="block_'+cols['blocks'][b]+' containsweatherfull"></div>');
+				if(_APIKEY_WUNDERGROUND!=="" && _WEATHER_CITY!=="") loadWeatherFull(_WEATHER_CITY,_WEATHER_COUNTRY,$('.weatherfull'));
+			}
+			else if(cols['blocks'][b]=='currentweather' || cols['blocks'][b]=='currentweather_big'){
+				if(typeof(loadWeather)!=='function') $.ajax({url: 'js/weather.js', async: false,dataType: "script"});
+				var cl = '';
+				if(cols['blocks'][b]=='currentweather_big') $(columndiv).append('<div class="mh transbg big block_'+cols['blocks'][b]+' col-xs-'+width+' containsweather"><div class="col-xs-1"><div class="weather" id="weather"></div></div><div class="col-xs-11"><span class="title weatherdegrees" id="weatherdegrees"></span> <span class="weatherloc" id="weatherloc"></span></div></div>');
+				else $(columndiv).append('<div data-id="currentweather" class="mh transbg block_'+cols['blocks'][b]+' col-xs-'+width+' containsweather"><div class="col-xs-4"><div class="weather" id="weather"></div></div><div class="col-xs-8"><strong class="title weatherdegrees" id="weatherdegrees"></strong><br /><span class="weatherloc" id="weatherloc"></span></div></div>');
+				if(_APIKEY_WUNDERGROUND!=="" && _WEATHER_CITY!=="") loadWeather(_WEATHER_CITY,_WEATHER_COUNTRY);
+			}
+			else if(cols['blocks'][b]=='train'){
+				if(typeof(getTrainInfo)!=='function') $.ajax({url: 'js/ns.js', async: false,dataType: "script"});
+				$(columndiv).append('<div data-id="train" class="train"></div>');
+				getTrainInfo();
+			}
+			else if(cols['blocks'][b]=='traffic'){
+				if(typeof(getTraffic)!=='function') $.ajax({url: 'js/traffic.js', async: false,dataType: "script"});
+				$(columndiv).append('<div data-id="traffic" class="traffic"></div>');
+				getTraffic();
+			}
+			else if(cols['blocks'][b]=='trafficmap'){
+				$(columndiv).append('<div data-id="trafficmap" class="mh transbg block_trafficmap col-xs-12"><div id="trafficm" class="trafficmap"></div></div>');
+			}
+			else if(typeof(cols['blocks'][b])=='object' && typeof(cols['blocks'][b]['latitude'])!=='undefined'){
+				var random = getRandomInt(1,100000);
+				$(columndiv).append(loadMaps(random,cols['blocks'][b]));
+			}
+			else if(cols['blocks'][b]=='news'){
+				if(typeof(getNews)!=='function') $.ajax({url: 'js/news.js', async: false,dataType: "script"});
+				$(columndiv).append('<div data-id="news" class="news"></div>');
+				getNews('news',_NEWS_RSSFEED);
+			}
+			else if(typeof(cols['blocks'][b])=='string' && cols['blocks'][b].substring(0,5)=='news_'){
+				if(typeof(getNews)!=='function') $.ajax({url: 'js/news.js', async: false,dataType: "script"});
+				$(columndiv).append('<div class="'+cols['blocks'][b]+'"></div>');
+				getNews(cols['blocks'][b],blocks[cols['blocks'][b]]['feed']);
+			}
+			else if(cols['blocks'][b]=='clock'){
+				$(columndiv).append('<div data-id="clock" class="transbg block_'+cols['blocks'][b]+' col-xs-'+width+' text-center"><h1 class="clock"></h1><h4 class="weekday"></h4><h4 class="date"></h4></div>');
+			}
+			else if(cols['blocks'][b]=='stationclock'){
+				$(columndiv).append('<div data-id="clock" class="transbg block_'+cols['blocks'][b]+' col-xs-'+width+' text-center"><canvas id="clock" width="150" height="150">Your browser is unfortunately not supported.</canvas></div>');
+				if(typeof(StationClock)!=='function') $.ajax({url: 'vendor/stationclock.js', async: false,dataType: "script"});
+				
+				var clock = new StationClock("clock");
+				  clock.body = StationClock.RoundBody;
+				  clock.dial = StationClock.GermanStrokeDial;
+				  clock.hourHand = StationClock.PointedHourHand;
+				  clock.minuteHand = StationClock.PointedMinuteHand;
+				  clock.secondHand = StationClock.HoleShapedSecondHand;
+				  clock.boss = StationClock.NoBoss;
+				  clock.minuteHandBehavoir = StationClock.BouncingMinuteHand;
+				  clock.secondHandBehavoir = StationClock.OverhastySecondHand;
+
+				  window.setInterval(function() { clock.draw() }, 50);
+			}
+			else if(cols['blocks'][b]=='sunrise'){
+				$(columndiv).append('<div data-id="sunrise" class="block_'+cols['blocks'][b]+' col-xs-'+width+' transbg text-center sunriseholder"><em class="wi wi-sunrise"></em><span class="sunrise"></span><em class="wi wi-sunset"></em><span class="sunset"></span></div>');
+			}
+			else if(typeof(cols['blocks'][b])=='object' && typeof(cols['blocks'][b]['isimage'])!=='undefined'){
+				var random = getRandomInt(1,100000);
+				$(columndiv).append(loadImage(random,cols['blocks'][b]));
+			}
+			else if(cols['blocks'][b]=='horizon'){
+				var html ='<div data-id="horizon" class="containshorizon">';
+						html+='<div class="col-xs-4 transbg hover text-center" onclick="ziggoRemote(\'E0x07\')">';
+							html+='<em class="fa fa-chevron-left fa-small"></em>';
+						html+='</div>';
+						html+='<div class="col-xs-4 transbg hover text-center" onclick="ziggoRemote(\'E4x00\')">';
+							html+='<em class="fa fa-pause fa-small"></em>';
+						html+='</div>';
+						html+='<div class="col-xs-4 transbg hover text-center" onclick="ziggoRemote(\'E0x06\')">';
+							html+='<em class="fa fa-chevron-right fa-small"></em>';
+						html+='</div>';
+					html+='</div>';
+				$(columndiv).append(html);
+			}
+			else if(cols['blocks'][b]=='icalendar'){
+				var random = getRandomInt(1,100000);
+				var html ='<div class="transbg containsicalendar containsicalendar'+random+'"><div class="col-xs-12 transbg"></div></div>';
+				$(columndiv).append(html);	
+				addCalendar($('.containsicalendar'+random),_ICALENDAR_URL);
+			}
+			else if(cols['blocks'][b]=='streamplayer'){
+				var random = getRandomInt(1,100000);
+				var html ='<div data-id="streamplayer" class="transbg containsstreamplayer'+random+'">';
+						html+='<div class="col-xs-12 transbg smalltitle"><h3></h3></div>';
+						html+='<audio class="audio1" preload="none"></audio>';
+						html+='<div class="col-xs-4 transbg hover text-center btnPrev">';
+							html+='<em class="fa fa-chevron-left fa-small"></em>';
+						html+='</div>';
+						html+='<div class="col-xs-4 transbg hover text-center playStream">';
+							html+='<em class="fa fa-play fa-small stateicon"></em>';
+						html+='</div>';
+						html+='<div class="col-xs-4 transbg hover text-center btnNext">';
+							html+='<em class="fa fa-chevron-right fa-small"></em>';
+						html+='</div>';
+					html+='</div>';
+				$(columndiv).append(html);
+
+				addStreamPlayer('.containsstreamplayer'+random);					
+			}
+			else if(typeof(cols['blocks'][b])=='object'){
+				var random = getRandomInt(1,100000);
+				if(typeof(cols['blocks'][b]['icalurl'])!=='undefined' || typeof(cols['blocks'][b]['calendars'])!=='undefined'){
+					var html ='';
+					if(typeof(cols['blocks'][b]['title'])!=='undefined') html+='<div class="col-xs-12 mh titlegroups transbg"><h3>'+cols['blocks'][b]['title']+'</h3></div>';
+					html+='<div class="transbg containsicalendar containsicalendar'+random+'"><div class="col-xs-12 transbg"></div></div>';
+					$(columndiv).append(html);	
+					addCalendar($('.containsicalendar'+random),cols['blocks'][b]);
+
+				}
+				else if(typeof(cols['blocks'][b]['trashapp'])!=='undefined') $(columndiv).append(loadTrash(random,cols['blocks'][b]));
+				else if(typeof(cols['blocks'][b]['frameurl'])!=='undefined') $(columndiv).append(loadFrame(random,cols['blocks'][b]));
+				else $(columndiv).append(loadButton(b,cols['blocks'][b]));
+			}
+			else {
+				$(columndiv).append('<div data-id="'+cols['blocks'][b]+'" class="mh transbg block_'+cols['blocks'][b]+'"></div>');
+			}
+		}
+	}
+}
+function startSwiper(){
+	if(objectlength(screens)>1 && (typeof(_EDIT_MODE)=='undefined' || _EDIT_MODE===false)){
+		myswiper = new Swiper('.swiper-container', {
+			pagination: '.swiper-pagination',
+			paginationClickable: true,
+			loop: false,
+			effect: _SCREENSLIDER_EFFECT,
+			keyboardControl:true
+		});
 	}
 }
 
@@ -392,7 +439,7 @@ if(typeof(_AUTO_SWIPEBACK_TO)!=='undefined' && typeof(_AUTO_SWIPEBACK_TIME)!=='u
 		  swipebackTime+=1000;
 		
 		 if(swipebackTime>=(_AUTO_SWIPEBACK_TIME*1000)){
-			toSlide(_AUTO_SWIPEBACK_TO);
+			toSlide((_AUTO_SWIPEBACK_TO-1));
 			swipebackTime=0;
 		 }
 	   },1000);
@@ -438,24 +485,24 @@ if(parseFloat(_STANDBY_AFTER_MINUTES)>0){
       }
    },5000);
 
-   function disableStandby(){
-     
-	 if(standbyActive==true){
-         standbyTime=0;
-         if(typeof(_END_STANDBY_CALL_URL)!=='undefined' && _END_STANDBY_CALL_URL!==''){
-               $.get(_END_STANDBY_CALL_URL);
-         }
-      }
-	  
-	  if(objectlength(columns_standby)>0){
-		$('div.screen').show();
-	  	$('.screenstandby').remove();
-	  }
-      $('body').removeClass('standby');
-	  $('.swiper-container').show();
-      standbyActive=false;
-	 
-   }
+}
+function disableStandby(){
+
+ if(standbyActive==true){
+	 standbyTime=0;
+	 if(typeof(_END_STANDBY_CALL_URL)!=='undefined' && _END_STANDBY_CALL_URL!==''){
+		   $.get(_END_STANDBY_CALL_URL);
+	 }
+  }
+
+  if(objectlength(columns_standby)>0){
+	$('div.screen').show();
+  }
+  $('.screenstandby').remove();
+  $('body').removeClass('standby');
+  $('.swiper-container').show();
+  standbyActive=false;
+
 }
 //END OF STANDBY FUNCTION
 
@@ -585,7 +632,7 @@ function loadImage(i,image){
 	if(typeof(image.width)!=='undefined') width=image.width;
 	var html='';
 	
-	if(typeof(image.url)!=='undefined') html+='<div class="col-xs-'+width+' hover transbg imgblock imgblock'+i+'" data-toggle="modal" data-target="#'+i+'" onclick="setSrc(this);">';
+	if(typeof(image.url)!=='undefined') html+='<div data-id="" class="col-xs-'+width+' hover transbg imgblock imgblock'+i+'" data-toggle="modal" data-target="#'+i+'" onclick="setSrc(this);">';
 	else html+='<div class="col-xs-'+width+' transbg imgblock imgblock'+i+'">';
 	html+='<div class="col-xs-12">';
 
@@ -671,11 +718,35 @@ function getMoonInfo(image){
    });
 }
 
-function addCalendar(calobject,icsUrl){
-
-	//replace webcal protocol with https
-	icsUrl = icsUrl.replace(/webcal?\:\/\//i, "https://");
-
+function addCalendar(calobject,icsUrlorg){
+	icsUrl = icsUrlorg;
+	
+	if(typeof(icsUrl.url)!=='undefined'){
+		var random = getRandomInt(1,100000);
+		var html = '<div class="modal fade" id="calendar_'+random+'" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
+		  html+='<div class="modal-dialog">';
+			html+='<div class="modal-content">';
+			  html+='<div class="modal-header">';
+				html+='<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
+			  html+='</div>';
+			  html+='<div class="modal-body">';
+				  html+='<iframe data-src="'+icsUrl.url+'" width="100%" height="570" frameborder="0" allowtransparency="true"></iframe> '; 
+			  html+='</div>';
+			html+='</div>';
+		  html+='</div>';
+		html+='</div>';
+		$('body').append(html);
+		calobject.find('.transbg').addClass('hover');
+		calobject.attr('data-toggle','modal');
+		calobject.attr('data-id','');
+		calobject.attr('data-target','#calendar_'+random);
+		calobject.attr('onclick','setSrc(this);');
+	}
+	
+	if(typeof(icsUrl.icalurl)!=='undefined'){
+		icsUrl = icsUrl.icalurl.replace(/webcal?\:\/\//i, "https://");
+	}
+	
 	new ical_parser(icsUrl, function(cal) {
 		var events = cal.getFutureEvents();
 		var counter = 0;
@@ -685,21 +756,23 @@ function addCalendar(calobject,icsUrl){
 			if (counter < 5) {
 				var date = event.start_date;
 				var time = event.start_time;
-					if(_ICALENDAR_DATEFORMAT == 'friendly') {
-						var widget = '<li style="list-style:none;">' + moment(date+' '+time,'DD/MM/YYYY HH:mm').locale(_ICALENDAR_LOCALE).calendar() + ' - <b>' + event.SUMMARY + '</b></li>';	
-					} else { 
-						var widget = '<li style="list-style:none;">' + moment(date+' '+time,'DD/MM/YYYY HH:mm').format(_ICALENDAR_DATEFORMAT) + ' - <b>' + event.SUMMARY + '</b></li>';		
-					}
-					calobject.find('.transbg').append(widget);
+				if(_ICALENDAR_DATEFORMAT == 'friendly') {
+					var widget = '<div style="color:'+event.color+';">' + moment(date+' '+time,'DD/MM/YYYY HH:mm').locale(_ICALENDAR_LOCALE).calendar() + ' - <b>' + event.SUMMARY + '</b></div>';	
+				} 
+				else { 
+					var widget = '<div style="color:'+event.color+'">' + moment(date+' '+time,'DD/MM/YYYY HH:mm').format(_ICALENDAR_DATEFORMAT) + ' - <b>' + event.SUMMARY + '</b></div>';		
+				}
+				calobject.find('.transbg').append(widget);
 			}
 			counter++;
 		});
-		
+
 		setInterval(function(){
-			addCalendar(calobject,icsUrl)
+			addCalendar(calobject,icsUrlorg)
 		},(60000*5));
-		
+
 	});
+	
 }
 
 function addStreamPlayer(streamelement){
@@ -768,7 +841,7 @@ function addStreamPlayer(streamelement){
 
 function addThermostatFunctions(thermelement){
 									
-	$(thermelement+' .btn-number').click(function(e) {
+	$(document).delegate((thermelement+' .btn-number'),"click",function(e){
 		sliding=true;
 	  fieldName = $(this).attr('data-field');
 	  type = $(this).attr('data-type');
@@ -825,8 +898,9 @@ function addThermostatFunctions(thermelement){
 	});
 }
 
-function getDevices(){
-	if(!sliding){
+function getDevices(override){
+	if(typeof(override)=='undefined') override=false;
+	if(!sliding || override){
 		if(typeof(req)!=='undefined') req.abort();
 		req = $.getJSONP({
 			url: _HOST_DOMOTICZ+'/json.htm?type=devices&filter=all&used=true&order=Name&jsoncallback=?',
@@ -836,7 +910,7 @@ function getDevices(){
 			},
 			success: function(data) {
 				if(typeof(_DEBUG)!=='undefined' && _DEBUG) data = $.parseJSON(jsonexample);
-				if(!sliding){
+				if(!sliding || override){
 					$('.solar').remove();
 				
 					if($('.sunrise').length>0) $('.sunrise').html(data.Sunrise);
@@ -959,21 +1033,6 @@ function getDevices(){
 								}
 								else if(typeof(device['Name'])!=='undefined' && device['Name'] in blocktypes['Name']){
 									html+= getStatusBlock(device,blocktypes['Name'][device['Name']]);
-								}
-								else if(parseFloat(device['idx'])==6 && device['Name']=='Thuis'){ //Special made for HansieNL! :)
-								   $('.block_'+idx).attr('onclick','switchDevice(this)');
-								   html+='<div class="col-xs-4 col-icon">';
-									  if(device['Status']=='Off') html+='<img src="img/switch_off.png" class="off icon" />';
-									  else html+='<img src="img/switch_on.png" class="on icon" />';
-								   html+='</div>';
-								   html+='<div class="col-xs-8 col-data">';
-									  html+='<strong class="title">'+device['Name']+'</strong><br />';
-									  if(device['Status']=='Off') html+='<span class="state">AFWEZIG</span>';
-									  else html+='<span class="state">AANWEZIG</span>';
-										if(_SHOW_LASTUPDATE && (typeof(blocks[idx])=='undefined' || typeof(blocks[idx]['hide_lastupdate'])=='undefined' || blocks[idx]['hide_lastupdate']===false)){
-											html+='<br /><span class="lastupdate">'+moment(device['LastUpdate']).format(_LASTUPDATE_FORMAT)+'</span>';
-										}
-								   html+='</div>';
 								}
 								else if(device['HardwareType']=='Logitech Media Server'){
 									html+=iconORimage(idx,'fa-music','','on icon','',2);
@@ -1125,23 +1184,37 @@ function getDevices(){
 									}
 									html+='<div class="col-xs-10 swiper-no-swiping col-data">';
 										html+='<strong class="title">'+device['Name']+': '+device['Level']+'%'+'</strong>';
-										if(_SHOW_LASTUPDATE && (typeof(blocks[idx])=='undefined' || typeof(blocks[idx]['hide_lastupdate'])=='undefined' || blocks[idx]['hide_lastupdate']===false)){
+										if((_SHOW_LASTUPDATE && (typeof(blocks[idx])=='undefined' || typeof(blocks[idx]['hide_lastupdate'])=='undefined' || blocks[idx]['hide_lastupdate']===false)) || 
+										  (!_SHOW_LASTUPDATE && (typeof(blocks[idx])!=='undefined' && typeof(blocks[idx]['show_lastupdate'])!=='undefined' && blocks[idx]['show_lastupdate']==true)) 
+										  ){
 											html+=' / <span class="lastupdate">'+moment(device['LastUpdate']).format(_LASTUPDATE_FORMAT)+'</span>';
 										}
 										html+='<br />';
-										html+='<div class="slider slider'+device['idx']+'" data-light="'+device['idx']+'"></div>';
-										if(device['SubType']=='RGBW'){
-											html+='<div id="rgbw"></div>';
+										if(device['SubType']=='RGBW_TEMP'){
+											html+='<input type="text" class="rgbw" />';
+											html+='<div class="slider slider'+device['idx']+'" style="margin-left:55px;" data-light="'+device['idx']+'"></div>';
 										}
+										else {
+											html+='<div class="slider slider'+device['idx']+'" data-light="'+device['idx']+'"></div>';
+										}
+										
 									html+='</div>';
 
 									$('div.block_'+idx).html(html);
 									addHTML=false;
 									
-									if(device['SubType']=='RGBW'){
-										$("#custom").spectrum({
-											color: "#f00"
+									if(device['SubType']=='RGBW_TEMP'){
+										$(".rgbw").spectrum({
+											color: "#f00",
+											showPalette: true,
+											palette: [_SAVED_COLORS]
 										});
+										
+										$(".rgbw").on("dragstop.spectrum",function(e, color) {
+											color = color.toHexString(); // #ff0000
+											alert(color);
+										});
+										
 									}
 									
 									if(parseFloat(device['MaxDimLevel'])==100){
@@ -1165,7 +1238,7 @@ function getDevices(){
 									}
 									else /*if(parseFloat(device['MaxDimLevel'])==15)*/{
 										$( ".slider"+device['idx'] ).slider({
-											value:Math.ceil((device['Level']/100)*15),
+											value:Math.ceil((device['Level']/100)*16),
 											step: 1,
 											min:2,
 											max:15,
@@ -1233,7 +1306,9 @@ function getDevices(){
 											html+='<strong class="title">'+device['Data']+_TEMP_SYMBOL+'</strong><br />';
 											html+='<span class="state">'+device['Name']+'</span>';
 										}
-										if(_SHOW_LASTUPDATE && (typeof(blocks[idx])=='undefined' || typeof(blocks[idx]['hide_lastupdate'])=='undefined' || blocks[idx]['hide_lastupdate']===false)){
+										if((_SHOW_LASTUPDATE && (typeof(blocks[idx])=='undefined' || typeof(blocks[idx]['hide_lastupdate'])=='undefined' || blocks[idx]['hide_lastupdate']===false)) || 
+										  (!_SHOW_LASTUPDATE && (typeof(blocks[idx])!=='undefined' && typeof(blocks[idx]['show_lastupdate'])!=='undefined' && blocks[idx]['show_lastupdate']==true)) 
+										  ){
 											html+='<br /><span class="lastupdate">'+moment(device['LastUpdate']).format(_LASTUPDATE_FORMAT)+'</span>';
 										}
 									html+='</div>';
@@ -1294,7 +1369,9 @@ function getDevices(){
 											html+='<strong class="title">'+device['Name']+'</strong><br />';
 											html+='<span class="state">'+device['Data']+'</span>';
 										}
-										if(_SHOW_LASTUPDATE && (typeof(blocks[idx])=='undefined' || typeof(blocks[idx]['hide_lastupdate'])=='undefined' || blocks[idx]['hide_lastupdate']===false)){
+										if((_SHOW_LASTUPDATE && (typeof(blocks[idx])=='undefined' || typeof(blocks[idx]['hide_lastupdate'])=='undefined' || blocks[idx]['hide_lastupdate']===false)) || 
+										  (!_SHOW_LASTUPDATE && (typeof(blocks[idx])!=='undefined' && typeof(blocks[idx]['show_lastupdate'])!=='undefined' && blocks[idx]['show_lastupdate']==true)) 
+										  ){
 											html+='<br /><span class="lastupdate">'+moment(device['LastUpdate']).format(_LASTUPDATE_FORMAT)+'</span>';
 										}
 									html+='</div>';
@@ -1313,7 +1390,7 @@ function getDevices(){
 									   else html+='<span class="state">'+lang.state_open+'</span>';
 
 									html+='</div>';
-
+									
 									if(typeof(blocks[idx])=='undefined' || typeof(blocks[idx]['hide_stop'])=='undefined' || blocks[idx]['hide_stop']===false){
 										var hidestop = false;
 										html+='<ul class="input-groupBtn input-chevron">';
@@ -1322,6 +1399,7 @@ function getDevices(){
 										var hidestop = true;
 										html+='<ul class="input-groupBtn input-chevron hidestop">';
 									}
+									
 										if(device['SwitchType']=='Venetian Blinds EU Inverted' || device['SwitchType']=='Blinds Inverted'){
 											html+='<li class="up"><a href="javascript:void(0)" class="btn btn-number plus" onclick="switchBlinds('+device['idx']+',\'On\');">';
 											html+='<em class="fa fa-chevron-up fa-small"></em>';

@@ -1,7 +1,7 @@
 function getTrainInfo(){
-	var rssurl = 'https://www.rijdendetreinen.nl/rss/';
+	var rssurl = 'https://cors-anywhere.herokuapp.com/https://www.rijdendetreinen.nl/rss/';
 
-	$.ajax('https://crossorigin.me/'+rssurl, {
+	$.ajax(rssurl, {
         accepts:{
             xml:"application/rss+xml"
         },
@@ -17,7 +17,7 @@ function getTrainInfo(){
 
 			var width=12;
 			if(typeof(blocks['train'])!=='undefined' && typeof(blocks['train']['width'])!=='undefined') width=blocks['train']['width'];
-			$("div.train").replaceWith('<div class="train"><div class="mh col-xs-'+width+' transbg hover trainrow" data-toggle="modal" data-target="#trainweb" onclick="setSrc(this);"><div class="col-xs-2 col-icon"><em class="fa fa-train"></em></div><div class="col-xs-10"><strong>'+count+' '+lang.notifications_ns+'</strong></div></div></div>');
+			$("div.train").replaceWith('<div class="train"><div class="col-xs-'+width+' transbg hover trainrow" data-toggle="modal" data-target="#trainweb" onclick="setSrc(this);"><div class="col-xs-2 col-icon"><em class="fa fa-train"></em></div><div class="col-xs-10"><strong>'+count+' '+lang.notifications_ns+'</strong></div></div></div>');
 	
 			if($('#trainweb').length==0){
 				var html = '<div class="modal fade" id="trainweb" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';

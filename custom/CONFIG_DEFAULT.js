@@ -3,7 +3,7 @@ var _LANGUAGE 				= 'nl_NL'; //or: en_US, fr_FR, hu_HU
 var _HOST_DOMOTICZ		  	= 'http://192.168.1.3:8084';
 var _DOMOTICZ_REFRESH		= 5; //in seconds
 var _DASHTICZ_REFRESH		= 30; //in minutes
-
+var _THEME 					= 'default'; // default = dashticz default theme
 /*
 IF YOU HAVE A MEDIABOX FROM ZIGGO (HORIZON), COPY SWITCH_HORIZON.PHP ON A WEBSERVER INSIDE YOUR NETWORK AND CHANGE THE IP.
 ENTER THE PATH TO THIS FILE BELOW.
@@ -33,6 +33,9 @@ var _MAPS_LONGITUDE			= '';
 
 var _AUTO_SWIPEBACK_TO		= 1; //when no activity, swipe back to main screen after x seconds
 var _AUTO_SWIPEBACK_TIME	= 10; //seconds
+
+//predefined colors, when you have RGB-lamps
+var _SAVED_COLORS = ['black', 'white', 'blanchedalmond','rgb(255, 128, 0);', 'hsv 100 70 50', 'lightyellow'];
 
 // Online Radio Stream Plugin, Note: you must enable  plugin in column section 'streamplayer', see columns[3]['blocks'] example below.
 var _STREAMPLAYER_TRACKS  	= [

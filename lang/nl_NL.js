@@ -18,6 +18,9 @@ lang['friday'] = 'Vrijdag';
 lang['saturday'] = 'Zaterdag';
 lang['sunday'] = 'Zondag';
 
+lang['today'] = 'Vandaag';
+lang['tomorrow'] = 'Morgen';
+
 lang['graph_last_hours'] = 'laatste uren';
 lang['graph_today'] = 'vandaag';
 lang['graph_last_month'] = 'afgelopen maand';

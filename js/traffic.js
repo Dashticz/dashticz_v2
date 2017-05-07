@@ -1,8 +1,8 @@
 function getTraffic(){
-	//http://www.vid.nl/VI/overzicht
-	var rssurl = 'http://www.vid.nl/VI/_rss';
 	
-	$.ajax('https://crossorigin.me/'+rssurl, {
+	var rssurl = 'https://cors-anywhere.herokuapp.com/http://www.vid.nl/VI/_rss';
+	
+	$.ajax(rssurl, {
         accepts:{
             xml:"application/rss+xml"
         },
@@ -17,7 +17,7 @@ function getTraffic(){
 				var text = el.find("title").text();
 				text = text.split(') [');
 				text = text[0]+')';
-				$("div.traffic").replaceWith('<div class="traffic"><div class="mh col-xs-'+width+' hover transbg trafficrow" data-toggle="modal" data-target="#trafficweb" onclick="setSrc(this);"><div class="col-xs-2 col-icon"><em class="fa fa-car"></em></div><div class="col-xs-10"><strong>'+text+'</strong></div></div></div>');
+				$("div.traffic").replaceWith('<div class="traffic"><div class="col-xs-'+width+' hover transbg trafficrow" data-toggle="modal" data-target="#trafficweb" onclick="setSrc(this);"><div class="col-xs-2 col-icon"><em class="fa fa-car"></em></div><div class="col-xs-10"><strong>'+text+'</strong></div></div></div>');
 
 				if($('#trafficweb').length==0){
 					var html = '<div class="modal fade" id="trafficweb" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';

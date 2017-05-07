@@ -17,6 +17,9 @@ lang['friday'] = 'Sexta';
 lang['saturday'] = 'S&aacute;bado';
 lang['sunday'] = 'Domingo';
 
+lang['today'] = 'Hoje';
+lang['tomorrow'] = 'Amanhã';
+
 lang['graph_last_hours'] = '&Uacute;ltimas horas';
 lang['graph_today'] = 'Hoje';
 lang['graph_last_month'] = '&Uacute;ltimo mes';

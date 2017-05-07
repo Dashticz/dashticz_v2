@@ -27,6 +27,9 @@ function setSrc(cur){
 		$($(cur).data('target')).find('iframe').attr('src',$($(cur).data('target')).find('iframe').data('src'));
 	}
 }
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
 $.getJSONP = function(s) {
 	s.dataType = 'jsonp';
 	$.ajax(s);

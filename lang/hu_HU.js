@@ -17,6 +17,9 @@ lang['friday'] = 'Péntek';
 lang['saturday'] = 'Szombat';
 lang['sunday'] = 'Vasárnap';
 
+lang['today'] = 'Ma';
+lang['tomorrow'] = 'Holnap';
+
 lang['graph_last_hours'] = 'utolsó órák';
 lang['graph_today'] = 'ma';
 lang['graph_last_month'] = 'utolsó hónap';

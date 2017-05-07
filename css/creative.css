@@ -13,7 +13,10 @@
     width: 30px;
     height: 30px;
 }
-
+.trashcan {
+    width: 100%;
+	margin-left:-4px;
+}
 .skycon {
 	margin: 10px auto 10px auto;
     display: block;
@@ -28,6 +31,16 @@
 }
 /* Thermostat CSS: */
 
+.editmode {
+	color:white;
+	background-color:red;
+	bottom:0;
+	font-weight:bold;
+	right:0;
+	padding:10px;
+	position:absolute;
+	z-index:9999;
+}
 .input-groupBtn .btn-number {
     opacity: 0.5;
     color: white;
@@ -95,10 +108,8 @@
 .col-xs-2.block_trafficmap
 , .col-xs-3.block_trafficmap, .col-xs-4.block_trafficmap, .col-xs-5.block_trafficmap, .col-xs-6.block_trafficmap, .col-xs-7.block_trafficmap, .col-xs-8.block_trafficmap, .col-xs-9.block_trafficmap, .col-xs-10.block_trafficmap, .col-xs-11.block_trafficmap, .col-xs-12.block_trafficmap {
 
-	padding-top:0px !important;
-	padding-bottom:0px !important;
-	padding-left:0px !important;
-	padding-right:0px !important;
+	padding-left: 13px !important;
+    padding-right: 13px !important;
 	height:200px !important;
 }
 
@@ -125,6 +136,9 @@
 	}
 }
 @media only screen and (max-width: 1000px) {
+.trashcan {
+	margin-left:0px !important;
+}
 
 	.input-groupBtn .stop {
 		width: 60px;
@@ -160,7 +174,6 @@
 /************************/
   
 @media only screen and (max-width: 767px) {
-
   .control label {
       font-size: 35px;
   }
@@ -294,6 +307,12 @@ select option {
     margin-left: 5px;
     margin-top: 4px;
 }
+.fa.fa-trash {
+    margin-left: 8px;
+}
+.fa.fa-bolt {
+    margin-left: 8px;
+}
 .wi.wi-wind-direction {
     margin-left: 4px;
     margin-top: 2px;
@@ -409,6 +428,11 @@ p {
 		padding-left: 5px !important;
 	}
 
+.containsicalendar .transbg {
+    padding-left: 11px !important;
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+}
 .column1.col-xs-5,
 .column2.col-xs-5,
 .column3.col-xs-2 {
@@ -425,12 +449,10 @@ p {
 .trainrow,
 .trafficrow{
     font-size: 14px !important;
-     padding-top: 20px !important;
 }
 
 .trainrow strong,
 .trafficrow strong{
-     margin-top: 5px !important;
     display: inline-block;
 }
 
