@@ -4,6 +4,7 @@ function loadTrash (random,trashobject) {
 	var postcode = trashobject.zipcode;
 	var homenumber = trashobject.housenumber;
 	if(typeof(trashobject.country)!=='undefined') var country = trashobject.country;
+	if(typeof(trashobject.street)!=='undefined') var street = trashobject.street;
 	
 	var dates = {};
     var curr = '';
@@ -152,6 +153,31 @@ function loadTrash (random,trashobject) {
 
 		});
 	}
+	if (service=='edg'){
+ 		$.getJSON('https://cors-anywhere.herokuapp.com/https://www.edg.de/JsonHandler.ashx?dates=1&street=' + street + '&nr=' + homenumber + '&cmd=findtrash&tbio=0&tpapier=1&trest=1&twert=1&feiertag=0',function(data){
+ 			data = data.data;
+ 
+ 			for(d in data){
+ 				if(typeof(returnDates[curr])=='undefined'){
+ 					returnDates[curr] = {}
+ 				}
+ 				
+ 				var startDate = moment(moment().format("DD-MM-YYYY"), "DD-MM-YYYY");
+ 				var endDate = moment(moment(Date.now() + 32 * 24 * 3600 * 1000).format("DD-MM-YYYY"), "DD-MM-YYYY");
+ 				var testDate = moment(data[d]['date'], "DD.MM.YYYY");
+ 
+ 				if(testDate.isBetween(startDate, endDate, 'days', true)){
+ 					for (e in data[d].fraktion){
+ 						returnDates[curr][moment(moment(data[d]['date'], "DD.MM.YYYY")).format("YYYY-MM-DD")]='<div>'+data[d].fraktion[e]+': '+moment(moment(data[d]['date'], "DD.MM.YYYY")).format("DD-MM-YYYY")+'</div>';
+ 						
+ 					}
+ 				
+ 				}
+ 			}
+ 			addToContainer(random,returnDates);
+ 
+ 		});		
+ 	}
 	return html;
 			
 }
@@ -190,6 +216,7 @@ function addToContainer(random,returnDates){
 		}
 		else if(date <= nextweek){
 			returnDatesSimple[key] = returnDatesSimple[key].replace(date, moment(moment(date).format("DD-MM-YYYY")).locale('nl').format("dddd"));
+			returnDatesSimple[key] = returnDatesSimple[key].charAt(0).toUpperCase() + returnDatesSimple[key].slice(1);
 		}  
 
 		if(c<=4) $('.trash'+random+' .state').append(returnDatesSimple[key]);
