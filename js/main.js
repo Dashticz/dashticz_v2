@@ -748,8 +748,9 @@ function addCalendar(calobject,icsUrlorg){
 	if(typeof(icsUrl.icalurl)!=='undefined'){
 		icsUrl = icsUrl.icalurl.replace(/webcal?\:\/\//i, "https://");
 	}
-	
+	calobject.find('.transbg').html('Loading...');
 	new ical_parser(icsUrl, function(cal) {
+		calobject.find('.transbg').html('');
 		var events = cal.getFutureEvents();
 		var counter = 0;
 		calobject.find('.transbg').html('');
@@ -762,7 +763,7 @@ function addCalendar(calobject,icsUrlorg){
 					var widget = '<div style="color:'+event.color+';">' + moment(date+' '+time,'DD/MM/YYYY HH:mm').locale(_ICALENDAR_LOCALE).calendar() + ' - <b>' + event.SUMMARY + '</b></div>';	
 				} 
 				else { 
-					var widget = '<div style="color:'+event.color+'">' + moment(date+' '+time,'DD/MM/YYYY HH:mm').format(_ICALENDAR_DATEFORMAT) + ' - <b>' + event.SUMMARY + '</b></div>';		
+					var widget = '<div style="color:'+event.color+'">' + moment(event.DTSTART,'DD/MM/YYYY HH:mm').format(_ICALENDAR_DATEFORMAT) + ' - <b>' + event.SUMMARY + '</b></div>';		
 				}
 				calobject.find('.transbg').append(widget);
 			}
