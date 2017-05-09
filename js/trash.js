@@ -6,6 +6,11 @@ function loadTrash (random,trashobject) {
 	if(typeof(trashobject.country)!=='undefined') var country = trashobject.country;
 	if(typeof(trashobject.street)!=='undefined') var street = trashobject.street;
 	
+	var key = 'UNKNOWN';
+	if(typeof(trashobject.key)!=='undefined') key=trashobject.key;
+				
+				
+	
 	var dates = {};
     var curr = '';
     var data = '';
@@ -13,7 +18,7 @@ function loadTrash (random,trashobject) {
 	
 	var width = 12;
 	if(typeof(trashobject.width)!=='undefined') width=trashobject.width;
-	var html='<div class="trash'+random+' col-xs-'+width+' transbg">';
+	var html='<div class="trash'+random+' col-xs-'+width+' transbg" data-id="trash.'+key+'">';
 		html+='<div class="col-xs-4 col-icon">';
 			html+='<img class="trashcan" src="img/kliko.png" />';
 		html+='</div>';

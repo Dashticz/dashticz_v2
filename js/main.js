@@ -258,7 +258,6 @@ function getBlock(cols,c,columndiv,standby){
 	if(typeof(cols)!=='undefined'){
 		if(!standby) $('div.screen'+s+' .row').append('<div class="col-xs-'+cols['width']+' sortable col'+c+'"></div>');
 		for(b in cols['blocks']){
-
 			var width=12;
 			if(typeof(blocks[cols['blocks'][b]])!=='undefined' && typeof(blocks[cols['blocks'][b]]['width'])!=='undefined') width = blocks[cols['blocks'][b]]['width'];
 
@@ -266,7 +265,10 @@ function getBlock(cols,c,columndiv,standby){
 			if(typeof(blocks[cols['blocks'][b]])!=='undefined' && typeof(blocks[cols['blocks'][b]]['type'])!=='undefined') blocktype = blocks[cols['blocks'][b]]['type'];
 
 			if(blocktype=='blocktitle'){
-				$(columndiv).append('<div data-id="'+cols['blocks'][b]+'" class="col-xs-12 mh titlegroups transbg"><h3>'+blocks[cols['blocks'][b]]['title']+'</h3></div>');
+				var key = 'UNKNOWN';
+				if(typeof(blocks[cols['blocks'][b]]['key'])!=='undefined') key=blocks[cols['blocks'][b]]['key'];
+				
+				$(columndiv).append('<div data-id="'+key+'" class="col-xs-12 mh titlegroups transbg"><h3>'+blocks[cols['blocks'][b]]['title']+'</h3></div>');
 			}
 			else if(cols['blocks'][b]=='weather'){
 				if(typeof(loadWeatherFull)!=='function') $.ajax({url: 'js/weather.js', async: false,dataType: "script"});
@@ -276,7 +278,7 @@ function getBlock(cols,c,columndiv,standby){
 			else if(cols['blocks'][b]=='currentweather' || cols['blocks'][b]=='currentweather_big'){
 				if(typeof(loadWeather)!=='function') $.ajax({url: 'js/weather.js', async: false,dataType: "script"});
 				var cl = '';
-				if(cols['blocks'][b]=='currentweather_big') $(columndiv).append('<div class="mh transbg big block_'+cols['blocks'][b]+' col-xs-'+width+' containsweather"><div class="col-xs-1"><div class="weather" id="weather"></div></div><div class="col-xs-11"><span class="title weatherdegrees" id="weatherdegrees"></span> <span class="weatherloc" id="weatherloc"></span></div></div>');
+				if(cols['blocks'][b]=='currentweather_big') $(columndiv).append('<div data-id="currentweather_big" class="mh transbg big block_'+cols['blocks'][b]+' col-xs-'+width+' containsweather"><div class="col-xs-1"><div class="weather" id="weather"></div></div><div class="col-xs-11"><span class="title weatherdegrees" id="weatherdegrees"></span> <span class="weatherloc" id="weatherloc"></span></div></div>');
 				else $(columndiv).append('<div data-id="currentweather" class="mh transbg block_'+cols['blocks'][b]+' col-xs-'+width+' containsweather"><div class="col-xs-4"><div class="weather" id="weather"></div></div><div class="col-xs-8"><strong class="title weatherdegrees" id="weatherdegrees"></strong><br /><span class="weatherloc" id="weatherloc"></span></div></div>');
 				if(_APIKEY_WUNDERGROUND!=="" && _WEATHER_CITY!=="") loadWeather(_WEATHER_CITY,_WEATHER_COUNTRY);
 			}
@@ -376,10 +378,13 @@ function getBlock(cols,c,columndiv,standby){
 			}
 			else if(typeof(cols['blocks'][b])=='object'){
 				var random = getRandomInt(1,100000);
+				var key = 'UNKNOWN';
+				if(typeof(cols['blocks'][b]['key'])!=='undefined') key=cols['blocks'][b]['key'];
+				
 				if(typeof(cols['blocks'][b]['icalurl'])!=='undefined' || typeof(cols['blocks'][b]['calendars'])!=='undefined'){
 					var html ='';
 					if(typeof(cols['blocks'][b]['title'])!=='undefined') html+='<div class="col-xs-12 mh titlegroups transbg"><h3>'+cols['blocks'][b]['title']+'</h3></div>';
-					html+='<div class="transbg containsicalendar containsicalendar'+random+'"><div class="col-xs-12 transbg"></div></div>';
+					html+='<div data-id="calendars.'+key+'" class="transbg containsicalendar containsicalendar'+random+'"><div class="col-xs-12 transbg"></div></div>';
 					$(columndiv).append(html);	
 					addCalendar($('.containsicalendar'+random),cols['blocks'][b]);
 
@@ -552,13 +557,16 @@ function loadMaps(b,map){
 		$('body').append(html);
 	}
 	
+	var key = 'UNKNOWN';
+	if(typeof(map.key)!=='undefined') key=map.key;
+	
 	var width = 12;
 	if(typeof(map.width)!=='undefined') width=map.width;
 	if(typeof(map.link)!=='undefined') var html='<div class="col-xs-'+width+' mh hover swiper-no-swiping transbg block_trafficmap" data-toggle="modal" data-target="#trafficmap_frame_'+b+'" onclick="setSrc(this);" ';
 	else var html='<div class="col-xs-'+width+' mh swiper-no-swiping transbg block_trafficmap" ';
 	if(typeof(map.height)!=='undefined') html+=' style="height:'+map.height+'px !important;"';
 	html+='>';
-	html+='<div id="trafficmap_'+b+'" class="trafficmap"></div>';
+	html+='<div id="trafficmap_'+b+'" data-id="maps.'+key+'" class="trafficmap"></div>';
 	html+='</div>';
 	setTimeout(function(){showMap('trafficmap_'+b,map);},1000)
 	return html;
@@ -581,10 +589,13 @@ function loadButton(b,button){
 		html+='</div>';
 		$('body').append(html);
 	}
-	
 	var width = 12;
 	if(typeof(button.width)!=='undefined') width=button.width;
-	var html='<div class="col-xs-'+width+' hover transbg" data-toggle="modal" data-target="#button_'+b+'_'+random+'" onclick="setSrc(this);">';
+	
+	var key = 'UNKNOWN';
+	if(typeof(button.key)!=='undefined') key=button.key;
+	
+	var html='<div class="col-xs-'+width+' hover transbg" data-id="buttons.'+key+'" data-toggle="modal" data-target="#button_'+b+'_'+random+'" onclick="setSrc(this);">';
 		html+='<div class="col-xs-4 col-icon">';
 			if(typeof(button.image)!=='undefined') html+='<img class="buttonimg" src="'+button.image+'" />';
 			else html+='<em class="fa '+button.icon+' fa-small"></em>';
@@ -599,9 +610,12 @@ function loadButton(b,button){
 
 function loadFrame(f,frame){
 	
+	var key = 'UNKNOWN';
+	if(typeof(frame.key)!=='undefined') key=frame.key;
+	
 	var width = 12;
 	if(typeof(frame.width)!=='undefined') width=frame.width;
-	var html='<div class="col-xs-'+width+' hover transbg swiper-no-swiping imgblock imgblock'+f+'" style="height:'+frame.height+'px;padding:0px !important;">';
+	var html='<div data-id="frames.'+key+'" class="col-xs-'+width+' hover transbg swiper-no-swiping imgblock imgblock'+f+'" style="height:'+frame.height+'px;padding:0px !important;">';
 		html+='<div class="col-xs-12 col-data" style="padding:0px !important;">';
 			html+='<iframe src="'+frame.frameurl+'" style="width:100%;border:0px;height:'+(frame.height-14)+'px;"></iframe>';
 		html+='</div>';
@@ -655,12 +669,15 @@ function loadImage(i,image){
 		$('body').append(html);
 	}
 
+	var key = 'UNKNOWN';
+	if(typeof(image.key)!=='undefined') key=image.key;
+	
 	var width = 12;
 	if(typeof(image.width)!=='undefined') width=image.width;
 	var html='';
 	
-	if(typeof(image.url)!=='undefined') html+='<div data-id="" class="col-xs-'+width+' hover transbg imgblock imgblock'+i+'" data-toggle="modal" data-target="#'+i+'" onclick="setSrc(this);">';
-	else html+='<div class="col-xs-'+width+' transbg imgblock imgblock'+i+'">';
+	if(typeof(image.url)!=='undefined') html+='<div data-id="buttons.'+key+'" class="col-xs-'+width+' hover transbg imgblock imgblock'+i+'" data-toggle="modal" data-target="#'+i+'" onclick="setSrc(this);">';
+	else html+='<div class="col-xs-'+width+' transbg imgblock imgblock'+i+'" data-id="buttons.'+key+'">';
 	html+='<div class="col-xs-12">';
 
 	if (img=='moon'){

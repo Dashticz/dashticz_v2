@@ -31,6 +31,7 @@ function addCalendar(calobject,icsUrlorg){
 	if(typeof(icsUrl.maxitems)!=='undefined') maxitems = icsUrl.maxitems;
 
 	calobject.find('.transbg').html('Loading...');
+	icsUrl = icsUrl.replace('https://cors-anywhere.herokuapp.com/','');
 	$.getJSON('https://cors-anywhere.herokuapp.com/http://ical-to-json.herokuapp.com/convert.json?url='+encodeURI(icsUrl),function(data){
 		calobject.find('.transbg').html('');
 		var counter = 1;
