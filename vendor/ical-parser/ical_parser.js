@@ -49,9 +49,6 @@ function ical_parser(feed_url, callback){
 			minute: ical_date.substr(11,2)
 		}
 		//Create JS date (months start at 0 in JS - don't ask)
-		//var utcdatems = ConvertUTCTimeToLocalTime(Date.UTC(dtutc.year, (dtutc.month-1), dtutc.day, dtutc.hour, dtutc.minute));
-		
-		var hour = dtutc.hour;
 		var utcdatems = Date.UTC(dtutc.year, (dtutc.month-1), dtutc.day, dtutc.hour, dtutc.minute);
 		
 		var dt = {};

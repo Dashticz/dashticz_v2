@@ -1,4 +1,27 @@
 
+window.onerror = function(msg, url, line, col, error) {
+   // Note that col & error are new to the HTML 5 spec and may not be 
+   // supported in every browser.  It worked for me in Chrome.
+   var extra = !col ? '' : '\ncolumn: ' + col;
+   extra += !error ? '' : '\nerror: ' + error;
+
+   // You can view the information in an alert to see things working like this:
+   alert("Error: " + msg + "\nurl: " + url + "\nline: " + line);
+
+   // TODO: Report this error via ajax so you can keep track
+   //       of what pages have JS issues
+
+   var suppressErrorAlert = true;
+   // If you return true, then error alerts (like in older versions of 
+   // Internet Explorer) will be suppressed.
+   return suppressErrorAlert;
+};
+
+var customfolder = 'custom';
+if(typeof(dashtype)!=='undefined' && parseFloat(dashtype)>0){
+	customfolder = 'custom_'+dashtype;
+}
+
 if(typeof(_HOST_DOMOTICZ)=='undefined') var _HOST_DOMOTICZ='';
 if(typeof(_LANGUAGE)=='undefined') var _LANGUAGE='nl_NL';
 if(typeof(_USE_FAVORITES)=='undefined') var _USE_FAVORITES=false;
@@ -52,31 +75,31 @@ $.ajax({url: 'vendor/jquery/touchpunch.js', async: false,dataType: "script"});
 $.ajax({url: 'vendor/bootstrap/js/bootstrap.min.js', async: false,dataType: "script"});
 $.ajax({url: 'js/functions.js?v='+cache, async: false,dataType: "script"});
 		
-$.ajax({url: 'custom/CONFIG.js?v='+cache, async: false,dataType: "script"});
+$.ajax({url: customfolder+'/CONFIG.js?v='+cache, async: false,dataType: "script"});
 $.ajax({url: 'lang/'+_LANGUAGE+'.js?v='+cache, async: false,dataType: "script"});
 if(_THEME!=='default'){
 	$('<link rel="stylesheet" type="text/css" href="themes/'+_THEME+'/'+_THEME+'.css?v='+cache+'" />').appendTo("head");
 }
-$('<link href="custom/custom.css?v='+cache+'" rel="stylesheet">').appendTo("head");
+$('<link href="'+customfolder+'/custom.css?v='+cache+'" rel="stylesheet">').appendTo("head");
 $.ajax({url: 'vendor/raphael/raphael-min.js', async: false,dataType: "script"});
 $.ajax({url: 'vendor/morrisjs/morris.min.js', async: false,dataType: "script"});
 $.ajax({url: 'vendor/moment.js', async: false,dataType: "script"});
 $.ajax({url: 'vendor/moment-with-locales.js', async: false,dataType: "script"});
 //$.ajax({url: 'vendor/nzbget/nzbget.js', async: false,dataType: "script"});
-$.ajax({url: 'vendor/ical-parser/ical_parser.js', async: false,dataType: "script"});
 $.ajax({url: 'vendor/jquery.newsTicker.min.js', async: false,dataType: "script"});
 $.ajax({url: 'vendor/skycons/skycons.js', async: false,dataType: "script"});
 $.ajax({url: 'vendor/spectrum/spectrum.js', async: false,dataType: "script"});
 $.ajax({url: 'js/sortable.js', async: false,dataType: "script"});
 $.ajax({url: 'js/switches.js', async: false,dataType: "script"});
 $.ajax({url: 'js/trash.js', async: false,dataType: "script"});
+$.ajax({url: 'js/calendar.js', async: false,dataType: "script"});
 
 if(typeof(_DEBUG)!=='undefined' && _DEBUG){
 	$.ajax({url: 'custom/json_vb.js', async: false,dataType: "script"});
 	$.ajax({url: 'custom/graph_vb.js', async: false,dataType: "script"});
 }
 
-$.ajax({url: 'custom/custom.js?v='+cache, async: false,dataType: "script"});
+$.ajax({url: ''+customfolder+'/custom.js?v='+cache, async: false,dataType: "script"});
 $.ajax({url: 'js/blocks.js', async: false,dataType: "script"});
 $.ajax({url: 'js/graphs.js', async: false,dataType: "script"});
 
@@ -297,7 +320,9 @@ function getBlock(cols,c,columndiv,standby){
 				  clock.hourHand = StationClock.PointedHourHand;
 				  clock.minuteHand = StationClock.PointedMinuteHand;
 				  clock.secondHand = StationClock.HoleShapedSecondHand;
-				  clock.boss = StationClock.NoBoss;
+				  if(typeof(_CLOCK_BOSS)=='undefined') clock.boss = StationClock.NoBoss;
+				  else if(_CLOCK_BOSS=='RedBoss') clock.boss = StationClock.RedBoss;
+				
 				  clock.minuteHandBehavoir = StationClock.BouncingMinuteHand;
 				  clock.secondHandBehavoir = StationClock.OverhastySecondHand;
 
@@ -718,64 +743,6 @@ function getMoonInfo(image){
          }
            }   
    });
-}
-
-function addCalendar(calobject,icsUrlorg){
-	icsUrl = icsUrlorg;
-	
-	if(typeof(icsUrl.url)!=='undefined'){
-		var random = getRandomInt(1,100000);
-		var html = '<div class="modal fade" id="calendar_'+random+'" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
-		  html+='<div class="modal-dialog">';
-			html+='<div class="modal-content">';
-			  html+='<div class="modal-header">';
-				html+='<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
-			  html+='</div>';
-			  html+='<div class="modal-body">';
-				  html+='<iframe data-src="'+icsUrl.url+'" width="100%" height="570" frameborder="0" allowtransparency="true"></iframe> '; 
-			  html+='</div>';
-			html+='</div>';
-		  html+='</div>';
-		html+='</div>';
-		$('body').append(html);
-		calobject.find('.transbg').addClass('hover');
-		calobject.attr('data-toggle','modal');
-		calobject.attr('data-id','');
-		calobject.attr('data-target','#calendar_'+random);
-		calobject.attr('onclick','setSrc(this);');
-	}
-	
-	if(typeof(icsUrl.icalurl)!=='undefined'){
-		icsUrl = icsUrl.icalurl.replace(/webcal?\:\/\//i, "https://");
-	}
-	calobject.find('.transbg').html('Loading...');
-	new ical_parser(icsUrl, function(cal) {
-		calobject.find('.transbg').html('');
-		var events = cal.getFutureEvents();
-		var counter = 0;
-		calobject.find('.transbg').html('');
-		counter=0;
-		events.forEach(function(event) {
-			if (counter < 5) {
-				var date = event.start_date;
-				var time = event.start_time;
-				if(_ICALENDAR_DATEFORMAT == 'friendly') {
-					var widget = '<div style="color:'+event.color+';">' + moment(date+' '+time,'DD/MM/YYYY HH:mm').locale(_ICALENDAR_LOCALE).calendar() + ' - <b>' + event.SUMMARY + '</b></div>';	
-				} 
-				else { 
-					var widget = '<div style="color:'+event.color+'">' + moment(event.DTSTART,'DD/MM/YYYY HH:mm').format(_ICALENDAR_DATEFORMAT) + ' - <b>' + event.SUMMARY + '</b></div>';		
-				}
-				calobject.find('.transbg').append(widget);
-			}
-			counter++;
-		});
-
-		setInterval(function(){
-			addCalendar(calobject,icsUrlorg)
-		},(60000*5));
-
-	});
-	
 }
 
 function addStreamPlayer(streamelement){
