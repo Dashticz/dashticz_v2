@@ -18,7 +18,7 @@ window.onerror = function(msg, url, line, col, error) {
 };
 
 var customfolder = 'custom';
-if(typeof(dashtype)!=='undefined' && parseFloat(dashtype)>0){
+if(typeof(dashtype)!=='undefined' && parseFloat(dashtype)>1){
 	customfolder = 'custom_'+dashtype;
 }
 
