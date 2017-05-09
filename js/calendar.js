@@ -26,14 +26,18 @@ function addCalendar(calobject,icsUrlorg){
 	if(typeof(icsUrl.icalurl)!=='undefined'){
 		icsUrl = icsUrl.icalurl.replace(/webcal?\:\/\//i, "https://");
 	}
+	
+	var maxitems = 10;
+	if(typeof(icsUrl.maxitems)!=='undefined') maxitems = icsUrl.maxitems;
+
 	calobject.find('.transbg').html('Loading...');
 	$.getJSON('https://cors-anywhere.herokuapp.com/http://ical-to-json.herokuapp.com/convert.json?url='+encodeURI(icsUrl),function(data){
 		calobject.find('.transbg').html('');
-		var counter = 0;
+		var counter = 1;
 		
 		for(e in data.calendars[0].events){
 			event = data.calendars[0].events[e];
-			if (moment(event.dtend).format('X') > moment().format('X') && counter < 15) {
+			if (moment(event.dtend).format('X') > moment().format('X') && counter < maxitems) {
 				var startdate = moment(event.dtstart).format(_ICALENDAR_DATEFORMAT);
 				var enddate = moment(event.dtend).format('HH:mm');
 				if(startdate=='Invalid date'){

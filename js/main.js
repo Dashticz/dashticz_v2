@@ -1266,7 +1266,8 @@ function getDevices(override){
 									
 									html+=iconORimage(idx+'_1','','heating.png','on icon','style="max-height:35px;"');
 									html+='<div class="col-xs-8 col-data">';
-										if(typeof(blocks[idx])!=='undefined' && typeof(blocks[idx]['switch'])!=='undefined' && blocks[idx]['switch']==true){
+
+										if(typeof(blocks[idx+'_1'])!=='undefined' && typeof(blocks[idx+'_1']['switch'])!=='undefined' && blocks[idx+'_1']['switch']==true){
 											html+='<strong class="title">'+device['Name']+'</strong><br />';
 											html+='<span class="state">'+device['Data']+_TEMP_SYMBOL+'</span>';
 
@@ -1298,8 +1299,14 @@ function getDevices(override){
 
 									html+=iconORimage(idx+'_2','','heating.png','on icon iconheating','','2');
 									html+='<div class="col-xs-8 col-data">';
-										html+='<strong class="title input-number title-input" min="12" max="25" data-light="'+device['idx']+'">'+device['Data']+_TEMP_SYMBOL+'</strong>';
-										html+='<div class="state stateheating">'+device['Name']+'</div>';
+										if(typeof(blocks[idx+'_2'])!=='undefined' && typeof(blocks[idx+'_2']['switch'])!=='undefined' && blocks[idx+'_2']['switch']==true){
+											html+='<strong class="title input-number title-input" min="12" max="25" data-light="'+device['idx']+'">'+device['Name']+'</strong>';
+											html+='<div class="state stateheating">'+device['Data']+_TEMP_SYMBOL+'</div>';
+										}
+										else {	
+											html+='<strong class="title input-number title-input" min="12" max="25" data-light="'+device['idx']+'">'+device['Data']+_TEMP_SYMBOL+'</strong>';
+											html+='<div class="state stateheating">'+device['Name']+'</div>';
+										}
 
 									html+='</div>';
 
