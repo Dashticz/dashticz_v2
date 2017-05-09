@@ -63,7 +63,6 @@ $('<link href="fonts/opensans/open-sans.css" rel="stylesheet" type="text/css">')
 $('<link href="vendor/weather/css/weather-icons.min.css?v='+cache+'" rel="stylesheet">').appendTo("head");
 $('<link href="vendor/jquery/jquery-ui.css" rel="stylesheet">').appendTo("head");
 $('<link href="vendor/morrisjs/morris.css" rel="stylesheet">').appendTo("head");
-$('<link href="vendor/swiper/css/swiper.min.css" rel="stylesheet">').appendTo("head");
 $('<link href="vendor/spectrum/spectrum.css" rel="stylesheet">').appendTo("head");
 $('<link href="css/creative.css?v='+cache+'" rel="stylesheet">').appendTo("head");
 $('<link href="css/sortable.css?v='+cache+'" rel="stylesheet">').appendTo("head");
@@ -257,7 +256,7 @@ function buildScreens(){
 
 function getBlock(cols,c,columndiv,standby){
 	if(typeof(cols)!=='undefined'){
-		if(!standby) $('div.screen'+s+' .row').append('<div class="col-xs-'+cols['width']+' sortable col'+c+'"></div>');
+		if(!standby) $('div.screen'+s+' .row').append('<div class="col-sm-'+cols['width']+' col-xs-12 sortable col'+c+'"></div>');
 		for(b in cols['blocks']){
 			var width=12;
 			if(typeof(blocks[cols['blocks'][b]])!=='undefined' && typeof(blocks[cols['blocks'][b]]['width'])!=='undefined') width = blocks[cols['blocks'][b]]['width'];
@@ -401,15 +400,21 @@ function getBlock(cols,c,columndiv,standby){
 	}
 }
 function startSwiper(){
-	if(objectlength(screens)>1 && (typeof(_EDIT_MODE)=='undefined' || _EDIT_MODE===false)){
-		myswiper = new Swiper('.swiper-container', {
-			pagination: '.swiper-pagination',
-			paginationClickable: true,
-			loop: false,
-			effect: _SCREENSLIDER_EFFECT,
-			keyboardControl:true
-		});
+	
+	if($( document ).width()>600){
+		$('<link href="vendor/swiper/css/swiper.min.css" rel="stylesheet">').appendTo("head");
+		if(objectlength(screens)>1 && (typeof(_EDIT_MODE)=='undefined' || _EDIT_MODE===false)){
+			myswiper = new Swiper('.swiper-container', {
+				pagination: '.swiper-pagination',
+				paginationClickable: true,
+				loop: false,
+				effect: _SCREENSLIDER_EFFECT,
+				keyboardControl:true
+			});
+		}
+
 	}
+	$( window ).resize(function() { document.location.href=document.location.href });
 }
 
 function initMap() {
