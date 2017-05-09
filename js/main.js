@@ -47,7 +47,7 @@ if(typeof(_SCREENSLIDER_EFFECT )=='undefined') var _SCREENSLIDER_EFFECT  = 'slid
 if(typeof(_ICALENDAR_URL )=='undefined') var _ICALENDAR_URL  = '';
 if(typeof(_ICALENDAR_DATEFORMAT )=='undefined') var _ICALENDAR_DATEFORMAT  = 'DD.MM.YYYY HH:mm';
 if(typeof(_ICALENDAR_LOCALE )=='undefined') var _ICALENDAR_LOCALE  = 'en';
-if(typeof(_DASHTICZ_REFRESH )=='undefined') var _DASHTICZ_REFRESH  = 120;
+if(typeof(_DASHTICZ_REFRESH )=='undefined') var _DASHTICZ_REFRESH  = 240;
 if(typeof(_USE_STATIC_WEATHERICONS )=='undefined') var _USE_STATIC_WEATHERICONS  = false;
 if(typeof(_SAVED_COLORS )=='undefined') var _SAVED_COLORS  = [];
 if(typeof(_EDIT_MODE )=='undefined') var _EDIT_MODE  = false;
