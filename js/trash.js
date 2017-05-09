@@ -18,7 +18,7 @@ function loadTrash (random,trashobject) {
 			html+='<img class="trashcan" src="img/kliko.png" />';
 		html+='</div>';
 		html+='<div class="col-xs-8 col-data">';
-			html+='<span class="state"></span>';
+			html+='<span class="state">Loading...</span>';
 		html+='</div>';
 	html+='</div>';
 	
@@ -41,8 +41,7 @@ function loadTrash (random,trashobject) {
 				}
 				else {
 					
-					var testDate = moment(respArray[i], "DD-MM-YYYY");
-
+					var testDate = moment(respArray[i],"DD-MM-YYYY");
 					if(testDate.isBetween(startDate, endDate, 'days', true)){
 						if(typeof(returnDates[curr])=='undefined'){
 							returnDates[curr] = {}
@@ -79,7 +78,7 @@ function loadTrash (random,trashobject) {
 						if(typeof(returnDates[curr])=='undefined'){
 							returnDates[curr] = {}
 						}
-						var testDate = moment(moment(data[d]['ophaaldatum'], "YYYY-MM-DD"));
+						var testDate = moment(moment(data[d]['ophaaldatum']));
 						returnDates[curr][testDate.format("YYYY-MM-DD")+'_'+teller]=getTrashRow(curr,testDate);
 					}
 				}
@@ -99,7 +98,7 @@ function loadTrash (random,trashobject) {
 				var curr = data[d]['nameType'];
 				curr = capitalizeFirstLetter(curr.toLowerCase());
 				
-				var testDate = moment(data[d]['date'], "YYYY-MM-DD");
+				var testDate = moment(data[d]['date']);
 				if(testDate.isBetween(startDate, endDate, 'days', true)){
 					returnDates[curr][testDate.format("YYYY-MM-DD")+'_'+teller]=getTrashRow(curr,testDate);
 					teller++;
@@ -142,7 +141,7 @@ function loadTrash (random,trashobject) {
 						returnDates[curr] = {}
 					}
 
-					var testDate = moment(moment(data.data[d].occurrences[o].from.date), "YYYY-MM-DD");
+					var testDate = moment(data.data[d].occurrences[o].from.date);
 					if(testDate.isBetween(startDate, endDate, 'days', true)){
 						returnDates[curr][testDate.format("YYYY-MM-DD")+'_'+teller]=getTrashRow(curr,testDate);
 					}
@@ -162,14 +161,10 @@ function loadTrash (random,trashobject) {
  					returnDates[curr] = {}
  				}
  				
- 				var startDate = moment(moment().format("DD-MM-YYYY"), "DD-MM-YYYY");
- 				var endDate = moment(moment(Date.now() + 32 * 24 * 3600 * 1000).format("DD-MM-YYYY"), "DD-MM-YYYY");
- 				var testDate = moment(data[d]['date'], "DD.MM.YYYY");
- 
+ 				var testDate = moment(data[d]['date']);
  				if(testDate.isBetween(startDate, endDate, 'days', true)){
  					for (e in data[d].fraktion){
- 						returnDates[curr][moment(moment(data[d]['date'], "DD.MM.YYYY")).format("YYYY-MM-DD")]='<div>'+data[d].fraktion[e]+': '+moment(moment(data[d]['date'], "DD.MM.YYYY")).format("DD-MM-YYYY")+'</div>';
- 						
+ 						returnDates[curr][moment(data[d]['date']).format("YYYY-MM-DD")]=getTrashRow(data[d].fraktion[e],testDate);
  					}
  				
  				}
@@ -207,18 +202,18 @@ function addToContainer(random,returnDates){
 		var skey = key.split('_');
 		skey = skey[0];
 		var date = moment(skey).format("DD-MM-YYYY");
-		var currentdate = moment(Date.now()).format("DD-MM-YYYY");
-		var tomorrow = moment(new Date()).add(1,'days').format("DD-MM-YYYY")
-		var nextweek = (moment(new Date()).add(6,'days').format("DD-MM-YYYY"))
-
-		if(date == currentdate){
+		var currentdate = moment();
+		var tomorrow = moment().add(1,'days');
+		var nextweek = moment().add(6,'days');
+		
+		if(date == currentdate.format("DD-MM-YYYY")){
 			returnDatesSimple[key] = returnDatesSimple[key].replace(date, lang['today']);
 		}   
-		else if(date == tomorrow){
+		else if(date == tomorrow.format("DD-MM-YYYY")){
 			returnDatesSimple[key] = returnDatesSimple[key].replace(date, lang['tomorrow']);
 		}
-		else if(date <= nextweek){
-			var datename = moment(moment(date).format("DD-MM-YYYY")).locale('nl').format("dddd");
+		else if(moment(skey).isBetween(currentdate, nextweek, 'days', true)){
+			var datename = moment(date,"DD-MM-YYYY").locale('nl').format("dddd");
 			datename = datename.charAt(0).toUpperCase() + datename.slice(1);
 			returnDatesSimple[key] = returnDatesSimple[key].replace(date, datename);
 		}  
