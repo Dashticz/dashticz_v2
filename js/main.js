@@ -1337,17 +1337,15 @@ function getDevices(override){
 									}
 								}
 								else if(device['SwitchType']=='Door Contact' || device['SwitchType']=='Door Lock'){
-									html+='<div class="col-xs-4 col-icon">';
-										if(device['Status']=='Closed') html+='<img src="img/door_closed.png" class="off icon" />';
-										else html+='<img src="img/door_open.png" class="on icon" />';
-									html+='</div>';
+									if(device['Status']=='Closed') html+=iconORimage(idx,'','door_closed.png','off icon','',2);
+									else html+=iconORimage(idx,'','door_open.png','on icon','',2);
+									
 									html+=getBlockData(device,idx,lang.state_open,lang.state_closed);
 								}
 								else if(device['SwitchType']=='Contact'){
-									html+='<div class="col-xs-4 col-icon">';
-										if(device['Status']=='Closed') html+='<img src="img/door_closed.png" class="off icon" />';
-										else html+='<img src="img/door_open.png" class="on icon" />';
-									html+='</div>';
+									if(device['Status']=='Closed') html+=iconORimage(idx,'','door_closed.png','off icon','',2);
+									else html+=iconORimage(idx,'','door_open.png','on icon','',2);
+
 									html+=getBlockData(device,idx,lang.state_open,lang.state_closed);
 								}
 								else if(device['SubType']=='Custom Sensor'){
