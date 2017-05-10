@@ -999,7 +999,7 @@ function getDevices(override){
 							}
 							catch(err) {
 								if(err.message!=='getBlock_'+idx+' is not defined'){
-									console.log(idx+" > "+err.message);
+									//console.log(idx+" > "+err.message);
 								}
 								
 								if(typeof(device['SubType'])!=='undefined' && device['SubType'] in blocktypes['SubType']){
