@@ -398,13 +398,15 @@ function startSwiper(){
 	if(md.mobile()==null || md.tablet()!==null){
 		$('<link href="vendor/swiper/css/swiper.min.css" rel="stylesheet">').appendTo("head");
 		if(objectlength(screens)>1 && (typeof(_EDIT_MODE)=='undefined' || _EDIT_MODE===false)){
-			myswiper = new Swiper('.swiper-container', {
-				pagination: '.swiper-pagination',
-				paginationClickable: true,
-				loop: false,
-				effect: _SCREENSLIDER_EFFECT,
-				keyboardControl:true
-			});
+			setTimeout(function(){
+				myswiper = new Swiper('.swiper-container', {
+					pagination: '.swiper-pagination',
+					paginationClickable: true,
+					loop: false,
+					effect: _SCREENSLIDER_EFFECT,
+					keyboardControl:true
+				});
+			},2000);
 		}
 
 	}
