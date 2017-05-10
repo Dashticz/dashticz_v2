@@ -32,40 +32,48 @@ function addCalendar(calobject,icsUrlorg){
 
 	calobject.find('.transbg').html('Loading...');
 	icsUrl = icsUrl.replace('https://cors-anywhere.herokuapp.com/','');
+	var calitems = {}
 	$.getJSON('https://cors-anywhere.herokuapp.com/http://ical-to-json.herokuapp.com/convert.json?url='+encodeURI(icsUrl),function(data){
 		calobject.find('.transbg').html('');
-		var counter = 1;
-		
 		for(e in data.calendars[0].events){
 			event = data.calendars[0].events[e];
-			if (moment(event.dtend).format('X') > moment().format('X') && counter < maxitems) {
-				var startdate = moment(event.dtstart).format(_ICALENDAR_DATEFORMAT);
-				var enddate = moment(event.dtend).format('HH:mm');
-				if(startdate=='Invalid date'){
-					console.log(event);
-					if(event.dtstart[0].length==8){
-						var startdate = moment(event.dtstart[0]).format(_ICALENDAR_DATEFORMAT).replace('00:00','') + 'Hele dag';
-					}
-					else {
-						var startdate = moment(event.dtstart[0]).format(_ICALENDAR_DATEFORMAT);
-					}
+			var startdate = moment(event.dtstart).format(_ICALENDAR_DATEFORMAT);
+
+			var startdateStamp = moment(event.dtstart).format('X');
+			var enddate = moment(event.dtend).format('HH:mm');
+			if(startdate=='Invalid date'){
+				if(event.dtstart[0].length==8){
+					var startdate = moment(event.dtstart[0]).format(_ICALENDAR_DATEFORMAT).replace('00:00','') + 'Hele dag';
 				}
-				if(enddate=='Invalid date'){
-					console.log(event);
-					if(event.dtend[0].length==8){
-						var enddate = '';
-					}
-					else {
-						var enddate = moment(event.dtend[0]).format(_ICALENDAR_DATEFORMAT);
-					}
+				else {
+					var startdate = moment(event.dtstart[0]).format(_ICALENDAR_DATEFORMAT);
 				}
-				
-				if(enddate!=='') enddate =' - ' + enddate;
-				
-				if(typeof(event.rrule)!=='undefined'){
-					
+				var startdateStamp = moment(event.dtstart[0]).format('X');
+			}
+			if(enddate=='Invalid date'){
+				console.log(event);
+				if(event.dtend[0].length==8){
+					var enddate = '';
 				}
-				var widget = '<div style="color:'+event.color+'">' + startdate + enddate + ' - <b>' + event.summary + '</b></div>';		
+				else {
+					var enddate = moment(event.dtend[0]).format(_ICALENDAR_DATEFORMAT);
+				}
+			}
+
+			if(enddate!=='') enddate =' - ' + enddate;
+
+			event.enddate = enddate;
+			event.startdate = startdate;
+
+			calitems[startdateStamp] = event;
+			
+		}
+		
+		var counter = 1;
+		
+		for(c in calitems){
+			if(c > moment().format('X') && counter < maxitems){
+				var widget = '<div style="color:'+calitems[c].color+'">' + calitems[c]['startdate'] + calitems[c]['enddate'] + ' - <b>' + calitems[c].summary + '</b></div>';		
 				calobject.find('.transbg').append(widget);
 				counter++;
 			}
