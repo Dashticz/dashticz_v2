@@ -203,7 +203,12 @@ function addToContainer(random,returnDates){
 	$('.trash'+random+' .state').html('');
 	var c=1;
 	
-	$('.trash'+random).find('img.trashcan').css('opacity','0.7');
+	if(typeof(_DO_NOT_USE_COLORED_TRASHCAN)=='undefined' || _DO_NOT_USE_COLORED_TRASHCAN===false){	
+		$('.trash'+random).find('img.trashcan').css('opacity','0.7');
+	}
+	else {
+		$('.trash'+random).find('img.trashcan').css('opacity','1');
+	}
 	Object.keys(returnDatesSimple).sort().forEach(function(key) {
 
 		var skey = key.split('_');
@@ -213,32 +218,34 @@ function addToContainer(random,returnDates){
 		var tomorrow = moment().add(1,'days');
 		var nextweek = moment().add(6,'days');
 	
-		if (c==1 && (
-			returnDatesSimple[key].toLowerCase().indexOf("gft") >= 0 || 
-			returnDatesSimple[key].toLowerCase().indexOf("tuin") >= 0
-		)
-		   ){
-			$('.trash'+random).find('img.trashcan').attr('src','img/kliko_green.png');
-		}
-		else if (c==1 && (
-			returnDatesSimple[key].toLowerCase().indexOf("plastic") >= 0 || 
-			returnDatesSimple[key].toLowerCase().indexOf("pmd") >= 0
-		)
-		){
-			$('.trash'+random).find('img.trashcan').attr('src','img/kliko_orange.png');
-		}
-		else if (c==1 && (
-			returnDatesSimple[key].toLowerCase().indexOf("rest") >= 0 || 
-			returnDatesSimple[key].toLowerCase().indexOf("grof") >= 0
-		)
-		){
-			$('.trash'+random).find('img.trashcan').attr('src','img/kliko_grey.png');
-		}
-		else if (c==1 && returnDatesSimple[key].toLowerCase().indexOf("papier") >= 0){
-			$('.trash'+random).find('img.trashcan').attr('src','img/kliko_blue.png');
-		}
-		else if (c==1 && returnDatesSimple[key].toLowerCase().indexOf("chemisch") >= 0){
-			$('.trash'+random).find('img.trashcan').attr('src','img/kliko_red.png');
+		if(typeof(_DO_NOT_USE_COLORED_TRASHCAN)=='undefined' || _DO_NOT_USE_COLORED_TRASHCAN===false){
+			if (c==1 && (
+				returnDatesSimple[key].toLowerCase().indexOf("gft") >= 0 || 
+				returnDatesSimple[key].toLowerCase().indexOf("tuin") >= 0
+			)
+			   ){
+				$('.trash'+random).find('img.trashcan').attr('src','img/kliko_green.png');
+			}
+			else if (c==1 && (
+				returnDatesSimple[key].toLowerCase().indexOf("plastic") >= 0 || 
+				returnDatesSimple[key].toLowerCase().indexOf("pmd") >= 0
+			)
+			){
+				$('.trash'+random).find('img.trashcan').attr('src','img/kliko_orange.png');
+			}
+			else if (c==1 && (
+				returnDatesSimple[key].toLowerCase().indexOf("rest") >= 0 || 
+				returnDatesSimple[key].toLowerCase().indexOf("grof") >= 0
+			)
+			){
+				$('.trash'+random).find('img.trashcan').attr('src','img/kliko_grey.png');
+			}
+			else if (c==1 && returnDatesSimple[key].toLowerCase().indexOf("papier") >= 0){
+				$('.trash'+random).find('img.trashcan').attr('src','img/kliko_blue.png');
+			}
+			else if (c==1 && returnDatesSimple[key].toLowerCase().indexOf("chemisch") >= 0){
+				$('.trash'+random).find('img.trashcan').attr('src','img/kliko_red.png');
+			}
 		}
 		
 		if(date == currentdate.format("DD-MM-YYYY")){
