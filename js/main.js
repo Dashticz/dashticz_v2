@@ -391,8 +391,8 @@ function getBlock(cols,c,columndiv,standby){
 	}
 }
 function startSwiper(){
-	var md = new MobileDetect(window.navigator.userAgent);
-	if(md.mobile()==null){
+	var md = new MobileDetect(window.navigator.userAgent);//window.navigator.userAgent);
+	if(md.mobile()==null || md.tablet()!==null){
 		$('<link href="vendor/swiper/css/swiper.min.css" rel="stylesheet">').appendTo("head");
 		if(objectlength(screens)>1 && (typeof(_EDIT_MODE)=='undefined' || _EDIT_MODE===false)){
 			myswiper = new Swiper('.swiper-container', {
