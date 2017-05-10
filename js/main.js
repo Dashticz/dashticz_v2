@@ -1,19 +1,11 @@
 
 window.onerror = function(msg, url, line, col, error) {
-   // Note that col & error are new to the HTML 5 spec and may not be 
-   // supported in every browser.  It worked for me in Chrome.
    var extra = !col ? '' : '\ncolumn: ' + col;
    extra += !error ? '' : '\nerror: ' + error;
 
-   // You can view the information in an alert to see things working like this:
    alert("Error: " + msg + "\nurl: " + url + "\nline: " + line);
 
-   // TODO: Report this error via ajax so you can keep track
-   //       of what pages have JS issues
-
    var suppressErrorAlert = true;
-   // If you return true, then error alerts (like in older versions of 
-   // Internet Explorer) will be suppressed.
    return suppressErrorAlert;
 };
 
@@ -66,8 +58,6 @@ $('<link href="vendor/morrisjs/morris.css" rel="stylesheet">').appendTo("head");
 $('<link href="vendor/spectrum/spectrum.css" rel="stylesheet">').appendTo("head");
 $('<link href="css/creative.css?v='+cache+'" rel="stylesheet">').appendTo("head");
 $('<link href="css/sortable.css?v='+cache+'" rel="stylesheet">').appendTo("head");
-
-
 
 $.ajax({url: 'vendor/jquery/jquery-ui.js', async: false,dataType: "script"});
 $.ajax({url: 'vendor/jquery/touchpunch.js', async: false,dataType: "script"});
@@ -1338,8 +1328,12 @@ function getDevices(override){
 									addHTML=false;
 
 									if(typeof(addedThermostat[idx])=='undefined'){
-										addThermostatFunctions('.block_'+idx+'_2');
+										addThermostatFunctions('.block_'+idx);
 										addedThermostat[idx] = true;
+									}
+									if(typeof(addedThermostat[idx+'_2'])=='undefined'){
+										addThermostatFunctions('.block_'+idx+'_2');
+										addedThermostat[idx+'_2'] = true;
 									}
 								}
 								else if(device['SwitchType']=='Door Contact' || device['SwitchType']=='Door Lock'){
