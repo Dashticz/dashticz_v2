@@ -20,7 +20,7 @@ function loadTrash (random,trashobject) {
 	if(typeof(trashobject.width)!=='undefined') width=trashobject.width;
 	var html='<div class="trash'+random+' col-xs-'+width+' transbg" data-id="trash.'+key+'">';
 		html+='<div class="col-xs-4 col-icon">';
-			html+='<img class="trashcan" src="img/kliko.png" />';
+			html+='<img class="trashcan" src="img/kliko.png" style="opacity:0.1" />';
 		html+='</div>';
 		html+='<div class="col-xs-8 col-data">';
 			html+='<span class="state">Loading...</span>';
@@ -203,6 +203,7 @@ function addToContainer(random,returnDates){
 	$('.trash'+random+' .state').html('');
 	var c=1;
 	
+	$('.trash'+random).find('img.trashcan').css('opacity','0.7');
 	Object.keys(returnDatesSimple).sort().forEach(function(key) {
 
 		var skey = key.split('_');
@@ -211,6 +212,34 @@ function addToContainer(random,returnDates){
 		var currentdate = moment();
 		var tomorrow = moment().add(1,'days');
 		var nextweek = moment().add(6,'days');
+	
+		if (c==1 && (
+			returnDatesSimple[key].toLowerCase().indexOf("gft") >= 0 || 
+			returnDatesSimple[key].toLowerCase().indexOf("tuin") >= 0
+		)
+		   ){
+			$('.trash'+random).find('img.trashcan').attr('src','img/kliko_green.png');
+		}
+		else if (c==1 && (
+			returnDatesSimple[key].toLowerCase().indexOf("plastic") >= 0 || 
+			returnDatesSimple[key].toLowerCase().indexOf("pmd") >= 0
+		)
+		){
+			$('.trash'+random).find('img.trashcan').attr('src','img/kliko_orange.png');
+		}
+		else if (c==1 && (
+			returnDatesSimple[key].toLowerCase().indexOf("rest") >= 0 || 
+			returnDatesSimple[key].toLowerCase().indexOf("grof") >= 0
+		)
+		){
+			$('.trash'+random).find('img.trashcan').attr('src','img/kliko_grey.png');
+		}
+		else if (c==1 && returnDatesSimple[key].toLowerCase().indexOf("papier") >= 0){
+			$('.trash'+random).find('img.trashcan').attr('src','img/kliko_blue.png');
+		}
+		else if (c==1 && returnDatesSimple[key].toLowerCase().indexOf("chemisch") >= 0){
+			$('.trash'+random).find('img.trashcan').attr('src','img/kliko_red.png');
+		}
 		
 		if(date == currentdate.format("DD-MM-YYYY")){
 			returnDatesSimple[key] = returnDatesSimple[key].replace(date, lang['today']);
