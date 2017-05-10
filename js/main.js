@@ -78,6 +78,7 @@ $.ajax({url: 'vendor/moment-with-locales.js', async: false,dataType: "script"});
 $.ajax({url: 'vendor/jquery.newsTicker.min.js', async: false,dataType: "script"});
 $.ajax({url: 'vendor/skycons/skycons.js', async: false,dataType: "script"});
 $.ajax({url: 'vendor/spectrum/spectrum.js', async: false,dataType: "script"});
+$.ajax({url: 'vendor/mobiledetect/mobiledetect.js', async: false,dataType: "script"});
 $.ajax({url: 'js/sortable.js', async: false,dataType: "script"});
 $.ajax({url: 'js/switches.js', async: false,dataType: "script"});
 $.ajax({url: 'js/trash.js', async: false,dataType: "script"});
@@ -390,8 +391,8 @@ function getBlock(cols,c,columndiv,standby){
 	}
 }
 function startSwiper(){
-	
-	if($( document ).width()>600){
+	var md = new MobileDetect(window.navigator.userAgent);
+	if(md.mobile()==null){
 		$('<link href="vendor/swiper/css/swiper.min.css" rel="stylesheet">').appendTo("head");
 		if(objectlength(screens)>1 && (typeof(_EDIT_MODE)=='undefined' || _EDIT_MODE===false)){
 			myswiper = new Swiper('.swiper-container', {
