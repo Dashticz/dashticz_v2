@@ -312,9 +312,12 @@ function getBlock(cols,c,columndiv,standby){
 				  clock.dial = StationClock.GermanStrokeDial;
 				  clock.hourHand = StationClock.PointedHourHand;
 				  clock.minuteHand = StationClock.PointedMinuteHand;
-				  clock.secondHand = StationClock.HoleShapedSecondHand;
-				  if(typeof(_CLOCK_BOSS)=='undefined') clock.boss = StationClock.NoBoss;
-				  else if(_CLOCK_BOSS=='RedBoss') clock.boss = StationClock.RedBoss;
+				  if(_HIDE_SECONDS_IN_CLOCK==true)  clock.secondHand = false;
+				 else {
+						  clock.secondHand = StationClock.HoleShapedSecondHand;
+						if(typeof(_CLOCK_BOSS)=='undefined') clock.boss = StationClock.NoBoss;
+						else if(_CLOCK_BOSS=='RedBoss') clock.boss = StationClock.RedBoss;
+					}
 				
 				  clock.minuteHandBehavoir = StationClock.BouncingMinuteHand;
 				  clock.secondHandBehavoir = StationClock.OverhastySecondHand;
