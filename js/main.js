@@ -1450,7 +1450,9 @@ function getDevices(override){
 									html+=getBlockData(device,idx,lang.state_smoke,lang.state_nosmoke);
 								}
 								else if(device['HardwareName']=='Dummy') { 
-									$('.block_'+idx).attr('onclick','switchDevice(this)');
+									if(device['Protected'] == false){
+										$('.block_'+idx).attr('onclick','switchDevice(this)');
+									}
 
 									if(device['Status']=='Off') html+=iconORimage(idx,'fa-toggle-off','','off icon');
 									else html+=iconORimage(idx,'fa-toggle-on','','on icon');
@@ -1464,7 +1466,9 @@ function getDevices(override){
 									html+=getBlockData(device,idx,lang.state_on,lang.state_off);
 								}
 								else {
-									$('.block_'+idx).attr('onclick','switchDevice(this)');
+									if(device['Protected'] == false){
+										$('.block_'+idx).attr('onclick','switchDevice(this)');
+									}
 									if(buttonimg==''){
 										if(device['Status']=='Off') html+=iconORimage(idx,'fa-lightbulb-o','','off icon');
 										else html+=iconORimage(idx,'fa-lightbulb-o','','on icon');
