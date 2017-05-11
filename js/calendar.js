@@ -88,21 +88,22 @@ function addCalendar(calobject,icsUrlorg){
 				event.enddate = enddate;
 				event.startdate = startdate;
 				event.color = colors[$.md5(url)];
+				calitems[startdateStamp+"_"+counter] = event;
 				if(event.rrule){
 					
 					if(startdateFull.length==8) startdateFull=startdateFull+'T090000';
 					
 					var rule = RRule.fromString(event.rrule+';DTSTART='+startdateFull+'Z');
 					var rule = new RRule(rule.options)
-					var rules = rule.between(new Date(2017, 1, 1), new Date(2018, 8, 1));
+					var rules = rule.between(new Date(2017, 1, 1), new Date(2018, 7, 1));
 					var count = 1;
 					for(r in rules){
 						var startdateStamp = moment(rules[r]).format('X');
+						event.startdate = moment(rules[r]).format(_ICALENDAR_DATEFORMAT);
 						calitems[startdateStamp+"_"+count] = event;
 						count++
 					}
 				}
-				calitems[startdateStamp+"_"+counter] = event;
 				counter++
 			}
 			
