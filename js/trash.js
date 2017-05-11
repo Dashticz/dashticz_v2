@@ -18,6 +18,10 @@ function loadTrash (random,trashobject) {
 	
 	var width = 12;
 	if(typeof(trashobject.width)!=='undefined') width=trashobject.width;
+	
+	var maxitems = 5;
+	if(typeof(trashobject.maxitems)!=='undefined') maxitems=trashobject.maxitems;
+	
 	var html='<div class="trash'+random+' col-xs-'+width+' transbg" data-id="trash.'+key+'">';
 		html+='<div class="col-xs-4 col-icon">';
 			html+='<img class="trashcan" src="img/kliko.png" style="opacity:0.1" />';
@@ -56,7 +60,7 @@ function loadTrash (random,trashobject) {
 					}
 				}
 			}
-			addToContainer(random,returnDates);
+			addToContainer(random,returnDates,maxitems);
 		});
 	}
 	
@@ -90,7 +94,7 @@ function loadTrash (random,trashobject) {
 					}
 				}
 				
-				addToContainer(random,returnDates);
+				addToContainer(random,returnDates,maxitems);
 			});
 		});
 	}
@@ -112,7 +116,7 @@ function loadTrash (random,trashobject) {
 				}
 			}
 			
-			addToContainer(random,returnDates);
+			addToContainer(random,returnDates,maxitems);
 
 		});
 	}
@@ -136,7 +140,7 @@ function loadTrash (random,trashobject) {
 				}
 			}
 			
-			addToContainer(random,returnDates);
+			addToContainer(random,returnDates,maxitems);
 		});
 	}
 	if(service=='recyclemanager'){
@@ -157,7 +161,7 @@ function loadTrash (random,trashobject) {
 				}
 			}
 			
-			addToContainer(random,returnDates);
+			addToContainer(random,returnDates,maxitems);
 
 		});
 	}
@@ -179,7 +183,7 @@ function loadTrash (random,trashobject) {
  				
  				}
  			}
- 			addToContainer(random,returnDates);
+ 			addToContainer(random,returnDates,maxitems);
  
  		});		
  	}
@@ -194,7 +198,7 @@ function getTrashRow(c,d){
 	return '<div'+color+'>'+c+': '+d.format("DD-MM-YYYY")+'</div>';
 }
 
-function addToContainer(random,returnDates){
+function addToContainer(random,returnDates,maxitems){
 	var returnDatesSimple={}
 	var done = {};
 	for(c in returnDates){
@@ -267,7 +271,7 @@ function addToContainer(random,returnDates){
 			returnDatesSimple[key] = returnDatesSimple[key].replace(date, datename);
 		}  
 
-		if(c<=4) $('.trash'+random+' .state').append(returnDatesSimple[key]);
+		if(c<=maxitems) $('.trash'+random+' .state').append(returnDatesSimple[key]);
 		c++;
 		
 	});
