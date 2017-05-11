@@ -60,7 +60,6 @@ function addCalendar(calobject,icsUrlorg){
 			
 			var url = this.url.replace('https://cors-anywhere.herokuapp.com/http://ical-to-json.herokuapp.com/convert.json?url=','');
 			done++;
-			calobject.find('.transbg').html('');
 			for(e in data.calendars[0].events){
 				event = data.calendars[0].events[e];
 				var startdate = moment(event.dtstart).format(_ICALENDAR_DATEFORMAT);
@@ -92,6 +91,7 @@ function addCalendar(calobject,icsUrlorg){
 			}
 			
 			if(done==amountc){
+				calobject.find('.transbg').html('');
 				var counter = 1;
 				Object.keys(calitems).sort().forEach(function(c) {
 					if(c > moment().format('X') && counter <= maxitems){
