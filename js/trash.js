@@ -86,6 +86,7 @@ function loadTrash (random,trashobject) {
 						}
 						var testDate = moment(moment(data[d]['ophaaldatum']));
 						returnDates[curr][testDate.format("YYYY-MM-DD")+'_'+teller]=getTrashRow(curr,testDate);
+						teller++;
 					}
 				}
 				
@@ -130,6 +131,7 @@ function loadTrash (random,trashobject) {
 					var testDate = moment(data[d].dateTime[dt].date);
 					if(testDate.isBetween(startDate, endDate, 'days', true)){
 						returnDates[curr][testDate.format("YYYY-MM-DD")+'_'+teller]=getTrashRow(curr,testDate);
+						teller++;
 					}
 				}
 			}
@@ -150,6 +152,7 @@ function loadTrash (random,trashobject) {
 					var testDate = moment(data.data[d].occurrences[o].from.date);
 					if(testDate.isBetween(startDate, endDate, 'days', true)){
 						returnDates[curr][testDate.format("YYYY-MM-DD")+'_'+teller]=getTrashRow(curr,testDate);
+						teller++;
 					}
 				}
 			}
@@ -171,6 +174,7 @@ function loadTrash (random,trashobject) {
  				if(testDate.isBetween(startDate, endDate, 'days', true)){
  					for (e in data[d].fraktion){
  						returnDates[curr][moment(data[d]['date']).format("YYYY-MM-DD")]=getTrashRow(data[d].fraktion[e],testDate);
+						teller++;
  					}
  				
  				}
