@@ -52,10 +52,10 @@ function loadTrash (random,trashobject) {
 							returnDates[curr] = {}
 						}
 						returnDates[curr][testDate.format("YYYY-MM-DD")+teller]=getTrashRow(curr,testDate);
+						teller++;
 					}
 				}
 			}
-			
 			addToContainer(random,returnDates);
 		});
 	}
@@ -240,7 +240,10 @@ function addToContainer(random,returnDates){
 			){
 				$('.trash'+random).find('img.trashcan').attr('src','img/kliko_grey.png');
 			}
-			else if (c==1 && returnDatesSimple[key].toLowerCase().indexOf("papier") >= 0){
+			else if (c==1 && (
+				returnDatesSimple[key].toLowerCase().indexOf("papier") >= 0 || 
+				returnDatesSimple[key].toLowerCase().indexOf("blauw") >= 0
+			)){
 				$('.trash'+random).find('img.trashcan').attr('src','img/kliko_blue.png');
 			}
 			else if (c==1 && returnDatesSimple[key].toLowerCase().indexOf("chemisch") >= 0){
