@@ -20,6 +20,7 @@ lang['sunday'] = 'Dimanche';
 
 lang['today'] = 'Aujourd hui';
 lang['tomorrow'] = 'Demain';
+lang['entire_day_event'] = 'toute la journée';
 
 lang['graph_last_hours'] = 'Dernières heures';
 lang['graph_today'] = 'Aujourd hui';

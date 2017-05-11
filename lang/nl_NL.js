@@ -20,6 +20,7 @@ lang['sunday'] = 'Zondag';
 
 lang['today'] = 'Vandaag';
 lang['tomorrow'] = 'Morgen';
+lang['entire_day_event'] = 'Hele dag';
 
 lang['graph_last_hours'] = 'laatste uren';
 lang['graph_today'] = 'vandaag';

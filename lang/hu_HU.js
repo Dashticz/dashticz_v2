@@ -19,6 +19,7 @@ lang['sunday'] = 'Vasárnap';
 
 lang['today'] = 'Ma';
 lang['tomorrow'] = 'Holnap';
+lang['entire_day_event'] = 'egész nap';
 
 lang['graph_last_hours'] = 'utolsó órák';
 lang['graph_today'] = 'ma';
