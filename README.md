@@ -5,7 +5,7 @@ Alternative dashboard for Domoticz
 
 
 # Screenshots
-![alt tag](http://i.imgur.com/A18PfG8.png)
+![alt tag](http://i.imgur.com/g0Dt15h.png)
 
 
 
@@ -16,6 +16,15 @@ Save CONFIG_DEFAULT.js as CONFIG.js and insert the IP-address of Domoticz withou
 
 
 Visit the wikipage at: http://www.domoticz.com/wiki/Dashticz-v2
+
+
+
+
+# Donate
+
+If you like my work, you can buy me a beer at: 
+
+https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=robgeerts%40gmail%2ecom&lc=BM&item_name=Rob%20Geerts&no_note=0&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHostedGuest
 
 
 
