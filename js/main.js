@@ -19,6 +19,7 @@ if(typeof(_LANGUAGE)=='undefined') var _LANGUAGE='nl_NL';
 if(typeof(_USE_FAVORITES)=='undefined') var _USE_FAVORITES=false;
 if(typeof(_USE_AUTO_POSITIONING)=='undefined') var _USE_AUTO_POSITIONING=false;
 if(typeof(_HIDE_SECONDS_IN_CLOCK)=='undefined') var _HIDE_SECONDS_IN_CLOCK=false;
+if(typeof(_HIDE_SECONDS_IN_STATIONCLOCK)=='undefined') var _HIDE_SECONDS_IN_STATIONCLOCK=false;
 if(typeof(_HIDE_MEDIAPLAYER_WHEN_OFF)=='undefined') var _HIDE_MEDIAPLAYER_WHEN_OFF=false;
 if(typeof(_USE_FAHRENHEIT)=='undefined') var _USE_FAHRENHEIT=false;
 if(typeof(_BACKGROUND_IMAGE)=='undefined') var _BACKGROUND_IMAGE='bg2.jpg';
@@ -312,7 +313,7 @@ function getBlock(cols,c,columndiv,standby){
 				  clock.dial = StationClock.GermanStrokeDial;
 				  clock.hourHand = StationClock.PointedHourHand;
 				  clock.minuteHand = StationClock.PointedMinuteHand;
-				  if(_HIDE_SECONDS_IN_CLOCK==true)  clock.secondHand = false;
+				  if(_HIDE_SECONDS_IN_STATIONCLOCK==true)  clock.secondHand = false;
 				 else {
 						  clock.secondHand = StationClock.HoleShapedSecondHand;
 						if(typeof(_CLOCK_BOSS)=='undefined') clock.boss = StationClock.NoBoss;
