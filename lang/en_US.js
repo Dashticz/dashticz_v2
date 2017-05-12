@@ -20,6 +20,7 @@ lang['sunday'] = 'Sunday';
 
 lang['today'] = 'Today';
 lang['tomorrow'] = 'Tomorrow';
+lang['entire_day_event'] = 'Entire day';
 
 lang['graph_last_hours'] = 'last hours';
 lang['graph_today'] = 'today';

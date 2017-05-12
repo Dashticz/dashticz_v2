@@ -6,6 +6,11 @@ function loadTrash (random,trashobject) {
 	if(typeof(trashobject.country)!=='undefined') var country = trashobject.country;
 	if(typeof(trashobject.street)!=='undefined') var street = trashobject.street;
 	
+	var key = 'UNKNOWN';
+	if(typeof(trashobject.key)!=='undefined') key=trashobject.key;
+				
+				
+	
 	var dates = {};
     var curr = '';
     var data = '';
@@ -13,12 +18,12 @@ function loadTrash (random,trashobject) {
 	
 	var width = 12;
 	if(typeof(trashobject.width)!=='undefined') width=trashobject.width;
-	var html='<div class="trash'+random+' col-xs-'+width+' transbg">';
+	var html='<div class="trash'+random+' col-xs-'+width+' transbg" data-id="trash.'+key+'">';
 		html+='<div class="col-xs-4 col-icon">';
-			html+='<img class="trashcan" src="img/kliko.png" />';
+			html+='<img class="trashcan" src="img/kliko.png" style="opacity:0.1" />';
 		html+='</div>';
 		html+='<div class="col-xs-8 col-data">';
-			html+='<span class="state"></span>';
+			html+='<span class="state">Loading...</span>';
 		html+='</div>';
 	html+='</div>';
 	
@@ -41,22 +46,21 @@ function loadTrash (random,trashobject) {
 				}
 				else {
 					
-					var testDate = moment(respArray[i], "DD-MM-YYYY");
-
+					var testDate = moment(respArray[i],"DD-MM-YYYY");
 					if(testDate.isBetween(startDate, endDate, 'days', true)){
 						if(typeof(returnDates[curr])=='undefined'){
 							returnDates[curr] = {}
 						}
 						returnDates[curr][testDate.format("YYYY-MM-DD")+teller]=getTrashRow(curr,testDate);
+						teller++;
 					}
 				}
 			}
-			
 			addToContainer(random,returnDates);
 		});
 	}
 	
-	if(service=='cure' || service=='cyclusnv' || service=='alphenaandenrijn' || service=='rmn' || service=='circulusberkel' || service=='gemeenteberkelland' || service=='meerlanden' || service=='venray'){
+	if(service=='cure' || service=='cyclusnv' || service=='sudwestfryslan' || service=='alphenaandenrijn' || service=='rmn' || service=='circulusberkel' || service=='gemeenteberkelland' || service=='meerlanden' || service=='venray'){
 		$('.trash'+random+' .state').html('');
 	
 		var baseURL = '';
@@ -68,6 +72,7 @@ function loadTrash (random,trashobject) {
 		if(service=='circulusberkel') baseURL = 'https://afvalkalender.circulus-berkel.nl';
 		if(service=='rmn') baseURL = 'https://inzamelschema.rmn.nl';
 		if(service=='alphenaandenrijn') baseURL = 'http://afvalkalender.alphenaandenrijn.nl';
+		if(service=='sudwestfryslan') baseURL = 'http://afvalkalender.sudwestfryslan.nl';
 		
 		$.getJSON('https://cors-anywhere.herokuapp.com/'+baseURL + '/rest/adressen/' + postcode + '-' + homenumber,function(data){
 			$.getJSON('https://cors-anywhere.herokuapp.com/'+baseURL + '/rest/adressen/'+data[0].bagId+'/afvalstromen',function(data){
@@ -79,8 +84,9 @@ function loadTrash (random,trashobject) {
 						if(typeof(returnDates[curr])=='undefined'){
 							returnDates[curr] = {}
 						}
-						var testDate = moment(moment(data[d]['ophaaldatum'], "YYYY-MM-DD"));
+						var testDate = moment(moment(data[d]['ophaaldatum']));
 						returnDates[curr][testDate.format("YYYY-MM-DD")+'_'+teller]=getTrashRow(curr,testDate);
+						teller++;
 					}
 				}
 				
@@ -99,7 +105,7 @@ function loadTrash (random,trashobject) {
 				var curr = data[d]['nameType'];
 				curr = capitalizeFirstLetter(curr.toLowerCase());
 				
-				var testDate = moment(data[d]['date'], "YYYY-MM-DD");
+				var testDate = moment(data[d]['date']);
 				if(testDate.isBetween(startDate, endDate, 'days', true)){
 					returnDates[curr][testDate.format("YYYY-MM-DD")+'_'+teller]=getTrashRow(curr,testDate);
 					teller++;
@@ -125,6 +131,7 @@ function loadTrash (random,trashobject) {
 					var testDate = moment(data[d].dateTime[dt].date);
 					if(testDate.isBetween(startDate, endDate, 'days', true)){
 						returnDates[curr][testDate.format("YYYY-MM-DD")+'_'+teller]=getTrashRow(curr,testDate);
+						teller++;
 					}
 				}
 			}
@@ -142,9 +149,10 @@ function loadTrash (random,trashobject) {
 						returnDates[curr] = {}
 					}
 
-					var testDate = moment(moment(data.data[d].occurrences[o].from.date), "YYYY-MM-DD");
+					var testDate = moment(data.data[d].occurrences[o].from.date);
 					if(testDate.isBetween(startDate, endDate, 'days', true)){
 						returnDates[curr][testDate.format("YYYY-MM-DD")+'_'+teller]=getTrashRow(curr,testDate);
+						teller++;
 					}
 				}
 			}
@@ -162,14 +170,11 @@ function loadTrash (random,trashobject) {
  					returnDates[curr] = {}
  				}
  				
- 				var startDate = moment(moment().format("DD-MM-YYYY"), "DD-MM-YYYY");
- 				var endDate = moment(moment(Date.now() + 32 * 24 * 3600 * 1000).format("DD-MM-YYYY"), "DD-MM-YYYY");
- 				var testDate = moment(data[d]['date'], "DD.MM.YYYY");
- 
+ 				var testDate = moment(data[d]['date']);
  				if(testDate.isBetween(startDate, endDate, 'days', true)){
  					for (e in data[d].fraktion){
- 						returnDates[curr][moment(moment(data[d]['date'], "DD.MM.YYYY")).format("YYYY-MM-DD")]='<div>'+data[d].fraktion[e]+': '+moment(moment(data[d]['date'], "DD.MM.YYYY")).format("DD-MM-YYYY")+'</div>';
- 						
+ 						returnDates[curr][moment(data[d]['date']).format("YYYY-MM-DD")]=getTrashRow(data[d].fraktion[e],testDate);
+						teller++;
  					}
  				
  				}
@@ -183,7 +188,10 @@ function loadTrash (random,trashobject) {
 }
 
 function getTrashRow(c,d){
-	return '<div>'+c+': '+d.format("DD-MM-YYYY")+'</div>';
+	color='';
+	if(typeof(trashcolors)!=='undefined' && typeof(trashcolors[c])!=='undefined') color=' style="color:'+trashcolors[c]+'";';
+	if(typeof(trashnames)!=='undefined' && typeof(trashnames[c])!=='undefined') c = trashnames[c];
+	return '<div'+color+'>'+c+': '+d.format("DD-MM-YYYY")+'</div>';
 }
 
 function addToContainer(random,returnDates){
@@ -199,24 +207,64 @@ function addToContainer(random,returnDates){
 	$('.trash'+random+' .state').html('');
 	var c=1;
 	
+	if(typeof(_DO_NOT_USE_COLORED_TRASHCAN)=='undefined' || _DO_NOT_USE_COLORED_TRASHCAN===false){	
+		$('.trash'+random).find('img.trashcan').css('opacity','0.7');
+	}
+	else {
+		$('.trash'+random).find('img.trashcan').css('opacity','1');
+	}
 	Object.keys(returnDatesSimple).sort().forEach(function(key) {
 
 		var skey = key.split('_');
 		skey = skey[0];
 		var date = moment(skey).format("DD-MM-YYYY");
-		var currentdate = moment(Date.now()).format("DD-MM-YYYY");
-		var tomorrow = moment(new Date()).add(1,'days').format("DD-MM-YYYY")
-		var nextweek = (moment(new Date()).add(6,'days').format("DD-MM-YYYY"))
-
-		if(date == currentdate){
+		var currentdate = moment();
+		var tomorrow = moment().add(1,'days');
+		var nextweek = moment().add(6,'days');
+	
+		if(typeof(_DO_NOT_USE_COLORED_TRASHCAN)=='undefined' || _DO_NOT_USE_COLORED_TRASHCAN===false){
+			if (c==1 && (
+				returnDatesSimple[key].toLowerCase().indexOf("gft") >= 0 || 
+				returnDatesSimple[key].toLowerCase().indexOf("tuin") >= 0
+			)
+			   ){
+				$('.trash'+random).find('img.trashcan').attr('src','img/kliko_green.png');
+			}
+			else if (c==1 && (
+				returnDatesSimple[key].toLowerCase().indexOf("plastic") >= 0 || 
+				returnDatesSimple[key].toLowerCase().indexOf("pmd") >= 0
+			)
+			){
+				$('.trash'+random).find('img.trashcan').attr('src','img/kliko_orange.png');
+			}
+			else if (c==1 && (
+				returnDatesSimple[key].toLowerCase().indexOf("rest") >= 0 || 
+				returnDatesSimple[key].toLowerCase().indexOf("grof") >= 0
+			)
+			){
+				$('.trash'+random).find('img.trashcan').attr('src','img/kliko_grey.png');
+			}
+			else if (c==1 && (
+				returnDatesSimple[key].toLowerCase().indexOf("papier") >= 0 || 
+				returnDatesSimple[key].toLowerCase().indexOf("blauw") >= 0
+			)){
+				$('.trash'+random).find('img.trashcan').attr('src','img/kliko_blue.png');
+			}
+			else if (c==1 && returnDatesSimple[key].toLowerCase().indexOf("chemisch") >= 0){
+				$('.trash'+random).find('img.trashcan').attr('src','img/kliko_red.png');
+			}
+		}
+		
+		if(date == currentdate.format("DD-MM-YYYY")){
 			returnDatesSimple[key] = returnDatesSimple[key].replace(date, lang['today']);
 		}   
-		else if(date == tomorrow){
+		else if(date == tomorrow.format("DD-MM-YYYY")){
 			returnDatesSimple[key] = returnDatesSimple[key].replace(date, lang['tomorrow']);
 		}
-		else if(date <= nextweek){
-			returnDatesSimple[key] = returnDatesSimple[key].replace(date, moment(moment(date).format("DD-MM-YYYY")).locale('nl').format("dddd"));
-			returnDatesSimple[key] = returnDatesSimple[key].charAt(0).toUpperCase() + returnDatesSimple[key].slice(1);
+		else if(moment(skey).isBetween(currentdate, nextweek, 'days', true)){
+			var datename = moment(date,"DD-MM-YYYY").locale('nl').format("dddd");
+			datename = datename.charAt(0).toUpperCase() + datename.slice(1);
+			returnDatesSimple[key] = returnDatesSimple[key].replace(date, datename);
 		}  
 
 		if(c<=4) $('.trash'+random+' .state').append(returnDatesSimple[key]);

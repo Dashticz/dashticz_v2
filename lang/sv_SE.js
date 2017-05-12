@@ -19,6 +19,7 @@ lang['sunday'] = 'Söndag';
 
 lang['today'] = 'idag';
 lang['tomorrow'] = 'i morgon';
+lang['entire_day_event'] = 'hela dagen';
 
 lang['graph_last_hours'] = 'senaste timmen';
 lang['graph_today'] = 'idag';

@@ -11,7 +11,6 @@ function ical_parser(feed_url, callback){
 	this.raw_data = null;
 	//Store of proccessed data.
 	this.events = [];
-	
 	/**
 	 * loadFile
 	 * Using AJAX to load the requested .ics file, passing it to the callback when completed.
@@ -24,7 +23,8 @@ function ical_parser(feed_url, callback){
 		//Grab file
 		xmlhttp.onreadystatechange = function(){
 			if ((xmlhttp.readyState == 4) && (xmlhttp.status == 200)) {
-				//On success, run callback.
+				//On success, run callback
+				if(typeof(color)=='undefined' || color=='') color='#fff';
 				callback(xmlhttp.responseText,color);
 			}
 		}
@@ -32,17 +32,6 @@ function ical_parser(feed_url, callback){
 		xmlhttp.setRequestHeader("x-requested-with", "DashticzV2");
 		xmlhttp.send(null);
 	}
-	
-	/* @wizjos fix ConvertUTCTimeToLocalTime.
-	** 
-	*/
-	function ConvertUTCTimeToLocalTime(UTCDateString)
-		{
-		   var convertdLocalTime = new Date(UTCDateString);
-		   var hourOffset = convertdLocalTime.getTimezoneOffset() / 60;
-		   convertdLocalTime.setHours( convertdLocalTime.getHours() + hourOffset ); 
-		   return convertdLocalTime;
-		}
 
 	/**
 	 * makeDate
@@ -60,8 +49,8 @@ function ical_parser(feed_url, callback){
 			minute: ical_date.substr(11,2)
 		}
 		//Create JS date (months start at 0 in JS - don't ask)
-		//var utcdatems = ConvertUTCTimeToLocalTime(Date.UTC(dtutc.year, (dtutc.month-1), dtutc.day, dtutc.hour, dtutc.minute));
 		var utcdatems = Date.UTC(dtutc.year, (dtutc.month-1), dtutc.day, dtutc.hour, dtutc.minute);
+		
 		var dt = {};
 		dt.date = new Date(utcdatems);
 
@@ -98,7 +87,8 @@ function ical_parser(feed_url, callback){
 		for(var i=0;i<cal_array.length;i++){
 			ln = cal_array[i];
 			//If we encounted a new Event, create a blank event object + set in event options.
-			if (ln.indexOf('COLOR') >= 0) {
+			if (ln.indexOf('X-APPLE-CALENDAR-COLOR')<0 && ln.indexOf('COLOR') >= 0) {
+				console.log(ln);
 				color = ln.split(':');
 				color = color[1];
 			}
@@ -153,6 +143,7 @@ function ical_parser(feed_url, callback){
 				}
 				
 				if(type =='DTSTART'){
+					cur_event.DTSTART = val;
 					dt = this.makeDate(val);
 					val = dt.date;
 					//These are helpful for display
@@ -163,6 +154,7 @@ function ical_parser(feed_url, callback){
 				}
 				//If the type is an end date, do the same as above
                 else if(type =='DTEND'){
+					cur_event.DTEND = val;
 					dt = this.makeDate(val);
 					val = dt.date;
 					//These are helpful for display
@@ -223,7 +215,6 @@ function ical_parser(feed_url, callback){
 		
 		this.events.forEach(function(itm){
 			//If the event ends after the current time, add it to the array to return.
-			//console.log(itm.DTEND+" > "+current_date);
 			if(itm.DTEND > current_date) 
 				future_events.push(itm);
 		});

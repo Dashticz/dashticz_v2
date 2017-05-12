@@ -19,6 +19,7 @@ lang['sunday'] = 'Domingo';
 
 lang['today'] = 'Hoje';
 lang['tomorrow'] = 'Amanhã';
+lang['entire_day_event'] = 'durante todo o dia';
 
 lang['graph_last_hours'] = '&Uacute;ltimas horas';
 lang['graph_today'] = 'Hoje';
