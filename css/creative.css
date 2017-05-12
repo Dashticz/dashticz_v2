@@ -5,10 +5,6 @@
 .swiper-slide {
 	background: #000;
 }
-.swiper-pagination {
-	display:none;
-}
-
 .trashcan {
     width: 100%;
 	margin-left:-4px;
