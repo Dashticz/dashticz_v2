@@ -61,13 +61,7 @@ function getStateBlock(id,icon,title,value,device){
 		$('.block_'+device['idx']).attr('data-target','#opengraph'+device['idx']);
 	}
 	
-	if(typeof(oldstates[device['idx']])!=='undefined' && value!==oldstates[device['idx']]){
-		if(typeof(blocks[device['idx']])!=='undefined' && typeof(blocks[device['idx']]['playsound_on'])!=='undefined' && blocks[device['idx']]['playsound_on']==true){
-			console.log(oldstates[device['idx']]+" > "+value);
-			playAudio();
-		}
-	}
-	oldstates[device['idx']] = value;
+	triggerChange(device['idx'],value);
 	
 	var stateBlock ='<div class="col-xs-4 col-icon">';
 		stateBlock+='<em class="'+icon+'"></em>';
@@ -124,13 +118,7 @@ function getStatusBlock(device,block){
 		//end alteration
 	}
 	
-	if(typeof(oldstates[device['idx']])!=='undefined' && device['Status']!==oldstates[device['idx']]){
-		if(typeof(blocks[device['idx']])!=='undefined' && typeof(blocks[device['idx']]['playsound_on'])!=='undefined' && blocks[device['idx']]['playsound_on']==true){
-			console.log(oldstates[device['idx']]+" > "+device['Status']);
-			playAudio();
-		}
-	}
-	oldstates[device['idx']] = device['Status'];
+	triggerChange(device['idx'],device['Status']);
 	
 	var stateBlock ='<div class="col-xs-4 col-icon">';
 		if(typeof(blocks[device['idx']])!=='undefined' && typeof(blocks[device['idx']]['icon'])!=='undefined'){
@@ -181,13 +169,7 @@ function iconORimage(idx,defaulticon,defaultimage,classnames,attr,colwidth,attrc
 }
 
 function getBlockData(device,idx,ontxt,offtxt){
-	if(typeof(oldstates[device['idx']])!=='undefined' && device['Status']!==oldstates[device['idx']]){
-		if(typeof(blocks[device['idx']])!=='undefined' && typeof(blocks[device['idx']]['playsound_on'])!=='undefined' && blocks[device['idx']]['playsound_on']==true){
-			console.log(oldstates[device['idx']]+" > "+device['Status']);
-			playAudio();
-		}
-	}
-	oldstates[device['idx']] = device['Status'];
+	triggerChange(device['idx'],device['Status']);
 	
 	var data='<div class="col-xs-8 col-data">';
 	if(typeof(blocks[idx])!=='undefined' && typeof(blocks[idx]['hide_data'])!=='undefined' && blocks[idx]['hide_data']==true){
