@@ -56,6 +56,7 @@ function addCalendar(calobject,icsUrlorg){
 		if(curUrl.indexOf("192.168") <= 0 ){
 			curUrl = 'https://cors-anywhere.herokuapp.com/http://ical-to-json.herokuapp.com/convert.json?url='+curUrl;
 		}
+		moment.locale(_ICALENDAR_LOCALE);
 		$.getJSON(curUrl,function(data,textstatus,jqXHR){
 			
 			var url = this.url.replace('https://cors-anywhere.herokuapp.com/http://ical-to-json.herokuapp.com/convert.json?url=','');
@@ -68,7 +69,7 @@ function addCalendar(calobject,icsUrlorg){
 				var startdateFull = event.dtstart;
 				var enddate = moment(event.dtend).format(_ICALENDAR_DATEFORMAT);
 				if(startdate=='Invalid date'){
-					if(event.dtstart[0].length==8) var startdate = moment(event.dtstart[0]).format(_ICALENDAR_DATEFORMAT).replace('00:00','') + lang['entire_day_event'];
+					if(event.dtstart[0].length==8) var startdate = moment(event.dtstart[0]).format(_ICALENDAR_DATEFORMAT).replace('00:00','') + ' '+lang['entire_day_event'];
 					else var startdate = moment(event.dtstart[0]).format(_ICALENDAR_DATEFORMAT);
 					var startdateStamp = moment(event.dtstart[0]).format('X');
 					var startdateFull = event.dtstart[0];
