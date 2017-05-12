@@ -15,7 +15,7 @@ Before you can use this dashboard, unzip all files to a subfolder in Domoticz or
 Save CONFIG_DEFAULT.js as CONFIG.js and insert the IP-address of Domoticz without a trailing slash; e.g.: http://192.168.1.3:8084
 
 
-Visit the wikipage at: http://www.domoticz.com/wiki/Dashticz-v2
+Visit the wikipage at: http://www.domoticz.com/wiki/Dashticz_v2
 
 
 
@@ -37,7 +37,7 @@ Fill in the full path for Domoticz, e.g.: http://username:password@192.168.1.3:8
 
 <b>When Domoticz is updated, it has removed this dashboard?!</b><br />
 Unfortunately, this occurs when the dashboard is installed into Domoticz's www-directory.
-When Domoticz installs an update, it complete removes the www-directory, before placing the updated version back. Currently, there is no solution for this (except for installing the dashboard on another webserver), you have to re-install this dashboard.
+When Domoticz installs an update, it removes the www-directory completely, before placing the updated version back. Currently, there is no solution for this (except for installing the dashboard on another webserver), you'll have to re-install Dashticz.
 
 <b>Where can I get any help?</b><br />
-You can check out our helpfull community in [Dashticz topic](https://www.domoticz.com/forum/viewtopic.php?f=8&t=16526) on the Domoticz forum.
+You can check out our helpful community in [Dashticz topic](https://www.domoticz.com/forum/viewtopic.php?f=8&t=16526) on the Domoticz forum.
