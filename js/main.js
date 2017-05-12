@@ -110,6 +110,7 @@ var alldevices={}
 var myswiper;
 var isMobile = false; //initiate as false
 var addedThermostat = [];
+var oldstates = [];
 
 // device detection
 if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|ipad|iris|kindle|Android|Silk|lge |maemo|midp|mmp|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino/i.test(navigator.userAgent) 
@@ -523,6 +524,14 @@ if(parseFloat(_STANDBY_AFTER_MINUTES)>0){
    },5000);
 
 }
+
+function playAudio(){
+	var audio = {};
+	audio["walk"] = new Audio();
+	audio["walk"].src = "https://www.soundjay.com/misc/small-bell-ring-01a.mp3"
+	audio["walk"].play();
+}
+
 function disableStandby(){
 
  if(standbyActive==true){
@@ -1409,6 +1418,14 @@ function getDevices(override){
 									html+=getBlockData(device,idx,lang.state_on,lang.state_off);
 								}
 								else {
+									if(typeof(oldstates[device['idx']])!=='undefined' && device['Status']!==oldstates[device['idx']]){
+										if(typeof(blocks[device['idx']])!=='undefined' && typeof(blocks[device['idx']]['playsound_on'])!=='undefined' && blocks[device['idx']]['playsound_on']==true){
+											console.log(oldstates[device['idx']]+" > "+device['Status']);
+											playAudio();
+										}
+									}
+									oldstates[device['idx']] = device['Status'];
+
 									if(device['Protected'] == false){
 										$('.block_'+idx).attr('onclick','switchDevice(this)');
 									}
