@@ -79,6 +79,7 @@ $.ajax({url: 'vendor/moment-with-locales.js', async: false,dataType: "script"});
 $.ajax({url: 'vendor/jquery.newsTicker.min.js', async: false,dataType: "script"});
 $.ajax({url: 'vendor/skycons/skycons.js', async: false,dataType: "script"});
 $.ajax({url: 'vendor/spectrum/spectrum.js', async: false,dataType: "script"});
+$.ajax({url: 'vendor/ion.sound/ion.sound.min.js', async: false,dataType: "script"});
 $.ajax({url: 'vendor/mobiledetect/mobiledetect.js', async: false,dataType: "script"});
 $.ajax({url: 'js/sortable.js', async: false,dataType: "script"});
 $.ajax({url: 'js/switches.js', async: false,dataType: "script"});
@@ -378,13 +379,24 @@ if(parseFloat(_STANDBY_AFTER_MINUTES)>0){
 
 function playAudio(file){
 	var key = $.md5(file);
+	file = file.split('/');
+	
+	filename = file[(file.length-1)].split('.');
+	filename = filename[0];
+	delete file[(file.length-1)];
+	
 	if(!gettingDevices){
-		if(typeof(audio[key])=='undefined'){
-			audio[key] = new Audio();
-			audio[key].src = file;
-		}
-		else audio[key].pause();
-		audio[key].play();
+		ion.sound({
+			sounds: [
+				{name: filename}
+			],
+
+			path: file.join('/')+"/",
+			preload: true,
+			multiplay: false
+		});
+
+		ion.sound.play(filename);
 	}
 }
 
@@ -821,9 +833,6 @@ function getDevices(override){
 								html+= eval('getBlock_'+idx+'(device,idx)');
 							}
 							catch(err) {
-								if(err.message!=='getBlock_'+idx+' is not defined'){
-									//console.log(idx+" > "+err.message);
-								}
 								
 								if(typeof(device['SubType'])!=='undefined' && device['SubType'] in blocktypes['SubType']){
 									html+= getStatusBlock(device,blocktypes['SubType'][device['SubType']]);
