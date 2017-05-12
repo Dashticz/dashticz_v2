@@ -525,20 +525,20 @@ if(parseFloat(_STANDBY_AFTER_MINUTES)>0){
 
 }
 
-function playAudio(){
+function playAudio(file){
 	if(!gettingDevices){
 		var audio = {};
 		audio["walk"] = new Audio();
-		audio["walk"].src = "sounds/ping.mp3"
+		audio["walk"].src = file
 		audio["walk"].play();
 	}
 }
 
 function triggerChange(idx,value){
 	if(typeof(oldstates[idx])!=='undefined' && value!==oldstates[idx]){
-		if(typeof(blocks[idx])!=='undefined' && typeof(blocks[idx]['playsound'])!=='undefined' && blocks[idx]['playsound']==true){
+		if(typeof(blocks[idx])!=='undefined' && typeof(blocks[idx]['playsound'])!=='undefined'){
 			console.log(oldstates[idx]+" > "+value);
-			playAudio();
+			playAudio(blocks[idx]['playsound']);
 		}
 	}
 	oldstates[idx] = value;
