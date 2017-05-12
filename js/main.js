@@ -1415,7 +1415,7 @@ function getDevices(override){
 									html+=getBlockData(device,idx,lang.state_smoke,lang.state_nosmoke);
 								}
 								else if(device['HardwareName']=='Dummy') { 
-									if(device['Protected'] == false){
+									if((typeof(blocks[idx]) == 'undefined' || typeof(blocks[idx]['protected']) == 'undefined' || blocks[idx]['protected'] == false) && device['Protected'] == false){
 										$('.block_'+idx).attr('onclick','switchDevice(this)');
 									}
 
@@ -1433,7 +1433,7 @@ function getDevices(override){
 								else {
 									triggerChange(device['idx'],device['Status']);
 
-									if(device['Protected'] == false){
+									if((typeof(blocks[idx]) == 'undefined' || typeof(blocks[idx]['protected']) == 'undefined' || blocks[idx]['protected'] == false) && device['Protected'] == false){
 										$('.block_'+idx).attr('onclick','switchDevice(this)');
 									}
 									if(buttonimg==''){
