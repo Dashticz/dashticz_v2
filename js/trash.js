@@ -98,6 +98,33 @@ function loadTrash (random,trashobject) {
 			});
 		});
 	}
+	if(service=='ophaalkalender'){
+		$('.trash'+random+' .state').html('');
+	
+		var baseURL = '';
+		if(service=='ophaalkalender') baseURL = 'http://www.ophaalkalender.be';
+		
+		$.getJSON('https://cors-anywhere.herokuapp.com/'+baseURL + '/calendar/findstreets/?query=' + street + '&zipcode=' + postcode,function(data){
+			$.getJSON('https://cors-anywhere.herokuapp.com/'+baseURL + '/api/rides?id='+data[0].Id+'&housenumber=0&zipcode='+postcode,function(data){
+				
+				for(d in data){
+					
+					var curr = data[d]['title'];
+					curr = capitalizeFirstLetter(curr.toLowerCase());
+					if(typeof(returnDates[curr])=='undefined'){
+						returnDates[curr] = {}
+					}
+					var testDate = moment(moment(data[d]['start']));
+					if(testDate.isBetween(startDate, endDate, 'days', true)){
+						returnDates[curr][testDate.format("YYYY-MM-DD")+'_'+teller]=getTrashRow(curr,testDate,data[d]['color']);
+						teller++;
+					}
+				}
+				
+				addToContainer(random,returnDates,maxitems);
+			});
+		});
+	}
 	if(service=='mijnafvalwijzer'){
 		$.getJSON('https://cors-anywhere.herokuapp.com/http://json.mijnafvalwijzer.nl/?method=postcodecheck&postcode=' + postcode + '&street=&huisnummer=' + homenumber + '&toevoeging=',function(data){
 			data = data.data.ophaaldagen.data;
@@ -191,11 +218,15 @@ function loadTrash (random,trashobject) {
 			
 }
 
-function getTrashRow(c,d){
+function getTrashRow(c,d,orgcolor){
 	color='';
-	if(typeof(trashcolors)!=='undefined' && typeof(trashcolors[c])!=='undefined') color=' style="color:'+trashcolors[c]+'";';
+	if(typeof(trashcolors)!=='undefined' && typeof(trashcolors[c])!=='undefined') color=' style="color:'+trashcolors[c]+'"';
 	if(typeof(trashnames)!=='undefined' && typeof(trashnames[c])!=='undefined') c = trashnames[c];
-	return '<div'+color+'>'+c+': '+d.format("DD-MM-YYYY")+'</div>';
+	
+	orgcolor_attr=' data-color="'+color+'";';
+	if(typeof(orgcolor)!=='undefined') orgcolor_attr=' data-color="'+orgcolor+'"';
+	
+	return '<div'+color+orgcolor_attr+'>'+c+': '+d.format("DD-MM-YYYY")+'</div>';
 }
 
 function addToContainer(random,returnDates,maxitems){
