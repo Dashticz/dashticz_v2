@@ -38,6 +38,7 @@ lang['temp_toon'] = 'Salone';
 lang['wind'] = 'Vento';
 lang['select'] = 'Seleziona';
 lang['notifications_ns'] = 'notifica aggiunta da NS';
+lang['last_update'] = 'Ultimo aggiornamento';
 
 lang['direction_N'] = 'nord'
 lang['direction_NNE'] = 'nord-nordest';
