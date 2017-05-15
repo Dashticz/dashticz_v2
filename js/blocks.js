@@ -192,6 +192,7 @@ function getBlock(cols,c,columndiv,standby){
 				}
 				else if(typeof(cols['blocks'][b]['trashapp'])!=='undefined') $(columndiv).append(loadTrash(random,cols['blocks'][b]));
 				else if(typeof(cols['blocks'][b]['frameurl'])!=='undefined') $(columndiv).append(loadFrame(random,cols['blocks'][b]));
+				else if(typeof(cols['blocks'][b]['station'])!=='undefined') $(columndiv).append(loadPublicTransport(random,cols['blocks'][b]));
 				else $(columndiv).append(loadButton(b,cols['blocks'][b]));
 			}
 			else {
