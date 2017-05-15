@@ -45,7 +45,7 @@ function dataPublicTransport(random,data,transportobject){
 				latecolor='latetrain';
 			}
 			dataPart+='<span id="'+latecolor+'">+'+delayMinutes+' Min.</span> ';
-			dataPart+='<span id="departureScheduled">(Geplant: '+arrivalTimeScheduled+')</span> ';
+			dataPart+='<span id="departureScheduled">('+lang['scheduled']+': '+arrivalTimeScheduled+')</span> ';
 		}
 		dataPart+='- '+line+' '+direction+'</div>';
 		i = i+1;

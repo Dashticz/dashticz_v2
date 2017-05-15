@@ -40,6 +40,7 @@ lang['wind'] = 'Force';
 lang['select'] = 'Sélectionnez';
 lang['notifications_ns'] = 'messages postés par le NS';
 lang['last_update'] = 'Dernière mise à jour';
+lang['scheduled'] = 'Prévu';
 
 lang['direction_N'] = 'north'
 lang['direction_NNE'] = 'north-northeast';

@@ -39,6 +39,7 @@ lang['wind'] = 'Vento';
 lang['select'] = 'Selecionar';
 lang['notifications_ns'] = 'notifica&ccedil&otilde;es adicionada por NS';
 lang['last_update'] = 'Última atualização';
+lang['scheduled'] = 'Programado';
 
 lang['direction_N'] = 'norte'
 lang['direction_NNE'] = 'norte-nordeste';

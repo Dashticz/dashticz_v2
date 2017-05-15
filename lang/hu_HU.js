@@ -39,6 +39,7 @@ lang['wind'] = 'Szél';
 lang['select'] = 'Kiválaszt';
 lang['notifications_ns'] = 'notifications added by NS';
 lang['last_update'] = 'Utolsó frissítés';
+lang['scheduled'] = 'Tervezett';
 
 lang['direction_N'] = 'észak'
 lang['direction_NNE'] = 'észak-északkelet';
