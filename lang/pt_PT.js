@@ -37,6 +37,7 @@ lang['temp_toon'] = 'Sala de estar';
 lang['wind'] = 'Vento';
 lang['select'] = 'Selecionar';
 lang['notifications_ns'] = 'notifica&ccedil&otilde;es adicionada por NS';
+lang['last_update'] = 'Última atualização';
 
 lang['direction_N'] = 'norte'
 lang['direction_NNE'] = 'norte-nordeste';
