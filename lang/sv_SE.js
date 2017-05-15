@@ -17,6 +17,7 @@ lang['friday'] = 'Fredag';
 lang['saturday'] = 'Lördag';
 lang['sunday'] = 'Söndag';
 
+lang['value'] = 'Value';
 lang['today'] = 'idag';
 lang['tomorrow'] = 'i morgon';
 lang['entire_day_event'] = 'hela dagen';

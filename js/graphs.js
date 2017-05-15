@@ -5,7 +5,7 @@ function getGraphs(device,popup){
 	if(device['Type']=='Rain') sensor='rain';
 	if(device['Type']=='Wind') sensor='wind';
 	if(device['SubType']=='Percentage' || device['SubType']=='Custom Sensor') sensor='Percentage';
-	showGraph(device['idx'],device['Name'],'Grafiek','day',device['CounterToday'],false,sensor,popup);
+	showGraph(device['idx'],device['Name'],lang['value'],'day',device['CounterToday'],false,sensor,popup);
 }
 
 function getGraphByIDX(idx){
@@ -31,7 +31,6 @@ function getButtonGraphs(device){
 			getGraphByIDX($(this).data('idx'));
 		});
 	}
-	
 }
 
 function showGraph(idx,title,label,range,current,forced,sensor,popup){

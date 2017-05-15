@@ -17,6 +17,7 @@ lang['friday'] = 'Péntek';
 lang['saturday'] = 'Szombat';
 lang['sunday'] = 'Vasárnap';
 
+lang['value'] = 'Value';
 lang['today'] = 'Ma';
 lang['tomorrow'] = 'Holnap';
 lang['entire_day_event'] = 'egész nap';

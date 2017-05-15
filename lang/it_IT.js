@@ -18,6 +18,7 @@ lang['friday'] = 'Venerdì';
 lang['saturday'] = 'Sabato';
 lang['sunday'] = 'Domenica';
 
+lang['value'] = 'Value';
 lang['today'] = 'Oggi';
 lang['tomorrow'] = 'Domani';
 lang['entire_day_event'] = 'per tutta la giornata';

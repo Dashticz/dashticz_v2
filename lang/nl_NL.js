@@ -18,6 +18,7 @@ lang['friday'] = 'Vrijdag';
 lang['saturday'] = 'Zaterdag';
 lang['sunday'] = 'Zondag';
 
+lang['value'] = 'Waarde';
 lang['today'] = 'Vandaag';
 lang['tomorrow'] = 'Morgen';
 lang['entire_day_event'] = 'Hele dag';
