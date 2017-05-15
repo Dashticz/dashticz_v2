@@ -37,6 +37,7 @@ lang['temp_toon'] = 'Vardagsrum';
 lang['wind'] = 'Vind';
 lang['select'] = 'Välj';
 lang['notifications_ns'] = 'avviseringar från NS';
+lang['last_update'] = 'Senaste uppdateringen';
 
 lang['direction_N'] = 'nord'
 lang['direction_NNE'] = 'nord-nordost';
