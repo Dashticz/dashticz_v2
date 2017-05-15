@@ -39,6 +39,7 @@ lang['temp_toon'] = 'Température';
 lang['wind'] = 'Force';
 lang['select'] = 'Sélectionnez';
 lang['notifications_ns'] = 'messages postés par le NS';
+lang['last_update'] = 'Dernière mise à jour';
 
 lang['direction_N'] = 'north'
 lang['direction_NNE'] = 'north-northeast';

@@ -816,4 +816,12 @@ img::-moz-selection {
 body {
   webkit-tap-highlight-color: #222222;
 }
-
+#latetrain {
+	color: red;
+}
+#notlatetrain {
+	color: green;
+}
+#departureScheduled {
+	font-size:10px !important;
+}

@@ -86,6 +86,7 @@ $.ajax({url: 'js/switches.js', async: false,dataType: "script"});
 $.ajax({url: 'js/trash.js', async: false,dataType: "script"});
 $.ajax({url: 'js/calendar.js', async: false,dataType: "script"});
 $.ajax({url: 'js/thermostat.js', async: false,dataType: "script"});
+$.ajax({url: 'js/publictransport.js', async: false,dataType: "script"});
 
 if(typeof(_DEBUG)!=='undefined' && _DEBUG){
 	$.ajax({url: 'custom/json_vb.js', async: false,dataType: "script"});

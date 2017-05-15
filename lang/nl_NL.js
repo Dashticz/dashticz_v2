@@ -39,6 +39,7 @@ lang['temp_toon'] = 'Woonkamer';
 lang['wind'] = 'Kracht';
 lang['select'] = 'Selecteer';
 lang['notifications_ns'] = 'meldingen geplaatst door de NS';
+lang['last_update'] = 'Laatste update';
 
 lang['direction_N'] = 'noord'
 lang['direction_NNE'] = 'noord-noordoost';
