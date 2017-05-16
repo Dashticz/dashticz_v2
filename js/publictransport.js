@@ -79,20 +79,21 @@ function dataPublicTransport(random,data,transportobject){
 			dataPart[arrivalTime][i]+='- '+data[d]['number']+' '+data[d]['direction']+'</div>';
 		}
 		i = i+1;
-		if (i === transportobject.results) { break; }
 	}
 	
 	$('.publictransport'+random+' .state').html('');
 	var c = 1;
 	Object.keys(dataPart).sort().forEach(function(d) {
 		for(p in dataPart[d]){
-			if(c<=10) $('.publictransport'+random+' .state').append(dataPart[d][p]);
+			if(c<=transportobject.results) $('.publictransport'+random+' .state').append(dataPart[d][p]);
 			c++;
 		}
 	});
 	
-	var dt = new Date();
-	$('.publictransport'+random+' .state').append('<em>'+lang['last_update']+': '+addZero(dt.getHours()) + ":"+addZero(dt.getMinutes())+":"+addZero(dt.getSeconds())+'</em>')
+	if(typeof(transportobject.show_lastupdate)!=='undefined' && transportobject.show_lastupdate==true){
+		var dt = new Date();
+		$('.publictransport'+random+' .state').append('<em>'+lang['last_update']+': '+addZero(dt.getHours()) + ":"+addZero(dt.getMinutes())+":"+addZero(dt.getSeconds())+'</em>')
+	}
 }
 
 function addZero(input){
