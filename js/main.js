@@ -407,6 +407,7 @@ function triggerChange(idx,value){
 			playAudio(blocks[idx]['playsound']);
 		}
 		if(typeof(blocks[idx])!=='undefined' && typeof(blocks[idx]['gotoslide'])!=='undefined'){
+
 			toSlide((blocks[idx]['gotoslide']-1));
 		}
 	}
