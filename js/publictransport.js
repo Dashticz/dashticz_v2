@@ -30,7 +30,7 @@ function getData(random,transportobject){
 		dataURL = 'https://efa-api.asw.io/api/v1/station/'+transportobject.station+'/departures/';
 	}
 	if(transportobject.provider.toLowerCase() == 'ns'){
-		dataURL = 'https://wedevise.nl/dashticz/vertrektijden.php?s='+transportobject.station;
+		dataURL = 'https://wedevise.nl/dashticz/vertrektijden.php?s='+transportobject.station+'&time='+$.now();
 	}
 	
 	$('.publictransport'+random+' .state').html('Loading...');
