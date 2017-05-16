@@ -56,7 +56,7 @@ function dataPublicTransport(random,data,transportobject){
 						if(typeof(dataPart[deps[de]['time']])=='undefined') dataPart[deps[de]['time']]=[];
 						dataPart[deps[de]['time']][i]='';
 						dataPart[deps[de]['time']][i]+='<div><b>'+deps[de]['time']+'</b> ';
-						if(typeof(deps[de]['VertrekVertragingTekst'])!=='undefined') dataPart[deps[de]['time']][i]+='<span id="latetrain">'+deps[de]['VertrekVertragingTekst']+'</span> ';
+						if(deps[de]['realtimeText']!=null) dataPart[deps[de]['time']][i]+='<span id="latetrain">'+deps[de]['realtimeText']+'</span> ';
 						if(deps[de]['platform']!=null) dataPart[deps[de]['time']][i]+='- Spoor '+deps[de]['platform'];
 						else dataPart[deps[de]['time']][i]+='- Lijn '+deps[de]['service'];
 						dataPart[deps[de]['time']][i]+=' - '+deps[de]['destinationName'];
