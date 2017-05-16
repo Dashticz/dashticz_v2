@@ -19,6 +19,7 @@ function loadPublicTransport(random,transportobject){
 	var interval = 60;
 	if(typeof(transportobject.interval)!=='undefined') interval = transportobject.interval;
 	getData(random,transportobject);
+	setTimeout(function(){$('.publictransport'+random+' .state').html('Loading...');},100);
 	
 	if(transportobject.provider.toLowerCase() == 'ns'){
 		if(parseFloat(interval)<60) interval=60; // limit request because of limitations in NS api for my private key ;)
@@ -39,7 +40,6 @@ function getData(random,transportobject){
 		dataURL = 'https://cors-anywhere.herokuapp.com/http://api.9292.nl/0.1/locations/'+transportobject.station+'/departure-times?lang=nl-NL&time='+$.now();
 	}
 	
-	$('.publictransport'+random+' .state').html('Loading...');
 	$.getJSON(dataURL,function(data){
 		dataPublicTransport(random,data,transportobject);
 	});
@@ -58,25 +58,30 @@ function dataPublicTransport(random,data,transportobject){
 				){
 					deps = data[d][t]['departures'];
 					for(de in deps){
-						if(typeof(dataPart[deps[de]['time']])=='undefined') dataPart[deps[de]['time']]=[];
-						dataPart[deps[de]['time']][i]='';
-						dataPart[deps[de]['time']][i]+='<div><b>'+deps[de]['time']+'</b> ';
-						if(deps[de]['realtimeText']!=null) dataPart[deps[de]['time']][i]+='<span id="latetrain">'+deps[de]['realtimeText']+'</span> ';
-						if(deps[de]['platform']!=null) dataPart[deps[de]['time']][i]+='- Spoor '+deps[de]['platform'];
-						else dataPart[deps[de]['time']][i]+='- Lijn '+deps[de]['service'];
-						dataPart[deps[de]['time']][i]+=' - '+deps[de]['destinationName'];
-						if(typeof(deps[de]['RouteTekst'])!=='undefined') dataPart[deps[de]['time']][i]+=' <em> via '+deps[de]['viaNames']+'</em>';
-						dataPart[deps[de]['time']][i]+=' </div>';
+						key = deps[de]['time'];
+						if(key.substr(0,2)=='00') key = '24:'+key.substr(2);
+						if(key.substr(0,2)=='01') key = '25:'+key.substr(2);
+						if(key.substr(0,2)=='02') key = '26:'+key.substr(2);
+						if(typeof(dataPart[key])=='undefined') dataPart[key]=[];
+						dataPart[key][i]='';
+						dataPart[key][i]+='<div><b>'+deps[de]['time']+'</b> ';
+						if(deps[de]['realtimeText']!=null) dataPart[key][i]+='<span id="latetrain">'+deps[de]['realtimeText']+'</span> ';
+						if(deps[de]['platform']!=null) dataPart[key][i]+='- Spoor '+deps[de]['platform'];
+						else dataPart[key][i]+='- Lijn '+deps[de]['service'];
+						dataPart[key][i]+=' - '+deps[de]['destinationName'];
+						if(typeof(deps[de]['RouteTekst'])!=='undefined') dataPart[key][i]+=' <em> via '+deps[de]['viaNames']+'</em>';
+						dataPart[key][i]+=' </div>';
 					}
 				}
 			}
 		}
 		else if(provider == 'vvs'){
-			arrivalTime = addZero(data[d]['departureTime']['hour'])+':'+addZero(data[d]['departureTime']['minute']);
+			arrivalTime = data[d]['departureTime']['year']+':'+data[d]['departureTime']['month']+':'+data[d]['departureTime']['day']+':'+addZero(data[d]['departureTime']['hour'])+':'+addZero(data[d]['departureTime']['minute']);
+			arrivalTimeShow = addZero(data[d]['departureTime']['hour'])+':'+addZero(data[d]['departureTime']['minute']);
 			if(typeof(dataPart[arrivalTime])=='undefined') dataPart[arrivalTime]=[];
 			dataPart[arrivalTime][i] = '';
-			arrivalTimeScheduled = addMinutes(arrivalTime, data[d]['delay']*-1);
-			dataPart[arrivalTime][i]+='<div><b>'+arrivalTime+'</b> ';
+			arrivalTimeScheduled = addMinutes(arrivalTimeShow, data[d]['delay']*-1);
+			dataPart[arrivalTime][i]+='<div><b>'+arrivalTimeShow+'</b> ';
 			if(data[d]['delay'] == 0) latecolor='notlatetrain';	
 			if(data[d]['delay'] > 0) latecolor='latetrain';
 			dataPart[arrivalTime][i]+='<span id="'+latecolor+'">+'+data[d]['delay']+' Min.</span> ';
