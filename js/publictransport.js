@@ -11,51 +11,73 @@ function loadPublicTransport(random,transportobject){
 		html+='</div>';	
 	
 	//Get data every interval and call function to create block
+	var interval = 60;
+	if(typeof(transportobject.interval)!=='undefined') interval = transportobject.interval;
+	getData(random,transportobject);
+	
+	if(transportobject.provider.toLowerCase() == 'ns'){
+		if(parseFloat(interval)<60) interval=60; // limit request because of limitations in NS api for my private key ;)
+	}
+	
 	setInterval(function(){
-		if(transportobject.provider == 'VVS'){
-			dataURL = 'https://efa-api.asw.io/api/v1/station/'+transportobject.station+'/departures/';
-		}
-		$.getJSON(dataURL,function(data){
-				dataPublicTransport(random,data,transportobject);
-		});
-	},(transportobject.interval * 1000));
+		getData(random,transportobject)
+	},(interval * 1000));
 	return html;
 }
 
-
+function getData(random,transportobject){
+	if(transportobject.provider.toLowerCase() == 'vvs'){
+		dataURL = 'https://efa-api.asw.io/api/v1/station/'+transportobject.station+'/departures/';
+	}
+	if(transportobject.provider.toLowerCase() == 'ns'){
+		dataURL = 'https://wedevise.nl/dashticz/vertrektijden.php?s='+transportobject.station;
+	}
+	
+	$('.publictransport'+random+' .state').html('Loading...');
+	$.getJSON(dataURL,function(data){
+		dataPublicTransport(random,data,transportobject);
+	});
+	
+}
 function dataPublicTransport(random,data,transportobject){
-	$('.publictransport'+random+' .state').html('');
 	var dataPart = '';
 	var i = 0;
 	for(d in data){
-		if(transportobject.provider == 'VVS'){
+		if(transportobject.provider.toLowerCase() == 'ns'){
+			dataPart+='<div><b>'+moment(data[d]['VertrekTijd']).format("HH:mm")+'</b> ';
+			if(typeof(data[d]['VertrekVertragingTekst'])!=='undefined') dataPart+='<span id="latetrain">'+data[d]['VertrekVertragingTekst']+'</span> ';
+			dataPart+='- Spoor '+data[d]['VertrekSpoor']+' - '+data[d]['EindBestemming'];
+			if(typeof(data[d]['RouteTekst'])!=='undefined') dataPart+=' <em> via '+data[d]['RouteTekst']+'</em>';
+			dataPart+=' </div>';
+		}
+		else if(transportobject.provider.toLowerCase() == 'vvs'){
 			delayMinutes = data[d]['delay'];
 			line = data[d]['number'];
 			direction = data[d]['direction'];
 			arrivalTime = addZero(data[d]['departureTime']['hour'])+':'+addZero(data[d]['departureTime']['minute']);
 			arrivalTimeScheduled = addMinutes(arrivalTime, delayMinutes*-1);
-		}
-		dataPart+='<div><b>'+arrivalTime+'</b> ';
-		//Check if there is live data available
-		if(typeof arrivalTimeScheduled != 'undefined'){
-			if(delayMinutes == 0){
-				latecolor='notlatetrain';
-			}	
-			else if(delayMinutes > 0){
-				latecolor='latetrain';
+			
+			dataPart+='<div><b>'+arrivalTime+'</b> ';
+			if(typeof arrivalTimeScheduled != 'undefined'){
+				if(delayMinutes == 0){
+					latecolor='notlatetrain';
+				}	
+				else if(delayMinutes > 0){
+					latecolor='latetrain';
+				}
+				dataPart+='<span id="'+latecolor+'">+'+delayMinutes+' Min.</span> ';
+				dataPart+='<span id="departureScheduled">('+lang['scheduled']+': '+arrivalTimeScheduled+')</span> ';
 			}
-			dataPart+='<span id="'+latecolor+'">+'+delayMinutes+' Min.</span> ';
-			dataPart+='<span id="departureScheduled">('+lang['scheduled']+': '+arrivalTimeScheduled+')</span> ';
+			dataPart+='- '+direction+'</div>';
 		}
-		dataPart+='- '+line+' '+direction+'</div>';
 		i = i+1;
 		if (i === transportobject.results) { break; }
 	}
 	
-	$('.publictransport'+random+' .state').append(dataPart)
+	$('.publictransport'+random+' .state').html(dataPart)
 	
 	var dt = new Date();
-	$('.publictransport'+random+' .state').append(lang['last_update']+': '+addZero(dt.getHours()) + ":"+addZero(dt.getMinutes())+":"+addZero(dt.getSeconds()))
+	$('.publictransport'+random+' .state').append('<em>'+lang['last_update']+': '+addZero(dt.getHours()) + ":"+addZero(dt.getMinutes())+":"+addZero(dt.getSeconds())+'</em>')
 }
 
 function addZero(input){
