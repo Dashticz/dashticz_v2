@@ -29,7 +29,7 @@ function getData(random,transportobject){
 	if(transportobject.provider.toLowerCase() == 'vvs'){
 		dataURL = 'https://efa-api.asw.io/api/v1/station/'+transportobject.station+'/departures/';
 	}
-	if(transportobject.provider.toLowerCase() == 'ns'){
+	else if(transportobject.provider.toLowerCase() == 'ns'){
 		dataURL = 'https://wedevise.nl/dashticz/vertrektijden.php?s='+transportobject.station+'&time='+$.now();
 	}
 	
@@ -51,24 +51,14 @@ function dataPublicTransport(random,data,transportobject){
 			dataPart+=' </div>';
 		}
 		else if(transportobject.provider.toLowerCase() == 'vvs'){
-			delayMinutes = data[d]['delay'];
-			line = data[d]['number'];
-			direction = data[d]['direction'];
 			arrivalTime = addZero(data[d]['departureTime']['hour'])+':'+addZero(data[d]['departureTime']['minute']);
-			arrivalTimeScheduled = addMinutes(arrivalTime, delayMinutes*-1);
-			
+			arrivalTimeScheduled = addMinutes(arrivalTime, data[d]['delay']*-1);
 			dataPart+='<div><b>'+arrivalTime+'</b> ';
-			if(typeof arrivalTimeScheduled != 'undefined'){
-				if(delayMinutes == 0){
-					latecolor='notlatetrain';
-				}	
-				else if(delayMinutes > 0){
-					latecolor='latetrain';
-				}
-				dataPart+='<span id="'+latecolor+'">+'+delayMinutes+' Min.</span> ';
-				dataPart+='<span id="departureScheduled">('+lang['scheduled']+': '+arrivalTimeScheduled+')</span> ';
-			}
-			dataPart+='- '+direction+'</div>';
+			if(data[d]['delay'] == 0) latecolor='notlatetrain';	
+			if(data[d]['delay'] > 0) latecolor='latetrain';
+			dataPart+='<span id="'+latecolor+'">+'+data[d]['delay']+' Min.</span> ';
+			dataPart+='<span id="departureScheduled">('+lang['scheduled']+': '+arrivalTimeScheduled+')</span> ';
+			dataPart+='- '+data[d]['number']+' '+data[d]['direction']+'</div>';
 		}
 		i = i+1;
 		if (i === transportobject.results) { break; }
