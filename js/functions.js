@@ -24,7 +24,7 @@ function number_format (number, decimals, decPoint, thousandsSep) { // eslint-di
 
 function setSrc(cur){
 	if(typeof($($(cur).data('target')).find('iframe').attr('src'))=='undefined'){
-		$($(cur).data('target')).find('iframe').attr('src',$($(cur).data('target')).find('iframe').data('src'));
+		$($(cur).data('target')).find('iframe').attr('src',$($(cur).data('target')).find('iframe').data('popup'));
 	}
 }
 function capitalizeFirstLetter(string) {

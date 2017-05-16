@@ -37,7 +37,7 @@ function getNews(divToFill,newsfeed){
 							htmlRss+='<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
 						  htmlRss+='</div>';
 						  htmlRss+='<div class="modal-body">';
-							  htmlRss+='<iframe sandbox="" data-src="" width="100%" height="570" frameborder="0" allowtransparency="true"></iframe> '; 
+							  htmlRss+='<iframe sandbox="" data-popup="" width="100%" height="570" frameborder="0" allowtransparency="true"></iframe> '; 
 						  htmlRss+='</div>';
 						htmlRss+='</div>';
 					  htmlRss+='</div>';
