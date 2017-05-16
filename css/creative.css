@@ -663,18 +663,18 @@ div.screen {
 }
 .weatherfull > div div.temp span { float:none; display:inline-block; }
 .weatherfull > div div.temp { font-size: 28px; font-weight:400; }
-.weatherfull > div div.temp .nightT { display:block;font-size:22px; opacity:.7; padding-bottom: 0px}
+.weatherfull > div div.temp .nightT { display:block;font-size: 19px;margin-top: -8px; opacity:.7; padding-bottom: 0px}
 
 .weatherfull > div div.icon {
 	border-radius: 50%;
 	width: 75px;
-	height: 60px;
+	height: 48px;
 	margin: 0px auto;
 }
 .weatherfull > div div.icon i { color:#fff !important; }
 
 .weatherfull i {
-	font-size:50px !important;
+	font-size:40px !important;
 	margin:5px auto 0 auto;
 	opacity:.9;
 }

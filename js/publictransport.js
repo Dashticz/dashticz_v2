@@ -1,7 +1,10 @@
 function loadPublicTransport(random,transportobject){
 	var width = 12;
 	if(typeof(transportobject.width)!=='undefined') width=transportobject.width;
-	var html='<div class="publictransport'+random+' col-xs-'+width+' transbg">';
+	var html='<div class="col-xs-'+width+'" style="padding-left:0px !important;padding-right:0px !important;">';
+	if(typeof(transportobject.title)!=='undefined') html+='<div class="col-xs-12 mh titlegroups transbg"><h3>'+transportobject.title+'</h3></div>';
+					
+	html+='<div class="publictransport'+random+' col-xs-12 transbg">';
 			html+='<div class="col-xs-2 col-icon">';
 				html+='<em class="fa fa-'+transportobject.icon+'"></em>';
 			html+='</div>';
@@ -9,6 +12,8 @@ function loadPublicTransport(random,transportobject){
 				html+='<span class="state"></span>';
 			html+='</div>';
 		html+='</div>';	
+	
+	html+='</div>';	
 	
 	//Get data every interval and call function to create block
 	var interval = 60;
