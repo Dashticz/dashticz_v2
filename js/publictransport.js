@@ -26,11 +26,12 @@ function loadPublicTransport(random,transportobject){
 }
 
 function getData(random,transportobject){
-	if(transportobject.provider.toLowerCase() == 'vvs'){
+	var provider = transportobject.provider.toLowerCase();
+	if(provider == 'vvs'){
 		dataURL = 'https://efa-api.asw.io/api/v1/station/'+transportobject.station+'/departures/';
 	}
-	else if(transportobject.provider.toLowerCase() == 'ns'){
-		dataURL = 'https://wedevise.nl/dashticz/vertrektijden.php?s='+transportobject.station+'&time='+$.now();
+	else if(provider == '9292' || provider == '9292-train' || provider == '9292-bus'){
+		dataURL = 'https://cors-anywhere.herokuapp.com/http://api.9292.nl/0.1/locations/'+transportobject.station+'/departure-times?lang=nl-NL&time='+$.now();
 	}
 	
 	$('.publictransport'+random+' .state').html('Loading...');
@@ -40,31 +41,55 @@ function getData(random,transportobject){
 	
 }
 function dataPublicTransport(random,data,transportobject){
-	var dataPart = '';
+	var provider = transportobject.provider.toLowerCase();
+	var dataPart = {}
 	var i = 0;
 	for(d in data){
-		if(transportobject.provider.toLowerCase() == 'ns'){
-			dataPart+='<div><b>'+moment(data[d]['VertrekTijd']).format("HH:mm")+'</b> ';
-			if(typeof(data[d]['VertrekVertragingTekst'])!=='undefined') dataPart+='<span id="latetrain">'+data[d]['VertrekVertragingTekst']+'</span> ';
-			dataPart+='- Spoor '+data[d]['VertrekSpoor']+' - '+data[d]['EindBestemming'];
-			if(typeof(data[d]['RouteTekst'])!=='undefined') dataPart+=' <em> via '+data[d]['RouteTekst']+'</em>';
-			dataPart+=' </div>';
+		if(provider == '9292' || provider == '9292-train' || provider == '9292-bus'){
+			for(t in data[d]){
+				if(provider == '9292' || 
+				   (data[d][t]['id']=='bus' && provider == '9292-bus') || 
+				   (data[d][t]['id']=='trein' && provider == '9292-train')
+				){
+					deps = data[d][t]['departures'];
+					for(de in deps){
+						if(typeof(dataPart[deps[de]['time']])=='undefined') dataPart[deps[de]['time']]=[];
+						dataPart[deps[de]['time']][i]='';
+						dataPart[deps[de]['time']][i]+='<div><b>'+deps[de]['time']+'</b> ';
+						if(typeof(deps[de]['VertrekVertragingTekst'])!=='undefined') dataPart[deps[de]['time']][i]+='<span id="latetrain">'+deps[de]['VertrekVertragingTekst']+'</span> ';
+						if(deps[de]['platform']!=null) dataPart[deps[de]['time']][i]+='- Spoor '+deps[de]['platform'];
+						else dataPart[deps[de]['time']][i]+='- Lijn '+deps[de]['service'];
+						dataPart[deps[de]['time']][i]+=' - '+deps[de]['destinationName'];
+						if(typeof(deps[de]['RouteTekst'])!=='undefined') dataPart[deps[de]['time']][i]+=' <em> via '+deps[de]['viaNames']+'</em>';
+						dataPart[deps[de]['time']][i]+=' </div>';
+					}
+				}
+			}
 		}
-		else if(transportobject.provider.toLowerCase() == 'vvs'){
+		else if(provider == 'vvs'){
 			arrivalTime = addZero(data[d]['departureTime']['hour'])+':'+addZero(data[d]['departureTime']['minute']);
+			if(typeof(dataPart[arrivalTime])=='undefined') dataPart[arrivalTime]=[];
+			dataPart[arrivalTime][i] = '';
 			arrivalTimeScheduled = addMinutes(arrivalTime, data[d]['delay']*-1);
-			dataPart+='<div><b>'+arrivalTime+'</b> ';
+			dataPart[arrivalTime][i]+='<div><b>'+arrivalTime+'</b> ';
 			if(data[d]['delay'] == 0) latecolor='notlatetrain';	
 			if(data[d]['delay'] > 0) latecolor='latetrain';
-			dataPart+='<span id="'+latecolor+'">+'+data[d]['delay']+' Min.</span> ';
-			dataPart+='<span id="departureScheduled">('+lang['scheduled']+': '+arrivalTimeScheduled+')</span> ';
-			dataPart+='- '+data[d]['number']+' '+data[d]['direction']+'</div>';
+			dataPart[arrivalTime][i]+='<span id="'+latecolor+'">+'+data[d]['delay']+' Min.</span> ';
+			dataPart[arrivalTime][i]+='<span id="departureScheduled">('+lang['scheduled']+': '+arrivalTimeScheduled+')</span> ';
+			dataPart[arrivalTime][i]+='- '+data[d]['number']+' '+data[d]['direction']+'</div>';
 		}
 		i = i+1;
 		if (i === transportobject.results) { break; }
 	}
 	
-	$('.publictransport'+random+' .state').html(dataPart)
+	$('.publictransport'+random+' .state').html('');
+	var c = 1;
+	Object.keys(dataPart).sort().forEach(function(d) {
+		for(p in dataPart[d]){
+			if(c<=10) $('.publictransport'+random+' .state').append(dataPart[d][p]);
+			c++;
+		}
+	});
 	
 	var dt = new Date();
 	$('.publictransport'+random+' .state').append('<em>'+lang['last_update']+': '+addZero(dt.getHours()) + ":"+addZero(dt.getMinutes())+":"+addZero(dt.getSeconds())+'</em>')

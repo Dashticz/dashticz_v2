@@ -437,8 +437,9 @@ p {
 	margin:0px !important
 		
 }
-.fa.fa-train{
+.fa.fa-train,.fa.fa-bus{
 	margin-left:5px;
+	margin-top:3px;
 }
 
 .trainrow,
