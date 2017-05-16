@@ -404,8 +404,10 @@ function playAudio(file){
 function triggerChange(idx,value){
 	if(typeof(oldstates[idx])!=='undefined' && value!==oldstates[idx]){
 		if(typeof(blocks[idx])!=='undefined' && typeof(blocks[idx]['playsound'])!=='undefined'){
-			console.log(oldstates[idx]+" > "+value);
 			playAudio(blocks[idx]['playsound']);
+		}
+		if(typeof(blocks[idx])!=='undefined' && typeof(blocks[idx]['gotoslide'])!=='undefined'){
+			toSlide((blocks[idx]['gotoslide']-1));
 		}
 	}
 	oldstates[idx] = value;
