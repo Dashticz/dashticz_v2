@@ -407,8 +407,26 @@ function triggerChange(idx,value){
 			playAudio(blocks[idx]['playsound']);
 		}
 		if(typeof(blocks[idx])!=='undefined' && typeof(blocks[idx]['gotoslide'])!=='undefined'){
-
 			toSlide((blocks[idx]['gotoslide']-1));
+		}
+		if(typeof(blocks[idx])!=='undefined' && typeof(blocks[idx]['openpopup'])!=='undefined'){
+			var random = getRandomInt(1,100000);
+			$('.modal.openpopup,.modal-backdrop').remove();
+			
+			var html = '<div class="modal fade openpopup" id="popup_'+random+'" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
+			  html+='<div class="modal-dialog">';
+				html+='<div class="modal-content">';
+				  html+='<div class="modal-header">';
+					html+='<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
+				  html+='</div>';
+				  html+='<div class="modal-body">';
+					  html+='<iframe src="'+blocks[idx]['openpopup']['url']+'" width="100%" height="570" frameborder="0" allowtransparency="true"></iframe> '; 
+				  html+='</div>';
+				html+='</div>';
+			  html+='</div>';
+			html+='</div>';
+			$('body').append(html);
+			$('#popup_'+random).modal('show');
 		}
 	}
 	oldstates[idx] = value;
