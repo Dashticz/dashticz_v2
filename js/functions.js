@@ -23,12 +23,11 @@ function number_format (number, decimals, decPoint, thousandsSep) { // eslint-di
 }
 
 function setSrc(cur){
-	
+	$($(cur).data('target')).on('hidden.bs.modal', function () {
+		$($(cur).data('target')).find('iframe').removeAttr('src');
+	});
 	if(typeof($($(cur).data('target')).find('iframe').attr('src'))=='undefined'){
-		$($(cur).data('target')).on('hidden.bs.modal', function () {
-			$($(cur).data('target')).find('iframe').attr('popup',$($(cur).data('target')).find('iframe').data('src'));
-			$($(cur).data('target')).find('iframe').removeAttr('src');
-		});
+		
 		$($(cur).data('target')).find('iframe').attr('src',$($(cur).data('target')).find('iframe').data('popup'));
 	}
 }
