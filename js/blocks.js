@@ -206,9 +206,21 @@ function getStateBlock(id,icon,title,value,device){
 	
 	if(device['SubType']=='Percentage' || device['SubType']=='Custom Sensor' || device['TypeImg']=='counter' || device['Type']=='Temp' || device['Type']=='Wind' || device['Type']=='Rain' || device['Type']== 'Temp + Humidity' || device['Type']== 'Temp + Humidity + Baro'){
 		getButtonGraphs(device);
-		$('.block_'+device['idx']).addClass('hover');
-		$('.block_'+device['idx']).attr('data-toggle','modal');
-		$('.block_'+device['idx']).attr('data-target','#opengraph'+device['idx']);
+		if($('.block_'+device['idx']).length>0){
+			$('.block_'+device['idx']).addClass('hover');
+			$('.block_'+device['idx']).attr('data-toggle','modal');
+			$('.block_'+device['idx']).attr('data-target','#opengraph'+device['idx']);
+		}
+		if($('.block_'+device['idx']+'_1').length>0){
+			$('.block_'+device['idx']+'_1').addClass('hover');
+			$('.block_'+device['idx']+'_1').attr('data-toggle','modal');
+			$('.block_'+device['idx']+'_1').attr('data-target','#opengraph'+device['idx']);
+		}
+		if($('.block_'+device['idx']+'_2').length>0){
+			$('.block_'+device['idx']+'_2').addClass('hover');
+			$('.block_'+device['idx']+'_2').attr('data-toggle','modal');
+			$('.block_'+device['idx']+'_2').attr('data-target','#opengraph'+device['idx']);
+		}
 	}
 	
 	triggerChange(device['idx'],value);
@@ -245,9 +257,22 @@ function getStatusBlock(device,block){
 						
 	if(device['SubType']=='Percentage' || device['SubType']=='Custom Sensor' || device['TypeImg']=='counter' || device['Type']=='Temp' || device['Type']=='Wind' || device['Type']=='Rain' || device['Type']== 'Temp + Humidity' || device['Type']== 'Temp + Humidity + Baro'){
 		getButtonGraphs(device);
-		$('.block_'+device['idx']).addClass('hover');
-		$('.block_'+device['idx']).attr('data-toggle','modal');
-		$('.block_'+device['idx']).attr('data-target','#opengraph'+device['idx']);
+		if($('.block_'+device['idx']).length>0){
+			$('.block_'+device['idx']).addClass('hover');
+			$('.block_'+device['idx']).attr('data-toggle','modal');
+			$('.block_'+device['idx']).attr('data-target','#opengraph'+device['idx']);
+		}
+		if($('.block_'+device['idx']+'_1').length>0){
+			$('.block_'+device['idx']+'_1').addClass('hover');
+			$('.block_'+device['idx']+'_1').attr('data-toggle','modal');
+			$('.block_'+device['idx']+'_1').attr('data-target','#opengraph'+device['idx']);
+		}
+		if($('.block_'+device['idx']+'_2').length>0){
+			$('.block_'+device['idx']+'_2').addClass('hover');
+			$('.block_'+device['idx']+'_2').attr('data-toggle','modal');
+			$('.block_'+device['idx']+'_2').attr('data-target','#opengraph'+device['idx']);
+		}
+		
 	}
 	
 	var attr='';
