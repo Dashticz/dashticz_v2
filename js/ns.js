@@ -27,7 +27,7 @@ function getTrainInfo(){
 						html+='<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
 					  html+='</div>';
 					  html+='<div class="modal-body">';
-						  html+='<iframe data-src="https://www.rijdendetreinen.nl/" width="100%" height="570" frameborder="0" allowtransparency="true"></iframe> '; 
+						  html+='<iframe data-popup="https://www.rijdendetreinen.nl/" width="100%" height="570" frameborder="0" allowtransparency="true"></iframe> '; 
 					  html+='</div>';
 					html+='</div>';
 				  html+='</div>';

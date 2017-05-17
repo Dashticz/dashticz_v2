@@ -31,7 +31,6 @@
 		<meta name="msapplication-square310x310logo" content="img/favicon/largetile.png" />
 
 		<title>Dashticz</title>
-
 	</head>
 
 	<body id="page-top">
@@ -42,7 +41,10 @@
 		</div>
 
 		<script src="vendor/jquery/jquery.min.js"></script>
-		<script src="js/main.js?v=53"></script>
+		<script>
+		var dashtype=1;		
+		$.ajax({url: 'js/main.js?v='+new Date().getTime(), async: false,dataType: "script"});
+		</script>
 
 	</body>
 </html>

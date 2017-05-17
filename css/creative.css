@@ -6,12 +6,7 @@
 	background: #000;
 }
 .swiper-pagination-bullet-active {
-    background: #fff;
-}
-
-.swiper-pagination-bullet {
-    width: 30px;
-    height: 30px;
+	background-color:#fff !important;
 }
 .trashcan {
     width: 100%;
@@ -442,8 +437,9 @@ p {
 	margin:0px !important
 		
 }
-.fa.fa-train{
+.fa.fa-train,.fa.fa-bus{
 	margin-left:5px;
+	margin-top:3px;
 }
 
 .trainrow,
@@ -667,18 +663,18 @@ div.screen {
 }
 .weatherfull > div div.temp span { float:none; display:inline-block; }
 .weatherfull > div div.temp { font-size: 28px; font-weight:400; }
-.weatherfull > div div.temp .nightT { display:block;font-size:22px; opacity:.7; padding-bottom: 0px}
+.weatherfull > div div.temp .nightT { display:block;font-size: 19px;margin-top: -8px; opacity:.7; padding-bottom: 0px}
 
 .weatherfull > div div.icon {
 	border-radius: 50%;
 	width: 75px;
-	height: 60px;
+	height: 48px;
 	margin: 0px auto;
 }
 .weatherfull > div div.icon i { color:#fff !important; }
 
 .weatherfull i {
-	font-size:50px !important;
+	font-size:40px !important;
 	margin:5px auto 0 auto;
 	opacity:.9;
 }
@@ -821,4 +817,12 @@ img::-moz-selection {
 body {
   webkit-tap-highlight-color: #222222;
 }
-
+#latetrain {
+	color: red;
+}
+#notlatetrain {
+	color: green;
+}
+#departureScheduled {
+	font-size:10px !important;
+}

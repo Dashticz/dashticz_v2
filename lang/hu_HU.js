@@ -17,8 +17,10 @@ lang['friday'] = 'Péntek';
 lang['saturday'] = 'Szombat';
 lang['sunday'] = 'Vasárnap';
 
+lang['value'] = 'Value';
 lang['today'] = 'Ma';
 lang['tomorrow'] = 'Holnap';
+lang['entire_day_event'] = 'egész nap';
 
 lang['graph_last_hours'] = 'utolsó órák';
 lang['graph_today'] = 'ma';
@@ -36,6 +38,8 @@ lang['temp_toon'] = 'Nappali';
 lang['wind'] = 'Szél';
 lang['select'] = 'Kiválaszt';
 lang['notifications_ns'] = 'notifications added by NS';
+lang['last_update'] = 'Utolsó frissítés';
+lang['scheduled'] = 'Tervezett';
 
 lang['direction_N'] = 'észak'
 lang['direction_NNE'] = 'észak-északkelet';

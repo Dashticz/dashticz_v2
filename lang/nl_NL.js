@@ -18,8 +18,10 @@ lang['friday'] = 'Vrijdag';
 lang['saturday'] = 'Zaterdag';
 lang['sunday'] = 'Zondag';
 
+lang['value'] = 'Waarde';
 lang['today'] = 'Vandaag';
 lang['tomorrow'] = 'Morgen';
+lang['entire_day_event'] = 'Hele dag';
 
 lang['graph_last_hours'] = 'laatste uren';
 lang['graph_today'] = 'vandaag';
@@ -37,6 +39,8 @@ lang['temp_toon'] = 'Woonkamer';
 lang['wind'] = 'Kracht';
 lang['select'] = 'Selecteer';
 lang['notifications_ns'] = 'meldingen geplaatst door de NS';
+lang['last_update'] = 'Laatste update';
+lang['scheduled'] = 'Gepland';
 
 lang['direction_N'] = 'noord'
 lang['direction_NNE'] = 'noord-noordoost';

@@ -18,8 +18,10 @@ lang['friday'] = 'Friday';
 lang['saturday'] = 'Saturday';
 lang['sunday'] = 'Sunday';
 
+lang['value'] = 'Value';
 lang['today'] = 'Today';
 lang['tomorrow'] = 'Tomorrow';
+lang['entire_day_event'] = 'Entire day';
 
 lang['graph_last_hours'] = 'last hours';
 lang['graph_today'] = 'today';
@@ -37,6 +39,8 @@ lang['temp_toon'] = 'Living room';
 lang['wind'] = 'Wind';
 lang['select'] = 'Select';
 lang['notifications_ns'] = 'notifications added by NS';
+lang['last_update'] = 'Last update';
+lang['scheduled'] = 'Scheduled';
 
 lang['direction_N'] = 'north'
 lang['direction_NNE'] = 'north-northeast';

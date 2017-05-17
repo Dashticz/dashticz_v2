@@ -1,9 +1,25 @@
 
+window.onerror = function(msg, url, line, col, error) {
+   var extra = !col ? '' : '\ncolumn: ' + col;
+   extra += !error ? '' : '\nerror: ' + error;
+
+   alert("Error: " + msg + "\nurl: " + url + "\nline: " + line);
+
+   var suppressErrorAlert = true;
+   return suppressErrorAlert;
+};
+
+var customfolder = 'custom';
+if(typeof(dashtype)!=='undefined' && parseFloat(dashtype)>1){
+	customfolder = 'custom_'+dashtype;
+}
+
 if(typeof(_HOST_DOMOTICZ)=='undefined') var _HOST_DOMOTICZ='';
 if(typeof(_LANGUAGE)=='undefined') var _LANGUAGE='nl_NL';
 if(typeof(_USE_FAVORITES)=='undefined') var _USE_FAVORITES=false;
 if(typeof(_USE_AUTO_POSITIONING)=='undefined') var _USE_AUTO_POSITIONING=false;
 if(typeof(_HIDE_SECONDS_IN_CLOCK)=='undefined') var _HIDE_SECONDS_IN_CLOCK=false;
+if(typeof(_HIDE_SECONDS_IN_STATIONCLOCK)=='undefined') var _HIDE_SECONDS_IN_STATIONCLOCK=false;
 if(typeof(_HIDE_MEDIAPLAYER_WHEN_OFF)=='undefined') var _HIDE_MEDIAPLAYER_WHEN_OFF=false;
 if(typeof(_USE_FAHRENHEIT)=='undefined') var _USE_FAHRENHEIT=false;
 if(typeof(_BACKGROUND_IMAGE)=='undefined') var _BACKGROUND_IMAGE='bg2.jpg';
@@ -24,7 +40,7 @@ if(typeof(_SCREENSLIDER_EFFECT )=='undefined') var _SCREENSLIDER_EFFECT  = 'slid
 if(typeof(_ICALENDAR_URL )=='undefined') var _ICALENDAR_URL  = '';
 if(typeof(_ICALENDAR_DATEFORMAT )=='undefined') var _ICALENDAR_DATEFORMAT  = 'DD.MM.YYYY HH:mm';
 if(typeof(_ICALENDAR_LOCALE )=='undefined') var _ICALENDAR_LOCALE  = 'en';
-if(typeof(_DASHTICZ_REFRESH )=='undefined') var _DASHTICZ_REFRESH  = 120;
+if(typeof(_DASHTICZ_REFRESH )=='undefined') var _DASHTICZ_REFRESH  = 240;
 if(typeof(_USE_STATIC_WEATHERICONS )=='undefined') var _USE_STATIC_WEATHERICONS  = false;
 if(typeof(_SAVED_COLORS )=='undefined') var _SAVED_COLORS  = [];
 if(typeof(_EDIT_MODE )=='undefined') var _EDIT_MODE  = false;
@@ -40,43 +56,44 @@ $('<link href="fonts/opensans/open-sans.css" rel="stylesheet" type="text/css">')
 $('<link href="vendor/weather/css/weather-icons.min.css?v='+cache+'" rel="stylesheet">').appendTo("head");
 $('<link href="vendor/jquery/jquery-ui.css" rel="stylesheet">').appendTo("head");
 $('<link href="vendor/morrisjs/morris.css" rel="stylesheet">').appendTo("head");
-$('<link href="vendor/swiper/css/swiper.min.css" rel="stylesheet">').appendTo("head");
 $('<link href="vendor/spectrum/spectrum.css" rel="stylesheet">').appendTo("head");
 $('<link href="css/creative.css?v='+cache+'" rel="stylesheet">').appendTo("head");
 $('<link href="css/sortable.css?v='+cache+'" rel="stylesheet">').appendTo("head");
-
-
 
 $.ajax({url: 'vendor/jquery/jquery-ui.js', async: false,dataType: "script"});
 $.ajax({url: 'vendor/jquery/touchpunch.js', async: false,dataType: "script"});
 $.ajax({url: 'vendor/bootstrap/js/bootstrap.min.js', async: false,dataType: "script"});
 $.ajax({url: 'js/functions.js?v='+cache, async: false,dataType: "script"});
 		
-$.ajax({url: 'custom/CONFIG.js?v='+cache, async: false,dataType: "script"});
+$.ajax({url: customfolder+'/CONFIG.js?v='+cache, async: false,dataType: "script"});
 $.ajax({url: 'lang/'+_LANGUAGE+'.js?v='+cache, async: false,dataType: "script"});
 if(_THEME!=='default'){
 	$('<link rel="stylesheet" type="text/css" href="themes/'+_THEME+'/'+_THEME+'.css?v='+cache+'" />').appendTo("head");
 }
-$('<link href="custom/custom.css?v='+cache+'" rel="stylesheet">').appendTo("head");
+$('<link href="'+customfolder+'/custom.css?v='+cache+'" rel="stylesheet">').appendTo("head");
 $.ajax({url: 'vendor/raphael/raphael-min.js', async: false,dataType: "script"});
 $.ajax({url: 'vendor/morrisjs/morris.min.js', async: false,dataType: "script"});
 $.ajax({url: 'vendor/moment.js', async: false,dataType: "script"});
 $.ajax({url: 'vendor/moment-with-locales.js', async: false,dataType: "script"});
 //$.ajax({url: 'vendor/nzbget/nzbget.js', async: false,dataType: "script"});
-$.ajax({url: 'vendor/ical-parser/ical_parser.js', async: false,dataType: "script"});
 $.ajax({url: 'vendor/jquery.newsTicker.min.js', async: false,dataType: "script"});
 $.ajax({url: 'vendor/skycons/skycons.js', async: false,dataType: "script"});
 $.ajax({url: 'vendor/spectrum/spectrum.js', async: false,dataType: "script"});
+$.ajax({url: 'vendor/ion.sound/ion.sound.min.js', async: false,dataType: "script"});
+$.ajax({url: 'vendor/mobiledetect/mobiledetect.js', async: false,dataType: "script"});
 $.ajax({url: 'js/sortable.js', async: false,dataType: "script"});
 $.ajax({url: 'js/switches.js', async: false,dataType: "script"});
 $.ajax({url: 'js/trash.js', async: false,dataType: "script"});
+$.ajax({url: 'js/calendar.js', async: false,dataType: "script"});
+$.ajax({url: 'js/thermostat.js', async: false,dataType: "script"});
+$.ajax({url: 'js/publictransport.js', async: false,dataType: "script"});
 
 if(typeof(_DEBUG)!=='undefined' && _DEBUG){
 	$.ajax({url: 'custom/json_vb.js', async: false,dataType: "script"});
 	$.ajax({url: 'custom/graph_vb.js', async: false,dataType: "script"});
 }
 
-$.ajax({url: 'custom/custom.js?v='+cache, async: false,dataType: "script"});
+$.ajax({url: ''+customfolder+'/custom.js?v='+cache, async: false,dataType: "script"});
 $.ajax({url: 'js/blocks.js', async: false,dataType: "script"});
 $.ajax({url: 'js/graphs.js', async: false,dataType: "script"});
 
@@ -85,7 +102,7 @@ var standbyActive=false;
 var standbyTime=0;
 
 var swipebackTime=0;
-
+var audio = {};
 var req;
 var slide;
 var sliding = false;
@@ -95,7 +112,8 @@ var alldevices={}
 var myswiper;
 var isMobile = false; //initiate as false
 var addedThermostat = [];
-
+var oldstates = [];
+var gettingDevices = false;
 // device detection
 if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|ipad|iris|kindle|Android|Silk|lge |maemo|midp|mmp|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino/i.test(navigator.userAgent) 
     || /1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(navigator.userAgent.substr(0,4))) isMobile = true;
@@ -126,6 +144,9 @@ if(objectlength(screens)>1){
 $.ajax({url: 'js/switches.js', async: false,dataType: "script"});
 $.ajax({url: 'js/blocks.js', async: false,dataType: "script"});
 $.ajax({url: 'js/graphs.js', async: false,dataType: "script"});
+if(typeof(_APIKEY_MAPS)!=='undefined' && _APIKEY_MAPS!=="") $.ajax({url: 'https://maps.googleapis.com/maps/api/js?key='+_APIKEY_MAPS+'&callback=initMap', async: false,dataType: "script"});
+	
+	
 $(document).ready(function(){	
 	
 	if(_EDIT_MODE){
@@ -143,8 +164,6 @@ $(document).ready(function(){
      }).bind('selectstart', function(){ return false; });
 	
 	buildScreens();
-	
-	if(typeof(_APIKEY_MAPS)!=='undefined' && _APIKEY_MAPS!=="") $.ajax({url: 'https://maps.googleapis.com/maps/api/js?key='+_APIKEY_MAPS+'&callback=initMap', async: true,dataType: "script"});
 	
 	setInterval(function(){ 
 		if(_HIDE_SECONDS_IN_CLOCK==true) $('.clock').html(moment().locale(_LANGUAGE.substr(0,2)).format('HH:mm'));
@@ -231,154 +250,24 @@ function buildScreens(){
 	startSwiper();
 }
 
-function getBlock(cols,c,columndiv,standby){
-	if(typeof(cols)!=='undefined'){
-		if(!standby) $('div.screen'+s+' .row').append('<div class="col-xs-'+cols['width']+' sortable col'+c+'"></div>');
-		for(b in cols['blocks']){
-
-			var width=12;
-			if(typeof(blocks[cols['blocks'][b]])!=='undefined' && typeof(blocks[cols['blocks'][b]]['width'])!=='undefined') width = blocks[cols['blocks'][b]]['width'];
-
-			var blocktype='';
-			if(typeof(blocks[cols['blocks'][b]])!=='undefined' && typeof(blocks[cols['blocks'][b]]['type'])!=='undefined') blocktype = blocks[cols['blocks'][b]]['type'];
-
-			if(blocktype=='blocktitle'){
-				$(columndiv).append('<div data-id="'+cols['blocks'][b]+'" class="col-xs-12 mh titlegroups transbg"><h3>'+blocks[cols['blocks'][b]]['title']+'</h3></div>');
-			}
-			else if(cols['blocks'][b]=='weather'){
-				if(typeof(loadWeatherFull)!=='function') $.ajax({url: 'js/weather.js', async: false,dataType: "script"});
-				$(columndiv).append('<div data-id="weather" class="block_'+cols['blocks'][b]+' containsweatherfull"></div>');
-				if(_APIKEY_WUNDERGROUND!=="" && _WEATHER_CITY!=="") loadWeatherFull(_WEATHER_CITY,_WEATHER_COUNTRY,$('.weatherfull'));
-			}
-			else if(cols['blocks'][b]=='currentweather' || cols['blocks'][b]=='currentweather_big'){
-				if(typeof(loadWeather)!=='function') $.ajax({url: 'js/weather.js', async: false,dataType: "script"});
-				var cl = '';
-				if(cols['blocks'][b]=='currentweather_big') $(columndiv).append('<div class="mh transbg big block_'+cols['blocks'][b]+' col-xs-'+width+' containsweather"><div class="col-xs-1"><div class="weather" id="weather"></div></div><div class="col-xs-11"><span class="title weatherdegrees" id="weatherdegrees"></span> <span class="weatherloc" id="weatherloc"></span></div></div>');
-				else $(columndiv).append('<div data-id="currentweather" class="mh transbg block_'+cols['blocks'][b]+' col-xs-'+width+' containsweather"><div class="col-xs-4"><div class="weather" id="weather"></div></div><div class="col-xs-8"><strong class="title weatherdegrees" id="weatherdegrees"></strong><br /><span class="weatherloc" id="weatherloc"></span></div></div>');
-				if(_APIKEY_WUNDERGROUND!=="" && _WEATHER_CITY!=="") loadWeather(_WEATHER_CITY,_WEATHER_COUNTRY);
-			}
-			else if(cols['blocks'][b]=='train'){
-				if(typeof(getTrainInfo)!=='function') $.ajax({url: 'js/ns.js', async: false,dataType: "script"});
-				$(columndiv).append('<div data-id="train" class="train"></div>');
-				getTrainInfo();
-			}
-			else if(cols['blocks'][b]=='traffic'){
-				if(typeof(getTraffic)!=='function') $.ajax({url: 'js/traffic.js', async: false,dataType: "script"});
-				$(columndiv).append('<div data-id="traffic" class="traffic"></div>');
-				getTraffic();
-			}
-			else if(cols['blocks'][b]=='trafficmap'){
-				$(columndiv).append('<div data-id="trafficmap" class="mh transbg block_trafficmap col-xs-12"><div id="trafficm" class="trafficmap"></div></div>');
-			}
-			else if(typeof(cols['blocks'][b])=='object' && typeof(cols['blocks'][b]['latitude'])!=='undefined'){
-				var random = getRandomInt(1,100000);
-				$(columndiv).append(loadMaps(random,cols['blocks'][b]));
-			}
-			else if(cols['blocks'][b]=='news'){
-				if(typeof(getNews)!=='function') $.ajax({url: 'js/news.js', async: false,dataType: "script"});
-				$(columndiv).append('<div data-id="news" class="news"></div>');
-				getNews('news',_NEWS_RSSFEED);
-			}
-			else if(typeof(cols['blocks'][b])=='string' && cols['blocks'][b].substring(0,5)=='news_'){
-				if(typeof(getNews)!=='function') $.ajax({url: 'js/news.js', async: false,dataType: "script"});
-				$(columndiv).append('<div class="'+cols['blocks'][b]+'"></div>');
-				getNews(cols['blocks'][b],blocks[cols['blocks'][b]]['feed']);
-			}
-			else if(cols['blocks'][b]=='clock'){
-				$(columndiv).append('<div data-id="clock" class="transbg block_'+cols['blocks'][b]+' col-xs-'+width+' text-center"><h1 class="clock"></h1><h4 class="weekday"></h4><h4 class="date"></h4></div>');
-			}
-			else if(cols['blocks'][b]=='stationclock'){
-				$(columndiv).append('<div data-id="clock" class="transbg block_'+cols['blocks'][b]+' col-xs-'+width+' text-center"><canvas id="clock" width="150" height="150">Your browser is unfortunately not supported.</canvas></div>');
-				if(typeof(StationClock)!=='function') $.ajax({url: 'vendor/stationclock.js', async: false,dataType: "script"});
-				
-				var clock = new StationClock("clock");
-				  clock.body = StationClock.RoundBody;
-				  clock.dial = StationClock.GermanStrokeDial;
-				  clock.hourHand = StationClock.PointedHourHand;
-				  clock.minuteHand = StationClock.PointedMinuteHand;
-				  clock.secondHand = StationClock.HoleShapedSecondHand;
-				  clock.boss = StationClock.NoBoss;
-				  clock.minuteHandBehavoir = StationClock.BouncingMinuteHand;
-				  clock.secondHandBehavoir = StationClock.OverhastySecondHand;
-
-				  window.setInterval(function() { clock.draw() }, 50);
-			}
-			else if(cols['blocks'][b]=='sunrise'){
-				$(columndiv).append('<div data-id="sunrise" class="block_'+cols['blocks'][b]+' col-xs-'+width+' transbg text-center sunriseholder"><em class="wi wi-sunrise"></em><span class="sunrise"></span><em class="wi wi-sunset"></em><span class="sunset"></span></div>');
-			}
-			else if(typeof(cols['blocks'][b])=='object' && typeof(cols['blocks'][b]['isimage'])!=='undefined'){
-				var random = getRandomInt(1,100000);
-				$(columndiv).append(loadImage(random,cols['blocks'][b]));
-			}
-			else if(cols['blocks'][b]=='horizon'){
-				var html ='<div data-id="horizon" class="containshorizon">';
-						html+='<div class="col-xs-4 transbg hover text-center" onclick="ziggoRemote(\'E0x07\')">';
-							html+='<em class="fa fa-chevron-left fa-small"></em>';
-						html+='</div>';
-						html+='<div class="col-xs-4 transbg hover text-center" onclick="ziggoRemote(\'E4x00\')">';
-							html+='<em class="fa fa-pause fa-small"></em>';
-						html+='</div>';
-						html+='<div class="col-xs-4 transbg hover text-center" onclick="ziggoRemote(\'E0x06\')">';
-							html+='<em class="fa fa-chevron-right fa-small"></em>';
-						html+='</div>';
-					html+='</div>';
-				$(columndiv).append(html);
-			}
-			else if(cols['blocks'][b]=='icalendar'){
-				var random = getRandomInt(1,100000);
-				var html ='<div class="transbg containsicalendar containsicalendar'+random+'"><div class="col-xs-12 transbg"></div></div>';
-				$(columndiv).append(html);	
-				addCalendar($('.containsicalendar'+random),_ICALENDAR_URL);
-			}
-			else if(cols['blocks'][b]=='streamplayer'){
-				var random = getRandomInt(1,100000);
-				var html ='<div data-id="streamplayer" class="transbg containsstreamplayer'+random+'">';
-						html+='<div class="col-xs-12 transbg smalltitle"><h3></h3></div>';
-						html+='<audio class="audio1" preload="none"></audio>';
-						html+='<div class="col-xs-4 transbg hover text-center btnPrev">';
-							html+='<em class="fa fa-chevron-left fa-small"></em>';
-						html+='</div>';
-						html+='<div class="col-xs-4 transbg hover text-center playStream">';
-							html+='<em class="fa fa-play fa-small stateicon"></em>';
-						html+='</div>';
-						html+='<div class="col-xs-4 transbg hover text-center btnNext">';
-							html+='<em class="fa fa-chevron-right fa-small"></em>';
-						html+='</div>';
-					html+='</div>';
-				$(columndiv).append(html);
-
-				addStreamPlayer('.containsstreamplayer'+random);					
-			}
-			else if(typeof(cols['blocks'][b])=='object'){
-				var random = getRandomInt(1,100000);
-				if(typeof(cols['blocks'][b]['icalurl'])!=='undefined' || typeof(cols['blocks'][b]['calendars'])!=='undefined'){
-					var html ='';
-					if(typeof(cols['blocks'][b]['title'])!=='undefined') html+='<div class="col-xs-12 mh titlegroups transbg"><h3>'+cols['blocks'][b]['title']+'</h3></div>';
-					html+='<div class="transbg containsicalendar containsicalendar'+random+'"><div class="col-xs-12 transbg"></div></div>';
-					$(columndiv).append(html);	
-					addCalendar($('.containsicalendar'+random),cols['blocks'][b]);
-
-				}
-				else if(typeof(cols['blocks'][b]['trashapp'])!=='undefined') $(columndiv).append(loadTrash(random,cols['blocks'][b]));
-				else if(typeof(cols['blocks'][b]['frameurl'])!=='undefined') $(columndiv).append(loadFrame(random,cols['blocks'][b]));
-				else $(columndiv).append(loadButton(b,cols['blocks'][b]));
-			}
-			else {
-				$(columndiv).append('<div data-id="'+cols['blocks'][b]+'" class="mh transbg block_'+cols['blocks'][b]+'"></div>');
-			}
-		}
-	}
-}
 function startSwiper(){
-	if(objectlength(screens)>1 && (typeof(_EDIT_MODE)=='undefined' || _EDIT_MODE===false)){
-		myswiper = new Swiper('.swiper-container', {
-			pagination: '.swiper-pagination',
-			paginationClickable: true,
-			loop: false,
-			effect: _SCREENSLIDER_EFFECT,
-			keyboardControl:true
-		});
+	var md = new MobileDetect(window.navigator.userAgent);//window.navigator.userAgent);
+	if(md.mobile()==null || md.tablet()!==null){
+		$('<link href="vendor/swiper/css/swiper.min.css" rel="stylesheet">').appendTo("head");
+		if(objectlength(screens)>1 && (typeof(_EDIT_MODE)=='undefined' || _EDIT_MODE===false)){
+			setTimeout(function(){
+				myswiper = new Swiper('.swiper-container', {
+					pagination: '.swiper-pagination',
+					paginationClickable: true,
+					loop: false,
+					effect: _SCREENSLIDER_EFFECT,
+					keyboardControl:true
+				});
+			},2000);
+		}
+
 	}
+	$( window ).resize(function() { document.location.href=document.location.href });
 }
 
 function initMap() {
@@ -488,6 +377,60 @@ if(parseFloat(_STANDBY_AFTER_MINUTES)>0){
    },5000);
 
 }
+
+function playAudio(file){
+	var key = $.md5(file);
+	file = file.split('/');
+	
+	filename = file[(file.length-1)].split('.');
+	filename = filename[0];
+	delete file[(file.length-1)];
+	
+	if(!gettingDevices){
+		ion.sound({
+			sounds: [
+				{name: filename}
+			],
+
+			path: file.join('/')+"/",
+			preload: true,
+			multiplay: false
+		});
+
+		ion.sound.play(filename);
+	}
+}
+
+function triggerChange(idx,value){
+	if(typeof(oldstates[idx])!=='undefined' && value!==oldstates[idx]){
+		if(typeof(blocks[idx])!=='undefined' && typeof(blocks[idx]['playsound'])!=='undefined'){
+			playAudio(blocks[idx]['playsound']);
+		}
+		if(typeof(blocks[idx])!=='undefined' && typeof(blocks[idx]['gotoslide'])!=='undefined'){
+			toSlide((blocks[idx]['gotoslide']-1));
+		}
+		if(typeof(blocks[idx])!=='undefined' && typeof(blocks[idx]['openpopup'])!=='undefined'){
+			var random = getRandomInt(1,100000);
+			$('.modal.openpopup,.modal-backdrop').remove();
+			
+			var html = '<div class="modal fade openpopup" id="popup_'+random+'" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
+			  html+='<div class="modal-dialog">';
+				html+='<div class="modal-content">';
+				  html+='<div class="modal-header">';
+					html+='<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
+				  html+='</div>';
+				  html+='<div class="modal-body">';
+					  html+='<iframe src="'+blocks[idx]['openpopup']['url']+'" width="100%" height="570" frameborder="0" allowtransparency="true"></iframe> '; 
+				  html+='</div>';
+				html+='</div>';
+			  html+='</div>';
+			html+='</div>';
+			$('body').append(html);
+			$('#popup_'+random).modal('show');
+		}
+	}
+	oldstates[idx] = value;
+}
 function disableStandby(){
 
  if(standbyActive==true){
@@ -519,7 +462,7 @@ function loadMaps(b,map){
 				html+='<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
 			  html+='</div>';
 			  html+='<div class="modal-body">';
-				  html+='<iframe data-src="'+map.link+'" width="100%" height="570" frameborder="0" allowtransparency="true"></iframe> '; 
+				  html+='<iframe data-popup="'+map.link+'" width="100%" height="570" frameborder="0" allowtransparency="true"></iframe> '; 
 			  html+='</div>';
 			html+='</div>';
 		  html+='</div>';
@@ -527,13 +470,16 @@ function loadMaps(b,map){
 		$('body').append(html);
 	}
 	
+	var key = 'UNKNOWN';
+	if(typeof(map.key)!=='undefined') key=map.key;
+	
 	var width = 12;
 	if(typeof(map.width)!=='undefined') width=map.width;
 	if(typeof(map.link)!=='undefined') var html='<div class="col-xs-'+width+' mh hover swiper-no-swiping transbg block_trafficmap" data-toggle="modal" data-target="#trafficmap_frame_'+b+'" onclick="setSrc(this);" ';
 	else var html='<div class="col-xs-'+width+' mh swiper-no-swiping transbg block_trafficmap" ';
 	if(typeof(map.height)!=='undefined') html+=' style="height:'+map.height+'px !important;"';
 	html+='>';
-	html+='<div id="trafficmap_'+b+'" class="trafficmap"></div>';
+	html+='<div id="trafficmap_'+b+'" data-id="maps.'+key+'" class="trafficmap"></div>';
 	html+='</div>';
 	setTimeout(function(){showMap('trafficmap_'+b,map);},1000)
 	return html;
@@ -549,17 +495,20 @@ function loadButton(b,button){
 				html+='<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
 			  html+='</div>';
 			  html+='<div class="modal-body">';
-				  html+='<iframe data-src="'+button.url+'" width="100%" height="570" frameborder="0" allowtransparency="true"></iframe> '; 
+				  html+='<iframe data-popup="'+button.url+'" width="100%" height="570" frameborder="0" allowtransparency="true"></iframe> '; 
 			  html+='</div>';
 			html+='</div>';
 		  html+='</div>';
 		html+='</div>';
 		$('body').append(html);
 	}
-	
 	var width = 12;
 	if(typeof(button.width)!=='undefined') width=button.width;
-	var html='<div class="col-xs-'+width+' hover transbg" data-toggle="modal" data-target="#button_'+b+'_'+random+'" onclick="setSrc(this);">';
+	
+	var key = 'UNKNOWN';
+	if(typeof(button.key)!=='undefined') key=button.key;
+	
+	var html='<div class="col-xs-'+width+' hover transbg" data-id="buttons.'+key+'" data-toggle="modal" data-target="#button_'+b+'_'+random+'" onclick="setSrc(this);">';
 		html+='<div class="col-xs-4 col-icon">';
 			if(typeof(button.image)!=='undefined') html+='<img class="buttonimg" src="'+button.image+'" />';
 			else html+='<em class="fa '+button.icon+' fa-small"></em>';
@@ -574,9 +523,12 @@ function loadButton(b,button){
 
 function loadFrame(f,frame){
 	
+	var key = 'UNKNOWN';
+	if(typeof(frame.key)!=='undefined') key=frame.key;
+	
 	var width = 12;
 	if(typeof(frame.width)!=='undefined') width=frame.width;
-	var html='<div class="col-xs-'+width+' hover transbg swiper-no-swiping imgblock imgblock'+f+'" style="height:'+frame.height+'px;padding:0px !important;">';
+	var html='<div data-id="frames.'+key+'" class="col-xs-'+width+' hover transbg swiper-no-swiping imgblock imgblock'+f+'" style="height:'+frame.height+'px;padding:0px !important;">';
 		html+='<div class="col-xs-12 col-data" style="padding:0px !important;">';
 			html+='<iframe src="'+frame.frameurl+'" style="width:100%;border:0px;height:'+(frame.height-14)+'px;"></iframe>';
 		html+='</div>';
@@ -622,7 +574,7 @@ function loadImage(i,image){
 				html+='<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
 			  html+='</div>';
 			  html+='<div class="modal-body">';
-				  html+='<iframe data-src="'+image.url+'" width="100%" height="570" frameborder="0" allowtransparency="true"></iframe> '; 
+				  html+='<iframe data-popup="'+image.url+'" width="100%" height="570" frameborder="0" allowtransparency="true"></iframe> '; 
 			  html+='</div>';
 			html+='</div>';
 		  html+='</div>';
@@ -630,12 +582,15 @@ function loadImage(i,image){
 		$('body').append(html);
 	}
 
+	var key = 'UNKNOWN';
+	if(typeof(image.key)!=='undefined') key=image.key;
+	
 	var width = 12;
 	if(typeof(image.width)!=='undefined') width=image.width;
 	var html='';
 	
-	if(typeof(image.url)!=='undefined') html+='<div data-id="" class="col-xs-'+width+' hover transbg imgblock imgblock'+i+'" data-toggle="modal" data-target="#'+i+'" onclick="setSrc(this);">';
-	else html+='<div class="col-xs-'+width+' transbg imgblock imgblock'+i+'">';
+	if(typeof(image.url)!=='undefined') html+='<div data-id="buttons.'+key+'" class="col-xs-'+width+' hover transbg imgblock imgblock'+i+'" data-toggle="modal" data-target="#'+i+'" onclick="setSrc(this);">';
+	else html+='<div class="col-xs-'+width+' transbg imgblock imgblock'+i+'" data-id="buttons.'+key+'">';
 	html+='<div class="col-xs-12">';
 
 	if (img=='moon'){
@@ -720,63 +675,6 @@ function getMoonInfo(image){
    });
 }
 
-function addCalendar(calobject,icsUrlorg){
-	icsUrl = icsUrlorg;
-	
-	if(typeof(icsUrl.url)!=='undefined'){
-		var random = getRandomInt(1,100000);
-		var html = '<div class="modal fade" id="calendar_'+random+'" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
-		  html+='<div class="modal-dialog">';
-			html+='<div class="modal-content">';
-			  html+='<div class="modal-header">';
-				html+='<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
-			  html+='</div>';
-			  html+='<div class="modal-body">';
-				  html+='<iframe data-src="'+icsUrl.url+'" width="100%" height="570" frameborder="0" allowtransparency="true"></iframe> '; 
-			  html+='</div>';
-			html+='</div>';
-		  html+='</div>';
-		html+='</div>';
-		$('body').append(html);
-		calobject.find('.transbg').addClass('hover');
-		calobject.attr('data-toggle','modal');
-		calobject.attr('data-id','');
-		calobject.attr('data-target','#calendar_'+random);
-		calobject.attr('onclick','setSrc(this);');
-	}
-	
-	if(typeof(icsUrl.icalurl)!=='undefined'){
-		icsUrl = icsUrl.icalurl.replace(/webcal?\:\/\//i, "https://");
-	}
-	
-	new ical_parser(icsUrl, function(cal) {
-		var events = cal.getFutureEvents();
-		var counter = 0;
-		calobject.find('.transbg').html('');
-		counter=0;
-		events.forEach(function(event) {
-			if (counter < 5) {
-				var date = event.start_date;
-				var time = event.start_time;
-				if(_ICALENDAR_DATEFORMAT == 'friendly') {
-					var widget = '<div style="color:'+event.color+';">' + moment(date+' '+time,'DD/MM/YYYY HH:mm').locale(_ICALENDAR_LOCALE).calendar() + ' - <b>' + event.SUMMARY + '</b></div>';	
-				} 
-				else { 
-					var widget = '<div style="color:'+event.color+'">' + moment(date+' '+time,'DD/MM/YYYY HH:mm').format(_ICALENDAR_DATEFORMAT) + ' - <b>' + event.SUMMARY + '</b></div>';		
-				}
-				calobject.find('.transbg').append(widget);
-			}
-			counter++;
-		});
-
-		setInterval(function(){
-			addCalendar(calobject,icsUrlorg)
-		},(60000*5));
-
-	});
-	
-}
-
 function addStreamPlayer(streamelement){
 	var supportsAudio = !!document.createElement('audio').canPlayType;
 	if(supportsAudio) {
@@ -841,68 +739,11 @@ function addStreamPlayer(streamelement){
 	});
 }
 
-function addThermostatFunctions(thermelement){					
-	$(document).delegate((thermelement+' .btn-number'),"click",function(e){
-		sliding=true;
-	  fieldName = $(this).attr('data-field');
-	  type = $(this).attr('data-type');
-	  var input = $(thermelement+" strong");
-	  var currentVal = input.text().split('°');
-	  currentVal = parseFloat(currentVal[0]);
-	  if (!isNaN(currentVal)) {
-		if (type == 'minus') {
-
-		  if (currentVal > input.attr('min')) {
-			input.text(currentVal - 0.5 + _TEMP_SYMBOL).change();
-			switchThermostat(parseFloat(input.text()),input);
-		  }
-		  if (parseFloat(input.text()) == input.attr('min')) {
-			$(this).attr('disabled', true);
-		  }
-
-		} else if (type == 'plus') {
-
-		  if (currentVal < input.attr('max')) {
-			input.text(currentVal + 0.5 + _TEMP_SYMBOL).change();
-			switchThermostat(parseFloat(input.text()),input);
-		  }
-		  if (parseFloat(input.text()) == input.attr('max')) {
-			$(this).attr('disabled', true);
-		  }
-
-		}
-	  } else {
-		input.text(0);
-	  }
-	});
-
-	$(thermelement+' .input-number').focusin(function() {
-	  $(this).data('oldValue', $(this).text());
-	});
-
-	$(thermelement+' .input-number').change(function() {
-	  minValue = parseFloat($(this).attr('min'));
-	  maxValue = parseFloat($(this).attr('max'));
-	  valueCurrent = parseFloat($(this).text());
-
-	  name = $(this).attr('name');
-	  if (valueCurrent >= minValue) {
-		$(thermelement+" .btn-number[data-type='minus']").removeAttr('disabled')
-	  } else {
-		  $(this).val($(this).data('oldValue'));
-	  }
-	  if (valueCurrent <= maxValue) {
-		$(thermelement+" .btn-number[data-type='plus']").removeAttr('disabled')
-	  } else {
-		  $(this).val($(this).data('oldValue'));
-	  }
-	});
-}
-
 function getDevices(override){
 	if(typeof(override)=='undefined') override=false;
 	if(!sliding || override){
 		if(typeof(req)!=='undefined') req.abort();
+		gettingDevices=true;
 		req = $.getJSONP({
 			url: _HOST_DOMOTICZ+'/json.htm?type=devices&filter=all&used=true&order=Name&jsoncallback=?',
 			type: 'GET',async: true,contentType: "application/json",dataType: 'jsonp',
@@ -910,6 +751,7 @@ function getDevices(override){
 				alert("Domoticz error!\nPlease, double check the path in _HOST_DOMOTICZ-variable!");
 			},
 			success: function(data) {
+				gettingDevices = false;
 				if(typeof(_DEBUG)!=='undefined' && _DEBUG) data = $.parseJSON(jsonexample);
 				if(!sliding || override){
 					$('.solar').remove();
@@ -1013,9 +855,6 @@ function getDevices(override){
 								html+= eval('getBlock_'+idx+'(device,idx)');
 							}
 							catch(err) {
-								if(err.message!=='getBlock_'+idx+' is not defined'){
-									console.log(idx+" > "+err.message);
-								}
 								
 								if(typeof(device['SubType'])!=='undefined' && device['SubType'] in blocktypes['SubType']){
 									html+= getStatusBlock(device,blocktypes['SubType'][device['SubType']]);
@@ -1298,7 +1137,8 @@ function getDevices(override){
 									
 									html+=iconORimage(idx+'_1','','heating.png','on icon','style="max-height:35px;"');
 									html+='<div class="col-xs-8 col-data">';
-										if(typeof(blocks[idx])!=='undefined' && typeof(blocks[idx]['switch'])!=='undefined' && blocks[idx]['switch']==true){
+
+										if(typeof(blocks[idx+'_1'])!=='undefined' && typeof(blocks[idx+'_1']['switch'])!=='undefined' && blocks[idx+'_1']['switch']==true){
 											html+='<strong class="title">'+device['Name']+'</strong><br />';
 											html+='<span class="state">'+device['Data']+_TEMP_SYMBOL+'</span>';
 
@@ -1330,8 +1170,14 @@ function getDevices(override){
 
 									html+=iconORimage(idx+'_2','','heating.png','on icon iconheating','','2');
 									html+='<div class="col-xs-8 col-data">';
-										html+='<strong class="title input-number title-input" min="12" max="25" data-light="'+device['idx']+'">'+device['Data']+_TEMP_SYMBOL+'</strong>';
-										html+='<div class="state stateheating">'+device['Name']+'</div>';
+										if(typeof(blocks[idx+'_2'])!=='undefined' && typeof(blocks[idx+'_2']['switch'])!=='undefined' && blocks[idx+'_2']['switch']==true){
+											html+='<strong class="title input-number title-input" min="12" max="25" data-light="'+device['idx']+'">'+device['Name']+'</strong>';
+											html+='<div class="state stateheating">'+device['Data']+_TEMP_SYMBOL+'</div>';
+										}
+										else {	
+											html+='<strong class="title input-number title-input" min="12" max="25" data-light="'+device['idx']+'">'+device['Data']+_TEMP_SYMBOL+'</strong>';
+											html+='<div class="state stateheating">'+device['Name']+'</div>';
+										}
 
 									html+='</div>';
 
@@ -1340,22 +1186,24 @@ function getDevices(override){
 									addHTML=false;
 
 									if(typeof(addedThermostat[idx])=='undefined'){
-										addThermostatFunctions('.block_'+idx+'_2');
+										addThermostatFunctions('.block_'+idx);
 										addedThermostat[idx] = true;
+									}
+									if(typeof(addedThermostat[idx+'_2'])=='undefined'){
+										addThermostatFunctions('.block_'+idx+'_2');
+										addedThermostat[idx+'_2'] = true;
 									}
 								}
 								else if(device['SwitchType']=='Door Contact' || device['SwitchType']=='Door Lock'){
-									html+='<div class="col-xs-4 col-icon">';
-										if(device['Status']=='Closed') html+='<img src="img/door_closed.png" class="off icon" />';
-										else html+='<img src="img/door_open.png" class="on icon" />';
-									html+='</div>';
+									if(device['Status']=='Closed') html+=iconORimage(idx,'','door_closed.png','off icon','',2);
+									else html+=iconORimage(idx,'','door_open.png','on icon','',2);
+									
 									html+=getBlockData(device,idx,lang.state_open,lang.state_closed);
 								}
 								else if(device['SwitchType']=='Contact'){
-									html+='<div class="col-xs-4 col-icon">';
-										if(device['Status']=='Closed') html+='<img src="img/door_closed.png" class="off icon" />';
-										else html+='<img src="img/door_open.png" class="on icon" />';
-									html+='</div>';
+									if(device['Status']=='Closed') html+=iconORimage(idx,'','door_closed.png','off icon','',2);
+									else html+=iconORimage(idx,'','door_open.png','on icon','',2);
+
 									html+=getBlockData(device,idx,lang.state_open,lang.state_closed);
 								}
 								else if(device['SubType']=='Custom Sensor'){
@@ -1437,6 +1285,67 @@ function getDevices(override){
 
 									html+='</ul>';
 								}
+								else if(device['SwitchType']=='Blinds Percentage Inverted'){
+									html+='<div class="col-xs-2 col-icon">';
+									   if(device['Status']=='Closed') html+='<img src="img/blinds_closed.png" class="off icon" />';
+									   else html+='<img src="img/blinds_open.png" class="on icon" />';
+									html+='</div>';
+									html+='<div class="col-xs-9 col-data">';
+									   html+='<strong class="title">'+device['Name']+'</strong><br />';
+
+									   //if(device['Status']=='Closed') html+='<span class="state">'+lang.state_closed+'</span>';
+									   //else html+='<span class="state">'+lang.state_open+'</span>';
+										
+									    html+='<div class="slider slider'+device['idx']+'" data-light="'+device['idx']+'"></div>';
+										
+									html+='</div>';
+									
+									if(typeof(blocks[idx])=='undefined' || typeof(blocks[idx]['hide_stop'])=='undefined' || blocks[idx]['hide_stop']===false){
+										var hidestop = false;
+										html+='<ul class="input-groupBtn input-chevron">';
+									}
+									else {
+										var hidestop = true;
+										html+='<ul class="input-groupBtn input-chevron hidestop">';
+									}
+									
+									html+='<li class="up"><a href="javascript:void(0)" class="btn btn-number plus" onclick="switchBlinds('+device['idx']+',\'On\');">';
+									html+='<em class="fa fa-chevron-up fa-small"></em>';
+									html+='</a></li>';
+
+									html+='<li class="down"><a href="javascript:void(0)" class="btn btn-number min" onclick="switchBlinds('+device['idx']+',\'Off\');">';
+									html+='<em class="fa fa-chevron-down fa-small"></em>';
+									html+='</a></li>';
+
+									if(!hidestop){
+										html+='<li class="stop"><a href="javascript:void(0)" class="btn btn-number stop" onclick="switchBlinds('+device['idx']+',\'Stop\');">';
+										html+='STOP';
+										html+='</a></li>';
+									}
+
+									html+='</ul>';
+									
+									$('div.block_'+idx).html(html);
+									addHTML=false;
+									
+									$( ".slider"+idx ).slider({
+										value:device['Level'],
+										step: 1,
+										min:1,
+										max:100,
+										slide: function( event, ui ) {
+											sliding = true;
+											slideDevice($(this).data('light'),ui.value);
+										},
+										change:function( event, ui ) {
+											sliding = true;
+											slideDevice($(this).data('light'),ui.value);
+										},
+										stop: function( event, ui ) {
+											sliding = false;
+										}
+									});
+								}
 								else if(device['SwitchType']=='Motion Sensor'){
 									html+='<div class="col-xs-4 col-icon">';
 
@@ -1452,7 +1361,9 @@ function getDevices(override){
 									html+=getBlockData(device,idx,lang.state_smoke,lang.state_nosmoke);
 								}
 								else if(device['HardwareName']=='Dummy') { 
-									$('.block_'+idx).attr('onclick','switchDevice(this)');
+									if((typeof(blocks[idx]) == 'undefined' || typeof(blocks[idx]['protected']) == 'undefined' || blocks[idx]['protected'] == false) && device['Protected'] == false){
+										$('.block_'+idx).attr('onclick','switchDevice(this)');
+									}
 
 									if(device['Status']=='Off') html+=iconORimage(idx,'fa-toggle-off','','off icon');
 									else html+=iconORimage(idx,'fa-toggle-on','','on icon');
@@ -1466,7 +1377,11 @@ function getDevices(override){
 									html+=getBlockData(device,idx,lang.state_on,lang.state_off);
 								}
 								else {
-									$('.block_'+idx).attr('onclick','switchDevice(this)');
+									triggerChange(device['idx'],device['Status']);
+
+									if((typeof(blocks[idx]) == 'undefined' || typeof(blocks[idx]['protected']) == 'undefined' || blocks[idx]['protected'] == false) && device['Protected'] == false){
+										$('.block_'+idx).attr('onclick','switchDevice(this)');
+									}
 									if(buttonimg==''){
 										if(device['Status']=='Off') html+=iconORimage(idx,'fa-lightbulb-o','','off icon');
 										else html+=iconORimage(idx,'fa-lightbulb-o','','on icon');

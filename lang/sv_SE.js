@@ -17,8 +17,10 @@ lang['friday'] = 'Fredag';
 lang['saturday'] = 'Lördag';
 lang['sunday'] = 'Söndag';
 
+lang['value'] = 'Value';
 lang['today'] = 'idag';
 lang['tomorrow'] = 'i morgon';
+lang['entire_day_event'] = 'hela dagen';
 
 lang['graph_last_hours'] = 'senaste timmen';
 lang['graph_today'] = 'idag';
@@ -36,6 +38,8 @@ lang['temp_toon'] = 'Vardagsrum';
 lang['wind'] = 'Vind';
 lang['select'] = 'Välj';
 lang['notifications_ns'] = 'avviseringar från NS';
+lang['last_update'] = 'Senaste uppdateringen';
+lang['scheduled'] = 'Planerad';
 
 lang['direction_N'] = 'nord'
 lang['direction_NNE'] = 'nord-nordost';

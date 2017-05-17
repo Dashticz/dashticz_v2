@@ -21,7 +21,7 @@ function switchDevice(cur){
 		
 		$(cur).find('.state').html(lang.state_on);
 	}
-
+	triggerChange(idx,doStatus);
 	if(typeof(req)!=='undefined') req.abort();
 	
 	if(typeof(idx)=='string' && idx.substr(0,1)=='s'){
@@ -108,7 +108,7 @@ function switchGroup(cur){
 		$(cur).find('.icon').addClass('on');
 		$(cur).find('.state').html(lang.state_on);
 	}
-	
+	triggerChange(idx,doStatus);
 	if(typeof(req)!=='undefined') req.abort();	
 	$.ajax({
 		url: _HOST_DOMOTICZ+'/json.htm?type=command&param=switchscene&idx='+idx.replace('s','')+'&switchcmd='+doStatus+'&level=0&passcode=&jsoncallback=?',
