@@ -271,7 +271,10 @@ function startSwiper(){
 }
 
 function initMap() {
-      showMap('trafficm');
+	showMap('trafficm');
+	setInterval(function(){
+		showMap('trafficm');
+	},(60000*5));
 }
 function showMap(mapid,map) {
 	if(typeof(_APIKEY_MAPS)=='undefined' || _APIKEY_MAPS=="") alert('Please, set var _APIKEY_MAPS!');
