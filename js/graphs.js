@@ -1,4 +1,3 @@
-
 function getGraphs(device,popup){
 	var sensor='counter';
 	if(device['Type']=='Temp' || device['Type']== 'Temp + Humidity' || device['Type']== 'Temp + Humidity + Baro') sensor='temp';
@@ -76,7 +75,7 @@ function showGraph(idx,title,label,range,current,forced,sensor,popup){
 				buttons+='" onclick="showGraph('+idx+',\''+orgtitle+'\',\''+label+'\',\'month\',\''+current+'\',true,\''+sensor+'\');">'+lang['graph_last_month']+'</button>';
 										
 				if(popup) var html = '<div class="graphpopup" id="graph'+idx+'">';
-				else var html = '<div class="graph" id="graph'+idx+'">';
+				else var html = '<div class="graphpopup" id="graph'+idx+'">';
 					html+='<div class="transbg col-xs-12">';
 						html+=''+title+'<br /><div style="margin-left:15px;">'+buttons+'</div><br /><div id="graphoutput'+idx+'"></div>';
 							
@@ -89,7 +88,7 @@ function showGraph(idx,title,label,range,current,forced,sensor,popup){
 						$('#graph'+idx+'.graph').replaceWith(html);
 					}
 					else if(popup) $('.block_graphpopup_'+idx).html(html);
-					else $('.block_graph_'+idx).html(html);
+					else $('.block_graphpopup_'+idx).html(html);
 					
 					var data_com=new Array();
 					var count=0;
