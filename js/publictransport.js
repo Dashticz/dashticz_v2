@@ -93,7 +93,8 @@ function dataPublicTransport(random,data,transportobject){
 	
 	$('.publictransport'+random+' .state').html('');
 	var c = 1;
-	Object.keys(dataPart).sort().forEach(function(d) {
+	Object.keys(dataPart).forEach(function(d) {
+	//Object.keys(dataPart).sort().forEach(function(d) {
 		for(p in dataPart[d]){
 			if(c<=transportobject.results) $('.publictransport'+random+' .state').append(dataPart[d][p]);
 			c++;
