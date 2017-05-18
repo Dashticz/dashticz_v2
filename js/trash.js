@@ -161,12 +161,10 @@ function loadTrash (random,trashobject) {
 					
 					var testDate = moment(data[d].dateTime[dt].date);
 					if(testDate.isBetween(startDate, endDate, 'days', true)){
-						returnDates[curr][testDate.format("YYYY-MM-DD")+'_'+teller]=getTrashRow(curr,testDate);
-						teller++;
+						returnDates[curr][testDate.format("YYYY-MM-DD")+'_'+curr]=getTrashRow(curr,testDate);
 					}
 				}
 			}
-			
 			addToContainer(random,returnDates,maxitems);
 		});
 	}
