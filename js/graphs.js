@@ -74,8 +74,7 @@ function showGraph(idx,title,label,range,current,forced,sensor,popup){
 				if(range=='month') buttons+='active';
 				buttons+='" onclick="showGraph('+idx+',\''+orgtitle+'\',\''+label+'\',\'month\',\''+current+'\',true,\''+sensor+'\');">'+lang['graph_last_month']+'</button>';
 										
-				if(popup) var html = '<div class="graphpopup" id="graph'+idx+'">';
-				else var html = '<div class="graphpopup" id="graph'+idx+'">';
+				var html = '<div class="graphpopup" id="graph'+idx+'">';
 					html+='<div class="transbg col-xs-12">';
 						html+=''+title+'<br /><div style="margin-left:15px;">'+buttons+'</div><br /><div id="graphoutput'+idx+'"></div>';
 							
