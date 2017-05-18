@@ -86,7 +86,6 @@ function showGraph(idx,title,label,range,current,forced,sensor,popup){
 					if($('#graph'+idx+'.graph').length>0){
 						$('#graph'+idx+'.graph').replaceWith(html);
 					}
-					else if(popup) $('.block_graphpopup_'+idx).html(html);
 					else $('.block_graphpopup_'+idx).html(html);
 					
 					var data_com=new Array();
