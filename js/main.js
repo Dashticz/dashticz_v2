@@ -863,7 +863,18 @@ function getDevices(override){
 									html+= getStatusBlock(device,blocktypes['SubType'][device['SubType']]);
 								}
 								else if(typeof(device['HardwareType'])!=='undefined' && device['HardwareType'] in blocktypes['HardwareType']){
-									html+= getStatusBlock(device,blocktypes['HardwareType'][device['HardwareType']]);
+									if(typeof(blocktypes['HardwareType'][device['HardwareType']]['icon'])!=='undefined'){
+										html+= getStatusBlock(device,blocktypes['HardwareType'][device['HardwareType']]);
+									}
+									else {
+										var c=1;
+										for(de in blocktypes['HardwareType'][device['HardwareType']]){
+											html = getStatusBlock(device,blocktypes['HardwareType'][device['HardwareType']][de],c);
+											$('div.block_'+idx+'_'+c).html(html);
+											addHTML=false;
+											c++;
+										}
+									}
 								}
 								else if(typeof(device['HardwareName'])!=='undefined' && device['HardwareName'] in blocktypes['HardwareName']){
 									html+= getStatusBlock(device,blocktypes['HardwareName'][device['HardwareName']]);

@@ -27,7 +27,9 @@ blocktypes.Type['UV'] = { icon: 'fa fa-sun-o', title: '<Name>', value: '<Data>' 
 
 blocktypes.HardwareType = {}
 blocktypes.HardwareType['Motherboard sensors'] = { icon: 'fa fa-desktop', title: '<Name>', value: '<Data>' }
-blocktypes.HardwareType['PVOutput (Input)'] = { icon: 'fa fa-sun-o', title: '<Name>', value: '<CounterToday>' }
+blocktypes.HardwareType['PVOutput (Input)'] = {}
+blocktypes.HardwareType['PVOutput (Input)']['total'] = { icon: 'fa fa-sun-o', title: '<Name>', value: '<CounterToday>' }
+blocktypes.HardwareType['PVOutput (Input)']['usage'] = { icon: 'fa fa-sun-o', title: '<Name>', value: '<Usage>' }
 
 blocktypes.HardwareName = {}
 blocktypes.HardwareName['Rain expected'] = { icon: 'fa fa-tint', title: '<Data>', value: '<Name>' }
@@ -245,10 +247,12 @@ function getStateBlock(id,icon,title,value,device){
 }
 
 
-function getStatusBlock(device,block){
+function getStatusBlock(device,block,c){
 	
 	var value = block.value;
 	var title = block.title;
+	if(typeof(blocks[device['idx']])!=='undefined' && typeof(blocks[device['idx']]['title'])!=='undefined') title=blocks[device['idx']]['title'];
+	else if(typeof(blocks[device['idx']+'_'+c])!=='undefined' && typeof(blocks[device['idx']+'_'+c]['title'])!=='undefined') title=blocks[device['idx']+'_'+c]['title'];
 	
 	for(d in device) {
 		value = value.replace('<'+d+'>',device[d]);
