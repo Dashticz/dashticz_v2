@@ -14,8 +14,6 @@ function addCalendar(calobject,icsUrlorg){
 	var counter = 1;
 	var colors = {}
 	
-	calobject.find('.transbg').html('Loading...');
-	
 	var maxitems = 10;
 	if(typeof(icsUrl.maxitems)!=='undefined') maxitems = icsUrl.maxitems;
 	

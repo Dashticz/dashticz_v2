@@ -154,7 +154,7 @@ function getBlock(cols,c,columndiv,standby){
 			}
 			else if(cols['blocks'][b]=='icalendar'){
 				var random = getRandomInt(1,100000);
-				var html ='<div class="transbg containsicalendar containsicalendar'+random+'"><div class="col-xs-'+width+' transbg"></div></div>';
+				var html ='<div class="transbg containsicalendar containsicalendar'+random+'"><div class="col-xs-'+width+' transbg">Loading...</div></div>';
 				$(columndiv).append(html);	
 				addCalendar($('.containsicalendar'+random),_ICALENDAR_URL);
 			}
@@ -185,7 +185,7 @@ function getBlock(cols,c,columndiv,standby){
 				if(typeof(cols['blocks'][b]['icalurl'])!=='undefined' || typeof(cols['blocks'][b]['calendars'])!=='undefined'){
 					var html ='';
 					if(typeof(cols['blocks'][b]['title'])!=='undefined') html+='<div class="col-xs-'+width+' mh titlegroups transbg"><h3>'+cols['blocks'][b]['title']+'</h3></div>';
-					html+='<div data-id="calendars.'+key+'" class="transbg containsicalendar containsicalendar'+random+'"><div class="col-xs-'+width+' transbg"></div></div>';
+					html+='<div data-id="calendars.'+key+'" class="transbg containsicalendar containsicalendar'+random+'"><div class="col-xs-'+width+' transbg">Loading...</div></div>';
 					$(columndiv).append(html);	
 					addCalendar($('.containsicalendar'+random),cols['blocks'][b]);
 
