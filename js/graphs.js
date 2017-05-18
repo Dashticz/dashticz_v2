@@ -35,7 +35,7 @@ function getButtonGraphs(device){
 function showGraph(idx,title,label,range,current,forced,sensor,popup){
 	graphColor = '#eee';
 	graphColor2 = '#eee';
-	
+	if(typeof(popup)=='undefined') forced=false;
 	if(typeof(forced)=='undefined') forced=false;
 	
 	if(typeof(_GRAPHS_LOADED[idx])=='undefined' || _GRAPHS_LOADED[idx]<(time()-(parseFloat(_GRAPHREFRESH)*60))){
@@ -64,17 +64,18 @@ function showGraph(idx,title,label,range,current,forced,sensor,popup){
 				
 				var buttons ='<button type="button" class="btn btn-default ';
 				if(range=='last') buttons+='active';
-				buttons+='" onclick="showGraph('+idx+',\''+orgtitle+'\',\''+label+'\',\'last\',\''+current+'\',true,\''+sensor+'\');">'+lang['graph_last_hours']+'</button> ';
+				buttons+='" onclick="showGraph('+idx+',\''+orgtitle+'\',\''+label+'\',\'last\',\''+current+'\',true,\''+sensor+'\',\''+popup+'\');">'+lang['graph_last_hours']+'</button> ';
 				
 				buttons+='<button type="button" class="btn btn-default ';
 				if(range=='day') buttons+='active';
-				buttons+='" onclick="showGraph('+idx+',\''+orgtitle+'\',\''+label+'\',\'day\',\''+current+'\',true,\''+sensor+'\');">'+lang['graph_today']+'</button> ';
+				buttons+='" onclick="showGraph('+idx+',\''+orgtitle+'\',\''+label+'\',\'day\',\''+current+'\',true,\''+sensor+'\',\''+popup+'\');">'+lang['graph_today']+'</button> ';
 				
 				buttons+='<button type="button" class="btn btn-default ';
 				if(range=='month') buttons+='active';
-				buttons+='" onclick="showGraph('+idx+',\''+orgtitle+'\',\''+label+'\',\'month\',\''+current+'\',true,\''+sensor+'\');">'+lang['graph_last_month']+'</button>';
+				buttons+='" onclick="showGraph('+idx+',\''+orgtitle+'\',\''+label+'\',\'month\',\''+current+'\',true,\''+sensor+'\',\''+popup+'\');">'+lang['graph_last_month']+'</button>';
 										
-				var html = '<div class="graphpopup" id="graph'+idx+'">';
+				if(popup) var html = '<div class="graphpopup" id="graph'+idx+'">';
+				else var html = '<div class="graph" id="graph'+idx+'">';
 					html+='<div class="transbg col-xs-12">';
 						html+=''+title+'<br /><div style="margin-left:15px;">'+buttons+'</div><br /><div id="graphoutput'+idx+'"></div>';
 							
@@ -86,7 +87,8 @@ function showGraph(idx,title,label,range,current,forced,sensor,popup){
 					if($('#graph'+idx+'.graph').length>0){
 						$('#graph'+idx+'.graph').replaceWith(html);
 					}
-					else $('.block_graphpopup_'+idx).html(html);
+					else if(popup) $('.block_graphpopup_'+idx).html(html);
+					else $('.block_graph_'+idx).html(html);
 					
 					var data_com=new Array();
 					var count=0;
