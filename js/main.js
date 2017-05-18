@@ -288,8 +288,8 @@ function showMap(mapid,map) {
 		}
 		else {
 				var map = new google.maps.Map(document.getElementById(mapid), {
-				  zoom: _MAPS_ZOOMLEVEL,
-				  center: {lat: _MAPS_LATITUDE, lng: _MAPS_LONGITUDE}
+				  zoom: parseFloat(_MAPS_ZOOMLEVEL),
+				  center: {lat: parseFloat(_MAPS_LATITUDE), lng: parseFloat(_MAPS_LONGITUDE)}
 				});
 		}
 
