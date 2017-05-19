@@ -4,13 +4,23 @@ function loadPublicTransport(random,transportobject){
 	var html='<div class="col-xs-'+width+'" style="padding-left:0px !important;padding-right:0px !important;">';
 	if(typeof(transportobject.title)!=='undefined') html+='<div class="col-xs-12 mh titlegroups transbg"><h3>'+transportobject.title+'</h3></div>';
 					
+	var hide_icon = false;
+	if(typeof(transportobject.hide_icon)!=='undefined') hide_icon=transportobject.hide_icon;		
+	
 	html+='<div class="publictransport publictransport'+random+' col-xs-12 transbg">';
+		if(!hide_icon){
 			html+='<div class="col-xs-2 col-icon">';
 				html+='<em class="fa fa-'+transportobject.icon+'"></em>';
 			html+='</div>';
 			html+='<div class="col-xs-10 col-data">';
 				html+='<span class="state"></span>';
 			html+='</div>';
+		}
+		else {
+				html+='<div class="col-xs-12 col-data">';
+					html+='<span class="state"></span>';
+				html+='</div>';
+		}
 		html+='</div>';	
 	
 	html+='</div>';	

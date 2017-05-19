@@ -22,13 +22,23 @@ function loadTrash (random,trashobject) {
 	var maxitems = 5;
 	if(typeof(trashobject.maxitems)!=='undefined') maxitems=trashobject.maxitems;
 	
+	var hide_icon = false;
+	if(typeof(trashobject.hide_icon)!=='undefined') hide_icon=trashobject.hide_icon;
+	
 	var html='<div class="trash trash'+random+' col-xs-'+width+' transbg" data-id="trash.'+key+'">';
-		html+='<div class="col-xs-4 col-icon">';
-			html+='<img class="trashcan" src="img/kliko.png" style="opacity:0.1" />';
-		html+='</div>';
-		html+='<div class="col-xs-8 col-data">';
-			html+='<span class="state">Loading...</span>';
-		html+='</div>';
+		if(!hide_icon){
+			html+='<div class="col-xs-4 col-icon">';
+				html+='<img class="trashcan" src="img/kliko.png" style="opacity:0.1" />';
+			html+='</div>';
+			html+='<div class="col-xs-8 col-data">';
+				html+='<span class="state">Loading...</span>';
+			html+='</div>';
+		}
+		else {
+			html+='<div class="col-xs-12 col-data">';
+				html+='<span class="state">Loading...</span>';
+			html+='</div>';
+		}
 	html+='</div>';
 	
 	var returnDates={};

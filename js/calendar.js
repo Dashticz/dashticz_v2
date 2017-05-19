@@ -117,7 +117,7 @@ function addCalendar(calobject,icsUrlorg){
 			}
 
 			if(done==amountc){
-				calobject.find('.transbg').html('');
+				calobject.find('.items').html('');
 				var counter = 1;
 				for(check in calitems){	
 					items = calitems[check];
@@ -125,7 +125,7 @@ function addCalendar(calobject,icsUrlorg){
 						item = items[c];
 						if(check > moment().format('X') && counter <= maxitems){
 							var widget = '<div style="color:'+item['color']+'">' + item['startdate'] + item['enddate'] + ' - <b>' + item['summary'] + '</b></div>';		
-							calobject.find('.transbg').append(widget);
+							calobject.find('.items').append(widget);
 							counter++;
 						}
 					}	

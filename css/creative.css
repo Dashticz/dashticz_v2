@@ -290,7 +290,8 @@ select option {
 .wi.wi-rain {margin-top:0px;}
 .fa {font-size:30px;}
 .fa.fa-small {font-size:20px;}
-.fa.fa-thermometer-half {margin-left:8px;margin-top:1px;}
+.fa.fa-thermometer-half {margin-left:8px;margin-top:2px;}
+.fa.fa-calendar {margin-left:4px;margin-top:1px;}
 .fa.fa-thermometer-half.fa-thermometer-half-switch {margin-left:4px;}
 .fa.fa-desktop {margin-top:5px;}
 .fa.fa-fire {margin-top:5px;}

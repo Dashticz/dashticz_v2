@@ -156,7 +156,12 @@ function getBlock(cols,c,columndiv,standby){
 			}
 			else if(cols['blocks'][b]=='icalendar'){
 				var random = getRandomInt(1,100000);
-				var html ='<div class="transbg containsicalendar containsicalendar'+random+'"><div class="col-xs-'+width+' transbg">Loading...</div></div>';
+				var html ='<div class="col-xs-'+width+' transbg containsicalendar containsicalendar'+random+'">';
+				html+='<div class="col-xs-2 col-icon">';
+					html+='<em class="fa fa-calendar"></em>';
+				html+='</div>';
+				html+='<div class="col-xs-10 items">Loading...</div>';
+				html+='</div>';
 				$(columndiv).append(html);	
 				addCalendar($('.containsicalendar'+random),_ICALENDAR_URL);
 			}
@@ -187,7 +192,23 @@ function getBlock(cols,c,columndiv,standby){
 				if(typeof(cols['blocks'][b]['icalurl'])!=='undefined' || typeof(cols['blocks'][b]['calendars'])!=='undefined'){
 					var html ='';
 					if(typeof(cols['blocks'][b]['title'])!=='undefined') html+='<div class="col-xs-'+width+' mh titlegroups transbg"><h3>'+cols['blocks'][b]['title']+'</h3></div>';
-					html+='<div data-id="calendars.'+key+'" class="transbg containsicalendar containsicalendar'+random+'"><div class="col-xs-'+width+' transbg">Loading...</div></div>';
+					
+					
+					var hide_icon = false;
+					if(typeof(cols['blocks'][b]['hide_icon'])!=='undefined') hide_icon=cols['blocks'][b]['hide_icon'];
+					
+					html+='<div data-id="calendars.'+key+'" class="col-xs-'+width+' transbg containsicalendar containsicalendar'+random+'">';
+					if(!hide_icon){
+						html+='<div class="col-xs-2 col-icon">';
+							html+='<em class="fa fa-calendar"></em>';
+						html+='</div>';
+						html+='<div class="col-xs-10 items">Loading...</div>';
+					}
+					else {
+						html+='<div class="col-xs-12 items">Loading...</div>';
+					}
+					
+					html+='</div>';
 					$(columndiv).append(html);	
 					addCalendar($('.containsicalendar'+random),cols['blocks'][b]);
 
