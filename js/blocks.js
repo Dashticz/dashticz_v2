@@ -193,14 +193,10 @@ function getBlock(cols,c,columndiv,standby){
 					var html ='';
 					if(typeof(cols['blocks'][b]['title'])!=='undefined') html+='<div class="col-xs-'+width+' mh titlegroups transbg"><h3>'+cols['blocks'][b]['title']+'</h3></div>';
 					
-					
-					var hide_icon = false;
-					if(typeof(cols['blocks'][b]['hide_icon'])!=='undefined') hide_icon=cols['blocks'][b]['hide_icon'];
-					
 					html+='<div data-id="calendars.'+key+'" class="col-xs-'+width+' transbg containsicalendar containsicalendar'+random+'">';
-					if(!hide_icon){
+					if(typeof(cols['blocks'][b]['icon'])!=='undefined' && cols['blocks'][b]['icon']!==''){
 						html+='<div class="col-xs-2 col-icon">';
-							html+='<em class="fa fa-calendar"></em>';
+							html+='<em class="fa '+cols['blocks'][b]['icon']+'"></em>';
 						html+='</div>';
 						html+='<div class="col-xs-10 items">Loading...</div>';
 					}
