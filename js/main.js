@@ -406,6 +406,7 @@ function playAudio(file){
 
 function triggerChange(idx,value){
 	if(typeof(oldstates[idx])!=='undefined' && value!==oldstates[idx]){
+		console.log('Changed: '+idx);
 		if(typeof(blocks[idx])!=='undefined' && typeof(blocks[idx]['playsound'])!=='undefined'){
 			playAudio(blocks[idx]['playsound']);
 		}
@@ -854,8 +855,10 @@ function getDevices(override){
 								getGraphs(device,false);
 							}
 							
+							triggerChange(device['idx'],device['LastUpdate']);
+							
 							try {
-								html+= eval('getBlock_'+idx+'(device,idx)');
+								html+= eval('getBlock_'+idx+'(device,idx,data.result)');
 							}
 							catch(err) {
 								
@@ -1391,7 +1394,6 @@ function getDevices(override){
 									html+=getBlockData(device,idx,lang.state_on,lang.state_off);
 								}
 								else {
-									triggerChange(device['idx'],device['Status']);
 
 									if((typeof(blocks[idx]) == 'undefined' || typeof(blocks[idx]['protected']) == 'undefined' || blocks[idx]['protected'] == false) && device['Protected'] == false){
 										$('.block_'+idx).attr('onclick','switchDevice(this)');

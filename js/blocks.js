@@ -225,7 +225,7 @@ function getStateBlock(id,icon,title,value,device){
 		}
 	}
 	
-	triggerChange(device['idx'],value);
+	//triggerChange(device['idx'],device['LastUpdate']);
 	
 	var stateBlock ='<div class="col-xs-4 col-icon">';
 		stateBlock+='<em class="'+icon+'"></em>';
@@ -297,7 +297,7 @@ function getStatusBlock(device,block,c){
 		//end alteration
 	}
 	
-	triggerChange(device['idx'],device['Status']);
+	//triggerChange(device['idx'],device['LastUpdate']);
 	
 	var stateBlock ='<div class="col-xs-4 col-icon">';
 		if(typeof(blocks[device['idx']])!=='undefined' && typeof(blocks[device['idx']]['icon'])!=='undefined'){
@@ -348,7 +348,7 @@ function iconORimage(idx,defaulticon,defaultimage,classnames,attr,colwidth,attrc
 }
 
 function getBlockData(device,idx,ontxt,offtxt){
-	triggerChange(device['idx'],device['Status']);
+	//triggerChange(device['idx'],device['LastUpdate']);
 	
 	var data='<div class="col-xs-8 col-data">';
 	if(typeof(blocks[idx])!=='undefined' && typeof(blocks[idx]['hide_data'])!=='undefined' && blocks[idx]['hide_data']==true){
