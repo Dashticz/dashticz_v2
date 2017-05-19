@@ -406,7 +406,6 @@ function playAudio(file){
 
 function triggerChange(idx,value){
 	if(typeof(oldstates[idx])!=='undefined' && value!==oldstates[idx]){
-		console.log('Changed: '+idx);
 		if(typeof(blocks[idx])!=='undefined' && typeof(blocks[idx]['playsound'])!=='undefined'){
 			playAudio(blocks[idx]['playsound']);
 		}
