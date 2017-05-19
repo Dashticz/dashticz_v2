@@ -431,6 +431,12 @@ function triggerChange(idx,value){
 			html+='</div>';
 			$('body').append(html);
 			$('#popup_'+random).modal('show');
+			
+			if(typeof(blocks[idx]['openpopup']['auto_close'])!=='undefined'){
+				setTimeout(function(){
+					$('.modal.openpopup,.modal-backdrop').remove();
+				},(parseFloat(blocks[idx]['openpopup']['auto_close'])*1000));
+			}
 		}
 	}
 	oldstates[idx] = value;
