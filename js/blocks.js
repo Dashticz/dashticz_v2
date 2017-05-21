@@ -27,7 +27,9 @@ blocktypes.Type['UV'] = { icon: 'fa fa-sun-o', title: '<Name>', value: '<Data>' 
 
 blocktypes.HardwareType = {}
 blocktypes.HardwareType['Motherboard sensors'] = { icon: 'fa fa-desktop', title: '<Name>', value: '<Data>' }
-blocktypes.HardwareType['PVOutput (Input)'] = { icon: 'fa fa-sun-o', title: '<Name>', value: '<CounterToday>' }
+blocktypes.HardwareType['PVOutput (Input)'] = {}
+blocktypes.HardwareType['PVOutput (Input)']['total'] = { icon: 'fa fa-sun-o', title: '<Name>', value: '<CounterToday>' }
+blocktypes.HardwareType['PVOutput (Input)']['usage'] = { icon: 'fa fa-sun-o', title: '<Name>', value: '<Usage>' }
 
 blocktypes.HardwareName = {}
 blocktypes.HardwareName['Rain expected'] = { icon: 'fa fa-tint', title: '<Data>', value: '<Name>' }
@@ -154,7 +156,12 @@ function getBlock(cols,c,columndiv,standby){
 			}
 			else if(cols['blocks'][b]=='icalendar'){
 				var random = getRandomInt(1,100000);
-				var html ='<div class="transbg containsicalendar containsicalendar'+random+'"><div class="col-xs-'+width+' transbg"></div></div>';
+				var html ='<div class="col-xs-'+width+' transbg containsicalendar containsicalendar'+random+'">';
+				html+='<div class="col-xs-2 col-icon">';
+					html+='<em class="fa fa-calendar"></em>';
+				html+='</div>';
+				html+='<div class="col-xs-10 items">Loading...</div>';
+				html+='</div>';
 				$(columndiv).append(html);	
 				addCalendar($('.containsicalendar'+random),_ICALENDAR_URL);
 			}
@@ -185,7 +192,19 @@ function getBlock(cols,c,columndiv,standby){
 				if(typeof(cols['blocks'][b]['icalurl'])!=='undefined' || typeof(cols['blocks'][b]['calendars'])!=='undefined'){
 					var html ='';
 					if(typeof(cols['blocks'][b]['title'])!=='undefined') html+='<div class="col-xs-'+width+' mh titlegroups transbg"><h3>'+cols['blocks'][b]['title']+'</h3></div>';
-					html+='<div data-id="calendars.'+key+'" class="transbg containsicalendar containsicalendar'+random+'"><div class="col-xs-'+width+' transbg"></div></div>';
+					
+					html+='<div data-id="calendars.'+key+'" class="col-xs-'+width+' transbg containsicalendar containsicalendar'+random+'">';
+					if(typeof(cols['blocks'][b]['icon'])!=='undefined' && cols['blocks'][b]['icon']!==''){
+						html+='<div class="col-xs-2 col-icon">';
+							html+='<em class="fa '+cols['blocks'][b]['icon']+'"></em>';
+						html+='</div>';
+						html+='<div class="col-xs-10 items">Loading...</div>';
+					}
+					else {
+						html+='<div class="col-xs-12 items">Loading...</div>';
+					}
+					
+					html+='</div>';
 					$(columndiv).append(html);	
 					addCalendar($('.containsicalendar'+random),cols['blocks'][b]);
 
@@ -223,7 +242,7 @@ function getStateBlock(id,icon,title,value,device){
 		}
 	}
 	
-	triggerChange(device['idx'],value);
+	//triggerChange(device['idx'],device['LastUpdate']);
 	
 	var stateBlock ='<div class="col-xs-4 col-icon">';
 		stateBlock+='<em class="'+icon+'"></em>';
@@ -245,10 +264,12 @@ function getStateBlock(id,icon,title,value,device){
 }
 
 
-function getStatusBlock(device,block){
+function getStatusBlock(device,block,c){
 	
 	var value = block.value;
 	var title = block.title;
+	if(typeof(blocks[device['idx']])!=='undefined' && typeof(blocks[device['idx']]['title'])!=='undefined') title=blocks[device['idx']]['title'];
+	else if(typeof(blocks[device['idx']+'_'+c])!=='undefined' && typeof(blocks[device['idx']+'_'+c]['title'])!=='undefined') title=blocks[device['idx']+'_'+c]['title'];
 	
 	for(d in device) {
 		value = value.replace('<'+d+'>',device[d]);
@@ -293,7 +314,7 @@ function getStatusBlock(device,block){
 		//end alteration
 	}
 	
-	triggerChange(device['idx'],device['Status']);
+	//triggerChange(device['idx'],device['LastUpdate']);
 	
 	var stateBlock ='<div class="col-xs-4 col-icon">';
 		if(typeof(blocks[device['idx']])!=='undefined' && typeof(blocks[device['idx']]['icon'])!=='undefined'){
@@ -344,7 +365,7 @@ function iconORimage(idx,defaulticon,defaultimage,classnames,attr,colwidth,attrc
 }
 
 function getBlockData(device,idx,ontxt,offtxt){
-	triggerChange(device['idx'],device['Status']);
+	//triggerChange(device['idx'],device['LastUpdate']);
 	
 	var data='<div class="col-xs-8 col-data">';
 	if(typeof(blocks[idx])!=='undefined' && typeof(blocks[idx]['hide_data'])!=='undefined' && blocks[idx]['hide_data']==true){

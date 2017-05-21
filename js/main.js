@@ -271,7 +271,10 @@ function startSwiper(){
 }
 
 function initMap() {
-      showMap('trafficm');
+	showMap('trafficm');
+	setInterval(function(){
+		showMap('trafficm');
+	},(60000*5));
 }
 function showMap(mapid,map) {
 	if(typeof(_APIKEY_MAPS)=='undefined' || _APIKEY_MAPS=="") alert('Please, set var _APIKEY_MAPS!');
@@ -285,8 +288,8 @@ function showMap(mapid,map) {
 		}
 		else {
 				var map = new google.maps.Map(document.getElementById(mapid), {
-				  zoom: _MAPS_ZOOMLEVEL,
-				  center: {lat: _MAPS_LATITUDE, lng: _MAPS_LONGITUDE}
+				  zoom: parseFloat(_MAPS_ZOOMLEVEL),
+				  center: {lat: parseFloat(_MAPS_LATITUDE), lng: parseFloat(_MAPS_LONGITUDE)}
 				});
 		}
 
@@ -427,6 +430,12 @@ function triggerChange(idx,value){
 			html+='</div>';
 			$('body').append(html);
 			$('#popup_'+random).modal('show');
+			
+			if(typeof(blocks[idx]['openpopup']['auto_close'])!=='undefined'){
+				setTimeout(function(){
+					$('.modal.openpopup,.modal-backdrop').remove();
+				},(parseFloat(blocks[idx]['openpopup']['auto_close'])*1000));
+			}
 		}
 	}
 	oldstates[idx] = value;
@@ -851,8 +860,10 @@ function getDevices(override){
 								getGraphs(device,false);
 							}
 							
+							triggerChange(device['idx'],device['LastUpdate']);
+							
 							try {
-								html+= eval('getBlock_'+idx+'(device,idx)');
+								html+= eval('getBlock_'+idx+'(device,idx,data.result)');
 							}
 							catch(err) {
 								
@@ -860,7 +871,18 @@ function getDevices(override){
 									html+= getStatusBlock(device,blocktypes['SubType'][device['SubType']]);
 								}
 								else if(typeof(device['HardwareType'])!=='undefined' && device['HardwareType'] in blocktypes['HardwareType']){
-									html+= getStatusBlock(device,blocktypes['HardwareType'][device['HardwareType']]);
+									if(typeof(blocktypes['HardwareType'][device['HardwareType']]['icon'])!=='undefined'){
+										html+= getStatusBlock(device,blocktypes['HardwareType'][device['HardwareType']]);
+									}
+									else {
+										var c=1;
+										for(de in blocktypes['HardwareType'][device['HardwareType']]){
+											html = getStatusBlock(device,blocktypes['HardwareType'][device['HardwareType']][de],c);
+											$('div.block_'+idx+'_'+c).html(html);
+											addHTML=false;
+											c++;
+										}
+									}
 								}
 								else if(typeof(device['HardwareName'])!=='undefined' && device['HardwareName'] in blocktypes['HardwareName']){
 									html+= getStatusBlock(device,blocktypes['HardwareName'][device['HardwareName']]);
@@ -1023,7 +1045,11 @@ function getDevices(override){
 										else html+=iconORimage(idx,'',buttonimg+'.png','on icon iconslider','',2,'data-light="'+device['idx']+'" onclick="switchDevice(this);"');
 									}
 									html+='<div class="col-xs-10 swiper-no-swiping col-data">';
-										html+='<strong class="title">'+device['Name']+': '+device['Level']+'%'+'</strong>';
+										html+='<strong class="title">'+device['Name'];
+									if(typeof(blocks[idx])=='undefined' || typeof(blocks[idx]['hide_data'])=='undefined' || blocks[idx]['hide_data']==false){
+										html+=' '+device['Level']+'%';
+									}
+									html+='</strong>';
 										if((_SHOW_LASTUPDATE && (typeof(blocks[idx])=='undefined' || typeof(blocks[idx]['hide_lastupdate'])=='undefined' || blocks[idx]['hide_lastupdate']===false)) || 
 										  (!_SHOW_LASTUPDATE && (typeof(blocks[idx])!=='undefined' && typeof(blocks[idx]['show_lastupdate'])!=='undefined' && blocks[idx]['show_lastupdate']==true)) 
 										  ){
@@ -1377,7 +1403,6 @@ function getDevices(override){
 									html+=getBlockData(device,idx,lang.state_on,lang.state_off);
 								}
 								else {
-									triggerChange(device['idx'],device['Status']);
 
 									if((typeof(blocks[idx]) == 'undefined' || typeof(blocks[idx]['protected']) == 'undefined' || blocks[idx]['protected'] == false) && device['Protected'] == false){
 										$('.block_'+idx).attr('onclick','switchDevice(this)');

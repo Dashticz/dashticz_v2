@@ -22,13 +22,23 @@ function loadTrash (random,trashobject) {
 	var maxitems = 5;
 	if(typeof(trashobject.maxitems)!=='undefined') maxitems=trashobject.maxitems;
 	
-	var html='<div class="trash'+random+' col-xs-'+width+' transbg" data-id="trash.'+key+'">';
-		html+='<div class="col-xs-4 col-icon">';
-			html+='<img class="trashcan" src="img/kliko.png" style="opacity:0.1" />';
-		html+='</div>';
-		html+='<div class="col-xs-8 col-data">';
-			html+='<span class="state">Loading...</span>';
-		html+='</div>';
+	var hide_icon = false;
+	if(typeof(trashobject.hide_icon)!=='undefined') hide_icon=trashobject.hide_icon;
+	
+	var html='<div class="trash trash'+random+' col-xs-'+width+' transbg" data-id="trash.'+key+'">';
+		if(!hide_icon){
+			html+='<div class="col-xs-4 col-icon">';
+				html+='<img class="trashcan" src="img/kliko.png" style="opacity:0.1" />';
+			html+='</div>';
+			html+='<div class="col-xs-8 col-data">';
+				html+='<span class="state">Loading...</span>';
+			html+='</div>';
+		}
+		else {
+			html+='<div class="col-xs-12 col-data">';
+				html+='<span class="state">Loading...</span>';
+			html+='</div>';
+		}
 	html+='</div>';
 	
 	var returnDates={};
@@ -161,12 +171,10 @@ function loadTrash (random,trashobject) {
 					
 					var testDate = moment(data[d].dateTime[dt].date);
 					if(testDate.isBetween(startDate, endDate, 'days', true)){
-						returnDates[curr][testDate.format("YYYY-MM-DD")+'_'+teller]=getTrashRow(curr,testDate);
-						teller++;
+						returnDates[curr][testDate.format("YYYY-MM-DD")+'_'+curr]=getTrashRow(curr,testDate);
 					}
 				}
 			}
-			
 			addToContainer(random,returnDates,maxitems);
 		});
 	}
@@ -226,7 +234,7 @@ function getTrashRow(c,d,orgcolor){
 	orgcolor_attr=' data-color="'+color+'";';
 	if(typeof(orgcolor)!=='undefined') orgcolor_attr=' data-color="'+orgcolor+'"';
 	
-	return '<div'+color+orgcolor_attr+'>'+c+': '+d.format("DD-MM-YYYY")+'</div>';
+	return '<div class="trashrow"'+color+orgcolor_attr+'>'+c+': '+d.format("DD-MM-YYYY")+'</div>';
 }
 
 function addToContainer(random,returnDates,maxitems){
@@ -292,9 +300,11 @@ function addToContainer(random,returnDates,maxitems){
 		
 		if(date == currentdate.format("DD-MM-YYYY")){
 			returnDatesSimple[key] = returnDatesSimple[key].replace(date, lang['today']);
+			returnDatesSimple[key] = returnDatesSimple[key].replace('trashrow', 'trashtoday');
 		}   
 		else if(date == tomorrow.format("DD-MM-YYYY")){
 			returnDatesSimple[key] = returnDatesSimple[key].replace(date, lang['tomorrow']);
+			returnDatesSimple[key] = returnDatesSimple[key].replace('trashrow', 'trashtomorrow');
 		}
 		else if(moment(skey).isBetween(currentdate, nextweek, 'days', true)){
 			var datename = moment(date,"DD-MM-YYYY").locale('nl').format("dddd");
