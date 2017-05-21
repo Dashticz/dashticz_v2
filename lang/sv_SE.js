@@ -17,9 +17,9 @@ lang['friday'] = 'Fredag';
 lang['saturday'] = 'Lördag';
 lang['sunday'] = 'Söndag';
 
-lang['value'] = 'Value';
+lang['value'] = 'Värde';
 lang['today'] = 'idag';
-lang['tomorrow'] = 'i morgon';
+lang['tomorrow'] = 'imorgon';
 lang['entire_day_event'] = 'hela dagen';
 
 lang['graph_last_hours'] = 'senaste timmen';

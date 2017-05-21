@@ -9,12 +9,10 @@ function addCalendar(calobject,icsUrlorg){
 	else icsUrl = icsUrlorg;
 	
 	var done = 0;
+	var doneitems = {};
 	var amountc = objectlength(icsUrl.calendars);
-	var calitems = {}
-	var counter = 1;
+	var calitems = []
 	var colors = {}
-	
-	calobject.find('.transbg').html('Loading...');
 	
 	var maxitems = 10;
 	if(typeof(icsUrl.maxitems)!=='undefined') maxitems = icsUrl.maxitems;
@@ -63,6 +61,7 @@ function addCalendar(calobject,icsUrlorg){
 			done++;
 			for(e in data.calendars[0].events){
 				event = data.calendars[0].events[e];
+				
 				var startdate = moment(event.dtstart).format(_ICALENDAR_DATEFORMAT);
 
 				var startdateStamp = moment(event.dtstart).format('X');
@@ -76,20 +75,26 @@ function addCalendar(calobject,icsUrlorg){
 				}
 
 				if(enddate=='Invalid date'){
-					if(event.dtend[0].length==8) var enddate = '';
+					if(event.dtend[0].length==8 || event.dtend[0].indexOf('T')<0) var enddate = '';
 					else var enddate = moment(event.dtend[0]).format(_ICALENDAR_DATEFORMAT);
 				}
-
-				if(moment(enddate,_ICALENDAR_DATEFORMAT).format('YYYY-MM-DD') == moment(startdate,_ICALENDAR_DATEFORMAT).format('YYYY-MM-DD')){
-					enddate = moment(enddate,_ICALENDAR_DATEFORMAT).format('HH:mm');
+				var test = _ICALENDAR_DATEFORMAT;
+				test = test.replace('dd','');
+				test = test.replace('dddd','');
+				if(moment(enddate,test).format('YYYY-MM-DD') == moment(startdate,test).format('YYYY-MM-DD')){
+					enddate = moment(enddate,test).format('HH:mm');
 				}
-
 
 				if(enddate!=='') enddate =' - ' + enddate;
 				event.enddate = enddate;
 				event.startdate = startdate;
 				event.color = colors[$.md5(url)];
-				calitems[startdateStamp+"_"+counter] = event;
+				
+				if(typeof(calitems[startdateStamp])=='undefined') calitems[startdateStamp] = []
+				if(parseFloat(startdateStamp) > moment().format('X')){
+					calitems[startdateStamp].push(event);
+				}
+				
 				if(event.rrule){
 					
 					if(startdateFull.length==8) startdateFull=startdateFull+'T090000';
@@ -97,29 +102,36 @@ function addCalendar(calobject,icsUrlorg){
 					var rule = RRule.fromString(event.rrule+';DTSTART='+startdateFull+'Z');
 					var rule = new RRule(rule.options)
 					var rules = rule.between(new Date(2017, 1, 1), new Date(2018, 7, 1));
-					var count = 1;
+					
 					for(r in rules){
 						var startdateStamp = moment(rules[r]).format('X');
-						event.startdate = moment(rules[r]).format(_ICALENDAR_DATEFORMAT);
-						calitems[startdateStamp+"_"+count] = event;
-						count++
+						if(typeof(doneitems[event.uid])=='undefined' && parseFloat(startdateStamp) > moment().format('X')){
+							if(typeof(calitems[startdateStamp])=='undefined') calitems[startdateStamp] = [];
+							event.startdate = moment(rules[r]).format(_ICALENDAR_DATEFORMAT);
+							calitems[startdateStamp].push(event);
+							doneitems[event.uid] = 1;
+						}
 					}
+					
 				}
-				counter++
 			}
-			
+
 			if(done==amountc){
-				calobject.find('.transbg').html('');
+				calobject.find('.items').html('');
 				var counter = 1;
-				Object.keys(calitems).sort().forEach(function(c) {
-					var check = c.split('_');
-					check = check[0];
-					if(check > moment().format('X') && counter <= maxitems){
-						var widget = '<div style="color:'+calitems[c].color+'">' + calitems[c]['startdate'] + calitems[c]['enddate'] + ' - <b>' + calitems[c].summary + '</b></div>';		
-						calobject.find('.transbg').append(widget);
-						counter++;
-					}
-				});				
+				calitems = ksort(calitems);
+				console.log(calitems);
+				for(check in calitems){	
+					items = calitems[check];
+					for(c in items){
+						item = items[c];
+						if(check > moment().format('X') && counter <= maxitems){
+							var widget = '<div style="color:'+item['color']+'">' + item['startdate'] + item['enddate'] + ' - <b>' + item['summary'] + '</b></div>';		
+							calobject.find('.items').append(widget);
+							counter++;
+						}
+					}	
+				}		
 			}
 			
 		});
@@ -130,6 +142,25 @@ function addCalendar(calobject,icsUrlorg){
 	},(60000*5));
 	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /*!
  * rrule.js - Library for working with recurrence rules for calendar dates.

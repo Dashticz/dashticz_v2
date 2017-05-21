@@ -5,12 +5,20 @@ function loadPublicTransport(random,transportobject){
 	if(typeof(transportobject.title)!=='undefined') html+='<div class="col-xs-12 mh titlegroups transbg"><h3>'+transportobject.title+'</h3></div>';
 					
 	html+='<div class="publictransport publictransport'+random+' col-xs-12 transbg">';
+		if(typeof(transportobject.icon)!=='undefined' && transportobject.icon!==''){
+			if(transportobject.icon.substr(0,2)!=='fa') transportobject.icon = 'fa-'+transportobject.icon;
 			html+='<div class="col-xs-2 col-icon">';
-				html+='<em class="fa fa-'+transportobject.icon+'"></em>';
+				html+='<em class="fa '+transportobject.icon+'"></em>';
 			html+='</div>';
 			html+='<div class="col-xs-10 col-data">';
 				html+='<span class="state"></span>';
 			html+='</div>';
+		}
+		else {
+				html+='<div class="col-xs-12 col-data">';
+					html+='<span class="state"></span>';
+				html+='</div>';
+		}
 		html+='</div>';	
 	
 	html+='</div>';	
@@ -59,17 +67,19 @@ function dataPublicTransport(random,data,transportobject){
 					deps = data[d][t]['departures'];
 					for(de in deps){
 						key = deps[de]['time'];
-						if(key.substr(0,2)=='00') key = '24:'+key.substr(2);
-						if(key.substr(0,2)=='01') key = '25:'+key.substr(2);
-						if(key.substr(0,2)=='02') key = '26:'+key.substr(2);
 						if(typeof(dataPart[key])=='undefined') dataPart[key]=[];
 						dataPart[key][i]='';
 						dataPart[key][i]+='<div><b>'+deps[de]['time']+'</b> ';
-						if(deps[de]['realtimeText']!=null) dataPart[key][i]+='<span id="latetrain">'+deps[de]['realtimeText']+'</span> ';
+						if(deps[de]['realtimeText']!=null) dataPart[key][i]+='<span id="latetrain">'+deps[de]['realtimeText'].replace(' min.','')+'</span> ';
 						if(deps[de]['platform']!=null) dataPart[key][i]+='- Spoor '+deps[de]['platform'];
 						else dataPart[key][i]+='- Lijn '+deps[de]['service'];
-						dataPart[key][i]+=' - '+deps[de]['destinationName'];
-						if(typeof(deps[de]['RouteTekst'])!=='undefined') dataPart[key][i]+=' <em> via '+deps[de]['viaNames']+'</em>';
+						
+						dest = deps[de]['destinationName'].split(' via ');
+						dataPart[key][i]+=' - '+dest[0];
+						if(typeof(transportobject.show_via)=='undefined' || transportobject.show_via==true){
+							if(typeof(dest[1])!=='undefined') dataPart[key][i]+=' via '+dest[1];
+							else if(typeof(deps[de]['RouteTekst'])!=='undefined') dataPart[key][i]+=' via '+deps[de]['viaNames'];
+						}
 						dataPart[key][i]+=' </div>';
 					}
 				}
@@ -86,14 +96,23 @@ function dataPublicTransport(random,data,transportobject){
 			if(data[d]['delay'] > 0) latecolor='latetrain';
 			dataPart[arrivalTime][i]+='<span id="'+latecolor+'">+'+data[d]['delay']+' Min.</span> ';
 			dataPart[arrivalTime][i]+='<span id="departureScheduled">('+lang['scheduled']+': '+arrivalTimeScheduled+')</span> ';
-			dataPart[arrivalTime][i]+='- '+data[d]['number']+' '+data[d]['direction']+'</div>';
+			dataPart[arrivalTime][i]+='- '+data[d]['number']+' ';
+			
+			dest = data[d]['direction'].split(' via ');
+			dataPart[arrivalTime][i]+=dest[0];
+			if(typeof(transportobject.show_via)=='undefined' || transportobject.show_via==true){
+				if(typeof(dest[1])!=='undefined') dataPart[arrivalTime][i]+=' via '+dest[1];
+			}
+			
+			dataPart[arrivalTime][i]+='</div>';
 		}
 		i = i+1;
 	}
 	
 	$('.publictransport'+random+' .state').html('');
 	var c = 1;
-	Object.keys(dataPart).sort().forEach(function(d) {
+	Object.keys(dataPart).forEach(function(d) {
+	//Object.keys(dataPart).sort().forEach(function(d) {
 		for(p in dataPart[d]){
 			if(c<=transportobject.results) $('.publictransport'+random+' .state').append(dataPart[d][p]);
 			c++;

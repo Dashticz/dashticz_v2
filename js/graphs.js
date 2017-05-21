@@ -1,4 +1,3 @@
-
 function getGraphs(device,popup){
 	var sensor='counter';
 	if(device['Type']=='Temp' || device['Type']== 'Temp + Humidity' || device['Type']== 'Temp + Humidity + Baro') sensor='temp';
@@ -36,7 +35,7 @@ function getButtonGraphs(device){
 function showGraph(idx,title,label,range,current,forced,sensor,popup){
 	graphColor = '#eee';
 	graphColor2 = '#eee';
-	
+	if(typeof(popup)=='undefined') forced=false;
 	if(typeof(forced)=='undefined') forced=false;
 	
 	if(typeof(_GRAPHS_LOADED[idx])=='undefined' || _GRAPHS_LOADED[idx]<(time()-(parseFloat(_GRAPHREFRESH)*60))){
@@ -65,15 +64,15 @@ function showGraph(idx,title,label,range,current,forced,sensor,popup){
 				
 				var buttons ='<button type="button" class="btn btn-default ';
 				if(range=='last') buttons+='active';
-				buttons+='" onclick="showGraph('+idx+',\''+orgtitle+'\',\''+label+'\',\'last\',\''+current+'\',true,\''+sensor+'\');">'+lang['graph_last_hours']+'</button> ';
+				buttons+='" onclick="showGraph('+idx+',\''+orgtitle+'\',\''+label+'\',\'last\',\''+current+'\',true,\''+sensor+'\',\''+popup+'\');">'+lang['graph_last_hours']+'</button> ';
 				
 				buttons+='<button type="button" class="btn btn-default ';
 				if(range=='day') buttons+='active';
-				buttons+='" onclick="showGraph('+idx+',\''+orgtitle+'\',\''+label+'\',\'day\',\''+current+'\',true,\''+sensor+'\');">'+lang['graph_today']+'</button> ';
+				buttons+='" onclick="showGraph('+idx+',\''+orgtitle+'\',\''+label+'\',\'day\',\''+current+'\',true,\''+sensor+'\',\''+popup+'\');">'+lang['graph_today']+'</button> ';
 				
 				buttons+='<button type="button" class="btn btn-default ';
 				if(range=='month') buttons+='active';
-				buttons+='" onclick="showGraph('+idx+',\''+orgtitle+'\',\''+label+'\',\'month\',\''+current+'\',true,\''+sensor+'\');">'+lang['graph_last_month']+'</button>';
+				buttons+='" onclick="showGraph('+idx+',\''+orgtitle+'\',\''+label+'\',\'month\',\''+current+'\',true,\''+sensor+'\',\''+popup+'\');">'+lang['graph_last_month']+'</button>';
 										
 				if(popup) var html = '<div class="graphpopup" id="graph'+idx+'">';
 				else var html = '<div class="graph" id="graph'+idx+'">';
