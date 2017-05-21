@@ -91,7 +91,7 @@ function addCalendar(calobject,icsUrlorg){
 				event.color = colors[$.md5(url)];
 				
 				if(typeof(calitems[startdateStamp])=='undefined') calitems[startdateStamp] = []
-				if(startdateStamp > moment().format('X')){
+				if(parseFloat(startdateStamp) > moment().format('X')){
 					calitems[startdateStamp].push(event);
 				}
 				
@@ -105,7 +105,7 @@ function addCalendar(calobject,icsUrlorg){
 					
 					for(r in rules){
 						var startdateStamp = moment(rules[r]).format('X');
-						if(typeof(doneitems[event.uid])=='undefined' && startdateStamp > moment().format('X')){
+						if(typeof(doneitems[event.uid])=='undefined' && parseFloat(startdateStamp) > moment().format('X')){
 							if(typeof(calitems[startdateStamp])=='undefined') calitems[startdateStamp] = [];
 							event.startdate = moment(rules[r]).format(_ICALENDAR_DATEFORMAT);
 							calitems[startdateStamp].push(event);
@@ -119,6 +119,8 @@ function addCalendar(calobject,icsUrlorg){
 			if(done==amountc){
 				calobject.find('.items').html('');
 				var counter = 1;
+				calitems = ksort(calitems);
+				console.log(calitems);
 				for(check in calitems){	
 					items = calitems[check];
 					for(c in items){
