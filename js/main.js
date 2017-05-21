@@ -404,11 +404,18 @@ function playAudio(file){
 	}
 }
 
+function triggerStatus(idx,value,device){
+	try {
+		eval('getStatus_'+idx+'(idx,value,device)');
+	}
+	catch(err) {}
+}
+
 function triggerChange(idx,value,device){
 	if(typeof(oldstates[idx])!=='undefined' && value!==oldstates[idx]){
 		
 		try {
-			html+= eval('getChange_'+idx+'(idx,value,device)');
+			eval('getChange_'+idx+'(idx,value,device)');
 		}
 		catch(err) {}
 		
@@ -866,7 +873,8 @@ function getDevices(override){
 								getGraphs(device,false);
 							}
 							
-							triggerChange(device['idx'],device['LastUpdate'],device);
+							triggerStatus(idx,device['LastUpdate'],device);
+							triggerChange(idx,device['LastUpdate'],device);
 							
 							try {
 								html+= eval('getBlock_'+idx+'(device,idx,data.result)');
@@ -884,6 +892,10 @@ function getDevices(override){
 										var c=1;
 										for(de in blocktypes['HardwareType'][device['HardwareType']]){
 											html = getStatusBlock(device,blocktypes['HardwareType'][device['HardwareType']][de],c);
+											
+											triggerStatus(idx+'_'+c,device['LastUpdate'],device);
+											triggerChange(idx+'_'+c,device['LastUpdate'],device);
+							
 											$('div.block_'+idx+'_'+c).html(html);
 											addHTML=false;
 											c++;
@@ -938,6 +950,9 @@ function getDevices(override){
 											allblocks[idx] = true;
 										}
 
+										triggerStatus(idx+'_1',device['LastUpdate'],device);
+										triggerChange(idx+'_1',device['LastUpdate'],device);
+							
 										var title=lang.energy_usage;
 										if(typeof(blocks[idx+'_1'])!=='undefined' && typeof(blocks[idx+'_1']['title'])!=='undefined') title=blocks[idx+'_1']['title'];
 										html+= getStateBlock(device['idx']+'sub1','fa fa-plug',title,device['Usage'],device);
@@ -945,6 +960,9 @@ function getDevices(override){
 										$('div.block_'+idx+'_1').html(html);
 										addHTML=false;
 
+										triggerStatus(idx+'_2',device['LastUpdate'],device);
+										triggerChange(idx+'_2',device['LastUpdate'],device);
+							
 										var title=lang.energy_usagetoday;
 										if(typeof(blocks[idx+'_2'])!=='undefined' && typeof(blocks[idx+'_2']['title'])!=='undefined') title=blocks[idx+'_2']['title'];
 										html = getStateBlock(device['idx']+'sub2','fa fa-plug',title,device['CounterToday'],device);
@@ -963,6 +981,9 @@ function getDevices(override){
 									if(device['Name']=='Water'){
 										var rfxicon='fa fa-tint';
 									}
+									triggerStatus(idx+'_1',device['LastUpdate'],device);
+									triggerChange(idx+'_1',device['LastUpdate'],device);
+							
 									var title=device['Name'];
 									if(typeof(blocks[idx+'_1'])!=='undefined' && typeof(blocks[idx+'_1']['title'])!=='undefined') title=blocks[idx+'_1']['title'];
 									html+= getStateBlock(device['idx']+'a',rfxicon,title,device['CounterToday'],device);
@@ -970,6 +991,9 @@ function getDevices(override){
 									$('div.block_'+idx+'_1').html(html);
 									addHTML=false;
 
+									triggerStatus(idx+'_2',device['LastUpdate'],device);
+									triggerChange(idx+'_2',device['LastUpdate'],device);
+							
 									var title=lang.energy_totals+' '+device['Name'];
 									if(typeof(blocks[idx+'_2'])!=='undefined' && typeof(blocks[idx+'_2']['title'])!=='undefined') title=blocks[idx+'_2']['title'];
 									html= getStateBlock(device['idx']+'b',rfxicon,title,device['Counter'],device);
@@ -983,6 +1007,9 @@ function getDevices(override){
 										allblocks[idx] = true;
 									}
 
+									triggerStatus(idx+'_1',device['LastUpdate'],device);
+									triggerChange(idx+'_1',device['LastUpdate'],device);
+							
 									var title=device['Name']+' '+lang.energy_now;
 									if(typeof(blocks[idx+'_1'])!=='undefined' && typeof(blocks[idx+'_1']['title'])!=='undefined') title=blocks[idx+'_1']['title'];
 									html+= getStateBlock(device['idx']+'a','fa fa-plug',title,number_format(device['Usage'],2,',','.')+' W',device);
@@ -990,6 +1017,9 @@ function getDevices(override){
 									$('div.block_'+idx+'_1').html(html);
 									addHTML=false;
 
+									triggerStatus(idx+'_2',device['LastUpdate'],device);
+									triggerChange(idx+'_2',device['LastUpdate'],device);
+							
 									var title=device['Name']+' '+lang.energy_today;
 									if(typeof(blocks[idx+'_2'])!=='undefined' && typeof(blocks[idx+'_2']['title'])!=='undefined') title=blocks[idx+'_2']['title'];
 									html= getStateBlock(device['idx']+'b','fa fa-plug',title,number_format(device['CounterToday'],2,',','.')+' kWh',device);
@@ -997,6 +1027,9 @@ function getDevices(override){
 									$('div.block_'+idx+'_2').html(html);
 									addHTML=false;
 
+									triggerStatus(idx+'_3',device['LastUpdate'],device);
+									triggerChange(idx+'_3',device['LastUpdate'],device);
+							
 									var title=device['Name']+' '+lang.energy_total;
 									if(typeof(blocks[idx+'_3'])!=='undefined' && typeof(blocks[idx+'_3']['title'])!=='undefined') title=blocks[idx+'_3']['title'];
 									html= getStateBlock(device['idx']+'c','fa fa-plug',title,number_format(device['Data'],2,',','.')+' kWh',device);
@@ -1015,6 +1048,9 @@ function getDevices(override){
 										allblocks[idx] = true;
 									}
 
+									triggerStatus(idx+'_1',device['LastUpdate'],device);
+									triggerChange(idx+'_1',device['LastUpdate'],device);
+							
 									var title=device['Name'];
 									if(typeof(blocks[idx+'_1'])!=='undefined' && typeof(blocks[idx+'_1']['title'])!=='undefined') title=blocks[idx+'_1']['title'];
 									html+= getStateBlock(device['idx']+'a','fa fa-thermometer-half',title,number_format(device['Temp'],1,',','.')+_TEMP_SYMBOL,device);
@@ -1023,6 +1059,9 @@ function getDevices(override){
 									addHTML=false;
 
 									if(typeof(device['Humidity'])!=='undefined'){
+										triggerStatus(idx+'_2',device['LastUpdate'],device);
+										triggerChange(idx+'_2',device['LastUpdate'],device);
+							
 										var title=device['Name'];
 										if(typeof(blocks[idx+'_2'])!=='undefined' && typeof(blocks[idx+'_2']['title'])!=='undefined') title=blocks[idx+'_2']['title'];
 										html= getStateBlock(device['idx']+'b','wi wi-humidity',title,number_format(device['Humidity'],2,',','.')+'%',device);
@@ -1032,6 +1071,9 @@ function getDevices(override){
 									}
 
 									if(typeof(device['Barometer'])!=='undefined'){
+										triggerStatus(idx+'_3',device['LastUpdate'],device);
+										triggerChange(idx+'_3',device['LastUpdate'],device);
+							
 										var title=device['Name'];
 										if(typeof(blocks[idx+'_3'])!=='undefined' && typeof(blocks[idx+'_3']['title'])!=='undefined') title=blocks[idx+'_3']['title'];
 										html= getStateBlock(device['idx']+'c','wi wi-barometer',title,device['Barometer']+' hPa',device);
