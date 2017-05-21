@@ -1045,7 +1045,11 @@ function getDevices(override){
 										else html+=iconORimage(idx,'',buttonimg+'.png','on icon iconslider','',2,'data-light="'+device['idx']+'" onclick="switchDevice(this);"');
 									}
 									html+='<div class="col-xs-10 swiper-no-swiping col-data">';
-										html+='<strong class="title">'+device['Name']+': '+device['Level']+'%'+'</strong>';
+										html+='<strong class="title">'+device['Name'];
+									if(typeof(blocks[idx])=='undefined' || typeof(blocks[idx]['hide_data'])=='undefined' || blocks[idx]['hide_data']==false){
+										html+=' '+device['Level']+'%';
+									}
+									html+='</strong>';
 										if((_SHOW_LASTUPDATE && (typeof(blocks[idx])=='undefined' || typeof(blocks[idx]['hide_lastupdate'])=='undefined' || blocks[idx]['hide_lastupdate']===false)) || 
 										  (!_SHOW_LASTUPDATE && (typeof(blocks[idx])!=='undefined' && typeof(blocks[idx]['show_lastupdate'])!=='undefined' && blocks[idx]['show_lastupdate']==true)) 
 										  ){
