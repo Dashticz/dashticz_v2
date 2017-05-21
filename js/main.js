@@ -404,8 +404,14 @@ function playAudio(file){
 	}
 }
 
-function triggerChange(idx,value){
+function triggerChange(idx,value,device){
 	if(typeof(oldstates[idx])!=='undefined' && value!==oldstates[idx]){
+		
+		try {
+			html+= eval('getChange_'+idx+'(idx,value,device)');
+		}
+		catch(err) {}
+		
 		if(typeof(blocks[idx])!=='undefined' && typeof(blocks[idx]['playsound'])!=='undefined'){
 			playAudio(blocks[idx]['playsound']);
 		}
@@ -860,7 +866,7 @@ function getDevices(override){
 								getGraphs(device,false);
 							}
 							
-							triggerChange(device['idx'],device['LastUpdate']);
+							triggerChange(device['idx'],device['LastUpdate'],device);
 							
 							try {
 								html+= eval('getBlock_'+idx+'(device,idx,data.result)');
