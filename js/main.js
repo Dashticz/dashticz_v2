@@ -1000,6 +1000,16 @@ function getDevices(override){
 									if(typeof(allblocks[idx])!=='undefined' && $('div.block_'+idx+'_2').length==0) var duplicate = $('div.block_'+idx+'_1').last().clone().removeClass('block_'+idx+'_1').addClass('block_'+idx+'_2').insertAfter($('div.block_'+idx+'_1'));
 									$('div.block_'+idx+'_2').html(html);
 									addHTML=false;
+
+									triggerStatus(idx+'_3',device['LastUpdate'],device);
+									triggerChange(idx+'_3',device['LastUpdate'],device);
+							
+									var title=device['Name'];
+									if(typeof(blocks[idx+'_3'])!=='undefined' && typeof(blocks[idx+'_3']['title'])!=='undefined') title=blocks[idx+'_3']['title'];
+									html= getStateBlock(device['idx']+'c',rfxicon,title,device['Usage'],device);
+									if(typeof(allblocks[idx])!=='undefined' && $('div.block_'+idx+'_3').length==0) var duplicate = $('div.block_'+idx+'_2').last().clone().removeClass('block_'+idx+'_2').addClass('block_'+idx+'_3').insertAfter($('div.block_'+idx+'_2'));
+									$('div.block_'+idx+'_3').html(html);
+									addHTML=false;
 								}
 
 								else if(device['Type']=='General' && device['SubType']=='kWh'){
