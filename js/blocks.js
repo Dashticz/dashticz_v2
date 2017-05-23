@@ -258,6 +258,11 @@ function getStateBlock(id,icon,title,value,device){
 			stateBlock+='<span>'+title+'</span>';
 
 		}
+		if((_SHOW_LASTUPDATE && (typeof(blocks[device['idx']])=='undefined' || typeof(blocks[device['idx']]['hide_lastupdate'])=='undefined' || blocks[device['idx']]['hide_lastupdate']===false)) || 
+		  (!_SHOW_LASTUPDATE && (typeof(blocks[device['idx']])!=='undefined' && typeof(blocks[device['idx']]['show_lastupdate'])!=='undefined' && blocks[device['idx']]['show_lastupdate']==true)) 
+		  ){
+			stateBlock+='<br /><span class="lastupdate">'+moment(device['LastUpdate']).format(_LASTUPDATE_FORMAT)+'</span>';
+		}
 	
 	stateBlock+='</div>';
 	return stateBlock;
