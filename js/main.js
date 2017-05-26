@@ -955,7 +955,12 @@ function getDevices(override){
 							
 										var title=lang.energy_usage;
 										if(typeof(blocks[idx+'_1'])!=='undefined' && typeof(blocks[idx+'_1']['title'])!=='undefined') title=blocks[idx+'_1']['title'];
-										html+= getStateBlock(device['idx']+'sub1','fa fa-plug',title,device['Usage'],device);
+										if(typeof(device['UsageDeliv'])!=='undefined' && (parseFloat(device['UsageDeliv'])>0 || parseFloat(device['UsageDeliv'])<0)){
+											html+= getStateBlock(device['idx']+'sub1','fa fa-plug',title,device['UsageDeliv'],device);
+										}
+										else {
+											html+= getStateBlock(device['idx']+'sub1','fa fa-plug',title,device['Usage'],device);
+										}
 										if(!$('div.block_'+idx).hasClass('block_'+idx+'_1')) $('div.block_'+idx).addClass('block_'+idx+'_1');
 										$('div.block_'+idx+'_1').html(html);
 										addHTML=false;
