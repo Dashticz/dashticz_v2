@@ -341,6 +341,18 @@ if(typeof(_AUTO_SWIPEBACK_TO)!=='undefined' && typeof(_AUTO_SWIPEBACK_TIME)!=='u
 	}
 }
 
+//Loop through pages
+if(_SLIDE_PAGES != false && (_AUTO_SWIPEBACK_TIME == 0  || typeof(_AUTO_SWIPEBACK_TIME)== 'undefined') && _SLIDE_PAGES > 4){
+	var nextSlide = 1;
+	setInterval(function(){
+		toSlide(nextSlide);
+		nextSlide++;
+		if(nextSlide > myswiper.slides.length-1){
+			nextSlide = 0;
+		}
+	},(_SLIDE_PAGES * 1000));
+}
+
 //STANDBY FUNCTION
 setInterval(function(){
   standbyTime+=1000;
