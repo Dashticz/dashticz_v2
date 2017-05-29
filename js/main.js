@@ -277,7 +277,7 @@ function initMap() {
 	},(60000*5));
 }
 function showMap(mapid,map) {
-	if(typeof(_APIKEY_MAPS)=='undefined' || _APIKEY_MAPS=="") alert('Please, set var _APIKEY_MAPS!');
+	if(typeof(_APIKEY_MAPS)=='undefined' || _APIKEY_MAPS=="") console.error('Please, set var _APIKEY_MAPS!');
 	
 	if($('#'+mapid).length>0){
 		if(typeof(map)!=='undefined'){
@@ -782,7 +782,7 @@ function getDevices(override){
 			url: _HOST_DOMOTICZ+'/json.htm?type=devices&filter=all&used=true&order=Name&jsoncallback=?',
 			type: 'GET',async: true,contentType: "application/json",dataType: 'jsonp',
 			error: function( jqXHR, textStatus ) {
-				alert("Domoticz error!\nPlease, double check the path in _HOST_DOMOTICZ-variable!");
+				console.error("Domoticz error!\nPlease, double check the path in _HOST_DOMOTICZ-variable!");
 			},
 			success: function(data) {
 				gettingDevices = false;
