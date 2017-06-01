@@ -46,6 +46,29 @@ function loadTrash (random,trashobject) {
 	var startDate = moment();
 	var endDate = moment(Date.now() + 32 * 24 * 3600 * 1000);
 	
+	if(service=='ical'){
+		var url = 'https://cors-anywhere.herokuapp.com/http://ical-to-json.herokuapp.com/convert.json?url='+trashobject.icalurl;
+		$.getJSON(url,function(data,textstatus,jqXHR){
+			respArray = data.calendars[0].events;
+			for (var i in respArray) {
+				var curr = respArray[i]['summary'];
+				curr = capitalizeFirstLetter(curr.toLowerCase());
+				
+				var testDate = moment(respArray[i].dtstart[0]);
+				if(testDate.isBetween(startDate, endDate, 'days', true)){
+					if(typeof(returnDates[curr])=='undefined'){
+						returnDates[curr] = {}
+					}
+					returnDates[curr][testDate.format("YYYY-MM-DD")+teller]=getTrashRow(curr,testDate,respArray[i]['description']);
+					teller++;
+				}
+			}
+			addToContainer(random,returnDates,maxitems);
+			
+		});
+		//alert(1);
+	}
+	
 	if(service=='deafvalapp'){
 		$.get('https://cors-anywhere.herokuapp.com/http://dataservice.deafvalapp.nl/dataservice/DataServiceServlet?type=ANDROID&service=OPHAALSCHEMA&land=' +
 			country + '&postcode=' + postcode + '&straatId=0&huisnr=' + homenumber + '&huisnrtoev=',function(data){
@@ -268,7 +291,8 @@ function addToContainer(random,returnDates,maxitems){
 		if(typeof(_DO_NOT_USE_COLORED_TRASHCAN)=='undefined' || _DO_NOT_USE_COLORED_TRASHCAN===false){
 			if (c==1 && (
 				returnDatesSimple[key].toLowerCase().indexOf("gft") >= 0 || 
-				returnDatesSimple[key].toLowerCase().indexOf("tuin") >= 0
+				returnDatesSimple[key].toLowerCase().indexOf("tuin") >= 0 || 
+				returnDatesSimple[key].toLowerCase().indexOf("refuse bin") >= 0
 			)
 			   ){
 				$('.trash'+random).find('img.trashcan').attr('src','img/kliko_green.png');
@@ -289,7 +313,8 @@ function addToContainer(random,returnDates,maxitems){
 			}
 			else if (c==1 && (
 				returnDatesSimple[key].toLowerCase().indexOf("papier") >= 0 || 
-				returnDatesSimple[key].toLowerCase().indexOf("blauw") >= 0
+				returnDatesSimple[key].toLowerCase().indexOf("blauw") >= 0 || 
+				returnDatesSimple[key].toLowerCase().indexOf("recycling bin collection") >= 0
 			)){
 				$('.trash'+random).find('img.trashcan').attr('src','img/kliko_blue.png');
 			}

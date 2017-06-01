@@ -189,7 +189,10 @@ function getBlock(cols,c,columndiv,standby){
 				var key = 'UNKNOWN';
 				if(typeof(cols['blocks'][b]['key'])!=='undefined') key=cols['blocks'][b]['key'];
 				
-				if(typeof(cols['blocks'][b]['icalurl'])!=='undefined' || typeof(cols['blocks'][b]['calendars'])!=='undefined'){
+				if(typeof(cols['blocks'][b]['trashapp'])!=='undefined') $(columndiv).append(loadTrash(random,cols['blocks'][b]));
+				else if(typeof(cols['blocks'][b]['frameurl'])!=='undefined') $(columndiv).append(loadFrame(random,cols['blocks'][b]));
+				else if(typeof(cols['blocks'][b]['station'])!=='undefined') $(columndiv).append(loadPublicTransport(random,cols['blocks'][b]));
+				else if(typeof(cols['blocks'][b]['icalurl'])!=='undefined' || typeof(cols['blocks'][b]['calendars'])!=='undefined'){
 					var html ='';
 					if(typeof(cols['blocks'][b]['title'])!=='undefined') html+='<div class="col-xs-'+width+' mh titlegroups transbg"><h3>'+cols['blocks'][b]['title']+'</h3></div>';
 					
@@ -209,9 +212,6 @@ function getBlock(cols,c,columndiv,standby){
 					addCalendar($('.containsicalendar'+random),cols['blocks'][b]);
 
 				}
-				else if(typeof(cols['blocks'][b]['trashapp'])!=='undefined') $(columndiv).append(loadTrash(random,cols['blocks'][b]));
-				else if(typeof(cols['blocks'][b]['frameurl'])!=='undefined') $(columndiv).append(loadFrame(random,cols['blocks'][b]));
-				else if(typeof(cols['blocks'][b]['station'])!=='undefined') $(columndiv).append(loadPublicTransport(random,cols['blocks'][b]));
 				else $(columndiv).append(loadButton(b,cols['blocks'][b]));
 			}
 			else {
