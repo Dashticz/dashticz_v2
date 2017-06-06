@@ -332,7 +332,7 @@ function addToContainer(random,returnDates,maxitems){
 			returnDatesSimple[key] = returnDatesSimple[key].replace('trashrow', 'trashtomorrow');
 		}
 		else if(moment(skey).isBetween(currentdate, nextweek, 'days', true)){
-			var datename = moment(date,"DD-MM-YYYY").locale('nl').format("dddd");
+			var datename = moment(date,"DD-MM-YYYY").locale(_ICALENDAR_LOCALE).format("dddd");
 			datename = datename.charAt(0).toUpperCase() + datename.slice(1);
 			returnDatesSimple[key] = returnDatesSimple[key].replace(date, datename);
 		}  
