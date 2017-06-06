@@ -185,7 +185,7 @@ function loadTrash (random,trashobject) {
 		$.getJSON('https://cors-anywhere.herokuapp.com/http://inzamelkalender.hvcgroep.nl/push/calendar?postcode=' + postcode + '&huisnummer=' + homenumber,function(data){
 			for(d in data){
 				var curr = data[d].naam;
-				//curr = capitalizeFirstLetter(curr.toLowerCase());
+				curr = capitalizeFirstLetter(curr.toLowerCase());
 				if(typeof(returnDates[curr])=='undefined'){
 					returnDates[curr] = {}
 				}
