@@ -220,8 +220,8 @@ function buildScreens(){
 		}
 		else {
 			$('body .row').append('<div class="col-xs-5 sortable col1"><div class="auto_switches"></div><div class="auto_dimmers"></div></div>');
-			$('body .row').append('<div class="col-xs-5 sortable"><div class="block_weather containsweatherfull"></div><div class="auto_media"></div><div class="auto_states"></div></div>');
-			$('body .row').append('<div class="col-xs-2 sortable"><div class="auto_clock"></div><div class="auto_sunrise"></div><div class="auto_buttons"></div></div>');
+			$('body .row').append('<div class="col-xs-5 sortable col2"><div class="block_weather containsweatherfull"></div><div class="auto_media"></div><div class="auto_states"></div></div>');
+			$('body .row').append('<div class="col-xs-2 sortable col3"><div class="auto_clock"></div><div class="auto_sunrise"></div><div class="auto_buttons"></div></div>');
 
 			$('.col2').prepend('<div class="mh transbg big block_currentweather_big col-xs-12 containsweather"><div class="col-xs-1"><div class="weather" id="weather"></div></div><div class="col-xs-11"><span class="title weatherdegrees" id="weatherdegrees"></span> <span class="weatherloc" id="weatherloc"></span></div></div>');
 			if(typeof(_APIKEY_WUNDERGROUND)!=='undefined' && _APIKEY_WUNDERGROUND!=="" && typeof(_WEATHER_CITY)!=='undefined' && _WEATHER_CITY!==""){
