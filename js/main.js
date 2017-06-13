@@ -425,7 +425,7 @@ function triggerStatus(idx,value,device){
 
 function triggerChange(idx,value,device){
 	if(typeof(oldstates[idx])!=='undefined' && value!==oldstates[idx]){
-		disableStandby(); 
+		//disableStandby(); 
 		try {
 			eval('getChange_'+idx+'(idx,value,device)');
 		}
