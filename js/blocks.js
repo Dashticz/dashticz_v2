@@ -203,6 +203,12 @@ function getBlock(cols,c,columndiv,standby){
 						html+='</div>';
 						html+='<div class="col-xs-10 items">Loading...</div>';
 					}
+					else if(typeof(cols['blocks'][b]['image'])!=='undefined' && cols['blocks'][b]['image']!==''){
+						html+='<div class="col-xs-2 col-icon">';
+							html+='<img src="img/'+cols['blocks'][b]['image']+'" class="icon" />';
+						html+='</div>';
+						html+='<div class="col-xs-10 items">Loading...</div>';
+					}
 					else {
 						html+='<div class="col-xs-12 items">Loading...</div>';
 					}
