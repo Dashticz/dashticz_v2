@@ -52,19 +52,20 @@ function addCalendar(calobject,icsUrlorg){
 		curUrl = curUrl.replace('https://cors-anywhere.herokuapp.com/','');
 		
 		colors[$.md5(curUrl)] = color;
-		curUrl = 'https://wedevise.nl/dashticz/ical/demo/?url='+curUrl;
+		curUrl = 'https://wedevise.nl/dashticz/ical/?url='+curUrl;
 		moment.locale(_ICALENDAR_LOCALE);
 		$.getJSON(curUrl,function(data,textstatus,jqXHR){
 			
 			var url = this.url.replace('https://cors-anywhere.herokuapp.com/http://ical-to-json.herokuapp.com/convert.json?url=','');
-			var url = this.url.replace('https://wedevise.nl/dashticz/ical/demo/?url=','');
+			var url = this.url.replace('https://wedevise.nl/dashticz/ical/?url=','');
 
 			done++;
 			for(e in data){
 				event = data[e];
 				var startdateStamp = event.start;
-				var enddate = moment.unix(event.end).format(_ICALENDAR_DATEFORMAT);
+				var enddateStamp = event.end;
 				var startdate = moment.unix(event.start).format(_ICALENDAR_DATEFORMAT);
+				var enddate = moment.unix(event.end).format(_ICALENDAR_DATEFORMAT);
 
 				if(event.allDay==''){
 					var test = _ICALENDAR_DATEFORMAT;
@@ -85,9 +86,9 @@ function addCalendar(calobject,icsUrlorg){
 				event.startdate = startdate;
 				
 				event.color = colors[$.md5(url)];
-				if(parseFloat(startdateStamp) > moment().format('X')){
-					if(typeof(calitems[startdateStamp])=='undefined') calitems[startdateStamp] = []
-					calitems[startdateStamp].push(event);
+				if(parseFloat(enddateStamp) > moment().format('X')){
+					if(typeof(calitems[enddateStamp])=='undefined') calitems[enddateStamp] = []
+					calitems[enddateStamp].push(event);
 				}
 			}
 			
@@ -111,8 +112,8 @@ function addCalendar(calobject,icsUrlorg){
 		});
 	}
 	
-	setInterval(function(){
-		addCalendar(calobject,icsUrlorg)
+	setTimeout(function(){
+		addCalendar(calobject,icsUrlorg);
 	},(60000*5));
 	
 }
