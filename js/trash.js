@@ -47,19 +47,20 @@ function loadTrash (random,trashobject) {
 	var endDate = moment(Date.now() + 32 * 24 * 3600 * 1000);
 	
 	if(service=='ical'){
-		var url = 'https://cors-anywhere.herokuapp.com/http://ical-to-json.herokuapp.com/convert.json?url='+trashobject.icalurl;
+		var url = 'https://wedevise.nl/dashticz/ical/demo/?url='+trashobject.icalurl;
+
 		$.getJSON(url,function(data,textstatus,jqXHR){
-			respArray = data.calendars[0].events;
+			respArray = data;
 			for (var i in respArray) {
-				var curr = respArray[i]['summary'];
+				var curr = respArray[i]['title'];
 				curr = capitalizeFirstLetter(curr.toLowerCase());
 				
-				var testDate = moment(respArray[i].dtstart[0]);
+				var testDate = moment(respArray[i].startt);
 				if(testDate.isBetween(startDate, endDate, 'days', true)){
 					if(typeof(returnDates[curr])=='undefined'){
 						returnDates[curr] = {}
 					}
-					returnDates[curr][testDate.format("YYYY-MM-DD")+teller]=getTrashRow(curr,testDate,respArray[i]['description']);
+					returnDates[curr][testDate.format("YYYY-MM-DD")+teller]=getTrashRow(curr,testDate,respArray[i]['title']);
 					teller++;
 				}
 			}
