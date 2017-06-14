@@ -271,60 +271,61 @@ function startSwiper(){
 }
 
 function initMap() {
-	showMap('trafficm');
-	setInterval(function(){
+	if($('#trafficm').length>0){
 		showMap('trafficm');
-	},(60000*5));
-}
-function showMap(mapid,map) {
-	if(typeof(_APIKEY_MAPS)=='undefined' || _APIKEY_MAPS=="") console.error('Please, set var _APIKEY_MAPS!');
-	
-	if($('#'+mapid).length>0){
-		if(typeof(map)!=='undefined'){
-				var map = new google.maps.Map(document.getElementById(mapid), {
-				  zoom: map.zoom,
-				  center: {lat: map.latitude, lng: map.longitude}
-				});
-		}
-		else {
-				var map = new google.maps.Map(document.getElementById(mapid), {
-				  zoom: parseFloat(_MAPS_ZOOMLEVEL),
-				  center: {lat: parseFloat(_MAPS_LATITUDE), lng: parseFloat(_MAPS_LONGITUDE)}
-				});
-		}
-
-		var transitLayer = new google.maps.TrafficLayer();
-		transitLayer.setMap(map);
+		setInterval(function(){
+			showMap('trafficm');
+		},(60000*5));
 	}
 }
 
-function setClassByTime(){
-	//if($('input[name="slider"]:checked').length>0){
-		
-		var d = new Date();
-		var n = d.getHours();
+function showMap(mapid,map) {
+	if(typeof(_APIKEY_MAPS)=='undefined' || _APIKEY_MAPS=="") console.error('Please, set var _APIKEY_MAPS!');
+	
+	
+	if(typeof(map)!=='undefined'){
+			var map = new google.maps.Map(document.getElementById(mapid), {
+			  zoom: map.zoom,
+			  center: {lat: map.latitude, lng: map.longitude}
+			});
+	}
+	else {
+			var map = new google.maps.Map(document.getElementById(mapid), {
+			  zoom: parseFloat(_MAPS_ZOOMLEVEL),
+			  center: {lat: parseFloat(_MAPS_LATITUDE), lng: parseFloat(_MAPS_LONGITUDE)}
+			});
+	}
 
-		if (n >= 20 || n <=5){
-			newClass = 'night';
-		}
-		else if (n >= 6 && n <= 10) {
-			newClass = 'morning';
-		}
-		else if (n >= 11 && n <= 15) {
-			newClass = 'noon';
-		}
-		else if (n >= 16 && n <=19) {
-			newClass = 'afternoon';
-		}
+	var transitLayer = new google.maps.TrafficLayer();
+	transitLayer.setMap(map);
+	
+}
+
+function setClassByTime(){
 		
-		for(s in screens){
-			if(typeof(screens[s]['background_'+newClass])!=='undefined'){
-				$('.screen.screen'+s).css('background-image','url(\'img/'+screens[s]['background_'+newClass]+'\')');
-			}
+	var d = new Date();
+	var n = d.getHours();
+
+	if (n >= 20 || n <=5){
+		newClass = 'night';
+	}
+	else if (n >= 6 && n <= 10) {
+		newClass = 'morning';
+	}
+	else if (n >= 11 && n <= 15) {
+		newClass = 'noon';
+	}
+	else if (n >= 16 && n <=19) {
+		newClass = 'afternoon';
+	}
+
+	for(s in screens){
+		if(typeof(screens[s]['background_'+newClass])!=='undefined'){
+			$('.screen.screen'+s).css('background-image','url(\'img/'+screens[s]['background_'+newClass]+'\')');
 		}
-		
-		$('body').removeClass('morning noon afternoon night').addClass(newClass);
-	//}
+	}
+
+	$('body').removeClass('morning noon afternoon night').addClass(newClass);
 }
 
 if(typeof(_AUTO_SWIPEBACK_TO)!=='undefined' && typeof(_AUTO_SWIPEBACK_TIME)!=='undefined'){
@@ -353,12 +354,6 @@ if(_SLIDE_PAGES != false && (_AUTO_SWIPEBACK_TIME == 0  || typeof(_AUTO_SWIPEBAC
 	},(_SLIDE_PAGES * 1000));
 }
 
-//STANDBY FUNCTION
-setInterval(function(){
-  standbyTime+=1000;
-},1000);
-
-
 if(!isMobile){
 	$('body').bind('mousemove', function(e){
 		standbyTime=0;
@@ -368,7 +363,6 @@ if(!isMobile){
 }
 
 $('body').bind('touchend click', function(e){
-	
 	setTimeout(function(){ 
 		standbyTime=0;
 		swipebackTime=0;
@@ -378,6 +372,7 @@ $('body').bind('touchend click', function(e){
 
 if(parseFloat(_STANDBY_AFTER_MINUTES)>0){
    setInterval(function(){
+	  standbyTime+=5000;
       if(standbyActive!=true){
          if(standbyTime>=((_STANDBY_AFTER_MINUTES*1000)*60)){
             $('body').addClass('standby');
