@@ -267,7 +267,7 @@ function startSwiper(){
 		}
 
 	}
-	$( window ).resize(function() { document.location.href=document.location.href });
+	//$( window ).resize(function() { document.location.href=document.location.href });
 }
 
 function initMap() {
