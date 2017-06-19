@@ -205,7 +205,7 @@ function getBlock(cols,c,columndiv,standby){
 					}
 					else if(typeof(cols['blocks'][b]['image'])!=='undefined' && cols['blocks'][b]['image']!==''){
 						html+='<div class="col-xs-2 col-icon">';
-							html+='<img src="img/'+cols['blocks'][b]['image']+'" class="icon" />';
+							html+='<img src="img/'+cols['blocks'][b]['image']+'" class="icon calendar_icon" />';
 						html+='</div>';
 						html+='<div class="col-xs-10 items">Loading...</div>';
 					}
