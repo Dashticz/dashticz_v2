@@ -1,14 +1,4 @@
 
-window.onerror = function(msg, url, line, col, error) {
-   var extra = !col ? '' : '\ncolumn: ' + col;
-   extra += !error ? '' : '\nerror: ' + error;
-
-   console.error("Error: " + msg + "\nurl: " + url + "\nline: " + line);
-
-   var suppressErrorAlert = true;
-   return suppressErrorAlert;
-};
-
 var customfolder = 'custom';
 if(typeof(dashtype)!=='undefined' && parseFloat(dashtype)>1){
 	customfolder = 'custom_'+dashtype;

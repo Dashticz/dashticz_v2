@@ -135,8 +135,7 @@ function loadTrash (random,trashobject) {
 	if(service=='ophaalkalender'){
 		$('.trash'+random+' .state').html('');
 	
-		var baseURL = '';
-		if(service=='ophaalkalender') baseURL = 'http://www.ophaalkalender.be';
+		var baseURL = 'http://www.ophaalkalender.be';
 		
 		$.getJSON('https://cors-anywhere.herokuapp.com/'+baseURL + '/calendar/findstreets/?query=' + street + '&zipcode=' + postcode,function(data){
 			$.getJSON('https://cors-anywhere.herokuapp.com/'+baseURL + '/api/rides?id='+data[0].Id+'&housenumber=0&zipcode='+postcode,function(data){
@@ -163,17 +162,15 @@ function loadTrash (random,trashobject) {
 		$.getJSON('https://cors-anywhere.herokuapp.com/http://json.mijnafvalwijzer.nl/?method=postcodecheck&postcode=' + postcode + '&street=&huisnummer=' + homenumber + '&toevoeging=',function(data){
 			data = data.data.ophaaldagen.data;
 			for(d in data){
-				if(typeof(returnDates[curr])=='undefined'){
-					returnDates[curr] = {}
-				}
-				
 				var curr = data[d]['nameType'];
 				curr = capitalizeFirstLetter(curr.toLowerCase());
 				
 				var testDate = moment(data[d]['date']);
 				if(testDate.isBetween(startDate, endDate, 'days', true)){
-					returnDates[curr][testDate.format("YYYY-MM-DD")+'_'+teller]=getTrashRow(curr,testDate);
-					teller++;
+					if(typeof(returnDates[curr])=='undefined'){
+						returnDates[curr] = {}
+					}
+					returnDates[curr][testDate.format("YYYY-MM-DD")+'_'+curr]=getTrashRow(curr,testDate);
 				}
 			}
 			
