@@ -287,7 +287,7 @@ function getStatusBlock(device,block,c){
 		title = title.replace('<'+d+'>',device[d]);
 	}
 	
-	if(typeof(blocks[device['idx']]['unit']) !== 'undefined'){
+	if(typeof(blocks[device['idx']])!=='undefined' && typeof(blocks[device['idx']]['unit'])!=='undefined'){
 		var unitArray = blocks[device['idx']]['unit'].split(";");
 		value = value.replace(unitArray[0], unitArray[1]);
 	}
