@@ -39,15 +39,15 @@ lang['temp_toon'] = 'Wohnzimmer';
 
 // Wind
 lang['wind'] = 'Wind';
-lang['direction_N'] = 'nord'
+lang['direction_N'] = 'nord';
 lang['direction_NNE'] = 'nord-nordost';
-lang['direction_NE'] = 'nordost'
+lang['direction_NE'] = 'nordost';
 lang['direction_ENE'] = 'ost-nordost';
 lang['direction_E'] = 'ost';
 lang['direction_ESE'] = 'ost-südost';
 lang['direction_SE'] = 'südost';
 lang['direction_SSE'] = 'süd-südost';
-lang['direction_S'] = 'süd' ;
+lang['direction_S'] = 'süd';
 lang['direction_SSW'] = 'süd-südwest';
 lang['direction_SW'] = 'südwest';
 lang['direction_WSW'] = 'west-südwest';
