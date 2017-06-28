@@ -39,15 +39,15 @@ lang['temp_toon'] = 'Température';
 
 // Wind
 lang['wind'] = 'Force';
-lang['direction_N'] = 'north'
+lang['direction_N'] = 'north';
 lang['direction_NNE'] = 'north-northeast';
-lang['direction_NE'] = 'northeast'
+lang['direction_NE'] = 'northeast';
 lang['direction_ENE'] = 'east-northeast';
 lang['direction_E'] = 'east';
 lang['direction_ESE'] = 'east-southeast';
 lang['direction_SE'] = 'southeast';
 lang['direction_SSE'] = 'south-southeast';
-lang['direction_S'] = 'south' ;
+lang['direction_S'] = 'south';
 lang['direction_SSW'] = 'south-southwest';
 lang['direction_SW'] = 'south-west';
 lang['direction_WSW'] = 'west-southwest';
