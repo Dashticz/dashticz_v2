@@ -24,8 +24,8 @@ lang['entire_day_event'] = 'Entire day';
 
 // Graph
 lang['graph_last_hours'] = 'last hours';
-lang['graph_today'] = 'today';
 lang['graph_last_month'] = 'last month';
+lang['graph_today'] = 'today';
 
 // Energy
 lang['energy_usage'] = 'Energy';
