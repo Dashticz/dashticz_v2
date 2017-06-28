@@ -19,7 +19,7 @@ function getButtonGraphs(device){
 			  html+='<div class="modal-header">';
 				html+='<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
 			  html+='</div>';
-			  html+='<div class="modal-body block_graphpopup_'+device['idx']+'">Loading...';
+			  html+='<div class="modal-body block_graphpopup_'+device['idx']+'">'+lang.loading;
 			  html+='</div>';
 			html+='</div>';
 		  html+='</div>';

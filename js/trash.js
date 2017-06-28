@@ -31,12 +31,12 @@ function loadTrash (random,trashobject) {
 				html+='<img class="trashcan" src="img/kliko.png" style="opacity:0.1" />';
 			html+='</div>';
 			html+='<div class="col-xs-8 col-data">';
-				html+='<span class="state">Loading...</span>';
+				html+='<span class="state">'+lang.loading+'</span>';
 			html+='</div>';
 		}
 		else {
 			html+='<div class="col-xs-12 col-data">';
-				html+='<span class="state">Loading...</span>';
+				html+='<span class="state">'+lang.loading+'</span>';
 			html+='</div>';
 		}
 	html+='</div>';
@@ -45,6 +45,30 @@ function loadTrash (random,trashobject) {
 	
 	var startDate = moment();
 	var endDate = moment(Date.now() + 32 * 24 * 3600 * 1000);
+	
+	if(service=='ical'){
+		var url = 'https://wedevise.nl/dashticz/ical/demo/?url='+trashobject.icalurl;
+
+		$.getJSON(url,function(data,textstatus,jqXHR){
+			respArray = data;
+			for (var i in respArray) {
+				var curr = respArray[i]['title'];
+				curr = capitalizeFirstLetter(curr.toLowerCase());
+				
+				var testDate = moment(respArray[i].startt);
+				if(testDate.isBetween(startDate, endDate, 'days', true)){
+					if(typeof(returnDates[curr])=='undefined'){
+						returnDates[curr] = {}
+					}
+					returnDates[curr][testDate.format("YYYY-MM-DD")+teller]=getTrashRow(curr,testDate,respArray[i]['title']);
+					teller++;
+				}
+			}
+			addToContainer(random,returnDates,maxitems);
+			
+		});
+		//alert(1);
+	}
 	
 	if(service=='deafvalapp'){
 		$.get('https://cors-anywhere.herokuapp.com/http://dataservice.deafvalapp.nl/dataservice/DataServiceServlet?type=ANDROID&service=OPHAALSCHEMA&land=' +
@@ -111,8 +135,7 @@ function loadTrash (random,trashobject) {
 	if(service=='ophaalkalender'){
 		$('.trash'+random+' .state').html('');
 	
-		var baseURL = '';
-		if(service=='ophaalkalender') baseURL = 'http://www.ophaalkalender.be';
+		var baseURL = 'http://www.ophaalkalender.be';
 		
 		$.getJSON('https://cors-anywhere.herokuapp.com/'+baseURL + '/calendar/findstreets/?query=' + street + '&zipcode=' + postcode,function(data){
 			$.getJSON('https://cors-anywhere.herokuapp.com/'+baseURL + '/api/rides?id='+data[0].Id+'&housenumber=0&zipcode='+postcode,function(data){
@@ -139,17 +162,15 @@ function loadTrash (random,trashobject) {
 		$.getJSON('https://cors-anywhere.herokuapp.com/http://json.mijnafvalwijzer.nl/?method=postcodecheck&postcode=' + postcode + '&street=&huisnummer=' + homenumber + '&toevoeging=',function(data){
 			data = data.data.ophaaldagen.data;
 			for(d in data){
-				if(typeof(returnDates[curr])=='undefined'){
-					returnDates[curr] = {}
-				}
-				
 				var curr = data[d]['nameType'];
 				curr = capitalizeFirstLetter(curr.toLowerCase());
 				
 				var testDate = moment(data[d]['date']);
 				if(testDate.isBetween(startDate, endDate, 'days', true)){
-					returnDates[curr][testDate.format("YYYY-MM-DD")+'_'+teller]=getTrashRow(curr,testDate);
-					teller++;
+					if(typeof(returnDates[curr])=='undefined'){
+						returnDates[curr] = {}
+					}
+					returnDates[curr][testDate.format("YYYY-MM-DD")+'_'+curr]=getTrashRow(curr,testDate);
 				}
 			}
 			
@@ -268,7 +289,8 @@ function addToContainer(random,returnDates,maxitems){
 		if(typeof(_DO_NOT_USE_COLORED_TRASHCAN)=='undefined' || _DO_NOT_USE_COLORED_TRASHCAN===false){
 			if (c==1 && (
 				returnDatesSimple[key].toLowerCase().indexOf("gft") >= 0 || 
-				returnDatesSimple[key].toLowerCase().indexOf("tuin") >= 0
+				returnDatesSimple[key].toLowerCase().indexOf("tuin") >= 0 || 
+				returnDatesSimple[key].toLowerCase().indexOf("refuse bin") >= 0
 			)
 			   ){
 				$('.trash'+random).find('img.trashcan').attr('src','img/kliko_green.png');
@@ -289,7 +311,8 @@ function addToContainer(random,returnDates,maxitems){
 			}
 			else if (c==1 && (
 				returnDatesSimple[key].toLowerCase().indexOf("papier") >= 0 || 
-				returnDatesSimple[key].toLowerCase().indexOf("blauw") >= 0
+				returnDatesSimple[key].toLowerCase().indexOf("blauw") >= 0 || 
+				returnDatesSimple[key].toLowerCase().indexOf("recycling bin collection") >= 0
 			)){
 				$('.trash'+random).find('img.trashcan').attr('src','img/kliko_blue.png');
 			}
@@ -307,7 +330,7 @@ function addToContainer(random,returnDates,maxitems){
 			returnDatesSimple[key] = returnDatesSimple[key].replace('trashrow', 'trashtomorrow');
 		}
 		else if(moment(skey).isBetween(currentdate, nextweek, 'days', true)){
-			var datename = moment(date,"DD-MM-YYYY").locale('nl').format("dddd");
+			var datename = moment(date,"DD-MM-YYYY").locale(_ICALENDAR_LOCALE).format("dddd");
 			datename = datename.charAt(0).toUpperCase() + datename.slice(1);
 			returnDatesSimple[key] = returnDatesSimple[key].replace(date, datename);
 		}  

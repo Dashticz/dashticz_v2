@@ -160,7 +160,7 @@ function getBlock(cols,c,columndiv,standby){
 				html+='<div class="col-xs-2 col-icon">';
 					html+='<em class="fa fa-calendar"></em>';
 				html+='</div>';
-				html+='<div class="col-xs-10 items">Loading...</div>';
+				html+='<div class="col-xs-10 items">'+lang.loading+'</div>';
 				html+='</div>';
 				$(columndiv).append(html);	
 				addCalendar($('.containsicalendar'+random),_ICALENDAR_URL);
@@ -189,7 +189,10 @@ function getBlock(cols,c,columndiv,standby){
 				var key = 'UNKNOWN';
 				if(typeof(cols['blocks'][b]['key'])!=='undefined') key=cols['blocks'][b]['key'];
 				
-				if(typeof(cols['blocks'][b]['icalurl'])!=='undefined' || typeof(cols['blocks'][b]['calendars'])!=='undefined'){
+				if(typeof(cols['blocks'][b]['trashapp'])!=='undefined') $(columndiv).append(loadTrash(random,cols['blocks'][b]));
+				else if(typeof(cols['blocks'][b]['frameurl'])!=='undefined') $(columndiv).append(loadFrame(random,cols['blocks'][b]));
+				else if(typeof(cols['blocks'][b]['station'])!=='undefined') $(columndiv).append(loadPublicTransport(random,cols['blocks'][b]));
+				else if(typeof(cols['blocks'][b]['icalurl'])!=='undefined' || typeof(cols['blocks'][b]['calendars'])!=='undefined'){
 					var html ='';
 					if(typeof(cols['blocks'][b]['title'])!=='undefined') html+='<div class="col-xs-'+width+' mh titlegroups transbg"><h3>'+cols['blocks'][b]['title']+'</h3></div>';
 					
@@ -198,10 +201,16 @@ function getBlock(cols,c,columndiv,standby){
 						html+='<div class="col-xs-2 col-icon">';
 							html+='<em class="fa '+cols['blocks'][b]['icon']+'"></em>';
 						html+='</div>';
-						html+='<div class="col-xs-10 items">Loading...</div>';
+						html+='<div class="col-xs-10 items">'+lang.loading+'</div>';
+					}
+					else if(typeof(cols['blocks'][b]['image'])!=='undefined' && cols['blocks'][b]['image']!==''){
+						html+='<div class="col-xs-2 col-icon">';
+							html+='<img src="img/'+cols['blocks'][b]['image']+'" class="icon calendar_icon" />';
+						html+='</div>';
+						html+='<div class="col-xs-10 items">'+lang.loading+'</div>';
 					}
 					else {
-						html+='<div class="col-xs-12 items">Loading...</div>';
+						html+='<div class="col-xs-12 items">'+lang.loading+'</div>';
 					}
 					
 					html+='</div>';
@@ -209,9 +218,6 @@ function getBlock(cols,c,columndiv,standby){
 					addCalendar($('.containsicalendar'+random),cols['blocks'][b]);
 
 				}
-				else if(typeof(cols['blocks'][b]['trashapp'])!=='undefined') $(columndiv).append(loadTrash(random,cols['blocks'][b]));
-				else if(typeof(cols['blocks'][b]['frameurl'])!=='undefined') $(columndiv).append(loadFrame(random,cols['blocks'][b]));
-				else if(typeof(cols['blocks'][b]['station'])!=='undefined') $(columndiv).append(loadPublicTransport(random,cols['blocks'][b]));
 				else $(columndiv).append(loadButton(b,cols['blocks'][b]));
 			}
 			else {

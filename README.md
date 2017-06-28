@@ -15,7 +15,7 @@ Before you can use this dashboard, unzip all files to a subfolder in Domoticz or
 Save CONFIG_DEFAULT.js as CONFIG.js and insert the IP-address of Domoticz without a trailing slash; e.g.: http://192.168.1.3:8084
 
 
-Visit the wikipage at: http://www.domoticz.com/wiki/Dashticz_v2
+Visit the wikipage at: http://www.domoticz.com/wiki/Dashticz_V2
 
 
 
