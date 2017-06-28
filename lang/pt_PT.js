@@ -28,7 +28,6 @@ lang['graph_last_month'] = '&Uacute;ltimo mes';
 lang['graph_today'] = 'Hoje';
 
 // Energy
-lang['mediaplayer_nothing_playing'] = 'Agora nada está a tocar';
 lang['energy_usage'] = 'Energia';
 lang['energy_usagetoday'] = 'Energia hoje';
 lang['energy_totals'] = 'Total';
@@ -60,6 +59,7 @@ lang['direction_NNW'] = 'norte-noroeste';
 // Misc
 lang['last_update'] = 'Última atualização';
 lang['loading'] = 'Carregando...';
+lang['mediaplayer_nothing_playing'] = 'Agora nada está a tocar';
 lang['notifications_ns'] = 'notifica&ccedil&otilde;es adicionada por NS';
 lang['scheduled'] = 'Programado';
 lang['select'] = 'Selecionar';
