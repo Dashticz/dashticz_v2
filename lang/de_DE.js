@@ -57,10 +57,10 @@ lang['direction_NW'] = 'nordwest';
 lang['direction_NNW'] = 'nord-nordwest';
 
 // Misc
-lang['select'] = 'Auswählen';
-lang['notifications_ns'] = 'Benachrichtigungen hinzugefügt von NS';
 lang['last_update'] = 'Zuletzt aktualisiert';
-lang['scheduled'] = 'Geplant';
-lang['value'] = 'Wert';
-lang['mediaplayer_nothing_playing'] = 'Derzeit wird nichts abgespielt';
 lang['loading'] = 'Lädt...';
+lang['mediaplayer_nothing_playing'] = 'Derzeit wird nichts abgespielt';
+lang['notifications_ns'] = 'Benachrichtigungen hinzugefügt von NS';
+lang['scheduled'] = 'Geplant';
+lang['select'] = 'Auswählen';
+lang['value'] = 'Wert';
