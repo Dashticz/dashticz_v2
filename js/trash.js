@@ -31,12 +31,12 @@ function loadTrash (random,trashobject) {
 				html+='<img class="trashcan" src="img/kliko.png" style="opacity:0.1" />';
 			html+='</div>';
 			html+='<div class="col-xs-8 col-data">';
-				html+='<span class="state">Loading...</span>';
+				html+='<span class="state">'+lang.loading+'</span>';
 			html+='</div>';
 		}
 		else {
 			html+='<div class="col-xs-12 col-data">';
-				html+='<span class="state">Loading...</span>';
+				html+='<span class="state">'+lang.loading+'</span>';
 			html+='</div>';
 		}
 	html+='</div>';

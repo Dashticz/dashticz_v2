@@ -160,7 +160,7 @@ function getBlock(cols,c,columndiv,standby){
 				html+='<div class="col-xs-2 col-icon">';
 					html+='<em class="fa fa-calendar"></em>';
 				html+='</div>';
-				html+='<div class="col-xs-10 items">Loading...</div>';
+				html+='<div class="col-xs-10 items">'+lang.loading+'</div>';
 				html+='</div>';
 				$(columndiv).append(html);	
 				addCalendar($('.containsicalendar'+random),_ICALENDAR_URL);
@@ -201,16 +201,16 @@ function getBlock(cols,c,columndiv,standby){
 						html+='<div class="col-xs-2 col-icon">';
 							html+='<em class="fa '+cols['blocks'][b]['icon']+'"></em>';
 						html+='</div>';
-						html+='<div class="col-xs-10 items">Loading...</div>';
+						html+='<div class="col-xs-10 items">'+lang.loading+'</div>';
 					}
 					else if(typeof(cols['blocks'][b]['image'])!=='undefined' && cols['blocks'][b]['image']!==''){
 						html+='<div class="col-xs-2 col-icon">';
 							html+='<img src="img/'+cols['blocks'][b]['image']+'" class="icon calendar_icon" />';
 						html+='</div>';
-						html+='<div class="col-xs-10 items">Loading...</div>';
+						html+='<div class="col-xs-10 items">'+lang.loading+'</div>';
 					}
 					else {
-						html+='<div class="col-xs-12 items">Loading...</div>';
+						html+='<div class="col-xs-12 items">'+lang.loading+'</div>';
 					}
 					
 					html+='</div>';

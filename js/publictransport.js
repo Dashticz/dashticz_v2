@@ -27,7 +27,7 @@ function loadPublicTransport(random,transportobject){
 	var interval = 60;
 	if(typeof(transportobject.interval)!=='undefined') interval = transportobject.interval;
 	getData(random,transportobject);
-	setTimeout(function(){$('.publictransport'+random+' .state').html('Loading...');},100);
+	setTimeout(function(){$('.publictransport'+random+' .state').html(lang.loading);},100);
 	
 	if(transportobject.provider.toLowerCase() == 'ns'){
 		if(parseFloat(interval)<60) interval=60; // limit request because of limitations in NS api for my private key ;)

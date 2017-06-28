@@ -1,4 +1,5 @@
 var lang = new Object();
+// Switch states
 lang['state_on'] = 'BE';
 lang['state_off'] = 'KI';
 lang['state_open'] = 'NYITVA';
@@ -9,6 +10,7 @@ lang['state_switch'] = 'Kapcsoló';
 lang['state_nosmoke'] = 'Nincs füst';
 lang['state_smoke'] = 'FÜST ÉRZÉKELVE!';
 
+// Time & date
 lang['monday'] = 'Hétfő';
 lang['tuesday'] = 'Kedd';
 lang['wednesday'] = 'Szerda';
@@ -16,17 +18,16 @@ lang['thursday'] = 'Csütörtök';
 lang['friday'] = 'Péntek';
 lang['saturday'] = 'Szombat';
 lang['sunday'] = 'Vasárnap';
-
-lang['value'] = 'Value';
 lang['today'] = 'Ma';
 lang['tomorrow'] = 'Holnap';
 lang['entire_day_event'] = 'egész nap';
 
+// Graph
 lang['graph_last_hours'] = 'utolsó órák';
-lang['graph_today'] = 'ma';
 lang['graph_last_month'] = 'utolsó hónap';
+lang['graph_today'] = 'ma';
 
-lang['mediaplayer_nothing_playing'] = 'Semmi sem játszódik most';
+// Energy
 lang['energy_usage'] = 'Energia';
 lang['energy_usagetoday'] = 'Energiafogyasztás';
 lang['energy_totals'] = 'Összesen';
@@ -35,13 +36,10 @@ lang['energy_now'] = 'most';
 lang['energy_today'] = 'ma';
 lang['gas_usagetoday'] = 'Mai gáz';
 lang['temp_toon'] = 'Nappali';
-lang['wind'] = 'Szél';
-lang['select'] = 'Kiválaszt';
-lang['notifications_ns'] = 'notifications added by NS';
-lang['last_update'] = 'Utolsó frissítés';
-lang['scheduled'] = 'Tervezett';
 
-lang['direction_N'] = 'észak'
+// Wind
+lang['wind'] = 'Szél';
+lang['direction_N'] = 'észak';
 lang['direction_NNE'] = 'észak-északkelet';
 lang['direction_NE'] = 'északkelet'
 lang['direction_ENE'] = 'kelet-északkelet';
@@ -57,3 +55,12 @@ lang['direction_W'] = 'nyugat';
 lang['direction_WNW'] = 'nyugat-északnyugat';
 lang['direction_NW'] = 'északnyugat';
 lang['direction_NNW'] = 'észak-északnyugat';
+
+// Misc
+lang['loading'] = 'Betöltés...';
+lang['last_update'] = 'Utolsó frissítés';
+lang['mediaplayer_nothing_playing'] = 'Semmi sem játszódik most';
+lang['notifications_ns'] = 'notifications added by NS';
+lang['scheduled'] = 'Tervezett';
+lang['select'] = 'Kiválaszt';
+lang['value'] = 'Value';
