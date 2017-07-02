@@ -229,6 +229,11 @@ function getBlock(cols,c,columndiv,standby){
 
 function getStateBlock(id,icon,title,value,device){
 	
+	if(typeof(blocks[device['idx']])!=='undefined' && typeof(blocks[device['idx']]['unit'])!=='undefined'){
+		var unitArray = blocks[device['idx']]['unit'].split(";");
+		value = value.replace(unitArray[0], unitArray[1]);
+	}
+	
 	if(device['SubType']=='Percentage' || device['SubType']=='Custom Sensor' || device['TypeImg']=='counter' || device['Type']=='Temp' || device['Type']=='Wind' || device['Type']=='Rain' || device['Type']== 'Temp + Humidity' || device['Type']== 'Temp + Humidity + Baro'){
 		getButtonGraphs(device);
 		if($('.block_'+device['idx']).length>0){
