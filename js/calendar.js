@@ -52,13 +52,15 @@ function addCalendar(calobject,icsUrlorg){
 		curUrl = curUrl.replace('https://cors-anywhere.herokuapp.com/','');
 		
 		colors[$.md5(curUrl)] = color;
-		curUrl = 'https://wedevise.nl/dashticz/ical/?url='+curUrl;
+		var cache = new Date().getTime();
+		curUrl = 'https://wedevise.nl/dashticz/ical/?time='+cache+'&url='+curUrl;
 		moment.locale(_ICALENDAR_LOCALE);
 		$.getJSON(curUrl,function(data,textstatus,jqXHR){
 			
 			var url = this.url.replace('https://cors-anywhere.herokuapp.com/http://ical-to-json.herokuapp.com/convert.json?url=','');
-			var url = this.url.replace('https://wedevise.nl/dashticz/ical/?url=','');
-
+			var url = this.url.split('url=');
+			var url = url[1];
+			
 			done++;
 			for(e in data){
 				event = data[e];
