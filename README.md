@@ -24,7 +24,7 @@ Visit the wikipage at: http://www.domoticz.com/wiki/Dashticz_V2
 
 If you like my work, you can buy me a beer at: 
 
-https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=robgeerts%40gmail%2ecom&lc=BM&item_name=Rob%20Geerts&no_note=0&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHostedGuest
+https://www.paypal.me/robgeerts
 
 
 
