@@ -24,6 +24,19 @@
     width: 100%;
     max-width: 125px;
 }
+
+a.playlist {
+    margin: 5px !important;
+    display: inline-block;
+    border: 1px solid #ccc;
+}
+.containsspotify .change {
+	background-color: #282828;
+	display: block;
+	margin-top: -4px;
+	padding: 3px;
+	color: #fff;
+}
 /* Thermostat CSS: */
 
 .editmode {

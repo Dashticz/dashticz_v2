@@ -64,3 +64,5 @@ lang['notifications_ns'] = 'avviseringar från NS';
 lang['scheduled'] = 'Planerad';
 lang['select'] = 'Välj';
 lang['value'] = 'Värde';
+
+lang['spotify_select_playlist'] = 'Select playlist';

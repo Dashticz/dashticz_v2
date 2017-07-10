@@ -112,6 +112,11 @@ function getBlock(cols,c,columndiv,standby){
 			else if(cols['blocks'][b]=='clock'){
 				$(columndiv).append('<div data-id="clock" class="transbg block_'+cols['blocks'][b]+' col-xs-'+width+' text-center"><h1 class="clock"></h1><h4 class="weekday"></h4><h4 class="date"></h4></div>');
 			}
+			else if(cols['blocks'][b]=='spotify'){
+				if(typeof(getSpotify)!=='function') $.ajax({url: 'js/spotify.js', async: false,dataType: "script"});
+				getSpotify(columndiv);			
+				
+			}
 			else if(cols['blocks'][b]=='stationclock'){
 				$(columndiv).append('<div data-id="clock" class="transbg block_'+cols['blocks'][b]+' col-xs-'+width+' text-center"><canvas id="clock" width="150" height="150">Your browser is unfortunately not supported.</canvas></div>');
 				if(typeof(StationClock)!=='function') $.ajax({url: 'vendor/stationclock.js', async: false,dataType: "script"});

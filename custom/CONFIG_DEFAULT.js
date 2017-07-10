@@ -35,3 +35,4 @@ var _AUTO_SWIPEBACK_TO		= 1; //when no activity, swipe back to main screen after
 var _AUTO_SWIPEBACK_TIME	= 10; //seconds
 
 var _SLIDE_PAGES			= false; //Loop all pages and change page every x (min. 5) seconds, set _AUTO_SWIPEBACK_TIME = 0
+var _CLIENTID_SPOTIFY = '1112f16564cf4f4d93ccbe8b52c58a44';

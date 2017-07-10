@@ -36,6 +36,7 @@ if(typeof(_SAVED_COLORS)=='undefined') var _SAVED_COLORS = [];
 if(typeof(_EDIT_MODE)=='undefined') var _EDIT_MODE = false;
 if(typeof(_THEME)=='undefined') var _THEME = 'default';
 if(typeof(_SLIDE_PAGES)=='undefined') var _SLIDE_PAGES = false;
+if(typeof(_CLIENTID_SPOTIFY)=='undefined') var _CLIENTID_SPOTIFY = false;
 
 var _TEMP_SYMBOL = '°C';
 if(_USE_FAHRENHEIT) _TEMP_SYMBOL = '°F';

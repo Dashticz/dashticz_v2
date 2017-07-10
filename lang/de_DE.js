@@ -64,3 +64,5 @@ lang['notifications_ns'] = 'Benachrichtigungen hinzugefügt von NS';
 lang['scheduled'] = 'Geplant';
 lang['select'] = 'Auswählen';
 lang['value'] = 'Wert';
+
+lang['spotify_select_playlist'] = 'Select playlist';
