@@ -38,6 +38,7 @@ if(typeof(_THEME)=='undefined') var _THEME = 'default';
 if(typeof(_SLIDE_PAGES)=='undefined') var _SLIDE_PAGES = false;
 if(typeof(_CLIENTID_SPOTIFY)=='undefined') var _CLIENTID_SPOTIFY = false;
 if(typeof(_HIDE_TOPBAR)=='undefined') var _HIDE_TOPBAR = false;
+if(typeof(_APP_TITLE)=='undefined') var _APP_TITLE = 'Dashticz';
 
 var _TEMP_SYMBOL = '°C';
 if(_USE_FAHRENHEIT) _TEMP_SYMBOL = '°F';
@@ -226,7 +227,7 @@ function buildScreens(){
 			
 		}
 		else {
-			if(!_HIDE_TOPBAR) $('body .row').append('<div class="col-sm-undefined col-xs-12 sortable colbar transbg dark"><div data-id="logo" class="logo col-xs-2">Dashticz<div></div></div><div data-id="clock" class="miniclock col-xs-8 text-center"><span class="weekday"></span> <span class="date"></span> <span>&nbsp;&nbsp;&nbsp;&nbsp;</span> <span class="clock"></span></div><div data-id="settings" class="settings col-xs-2 text-right"><em class="fa fa-cog"></em><div></div></div></div>');
+			if(!_HIDE_TOPBAR) $('body .row').append('<div class="col-sm-undefined col-xs-12 sortable colbar transbg dark"><div data-id="logo" class="logo col-xs-2">'+_APP_TITLE+'<div></div></div><div data-id="clock" class="miniclock col-xs-8 text-center"><span class="weekday"></span> <span class="date"></span> <span>&nbsp;&nbsp;&nbsp;&nbsp;</span> <span class="clock"></span></div><div data-id="settings" class="settings col-xs-2 text-right"><em class="fa fa-cog"></em><div></div></div></div>');
 			$('body .row').append('<div class="col-xs-5 sortable col1"><div class="auto_switches"></div><div class="auto_dimmers"></div></div>');
 			$('body .row').append('<div class="col-xs-5 sortable col2"><div class="block_weather containsweatherfull"></div><div class="auto_media"></div><div class="auto_states"></div></div>');
 			$('body .row').append('<div class="col-xs-2 sortable col3"><div class="auto_clock"></div><div class="auto_sunrise"></div><div class="auto_buttons"></div></div>');
