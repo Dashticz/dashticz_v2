@@ -1154,8 +1154,8 @@ function getDevices(override){
 										console.log(device);
 										$(".rgbw").spectrum({
 											color: Cookies.get('rgbw_'+idx),
-											showPalette: true,
-											palette: [_SAVED_COLORS]
+											//showPalette: true,
+											//palette: [_SAVED_COLORS]
 										});
 										
 										$(".rgbw").on("dragstop.spectrum",function(e, color) {
