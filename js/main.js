@@ -1138,7 +1138,7 @@ function getDevices(override){
 										}
 										html+='<br />';
 										if(device['SubType']=='RGBW'){
-											html+='<input type="text" class="rgbw" />';
+											html+='<input type="text" class="rgbw" data-light="'+device['idx']+'" />';
 											html+='<div class="slider slider'+device['idx']+'" style="margin-left:55px;" data-light="'+device['idx']+'"></div>';
 										}
 										else {
