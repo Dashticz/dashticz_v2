@@ -28,7 +28,6 @@ function getSpotify(columndiv){
 
 				getPlaylists()
 				.then(function(playlists) {
-
 					var html = '<div class="modal fade" id="spotify_'+random+'" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
 					html+='<div class="modal-dialog">';
 						html+='<div class="modal-content">';
@@ -38,13 +37,17 @@ function getSpotify(columndiv){
 						html+='<div class="modal-body">';
 
 							for(p in playlists.items){
-								html+='<a class="playlist" href="javascript:void(0);" onclick="getPlayList(\'https://open.spotify.com/embed?uri='+playlists.items[p]['uri']+'\');"><img style="width:100px;" src="'+playlists.items[p]['images'][0]['url']+'" /></a> ';
+								html+='<a class="playlist" href="javascript:void(0);" onclick="getPlayList(\'https://open.spotify.com/embed?uri='+playlists.items[p]['uri']+'\');">';
+								if(typeof(playlists.items[p]['images'][0])!=='undefined') html+='<img style="width:100px;" src="'+playlists.items[p]['images'][0]['url']+'" />';
+								else html+=playlists.items[p]['name'];
+								html+='</a> ';
 							}
 
 						html+='</div>';
 						html+='</div>';
 					  html+='</div>';
 					html+='</div>';
+
 					$('body').append(html);
 				});
 
