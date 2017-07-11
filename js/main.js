@@ -1153,19 +1153,18 @@ function getDevices(override){
 									if(device['SubType']=='RGBW'){
 										console.log(device);
 										$(".rgbw").spectrum({
-											color: Cookies.get('rgbw_'+idx),
-											//showPalette: true,
-											//palette: [_SAVED_COLORS]
+											color: Cookies.get('rgbw_'+idx)
 										});
 										
 										$(".rgbw").on("dragstop.spectrum",function(e, color) {
+											curidx=$(this).data('light');
 											color = color.toHexString();
-											Cookies.set('rgbw_'+idx, color);
+											Cookies.set('rgbw_'+curidx, color);
 											hue=hexToHsb(color);
 											var bIsWhite = (hue.s < 20);
 											
 											sliding=true;
-											var url = _HOST_DOMOTICZ+'/json.htm?type=command&param=setcolbrightnessvalue&idx='+idx+'&hue='+hue.h+'&brightness='+hue.b+'&iswhite='+bIsWhite;
+											var url = _HOST_DOMOTICZ+'/json.htm?type=command&param=setcolbrightnessvalue&idx='+curidx+'&hue='+hue.h+'&brightness='+hue.b+'&iswhite='+bIsWhite;
 											$.ajax({
 												url: url+'&jsoncallback=?',
 												type: 'GET',async: false,contentType: "application/json",dataType: 'jsonp'
@@ -1177,6 +1176,7 @@ function getDevices(override){
 											getDevices(true);
 										});
 									}
+
 									
 									if(parseFloat(device['MaxDimLevel'])==100){
 										$( ".slider"+device['idx'] ).slider({
