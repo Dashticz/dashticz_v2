@@ -1137,7 +1137,7 @@ function getDevices(override){
 											html+=' / <span class="lastupdate">'+moment(device['LastUpdate']).format(_LASTUPDATE_FORMAT)+'</span>';
 										}
 										html+='<br />';
-										if(device['SubType']=='RGBW_TEMP'){
+										if(device['SubType']=='RGBW'){
 											html+='<input type="text" class="rgbw" />';
 											html+='<div class="slider slider'+device['idx']+'" style="margin-left:55px;" data-light="'+device['idx']+'"></div>';
 										}
@@ -1150,18 +1150,32 @@ function getDevices(override){
 									$('div.block_'+idx).html(html);
 									addHTML=false;
 									
-									if(device['SubType']=='RGBW_TEMP'){
+									if(device['SubType']=='RGBW'){
+										console.log(device);
 										$(".rgbw").spectrum({
-											color: "#f00",
+											color: Cookies.get('rgbw_'+idx),
 											showPalette: true,
 											palette: [_SAVED_COLORS]
 										});
 										
 										$(".rgbw").on("dragstop.spectrum",function(e, color) {
-											color = color.toHexString(); // #ff0000
-											alert(color);
+											color = color.toHexString();
+											Cookies.set('rgbw_'+idx, color);
+											hue=hexToHsb(color);
+											var bIsWhite = (hue.s < 20);
+											
+											sliding=true;
+											var url = _HOST_DOMOTICZ+'/json.htm?type=command&param=setcolbrightnessvalue&idx='+idx+'&hue='+hue.h+'&brightness='+hue.b+'&iswhite='+bIsWhite;
+											$.ajax({
+												url: url+'&jsoncallback=?',
+												type: 'GET',async: false,contentType: "application/json",dataType: 'jsonp'
+											});
 										});
 										
+										$(".rgbw").on('hide.spectrum', function(e, tinycolor) { 
+											sliding=false;
+											getDevices(true);
+										});
 									}
 									
 									if(parseFloat(device['MaxDimLevel'])==100){
