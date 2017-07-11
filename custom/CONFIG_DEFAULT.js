@@ -17,6 +17,7 @@ var _USE_AUTO_POSITIONING 	= true; //don't want to configure positions, use auto
 var _USE_FAVORITES			= true; //only used when using auto positioning
 var _HIDE_SECONDS_IN_CLOCK  = false; //do not show the seconds in the clock
 var _HIDE_MEDIAPLAYER_WHEN_OFF = false; //when you have a mediaplayer connected, hide it if nothing is playing
+var _HIDE_TOPBAR			= false; //hide topbar with appname, clock and settings-icon
 var _NEWS_RSSFEED			= 'http://www.nu.nl/rss/algemeen';
 var _USE_FAHRENHEIT			= false;
 var _USE_BEAUFORT 			= true; //Bft instead of m/s

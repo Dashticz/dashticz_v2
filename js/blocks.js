@@ -55,9 +55,16 @@ blocktypes = getExtendedBlockTypes(blocktypes);
 
 function getBlock(cols,c,columndiv,standby){
 	if(typeof(cols)!=='undefined'){
-		if(!standby) $('div.screen'+s+' .row').append('<div class="col-sm-'+cols['width']+' col-xs-12 sortable col'+c+'"></div>');
+		var colclass='';
+		if(c=='bar') colclass='transbg dark';
+		if(!standby) $('div.screen'+s+' .row').append('<div class="col-sm-'+cols['width']+' col-xs-12 sortable col'+c+' '+colclass+'"></div>');
 		for(b in cols['blocks']){
+		
 			var width=12;
+			if(cols['blocks'][b]=='logo') width=2;
+			if(cols['blocks'][b]=='miniclock') width=8;
+			if(cols['blocks'][b]=='settings') width=2;
+			
 			if(typeof(blocks[cols['blocks'][b]])!=='undefined' && typeof(blocks[cols['blocks'][b]]['width'])!=='undefined') width = blocks[cols['blocks'][b]]['width'];
 			else if(typeof(cols['blocks'][b])!=='undefined' && typeof(cols['blocks'][b]['width'])!=='undefined') width = cols['blocks'][b]['width'];
 
@@ -108,6 +115,15 @@ function getBlock(cols,c,columndiv,standby){
 				if(typeof(getNews)!=='function') $.ajax({url: 'js/news.js', async: false,dataType: "script"});
 				$(columndiv).append('<div class="'+cols['blocks'][b]+'"></div>');
 				getNews(cols['blocks'][b],blocks[cols['blocks'][b]]['feed']);
+			}
+			else if(cols['blocks'][b]=='logo'){
+				$(columndiv).append('<div data-id="logo" class="logo col-xs-'+width+'">Dashticz<div>');
+			}
+			else if(cols['blocks'][b]=='settings'){
+				$(columndiv).append('<div data-id="settings" class="settings col-xs-'+width+' text-right"><em class="fa fa-cog" /><div>');
+			}
+			else if(cols['blocks'][b]=='miniclock'){
+				$(columndiv).append('<div data-id="clock" class="miniclock col-xs-'+width+' text-center"><span class="weekday"></span> <span class="date"></span> <span>&nbsp;&nbsp;&nbsp;&nbsp;</span> <span class="clock"></span></div>');
 			}
 			else if(cols['blocks'][b]=='clock'){
 				$(columndiv).append('<div data-id="clock" class="transbg block_'+cols['blocks'][b]+' col-xs-'+width+' text-center"><h1 class="clock"></h1><h4 class="weekday"></h4><h4 class="date"></h4></div>');
