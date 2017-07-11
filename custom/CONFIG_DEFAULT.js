@@ -1,5 +1,5 @@
 
-var _LANGUAGE 				= 'nl_NL'; //or: en_US, fr_FR, hu_HU
+var _LANGUAGE 				= 'nl_NL'; //or: de_DE, en_US, fr_FR, hu_HU, it_IT, pt_PT, sv_SE
 var _HOST_DOMOTICZ		  	= 'http://192.168.1.3:8084';
 var _DOMOTICZ_REFRESH		= 5; //in seconds
 var _DASHTICZ_REFRESH		= 30; //in minutes
