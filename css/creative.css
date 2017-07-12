@@ -24,6 +24,18 @@
     width: 100%;
     max-width: 125px;
 }
+.containslog .items {
+	height: 154px;
+    overflow: auto;
+    width: calc(100% - 30px);
+}
+.containslog.popup {
+	height: 100% !important;
+	overflow:auto;
+}
+.containslog.popup .items {
+	min-height: 300px;
+}
 
 .colbar.transbg {
     padding-left: 5px !important;
@@ -333,8 +345,9 @@ select option {
 .fa.fa-fire {margin-top:5px;}
 .fa.fa-plug {margin-top:5px;}
 .fa.fa-music{margin-top:5px;}
-.fa.fa-television{margin-left: 3px;
-    margin-top: 1px;}
+.fa.fa-television,
+.fa.fa-microchip{margin-left: 3px;
+    margin-top: 2px;}
 .containshorizon .fa { margin-top:8px; }
 .containsnzbget .fa { margin-top:8px; }
 .fa.fa-tint {

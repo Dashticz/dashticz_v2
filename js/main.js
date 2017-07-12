@@ -539,6 +539,12 @@ function loadButton(b,button){
 		  html+='</div>';
 		html+='</div>';
 		$('body').append(html);
+		
+		if(button.log==true){
+		  $('#button_'+b+'_'+random+' .modal-body').html('');
+		  getLog($('#button_'+b+'_'+random+' .modal-body'),button.level,true);
+		}
+				
 	}
 	var width = 12;
 	if(typeof(button.width)!=='undefined') width=button.width;

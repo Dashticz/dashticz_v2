@@ -130,8 +130,11 @@ function getBlock(cols,c,columndiv,standby){
 			}
 			else if(cols['blocks'][b]=='spotify'){
 				if(typeof(getSpotify)!=='function') $.ajax({url: 'js/spotify.js', async: false,dataType: "script"});
-				getSpotify(columndiv);			
-				
+				getSpotify(columndiv);		
+			}
+			else if(cols['blocks'][b]=='log'){
+				if(typeof(getLog)!=='function') $.ajax({url: 'js/log.js', async: false,dataType: "script"});
+				getLog(columndiv);		
 			}
 			else if(cols['blocks'][b]=='stationclock'){
 				$(columndiv).append('<div data-id="clock" class="transbg block_'+cols['blocks'][b]+' col-xs-'+width+' text-center"><canvas id="clock" width="150" height="150">Your browser is unfortunately not supported.</canvas></div>');
