@@ -66,7 +66,7 @@ function getGraphs(device,popup){
 		txtLabel = txtUnit;
 	}
 	
-	showGraph(device['idx'],device['Name'],txtUnit,'day',device['CounterToday'],false,sensor,popup);
+	showGraph(device['idx'],device['Name'],txtUnit,'last',device['CounterToday'],false,sensor,popup);
 }
 
 function getGraphByIDX(idx){
