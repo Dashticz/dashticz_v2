@@ -1,15 +1,21 @@
 function getGraphs(device,popup){
 	var sensor='counter';
-	if(device['Type']=='Temp' || device['Type']== 'Temp + Humidity' || device['Type']== 'Temp + Humidity + Baro') sensor='temp';
-	if(device['Type']=='Rain') sensor='rain';
-	if(device['Type']=='Wind') sensor='wind';
-	if(device['SubType']=='Percentage' || device['SubType']=='Custom Sensor') sensor='Percentage';
-	
 	var sensortype = device['SubType'];
 	var switchtype = device['SensorUnit'];
 	var txtLabelOrg = sensortype;
 	var txtUnit = "?";
-
+	
+	if(device['Type']=='Rain') sensor='rain';
+	if(device['Type']=='Wind') sensor='wind';
+	if(device['SubType']=='Percentage' || device['SubType']=='Custom Sensor') {
+		sensor='Percentage';
+		txtUnit = '%';
+	}
+	if(device['Type']=='Temp' || device['Type']== 'Temp + Humidity' || device['Type']== 'Temp + Humidity + Baro') {
+		sensor = 'temp';
+		txtUnit = '°';
+	}
+	
 	if (sensortype == "Gas") {
 		txtUnit = "m3";
 	}
