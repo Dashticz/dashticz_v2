@@ -541,6 +541,7 @@ function loadButton(b,button){
 		$('body').append(html);
 		
 		if(button.log==true){
+		  if(typeof(getLog)!=='function') $.ajax({url: 'js/log.js', async: false,dataType: "script"});
 		  $('#button_'+b+'_'+random+' .modal-body').html('');
 		  getLog($('#button_'+b+'_'+random+' .modal-body'),button.level,true);
 		}
