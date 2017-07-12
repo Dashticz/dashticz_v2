@@ -5,7 +5,7 @@ Alternative dashboard for Domoticz
 
 
 # Screenshots
-![alt tag](http://i.imgur.com/cKeAyE7.jpg)
+![alt tag](http://i.imgur.com/9DBcpNd.jpg)
 
 
 
