@@ -332,7 +332,8 @@ function setClassByTime(){
 
 	for(s in screens){
 		if(typeof(screens[s]['background_'+newClass])!=='undefined'){
-			$('.screen.screen'+s).css('background-image','url(\'img/'+screens[s]['background_'+newClass]+'\')');
+			if(screens[s]['background_'+newClass].indexOf("/")>0) $('.screen.screen'+s).css('background-image','url(\''+screens[s]['background_'+newClass]+'\')');
+			else $('.screen.screen'+s).css('background-image','url(\'img/'+screens[s]['background_'+newClass]+'\')');
 		}
 	}
 
