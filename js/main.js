@@ -69,7 +69,6 @@ $.ajax({url: 'vendor/raphael/raphael-min.js', async: false,dataType: "script"});
 $.ajax({url: 'vendor/morrisjs/morris.min.js', async: false,dataType: "script"});
 $.ajax({url: 'vendor/moment.js', async: false,dataType: "script"});
 $.ajax({url: 'vendor/moment-with-locales.js', async: false,dataType: "script"});
-//$.ajax({url: 'vendor/nzbget/nzbget.js', async: false,dataType: "script"});
 $.ajax({url: 'vendor/jquery.newsTicker.min.js', async: false,dataType: "script"});
 $.ajax({url: 'vendor/skycons/skycons.js', async: false,dataType: "script"});
 $.ajax({url: 'vendor/spectrum/spectrum.js', async: false,dataType: "script"});

@@ -1,5 +1,6 @@
 
-function loadNZBGET(){
+var columndiv;
+function loadNZBGET(columndiv){
 	if(_HOST_NZBGET!==""){
 		_data = {"method": "listgroups", "nocache": new Date().getTime(), "params": [100] };
 		NZBGET.rpcUrl = _HOST_NZBGET+'/jsonrpc';
@@ -10,8 +11,8 @@ function loadNZBGET(){
 function returnNZBGET(data){
 	$('.containsnzbget').remove();
 	
-	$('.column2').append('<div class="containsnzbget clear" style="display:none;"><div class="titledownloads col-md-12 transbg"><h3></h3></div><div id="downloads"></div></div>');
-	if(titles.nzbget) $('.titledownloads').find('h3').html(titles.nzbget);
+	$(columndiv).append('<div class="containsnzbget clear" style="display:none;"><div class="titledownloads col-md-12 transbg"><h3></h3></div><div id="downloads"></div></div>');
+	$('.titledownloads').find('h3').html('Downloads');
 	
 	var t=1;
 	for(d in data){

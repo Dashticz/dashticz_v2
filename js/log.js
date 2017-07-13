@@ -29,7 +29,7 @@ function getLog(columndiv,level,popup,random){
 			for(r in logdata.result){
 				var addclass='';
 				if(popup) addclass='popup';
-				$('.containslog'+random+' .items').prepend('<div class="level'+logdata.result[r]['level']+' '+addclass+'" style="color:'+color+'">'+logdata.result[r]['message']+'</div>');
+				$('.containslog'+random+' .items').prepend('<div class="level'+logdata.result[r]['level']+' '+addclass+'">'+logdata.result[r]['message']+'</div>');
 			}
 		}
 	});

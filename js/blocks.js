@@ -132,6 +132,10 @@ function getBlock(cols,c,columndiv,standby){
 				if(typeof(getSpotify)!=='function') $.ajax({url: 'js/spotify.js', async: false,dataType: "script"});
 				getSpotify(columndiv);		
 			}
+			else if(cols['blocks'][b]=='nzbget'){
+				if(typeof(loadNZBGET)!=='function') $.ajax({url: 'vendor/nzbget/nzbget.js', async: false,dataType: "script"});
+				loadNZBGET(columndiv);		
+			}
 			else if(cols['blocks'][b]=='log'){
 				if(typeof(getLog)!=='function') $.ajax({url: 'js/log.js', async: false,dataType: "script"});
 				getLog(columndiv);		
