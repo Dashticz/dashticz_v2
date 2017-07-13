@@ -4,7 +4,11 @@ function loadNZBGET(columndiv){
 	column = columndiv;
 	if(_HOST_NZBGET!==""){
 		if($('.containsnzbget').length==0){
-			var html='<div class="containsnzbget clear" style="display:none;">';
+			var width = 12;
+			if(typeof(blocks['nzbget'])!=='undefined' && typeof(blocks['nzbget']['width'])!=='undefined'){
+				width = blocks['nzbget']['width'];
+			}
+			var html='<div class="containsnzbget clear col-xs-'+width+'" style="display:none;">';
 				html+='<div id="downloads"></div>';
 			html+='</div>';
 			$(column).append(html);
@@ -19,9 +23,14 @@ function loadNZBGET(columndiv){
 }
 
 function returnNZBGET(data){
+	var width = 6;
+	if(typeof(blocks['nzbget'])!=='undefined' && typeof(blocks['nzbget']['downloads_width'])!=='undefined'){
+		width = blocks['nzbget']['downloads_width'];
+	}
+
 	var t=1;
 	for(d in data){
-		var html = '<div class="mh transbg col-xs-6">';
+		var html = '<div class="mh transbg col-xs-'+width+'">';
 			html+='<div class="col-xs-12">';
 				html+='<strong class="title">'+data[d]['NZBName']+'</strong><br />'+data[d]['DownloadedSizeMB']+'MB / '+data[d]['FileSizeMB']+'MB';
 			html+='</div>';
@@ -33,7 +42,7 @@ function returnNZBGET(data){
 		if(t==2) t=1;							
 	}
 	
-	//setTimeout(function(){ loadNZBGET(column); },5000);
+	setTimeout(function(){ loadNZBGET(column); },5000);
 }
 
 function resumepauseNZBget(id,func){
