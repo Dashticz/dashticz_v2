@@ -340,7 +340,6 @@ if(typeof(_AUTO_SWIPEBACK_TO)!=='undefined' && typeof(_AUTO_SWIPEBACK_TIME)!=='u
 	if(parseFloat(_AUTO_SWIPEBACK_TIME)>0){
 	   setInterval(function(){
 		  swipebackTime+=1000;
-		
 		 if(swipebackTime>=(_AUTO_SWIPEBACK_TIME*1000)){
 			toSlide((_AUTO_SWIPEBACK_TO-1));
 			swipebackTime=0;
@@ -1157,7 +1156,6 @@ function getDevices(override){
 									addHTML=false;
 									
 									if(device['SubType']=='RGBW'){
-										console.log(device);
 										$(".rgbw").spectrum({
 											color: Cookies.get('rgbw_'+idx)
 										});
