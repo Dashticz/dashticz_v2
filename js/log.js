@@ -27,11 +27,9 @@ function getLog(columndiv,level,popup,random){
 		success:function(logdata) {
 			$('.containslog'+random+' .items').html('');
 			for(r in logdata.result){
-				if(popup) var color='#727272';
-				else var color='#fff';
-				if(logdata.result[r]['level']==0) color='#c70626';
-				if(logdata.result[r]['level']==1) color='#067676';
-				$('.containslog'+random+' .items').prepend('<div style="color:'+color+'">'+logdata.result[r]['message']+'</div>');
+				var addclass='';
+				if(popup) addclass='popup';
+				$('.containslog'+random+' .items').prepend('<div class="level'+logdata.result[r]['level']+' '+addclass+'" style="color:'+color+'">'+logdata.result[r]['message']+'</div>');
 			}
 		}
 	});

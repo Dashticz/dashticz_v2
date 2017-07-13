@@ -27,8 +27,18 @@
 .containslog .items {
 	height: 154px;
     overflow: auto;
-    width: calc(100% - 30px);
+    width: calc(100% - 40px);
 }
+
+.containslog .items .level0{ color:#c70626; }
+.containslog .items .level1{ color:#067676; }
+.containslog .items .level2{ color:#ffffff; }
+
+.containslog .items .level0.popup{ color:#c70626; }
+.containslog .items .level1.popup{ color:#067676; }
+.containslog .items .level2.popup{ color:#727272; }
+				
+				
 .containslog.popup {
 	height: 100% !important;
 	overflow:auto;
