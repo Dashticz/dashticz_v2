@@ -1239,14 +1239,17 @@ function getDevices(override){
 
 									html+=getBlockData(device,idx,lang.state_on,lang.state_off);
 								}
-								else if(typeof(device['LevelActions'])!=='undefined' && device['LevelActions']!==""){
+								else if(typeof(device['LevelActions'])!=='undefined' && device['LevelNames']!==""){
 									var names = device['LevelNames'].split('|');
-
+									
+									var onoff='on';
+									if(device['Status']=='Off') var onoff='off';
+									
 									if(buttonimg==''){
-										html+=iconORimage(idx,'fa-lightbulb-o','','on icon');
+										html+=iconORimage(idx,'fa-lightbulb-o','',onoff+' icon');
 									}
 									else {
-										html+=iconORimage(idx,'',buttonimg+'.png','on icon');	
+										html+=iconORimage(idx,'',buttonimg+'.png',onoff+' icon');	
 									}
 
 									html+='<div class="col-xs-8 col-data">';
