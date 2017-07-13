@@ -243,6 +243,12 @@ function loadTrash (random,trashobject) {
  
  		});		
  	}
+	
+	setTimeout(function(){
+		var html = loadTrash(random,trashobject);
+		$('.trash'+random).replaceWith(html);
+	},(60000*15));
+	
 	return html;
 			
 }
