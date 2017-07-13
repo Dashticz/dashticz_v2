@@ -205,7 +205,10 @@ function buildScreens(){
 	
 	for(s in screens){
 		var screenhtml = '<div class="screen screen'+s+' swiper-slide slide'+s+'"';
-		if(typeof(screens[s]['background'])!=='undefined') screenhtml+='style="background-image:url(\'img/'+screens[s]['background']+'\');"';
+		if(typeof(screens[s]['background'])!=='undefined'){
+			if(screens[s]['background'].indexOf("/")>0) screenhtml+='style="background-image:url(\''+screens[s]['background']+'\');"';
+			else screenhtml+='style="background-image:url(\'img/'+screens[s]['background']+'\');"';
+		}
 		screenhtml+='><div class="row"></div></div>';
 		$('div.contents').append(screenhtml);			
 		
