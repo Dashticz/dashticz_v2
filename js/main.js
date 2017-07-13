@@ -1,11 +1,13 @@
 
+if (typeof(Storage) == "undefined") {
+    alert('Oh no, LocalStorage is not supported in your browser!');
+}
+
 var customfolder = 'custom';
 if(typeof(dashtype)!=='undefined' && parseFloat(dashtype)>1){
 	customfolder = 'custom_'+dashtype;
 }
 
-if(typeof(_HOST_DOMOTICZ)=='undefined') var _HOST_DOMOTICZ = '';
-if(typeof(_LANGUAGE)=='undefined') var _LANGUAGE = 'nl_NL';
 if(typeof(_USE_FAVORITES)=='undefined') var _USE_FAVORITES = false;
 if(typeof(_USE_AUTO_POSITIONING)=='undefined') var _USE_AUTO_POSITIONING = false;
 if(typeof(_HIDE_SECONDS_IN_CLOCK)=='undefined') var _HIDE_SECONDS_IN_CLOCK = false;
@@ -15,22 +17,16 @@ if(typeof(_USE_FAHRENHEIT)=='undefined') var _USE_FAHRENHEIT = false;
 if(typeof(_BACKGROUND_IMAGE)=='undefined') var _BACKGROUND_IMAGE = 'bg2.jpg';
 if(typeof(_NEWS_RSSFEED)=='undefined') var _NEWS_RSSFEED = 'http://www.nu.nl/rss/algemeen';
 if(typeof(_STANDBY_AFTER_MINUTES)=='undefined') var _STANDBY_AFTER_MINUTES = 10;
-if(typeof(_WEATHER_CITYNAME)=='undefined') var _WEATHER_CITYNAME = '';
 if(typeof(_SCROLL_NEWS_AFTER)=='undefined') var _SCROLL_NEWS_AFTER = 6500;
 if(typeof(_STREAMPLAYER_TRACKS)=='undefined') var _STREAMPLAYER_TRACKS = {"track":1,"name":"Music FM","file":"http://stream.musicfm.hu:8000/musicfm.mp3"};
 if(typeof(_USE_BEAUFORT)=='undefined') var _USE_BEAUFORT = false;
 if(typeof(_TRANSLATE_SPEED)=='undefined') var _TRANSLATE_SPEED = false;
 if(typeof(_SHOW_LASTUPDATE)=='undefined') var _SHOW_LASTUPDATE = false;
 if(typeof(_LASTUPDATE_FORMAT)=='undefined') var _LASTUPDATE_FORMAT = 'DD-MM-YY HH:mm';
-if(typeof(_DOMOTICZ_REFRESH)=='undefined') var _DOMOTICZ_REFRESH = 10;
-if(typeof(_MAPS_LATITUDE)=='undefined') var _MAPS_LATITUDE = 51;
-if(typeof(_MAPS_LONGITUDE)=='undefined') var _MAPS_LONGITUDE = 5;
-if(typeof(_MAPS_ZOOMLEVEL)=='undefined') var _MAPS_ZOOMLEVEL = 13;
 if(typeof(_SCREENSLIDER_EFFECT)=='undefined') var _SCREENSLIDER_EFFECT = 'slide';
 if(typeof(_ICALENDAR_URL)=='undefined') var _ICALENDAR_URL = '';
 if(typeof(_ICALENDAR_DATEFORMAT)=='undefined') var _ICALENDAR_DATEFORMAT = 'DD.MM.YYYY HH:mm';
 if(typeof(_ICALENDAR_LOCALE)=='undefined') var _ICALENDAR_LOCALE = 'en';
-if(typeof(_DASHTICZ_REFRESH)=='undefined') var _DASHTICZ_REFRESH = 240;
 if(typeof(_USE_STATIC_WEATHERICONS)=='undefined') var _USE_STATIC_WEATHERICONS = false;
 if(typeof(_SAVED_COLORS)=='undefined') var _SAVED_COLORS = [];
 if(typeof(_EDIT_MODE)=='undefined') var _EDIT_MODE = false;
@@ -38,7 +34,6 @@ if(typeof(_THEME)=='undefined') var _THEME = 'default';
 if(typeof(_SLIDE_PAGES)=='undefined') var _SLIDE_PAGES = false;
 if(typeof(_CLIENTID_SPOTIFY)=='undefined') var _CLIENTID_SPOTIFY = false;
 if(typeof(_HIDE_TOPBAR)=='undefined') var _HIDE_TOPBAR = false;
-if(typeof(_APP_TITLE)=='undefined') var _APP_TITLE = 'Dashticz';
 
 var _TEMP_SYMBOL = '°C';
 if(_USE_FAHRENHEIT) _TEMP_SYMBOL = '°F';
@@ -58,9 +53,10 @@ $.ajax({url: 'vendor/jquery/jquery-ui.js', async: false,dataType: "script"});
 $.ajax({url: 'vendor/jquery/touchpunch.js', async: false,dataType: "script"});
 $.ajax({url: 'vendor/bootstrap/js/bootstrap.min.js', async: false,dataType: "script"});
 $.ajax({url: 'js/functions.js?v='+cache, async: false,dataType: "script"});
-		
+$.ajax({url: 'js/settings.js', async: false,dataType: "script"});
+
 $.ajax({url: customfolder+'/CONFIG.js?v='+cache, async: false,dataType: "script"});
-$.ajax({url: 'lang/'+_LANGUAGE+'.js?v='+cache, async: false,dataType: "script"});
+$.ajax({url: 'lang/'+settings['language']+'.js?v='+cache, async: false,dataType: "script"});
 if(_THEME!=='default'){
 	$('<link rel="stylesheet" type="text/css" href="themes/'+_THEME+'/'+_THEME+'.css?v='+cache+'" />').appendTo("head");
 }
@@ -137,7 +133,7 @@ if(objectlength(screens)>1){
 $.ajax({url: 'js/switches.js', async: false,dataType: "script"});
 $.ajax({url: 'js/blocks.js', async: false,dataType: "script"});
 $.ajax({url: 'js/graphs.js', async: false,dataType: "script"});
-if(typeof(_APIKEY_MAPS)!=='undefined' && _APIKEY_MAPS!=="") $.ajax({url: 'https://maps.googleapis.com/maps/api/js?key='+_APIKEY_MAPS+'&callback=initMap', async: false,dataType: "script"});
+if(typeof(settings['gm_api'])!=='undefined' && settings['gm_api']!=="") $.ajax({url: 'https://maps.googleapis.com/maps/api/js?key='+settings['gm_api']+'&callback=initMap', async: false,dataType: "script"});
 	
 	
 $(document).ready(function(){	
@@ -159,10 +155,10 @@ $(document).ready(function(){
 	buildScreens();
 	
 	setInterval(function(){ 
-		if(_HIDE_SECONDS_IN_CLOCK==true) $('.clock').html(moment().locale(_LANGUAGE.substr(0,2)).format('HH:mm'));
-		else $('.clock').html(moment().locale(_LANGUAGE.substr(0,2)).format('HH:mm:ss'));
-		$('.date').html(moment().locale(_LANGUAGE.substr(0,2)).format('D MMMM YYYY'));
-		$('.weekday').html(moment().locale(_LANGUAGE.substr(0,2)).format('dddd'));
+		if(_HIDE_SECONDS_IN_CLOCK==true) $('.clock').html(moment().locale(settings['language'].substr(0,2)).format('HH:mm'));
+		else $('.clock').html(moment().locale(settings['language'].substr(0,2)).format('HH:mm:ss'));
+		$('.date').html(moment().locale(settings['language'].substr(0,2)).format('D MMMM YYYY'));
+		$('.weekday').html(moment().locale(settings['language'].substr(0,2)).format('dddd'));
 	},1000);
 
 	getDevices(); 	
@@ -174,11 +170,7 @@ $(document).ready(function(){
 	
 	setTimeout(function(){
 		document.location.href=document.location.href;
-	},(_DASHTICZ_REFRESH*60*1000));
-	
-	$('.colbar div.settings').on('click',function(){
-		alert('Settings screen is coming soon!');
-	});
+	},(settings['dashticz_refresh']*60*1000));
 	
 }); 
 
@@ -229,16 +221,16 @@ function buildScreens(){
 			
 		}
 		else {
-			if(!_HIDE_TOPBAR) $('body .row').append('<div class="col-sm-undefined col-xs-12 sortable colbar transbg dark"><div data-id="logo" class="logo col-xs-2">'+_APP_TITLE+'<div></div></div><div data-id="clock" class="miniclock col-xs-8 text-center"><span class="weekday"></span> <span class="date"></span> <span>&nbsp;&nbsp;&nbsp;&nbsp;</span> <span class="clock"></span></div><div data-id="settings" class="settings col-xs-2 text-right"><em class="fa fa-cog"></em><div></div></div></div>');
+			if(!_HIDE_TOPBAR) $('body .row').append('<div class="col-sm-undefined col-xs-12 sortable colbar transbg dark"><div data-id="logo" class="logo col-xs-2">'+settings['app_title']+'<div></div></div><div data-id="clock" class="miniclock col-xs-8 text-center"><span class="weekday"></span> <span class="date"></span> <span>&nbsp;&nbsp;&nbsp;&nbsp;</span> <span class="clock"></span></div><div data-id="settings" class="settings col-xs-2 text-right"><em class="fa fa-cog"></em><div></div></div></div>');
 			$('body .row').append('<div class="col-xs-5 sortable col1"><div class="auto_switches"></div><div class="auto_dimmers"></div></div>');
 			$('body .row').append('<div class="col-xs-5 sortable col2"><div class="block_weather containsweatherfull"></div><div class="auto_media"></div><div class="auto_states"></div></div>');
 			$('body .row').append('<div class="col-xs-2 sortable col3"><div class="auto_clock"></div><div class="auto_sunrise"></div><div class="auto_buttons"></div></div>');
 
 			$('.col2').prepend('<div class="mh transbg big block_currentweather_big col-xs-12 containsweather"><div class="col-xs-1"><div class="weather" id="weather"></div></div><div class="col-xs-11"><span class="title weatherdegrees" id="weatherdegrees"></span> <span class="weatherloc" id="weatherloc"></span></div></div>');
-			if(typeof(_APIKEY_WUNDERGROUND)!=='undefined' && _APIKEY_WUNDERGROUND!=="" && typeof(_WEATHER_CITY)!=='undefined' && _WEATHER_CITY!==""){
+			if(typeof(settings['wu_api'])!=='undefined' && settings['wu_api']!=="" && typeof(settings['wu_city'])!=='undefined' && settings['wu_city']!==""){
 				if(typeof(loadWeatherFull)!=='function') $.ajax({url: 'js/weather.js', async: false,dataType: "script"});
-							loadWeatherFull(_WEATHER_CITY,_WEATHER_COUNTRY,$('#weatherfull'));
-				loadWeather(_WEATHER_CITY,_WEATHER_COUNTRY);
+				loadWeatherFull(settings['wu_city'],settings['wu_country'],$('#weatherfull'));
+				loadWeather(settings['wu_city'],settings['wu_country']);
 			}
 
 			$('.col3 .auto_clock').html('<div class="transbg block_clock col-xs-12 text-center"><h1 id="clock" class="clock"></h1><h4 id="weekday" class="weekday"></h4><h4 id="date" class="date"></h4></div>');
@@ -291,7 +283,7 @@ function initMap() {
 }
 
 function showMap(mapid,map) {
-	if(typeof(_APIKEY_MAPS)=='undefined' || _APIKEY_MAPS=="") console.error('Please, set var _APIKEY_MAPS!');
+	if(typeof(settings['gm_api'])=='undefined' || settings['gm_api']=="") console.error('Please, set Google Maps API KEY!');
 	
 	
 	if(typeof(map)!=='undefined'){
@@ -302,8 +294,8 @@ function showMap(mapid,map) {
 	}
 	else {
 			var map = new google.maps.Map(document.getElementById(mapid), {
-			  zoom: parseFloat(_MAPS_ZOOMLEVEL),
-			  center: {lat: parseFloat(_MAPS_LATITUDE), lng: parseFloat(_MAPS_LONGITUDE)}
+			  zoom: parseFloat(settings['gm_zoomlevel']),
+			  center: {lat: parseFloat(settings['gm_latitude']), lng: parseFloat(settings['gm_longitude'])}
 			});
 	}
 
@@ -332,7 +324,8 @@ function setClassByTime(){
 
 	for(s in screens){
 		if(typeof(screens[s]['background_'+newClass])!=='undefined'){
-			$('.screen.screen'+s).css('background-image','url(\'img/'+screens[s]['background_'+newClass]+'\')');
+			if(screens[s]['background_'+newClass].indexOf("/")>0) $('.screen.screen'+s).css('background-image','url(\''+screens[s]['background_'+newClass]+'\')');
+			else $('.screen.screen'+s).css('background-image','url(\'img/'+screens[s]['background_'+newClass]+'\')');
 		}
 	}
 
@@ -705,7 +698,7 @@ function reloadIframe(i,image){
 
 function getMoonInfo(image){
    req = $.getJSONP({
-      url: _HOST_DOMOTICZ+"/json.htm?type=command&param=getuservariable&idx="+_IDXmoonpicture+"&jsoncallback=?",
+      url: settings['domoticz_ip']+"/json.htm?type=command&param=getuservariable&idx="+_IDXmoonpicture+"&jsoncallback=?",
       type: 'GET',async: true,contentType: "application/json",dataType: 'jsonp',
       format: "json",
       success: function(data) {
@@ -791,10 +784,10 @@ function getDevices(override){
 		if(typeof(req)!=='undefined') req.abort();
 		gettingDevices=true;
 		req = $.getJSONP({
-			url: _HOST_DOMOTICZ+'/json.htm?type=devices&filter=all&used=true&order=Name&jsoncallback=?',
+			url: settings['domoticz_ip']+'/json.htm?type=devices&filter=all&used=true&order=Name&jsoncallback=?',
 			type: 'GET',async: true,contentType: "application/json",dataType: 'jsonp',
 			error: function( jqXHR, textStatus ) {
-				console.error("Domoticz error!\nPlease, double check the path in _HOST_DOMOTICZ-variable!");
+				console.error("Domoticz error!\nPlease, double check the path in settings['domoticz_ip']-variable!");
 			},
 			success: function(data) {
 				gettingDevices = false;
@@ -1171,7 +1164,7 @@ function getDevices(override){
 											var bIsWhite = (hue.s < 20);
 											
 											sliding=true;
-											var url = _HOST_DOMOTICZ+'/json.htm?type=command&param=setcolbrightnessvalue&idx='+curidx+'&hue='+hue.h+'&brightness='+hue.b+'&iswhite='+bIsWhite;
+											var url = settings['domoticz_ip']+'/json.htm?type=command&param=setcolbrightnessvalue&idx='+curidx+'&hue='+hue.h+'&brightness='+hue.b+'&iswhite='+bIsWhite;
 											$.ajax({
 												url: url+'&jsoncallback=?',
 												type: 'GET',async: false,contentType: "application/json",dataType: 'jsonp'
@@ -1204,7 +1197,7 @@ function getDevices(override){
 											}
 										});
 									}
-									else /*if(parseFloat(device['MaxDimLevel'])==15)*/{
+									else {
 										$( ".slider"+device['idx'] ).slider({
 											value:Math.ceil((device['Level']/100)*16),
 											step: 1,
@@ -1535,11 +1528,11 @@ function getDevices(override){
 					if(typeof(afterGetDevices)=='function') afterGetDevices();
 				}
 				
-				if(typeof(_DEBUG)=='undefined' || _DEBUG===false) setTimeout(function(){ getDevices(); },(_DOMOTICZ_REFRESH*1000));
+				if(typeof(_DEBUG)=='undefined' || _DEBUG===false) setTimeout(function(){ getDevices(); },(settings['domoticz_refresh']*1000));
 			}
 		});
 	}
 	else {
-		if(typeof(_DEBUG)=='undefined' || _DEBUG===false) setTimeout(function(){ getDevices(); },(_DOMOTICZ_REFRESH*1000));
+		if(typeof(_DEBUG)=='undefined' || _DEBUG===false) setTimeout(function(){ getDevices(); },(settings['domoticz_refresh']*1000));
 	}
 }

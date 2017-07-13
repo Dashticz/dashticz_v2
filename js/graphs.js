@@ -121,7 +121,7 @@ function showGraph(idx,title,label,range,current,forced,sensor,popup){
 		if(range=='last') realrange='day';
 		
 		$.ajax({
-			url: _HOST_DOMOTICZ+'/json.htm?type=graph&sensor='+sensor+'&idx='+idx+'&range='+realrange+'&time='+new Date().getTime()+'&jsoncallback=?',
+			url: settings['domoticz_ip']+'/json.htm?type=graph&sensor='+sensor+'&idx='+idx+'&range='+realrange+'&time='+new Date().getTime()+'&jsoncallback=?',
 			type: 'GET',async: true,contentType: "application/json",dataType: 'jsonp',
 			success: function(data) {
 				if(typeof(_DEBUG)!=='undefined' && _DEBUG) data = $.parseJSON(graphexample);

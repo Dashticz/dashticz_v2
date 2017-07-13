@@ -80,14 +80,14 @@ function getBlock(cols,c,columndiv,standby){
 			else if(cols['blocks'][b]=='weather'){
 				if(typeof(loadWeatherFull)!=='function') $.ajax({url: 'js/weather.js', async: false,dataType: "script"});
 				$(columndiv).append('<div data-id="weather" class="block_'+cols['blocks'][b]+' containsweatherfull"></div>');
-				if(_APIKEY_WUNDERGROUND!=="" && _WEATHER_CITY!=="") loadWeatherFull(_WEATHER_CITY,_WEATHER_COUNTRY,$('.weatherfull'));
+				if(settings['wu_api']!=="" && settings['wu_city']!=="") loadWeatherFull(settings['wu_city'],settings['wu_country'],$('.weatherfull'));
 			}
 			else if(cols['blocks'][b]=='currentweather' || cols['blocks'][b]=='currentweather_big'){
 				if(typeof(loadWeather)!=='function') $.ajax({url: 'js/weather.js', async: false,dataType: "script"});
 				var cl = '';
 				if(cols['blocks'][b]=='currentweather_big') $(columndiv).append('<div data-id="currentweather_big" class="mh transbg big block_'+cols['blocks'][b]+' col-xs-'+width+' containsweather"><div class="col-xs-1"><div class="weather" id="weather"></div></div><div class="col-xs-11"><span class="title weatherdegrees" id="weatherdegrees"></span> <span class="weatherloc" id="weatherloc"></span></div></div>');
 				else $(columndiv).append('<div data-id="currentweather" class="mh transbg block_'+cols['blocks'][b]+' col-xs-'+width+' containsweather"><div class="col-xs-4"><div class="weather" id="weather"></div></div><div class="col-xs-8"><strong class="title weatherdegrees" id="weatherdegrees"></strong><br /><span class="weatherloc" id="weatherloc"></span></div></div>');
-				if(_APIKEY_WUNDERGROUND!=="" && _WEATHER_CITY!=="") loadWeather(_WEATHER_CITY,_WEATHER_COUNTRY);
+				if(settings['wu_api']!=="" && settings['wu_city']!=="") loadWeather(settings['wu_city'],settings['wu_country']);
 			}
 			else if(cols['blocks'][b]=='train'){
 				if(typeof(getTrainInfo)!=='function') $.ajax({url: 'js/ns.js', async: false,dataType: "script"});
@@ -117,10 +117,10 @@ function getBlock(cols,c,columndiv,standby){
 				getNews(cols['blocks'][b],blocks[cols['blocks'][b]]['feed']);
 			}
 			else if(cols['blocks'][b]=='logo'){
-				$(columndiv).append('<div data-id="logo" class="logo col-xs-'+width+'">'+_APP_TITLE+'<div>');
+				$(columndiv).append('<div data-id="logo" class="logo col-xs-'+width+'">'+settings['app_title']+'<div>');
 			}
 			else if(cols['blocks'][b]=='settings'){
-				$(columndiv).append('<div data-id="settings" class="settings col-xs-'+width+' text-right"><em class="fa fa-cog" /><div>');
+				$(columndiv).append('<div data-id="settings" class="settings settingsicon col-xs-'+width+' text-right" data-toggle="modal" data-target="#settings"><em class="fa fa-cog" /><div>');
 			}
 			else if(cols['blocks'][b]=='miniclock'){
 				$(columndiv).append('<div data-id="clock" class="miniclock col-xs-'+width+' text-center"><span class="weekday"></span> <span class="date"></span> <span>&nbsp;&nbsp;&nbsp;&nbsp;</span> <span class="clock"></span></div>');
