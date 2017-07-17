@@ -98,6 +98,29 @@ function loadTrash (random,trashobject) {
 		});
 	}
 	
+	if(service=='vianen'){
+		var url = 'https://wedevise.nl/dashticz/ical/demo/?url=https://www.vianen.nl/afval/afvalkalender/2017/' + postcode + '-' + homenumber + '.ics';
+
+		$.getJSON(url,function(data,textstatus,jqXHR){
+			respArray = data;
+			for (var i in respArray) {
+				var curr = respArray[i]['title'];
+				curr = capitalizeFirstLetter(curr.toLowerCase());
+				
+				var testDate = moment(respArray[i].startt);
+				if(testDate.isBetween(startDate, endDate, 'days', true)){
+					if(typeof(returnDates[curr])=='undefined'){
+						returnDates[curr] = {}
+					}
+					returnDates[curr][testDate.format("YYYY-MM-DD")+teller]=getTrashRow(curr,testDate,respArray[i]['title']);
+					teller++;
+				}
+			}
+			addToContainer(random,returnDates,maxitems);
+			
+		});
+	}
+	
 	if(service=='cure' || service=='cyclusnv' || service=='sudwestfryslan' || service=='alphenaandenrijn' || service=='rmn' || service=='circulusberkel' || service=='gemeenteberkelland' || service=='meerlanden' || service=='venray'){
 		$('.trash'+random+' .state').html('');
 	
