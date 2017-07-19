@@ -155,7 +155,7 @@ $(document).ready(function(){
 	setTimeout(function(){
 		document.location.href=document.location.href;
 	},(settings['dashticz_refresh']*60*1000));
-	
+		  
 }); 
 
 function toSlide(num){
