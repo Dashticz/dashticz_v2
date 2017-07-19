@@ -139,10 +139,10 @@ $(document).ready(function(){
 	buildScreens();
 	
 	setInterval(function(){ 
-		if(settings['hide_seconds']==true) $('.clock').html(moment().locale(settings['language'].substr(0,2)).format('HH:mm'));
-		else $('.clock').html(moment().locale(settings['language'].substr(0,2)).format('HH:mm:ss'));
-		$('.date').html(moment().locale(settings['language'].substr(0,2)).format('D MMMM YYYY'));
-		$('.weekday').html(moment().locale(settings['language'].substr(0,2)).format('dddd'));
+		if(settings['hide_seconds']==true) $('.clock').html(moment().locale(settings['language']).format('HH:mm'));
+		else $('.clock').html(moment().locale(settings['language']).format('HH:mm:ss'));
+		$('.date').html(moment().locale(settings['language']).format('D MMMM YYYY'));
+		$('.weekday').html(moment().locale(settings['language']).format('dddd'));
 	},1000);
 
 	getDevices(); 	
