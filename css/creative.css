@@ -24,6 +24,64 @@
     width: 100%;
     max-width: 125px;
 }
+.containslog .items {
+	height: 154px;
+    overflow: auto;
+    width: calc(100% - 40px);
+}
+
+.containslog .items .level0{ color:#c70626; }
+.containslog .items .level1{ color:#067676; }
+.containslog .items .level2{ color:#ffffff; }
+
+.containslog .items .level0.popup{ color:#c70626; }
+.containslog .items .level1.popup{ color:#067676; }
+.containslog .items .level2.popup{ color:#727272; }
+				
+				
+.containslog.popup {
+	height: 100% !important;
+	overflow:auto;
+}
+.containslog.popup .items {
+	min-height: 300px;
+}
+
+.colbar.transbg {
+    padding-left: 5px !important;
+    padding-right: 5px !important;
+	padding-top:6px !important;
+	padding-bottom:6px !important;
+}
+.colbar.transbg .logo {
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: -4px;
+    margin-bottom: -4px;
+}
+.colbar.transbg .fa.fa-cog {
+    margin-top: 0px;
+    font-size: 20px !important;
+}
+.colbar.transbg .miniclock span{
+    font-size:15px !important;
+	font-weight:bold !important;
+}
+.colbar div.settings {
+	cursor:pointer;
+}
+a.playlist {
+    margin: 5px !important;
+    display: inline-block;
+    border: 1px solid #ccc;
+}
+.containsspotify .change {
+	background-color: #282828;
+	display: block;
+	margin-top: -4px;
+	padding: 3px;
+	color: #fff;
+}
 /* Thermostat CSS: */
 
 .editmode {
@@ -297,6 +355,9 @@ select option {
 .fa.fa-fire {margin-top:5px;}
 .fa.fa-plug {margin-top:5px;}
 .fa.fa-music{margin-top:5px;}
+.fa.fa-television,
+.fa.fa-microchip{margin-left: 3px;
+    margin-top: 2px;}
 .containshorizon .fa { margin-top:8px; }
 .containsnzbget .fa { margin-top:8px; }
 .fa.fa-tint {
@@ -365,6 +426,23 @@ p {
 	padding-bottom:15px;
 	border: 7px solid rgba(255,255,255,0);
     background: rgba(0,0,0,0.2);
+    background-clip: padding-box;
+}
+
+.transbg.dark.col-xs-1,
+.transbg.dark.col-xs-2,
+.transbg.dark.col-xs-3,
+.transbg.dark.col-xs-4,
+.transbg.dark.col-xs-5,
+.transbg.dark.col-xs-6,
+.transbg.dark.col-xs-7,
+.transbg.dark.col-xs-8,
+.transbg.dark.col-xs-9,
+.transbg.dark.col-xs-10,
+.transbg.dark.col-xs-11,
+.transbg.dark.col-xs-12 {
+	border: 7px solid rgba(255,255,255,0);
+    background: rgba(0,0,0,0.5);
     background-clip: padding-box;
 }
 

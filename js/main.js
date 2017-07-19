@@ -4,16 +4,16 @@ if(typeof(dashtype)!=='undefined' && parseFloat(dashtype)>1){
 	customfolder = 'custom_'+dashtype;
 }
 
-if(typeof(_HOST_DOMOTICZ)=='undefined') var _HOST_DOMOTICZ='';
-if(typeof(_LANGUAGE)=='undefined') var _LANGUAGE='nl_NL';
-if(typeof(_USE_FAVORITES)=='undefined') var _USE_FAVORITES=false;
-if(typeof(_USE_AUTO_POSITIONING)=='undefined') var _USE_AUTO_POSITIONING=false;
-if(typeof(_HIDE_SECONDS_IN_CLOCK)=='undefined') var _HIDE_SECONDS_IN_CLOCK=false;
-if(typeof(_HIDE_SECONDS_IN_STATIONCLOCK)=='undefined') var _HIDE_SECONDS_IN_STATIONCLOCK=false;
-if(typeof(_HIDE_MEDIAPLAYER_WHEN_OFF)=='undefined') var _HIDE_MEDIAPLAYER_WHEN_OFF=false;
-if(typeof(_USE_FAHRENHEIT)=='undefined') var _USE_FAHRENHEIT=false;
-if(typeof(_BACKGROUND_IMAGE)=='undefined') var _BACKGROUND_IMAGE='bg2.jpg';
-if(typeof(_NEWS_RSSFEED)=='undefined') var _NEWS_RSSFEED			= 'http://www.nu.nl/rss/algemeen';
+if(typeof(_HOST_DOMOTICZ)=='undefined') var _HOST_DOMOTICZ = '';
+if(typeof(_LANGUAGE)=='undefined') var _LANGUAGE = 'nl_NL';
+if(typeof(_USE_FAVORITES)=='undefined') var _USE_FAVORITES = false;
+if(typeof(_USE_AUTO_POSITIONING)=='undefined') var _USE_AUTO_POSITIONING = false;
+if(typeof(_HIDE_SECONDS_IN_CLOCK)=='undefined') var _HIDE_SECONDS_IN_CLOCK = false;
+if(typeof(_HIDE_SECONDS_IN_STATIONCLOCK)=='undefined') var _HIDE_SECONDS_IN_STATIONCLOCK = false;
+if(typeof(_HIDE_MEDIAPLAYER_WHEN_OFF)=='undefined') var _HIDE_MEDIAPLAYER_WHEN_OFF = false;
+if(typeof(_USE_FAHRENHEIT)=='undefined') var _USE_FAHRENHEIT = false;
+if(typeof(_BACKGROUND_IMAGE)=='undefined') var _BACKGROUND_IMAGE = 'bg2.jpg';
+if(typeof(_NEWS_RSSFEED)=='undefined') var _NEWS_RSSFEED = 'http://www.nu.nl/rss/algemeen';
 if(typeof(_STANDBY_AFTER_MINUTES)=='undefined') var _STANDBY_AFTER_MINUTES = 10;
 if(typeof(_WEATHER_CITYNAME)=='undefined') var _WEATHER_CITYNAME = '';
 if(typeof(_SCROLL_NEWS_AFTER)=='undefined') var _SCROLL_NEWS_AFTER = 6500;
@@ -26,15 +26,19 @@ if(typeof(_DOMOTICZ_REFRESH)=='undefined') var _DOMOTICZ_REFRESH = 10;
 if(typeof(_MAPS_LATITUDE)=='undefined') var _MAPS_LATITUDE = 51;
 if(typeof(_MAPS_LONGITUDE)=='undefined') var _MAPS_LONGITUDE = 5;
 if(typeof(_MAPS_ZOOMLEVEL)=='undefined') var _MAPS_ZOOMLEVEL = 13;
-if(typeof(_SCREENSLIDER_EFFECT )=='undefined') var _SCREENSLIDER_EFFECT  = 'slide';
-if(typeof(_ICALENDAR_URL )=='undefined') var _ICALENDAR_URL  = '';
-if(typeof(_ICALENDAR_DATEFORMAT )=='undefined') var _ICALENDAR_DATEFORMAT  = 'DD.MM.YYYY HH:mm';
-if(typeof(_ICALENDAR_LOCALE )=='undefined') var _ICALENDAR_LOCALE  = 'en';
-if(typeof(_DASHTICZ_REFRESH )=='undefined') var _DASHTICZ_REFRESH  = 240;
-if(typeof(_USE_STATIC_WEATHERICONS )=='undefined') var _USE_STATIC_WEATHERICONS  = false;
-if(typeof(_SAVED_COLORS )=='undefined') var _SAVED_COLORS  = [];
-if(typeof(_EDIT_MODE )=='undefined') var _EDIT_MODE  = false;
-if(typeof(_THEME)=='undefined') var _THEME  = 'default';
+if(typeof(_SCREENSLIDER_EFFECT)=='undefined') var _SCREENSLIDER_EFFECT = 'slide';
+if(typeof(_ICALENDAR_URL)=='undefined') var _ICALENDAR_URL = '';
+if(typeof(_ICALENDAR_DATEFORMAT)=='undefined') var _ICALENDAR_DATEFORMAT = 'DD.MM.YYYY HH:mm';
+if(typeof(_ICALENDAR_LOCALE)=='undefined') var _ICALENDAR_LOCALE = 'en';
+if(typeof(_DASHTICZ_REFRESH)=='undefined') var _DASHTICZ_REFRESH = 240;
+if(typeof(_USE_STATIC_WEATHERICONS)=='undefined') var _USE_STATIC_WEATHERICONS = false;
+if(typeof(_SAVED_COLORS)=='undefined') var _SAVED_COLORS = [];
+if(typeof(_EDIT_MODE)=='undefined') var _EDIT_MODE = false;
+if(typeof(_THEME)=='undefined') var _THEME = 'default';
+if(typeof(_SLIDE_PAGES)=='undefined') var _SLIDE_PAGES = false;
+if(typeof(_CLIENTID_SPOTIFY)=='undefined') var _CLIENTID_SPOTIFY = false;
+if(typeof(_HIDE_TOPBAR)=='undefined') var _HIDE_TOPBAR = false;
+if(typeof(_APP_TITLE)=='undefined') var _APP_TITLE = 'Dashticz';
 
 var _TEMP_SYMBOL = '°C';
 if(_USE_FAHRENHEIT) _TEMP_SYMBOL = '°F';
@@ -65,7 +69,6 @@ $.ajax({url: 'vendor/raphael/raphael-min.js', async: false,dataType: "script"});
 $.ajax({url: 'vendor/morrisjs/morris.min.js', async: false,dataType: "script"});
 $.ajax({url: 'vendor/moment.js', async: false,dataType: "script"});
 $.ajax({url: 'vendor/moment-with-locales.js', async: false,dataType: "script"});
-//$.ajax({url: 'vendor/nzbget/nzbget.js', async: false,dataType: "script"});
 $.ajax({url: 'vendor/jquery.newsTicker.min.js', async: false,dataType: "script"});
 $.ajax({url: 'vendor/skycons/skycons.js', async: false,dataType: "script"});
 $.ajax({url: 'vendor/spectrum/spectrum.js', async: false,dataType: "script"});
@@ -173,6 +176,10 @@ $(document).ready(function(){
 		document.location.href=document.location.href;
 	},(_DASHTICZ_REFRESH*60*1000));
 	
+	$('.colbar div.settings').on('click',function(){
+		alert('Settings screen is coming soon!');
+	});
+	
 }); 
 
 function toSlide(num){
@@ -195,20 +202,34 @@ function buildStandby(){
 
 function buildScreens(){
 	var num=1;
-
+	
 	for(s in screens){
 		var screenhtml = '<div class="screen screen'+s+' swiper-slide slide'+s+'"';
-		if(typeof(screens[s]['background'])!=='undefined') screenhtml+='style="background-image:url(\'img/'+screens[s]['background']+'\');"';
+		if(typeof(screens[s]['background'])!=='undefined'){
+			if(screens[s]['background'].indexOf("/")>0) screenhtml+='style="background-image:url(\''+screens[s]['background']+'\');"';
+			else screenhtml+='style="background-image:url(\'img/'+screens[s]['background']+'\');"';
+		}
 		screenhtml+='><div class="row"></div></div>';
 		$('div.contents').append(screenhtml);			
 		
 		if(defaultcolumns===false){
+	
+			if(!_HIDE_TOPBAR){
+				if(typeof(columns['bar'])=='undefined'){
+					columns['bar'] = {}
+					columns['bar']['blocks'] = ['logo','miniclock','settings']
+				}
+				getBlock(columns['bar'],'bar','div.screen'+s+' .row .colbar',false);
+			}
+				
 			for(cs in screens[s]['columns']){
 				c = screens[s]['columns'][cs];
 				getBlock(columns[c],c,'div.screen'+s+' .row .col'+c,false);
 			}
+			
 		}
 		else {
+			if(!_HIDE_TOPBAR) $('body .row').append('<div class="col-sm-undefined col-xs-12 sortable colbar transbg dark"><div data-id="logo" class="logo col-xs-2">'+_APP_TITLE+'<div></div></div><div data-id="clock" class="miniclock col-xs-8 text-center"><span class="weekday"></span> <span class="date"></span> <span>&nbsp;&nbsp;&nbsp;&nbsp;</span> <span class="clock"></span></div><div data-id="settings" class="settings col-xs-2 text-right"><em class="fa fa-cog"></em><div></div></div></div>');
 			$('body .row').append('<div class="col-xs-5 sortable col1"><div class="auto_switches"></div><div class="auto_dimmers"></div></div>');
 			$('body .row').append('<div class="col-xs-5 sortable col2"><div class="block_weather containsweatherfull"></div><div class="auto_media"></div><div class="auto_states"></div></div>');
 			$('body .row').append('<div class="col-xs-2 sortable col3"><div class="auto_clock"></div><div class="auto_sunrise"></div><div class="auto_buttons"></div></div>');
@@ -311,7 +332,8 @@ function setClassByTime(){
 
 	for(s in screens){
 		if(typeof(screens[s]['background_'+newClass])!=='undefined'){
-			$('.screen.screen'+s).css('background-image','url(\'img/'+screens[s]['background_'+newClass]+'\')');
+			if(screens[s]['background_'+newClass].indexOf("/")>0) $('.screen.screen'+s).css('background-image','url(\''+screens[s]['background_'+newClass]+'\')');
+			else $('.screen.screen'+s).css('background-image','url(\'img/'+screens[s]['background_'+newClass]+'\')');
 		}
 	}
 
@@ -322,7 +344,6 @@ if(typeof(_AUTO_SWIPEBACK_TO)!=='undefined' && typeof(_AUTO_SWIPEBACK_TIME)!=='u
 	if(parseFloat(_AUTO_SWIPEBACK_TIME)>0){
 	   setInterval(function(){
 		  swipebackTime+=1000;
-		
 		 if(swipebackTime>=(_AUTO_SWIPEBACK_TIME*1000)){
 			toSlide((_AUTO_SWIPEBACK_TO-1));
 			swipebackTime=0;
@@ -520,6 +541,13 @@ function loadButton(b,button){
 		  html+='</div>';
 		html+='</div>';
 		$('body').append(html);
+		
+		if(button.log==true){
+		  if(typeof(getLog)!=='function') $.ajax({url: 'js/log.js', async: false,dataType: "script"});
+		  $('#button_'+b+'_'+random+' .modal-body').html('');
+		  getLog($('#button_'+b+'_'+random+' .modal-body'),button.level,true);
+		}
+				
 	}
 	var width = 12;
 	if(typeof(button.width)!=='undefined') width=button.width;
@@ -1119,8 +1147,8 @@ function getDevices(override){
 											html+=' / <span class="lastupdate">'+moment(device['LastUpdate']).format(_LASTUPDATE_FORMAT)+'</span>';
 										}
 										html+='<br />';
-										if(device['SubType']=='RGBW_TEMP'){
-											html+='<input type="text" class="rgbw" />';
+										if(device['SubType']=='RGBW'){
+											html+='<input type="text" class="rgbw" data-light="'+device['idx']+'" />';
 											html+='<div class="slider slider'+device['idx']+'" style="margin-left:55px;" data-light="'+device['idx']+'"></div>';
 										}
 										else {
@@ -1132,19 +1160,32 @@ function getDevices(override){
 									$('div.block_'+idx).html(html);
 									addHTML=false;
 									
-									if(device['SubType']=='RGBW_TEMP'){
+									if(device['SubType']=='RGBW'){
 										$(".rgbw").spectrum({
-											color: "#f00",
-											showPalette: true,
-											palette: [_SAVED_COLORS]
+											color: Cookies.get('rgbw_'+idx)
 										});
 										
 										$(".rgbw").on("dragstop.spectrum",function(e, color) {
-											color = color.toHexString(); // #ff0000
-											alert(color);
+											curidx=$(this).data('light');
+											color = color.toHexString();
+											Cookies.set('rgbw_'+curidx, color);
+											hue=hexToHsb(color);
+											var bIsWhite = (hue.s < 20);
+											
+											sliding=true;
+											var url = _HOST_DOMOTICZ+'/json.htm?type=command&param=setcolbrightnessvalue&idx='+curidx+'&hue='+hue.h+'&brightness='+hue.b+'&iswhite='+bIsWhite;
+											$.ajax({
+												url: url+'&jsoncallback=?',
+												type: 'GET',async: false,contentType: "application/json",dataType: 'jsonp'
+											});
 										});
 										
+										$(".rgbw").on('hide.spectrum', function(e, tinycolor) { 
+											sliding=false;
+											getDevices(true);
+										});
 									}
+
 									
 									if(parseFloat(device['MaxDimLevel'])==100){
 										$( ".slider"+device['idx'] ).slider({
@@ -1200,14 +1241,17 @@ function getDevices(override){
 
 									html+=getBlockData(device,idx,lang.state_on,lang.state_off);
 								}
-								else if(typeof(device['LevelActions'])!=='undefined' && device['LevelActions']!==""){
+								else if(typeof(device['LevelActions'])!=='undefined' && device['LevelNames']!==""){
 									var names = device['LevelNames'].split('|');
-
+									
+									var onoff='on';
+									if(device['Status']=='Off') var onoff='off';
+									
 									if(buttonimg==''){
-										html+=iconORimage(idx,'fa-lightbulb-o','','on icon');
+										html+=iconORimage(idx,'fa-lightbulb-o','',onoff+' icon');
 									}
 									else {
-										html+=iconORimage(idx,'',buttonimg+'.png','on icon');	
+										html+=iconORimage(idx,'',buttonimg+'.png',onoff+' icon');	
 									}
 
 									html+='<div class="col-xs-8 col-data">';

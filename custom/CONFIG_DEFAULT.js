@@ -1,9 +1,10 @@
 
-var _LANGUAGE 				= 'nl_NL'; //or: en_US, fr_FR, hu_HU
+var _LANGUAGE 				= 'nl_NL'; //or: de_DE, en_US, fr_FR, hu_HU, it_IT, pt_PT, sv_SE
 var _HOST_DOMOTICZ		  	= 'http://192.168.1.3:8084';
 var _DOMOTICZ_REFRESH		= 5; //in seconds
 var _DASHTICZ_REFRESH		= 30; //in minutes
 var _THEME 					= 'default'; // default = dashticz default theme
+var _APP_TITLE 				= 'Dashticz';
 /*
 IF YOU HAVE A MEDIABOX FROM ZIGGO (HORIZON), COPY SWITCH_HORIZON.PHP ON A WEBSERVER INSIDE YOUR NETWORK AND CHANGE THE IP.
 ENTER THE PATH TO THIS FILE BELOW.
@@ -17,6 +18,7 @@ var _USE_AUTO_POSITIONING 	= true; //don't want to configure positions, use auto
 var _USE_FAVORITES			= true; //only used when using auto positioning
 var _HIDE_SECONDS_IN_CLOCK  = false; //do not show the seconds in the clock
 var _HIDE_MEDIAPLAYER_WHEN_OFF = false; //when you have a mediaplayer connected, hide it if nothing is playing
+var _HIDE_TOPBAR			= false; //hide topbar with appname, clock and settings-icon
 var _NEWS_RSSFEED			= 'http://www.nu.nl/rss/algemeen';
 var _USE_FAHRENHEIT			= false;
 var _USE_BEAUFORT 			= true; //Bft instead of m/s
@@ -35,3 +37,4 @@ var _AUTO_SWIPEBACK_TO		= 1; //when no activity, swipe back to main screen after
 var _AUTO_SWIPEBACK_TIME	= 10; //seconds
 
 var _SLIDE_PAGES			= false; //Loop all pages and change page every x (min. 5) seconds, set _AUTO_SWIPEBACK_TIME = 0
+var _CLIENTID_SPOTIFY = '1112f16564cf4f4d93ccbe8b52c58a44';

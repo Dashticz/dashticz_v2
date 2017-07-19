@@ -64,3 +64,5 @@ lang['notifications_ns'] = 'messages postés par le NS';
 lang['scheduled'] = 'Prévu';
 lang['select'] = 'Sélectionnez';
 lang['value'] = 'Value';
+
+lang['spotify_select_playlist'] = 'Select playlist';
