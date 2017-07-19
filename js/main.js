@@ -156,10 +156,10 @@ $(document).ready(function(){
 	buildScreens();
 	
 	setInterval(function(){ 
-		if(_HIDE_SECONDS_IN_CLOCK==true) $('.clock').html(moment().locale(_LANGUAGE.substr(0,2)).format('HH:mm'));
-		else $('.clock').html(moment().locale(_LANGUAGE.substr(0,2)).format('HH:mm:ss'));
-		$('.date').html(moment().locale(_LANGUAGE.substr(0,2)).format('D MMMM YYYY'));
-		$('.weekday').html(moment().locale(_LANGUAGE.substr(0,2)).format('dddd'));
+		if(_HIDE_SECONDS_IN_CLOCK==true) $('.clock').html(moment().locale(_LANGUAGE).format('HH:mm'));
+		else $('.clock').html(moment().locale(_LANGUAGE).format('HH:mm:ss'));
+		$('.date').html(moment().locale(_LANGUAGE).format('D MMMM YYYY'));
+		$('.weekday').html(moment().locale(_LANGUAGE).format('dddd'));
 	},1000);
 
 	getDevices(); 	
