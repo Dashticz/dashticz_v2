@@ -875,6 +875,15 @@ fieldset[disabled] .btn-primary.active {
 .btn-xl {
   padding: 15px 30px;
 }
+.btn-group .btn {
+	font-size: 12px;
+	font-weight: 400;
+	padding:2px 6px;
+	margin-right: 2px;
+}
+.btn-group .btn.active {
+	font-weight:700;
+}
 ::-moz-selection {
   color: white;
   text-shadow: none;

@@ -834,6 +834,7 @@ function getDevices(override){
 							$('.block_graph_'+idx).length>0
 						){
 							var width=4;
+							if(device['SwitchType']=='Selector') width=8;
 							if(device['SwitchType']=='Media Player') width=12;
 							if(device['SwitchType']=='Dimmer') width=12;
 							if(typeof(blocks)!=='undefined' && typeof(blocks[idx])!=='undefined' && typeof(blocks[idx]['width'])!=='undefined') width=blocks[idx]['width'];
@@ -1255,14 +1256,15 @@ function getDevices(override){
 
 									html+='<div class="col-xs-8 col-data">';
 										html+='<strong class="title">'+device['Name']+'</strong><br />';
-										html+='<select onchange="slideDevice('+device['idx']+',this.value);">';
-										html+='<option value="">'+lang.select+'</option>';
-										for(a in names){
-											var s='';
-											if((a*10)==parseFloat(device['Level'])) s = 'selected';
-											html+='<option value="'+(a*10)+'" '+s+'>'+names[a]+'</option>';
+										html+='<div class="btn-group" data-toggle="buttons">';
+										for(a in names) {
+											var s = '';
+											if ((a * 10) == parseFloat(device['Level'])) s = 'active';
+											html+='<label class="btn btn-default '+s+'" onclick="slideDevice('+device['idx']+',$(this).children(\'input\').val());">';
+											html += '<input type="radio" name="options" autocomplete="off" value="'+(a*10)+'" checked>'+names[a];
+											html+='</label>';
 										}
-										html+='</select>';
+										html+='</div>';
 									html+='</div>';
 								}
 								else if((device['Type']=='Thermostat' || device['HardwareType']=='Toon Thermostat') && device['SubType']=='SetPoint'){
