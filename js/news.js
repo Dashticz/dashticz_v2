@@ -17,7 +17,13 @@ function getNews(divToFill,newsfeed){
 				var width=12;
 				if(typeof(blocks[divToFill])!=='undefined' && typeof(blocks[divToFill]['width'])!=='undefined') width=blocks[divToFill]['width'];
 
-				var html = '<div class="col-xs-'+width+' hover transbg"><div class="col-xs-2 col-icon"><em class="fa fa-newspaper-o"></em></div><div class="col-xs-10">';
+				var maxheight=0;
+				if(typeof(blocks[divToFill])!=='undefined' && typeof(blocks[divToFill]['maxheight'])!=='undefined') maxheight=blocks[divToFill]['maxheight'];
+				
+				var maxcss='';
+				if(maxheight>0) maxcss = ' style="max-height:'+maxheight+'px;overflow:hidden;"';
+				
+				var html = '<div class="col-xs-'+width+' hover transbg" '+maxcss+'><div class="col-xs-2 col-icon"><em class="fa fa-newspaper-o"></em></div><div class="col-xs-10">';
 				html+='<div id="rss-styled_'+divToFill+'"><ul id="newsTicker">';
 
 				$(data).find("item").each(function () { // or "item" or whatever suits your feed

@@ -1,10 +1,78 @@
 function getGraphs(device,popup){
 	var sensor='counter';
-	if(device['Type']=='Temp' || device['Type']== 'Temp + Humidity' || device['Type']== 'Temp + Humidity + Baro') sensor='temp';
+	var sensortype = device['SubType'];
+	var switchtype = device['SensorUnit'];
+	var txtLabelOrg = sensortype;
+	var txtUnit = "?";
+	
 	if(device['Type']=='Rain') sensor='rain';
 	if(device['Type']=='Wind') sensor='wind';
-	if(device['SubType']=='Percentage' || device['SubType']=='Custom Sensor') sensor='Percentage';
-	showGraph(device['idx'],device['Name'],lang['value'],'day',device['CounterToday'],false,sensor,popup);
+	if(device['SubType']=='Percentage' || device['SubType']=='Custom Sensor') {
+		sensor='Percentage';
+		txtUnit = '%';
+	}
+	if(device['Type']=='Temp' || device['Type']== 'Temp + Humidity' || device['Type']== 'Temp + Humidity + Baro') {
+		sensor = 'temp';
+		txtUnit = '°';
+	}
+	
+	if (sensortype == "Gas") {
+		txtUnit = "m3";
+	}
+	else if (sensortype == "Energy") {
+		txtUnit = "W";
+	}
+	else if (sensortype == "Custom Sensor") {
+		txtUnit = switchtype;
+		sensor = "Percentage";
+	}
+	else if (sensortype == "Visibility") {
+		txtUnit = "km";
+	}
+	else if (sensortype == "Radiation") {
+		txtUnit = "Watt/m2";
+	}
+	else if (sensortype == "Pressure") {
+		txtUnit = "Bar";
+	}
+	else if (sensortype == "Soil Moisture") {
+		txtUnit = "cb";
+	}
+	else if (sensortype == "Leaf Wetness") {
+		txtUnit = "Range";
+	}
+	else if ((sensortype == "Voltage") || (sensortype == "A/D")) {
+		txtUnit = "mV";
+	}
+	else if (sensortype == "VoltageGeneral") {
+		txtLabelOrg = "Voltage";
+		txtUnit = "V";
+	}
+	else if ((sensortype == "DistanceGeneral") || (sensortype == "Distance")) {
+		txtLabelOrg = "Distance";
+		txtUnit = "cm";
+	}
+	else if (sensortype == "Sound Level") {
+		txtUnit = "dB";
+	}
+	else if ((sensortype == "CurrentGeneral") || (sensortype == "Current")) {
+		txtLabelOrg = "Current";
+		txtUnit = "A";
+	}
+	else if (switchtype == "Weight") {
+		txtUnit = "kg";
+	}
+	else if (sensortype == "Waterflow") {
+		txtUnit = "l/min";
+		sensor = "Percentage";
+	}
+
+	var txtLabel = txtLabelOrg + " (" + txtUnit + ")";
+	if (sensortype == "Custom Sensor") {
+		txtLabel = txtUnit;
+	}
+	
+	showGraph(device['idx'],device['Name'],txtUnit,'last',device['CounterToday'],false,sensor,popup);
 }
 
 function getGraphByIDX(idx){
@@ -33,6 +101,7 @@ function getButtonGraphs(device){
 }
 
 function showGraph(idx,title,label,range,current,forced,sensor,popup){
+
 	graphColor = '#eee';
 	graphColor2 = '#eee';
 	if(typeof(popup)=='undefined') forced=false;
@@ -64,17 +133,17 @@ function showGraph(idx,title,label,range,current,forced,sensor,popup){
 				
 				var buttons ='<button type="button" class="btn btn-default ';
 				if(range=='last') buttons+='active';
-				buttons+='" onclick="showGraph('+idx+',\''+orgtitle+'\',\''+label+'\',\'last\',\''+current+'\',true,\''+sensor+'\',\''+popup+'\');">'+lang['graph_last_hours']+'</button> ';
+				buttons+='" onclick="showGraph('+idx+',\''+orgtitle+'\',\''+label+'\',\'last\',\''+current+'\',true,\''+sensor+'\','+popup+');">'+lang['graph_last_hours']+'</button> ';
 				
 				buttons+='<button type="button" class="btn btn-default ';
 				if(range=='day') buttons+='active';
-				buttons+='" onclick="showGraph('+idx+',\''+orgtitle+'\',\''+label+'\',\'day\',\''+current+'\',true,\''+sensor+'\',\''+popup+'\');">'+lang['graph_today']+'</button> ';
+				buttons+='" onclick="showGraph('+idx+',\''+orgtitle+'\',\''+label+'\',\'day\',\''+current+'\',true,\''+sensor+'\','+popup+');">'+lang['graph_today']+'</button> ';
 				
 				buttons+='<button type="button" class="btn btn-default ';
 				if(range=='month') buttons+='active';
-				buttons+='" onclick="showGraph('+idx+',\''+orgtitle+'\',\''+label+'\',\'month\',\''+current+'\',true,\''+sensor+'\',\''+popup+'\');">'+lang['graph_last_month']+'</button>';
-										
-				if(popup) var html = '<div class="graphpopup" id="graph'+idx+'">';
+				buttons+='" onclick="showGraph('+idx+',\''+orgtitle+'\',\''+label+'\',\'month\',\''+current+'\',true,\''+sensor+'\','+popup+');">'+lang['graph_last_month']+'</button>';
+		
+				if(popup==true) var html = '<div class="graphpopup" id="graph'+idx+'">';
 				else var html = '<div class="graph" id="graph'+idx+'">';
 					html+='<div class="transbg col-xs-12">';
 						html+=''+title+'<br /><div style="margin-left:15px;">'+buttons+'</div><br /><div id="graphoutput'+idx+'"></div>';
@@ -84,6 +153,7 @@ function showGraph(idx,title,label,range,current,forced,sensor,popup){
 				
 				if(data.status=="ERR") alert('Could not load graph!');
 				else {
+				
 					if($('#graph'+idx+'.graph').length>0){
 						$('#graph'+idx+'.graph').replaceWith(html);
 					}
@@ -186,7 +256,7 @@ function showGraph(idx,title,label,range,current,forced,sensor,popup){
 						}
 					}
 					
-					if($('#graphoutput'+idx+'').length>0 && typeof(data_com[0])!=='undefined'){
+					if($('#graphoutput'+idx).length>0 && typeof(data_com[0])!=='undefined'){
 						if(typeof(data_com[0]['ykey3'])!=='undefined'){
 							
 							Morris.Area({
@@ -203,7 +273,13 @@ function showGraph(idx,title,label,range,current,forced,sensor,popup){
 								pointFillColors: ['none'],
 								pointSize: 3,
 								hideHover: 'auto',
-								resize: true
+								resize: true,
+								hoverCallback: function (index, options, content, row) {
+								  row.ykey = parseFloat(row.ykey);
+								  row.ykey = row.ykey.toFixed(2);
+								  row.ykey = row.ykey.replace('.00','');
+								  return row.xkey + ": " + row.ykey+" "+label;
+								}
 							});
 						}
 						else if(typeof(data_com[0]['ykey2'])!=='undefined'){
@@ -222,7 +298,13 @@ function showGraph(idx,title,label,range,current,forced,sensor,popup){
 								pointFillColors: ['none'],
 								pointSize: 3,
 								hideHover: 'auto',
-								resize: true
+								resize: true,
+								hoverCallback: function (index, options, content, row) {
+								  row.ykey = parseFloat(row.ykey);
+								  row.ykey = row.ykey.toFixed(2);
+								  row.ykey = row.ykey.replace('.00','');
+								  return row.xkey + ": " + row.ykey+" "+label;
+								}
 							});
 						}
 						else {
@@ -240,7 +322,13 @@ function showGraph(idx,title,label,range,current,forced,sensor,popup){
 								pointFillColors: ['none'],
 								pointSize: 3,
 								hideHover: 'auto',
-								resize: true
+								resize: true,
+								hoverCallback: function (index, options, content, row) {
+								  row.ykey = parseFloat(row.ykey);
+								  row.ykey = row.ykey.toFixed(2);
+								  row.ykey = row.ykey.replace('.00','');
+								  return row.xkey + ": " + row.ykey+label;
+								}
 							});
 						}
 					}

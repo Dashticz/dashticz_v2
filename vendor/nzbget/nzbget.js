@@ -1,6 +1,21 @@
 
-function loadNZBGET(){
+var column;
+function loadNZBGET(columndiv){
+	column = columndiv;
 	if(_HOST_NZBGET!==""){
+		if($('.containsnzbget').length==0){
+			var width = 12;
+			if(typeof(blocks['nzbget'])!=='undefined' && typeof(blocks['nzbget']['width'])!=='undefined'){
+				width = blocks['nzbget']['width'];
+			}
+			var html='<div class="containsnzbget clear col-xs-'+width+'" style="display:none;">';
+				html+='<div id="downloads"></div>';
+			html+='</div>';
+			$(column).append(html);
+		}
+		
+		$('.containsnzbget #downloads').html('');
+
 		_data = {"method": "listgroups", "nocache": new Date().getTime(), "params": [100] };
 		NZBGET.rpcUrl = _HOST_NZBGET+'/jsonrpc';
 		NZBGET.call(_data,'returnNZBGET');
@@ -8,26 +23,26 @@ function loadNZBGET(){
 }
 
 function returnNZBGET(data){
-	$('.containsnzbget').remove();
-	
-	$('.column2').append('<div class="containsnzbget clear" style="display:none;"><div class="titledownloads col-md-12 transbg"><h3></h3></div><div id="downloads"></div></div>');
-	if(titles.nzbget) $('.titledownloads').find('h3').html(titles.nzbget);
-	
+	var width = 6;
+	if(typeof(blocks['nzbget'])!=='undefined' && typeof(blocks['nzbget']['downloads_width'])!=='undefined'){
+		width = blocks['nzbget']['downloads_width'];
+	}
+
 	var t=1;
 	for(d in data){
-		var html = '<div class="col-md-6 transbg">';
-			html+='<div class="col-md-12">';
+		var html = '<div class="mh transbg col-xs-'+width+'">';
+			html+='<div class="col-xs-12">';
 				html+='<strong class="title">'+data[d]['NZBName']+'</strong><br />'+data[d]['DownloadedSizeMB']+'MB / '+data[d]['FileSizeMB']+'MB';
 			html+='</div>';
 		html+='</div>';
-		$('#downloads').append(html);
+		$('.containsnzbget #downloads').append(html);
 		$('.containsnzbget').show();
 		
 		t++;
 		if(t==2) t=1;							
 	}
 	
-	setTimeout(function(){ loadNZBGET(); },5000);
+	setTimeout(function(){ loadNZBGET(column); },5000);
 }
 
 function resumepauseNZBget(id,func){

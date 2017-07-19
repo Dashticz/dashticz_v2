@@ -64,3 +64,5 @@ lang['notifications_ns'] = 'notifica aggiunta da NS';
 lang['scheduled'] = 'Programmare';
 lang['select'] = 'Seleziona';
 lang['value'] = 'Value';
+
+lang['spotify_select_playlist'] = 'Select playlist';

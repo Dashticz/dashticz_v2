@@ -64,3 +64,5 @@ lang['notifications_ns'] = 'meldingen geplaatst door de NS';
 lang['scheduled'] = 'Gepland';
 lang['select'] = 'Selecteer';
 lang['value'] = 'Waarde';
+
+lang['spotify_select_playlist'] = 'Selecteer afspeellijst';

@@ -55,9 +55,16 @@ blocktypes = getExtendedBlockTypes(blocktypes);
 
 function getBlock(cols,c,columndiv,standby){
 	if(typeof(cols)!=='undefined'){
-		if(!standby) $('div.screen'+s+' .row').append('<div class="col-sm-'+cols['width']+' col-xs-12 sortable col'+c+'"></div>');
+		var colclass='';
+		if(c=='bar') colclass='transbg dark';
+		if(!standby) $('div.screen'+s+' .row').append('<div class="col-sm-'+cols['width']+' col-xs-12 sortable col'+c+' '+colclass+'"></div>');
 		for(b in cols['blocks']){
+		
 			var width=12;
+			if(cols['blocks'][b]=='logo') width=2;
+			if(cols['blocks'][b]=='miniclock') width=8;
+			if(cols['blocks'][b]=='settings') width=2;
+			
 			if(typeof(blocks[cols['blocks'][b]])!=='undefined' && typeof(blocks[cols['blocks'][b]]['width'])!=='undefined') width = blocks[cols['blocks'][b]]['width'];
 			else if(typeof(cols['blocks'][b])!=='undefined' && typeof(cols['blocks'][b]['width'])!=='undefined') width = cols['blocks'][b]['width'];
 
@@ -109,8 +116,29 @@ function getBlock(cols,c,columndiv,standby){
 				$(columndiv).append('<div class="'+cols['blocks'][b]+'"></div>');
 				getNews(cols['blocks'][b],blocks[cols['blocks'][b]]['feed']);
 			}
+			else if(cols['blocks'][b]=='logo'){
+				$(columndiv).append('<div data-id="logo" class="logo col-xs-'+width+'">'+_APP_TITLE+'<div>');
+			}
+			else if(cols['blocks'][b]=='settings'){
+				$(columndiv).append('<div data-id="settings" class="settings col-xs-'+width+' text-right"><em class="fa fa-cog" /><div>');
+			}
+			else if(cols['blocks'][b]=='miniclock'){
+				$(columndiv).append('<div data-id="clock" class="miniclock col-xs-'+width+' text-center"><span class="weekday"></span> <span class="date"></span> <span>&nbsp;&nbsp;&nbsp;&nbsp;</span> <span class="clock"></span></div>');
+			}
 			else if(cols['blocks'][b]=='clock'){
 				$(columndiv).append('<div data-id="clock" class="transbg block_'+cols['blocks'][b]+' col-xs-'+width+' text-center"><h1 class="clock"></h1><h4 class="weekday"></h4><h4 class="date"></h4></div>');
+			}
+			else if(cols['blocks'][b]=='spotify'){
+				if(typeof(getSpotify)!=='function') $.ajax({url: 'js/spotify.js', async: false,dataType: "script"});
+				getSpotify(columndiv);		
+			}
+			else if(cols['blocks'][b]=='nzbget'){
+				if(typeof(loadNZBGET)!=='function') $.ajax({url: 'vendor/nzbget/nzbget.js', async: false,dataType: "script"});
+				loadNZBGET(columndiv);		
+			}
+			else if(cols['blocks'][b]=='log'){
+				if(typeof(getLog)!=='function') $.ajax({url: 'js/log.js', async: false,dataType: "script"});
+				getLog(columndiv);		
 			}
 			else if(cols['blocks'][b]=='stationclock'){
 				$(columndiv).append('<div data-id="clock" class="transbg block_'+cols['blocks'][b]+' col-xs-'+width+' text-center"><canvas id="clock" width="150" height="150">Your browser is unfortunately not supported.</canvas></div>');
@@ -192,6 +220,34 @@ function getBlock(cols,c,columndiv,standby){
 				if(typeof(cols['blocks'][b]['trashapp'])!=='undefined') $(columndiv).append(loadTrash(random,cols['blocks'][b]));
 				else if(typeof(cols['blocks'][b]['frameurl'])!=='undefined') $(columndiv).append(loadFrame(random,cols['blocks'][b]));
 				else if(typeof(cols['blocks'][b]['station'])!=='undefined') $(columndiv).append(loadPublicTransport(random,cols['blocks'][b]));
+				else if(typeof(cols['blocks'][b]['channels'])!=='undefined'){
+					if(typeof(addTVGuide)!=='function') $.ajax({url: 'js/tvguide.js', async: false,dataType: "script"});
+				
+					var html ='';
+					if(typeof(cols['blocks'][b]['title'])!=='undefined') html+='<div class="col-xs-'+width+' mh titlegroups transbg"><h3>'+cols['blocks'][b]['title']+'</h3></div>';
+					
+					html+='<div data-id="tvguide.'+key+'" class="col-xs-'+width+' transbg containstvguide containstvguide'+random+'">';
+					if(typeof(cols['blocks'][b]['icon'])!=='undefined' && cols['blocks'][b]['icon']!==''){
+						html+='<div class="col-xs-2 col-icon">';
+							html+='<em class="fa '+cols['blocks'][b]['icon']+'"></em>';
+						html+='</div>';
+						html+='<div class="col-xs-10 items">'+lang.loading+'</div>';
+					}
+					else if(typeof(cols['blocks'][b]['image'])!=='undefined' && cols['blocks'][b]['image']!==''){
+						html+='<div class="col-xs-2 col-icon">';
+							html+='<img src="img/'+cols['blocks'][b]['image']+'" class="icon calendar_icon" />';
+						html+='</div>';
+						html+='<div class="col-xs-10 items">'+lang.loading+'</div>';
+					}
+					else {
+						html+='<div class="col-xs-12 items">'+lang.loading+'</div>';
+					}
+					
+					html+='</div>';
+					$(columndiv).append(html);	
+					addTVGuide($('.containstvguide'+random),cols['blocks'][b]);
+
+				}
 				else if(typeof(cols['blocks'][b]['icalurl'])!=='undefined' || typeof(cols['blocks'][b]['calendars'])!=='undefined'){
 					var html ='';
 					if(typeof(cols['blocks'][b]['title'])!=='undefined') html+='<div class="col-xs-'+width+' mh titlegroups transbg"><h3>'+cols['blocks'][b]['title']+'</h3></div>';
@@ -228,6 +284,11 @@ function getBlock(cols,c,columndiv,standby){
 }
 
 function getStateBlock(id,icon,title,value,device){
+	
+	if(typeof(blocks[device['idx']])!=='undefined' && typeof(blocks[device['idx']]['unit'])!=='undefined'){
+		var unitArray = blocks[device['idx']]['unit'].split(";");
+		value = value.replace(unitArray[0], unitArray[1]);
+	}
 	
 	if(device['SubType']=='Percentage' || device['SubType']=='Custom Sensor' || device['TypeImg']=='counter' || device['Type']=='Temp' || device['Type']=='Wind' || device['Type']=='Rain' || device['Type']== 'Temp + Humidity' || device['Type']== 'Temp + Humidity + Baro'){
 		getButtonGraphs(device);
@@ -285,6 +346,11 @@ function getStatusBlock(device,block,c){
 	for(d in device) {
 		value = value.replace('<'+d+'>',device[d]);
 		title = title.replace('<'+d+'>',device[d]);
+	}
+	
+	if(typeof(blocks[device['idx']])!=='undefined' && typeof(blocks[device['idx']]['unit'])!=='undefined'){
+		var unitArray = blocks[device['idx']]['unit'].split(";");
+		value = value.replace(unitArray[0], unitArray[1]);
 	}
 						
 	if(device['SubType']=='Percentage' || device['SubType']=='Custom Sensor' || device['TypeImg']=='counter' || device['Type']=='Temp' || device['Type']=='Wind' || device['Type']=='Rain' || device['Type']== 'Temp + Humidity' || device['Type']== 'Temp + Humidity + Baro'){
