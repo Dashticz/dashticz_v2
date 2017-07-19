@@ -8,35 +8,19 @@ if(typeof(dashtype)!=='undefined' && parseFloat(dashtype)>1){
 	customfolder = 'custom_'+dashtype;
 }
 
-if(typeof(_USE_FAVORITES)=='undefined') var _USE_FAVORITES = false;
-if(typeof(_USE_AUTO_POSITIONING)=='undefined') var _USE_AUTO_POSITIONING = false;
-if(typeof(_HIDE_SECONDS_IN_CLOCK)=='undefined') var _HIDE_SECONDS_IN_CLOCK = false;
-if(typeof(_HIDE_SECONDS_IN_STATIONCLOCK)=='undefined') var _HIDE_SECONDS_IN_STATIONCLOCK = false;
-if(typeof(_HIDE_MEDIAPLAYER_WHEN_OFF)=='undefined') var _HIDE_MEDIAPLAYER_WHEN_OFF = false;
-if(typeof(_USE_FAHRENHEIT)=='undefined') var _USE_FAHRENHEIT = false;
 if(typeof(_BACKGROUND_IMAGE)=='undefined') var _BACKGROUND_IMAGE = 'bg2.jpg';
 if(typeof(_NEWS_RSSFEED)=='undefined') var _NEWS_RSSFEED = 'http://www.nu.nl/rss/algemeen';
-if(typeof(_STANDBY_AFTER_MINUTES)=='undefined') var _STANDBY_AFTER_MINUTES = 10;
 if(typeof(_SCROLL_NEWS_AFTER)=='undefined') var _SCROLL_NEWS_AFTER = 6500;
 if(typeof(_STREAMPLAYER_TRACKS)=='undefined') var _STREAMPLAYER_TRACKS = {"track":1,"name":"Music FM","file":"http://stream.musicfm.hu:8000/musicfm.mp3"};
-if(typeof(_USE_BEAUFORT)=='undefined') var _USE_BEAUFORT = false;
 if(typeof(_TRANSLATE_SPEED)=='undefined') var _TRANSLATE_SPEED = false;
 if(typeof(_SHOW_LASTUPDATE)=='undefined') var _SHOW_LASTUPDATE = false;
 if(typeof(_LASTUPDATE_FORMAT)=='undefined') var _LASTUPDATE_FORMAT = 'DD-MM-YY HH:mm';
-if(typeof(_SCREENSLIDER_EFFECT)=='undefined') var _SCREENSLIDER_EFFECT = 'slide';
 if(typeof(_ICALENDAR_URL)=='undefined') var _ICALENDAR_URL = '';
 if(typeof(_ICALENDAR_DATEFORMAT)=='undefined') var _ICALENDAR_DATEFORMAT = 'DD.MM.YYYY HH:mm';
 if(typeof(_ICALENDAR_LOCALE)=='undefined') var _ICALENDAR_LOCALE = 'en';
 if(typeof(_USE_STATIC_WEATHERICONS)=='undefined') var _USE_STATIC_WEATHERICONS = false;
-if(typeof(_SAVED_COLORS)=='undefined') var _SAVED_COLORS = [];
 if(typeof(_EDIT_MODE)=='undefined') var _EDIT_MODE = false;
 if(typeof(_THEME)=='undefined') var _THEME = 'default';
-if(typeof(_SLIDE_PAGES)=='undefined') var _SLIDE_PAGES = false;
-if(typeof(_CLIENTID_SPOTIFY)=='undefined') var _CLIENTID_SPOTIFY = false;
-if(typeof(_HIDE_TOPBAR)=='undefined') var _HIDE_TOPBAR = false;
-
-var _TEMP_SYMBOL = '°C';
-if(_USE_FAHRENHEIT) _TEMP_SYMBOL = '°F';
 
 var cache = new Date().getTime();
 $('<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">').appendTo("head");
@@ -155,7 +139,7 @@ $(document).ready(function(){
 	buildScreens();
 	
 	setInterval(function(){ 
-		if(_HIDE_SECONDS_IN_CLOCK==true) $('.clock').html(moment().locale(settings['language'].substr(0,2)).format('HH:mm'));
+		if(settings['hide_seconds']==true) $('.clock').html(moment().locale(settings['language'].substr(0,2)).format('HH:mm'));
 		else $('.clock').html(moment().locale(settings['language'].substr(0,2)).format('HH:mm:ss'));
 		$('.date').html(moment().locale(settings['language'].substr(0,2)).format('D MMMM YYYY'));
 		$('.weekday').html(moment().locale(settings['language'].substr(0,2)).format('dddd'));
@@ -206,7 +190,7 @@ function buildScreens(){
 		
 		if(defaultcolumns===false){
 	
-			if(!_HIDE_TOPBAR){
+			if(!settings['hide_topbar']){
 				if(typeof(columns['bar'])=='undefined'){
 					columns['bar'] = {}
 					columns['bar']['blocks'] = ['logo','miniclock','settings']
@@ -221,7 +205,7 @@ function buildScreens(){
 			
 		}
 		else {
-			if(!_HIDE_TOPBAR) $('body .row').append('<div class="col-sm-undefined col-xs-12 sortable colbar transbg dark"><div data-id="logo" class="logo col-xs-2">'+settings['app_title']+'<div></div></div><div data-id="clock" class="miniclock col-xs-8 text-center"><span class="weekday"></span> <span class="date"></span> <span>&nbsp;&nbsp;&nbsp;&nbsp;</span> <span class="clock"></span></div><div data-id="settings" class="settings col-xs-2 text-right"><em class="fa fa-cog"></em><div></div></div></div>');
+			if(!settings['hide_topbar']) $('body .row').append('<div class="col-sm-undefined col-xs-12 sortable colbar transbg dark"><div data-id="logo" class="logo col-xs-2">'+settings['app_title']+'<div></div></div><div data-id="clock" class="miniclock col-xs-8 text-center"><span class="weekday"></span> <span class="date"></span> <span>&nbsp;&nbsp;&nbsp;&nbsp;</span> <span class="clock"></span></div><div data-id="settings" class="settings col-xs-2 text-right"><em class="fa fa-cog"></em><div></div></div></div>');
 			$('body .row').append('<div class="col-xs-5 sortable col1"><div class="auto_switches"></div><div class="auto_dimmers"></div></div>');
 			$('body .row').append('<div class="col-xs-5 sortable col2"><div class="block_weather containsweatherfull"></div><div class="auto_media"></div><div class="auto_states"></div></div>');
 			$('body .row').append('<div class="col-xs-2 sortable col3"><div class="auto_clock"></div><div class="auto_sunrise"></div><div class="auto_buttons"></div></div>');
@@ -263,7 +247,7 @@ function startSwiper(){
 					pagination: '.swiper-pagination',
 					paginationClickable: true,
 					loop: false,
-					effect: _SCREENSLIDER_EFFECT,
+					effect: settings['slide_effect'],
 					keyboardControl:true
 				});
 			},2000);
@@ -332,12 +316,12 @@ function setClassByTime(){
 	$('body').removeClass('morning noon afternoon night').addClass(newClass);
 }
 
-if(typeof(_AUTO_SWIPEBACK_TO)!=='undefined' && typeof(_AUTO_SWIPEBACK_TIME)!=='undefined'){
-	if(parseFloat(_AUTO_SWIPEBACK_TIME)>0){
+if(typeof(settings['auto_swipe_back_to'])!=='undefined' && typeof(settings['auto_swipe_back_after'])!=='undefined'){
+	if(parseFloat(settings['auto_swipe_back_after'])>0){
 	   setInterval(function(){
 		  swipebackTime+=1000;
-		 if(swipebackTime>=(_AUTO_SWIPEBACK_TIME*1000)){
-			toSlide((_AUTO_SWIPEBACK_TO-1));
+		 if(swipebackTime>=(settings['auto_swipe_back_after']*1000)){
+			toSlide((settings['auto_swipe_back_to']-1));
 			swipebackTime=0;
 		 }
 	   },1000);
@@ -346,7 +330,7 @@ if(typeof(_AUTO_SWIPEBACK_TO)!=='undefined' && typeof(_AUTO_SWIPEBACK_TIME)!=='u
 }
 
 //Loop through pages
-if(_SLIDE_PAGES != false && (_AUTO_SWIPEBACK_TIME == 0  || typeof(_AUTO_SWIPEBACK_TIME)== 'undefined') && _SLIDE_PAGES > 4){
+if((settings['auto_swipe_back_after'] == 0  || typeof(settings['auto_swipe_back_after'])== 'undefined') && parseFloat(settings['auto_slide_pages']) > 0){
 	var nextSlide = 1;
 	setInterval(function(){
 		toSlide(nextSlide);
@@ -354,7 +338,7 @@ if(_SLIDE_PAGES != false && (_AUTO_SWIPEBACK_TIME == 0  || typeof(_AUTO_SWIPEBAC
 		if(nextSlide > myswiper.slides.length-1){
 			nextSlide = 0;
 		}
-	},(_SLIDE_PAGES * 1000));
+	},(parseFloat(settings['auto_slide_pages']) * 1000));
 }
 
 if(!isMobile){
@@ -373,11 +357,11 @@ $('body').bind('touchend click', function(e){
 	},100);
 });
 
-if(parseFloat(_STANDBY_AFTER_MINUTES)>0){
+if(parseFloat(settings['standby_after'])>0){
    setInterval(function(){
 	  standbyTime+=5000;
       if(standbyActive!=true){
-         if(standbyTime>=((_STANDBY_AFTER_MINUTES*1000)*60)){
+         if(standbyTime>=((settings['standby_after']*1000)*60)){
             $('body').addClass('standby');
 			$('.swiper-container').hide();
 			if(objectlength(columns_standby)>0) buildStandby();
@@ -547,7 +531,12 @@ function loadButton(b,button){
 	var key = 'UNKNOWN';
 	if(typeof(button.key)!=='undefined') key=button.key;
 	
-	var html='<div class="col-xs-'+width+' hover transbg" data-id="buttons.'+key+'" data-toggle="modal" data-target="#button_'+b+'_'+random+'" onclick="setSrc(this);">';
+	if(typeof(button.newwindow)!=='undefined'){
+		var html='<div class="col-xs-'+width+' hover transbg" data-id="buttons.'+key+'" onclick="window.open(\''+button.url+'\')">';
+	}
+	else {
+		var html='<div class="col-xs-'+width+' hover transbg" data-id="buttons.'+key+'" data-toggle="modal" data-target="#button_'+b+'_'+random+'" onclick="setSrc(this);">';
+	}
 		html+='<div class="col-xs-4 col-icon">';
 			if(typeof(button.image)!=='undefined') html+='<img class="buttonimg" src="'+button.image+'" />';
 			else html+='<em class="fa '+button.icon+' fa-small"></em>';
@@ -813,17 +802,23 @@ function getDevices(override){
 						
 						if(
 							(
-								_USE_AUTO_POSITIONING==true && 
+								settings['auto_positioning']==1 && 
 								(
-									(_USE_FAVORITES==true && device['Favorite']==1) || 
-									_USE_FAVORITES===false
+									(settings['use_favorites']==1 && device['Favorite']==1) || 
+									settings['use_favorites']==0
 								)
-							) ||
-							$('.block_'+idx).length>0 ||
-							$('.block_'+idx+'_1').length>0 ||
-							$('.block_'+idx+'_2').length>0 ||
-							$('.block_'+idx+'_3').length>0 ||
-							$('.block_graph_'+idx).length>0
+							) || 
+							(
+								settings['auto_positioning']==0 && 
+								(
+
+									$('.block_'+idx).length>0 ||
+									$('.block_'+idx+'_1').length>0 ||
+									$('.block_'+idx+'_2').length>0 ||
+									$('.block_'+idx+'_3').length>0 ||
+									$('.block_graph_'+idx).length>0
+								)
+							)
 						){
 							var width=4;
 							if(device['SwitchType']=='Media Player') width=12;
@@ -954,7 +949,7 @@ function getDevices(override){
 									html+='<strong class="title">'+device['Name']+'</strong><br />';
 									if(device['Data']==''){
 										device['Data']=lang.mediaplayer_nothing_playing;
-										if(_HIDE_MEDIAPLAYER_WHEN_OFF) $('div.block_'+idx).hide();
+										if(settings['hide_mediaplayer']) $('div.block_'+idx).hide();
 									}
 									else {
 										$('div.block_'+idx).show();
@@ -988,6 +983,63 @@ function getDevices(override){
 										var title=lang.energy_usagetoday;
 										if(typeof(blocks[idx+'_2'])!=='undefined' && typeof(blocks[idx+'_2']['title'])!=='undefined') title=blocks[idx+'_2']['title'];
 										html = getStateBlock(device['idx']+'sub2','fa fa-plug',title,device['CounterToday'],device);
+										if(typeof(allblocks[idx])!=='undefined' && $('div.block_'+idx+'_2').length==0) var duplicate = $('div.block_'+idx+'_1').last().clone().removeClass('block_'+idx+'_1').addClass('block_'+idx+'_2').insertAfter($('div.block_'+idx+'_1'));
+										$('div.block_'+idx+'_2').html(html);
+										addHTML=false;
+										
+										triggerStatus(idx+'_3',device['LastUpdate'],device);
+										triggerChange(idx+'_3',device['LastUpdate'],device);
+
+										var title=lang.energy_totals;
+										if(typeof(blocks[idx+'_3'])!=='undefined' && typeof(blocks[idx+'_3']['title'])!=='undefined') title=blocks[idx+'_3']['title'];
+										html = getStateBlock(device['idx']+'sub3','fa fa-plug',title,device['Counter']+' kWh',device);
+										if(typeof(allblocks[idx])!=='undefined' && $('div.block_'+idx+'_3').length==0) var duplicate = $('div.block_'+idx+'_2').last().clone().removeClass('block_'+idx+'_2').addClass('block_'+idx+'_3').insertAfter($('div.block_'+idx+'_2'));
+										$('div.block_'+idx+'_3').html(html);
+										addHTML=false;
+
+										if(parseFloat(device['CounterDeliv'])>0){
+											triggerStatus(idx+'_4',device['LastUpdate'],device);
+											triggerChange(idx+'_4',device['LastUpdate'],device);
+							
+											var title=lang.energy_delivered;
+											if(typeof(blocks[idx+'_4'])!=='undefined' && typeof(blocks[idx+'_4']['title'])!=='undefined') title=blocks[idx+'_4']['title'];
+											html = getStateBlock(device['idx']+'sub4','fa fa-plug',title,device['CounterDeliv']+' kWh',device);
+											if(typeof(allblocks[idx])!=='undefined' && $('div.block_'+idx+'_4').length==0) var duplicate = $('div.block_'+idx+'_3').last().clone().removeClass('block_'+idx+'_3').addClass('block_'+idx+'_4').insertAfter($('div.block_'+idx+'_3'));
+											$('div.block_'+idx+'_3').html(html);
+											addHTML=false;
+
+											triggerStatus(idx+'_5',device['LastUpdate'],device);
+											triggerChange(idx+'_5',device['LastUpdate'],device);
+							
+											var title=lang.energy_deliveredtoday;
+											if(typeof(blocks[idx+'_5'])!=='undefined' && typeof(blocks[idx+'_5']['title'])!=='undefined') title=blocks[idx+'_5']['title'];
+											html = getStateBlock(device['idx']+'sub5','fa fa-plug',title,device['CounterDelivToday'],device);
+											if(typeof(allblocks[idx])!=='undefined' && $('div.block_'+idx+'_5').length==0) var duplicate = $('div.block_'+idx+'_4').last().clone().removeClass('block_'+idx+'_4').addClass('block_'+idx+'_5').insertAfter($('div.block_'+idx+'_4'));
+											$('div.block_'+idx+'_5').html(html);
+											addHTML=false;
+										}
+									}
+									if(device['Type']=='P1 Smart Meter' && device['SubType']=='Gas'){
+										if($('div.block_'+idx).length>0){
+											allblocks[idx] = true;
+										}
+
+										triggerStatus(idx+'_1',device['LastUpdate'],device);
+										triggerChange(idx+'_1',device['LastUpdate'],device);
+							
+										var title=lang.gas_usagetoday;
+										if(typeof(blocks[idx+'_1'])!=='undefined' && typeof(blocks[idx+'_1']['title'])!=='undefined') title=blocks[idx+'_1']['title'];
+										html+= getStateBlock(device['idx']+'sub1','fa fa-fire',title,device['CounterToday'],device);
+										if(!$('div.block_'+idx).hasClass('block_'+idx+'_1')) $('div.block_'+idx).addClass('block_'+idx+'_1');
+										$('div.block_'+idx+'_1').html(html);
+										addHTML=false;
+
+										triggerStatus(idx+'_2',device['LastUpdate'],device);
+										triggerChange(idx+'_2',device['LastUpdate'],device);
+							
+										var title=lang.gas_usage;
+										if(typeof(blocks[idx+'_2'])!=='undefined' && typeof(blocks[idx+'_2']['title'])!=='undefined') title=blocks[idx+'_2']['title'];
+										html = getStateBlock(device['idx']+'sub2','fa fa-fire',title,device['Counter']+' m3',device);
 										if(typeof(allblocks[idx])!=='undefined' && $('div.block_'+idx+'_2').length==0) var duplicate = $('div.block_'+idx+'_1').last().clone().removeClass('block_'+idx+'_1').addClass('block_'+idx+'_2').insertAfter($('div.block_'+idx+'_1'));
 										$('div.block_'+idx+'_2').html(html);
 										addHTML=false;

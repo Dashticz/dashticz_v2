@@ -35,7 +35,10 @@ lang['energy_total'] = 'totaal';
 lang['energy_now'] = 'nu';
 lang['energy_today'] = 'vandaag';
 lang['gas_usagetoday'] = 'Gas vandaag';
+lang['gas_usage'] = 'Gas totaal';
 lang['temp_toon'] = 'Woonkamer';
+lang['energy_delivered'] = 'Geleverd';
+lang['energy_deliveredtoday'] = 'Geleverd vandaag';
 
 // Wind
 lang['wind'] = 'Kracht';

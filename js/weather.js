@@ -16,7 +16,7 @@ function loadWeather(location,country) {
 					currentweather = weather.current_observation;
 					var wiclass= getIcon(currentweather.icon);
 					var temp = currentweather.temp_c;
-					if(_USE_FAHRENHEIT) temp = currentweather.temp_f;
+					if(settings['use_fahrenheit']) temp = currentweather.temp_f;
 
 					if(_USE_STATIC_WEATHERICONS){
 						html += '<h2><span>'+Math.round(temp)+_TEMP_SYMBOL+'</span> <i class="wi '+wiclass+'"></i></h2>';
@@ -37,7 +37,7 @@ function loadWeather(location,country) {
 					if(typeof(currentweather.wind_dir)!=='undefined'){
 						attr+=' style="-webkit-transform: rotate('+currentweather.wind_degrees+'deg);-moz-transform: rotate('+currentweather.wind_degrees+'deg);-ms-transform: rotate('+currentweather.wind_degrees+'deg);-o-transform: rotate('+currentweather.wind_degrees+'deg); transform: rotate('+currentweather.wind_degrees+'deg);"';
 						//start alteration
-						if (_USE_BEAUFORT ==true){
+						if (settings['use_beaufort'] ==true){
 							wind = Beaufort(currentweather.wind_kph)+', '; 
 						} else {
 							wind = currentweather.wind_kph+' km/u, '; 
@@ -103,7 +103,7 @@ function loadWeatherFull(location,country) {
 						var wiclass = getIcon(curfor.icon);
 						var lowtemp = curfor.low.celsius
 						var hightemp = curfor.high.celsius;
-						if(_USE_FAHRENHEIT){
+						if(settings['use_fahrenheit']){
 							var lowtemp = curfor.low.fahrenheit
 							var hightemp = curfor.high.fahrenheit;
 						} 

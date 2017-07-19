@@ -5,7 +5,6 @@ blocktypes.SubType['Visibility'] = { icon: 'fa fa-eye', title: '<Name>', value: 
 blocktypes.SubType['Electric'] = { icon: 'fa fa-plug', title: '<Name>', value: '<Data>' }
 blocktypes.SubType['Lux'] = { icon: 'fa fa-sun-o', title: '<Name>', value: '<Data>' }
 blocktypes.SubType['Barometer'] = { icon: 'wi wi-barometer', title: '<Name>', value: '<Data>' }
-blocktypes.SubType['Gas'] = { icon: 'fa fa-fire', title: lang.gas_usagetoday, value: '<CounterToday>' }
 blocktypes.SubType['Sound Level'] = { icon: 'fa fa-volume-up', title: '<Name>', value: '<Data>' }
 blocktypes.SubType['Distance'] = { icon: 'fa fa-eye', title: '<Name>', value: '<Data>' }
 blocktypes.SubType['Alert'] = { icon: 'fa fa-warning', title: '<Data>', value: '<Name>' }
@@ -145,21 +144,21 @@ function getBlock(cols,c,columndiv,standby){
 				if(typeof(StationClock)!=='function') $.ajax({url: 'vendor/stationclock.js', async: false,dataType: "script"});
 				
 				var clock = new StationClock("clock");
-				  clock.body = StationClock.RoundBody;
-				  clock.dial = StationClock.GermanStrokeDial;
-				  clock.hourHand = StationClock.PointedHourHand;
-				  clock.minuteHand = StationClock.PointedMinuteHand;
-				  if(_HIDE_SECONDS_IN_STATIONCLOCK==true)  clock.secondHand = false;
-				 else {
-						  clock.secondHand = StationClock.HoleShapedSecondHand;
-						if(typeof(_CLOCK_BOSS)=='undefined') clock.boss = StationClock.NoBoss;
-						else if(_CLOCK_BOSS=='RedBoss') clock.boss = StationClock.RedBoss;
-					}
-				
-				  clock.minuteHandBehavoir = StationClock.BouncingMinuteHand;
-				  clock.secondHandBehavoir = StationClock.OverhastySecondHand;
+				clock.body = StationClock.RoundBody;
+				clock.dial = StationClock.GermanStrokeDial;
+				clock.hourHand = StationClock.PointedHourHand;
+				clock.minuteHand = StationClock.PointedMinuteHand;
+				if(settings['hide_seconds_stationclock']==true)  clock.secondHand = false;
+				else {
+					clock.secondHand = StationClock.HoleShapedSecondHand;
+					if(typeof(settings['boss_stationclock'])=='undefined') clock.boss = StationClock.NoBoss;
+					else if(settings['boss_stationclock']=='RedBoss') clock.boss = StationClock.RedBoss;
+				}
 
-				  window.setInterval(function() { clock.draw() }, 50);
+				clock.minuteHandBehavoir = StationClock.BouncingMinuteHand;
+				clock.secondHandBehavoir = StationClock.OverhastySecondHand;
+
+				window.setInterval(function() { clock.draw() }, 50);
 			}
 			else if(cols['blocks'][b]=='sunrise'){
 				$(columndiv).append('<div data-id="sunrise" class="block_'+cols['blocks'][b]+' col-xs-'+width+' transbg text-center sunriseholder"><em class="wi wi-sunrise"></em><span class="sunrise"></span><em class="wi wi-sunset"></em><span class="sunset"></span></div>');
@@ -377,7 +376,7 @@ function getStatusBlock(device,block,c){
 	if(typeof(device['Direction'])!=='undefined' && typeof(device['DirectionStr'])!=='undefined'){
 		attr+=' style="-webkit-transform: rotate('+device['Direction']+'deg);-moz-transform: rotate('+device['Direction']+'deg);-ms-transform: rotate('+device['Direction']+'deg);-o-transform: rotate('+device['Direction']+'deg); transform: rotate('+device['Direction']+'deg);"';
 		//start alteration
-		if (_USE_BEAUFORT ==true){
+		if (settings['use_beaufort'] ==true){
 			value = Beaufort(device['Speed'])+', '; 
 		} else {
 			value = device['Speed']+' m/s, '; 

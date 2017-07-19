@@ -142,7 +142,7 @@ function slideDevice(idx,status){
 }
 
 function ziggoRemote(key){
-	$.get(_HOST_ZIGGO_HORIZON+'?key='+key);
+	$.get(settings['switch_horizon']+'?key='+key);
 }
 
 function controlLogitech(idx,action){
