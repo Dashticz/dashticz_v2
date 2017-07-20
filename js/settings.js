@@ -72,6 +72,10 @@ settingList['general']['slide_effect']['options']['cube'] = 'cube';
 settingList['general']['slide_effect']['options']['coverflow'] = 'coverflow';
 settingList['general']['slide_effect']['options']['flip'] = 'flip';
 
+settingList['general']['selector_instead_of_buttons'] = {}
+settingList['general']['selector_instead_of_buttons']['title'] = 'Selector instead of buttons';
+settingList['general']['selector_instead_of_buttons']['type'] = 'checkbox';
+
 settingList['general']['hide_mediaplayer'] = {}
 settingList['general']['hide_mediaplayer']['title'] = 'Hide mediaplayer when it\'s off';
 settingList['general']['hide_mediaplayer']['type'] = 'checkbox';
@@ -176,6 +180,7 @@ if(typeof(settings['hide_mediaplayer'])=='undefined' || settings['hide_mediaplay
 if(typeof(settings['auto_swipe_back_to'])=='undefined') settings['auto_swipe_back_to'] = 1;
 if(typeof(settings['auto_swipe_back_after'])=='undefined') settings['auto_swipe_back_after'] = 10;
 if(typeof(settings['standby_after'])=='undefined' || settings['standby_after']==0) settings['standby_after'] = false;
+if(typeof(settings['selector_instead_of_buttons'])=='undefined' || settings['selector_instead_of_buttons']==0) settings['selector_instead_of_buttons'] = false;
 
 var _TEMP_SYMBOL = '°C';
 if(settings['use_fahrenheit']) _TEMP_SYMBOL = '°F';

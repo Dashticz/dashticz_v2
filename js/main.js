@@ -1298,19 +1298,35 @@ function getDevices(override){
 										html+=iconORimage(idx,'',buttonimg+'.png',onoff+' icon');	
 									}
 
-									html+='<div class="col-xs-8 col-data">';
-										html+='<strong class="title">'+device['Name']+'</strong><br />';
-										html+='<div class="btn-group" data-toggle="buttons">';
-										for(a in names) {
-											var s = '';
-											if ((a * 10) == parseFloat(device['Level'])) s = 'active';
-											html+='<label class="btn btn-default '+s+'" onclick="slideDevice('+device['idx']+',$(this).children(\'input\').val());">';
-											html += '<input type="radio" name="options" autocomplete="off" value="'+(a*10)+'" checked>'+names[a];
-											html+='</label>';
-										}
-										html+='</select>';
+									if(settings['selector_instead_of_buttons']==true){
+										html+='<div class="col-xs-8 col-data">';
+											html+='<strong class="title">'+device['Name']+'</strong><br />';
+											html+='<select onchange="slideDevice('+device['idx']+',this.value);">';
+											html+='<option value="">'+lang.select+'</option>';
+											for(a in names){
+												var s='';
+												if((a*10)==parseFloat(device['Level'])) s = 'selected';
+												html+='<option value="'+(a*10)+'" '+s+'>'+names[a]+'</option>';
+											}
+											html+='</select>';
 										html+='</div>';
-									html+='</div>';
+									}
+									else {
+										html+='<div class="col-xs-8 col-data">';
+											html+='<strong class="title">'+device['Name']+'</strong><br />';
+											html+='<div class="btn-group" data-toggle="buttons">';
+											for(a in names) {
+												var s = '';
+												if ((a * 10) == parseFloat(device['Level'])) s = 'active';
+												html+='<label class="btn btn-default '+s+'" onclick="slideDevice('+device['idx']+',$(this).children(\'input\').val());">';
+												html += '<input type="radio" name="options" autocomplete="off" value="'+(a*10)+'" checked>'+names[a];
+												html+='</label>';
+											}
+											html+='</select>';
+											html+='</div>';
+										html+='</div>';
+									}
+									
 								}
 								else if((device['Type']=='Thermostat' || device['HardwareType']=='Toon Thermostat') && device['SubType']=='SetPoint'){
 									
