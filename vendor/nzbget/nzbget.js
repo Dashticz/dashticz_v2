@@ -14,7 +14,7 @@ function loadNZBGET(columndiv){
 			$(column).append(html);
 		}
 		
-		$('.containsnzbget #downloads').html('');
+		//$('.containsnzbget #downloads').html('');
 
 		_data = {"method": "listgroups", "nocache": new Date().getTime(), "params": [100] };
 		NZBGET.rpcUrl = _HOST_NZBGET+'/jsonrpc';
@@ -30,12 +30,17 @@ function returnNZBGET(data){
 
 	var t=1;
 	for(d in data){
-		var html = '<div class="mh transbg col-xs-'+width+'">';
+		var html = '<div class="mh transbg col-xs-'+width+' nzbget'+data[d]['FirstID']+'">';
 			html+='<div class="col-xs-12">';
 				html+='<strong class="title">'+data[d]['NZBName']+'</strong><br />'+data[d]['DownloadedSizeMB']+'MB / '+data[d]['FileSizeMB']+'MB';
 			html+='</div>';
 		html+='</div>';
-		$('.containsnzbget #downloads').append(html);
+		if($('.containsnzbget #downloads .nzbget'+data[d]['FirstID']).length>0){
+			$('.containsnzbget #downloads .nzbget'+data[d]['FirstID']).replaceWith(html);
+		}
+		else {
+			$('.containsnzbget #downloads').append(html);
+		}
 		$('.containsnzbget').show();
 		
 		t++;
