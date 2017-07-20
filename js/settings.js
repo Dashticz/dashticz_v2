@@ -188,10 +188,7 @@ $(document).ready(function(){
 	var html = '<div class="modal fade" id="settings" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
 	  html+='<div class="modal-dialog modal-dialog-settings">';
 		html+='<div class="modal-content">';
-		  html+='<div class="modal-header">';
-			html+='<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
-		  html+='</div>';
-		  html+='<div class="modal-body">';
+		  html+='<div class="modal-body"><br />';
 			html+='<div class="row">';
 			
 			
