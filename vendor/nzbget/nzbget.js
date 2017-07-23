@@ -2,7 +2,7 @@
 var column;
 function loadNZBGET(columndiv){
 	column = columndiv;
-	if(_HOST_NZBGET!==""){
+	if(settings['host_nzbget']!==""){
 		if($('.containsnzbget').length==0){
 			var width = 12;
 			if(typeof(blocks['nzbget'])!=='undefined' && typeof(blocks['nzbget']['width'])!=='undefined'){
@@ -17,7 +17,7 @@ function loadNZBGET(columndiv){
 		//$('.containsnzbget #downloads').html('');
 
 		_data = {"method": "listgroups", "nocache": new Date().getTime(), "params": [100] };
-		NZBGET.rpcUrl = _HOST_NZBGET+'/jsonrpc';
+		NZBGET.rpcUrl = settings['host_nzbget']+'/jsonrpc';
 		NZBGET.call(_data,'returnNZBGET');
 	}
 }
@@ -52,7 +52,7 @@ function returnNZBGET(data){
 
 function resumepauseNZBget(id,func){
 	_data = {"method": "editqueue", "nocache": new Date().getTime(), "params": [func, 0, "", [id]] };
-	NZBGET.rpcUrl = _HOST_NZBGET+'/jsonrpc';
+	NZBGET.rpcUrl = settings['host_nzbget']+'/jsonrpc';
 	NZBGET.call(_data,'');
 	$('#nzbget-'+id+' .details.pause,#nzbget-'+id+' .details.play').toggle();
 }

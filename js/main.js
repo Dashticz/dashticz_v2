@@ -10,8 +10,6 @@ if(typeof(dashtype)!=='undefined' && parseFloat(dashtype)>1){
 
 if(typeof(_BACKGROUND_IMAGE)=='undefined') var _BACKGROUND_IMAGE = 'bg2.jpg';
 if(typeof(_STREAMPLAYER_TRACKS)=='undefined') var _STREAMPLAYER_TRACKS = {"track":1,"name":"Music FM","file":"http://stream.musicfm.hu:8000/musicfm.mp3"};
-if(typeof(_ICALENDAR_URL)=='undefined') var _ICALENDAR_URL = '';
-if(typeof(_USE_STATIC_WEATHERICONS)=='undefined') var _USE_STATIC_WEATHERICONS = false;
 if(typeof(_EDIT_MODE)=='undefined') var _EDIT_MODE = false;
 if(typeof(_THEME)=='undefined') var _THEME = 'default';
 
@@ -680,7 +678,7 @@ function reloadIframe(i,image){
 
 function getMoonInfo(image){
    req = $.getJSONP({
-      url: settings['domoticz_ip']+"/json.htm?type=command&param=getuservariable&idx="+_IDXmoonpicture+"&jsoncallback=?",
+      url: settings['domoticz_ip']+"/json.htm?type=command&param=getuservariable&idx="+settings['idx_moonpicture']+"&jsoncallback=?",
       type: 'GET',async: true,contentType: "application/json",dataType: 'jsonp',
       format: "json",
       success: function(data) {

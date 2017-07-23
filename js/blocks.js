@@ -190,7 +190,7 @@ function getBlock(cols,c,columndiv,standby){
 				html+='<div class="col-xs-10 items">'+lang.loading+'</div>';
 				html+='</div>';
 				$(columndiv).append(html);	
-				addCalendar($('.containsicalendar'+random),_ICALENDAR_URL);
+				addCalendar($('.containsicalendar'+random),settings['calendarurl']);
 			}
 			else if(cols['blocks'][b]=='streamplayer'){
 				var random = getRandomInt(1,100000);

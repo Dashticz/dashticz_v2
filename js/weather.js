@@ -18,7 +18,7 @@ function loadWeather(location,country) {
 					var temp = currentweather.temp_c;
 					if(settings['use_fahrenheit']) temp = currentweather.temp_f;
 
-					if(_USE_STATIC_WEATHERICONS){
+					if(settings['static_weathericons']==1){
 						html += '<h2><span>'+Math.round(temp)+_TEMP_SYMBOL+'</span> <i class="wi '+wiclass+'"></i></h2>';
 						curfull.find(".weather").html('<i class="wi '+wiclass+'"></i>');
 					}
@@ -109,7 +109,7 @@ function loadWeatherFull(location,country) {
 						} 
 
 						html = '<div class="day">'+dayNL.toLowerCase()+'<br />'+curfor.date.day+'/'+curfor.date.month+'</div>';
-						if(_USE_STATIC_WEATHERICONS) html += '<div class="icon"><i class="wi '+wiclass+'"></i></div>';
+						if(settings['static_weathericons']==1) html += '<div class="icon"><i class="wi '+wiclass+'"></i></div>';
 						else html += getSkycon(curfor.icon,'skycon');
 						html += '<div class="temp"><span class="dayT">'+hightemp+_TEMP_SYMBOL+'</span><span class="nightT">'+lowtemp+_TEMP_SYMBOL+'</span></div>';
 

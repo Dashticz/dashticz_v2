@@ -106,6 +106,10 @@ settingList['localize']['calendarlanguage'] = {}
 settingList['localize']['calendarlanguage']['title'] = 'Calendar language';
 settingList['localize']['calendarlanguage']['type'] = 'text';
 
+settingList['localize']['calendarurl'] = {}
+settingList['localize']['calendarurl']['title'] = 'Calendar URL (ICS)';
+settingList['localize']['calendarurl']['type'] = 'text';
+
 settingList['localize']['hide_seconds'] = {}
 settingList['localize']['hide_seconds']['title'] = 'Hide seconds';
 settingList['localize']['hide_seconds']['type'] = 'checkbox';
@@ -154,6 +158,11 @@ settingList['weather']['wu_country'] = {}
 settingList['weather']['wu_country']['title'] = 'Country';
 settingList['weather']['wu_country']['type'] = 'text';
 
+settingList['weather']['idx_moonpicture'] = {}
+settingList['weather']['idx_moonpicture']['title'] = 'IDX of moonpicture';
+settingList['weather']['idx_moonpicture']['type'] = 'text';
+settingList['weather']['idx_moonpicture']['help'] = 'Take a look at the wiki to learn how to add an image of the current moon phase.';
+
 settingList['weather']['use_fahrenheit'] = {}
 settingList['weather']['use_fahrenheit']['title'] = 'Use Fahrenheit instead of Celcius';
 settingList['weather']['use_fahrenheit']['type'] = 'checkbox';
@@ -167,6 +176,10 @@ settingList['weather']['translate_windspeed']['title'] = 'Translate wind speed';
 settingList['weather']['translate_windspeed']['type'] = 'checkbox';
 settingList['weather']['translate_windspeed']['help'] = '\'North northwest\' instead of \'NNW\'';
 
+settingList['weather']['static_weathericons'] = {}
+settingList['weather']['static_weathericons']['title'] = 'Use static weather icons';
+settingList['weather']['static_weathericons']['type'] = 'checkbox';
+
 settingList['media'] = {}
 settingList['media']['title'] = 'Media';
 
@@ -174,6 +187,11 @@ settingList['media']['switch_horizon'] = {}
 settingList['media']['switch_horizon']['title'] = 'Ziggo/UPC Mediabox Path';
 settingList['media']['switch_horizon']['type'] = 'text';
 settingList['media']['switch_horizon']['help'] = 'If you have a mediabox from ZIGGO or UPC (Horizon), copy switch_horizon.php on a webserver inside your network and change the IP (of Horizon) inside this file.';
+
+settingList['media']['host_nzbget'] = {}
+settingList['media']['host_nzbget']['title'] = 'NZBget Path';
+settingList['media']['host_nzbget']['type'] = 'text';
+settingList['media']['host_nzbget']['help'] = 'If you use NZBget, enter the ip-address and port, e.g.: http://192.168.1.32:8080';
 
 settingList['media']['spot_clientid'] = {}
 settingList['media']['spot_clientid']['title'] = 'Spotify ClientID';
@@ -206,6 +224,7 @@ if(typeof(settings['slide_effect'])=='undefined') settings['slide_effect'] = 'sl
 if(typeof(settings['hide_mediaplayer'])=='undefined' || settings['hide_mediaplayer']==0) settings['hide_mediaplayer'] = false;
 if(typeof(settings['auto_swipe_back_to'])=='undefined') settings['auto_swipe_back_to'] = 1;
 if(typeof(settings['translate_windspeed'])=='undefined') settings['translate_windspeed'] = 1;
+if(typeof(settings['static_weathericons'])=='undefined') settings['static_weathericons'] = 0;
 if(typeof(settings['last_update'])=='undefined') settings['last_update'] = 1;
 if(typeof(settings['auto_swipe_back_after'])=='undefined') settings['auto_swipe_back_after'] = 10;
 if(typeof(settings['standby_after'])=='undefined' || settings['standby_after']==0) settings['standby_after'] = false;
