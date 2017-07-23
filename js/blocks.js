@@ -108,7 +108,7 @@ function getBlock(cols,c,columndiv,standby){
 			else if(cols['blocks'][b]=='news'){
 				if(typeof(getNews)!=='function') $.ajax({url: 'js/news.js', async: false,dataType: "script"});
 				$(columndiv).append('<div data-id="news" class="news"></div>');
-				getNews('news',_NEWS_RSSFEED);
+				getNews('news',settings['default_news_url']);
 			}
 			else if(typeof(cols['blocks'][b])=='string' && cols['blocks'][b].substring(0,5)=='news_'){
 				if(typeof(getNews)!=='function') $.ajax({url: 'js/news.js', async: false,dataType: "script"});
@@ -324,10 +324,10 @@ function getStateBlock(id,icon,title,value,device){
 			stateBlock+='<span>'+title+'</span>';
 
 		}
-		if((_SHOW_LASTUPDATE && (typeof(blocks[device['idx']])=='undefined' || typeof(blocks[device['idx']]['hide_lastupdate'])=='undefined' || blocks[device['idx']]['hide_lastupdate']===false)) || 
-		  (!_SHOW_LASTUPDATE && (typeof(blocks[device['idx']])!=='undefined' && typeof(blocks[device['idx']]['show_lastupdate'])!=='undefined' && blocks[device['idx']]['show_lastupdate']==true)) 
+		if((settings['last_update'] && (typeof(blocks[device['idx']])=='undefined' || typeof(blocks[device['idx']]['hide_lastupdate'])=='undefined' || blocks[device['idx']]['hide_lastupdate']===false)) || 
+		  (!settings['last_update'] && (typeof(blocks[device['idx']])!=='undefined' && typeof(blocks[device['idx']]['show_lastupdate'])!=='undefined' && blocks[device['idx']]['show_lastupdate']==true)) 
 		  ){
-			stateBlock+='<br /><span class="lastupdate">'+moment(device['LastUpdate']).format(_LASTUPDATE_FORMAT)+'</span>';
+			stateBlock+='<br /><span class="lastupdate">'+moment(device['LastUpdate']).format(settings['timeformat'])+'</span>';
 		}
 	
 	stateBlock+='</div>';
@@ -382,7 +382,7 @@ function getStatusBlock(device,block,c){
 			value = device['Speed']+' m/s, '; 
 		}
 		value+=device['Direction']+'&deg ';
-		if (_TRANSLATE_SPEED==true){
+		if (settings['translate_windspeed']==true){
 			value+=TranslateDirection(device['DirectionStr'])
 		} else {
 			value+=device['DirectionStr'];
@@ -413,10 +413,10 @@ function getStatusBlock(device,block,c){
 			stateBlock+='<strong class="title">'+value+'</strong><br />';
 			stateBlock+='<span>'+title+'</span>';
 		}
-		if((_SHOW_LASTUPDATE && (typeof(blocks[device['idx']])=='undefined' || typeof(blocks[device['idx']]['hide_lastupdate'])=='undefined' || blocks[device['idx']]['hide_lastupdate']===false)) || 
-		  (!_SHOW_LASTUPDATE && (typeof(blocks[device['idx']])!=='undefined' && typeof(blocks[device['idx']]['show_lastupdate'])!=='undefined' && blocks[device['idx']]['show_lastupdate']==true)) 
+		if((settings['last_update'] && (typeof(blocks[device['idx']])=='undefined' || typeof(blocks[device['idx']]['hide_lastupdate'])=='undefined' || blocks[device['idx']]['hide_lastupdate']===false)) || 
+		  (!settings['last_update'] && (typeof(blocks[device['idx']])!=='undefined' && typeof(blocks[device['idx']]['show_lastupdate'])!=='undefined' && blocks[device['idx']]['show_lastupdate']==true)) 
 		  ){
-			stateBlock+='<br /><span class="lastupdate">'+moment(device['LastUpdate']).format(_LASTUPDATE_FORMAT)+'</span>';
+			stateBlock+='<br /><span class="lastupdate">'+moment(device['LastUpdate']).format(settings['timeformat'])+'</span>';
 		}
 	stateBlock+='</div>';
 	return stateBlock;
@@ -457,10 +457,10 @@ function getBlockData(device,idx,ontxt,offtxt){
 		if(device['Status']=='Off' || device['Status']=='Closed' || device['Status']=='Normal') data+='<span class="state">'+offtxt+'</span>';
 		else data+='<span class="state">'+ontxt+'</span>';
 	}
-	if((_SHOW_LASTUPDATE && (typeof(blocks[idx])=='undefined' || typeof(blocks[idx]['hide_lastupdate'])=='undefined' || blocks[idx]['hide_lastupdate']===false)) || 
-	  (!_SHOW_LASTUPDATE && (typeof(blocks[idx])!=='undefined' && typeof(blocks[idx]['show_lastupdate'])!=='undefined' && blocks[idx]['show_lastupdate']==true)) 
+	if((settings['last_update'] && (typeof(blocks[idx])=='undefined' || typeof(blocks[idx]['hide_lastupdate'])=='undefined' || blocks[idx]['hide_lastupdate']===false)) || 
+	  (!settings['last_update'] && (typeof(blocks[idx])!=='undefined' && typeof(blocks[idx]['show_lastupdate'])!=='undefined' && blocks[idx]['show_lastupdate']==true)) 
 	  ){
-		data+='<br /><span class="lastupdate">'+moment(device['LastUpdate']).format(_LASTUPDATE_FORMAT)+'</span>';
+		data+='<br /><span class="lastupdate">'+moment(device['LastUpdate']).format(settings['timeformat'])+'</span>';
 	}
 	data+='</div>';
 	return data;

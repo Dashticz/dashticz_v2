@@ -54,7 +54,7 @@ function addCalendar(calobject,icsUrlorg){
 		colors[$.md5(curUrl)] = color;
 		var cache = new Date().getTime();
 		curUrl = 'https://wedevise.nl/dashticz/ical/?time='+cache+'&url='+curUrl;
-		moment.locale(_ICALENDAR_LOCALE);
+		moment.locale(settings['calendarlanguage']);
 		$.getJSON(curUrl,function(data,textstatus,jqXHR){
 			
 			var url = this.url.replace('https://cors-anywhere.herokuapp.com/http://ical-to-json.herokuapp.com/convert.json?url=','');
@@ -66,11 +66,11 @@ function addCalendar(calobject,icsUrlorg){
 				event = data[e];
 				var startdateStamp = event.start;
 				var enddateStamp = event.end;
-				var startdate = moment.unix(event.start).format(_ICALENDAR_DATEFORMAT);
-				var enddate = moment.unix(event.end).format(_ICALENDAR_DATEFORMAT);
+				var startdate = moment.unix(event.start).format(settings['calendarformat']);
+				var enddate = moment.unix(event.end).format(settings['calendarformat']);
 
 				if(event.allDay==''){
-					var test = _ICALENDAR_DATEFORMAT;
+					var test = settings['calendarformat'];
 					test = test.replace('dd','');
 					test = test.replace('dddd','');
 					if(moment(enddate,test).format('YYYY-MM-DD') == moment(startdate,test).format('YYYY-MM-DD')){

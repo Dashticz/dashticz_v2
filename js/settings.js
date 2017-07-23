@@ -27,6 +27,18 @@ settingList['general']['dashticz_refresh'] = {}
 settingList['general']['dashticz_refresh']['title'] = 'Refresh Dashticz (minutes)';
 settingList['general']['dashticz_refresh']['type'] = 'text';
 
+settingList['general']['last_update'] = {}
+settingList['general']['last_update']['title'] = 'Show last update time/date';
+settingList['general']['last_update']['type'] = 'checkbox';
+
+settingList['general']['default_news_url'] = {}
+settingList['general']['default_news_url']['title'] = 'Default news URL';
+settingList['general']['default_news_url']['type'] = 'text';
+
+settingList['general']['news_scroll_after'] = {}
+settingList['general']['news_scroll_after']['title'] = 'Scroll news after (seconds)';
+settingList['general']['news_scroll_after']['type'] = 'text';
+
 settingList['screen'] = {}
 settingList['screen']['title'] = 'Screen';
 
@@ -82,6 +94,18 @@ settingList['localize']['language']['options']['it_IT'] = 'Italian';
 settingList['localize']['language']['options']['pt_PT'] = 'Portugese';
 settingList['localize']['language']['options']['sv_SE'] = 'Swedish';
 
+settingList['localize']['timeformat'] = {}
+settingList['localize']['timeformat']['title'] = 'Datetime format';
+settingList['localize']['timeformat']['type'] = 'text';
+
+settingList['localize']['calendarformat'] = {}
+settingList['localize']['calendarformat']['title'] = 'Calendar format';
+settingList['localize']['calendarformat']['type'] = 'text';
+
+settingList['localize']['calendarlanguage'] = {}
+settingList['localize']['calendarlanguage']['title'] = 'Calendar language';
+settingList['localize']['calendarlanguage']['type'] = 'text';
+
 settingList['localize']['hide_seconds'] = {}
 settingList['localize']['hide_seconds']['title'] = 'Hide seconds';
 settingList['localize']['hide_seconds']['type'] = 'checkbox';
@@ -114,14 +138,6 @@ settingList['localize']['gm_longitude']['type'] = 'text';
 settingList['weather'] = {}
 settingList['weather']['title'] = 'Weather';
 
-settingList['weather']['use_fahrenheit'] = {}
-settingList['weather']['use_fahrenheit']['title'] = 'Use Fahrenheit instead of Celcius';
-settingList['weather']['use_fahrenheit']['type'] = 'checkbox';
-
-settingList['weather']['use_beaufort'] = {}
-settingList['weather']['use_beaufort']['title'] = 'Use Bft instead of m/s';
-settingList['weather']['use_beaufort']['type'] = 'checkbox';
-
 settingList['weather']['wu_api'] = {}
 settingList['weather']['wu_api']['title'] = 'API Key';
 settingList['weather']['wu_api']['type'] = 'text';
@@ -138,6 +154,18 @@ settingList['weather']['wu_country'] = {}
 settingList['weather']['wu_country']['title'] = 'Country';
 settingList['weather']['wu_country']['type'] = 'text';
 
+settingList['weather']['use_fahrenheit'] = {}
+settingList['weather']['use_fahrenheit']['title'] = 'Use Fahrenheit instead of Celcius';
+settingList['weather']['use_fahrenheit']['type'] = 'checkbox';
+
+settingList['weather']['use_beaufort'] = {}
+settingList['weather']['use_beaufort']['title'] = 'Use Bft instead of m/s';
+settingList['weather']['use_beaufort']['type'] = 'checkbox';
+
+settingList['weather']['translate_windspeed'] = {}
+settingList['weather']['translate_windspeed']['title'] = 'Translate wind speed';
+settingList['weather']['translate_windspeed']['type'] = 'checkbox';
+settingList['weather']['translate_windspeed']['help'] = '\'North northwest\' instead of \'NNW\'';
 
 settingList['media'] = {}
 settingList['media']['title'] = 'Media';
@@ -161,6 +189,9 @@ $.each(localStorage, function(key, value){
 });
 
 if(typeof(settings['language'])=='undefined') settings['language'] = 'en_US';
+if(typeof(settings['timeformat'])=='undefined') settings['timeformat'] = 'DD-MM-YY HH:mm';
+if(typeof(settings['calendarformat'])=='undefined') settings['calendarformat'] = 'dd DD.MM HH:mm';
+if(typeof(settings['calendarlanguage'])=='undefined') settings['calendarlanguage'] = 'en_US';
 if(typeof(settings['domoticz_ip'])=='undefined') settings['domoticz_ip'] = 'http://192.168.1.10:8080';
 if(typeof(settings['app_title'])=='undefined') settings['app_title'] = 'Dashticz';
 if(typeof(settings['domoticz_refresh'])=='undefined') settings['domoticz_refresh'] = 5;
@@ -174,9 +205,13 @@ if(typeof(settings['hide_topbar'])=='undefined' || settings['hide_topbar']==0) s
 if(typeof(settings['slide_effect'])=='undefined') settings['slide_effect'] = 'slide';
 if(typeof(settings['hide_mediaplayer'])=='undefined' || settings['hide_mediaplayer']==0) settings['hide_mediaplayer'] = false;
 if(typeof(settings['auto_swipe_back_to'])=='undefined') settings['auto_swipe_back_to'] = 1;
+if(typeof(settings['translate_windspeed'])=='undefined') settings['translate_windspeed'] = 1;
+if(typeof(settings['last_update'])=='undefined') settings['last_update'] = 1;
 if(typeof(settings['auto_swipe_back_after'])=='undefined') settings['auto_swipe_back_after'] = 10;
 if(typeof(settings['standby_after'])=='undefined' || settings['standby_after']==0) settings['standby_after'] = false;
 if(typeof(settings['selector_instead_of_buttons'])=='undefined' || settings['selector_instead_of_buttons']==0) settings['selector_instead_of_buttons'] = false;
+if(typeof(settings['default_news_url'])=='undefined') settings['default_news_url'] = 'http://www.nu.nl/rss/algemeen';
+if(typeof(settings['news_scroll_after'])=='undefined') settings['news_scroll_after'] = 7;
 
 var _TEMP_SYMBOL = '°C';
 if(settings['use_fahrenheit']) _TEMP_SYMBOL = '°F';

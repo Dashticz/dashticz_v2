@@ -43,7 +43,7 @@ function loadWeather(location,country) {
 							wind = currentweather.wind_kph+' km/u, '; 
 						}
 						wind+=currentweather.wind_degrees+'&deg ';
-						if (_TRANSLATE_SPEED==true){
+						if (settings['translate_windspeed']==true){
 							wind+=TranslateDirection(currentweather.wind_dir)
 						} else {
 							wind+=currentweather.wind_dir;
