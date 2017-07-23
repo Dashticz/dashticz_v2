@@ -14,6 +14,11 @@ settingList['general']['selector_instead_of_buttons'] = {}
 settingList['general']['selector_instead_of_buttons']['title'] = 'Selector instead of buttons';
 settingList['general']['selector_instead_of_buttons']['type'] = 'checkbox';
 
+settingList['general']['auto_positioning'] = {}
+settingList['general']['auto_positioning']['title'] = 'Automatically add all devices';
+settingList['general']['auto_positioning']['type'] = 'checkbox';
+settingList['general']['auto_positioning']['help'] = 'Don\'t want to configure positions in CONFIG.JS, select this option';
+
 settingList['general']['use_favorites'] = {}
 settingList['general']['use_favorites']['title'] = 'Only use favorite devices';
 settingList['general']['use_favorites']['type'] = 'checkbox';
@@ -45,11 +50,6 @@ settingList['screen']['title'] = 'Screen';
 settingList['screen']['hide_topbar'] = {}
 settingList['screen']['hide_topbar']['title'] = 'Hide topbar';
 settingList['screen']['hide_topbar']['type'] = 'checkbox';
-
-settingList['screen']['auto_positioning'] = {}
-settingList['screen']['auto_positioning']['title'] = 'Auto Positioning?';
-settingList['screen']['auto_positioning']['type'] = 'checkbox';
-settingList['screen']['auto_positioning']['help'] = 'Don\'t want to configure positions, use auto positioning';
 
 settingList['screen']['standby_after'] = {}
 settingList['screen']['standby_after']['title'] = 'Standby after (minutes, 0 = never)';
