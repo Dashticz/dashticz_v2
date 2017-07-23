@@ -1,40 +1,58 @@
+var trashnames = {}
+trashnames['Gft'] = 'GFT';
+trashnames['Pmd'] = 'Plastic';
 
-var _LANGUAGE 				= 'nl_NL'; //or: de_DE, en_US, fr_FR, hu_HU, it_IT, pt_PT, sv_SE
-var _HOST_DOMOTICZ		  	= 'http://192.168.1.3:8084';
-var _DOMOTICZ_REFRESH		= 5; //in seconds
-var _DASHTICZ_REFRESH		= 30; //in minutes
-var _THEME 					= 'default'; // default = dashticz default theme
-var _APP_TITLE 				= 'Dashticz';
-/*
-IF YOU HAVE A MEDIABOX FROM ZIGGO (HORIZON), COPY SWITCH_HORIZON.PHP ON A WEBSERVER INSIDE YOUR NETWORK AND CHANGE THE IP.
-ENTER THE PATH TO THIS FILE BELOW.
-*/
-var _HOST_ZIGGO_HORIZON	  	= ''; //e.g. http://192.168.1.3/domoticz/switch_horizon.php';
-var _APIKEY_WUNDERGROUND  	= '';
-var _WEATHER_CITY 			= 'Eindhoven';
-var _WEATHER_CITYNAME 		= ''; //show a different city name, leave empty if same as _WEATHER_CITY
-var _WEATHER_COUNTRY 		= 'NL';
-var _USE_AUTO_POSITIONING 	= true; //don't want to configure positions, use auto positioning
-var _USE_FAVORITES			= true; //only used when using auto positioning
-var _HIDE_SECONDS_IN_CLOCK  = false; //do not show the seconds in the clock
-var _HIDE_MEDIAPLAYER_WHEN_OFF = false; //when you have a mediaplayer connected, hide it if nothing is playing
-var _HIDE_TOPBAR			= false; //hide topbar with appname, clock and settings-icon
-var _NEWS_RSSFEED			= 'http://www.nu.nl/rss/algemeen';
-var _USE_FAHRENHEIT			= false;
-var _USE_BEAUFORT 			= true; //Bft instead of m/s
-var _TRANSLATE_SPEED 		= false; //windspeed, north northwest instead of NNW
-var _STANDBY_AFTER_MINUTES  = false; //enter amount of minutes like: 5 (5 minutes)
-var _SCROLL_NEWS_AFTER 		= 7000; //milliseconds, so 7000 is 7 seconds
-var _SHOW_LASTUPDATE 		= true;
-var _LASTUPDATE_FORMAT 		= 'DD-MM-YY HH:mm';
-var _SCREENSLIDER_EFFECT 	= 'slide'; //'slide' or 'fade' or 'cube' or 'coverflow' or 'flip'
+var trashcan = {}
+trashcan.afvalapp = { key:'afvalapp', maxitems: 5, trashapp: 'deafvalapp', width:5,zipcode:'5692VG', housenumber:'33', country:'NL' }
 
-var _APIKEY_MAPS			= '';
-var _MAPS_LATITUDE			= '';
-var _MAPS_LONGITUDE			= '';
+var publictransport = {}
+publictransport.ovinfobus = { show_via: false, station: 'son-en-breugel/bushalte-penseelkever', provider: '9292-bus', icon: 'bus', width:5, results: 6 }
 
-var _AUTO_SWIPEBACK_TO		= 1; //when no activity, swipe back to main screen after x seconds
-var _AUTO_SWIPEBACK_TIME	= 10; //seconds
+var tvguide = {}
+tvguide.dutch = { key:'dutch', icon: 'fa-television', width:7, channels: [1,3,4,31,46,92], maxitems: 5 }
 
-var _SLIDE_PAGES			= false; //Loop all pages and change page every x (min. 5) seconds, set _AUTO_SWIPEBACK_TIME = 0
-var _CLIENTID_SPOTIFY = '1112f16564cf4f4d93ccbe8b52c58a44';
+var _STREAMPLAYER_TRACKS  	= [
+	{"track":1,"name":"Q-music","file":"http://icecast-qmusic.cdp.triple-it.nl/Qmusic_nl_live_96.mp3"},
+	{"track":2,"name":"538 Hitzone","file":"http://vip-icecast.538.lw.triple-it.nl/WEB11_MP3"},
+	{"track":3,"name":"Slam! NonStop","file":"http://stream.radiocorp.nl/web10_mp3"},
+	{"track":4,"name":"100%NL","file":"http://stream.100p.nl/100pctnl.mp3"},
+  ]; 
+
+
+var buttons = {}
+buttons.nunl = {key: 'nunl',  width:12, icon: 'fa-newspaper-o', title: 'Nu.nl', newwindow:true, url: 'http://www.nu.nl'}
+buttons.nos = {key: 'nos',  width:12, icon: 'fa-newspaper-o', title: 'Nos', url: 'http://www.nos.nl'}
+
+
+var blocks = {}
+blocks['blocktitle_1'] = {}
+blocks['blocktitle_1']['key'] = 'blocktitle_1';
+blocks['blocktitle_1']['type'] = 'blocktitle';
+blocks['blocktitle_1']['title'] = 'Example';
+
+
+var columns = {}
+columns['bar'] = {}
+columns['bar']['blocks'] = ['logo','miniclock','settings']
+					
+columns[1] = {}
+columns[1]['blocks'] = ['currentweather_big','weather',trashcan.afvalapp]
+columns[1]['width'] = 5;
+
+columns[2] = {}
+columns[2]['blocks'] = ['blocktitle_1',tvguide.dutch,publictransport.ovinfobus]
+columns[2]['width'] = 5; 
+
+columns[3] = {}
+columns[3]['blocks'] = ['sunrise','streamplayer',buttons.nunl,buttons.nos]
+columns[3]['width'] = 2; 
+
+var columns_standby = {}
+columns_standby[1] = {}
+columns_standby[1]['blocks'] = ['clock','weather']
+columns_standby[1]['width'] = 12;
+
+var screens = {}
+screens[1] = {}
+screens[1]['background'] = 'bg2.jpg';
+screens[1]['columns'] = [1,2,3]

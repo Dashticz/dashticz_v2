@@ -1,47 +1,17 @@
 
+if (typeof(Storage) == "undefined") {
+    alert('Oh no, LocalStorage is not supported in your browser!');
+}
+
 var customfolder = 'custom';
 if(typeof(dashtype)!=='undefined' && parseFloat(dashtype)>1){
 	customfolder = 'custom_'+dashtype;
 }
 
-if(typeof(_HOST_DOMOTICZ)=='undefined') var _HOST_DOMOTICZ = '';
-if(typeof(_LANGUAGE)=='undefined') var _LANGUAGE = 'nl_NL';
-if(typeof(_USE_FAVORITES)=='undefined') var _USE_FAVORITES = false;
-if(typeof(_USE_AUTO_POSITIONING)=='undefined') var _USE_AUTO_POSITIONING = false;
-if(typeof(_HIDE_SECONDS_IN_CLOCK)=='undefined') var _HIDE_SECONDS_IN_CLOCK = false;
-if(typeof(_HIDE_SECONDS_IN_STATIONCLOCK)=='undefined') var _HIDE_SECONDS_IN_STATIONCLOCK = false;
-if(typeof(_HIDE_MEDIAPLAYER_WHEN_OFF)=='undefined') var _HIDE_MEDIAPLAYER_WHEN_OFF = false;
-if(typeof(_USE_FAHRENHEIT)=='undefined') var _USE_FAHRENHEIT = false;
 if(typeof(_BACKGROUND_IMAGE)=='undefined') var _BACKGROUND_IMAGE = 'bg2.jpg';
-if(typeof(_NEWS_RSSFEED)=='undefined') var _NEWS_RSSFEED = 'http://www.nu.nl/rss/algemeen';
-if(typeof(_STANDBY_AFTER_MINUTES)=='undefined') var _STANDBY_AFTER_MINUTES = 10;
-if(typeof(_WEATHER_CITYNAME)=='undefined') var _WEATHER_CITYNAME = '';
-if(typeof(_SCROLL_NEWS_AFTER)=='undefined') var _SCROLL_NEWS_AFTER = 6500;
 if(typeof(_STREAMPLAYER_TRACKS)=='undefined') var _STREAMPLAYER_TRACKS = {"track":1,"name":"Music FM","file":"http://stream.musicfm.hu:8000/musicfm.mp3"};
-if(typeof(_USE_BEAUFORT)=='undefined') var _USE_BEAUFORT = false;
-if(typeof(_TRANSLATE_SPEED)=='undefined') var _TRANSLATE_SPEED = false;
-if(typeof(_SHOW_LASTUPDATE)=='undefined') var _SHOW_LASTUPDATE = false;
-if(typeof(_LASTUPDATE_FORMAT)=='undefined') var _LASTUPDATE_FORMAT = 'DD-MM-YY HH:mm';
-if(typeof(_DOMOTICZ_REFRESH)=='undefined') var _DOMOTICZ_REFRESH = 10;
-if(typeof(_MAPS_LATITUDE)=='undefined') var _MAPS_LATITUDE = 51;
-if(typeof(_MAPS_LONGITUDE)=='undefined') var _MAPS_LONGITUDE = 5;
-if(typeof(_MAPS_ZOOMLEVEL)=='undefined') var _MAPS_ZOOMLEVEL = 13;
-if(typeof(_SCREENSLIDER_EFFECT)=='undefined') var _SCREENSLIDER_EFFECT = 'slide';
-if(typeof(_ICALENDAR_URL)=='undefined') var _ICALENDAR_URL = '';
-if(typeof(_ICALENDAR_DATEFORMAT)=='undefined') var _ICALENDAR_DATEFORMAT = 'DD.MM.YYYY HH:mm';
-if(typeof(_ICALENDAR_LOCALE)=='undefined') var _ICALENDAR_LOCALE = 'en';
-if(typeof(_DASHTICZ_REFRESH)=='undefined') var _DASHTICZ_REFRESH = 240;
-if(typeof(_USE_STATIC_WEATHERICONS)=='undefined') var _USE_STATIC_WEATHERICONS = false;
-if(typeof(_SAVED_COLORS)=='undefined') var _SAVED_COLORS = [];
 if(typeof(_EDIT_MODE)=='undefined') var _EDIT_MODE = false;
 if(typeof(_THEME)=='undefined') var _THEME = 'default';
-if(typeof(_SLIDE_PAGES)=='undefined') var _SLIDE_PAGES = false;
-if(typeof(_CLIENTID_SPOTIFY)=='undefined') var _CLIENTID_SPOTIFY = false;
-if(typeof(_HIDE_TOPBAR)=='undefined') var _HIDE_TOPBAR = false;
-if(typeof(_APP_TITLE)=='undefined') var _APP_TITLE = 'Dashticz';
-
-var _TEMP_SYMBOL = '°C';
-if(_USE_FAHRENHEIT) _TEMP_SYMBOL = '°F';
 
 var cache = new Date().getTime();
 $('<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">').appendTo("head");
@@ -58,9 +28,10 @@ $.ajax({url: 'vendor/jquery/jquery-ui.js', async: false,dataType: "script"});
 $.ajax({url: 'vendor/jquery/touchpunch.js', async: false,dataType: "script"});
 $.ajax({url: 'vendor/bootstrap/js/bootstrap.min.js', async: false,dataType: "script"});
 $.ajax({url: 'js/functions.js?v='+cache, async: false,dataType: "script"});
-		
+$.ajax({url: 'js/settings.js', async: false,dataType: "script"});
+
 $.ajax({url: customfolder+'/CONFIG.js?v='+cache, async: false,dataType: "script"});
-$.ajax({url: 'lang/'+_LANGUAGE+'.js?v='+cache, async: false,dataType: "script"});
+$.ajax({url: 'lang/'+settings['language']+'.js?v='+cache, async: false,dataType: "script"});
 if(_THEME!=='default'){
 	$('<link rel="stylesheet" type="text/css" href="themes/'+_THEME+'/'+_THEME+'.css?v='+cache+'" />').appendTo("head");
 }
@@ -137,7 +108,7 @@ if(objectlength(screens)>1){
 $.ajax({url: 'js/switches.js', async: false,dataType: "script"});
 $.ajax({url: 'js/blocks.js', async: false,dataType: "script"});
 $.ajax({url: 'js/graphs.js', async: false,dataType: "script"});
-if(typeof(_APIKEY_MAPS)!=='undefined' && _APIKEY_MAPS!=="") $.ajax({url: 'https://maps.googleapis.com/maps/api/js?key='+_APIKEY_MAPS+'&callback=initMap', async: false,dataType: "script"});
+if(typeof(settings['gm_api'])!=='undefined' && settings['gm_api']!=="") $.ajax({url: 'https://maps.googleapis.com/maps/api/js?key='+settings['gm_api']+'&callback=initMap', async: false,dataType: "script"});
 	
 	
 $(document).ready(function(){	
@@ -159,10 +130,10 @@ $(document).ready(function(){
 	buildScreens();
 	
 	setInterval(function(){ 
-		if(_HIDE_SECONDS_IN_CLOCK==true) $('.clock').html(moment().locale(_LANGUAGE.substr(0,2)).format('HH:mm'));
-		else $('.clock').html(moment().locale(_LANGUAGE.substr(0,2)).format('HH:mm:ss'));
-		$('.date').html(moment().locale(_LANGUAGE.substr(0,2)).format('D MMMM YYYY'));
-		$('.weekday').html(moment().locale(_LANGUAGE.substr(0,2)).format('dddd'));
+		if(settings['hide_seconds']==true) $('.clock').html(moment().locale(settings['language']).format('HH:mm'));
+		else $('.clock').html(moment().locale(settings['language']).format('HH:mm:ss'));
+		$('.date').html(moment().locale(settings['language']).format('D MMMM YYYY'));
+		$('.weekday').html(moment().locale(settings['language']).format('dddd'));
 	},1000);
 
 	getDevices(); 	
@@ -174,12 +145,8 @@ $(document).ready(function(){
 	
 	setTimeout(function(){
 		document.location.href=document.location.href;
-	},(_DASHTICZ_REFRESH*60*1000));
-	
-	$('.colbar div.settings').on('click',function(){
-		alert('Settings screen is coming soon!');
-	});
-	
+	},(settings['dashticz_refresh']*60*1000));
+		  
 }); 
 
 function toSlide(num){
@@ -214,7 +181,7 @@ function buildScreens(){
 		
 		if(defaultcolumns===false){
 	
-			if(!_HIDE_TOPBAR){
+			if(!settings['hide_topbar']){
 				if(typeof(columns['bar'])=='undefined'){
 					columns['bar'] = {}
 					columns['bar']['blocks'] = ['logo','miniclock','settings']
@@ -229,16 +196,16 @@ function buildScreens(){
 			
 		}
 		else {
-			if(!_HIDE_TOPBAR) $('body .row').append('<div class="col-sm-undefined col-xs-12 sortable colbar transbg dark"><div data-id="logo" class="logo col-xs-2">'+_APP_TITLE+'<div></div></div><div data-id="clock" class="miniclock col-xs-8 text-center"><span class="weekday"></span> <span class="date"></span> <span>&nbsp;&nbsp;&nbsp;&nbsp;</span> <span class="clock"></span></div><div data-id="settings" class="settings col-xs-2 text-right"><em class="fa fa-cog"></em><div></div></div></div>');
+			if(!settings['hide_topbar']) $('body .row').append('<div class="col-sm-undefined col-xs-12 sortable colbar transbg dark"><div data-id="logo" class="logo col-xs-2">'+settings['app_title']+'<div></div></div><div data-id="clock" class="miniclock col-xs-8 text-center"><span class="weekday"></span> <span class="date"></span> <span>&nbsp;&nbsp;&nbsp;&nbsp;</span> <span class="clock"></span></div><div data-id="settings" class="settings col-xs-2 text-right"><em class="fa fa-cog"></em><div></div></div></div>');
 			$('body .row').append('<div class="col-xs-5 sortable col1"><div class="auto_switches"></div><div class="auto_dimmers"></div></div>');
 			$('body .row').append('<div class="col-xs-5 sortable col2"><div class="block_weather containsweatherfull"></div><div class="auto_media"></div><div class="auto_states"></div></div>');
 			$('body .row').append('<div class="col-xs-2 sortable col3"><div class="auto_clock"></div><div class="auto_sunrise"></div><div class="auto_buttons"></div></div>');
 
 			$('.col2').prepend('<div class="mh transbg big block_currentweather_big col-xs-12 containsweather"><div class="col-xs-1"><div class="weather" id="weather"></div></div><div class="col-xs-11"><span class="title weatherdegrees" id="weatherdegrees"></span> <span class="weatherloc" id="weatherloc"></span></div></div>');
-			if(typeof(_APIKEY_WUNDERGROUND)!=='undefined' && _APIKEY_WUNDERGROUND!=="" && typeof(_WEATHER_CITY)!=='undefined' && _WEATHER_CITY!==""){
+			if(typeof(settings['wu_api'])!=='undefined' && settings['wu_api']!=="" && typeof(settings['wu_city'])!=='undefined' && settings['wu_city']!==""){
 				if(typeof(loadWeatherFull)!=='function') $.ajax({url: 'js/weather.js', async: false,dataType: "script"});
-							loadWeatherFull(_WEATHER_CITY,_WEATHER_COUNTRY,$('#weatherfull'));
-				loadWeather(_WEATHER_CITY,_WEATHER_COUNTRY);
+				loadWeatherFull(settings['wu_city'],settings['wu_country'],$('#weatherfull'));
+				loadWeather(settings['wu_city'],settings['wu_country']);
 			}
 
 			$('.col3 .auto_clock').html('<div class="transbg block_clock col-xs-12 text-center"><h1 id="clock" class="clock"></h1><h4 id="weekday" class="weekday"></h4><h4 id="date" class="date"></h4></div>');
@@ -271,7 +238,7 @@ function startSwiper(){
 					pagination: '.swiper-pagination',
 					paginationClickable: true,
 					loop: false,
-					effect: _SCREENSLIDER_EFFECT,
+					effect: settings['slide_effect'],
 					keyboardControl:true
 				});
 			},2000);
@@ -291,7 +258,7 @@ function initMap() {
 }
 
 function showMap(mapid,map) {
-	if(typeof(_APIKEY_MAPS)=='undefined' || _APIKEY_MAPS=="") console.error('Please, set var _APIKEY_MAPS!');
+	if(typeof(settings['gm_api'])=='undefined' || settings['gm_api']=="") console.error('Please, set Google Maps API KEY!');
 	
 	
 	if(typeof(map)!=='undefined'){
@@ -302,8 +269,8 @@ function showMap(mapid,map) {
 	}
 	else {
 			var map = new google.maps.Map(document.getElementById(mapid), {
-			  zoom: parseFloat(_MAPS_ZOOMLEVEL),
-			  center: {lat: parseFloat(_MAPS_LATITUDE), lng: parseFloat(_MAPS_LONGITUDE)}
+			  zoom: parseFloat(settings['gm_zoomlevel']),
+			  center: {lat: parseFloat(settings['gm_latitude']), lng: parseFloat(settings['gm_longitude'])}
 			});
 	}
 
@@ -340,12 +307,12 @@ function setClassByTime(){
 	$('body').removeClass('morning noon afternoon night').addClass(newClass);
 }
 
-if(typeof(_AUTO_SWIPEBACK_TO)!=='undefined' && typeof(_AUTO_SWIPEBACK_TIME)!=='undefined'){
-	if(parseFloat(_AUTO_SWIPEBACK_TIME)>0){
+if(typeof(settings['auto_swipe_back_to'])!=='undefined' && typeof(settings['auto_swipe_back_after'])!=='undefined'){
+	if(parseFloat(settings['auto_swipe_back_after'])>0){
 	   setInterval(function(){
 		  swipebackTime+=1000;
-		 if(swipebackTime>=(_AUTO_SWIPEBACK_TIME*1000)){
-			toSlide((_AUTO_SWIPEBACK_TO-1));
+		 if(swipebackTime>=(settings['auto_swipe_back_after']*1000)){
+			toSlide((settings['auto_swipe_back_to']-1));
 			swipebackTime=0;
 		 }
 	   },1000);
@@ -354,7 +321,7 @@ if(typeof(_AUTO_SWIPEBACK_TO)!=='undefined' && typeof(_AUTO_SWIPEBACK_TIME)!=='u
 }
 
 //Loop through pages
-if(_SLIDE_PAGES != false && (_AUTO_SWIPEBACK_TIME == 0  || typeof(_AUTO_SWIPEBACK_TIME)== 'undefined') && _SLIDE_PAGES > 4){
+if((settings['auto_swipe_back_after'] == 0  || typeof(settings['auto_swipe_back_after'])== 'undefined') && parseFloat(settings['auto_slide_pages']) > 0){
 	var nextSlide = 1;
 	setInterval(function(){
 		toSlide(nextSlide);
@@ -362,7 +329,7 @@ if(_SLIDE_PAGES != false && (_AUTO_SWIPEBACK_TIME == 0  || typeof(_AUTO_SWIPEBAC
 		if(nextSlide > myswiper.slides.length-1){
 			nextSlide = 0;
 		}
-	},(_SLIDE_PAGES * 1000));
+	},(parseFloat(settings['auto_slide_pages']) * 1000));
 }
 
 if(!isMobile){
@@ -381,11 +348,11 @@ $('body').bind('touchend click', function(e){
 	},100);
 });
 
-if(parseFloat(_STANDBY_AFTER_MINUTES)>0){
+if(parseFloat(settings['standby_after'])>0){
    setInterval(function(){
 	  standbyTime+=5000;
       if(standbyActive!=true){
-         if(standbyTime>=((_STANDBY_AFTER_MINUTES*1000)*60)){
+         if(standbyTime>=((settings['standby_after']*1000)*60)){
             $('body').addClass('standby');
 			$('.swiper-container').hide();
 			if(objectlength(columns_standby)>0) buildStandby();
@@ -555,7 +522,12 @@ function loadButton(b,button){
 	var key = 'UNKNOWN';
 	if(typeof(button.key)!=='undefined') key=button.key;
 	
-	var html='<div class="col-xs-'+width+' hover transbg" data-id="buttons.'+key+'" data-toggle="modal" data-target="#button_'+b+'_'+random+'" onclick="setSrc(this);">';
+	if(typeof(button.newwindow)!=='undefined'){
+		var html='<div class="col-xs-'+width+' hover transbg" data-id="buttons.'+key+'" onclick="window.open(\''+button.url+'\')">';
+	}
+	else {
+		var html='<div class="col-xs-'+width+' hover transbg" data-id="buttons.'+key+'" data-toggle="modal" data-target="#button_'+b+'_'+random+'" onclick="setSrc(this);">';
+	}
 		html+='<div class="col-xs-4 col-icon">';
 			if(typeof(button.image)!=='undefined') html+='<img class="buttonimg" src="'+button.image+'" />';
 			else html+='<em class="fa '+button.icon+' fa-small"></em>';
@@ -706,7 +678,7 @@ function reloadIframe(i,image){
 
 function getMoonInfo(image){
    req = $.getJSONP({
-      url: _HOST_DOMOTICZ+"/json.htm?type=command&param=getuservariable&idx="+_IDXmoonpicture+"&jsoncallback=?",
+      url: settings['domoticz_ip']+"/json.htm?type=command&param=getuservariable&idx="+settings['idx_moonpicture']+"&jsoncallback=?",
       type: 'GET',async: true,contentType: "application/json",dataType: 'jsonp',
       format: "json",
       success: function(data) {
@@ -792,10 +764,10 @@ function getDevices(override){
 		if(typeof(req)!=='undefined') req.abort();
 		gettingDevices=true;
 		req = $.getJSONP({
-			url: _HOST_DOMOTICZ+'/json.htm?type=devices&filter=all&used=true&order=Name&jsoncallback=?',
+			url: settings['domoticz_ip']+'/json.htm?type=devices&filter=all&used=true&order=Name&jsoncallback=?',
 			type: 'GET',async: true,contentType: "application/json",dataType: 'jsonp',
 			error: function( jqXHR, textStatus ) {
-				console.error("Domoticz error!\nPlease, double check the path in _HOST_DOMOTICZ-variable!");
+				console.error("Domoticz error!\nPlease, double check the path in settings['domoticz_ip']-variable!");
 			},
 			success: function(data) {
 				gettingDevices = false;
@@ -821,17 +793,23 @@ function getDevices(override){
 						
 						if(
 							(
-								_USE_AUTO_POSITIONING==true && 
+								settings['auto_positioning']==1 && 
 								(
-									(_USE_FAVORITES==true && device['Favorite']==1) || 
-									_USE_FAVORITES===false
+									(settings['use_favorites']==1 && device['Favorite']==1) || 
+									settings['use_favorites']==0
 								)
-							) ||
-							$('.block_'+idx).length>0 ||
-							$('.block_'+idx+'_1').length>0 ||
-							$('.block_'+idx+'_2').length>0 ||
-							$('.block_'+idx+'_3').length>0 ||
-							$('.block_graph_'+idx).length>0
+							) || 
+							(
+								settings['auto_positioning']==0 && 
+								(
+
+									$('.block_'+idx).length>0 ||
+									$('.block_'+idx+'_1').length>0 ||
+									$('.block_'+idx+'_2').length>0 ||
+									$('.block_'+idx+'_3').length>0 ||
+									$('.block_graph_'+idx).length>0
+								)
+							)
 						){
 							var width=4;
                             if(device['SwitchType']=='Selector') width=8;
@@ -963,7 +941,7 @@ function getDevices(override){
 									html+='<strong class="title">'+device['Name']+'</strong><br />';
 									if(device['Data']==''){
 										device['Data']=lang.mediaplayer_nothing_playing;
-										if(_HIDE_MEDIAPLAYER_WHEN_OFF) $('div.block_'+idx).hide();
+										if(settings['hide_mediaplayer']) $('div.block_'+idx).hide();
 									}
 									else {
 										$('div.block_'+idx).show();
@@ -997,6 +975,63 @@ function getDevices(override){
 										var title=lang.energy_usagetoday;
 										if(typeof(blocks[idx+'_2'])!=='undefined' && typeof(blocks[idx+'_2']['title'])!=='undefined') title=blocks[idx+'_2']['title'];
 										html = getStateBlock(device['idx']+'sub2','fa fa-plug',title,device['CounterToday'],device);
+										if(typeof(allblocks[idx])!=='undefined' && $('div.block_'+idx+'_2').length==0) var duplicate = $('div.block_'+idx+'_1').last().clone().removeClass('block_'+idx+'_1').addClass('block_'+idx+'_2').insertAfter($('div.block_'+idx+'_1'));
+										$('div.block_'+idx+'_2').html(html);
+										addHTML=false;
+										
+										triggerStatus(idx+'_3',device['LastUpdate'],device);
+										triggerChange(idx+'_3',device['LastUpdate'],device);
+
+										var title=lang.energy_totals;
+										if(typeof(blocks[idx+'_3'])!=='undefined' && typeof(blocks[idx+'_3']['title'])!=='undefined') title=blocks[idx+'_3']['title'];
+										html = getStateBlock(device['idx']+'sub3','fa fa-plug',title,device['Counter']+' kWh',device);
+										if(typeof(allblocks[idx])!=='undefined' && $('div.block_'+idx+'_3').length==0) var duplicate = $('div.block_'+idx+'_2').last().clone().removeClass('block_'+idx+'_2').addClass('block_'+idx+'_3').insertAfter($('div.block_'+idx+'_2'));
+										$('div.block_'+idx+'_3').html(html);
+										addHTML=false;
+
+										if(parseFloat(device['CounterDeliv'])>0){
+											triggerStatus(idx+'_4',device['LastUpdate'],device);
+											triggerChange(idx+'_4',device['LastUpdate'],device);
+							
+											var title=lang.energy_delivered;
+											if(typeof(blocks[idx+'_4'])!=='undefined' && typeof(blocks[idx+'_4']['title'])!=='undefined') title=blocks[idx+'_4']['title'];
+											html = getStateBlock(device['idx']+'sub4','fa fa-plug',title,device['CounterDeliv']+' kWh',device);
+											if(typeof(allblocks[idx])!=='undefined' && $('div.block_'+idx+'_4').length==0) var duplicate = $('div.block_'+idx+'_3').last().clone().removeClass('block_'+idx+'_3').addClass('block_'+idx+'_4').insertAfter($('div.block_'+idx+'_3'));
+											$('div.block_'+idx+'_3').html(html);
+											addHTML=false;
+
+											triggerStatus(idx+'_5',device['LastUpdate'],device);
+											triggerChange(idx+'_5',device['LastUpdate'],device);
+							
+											var title=lang.energy_deliveredtoday;
+											if(typeof(blocks[idx+'_5'])!=='undefined' && typeof(blocks[idx+'_5']['title'])!=='undefined') title=blocks[idx+'_5']['title'];
+											html = getStateBlock(device['idx']+'sub5','fa fa-plug',title,device['CounterDelivToday'],device);
+											if(typeof(allblocks[idx])!=='undefined' && $('div.block_'+idx+'_5').length==0) var duplicate = $('div.block_'+idx+'_4').last().clone().removeClass('block_'+idx+'_4').addClass('block_'+idx+'_5').insertAfter($('div.block_'+idx+'_4'));
+											$('div.block_'+idx+'_5').html(html);
+											addHTML=false;
+										}
+									}
+									if(device['Type']=='P1 Smart Meter' && device['SubType']=='Gas'){
+										if($('div.block_'+idx).length>0){
+											allblocks[idx] = true;
+										}
+
+										triggerStatus(idx+'_1',device['LastUpdate'],device);
+										triggerChange(idx+'_1',device['LastUpdate'],device);
+							
+										var title=lang.gas_usagetoday;
+										if(typeof(blocks[idx+'_1'])!=='undefined' && typeof(blocks[idx+'_1']['title'])!=='undefined') title=blocks[idx+'_1']['title'];
+										html+= getStateBlock(device['idx']+'sub1','fa fa-fire',title,device['CounterToday'],device);
+										if(!$('div.block_'+idx).hasClass('block_'+idx+'_1')) $('div.block_'+idx).addClass('block_'+idx+'_1');
+										$('div.block_'+idx+'_1').html(html);
+										addHTML=false;
+
+										triggerStatus(idx+'_2',device['LastUpdate'],device);
+										triggerChange(idx+'_2',device['LastUpdate'],device);
+							
+										var title=lang.gas_usage;
+										if(typeof(blocks[idx+'_2'])!=='undefined' && typeof(blocks[idx+'_2']['title'])!=='undefined') title=blocks[idx+'_2']['title'];
+										html = getStateBlock(device['idx']+'sub2','fa fa-fire',title,device['Counter']+' m3',device);
 										if(typeof(allblocks[idx])!=='undefined' && $('div.block_'+idx+'_2').length==0) var duplicate = $('div.block_'+idx+'_1').last().clone().removeClass('block_'+idx+'_1').addClass('block_'+idx+'_2').insertAfter($('div.block_'+idx+'_1'));
 										$('div.block_'+idx+'_2').html(html);
 										addHTML=false;
@@ -1141,10 +1176,10 @@ function getDevices(override){
 										html+=' '+device['Level']+'%';
 									}
 									html+='</strong>';
-										if((_SHOW_LASTUPDATE && (typeof(blocks[idx])=='undefined' || typeof(blocks[idx]['hide_lastupdate'])=='undefined' || blocks[idx]['hide_lastupdate']===false)) || 
-										  (!_SHOW_LASTUPDATE && (typeof(blocks[idx])!=='undefined' && typeof(blocks[idx]['show_lastupdate'])!=='undefined' && blocks[idx]['show_lastupdate']==true)) 
+										if((settings['last_update'] && (typeof(blocks[idx])=='undefined' || typeof(blocks[idx]['hide_lastupdate'])=='undefined' || blocks[idx]['hide_lastupdate']===false)) || 
+										  (!settings['last_update'] && (typeof(blocks[idx])!=='undefined' && typeof(blocks[idx]['show_lastupdate'])!=='undefined' && blocks[idx]['show_lastupdate']==true)) 
 										  ){
-											html+=' / <span class="lastupdate">'+moment(device['LastUpdate']).format(_LASTUPDATE_FORMAT)+'</span>';
+											html+=' / <span class="lastupdate">'+moment(device['LastUpdate']).format(settings['timeformat'])+'</span>';
 										}
 										html+='<br />';
 										if(device['SubType']=='RGBW'){
@@ -1173,7 +1208,7 @@ function getDevices(override){
 											var bIsWhite = (hue.s < 20);
 											
 											sliding=true;
-											var url = _HOST_DOMOTICZ+'/json.htm?type=command&param=setcolbrightnessvalue&idx='+curidx+'&hue='+hue.h+'&brightness='+hue.b+'&iswhite='+bIsWhite;
+											var url = settings['domoticz_ip']+'/json.htm?type=command&param=setcolbrightnessvalue&idx='+curidx+'&hue='+hue.h+'&brightness='+hue.b+'&iswhite='+bIsWhite;
 											$.ajax({
 												url: url+'&jsoncallback=?',
 												type: 'GET',async: false,contentType: "application/json",dataType: 'jsonp'
@@ -1206,7 +1241,7 @@ function getDevices(override){
 											}
 										});
 									}
-									else /*if(parseFloat(device['MaxDimLevel'])==15)*/{
+									else {
 										$( ".slider"+device['idx'] ).slider({
 											value:Math.ceil((device['Level']/100)*16),
 											step: 1,
@@ -1254,19 +1289,35 @@ function getDevices(override){
 										html+=iconORimage(idx,'',buttonimg+'.png',onoff+' icon');	
 									}
 
-									html+='<div class="col-xs-8 col-data">';
-										html+='<strong class="title">'+device['Name']+'</strong><br />';
-										html+='<div class="btn-group" data-toggle="buttons">';
-										for(a in names) {
-											var s = '';
-											if ((a * 10) == parseFloat(device['Level'])) s = 'active';
-											html+='<label class="btn btn-default '+s+'" onclick="slideDevice('+device['idx']+',$(this).children(\'input\').val());">';
-											html += '<input type="radio" name="options" autocomplete="off" value="'+(a*10)+'" checked>'+names[a];
-											html+='</label>';
-										}
-										html+='</select>';
+									if(settings['selector_instead_of_buttons']==true){
+										html+='<div class="col-xs-8 col-data">';
+											html+='<strong class="title">'+device['Name']+'</strong><br />';
+											html+='<select onchange="slideDevice('+device['idx']+',this.value);">';
+											html+='<option value="">'+lang.select+'</option>';
+											for(a in names){
+												var s='';
+												if((a*10)==parseFloat(device['Level'])) s = 'selected';
+												html+='<option value="'+(a*10)+'" '+s+'>'+names[a]+'</option>';
+											}
+											html+='</select>';
 										html+='</div>';
-									html+='</div>';
+									}
+									else {
+										html+='<div class="col-xs-8 col-data">';
+											html+='<strong class="title">'+device['Name']+'</strong><br />';
+											html+='<div class="btn-group" data-toggle="buttons">';
+											for(a in names) {
+												var s = '';
+												if ((a * 10) == parseFloat(device['Level'])) s = 'active';
+												html+='<label class="btn btn-default '+s+'" onclick="slideDevice('+device['idx']+',$(this).children(\'input\').val());">';
+												html += '<input type="radio" name="options" autocomplete="off" value="'+(a*10)+'" checked>'+names[a];
+												html+='</label>';
+											}
+											html+='</select>';
+											html+='</div>';
+										html+='</div>';
+									}
+									
 								}
 								else if((device['Type']=='Thermostat' || device['HardwareType']=='Toon Thermostat') && device['SubType']=='SetPoint'){
 									
@@ -1282,10 +1333,10 @@ function getDevices(override){
 											html+='<strong class="title">'+device['Data']+_TEMP_SYMBOL+'</strong><br />';
 											html+='<span class="state">'+device['Name']+'</span>';
 										}
-										if((_SHOW_LASTUPDATE && (typeof(blocks[idx])=='undefined' || typeof(blocks[idx]['hide_lastupdate'])=='undefined' || blocks[idx]['hide_lastupdate']===false)) || 
-										  (!_SHOW_LASTUPDATE && (typeof(blocks[idx])!=='undefined' && typeof(blocks[idx]['show_lastupdate'])!=='undefined' && blocks[idx]['show_lastupdate']==true)) 
+										if((settings['last_update'] && (typeof(blocks[idx])=='undefined' || typeof(blocks[idx]['hide_lastupdate'])=='undefined' || blocks[idx]['hide_lastupdate']===false)) || 
+										  (!settings['last_update'] && (typeof(blocks[idx])!=='undefined' && typeof(blocks[idx]['show_lastupdate'])!=='undefined' && blocks[idx]['show_lastupdate']==true)) 
 										  ){
-											html+='<br /><span class="lastupdate">'+moment(device['LastUpdate']).format(_LASTUPDATE_FORMAT)+'</span>';
+											html+='<br /><span class="lastupdate">'+moment(device['LastUpdate']).format(settings['timeformat'])+'</span>';
 										}
 									html+='</div>';
 
@@ -1356,10 +1407,10 @@ function getDevices(override){
 											html+='<strong class="title">'+device['Name']+'</strong><br />';
 											html+='<span class="state">'+device['Data']+'</span>';
 										}
-										if((_SHOW_LASTUPDATE && (typeof(blocks[idx])=='undefined' || typeof(blocks[idx]['hide_lastupdate'])=='undefined' || blocks[idx]['hide_lastupdate']===false)) || 
-										  (!_SHOW_LASTUPDATE && (typeof(blocks[idx])!=='undefined' && typeof(blocks[idx]['show_lastupdate'])!=='undefined' && blocks[idx]['show_lastupdate']==true)) 
+										if((settings['last_update'] && (typeof(blocks[idx])=='undefined' || typeof(blocks[idx]['hide_lastupdate'])=='undefined' || blocks[idx]['hide_lastupdate']===false)) || 
+										  (!settings['last_update'] && (typeof(blocks[idx])!=='undefined' && typeof(blocks[idx]['show_lastupdate'])!=='undefined' && blocks[idx]['show_lastupdate']==true)) 
 										  ){
-											html+='<br /><span class="lastupdate">'+moment(device['LastUpdate']).format(_LASTUPDATE_FORMAT)+'</span>';
+											html+='<br /><span class="lastupdate">'+moment(device['LastUpdate']).format(settings['timeformat'])+'</span>';
 										}
 									html+='</div>';
 								}
@@ -1539,11 +1590,11 @@ function getDevices(override){
 					if(typeof(afterGetDevices)=='function') afterGetDevices();
 				}
 				
-				if(typeof(_DEBUG)=='undefined' || _DEBUG===false) setTimeout(function(){ getDevices(); },(_DOMOTICZ_REFRESH*1000));
+				if(typeof(_DEBUG)=='undefined' || _DEBUG===false) setTimeout(function(){ getDevices(); },(settings['domoticz_refresh']*1000));
 			}
 		});
 	}
 	else {
-		if(typeof(_DEBUG)=='undefined' || _DEBUG===false) setTimeout(function(){ getDevices(); },(_DOMOTICZ_REFRESH*1000));
+		if(typeof(_DEBUG)=='undefined' || _DEBUG===false) setTimeout(function(){ getDevices(); },(settings['domoticz_refresh']*1000));
 	}
 }

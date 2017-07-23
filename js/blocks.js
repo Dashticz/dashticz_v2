@@ -5,7 +5,6 @@ blocktypes.SubType['Visibility'] = { icon: 'fa fa-eye', title: '<Name>', value: 
 blocktypes.SubType['Electric'] = { icon: 'fa fa-plug', title: '<Name>', value: '<Data>' }
 blocktypes.SubType['Lux'] = { icon: 'fa fa-sun-o', title: '<Name>', value: '<Data>' }
 blocktypes.SubType['Barometer'] = { icon: 'wi wi-barometer', title: '<Name>', value: '<Data>' }
-blocktypes.SubType['Gas'] = { icon: 'fa fa-fire', title: lang.gas_usagetoday, value: '<CounterToday>' }
 blocktypes.SubType['Sound Level'] = { icon: 'fa fa-volume-up', title: '<Name>', value: '<Data>' }
 blocktypes.SubType['Distance'] = { icon: 'fa fa-eye', title: '<Name>', value: '<Data>' }
 blocktypes.SubType['Alert'] = { icon: 'fa fa-warning', title: '<Data>', value: '<Name>' }
@@ -80,14 +79,14 @@ function getBlock(cols,c,columndiv,standby){
 			else if(cols['blocks'][b]=='weather'){
 				if(typeof(loadWeatherFull)!=='function') $.ajax({url: 'js/weather.js', async: false,dataType: "script"});
 				$(columndiv).append('<div data-id="weather" class="block_'+cols['blocks'][b]+' containsweatherfull"></div>');
-				if(_APIKEY_WUNDERGROUND!=="" && _WEATHER_CITY!=="") loadWeatherFull(_WEATHER_CITY,_WEATHER_COUNTRY,$('.weatherfull'));
+				if(settings['wu_api']!=="" && settings['wu_city']!=="") loadWeatherFull(settings['wu_city'],settings['wu_country'],$('.weatherfull'));
 			}
 			else if(cols['blocks'][b]=='currentweather' || cols['blocks'][b]=='currentweather_big'){
 				if(typeof(loadWeather)!=='function') $.ajax({url: 'js/weather.js', async: false,dataType: "script"});
 				var cl = '';
 				if(cols['blocks'][b]=='currentweather_big') $(columndiv).append('<div data-id="currentweather_big" class="mh transbg big block_'+cols['blocks'][b]+' col-xs-'+width+' containsweather"><div class="col-xs-1"><div class="weather" id="weather"></div></div><div class="col-xs-11"><span class="title weatherdegrees" id="weatherdegrees"></span> <span class="weatherloc" id="weatherloc"></span></div></div>');
 				else $(columndiv).append('<div data-id="currentweather" class="mh transbg block_'+cols['blocks'][b]+' col-xs-'+width+' containsweather"><div class="col-xs-4"><div class="weather" id="weather"></div></div><div class="col-xs-8"><strong class="title weatherdegrees" id="weatherdegrees"></strong><br /><span class="weatherloc" id="weatherloc"></span></div></div>');
-				if(_APIKEY_WUNDERGROUND!=="" && _WEATHER_CITY!=="") loadWeather(_WEATHER_CITY,_WEATHER_COUNTRY);
+				if(settings['wu_api']!=="" && settings['wu_city']!=="") loadWeather(settings['wu_city'],settings['wu_country']);
 			}
 			else if(cols['blocks'][b]=='train'){
 				if(typeof(getTrainInfo)!=='function') $.ajax({url: 'js/ns.js', async: false,dataType: "script"});
@@ -109,7 +108,7 @@ function getBlock(cols,c,columndiv,standby){
 			else if(cols['blocks'][b]=='news'){
 				if(typeof(getNews)!=='function') $.ajax({url: 'js/news.js', async: false,dataType: "script"});
 				$(columndiv).append('<div data-id="news" class="news"></div>');
-				getNews('news',_NEWS_RSSFEED);
+				getNews('news',settings['default_news_url']);
 			}
 			else if(typeof(cols['blocks'][b])=='string' && cols['blocks'][b].substring(0,5)=='news_'){
 				if(typeof(getNews)!=='function') $.ajax({url: 'js/news.js', async: false,dataType: "script"});
@@ -117,10 +116,10 @@ function getBlock(cols,c,columndiv,standby){
 				getNews(cols['blocks'][b],blocks[cols['blocks'][b]]['feed']);
 			}
 			else if(cols['blocks'][b]=='logo'){
-				$(columndiv).append('<div data-id="logo" class="logo col-xs-'+width+'">'+_APP_TITLE+'<div>');
+				$(columndiv).append('<div data-id="logo" class="logo col-xs-'+width+'">'+settings['app_title']+'<div>');
 			}
 			else if(cols['blocks'][b]=='settings'){
-				$(columndiv).append('<div data-id="settings" class="settings col-xs-'+width+' text-right"><em class="fa fa-cog" /><div>');
+				$(columndiv).append('<div data-id="settings" class="settings settingsicon col-xs-'+width+' text-right" data-toggle="modal" data-target="#settings"><em class="fa fa-cog" /><div>');
 			}
 			else if(cols['blocks'][b]=='miniclock'){
 				$(columndiv).append('<div data-id="clock" class="miniclock col-xs-'+width+' text-center"><span class="weekday"></span> <span class="date"></span> <span>&nbsp;&nbsp;&nbsp;&nbsp;</span> <span class="clock"></span></div>');
@@ -145,21 +144,21 @@ function getBlock(cols,c,columndiv,standby){
 				if(typeof(StationClock)!=='function') $.ajax({url: 'vendor/stationclock.js', async: false,dataType: "script"});
 				
 				var clock = new StationClock("clock");
-				  clock.body = StationClock.RoundBody;
-				  clock.dial = StationClock.GermanStrokeDial;
-				  clock.hourHand = StationClock.PointedHourHand;
-				  clock.minuteHand = StationClock.PointedMinuteHand;
-				  if(_HIDE_SECONDS_IN_STATIONCLOCK==true)  clock.secondHand = false;
-				 else {
-						  clock.secondHand = StationClock.HoleShapedSecondHand;
-						if(typeof(_CLOCK_BOSS)=='undefined') clock.boss = StationClock.NoBoss;
-						else if(_CLOCK_BOSS=='RedBoss') clock.boss = StationClock.RedBoss;
-					}
-				
-				  clock.minuteHandBehavoir = StationClock.BouncingMinuteHand;
-				  clock.secondHandBehavoir = StationClock.OverhastySecondHand;
+				clock.body = StationClock.RoundBody;
+				clock.dial = StationClock.GermanStrokeDial;
+				clock.hourHand = StationClock.PointedHourHand;
+				clock.minuteHand = StationClock.PointedMinuteHand;
+				if(settings['hide_seconds_stationclock']==true)  clock.secondHand = false;
+				else {
+					clock.secondHand = StationClock.HoleShapedSecondHand;
+					if(typeof(settings['boss_stationclock'])=='undefined') clock.boss = StationClock.NoBoss;
+					else if(settings['boss_stationclock']=='RedBoss') clock.boss = StationClock.RedBoss;
+				}
 
-				  window.setInterval(function() { clock.draw() }, 50);
+				clock.minuteHandBehavoir = StationClock.BouncingMinuteHand;
+				clock.secondHandBehavoir = StationClock.OverhastySecondHand;
+
+				window.setInterval(function() { clock.draw() }, 50);
 			}
 			else if(cols['blocks'][b]=='sunrise'){
 				$(columndiv).append('<div data-id="sunrise" class="block_'+cols['blocks'][b]+' col-xs-'+width+' transbg text-center sunriseholder"><em class="wi wi-sunrise"></em><span class="sunrise"></span><em class="wi wi-sunset"></em><span class="sunset"></span></div>');
@@ -191,7 +190,7 @@ function getBlock(cols,c,columndiv,standby){
 				html+='<div class="col-xs-10 items">'+lang.loading+'</div>';
 				html+='</div>';
 				$(columndiv).append(html);	
-				addCalendar($('.containsicalendar'+random),_ICALENDAR_URL);
+				addCalendar($('.containsicalendar'+random),settings['calendarurl']);
 			}
 			else if(cols['blocks'][b]=='streamplayer'){
 				var random = getRandomInt(1,100000);
@@ -325,10 +324,10 @@ function getStateBlock(id,icon,title,value,device){
 			stateBlock+='<span>'+title+'</span>';
 
 		}
-		if((_SHOW_LASTUPDATE && (typeof(blocks[device['idx']])=='undefined' || typeof(blocks[device['idx']]['hide_lastupdate'])=='undefined' || blocks[device['idx']]['hide_lastupdate']===false)) || 
-		  (!_SHOW_LASTUPDATE && (typeof(blocks[device['idx']])!=='undefined' && typeof(blocks[device['idx']]['show_lastupdate'])!=='undefined' && blocks[device['idx']]['show_lastupdate']==true)) 
+		if((settings['last_update'] && (typeof(blocks[device['idx']])=='undefined' || typeof(blocks[device['idx']]['hide_lastupdate'])=='undefined' || blocks[device['idx']]['hide_lastupdate']===false)) || 
+		  (!settings['last_update'] && (typeof(blocks[device['idx']])!=='undefined' && typeof(blocks[device['idx']]['show_lastupdate'])!=='undefined' && blocks[device['idx']]['show_lastupdate']==true)) 
 		  ){
-			stateBlock+='<br /><span class="lastupdate">'+moment(device['LastUpdate']).format(_LASTUPDATE_FORMAT)+'</span>';
+			stateBlock+='<br /><span class="lastupdate">'+moment(device['LastUpdate']).format(settings['timeformat'])+'</span>';
 		}
 	
 	stateBlock+='</div>';
@@ -377,13 +376,13 @@ function getStatusBlock(device,block,c){
 	if(typeof(device['Direction'])!=='undefined' && typeof(device['DirectionStr'])!=='undefined'){
 		attr+=' style="-webkit-transform: rotate('+device['Direction']+'deg);-moz-transform: rotate('+device['Direction']+'deg);-ms-transform: rotate('+device['Direction']+'deg);-o-transform: rotate('+device['Direction']+'deg); transform: rotate('+device['Direction']+'deg);"';
 		//start alteration
-		if (_USE_BEAUFORT ==true){
+		if (settings['use_beaufort'] ==true){
 			value = Beaufort(device['Speed'])+', '; 
 		} else {
 			value = device['Speed']+' m/s, '; 
 		}
 		value+=device['Direction']+'&deg ';
-		if (_TRANSLATE_SPEED==true){
+		if (settings['translate_windspeed']==true){
 			value+=TranslateDirection(device['DirectionStr'])
 		} else {
 			value+=device['DirectionStr'];
@@ -414,10 +413,10 @@ function getStatusBlock(device,block,c){
 			stateBlock+='<strong class="title">'+value+'</strong><br />';
 			stateBlock+='<span>'+title+'</span>';
 		}
-		if((_SHOW_LASTUPDATE && (typeof(blocks[device['idx']])=='undefined' || typeof(blocks[device['idx']]['hide_lastupdate'])=='undefined' || blocks[device['idx']]['hide_lastupdate']===false)) || 
-		  (!_SHOW_LASTUPDATE && (typeof(blocks[device['idx']])!=='undefined' && typeof(blocks[device['idx']]['show_lastupdate'])!=='undefined' && blocks[device['idx']]['show_lastupdate']==true)) 
+		if((settings['last_update'] && (typeof(blocks[device['idx']])=='undefined' || typeof(blocks[device['idx']]['hide_lastupdate'])=='undefined' || blocks[device['idx']]['hide_lastupdate']===false)) || 
+		  (!settings['last_update'] && (typeof(blocks[device['idx']])!=='undefined' && typeof(blocks[device['idx']]['show_lastupdate'])!=='undefined' && blocks[device['idx']]['show_lastupdate']==true)) 
 		  ){
-			stateBlock+='<br /><span class="lastupdate">'+moment(device['LastUpdate']).format(_LASTUPDATE_FORMAT)+'</span>';
+			stateBlock+='<br /><span class="lastupdate">'+moment(device['LastUpdate']).format(settings['timeformat'])+'</span>';
 		}
 	stateBlock+='</div>';
 	return stateBlock;
@@ -458,10 +457,10 @@ function getBlockData(device,idx,ontxt,offtxt){
 		if(device['Status']=='Off' || device['Status']=='Closed' || device['Status']=='Normal') data+='<span class="state">'+offtxt+'</span>';
 		else data+='<span class="state">'+ontxt+'</span>';
 	}
-	if((_SHOW_LASTUPDATE && (typeof(blocks[idx])=='undefined' || typeof(blocks[idx]['hide_lastupdate'])=='undefined' || blocks[idx]['hide_lastupdate']===false)) || 
-	  (!_SHOW_LASTUPDATE && (typeof(blocks[idx])!=='undefined' && typeof(blocks[idx]['show_lastupdate'])!=='undefined' && blocks[idx]['show_lastupdate']==true)) 
+	if((settings['last_update'] && (typeof(blocks[idx])=='undefined' || typeof(blocks[idx]['hide_lastupdate'])=='undefined' || blocks[idx]['hide_lastupdate']===false)) || 
+	  (!settings['last_update'] && (typeof(blocks[idx])!=='undefined' && typeof(blocks[idx]['show_lastupdate'])!=='undefined' && blocks[idx]['show_lastupdate']==true)) 
 	  ){
-		data+='<br /><span class="lastupdate">'+moment(device['LastUpdate']).format(_LASTUPDATE_FORMAT)+'</span>';
+		data+='<br /><span class="lastupdate">'+moment(device['LastUpdate']).format(settings['timeformat'])+'</span>';
 	}
 	data+='</div>';
 	return data;

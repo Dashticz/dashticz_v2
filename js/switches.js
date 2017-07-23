@@ -26,7 +26,7 @@ function switchDevice(cur){
 	
 	if(typeof(idx)=='string' && idx.substr(0,1)=='s'){
 		$.ajax({
-			url: _HOST_DOMOTICZ+'/json.htm?type=command&param=switchscene&idx='+idx.replace('s','')+'&switchcmd='+doStatus+'&level=0&passcode=&jsoncallback=?',
+			url: settings['domoticz_ip']+'/json.htm?type=command&param=switchscene&idx='+idx.replace('s','')+'&switchcmd='+doStatus+'&level=0&passcode=&jsoncallback=?',
 			type: 'GET',async: false,contentType: "application/json",dataType: 'jsonp',
 			success:function(data) {
 				getDevices(true);
@@ -35,7 +35,7 @@ function switchDevice(cur){
 	}
 	else {
 		$.ajax({
-			url: _HOST_DOMOTICZ+'/json.htm?type=command&param=switchlight&idx='+idx+'&switchcmd='+doStatus+'&level=0&passcode=&jsoncallback=?',
+			url: settings['domoticz_ip']+'/json.htm?type=command&param=switchlight&idx='+idx+'&switchcmd='+doStatus+'&level=0&passcode=&jsoncallback=?',
 			type: 'GET',async: false,contentType: "application/json",dataType: 'jsonp',
 			success:function(data) {
 				getDevices(true);
@@ -49,7 +49,7 @@ function switchThermostat(setpoint,cur){
 	var idx = $(cur).data('light');	
 	if(typeof(req)!=='undefined') req.abort();
 	req = $.ajax({
-		url: _HOST_DOMOTICZ+'/json.htm?type=command&param=setsetpoint&idx='+idx+'&setpoint='+setpoint+'&jsoncallback=?',
+		url: settings['domoticz_ip']+'/json.htm?type=command&param=setsetpoint&idx='+idx+'&setpoint='+setpoint+'&jsoncallback=?',
 		type: 'GET',async: false,contentType: "application/json",dataType: 'jsonp',
 		success:function(data) {
 			
@@ -71,7 +71,7 @@ function switchBlinds(idx,action){
 	
 	if(typeof(req)!=='undefined') req.abort();
 	$.ajax({
-		url: _HOST_DOMOTICZ+'/json.htm?type=command&param=switchlight&idx='+idx+'&switchcmd='+action+'&level=0&passcode=&jsoncallback=?',
+		url: settings['domoticz_ip']+'/json.htm?type=command&param=switchlight&idx='+idx+'&switchcmd='+action+'&level=0&passcode=&jsoncallback=?',
 		type: 'GET',async: false,contentType: "application/json",dataType: 'jsonp',
 		success:function(data) {
 			getDevices(true);
@@ -111,7 +111,7 @@ function switchGroup(cur){
 	triggerChange(idx,doStatus);
 	if(typeof(req)!=='undefined') req.abort();	
 	$.ajax({
-		url: _HOST_DOMOTICZ+'/json.htm?type=command&param=switchscene&idx='+idx.replace('s','')+'&switchcmd='+doStatus+'&level=0&passcode=&jsoncallback=?',
+		url: settings['domoticz_ip']+'/json.htm?type=command&param=switchscene&idx='+idx.replace('s','')+'&switchcmd='+doStatus+'&level=0&passcode=&jsoncallback=?',
 		type: 'GET',async: false,contentType: "application/json",dataType: 'jsonp',
 		success:function(data) {
 			getDevices(true);
@@ -133,7 +133,7 @@ function slideDevice(idx,status){
 	$('.block_'+idx).find('.state').html(lang.state_on);
 	
 	slide = $.ajax({
-		url: _HOST_DOMOTICZ+'/json.htm?type=command&param=switchlight&idx='+idx+'&switchcmd=Set%20Level&level='+status+'&jsoncallback=?',
+		url: settings['domoticz_ip']+'/json.htm?type=command&param=switchlight&idx='+idx+'&switchcmd=Set%20Level&level='+status+'&jsoncallback=?',
 		type: 'GET',async: false,contentType: "application/json",dataType: 'jsonp',
 		success:function(data) {
 			getDevices(true);
@@ -142,12 +142,12 @@ function slideDevice(idx,status){
 }
 
 function ziggoRemote(key){
-	$.get(_HOST_ZIGGO_HORIZON+'?key='+key);
+	$.get(settings['switch_horizon']+'?key='+key);
 }
 
 function controlLogitech(idx,action){
 	$.ajax({
-		url: _HOST_DOMOTICZ+'/json.htm?type=command&param=lmsmediacommand&idx='+idx+'&action='+action+'&jsoncallback=?',
+		url: settings['domoticz_ip']+'/json.htm?type=command&param=lmsmediacommand&idx='+idx+'&action='+action+'&jsoncallback=?',
 		type: 'GET',async: true,contentType: "application/json",dataType: 'jsonp',
 		success: function(data) {
 			getDevices(true);

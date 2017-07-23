@@ -62,7 +62,7 @@ function getSpotify(columndiv){
 			});
 		});
 	}
-	else if(!_CLIENTID_SPOTIFY){
+	else if(!settings['spot_clientid']){
 		alert('Enter your Spotify ClientID in CONFIG.JS');
 	}
 	else {
@@ -86,7 +86,7 @@ function getPlayList(purl){
 
 function getLoginURL(scopes) {
 
-	return 'https://accounts.spotify.com/authorize?client_id=' + _CLIENTID_SPOTIFY +
+	return 'https://accounts.spotify.com/authorize?client_id=' + settings['spot_clientid'] +
 	  '&redirect_uri=' + encodeURIComponent(REDIRECT_URI) +
 	  '&scope=' + encodeURIComponent(scopes.join(' ')) +
 	  '&response_type=token';

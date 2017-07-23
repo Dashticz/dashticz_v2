@@ -24,6 +24,139 @@
     width: 100%;
     max-width: 125px;
 }
+
+
+/* BEGIN || Popup modal settings (need to sort and arrange first) */
+.nav-pills>li>a {
+	border-radius: 6px 6px 0px 0px;
+	color: #000;
+	font-size: 16px;
+	background-color: #f6f6f6;
+}
+
+.nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover {
+	background-color: #555;
+}
+
+.modal-header {
+	border-bottom: 0px !important;
+}
+
+.modal-body {
+    position: relative;
+    padding: 0px 0px 0px 0px;
+}
+
+.modal-body .glyphicon {
+	color:#A80002;
+	cursor:help;
+}
+.modal-dialog-settings {
+	min-width: 50% !important;
+	margin: 80px auto;
+}
+
+.nav {
+	border-bottom: 1px solid #e5e5e5;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+.btn {
+	text-transform: none !important;
+	font-size: 16px !important;
+	font-weight: 400 !important;
+}
+
+.btn-secondary {
+	color: #292b2c !important;
+	border: 1px solid #ccc !important;
+	background-color: #fff !important;
+	padding: .5rem 1rem !important;
+	border-color: #ccc !important;
+}
+
+.btn-primary {
+	color: #fff;
+	background-color: #5cb85c !important;
+	padding: .5rem 1rem !important;
+	border-color: #5cb85c !important;
+}
+
+.row {
+	margin-bottom: 10px !important;
+}
+
+.label {
+	font-weight: 400px !important;
+}
+
+.tab-pane {
+	padding:10px !important;
+}
+
+.modal-header {
+    padding: 15px;
+    border-bottom: 1px solid #000;
+}
+
+.modal-dialog {
+    min-width: 80% !important;
+    margin: 80px auto;
+}
+
+.material-switch > input[type="checkbox"] {
+    display: none;   
+}
+
+.material-switch > label {
+	cursor: pointer;
+    height: 0px;
+    position: relative; 
+    width: 40px;  
+}
+
+.material-switch > label::before {
+    background: rgb(0, 0, 0);
+    box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.5);
+    border-radius: 8px;
+    content: '';
+    height: 16px;
+    margin-top: 0px;
+    position:absolute;
+    opacity: 0.3;
+    transition: all 0.4s ease-in-out;
+    width: 40px;
+}
+
+.material-switch > label::after {
+    background: rgb(255, 255, 255);
+    border-radius: 16px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+    content: '';
+    height: 24px;
+    left: -4px;
+    margin-top: 0px;
+    position: absolute;
+    top: -4px;
+    transition: all 0.3s ease-in-out;
+    width: 24px;
+}
+
+.material-switch > input[type="checkbox"]:checked + label::before {
+    background: inherit;
+    opacity: 0.5;
+}
+
+.material-switch > input[type="checkbox"]:checked + label::after {
+    background: inherit;
+    left: 20px;
+}
+
+
+/* END || Popup modal settings (need to sort and arrange first) */
+
+
 .containslog .items {
 	height: 154px;
     overflow: auto;
