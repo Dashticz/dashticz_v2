@@ -324,8 +324,8 @@ function getStateBlock(id,icon,title,value,device){
 			stateBlock+='<span>'+title+'</span>';
 
 		}
-		if((settings['last_update'] && (typeof(blocks[device['idx']])=='undefined' || typeof(blocks[device['idx']]['hide_lastupdate'])=='undefined' || blocks[device['idx']]['hide_lastupdate']===false)) || 
-		  (!settings['last_update'] && (typeof(blocks[device['idx']])!=='undefined' && typeof(blocks[device['idx']]['show_lastupdate'])!=='undefined' && blocks[device['idx']]['show_lastupdate']==true)) 
+		if((settings['last_update']==1 && (typeof(blocks[device['idx']])=='undefined' || typeof(blocks[device['idx']]['hide_lastupdate'])=='undefined' || blocks[device['idx']]['hide_lastupdate']===false)) || 
+		  (settings['last_update']==0 && (typeof(blocks[device['idx']])!=='undefined' && typeof(blocks[device['idx']]['show_lastupdate'])!=='undefined' && blocks[device['idx']]['show_lastupdate']==true)) 
 		  ){
 			stateBlock+='<br /><span class="lastupdate">'+moment(device['LastUpdate']).format(settings['timeformat'])+'</span>';
 		}
@@ -413,8 +413,8 @@ function getStatusBlock(device,block,c){
 			stateBlock+='<strong class="title">'+value+'</strong><br />';
 			stateBlock+='<span>'+title+'</span>';
 		}
-		if((settings['last_update'] && (typeof(blocks[device['idx']])=='undefined' || typeof(blocks[device['idx']]['hide_lastupdate'])=='undefined' || blocks[device['idx']]['hide_lastupdate']===false)) || 
-		  (!settings['last_update'] && (typeof(blocks[device['idx']])!=='undefined' && typeof(blocks[device['idx']]['show_lastupdate'])!=='undefined' && blocks[device['idx']]['show_lastupdate']==true)) 
+		if((settings['last_update']==1 && (typeof(blocks[device['idx']])=='undefined' || typeof(blocks[device['idx']]['hide_lastupdate'])=='undefined' || blocks[device['idx']]['hide_lastupdate']===false)) || 
+		  (!settings['last_update']==0 && (typeof(blocks[device['idx']])!=='undefined' && typeof(blocks[device['idx']]['show_lastupdate'])!=='undefined' && blocks[device['idx']]['show_lastupdate']==true)) 
 		  ){
 			stateBlock+='<br /><span class="lastupdate">'+moment(device['LastUpdate']).format(settings['timeformat'])+'</span>';
 		}
@@ -457,8 +457,8 @@ function getBlockData(device,idx,ontxt,offtxt){
 		if(device['Status']=='Off' || device['Status']=='Closed' || device['Status']=='Normal') data+='<span class="state">'+offtxt+'</span>';
 		else data+='<span class="state">'+ontxt+'</span>';
 	}
-	if((settings['last_update'] && (typeof(blocks[idx])=='undefined' || typeof(blocks[idx]['hide_lastupdate'])=='undefined' || blocks[idx]['hide_lastupdate']===false)) || 
-	  (!settings['last_update'] && (typeof(blocks[idx])!=='undefined' && typeof(blocks[idx]['show_lastupdate'])!=='undefined' && blocks[idx]['show_lastupdate']==true)) 
+	if((settings['last_update']==1 && (typeof(blocks[idx])=='undefined' || typeof(blocks[idx]['hide_lastupdate'])=='undefined' || blocks[idx]['hide_lastupdate']===false)) || 
+	  (settings['last_update']==0 && (typeof(blocks[idx])!=='undefined' && typeof(blocks[idx]['show_lastupdate'])!=='undefined' && blocks[idx]['show_lastupdate']==true)) 
 	  ){
 		data+='<br /><span class="lastupdate">'+moment(device['LastUpdate']).format(settings['timeformat'])+'</span>';
 	}
