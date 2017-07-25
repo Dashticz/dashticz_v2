@@ -123,11 +123,11 @@ settingList['localize']['boss_stationclock']['title'] = 'StationClock Type';
 settingList['localize']['boss_stationclock']['type'] = 'text';
 
 settingList['localize']['gm_api'] = {}
-settingList['localize']['gm_api']['title'] = 'API Key';
+settingList['localize']['gm_api']['title'] = 'GoogleMaps API Key';
 settingList['localize']['gm_api']['type'] = 'text';
 
 settingList['localize']['gm_zoomlevel'] = {}
-settingList['localize']['gm_zoomlevel']['title'] = 'Zoom level';
+settingList['localize']['gm_zoomlevel']['title'] = 'GoogleMaps Zoom level';
 settingList['localize']['gm_zoomlevel']['type'] = 'text';
 
 settingList['localize']['gm_latitude'] = {}
@@ -143,11 +143,11 @@ settingList['weather'] = {}
 settingList['weather']['title'] = 'Weather';
 
 settingList['weather']['wu_api'] = {}
-settingList['weather']['wu_api']['title'] = 'API Key';
+settingList['weather']['wu_api']['title'] = 'Wunderground API Key';
 settingList['weather']['wu_api']['type'] = 'text';
 
 settingList['weather']['wu_city'] = {}
-settingList['weather']['wu_city']['title'] = 'Station (City or Code)';
+settingList['weather']['wu_city']['title'] = 'Wunderground Station (City or Code)';
 settingList['weather']['wu_city']['type'] = 'text';
 
 settingList['weather']['wu_name'] = {}
@@ -155,7 +155,7 @@ settingList['weather']['wu_name']['title'] = 'Display Name';
 settingList['weather']['wu_name']['type'] = 'text';
 
 settingList['weather']['wu_country'] = {}
-settingList['weather']['wu_country']['title'] = 'Country';
+settingList['weather']['wu_country']['title'] = 'Wunderground Country';
 settingList['weather']['wu_country']['type'] = 'text';
 
 settingList['weather']['idx_moonpicture'] = {}
