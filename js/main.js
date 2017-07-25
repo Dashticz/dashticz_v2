@@ -92,24 +92,21 @@ if(typeof(columns_standby)=='undefined') var columns_standby = {}
 
 if(typeof(screens)=='undefined'){
 	var screens = {}
-	screens[1] = {}
-	screens[1]['background'] = _BACKGROUND_IMAGE;
-	screens[1]['columns'] = []
+	screens['default'][1] = {}
+	screens['default'][1]['background'] = _BACKGROUND_IMAGE;
+	screens['default'][1]['columns'] = []
 	if(defaultcolumns===false){
 		for(c in columns){
-			screens[1]['columns'].push(c);
+			screens['default'][1]['columns'].push(c);
 		}
 	}
 }
-if(objectlength(screens)>1){
-	$.ajax({url: 'vendor/swiper/js/swiper.min.js', async: false,dataType: "script"});
-}
 
+$.ajax({url: 'vendor/swiper/js/swiper.min.js', async: false,dataType: "script"});
 $.ajax({url: 'js/switches.js', async: false,dataType: "script"});
 $.ajax({url: 'js/blocks.js', async: false,dataType: "script"});
 $.ajax({url: 'js/graphs.js', async: false,dataType: "script"});
 if(typeof(settings['gm_api'])!=='undefined' && settings['gm_api']!=="") $.ajax({url: 'https://maps.googleapis.com/maps/api/js?key='+settings['gm_api']+'&callback=initMap', async: false,dataType: "script"});
-	
 	
 $(document).ready(function(){	
 	
@@ -170,55 +167,91 @@ function buildStandby(){
 function buildScreens(){
 	var num=1;
 	
-	for(s in screens){
-		var screenhtml = '<div class="screen screen'+s+' swiper-slide slide'+s+'"';
-		if(typeof(screens[s]['background'])!=='undefined'){
-			if(screens[s]['background'].indexOf("/")>0) screenhtml+='style="background-image:url(\''+screens[s]['background']+'\');"';
-			else screenhtml+='style="background-image:url(\'img/'+screens[s]['background']+'\');"';
-		}
-		screenhtml+='><div class="row"></div></div>';
-		$('div.contents').append(screenhtml);			
-		
-		if(defaultcolumns===false){
-	
-			if(!settings['hide_topbar']){
-				if(typeof(columns['bar'])=='undefined'){
-					columns['bar'] = {}
-					columns['bar']['blocks'] = ['logo','miniclock','settings']
-				}
-				getBlock(columns['bar'],'bar','div.screen'+s+' .row .colbar',false);
-			}
-				
-			for(cs in screens[s]['columns']){
-				c = screens[s]['columns'][cs];
-				getBlock(columns[c],c,'div.screen'+s+' .row .col'+c,false);
-			}
-			
+	var allscreens = {}
+	for(t in screens){
+		if(typeof(screens[t]['maxwidth'])!=='undefined' && typeof(screens[t]['maxheight'])!=='undefined'){
+			allscreens[screens[t]['maxwidth']]=screens[t];
 		}
 		else {
-			if(!settings['hide_topbar']) $('body .row').append('<div class="col-sm-undefined col-xs-12 sortable colbar transbg dark"><div data-id="logo" class="logo col-xs-2">'+settings['app_title']+'<div></div></div><div data-id="clock" class="miniclock col-xs-8 text-center"><span class="weekday"></span> <span class="date"></span> <span>&nbsp;&nbsp;&nbsp;&nbsp;</span> <span class="clock"></span></div><div data-id="settings" class="settings col-xs-2 text-right"><em class="fa fa-cog"></em><div></div></div></div>');
-			$('body .row').append('<div class="col-xs-5 sortable col1"><div class="auto_switches"></div><div class="auto_dimmers"></div></div>');
-			$('body .row').append('<div class="col-xs-5 sortable col2"><div class="block_weather containsweatherfull"></div><div class="auto_media"></div><div class="auto_states"></div></div>');
-			$('body .row').append('<div class="col-xs-2 sortable col3"><div class="auto_clock"></div><div class="auto_sunrise"></div><div class="auto_buttons"></div></div>');
-
-			$('.col2').prepend('<div class="mh transbg big block_currentweather_big col-xs-12 containsweather"><div class="col-xs-1"><div class="weather" id="weather"></div></div><div class="col-xs-11"><span class="title weatherdegrees" id="weatherdegrees"></span> <span class="weatherloc" id="weatherloc"></span></div></div>');
-			if(typeof(settings['wu_api'])!=='undefined' && settings['wu_api']!=="" && typeof(settings['wu_city'])!=='undefined' && settings['wu_city']!==""){
-				if(typeof(loadWeatherFull)!=='function') $.ajax({url: 'js/weather.js', async: false,dataType: "script"});
-				loadWeatherFull(settings['wu_city'],settings['wu_country'],$('#weatherfull'));
-				loadWeather(settings['wu_city'],settings['wu_country']);
+			var maxwidth = 5000;
+			if(typeof(allscreens[maxwidth])=='undefined'){
+				allscreens[maxwidth] = {}
+				allscreens[maxwidth]['maxwidth'] = maxwidth;
+				allscreens[maxwidth]['maxheight'] = maxwidth;
 			}
+			allscreens[maxwidth][t]=screens[t];
+		}
+	}
+	screens = allscreens;
+	keys = Object.keys(screens);
+  	len = keys.length;
+	keys.sort();
+	
+	for (i = 0; i < len; i++) {
+  		t = keys[i];
+		if(
+			typeof(screens[t]['maxwidth'])=='undefined' || 
+			(
+				typeof(screens[t]['maxwidth'])!=='undefined' && 
+				parseFloat(screens[t]['maxwidth'])>=$(window).width() && 
+				parseFloat(screens[t]['maxheight'])>=$(window).height()
+			)
+		){
+			for(s in screens[t]){
+				if(s!=='maxwidth' && s!=='maxheight'){
+					var screenhtml = '<div class="screen screen'+s+' swiper-slide slide'+s+'"';
+					if(typeof(screens[t][s]['background'])!=='undefined'){
+						if(screens[t][s]['background'].indexOf("/")>0) screenhtml+='style="background-image:url(\''+screens[t][s]['background']+'\');"';
+						else screenhtml+='style="background-image:url(\'img/'+screens[t][s]['background']+'\');"';
+					}
+					screenhtml+='><div class="row"></div></div>';
+					$('div.contents').append(screenhtml);			
 
-			$('.col3 .auto_clock').html('<div class="transbg block_clock col-xs-12 text-center"><h1 id="clock" class="clock"></h1><h4 id="weekday" class="weekday"></h4><h4 id="date" class="date"></h4></div>');
-			$('.col3 .auto_sunrise').html('<div class="block_sunrise col-xs-12 transbg text-center sunriseholder"><em class="wi wi-sunrise"></em><span id="sunrise" class="sunrise"></span><em class="wi wi-sunset"></em><span id="sunset" class="sunset"></span></div>');
-			if(typeof(buttons)!=='undefined'){
-				for(b in buttons){
-					if(buttons[b].isimage) $('.col3 .auto_buttons').append(loadImage(b,buttons[b]));
-					else $('.col3 .auto_buttons').append(loadButton(b,buttons[b]));
+					if(defaultcolumns===false){
+
+						if(!settings['hide_topbar']){
+							if(typeof(columns['bar'])=='undefined'){
+								columns['bar'] = {}
+								columns['bar']['blocks'] = ['logo','miniclock','settings']
+							}
+							getBlock(columns['bar'],'bar','div.screen'+s+' .row .colbar',false);
+						}
+
+						for(cs in screens[t][s]['columns']){
+							c = screens[t][s]['columns'][cs];
+							getBlock(columns[c],c,'div.screen'+s+' .row .col'+c,false);
+						}
+
+					}
+					else {
+						if(!settings['hide_topbar']) $('body .row').append('<div class="col-sm-undefined col-xs-12 sortable colbar transbg dark"><div data-id="logo" class="logo col-xs-2">'+settings['app_title']+'<div></div></div><div data-id="clock" class="miniclock col-xs-8 text-center"><span class="weekday"></span> <span class="date"></span> <span>&nbsp;&nbsp;&nbsp;&nbsp;</span> <span class="clock"></span></div><div data-id="settings" class="settings col-xs-2 text-right"><em class="fa fa-cog"></em><div></div></div></div>');
+						$('body .row').append('<div class="col-xs-5 sortable col1"><div class="auto_switches"></div><div class="auto_dimmers"></div></div>');
+						$('body .row').append('<div class="col-xs-5 sortable col2"><div class="block_weather containsweatherfull"></div><div class="auto_media"></div><div class="auto_states"></div></div>');
+						$('body .row').append('<div class="col-xs-2 sortable col3"><div class="auto_clock"></div><div class="auto_sunrise"></div><div class="auto_buttons"></div></div>');
+
+						$('.col2').prepend('<div class="mh transbg big block_currentweather_big col-xs-12 containsweather"><div class="col-xs-1"><div class="weather" id="weather"></div></div><div class="col-xs-11"><span class="title weatherdegrees" id="weatherdegrees"></span> <span class="weatherloc" id="weatherloc"></span></div></div>');
+						if(typeof(settings['wu_api'])!=='undefined' && settings['wu_api']!=="" && typeof(settings['wu_city'])!=='undefined' && settings['wu_city']!==""){
+							if(typeof(loadWeatherFull)!=='function') $.ajax({url: 'js/weather.js', async: false,dataType: "script"});
+							loadWeatherFull(settings['wu_city'],settings['wu_country'],$('#weatherfull'));
+							loadWeather(settings['wu_city'],settings['wu_country']);
+						}
+
+						$('.col3 .auto_clock').html('<div class="transbg block_clock col-xs-12 text-center"><h1 id="clock" class="clock"></h1><h4 id="weekday" class="weekday"></h4><h4 id="date" class="date"></h4></div>');
+						$('.col3 .auto_sunrise').html('<div class="block_sunrise col-xs-12 transbg text-center sunriseholder"><em class="wi wi-sunrise"></em><span id="sunrise" class="sunrise"></span><em class="wi wi-sunset"></em><span id="sunset" class="sunset"></span></div>');
+						if(typeof(buttons)!=='undefined'){
+							for(b in buttons){
+								if(buttons[b].isimage) $('.col3 .auto_buttons').append(loadImage(b,buttons[b]));
+								else $('.col3 .auto_buttons').append(loadButton(b,buttons[b]));
+							}
+						}
+					}
+					num++;
 				}
 			}
+			break;
 		}
-		num++;
 	}
+	
 	if(typeof(_EDIT_MODE)!=='undefined' && _EDIT_MODE==true){
 		setTimeout(function(){ 
 			startSortable(); 
@@ -232,7 +265,7 @@ function startSwiper(){
 	var md = new MobileDetect(window.navigator.userAgent);//window.navigator.userAgent);
 	if(md.mobile()==null || md.tablet()!==null){
 		$('<link href="vendor/swiper/css/swiper.min.css" rel="stylesheet">').appendTo("head");
-		if(objectlength(screens)>1 && (typeof(_EDIT_MODE)=='undefined' || _EDIT_MODE===false)){
+		if((typeof(_EDIT_MODE)=='undefined' || _EDIT_MODE===false)){
 			setTimeout(function(){
 				myswiper = new Swiper('.swiper-container', {
 					pagination: '.swiper-pagination',
@@ -297,10 +330,12 @@ function setClassByTime(){
 		newClass = 'afternoon';
 	}
 
-	for(s in screens){
-		if(typeof(screens[s]['background_'+newClass])!=='undefined'){
-			if(screens[s]['background_'+newClass].indexOf("/")>0) $('.screen.screen'+s).css('background-image','url(\''+screens[s]['background_'+newClass]+'\')');
-			else $('.screen.screen'+s).css('background-image','url(\'img/'+screens[s]['background_'+newClass]+'\')');
+	for(t in screens){
+		for(s in screens[t]){
+			if(typeof(screens[t][s]['background_'+newClass])!=='undefined'){
+				if(screens[t][s]['background_'+newClass].indexOf("/")>0) $('.screen.screen'+s).css('background-image','url(\''+screens[t][s]['background_'+newClass]+'\')');
+				else $('.screen.screen'+s).css('background-image','url(\'img/'+screens[t][s]['background_'+newClass]+'\')');
+			}
 		}
 	}
 
