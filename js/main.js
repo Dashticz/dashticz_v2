@@ -186,7 +186,7 @@ function buildScreens(){
 	keys = Object.keys(screens);
   	len = keys.length;
 	keys.sort();
-	
+	console.log(screens);
 	for (i = 0; i < len; i++) {
   		t = keys[i];
 		if(
@@ -802,7 +802,11 @@ function getDevices(override){
 			url: settings['domoticz_ip']+'/json.htm?type=devices&filter=all&used=true&order=Name&jsoncallback=?',
 			type: 'GET',async: true,contentType: "application/json",dataType: 'jsonp',
 			error: function( jqXHR, textStatus ) {
-				console.error("Domoticz error!\nPlease, double check the path in settings['domoticz_ip']-variable!");
+				if(typeof(settings['dashticz_domoticz_ip'])=='undefined' || settings['dashticz_domoticz_ip']=='http://192.168.1.10:1407'){
+					if($('.settingsicon').length==0) $('body').append('<div data-id="settings" class="settings settingsicon col-xs-12 text-right" data-toggle="modal" data-target="#settings"><em class="fa fa-cog" /><div>');
+					$('.settingsicon').trigger('click');
+				}
+				console.error("Domoticz error!\nPlease, double check the path to Domoticz in Settings!");
 			},
 			success: function(data) {
 				gettingDevices = false;
