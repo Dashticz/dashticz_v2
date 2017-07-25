@@ -210,7 +210,7 @@ if(typeof(settings['language'])=='undefined') settings['language'] = 'en_US';
 if(typeof(settings['timeformat'])=='undefined') settings['timeformat'] = 'DD-MM-YY HH:mm';
 if(typeof(settings['calendarformat'])=='undefined') settings['calendarformat'] = 'dd DD.MM HH:mm';
 if(typeof(settings['calendarlanguage'])=='undefined') settings['calendarlanguage'] = 'en_US';
-if(typeof(settings['domoticz_ip'])=='undefined') settings['domoticz_ip'] = 'http://192.168.1.10:8080';
+if(typeof(settings['domoticz_ip'])=='undefined') settings['domoticz_ip'] = 'http://192.168.1.10:1407';
 if(typeof(settings['app_title'])=='undefined') settings['app_title'] = 'Dashticz';
 if(typeof(settings['domoticz_refresh'])=='undefined') settings['domoticz_refresh'] = 5;
 if(typeof(settings['dashticz_refresh'])=='undefined') settings['dashticz_refresh'] = 60;
@@ -236,8 +236,9 @@ var _TEMP_SYMBOL = '°C';
 if(settings['use_fahrenheit']) _TEMP_SYMBOL = '°F';
 
 $(document).ready(function(){
-	if(typeof(settings['dashticz_domoticz_ip'])=='undefined'){
-		$('.settingsicon').click('click');
+	if(typeof(settings['dashticz_domoticz_ip'])=='undefined' || settings['dashticz_domoticz_ip']=='http://192.168.1.10:1407'){
+		if($('.settingsicon').length==0) $('body').append('<div data-id="settings" class="settings settingsicon col-xs-12 text-right" data-toggle="modal" data-target="#settings"><em class="fa fa-cog" /><div>');
+		$('.settingsicon').trigger('click');
 	}
 	var html = '<div class="modal fade" id="settings" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
 	  html+='<div class="modal-dialog modal-dialog-settings">';
