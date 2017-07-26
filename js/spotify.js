@@ -63,7 +63,7 @@ function getSpotify(columndiv){
 		});
 	}
 	else if(!settings['spot_clientid']){
-		alert('Enter your Spotify ClientID in CONFIG.JS');
+		console.log('Enter your Spotify ClientID in CONFIG.JS');
 	}
 	else {
 		var url = getLoginURL([

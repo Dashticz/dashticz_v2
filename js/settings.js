@@ -202,9 +202,20 @@ settingList['media']['hide_mediaplayer']['title'] = 'Hide mediaplayer when it\'s
 settingList['media']['hide_mediaplayer']['type'] = 'checkbox';
 
 var settings = {};
-$.each(localStorage, function(key, value){
-   if(key.substr(0,9)=='dashticz_') settings[key.substr(9)] = value;
-});
+doneSettings=false;
+
+if (typeof(Storage) !== "undefined") {
+	$.each(localStorage, function(key, value){
+	   if(key.substr(0,9)=='dashticz_'){
+		   settings[key.substr(9)] = value;
+		   doneSettings=true;
+	   }
+	});
+}
+
+if(typeof(config)!=='undefined'){
+	settings=config;
+}
 
 if(typeof(settings['language'])=='undefined') settings['language'] = 'en_US';
 if(typeof(settings['timeformat'])=='undefined') settings['timeformat'] = 'DD-MM-YY HH:mm';
@@ -214,28 +225,31 @@ if(typeof(settings['domoticz_ip'])=='undefined') settings['domoticz_ip'] = 'http
 if(typeof(settings['app_title'])=='undefined') settings['app_title'] = 'Dashticz';
 if(typeof(settings['domoticz_refresh'])=='undefined') settings['domoticz_refresh'] = 5;
 if(typeof(settings['dashticz_refresh'])=='undefined') settings['dashticz_refresh'] = 60;
+if(typeof(settings['wu_api'])=='undefined') settings['wu_api'] = '';
 if(typeof(settings['wu_country'])=='undefined') settings['wu_country'] = 'NL';
 if(typeof(settings['wu_city'])=='undefined') settings['wu_city'] = 'Amsterdam';
 if(typeof(settings['boss_stationclock'])=='undefined') settings['boss_stationclock'] = 'RedBoss';
-if(typeof(settings['use_fahrenheit'])=='undefined' || settings['use_fahrenheit']==0) settings['use_fahrenheit'] = false;
-if(typeof(settings['use_beaufort'])=='undefined' || settings['use_beaufort']==0) settings['use_beaufort'] = false;
-if(typeof(settings['hide_topbar'])=='undefined' || settings['hide_topbar']==0) settings['hide_topbar'] = false;
+if(typeof(settings['use_fahrenheit'])=='undefined') settings['use_fahrenheit'] = 0;
+if(typeof(settings['use_beaufort'])=='undefined') settings['use_beaufort'] = 0;
+if(typeof(settings['hide_topbar'])=='undefined') settings['hide_topbar'] = 0;
 if(typeof(settings['slide_effect'])=='undefined') settings['slide_effect'] = 'slide';
-if(typeof(settings['hide_mediaplayer'])=='undefined' || settings['hide_mediaplayer']==0) settings['hide_mediaplayer'] = false;
+if(typeof(settings['hide_mediaplayer'])=='undefined') settings['hide_mediaplayer'] = 0;
 if(typeof(settings['auto_swipe_back_to'])=='undefined') settings['auto_swipe_back_to'] = 1;
+if(typeof(settings['auto_positioning'])=='undefined') settings['auto_positioning'] = 1;
+if(typeof(settings['use_favorites'])=='undefined') settings['use_favorites'] = 1;
 if(typeof(settings['translate_windspeed'])=='undefined') settings['translate_windspeed'] = 1;
 if(typeof(settings['static_weathericons'])=='undefined') settings['static_weathericons'] = 0;
 if(typeof(settings['last_update'])=='undefined') settings['last_update'] = 1;
 if(typeof(settings['auto_swipe_back_after'])=='undefined') settings['auto_swipe_back_after'] = 10;
-if(typeof(settings['standby_after'])=='undefined' || settings['standby_after']==0) settings['standby_after'] = false;
-if(typeof(settings['selector_instead_of_buttons'])=='undefined' || settings['selector_instead_of_buttons']==0) settings['selector_instead_of_buttons'] = false;
+if(typeof(settings['standby_after'])=='undefined') settings['standby_after'] = 0;
+if(typeof(settings['selector_instead_of_buttons'])=='undefined') settings['selector_instead_of_buttons'] = 0;
 if(typeof(settings['default_news_url'])=='undefined') settings['default_news_url'] = 'http://www.nu.nl/rss/algemeen';
 if(typeof(settings['news_scroll_after'])=='undefined') settings['news_scroll_after'] = 7;
 
 var _TEMP_SYMBOL = '°C';
-if(settings['use_fahrenheit']) _TEMP_SYMBOL = '°F';
+if(settings['use_fahrenheit']==1) _TEMP_SYMBOL = '°F';
 
-$(document).ready(function(){
+function loadSettings(){
 	if(typeof(settings['dashticz_domoticz_ip'])=='undefined' || settings['dashticz_domoticz_ip']=='http://192.168.1.10:1407'){
 		if($('.settingsicon').length==0) $('body').append('<div data-id="settings" class="settings settingsicon col-xs-12 text-right" data-toggle="modal" data-target="#settings"><em class="fa fa-cog" /><div>');
 		$('.settingsicon').trigger('click');
@@ -307,26 +321,55 @@ $(document).ready(function(){
 		html+='</div>';
 	  html+='</div>';
 	html+='</div>';
-	$('body').append(html);
-	
+	setTimeout(function(){
+		$('body').append(html);
+	},2000);
 	$( "#tabs" ).tabs();
 
-});
+}
 
 function saveSettings(){
-	if (typeof(Storage) !== "undefined") {
-		$('div#settings input[type="text"],div#settings select').each(function(){
-			localStorage.setItem('dashticz_'+$(this).attr('name'), $(this).val());
-		});
 		
-		$('div#settings input[type="checkbox"]').each(function(){
-			if($(this).is(':checked')) localStorage.setItem('dashticz_'+$(this).attr('name'), $(this).val());
-			else localStorage.setItem('dashticz_'+$(this).attr('name'), 0);
-		});
+	var alertSettings="var config = {}\n";
+	$('div#settings input[type="text"],div#settings select').each(function(){
+		if (typeof(Storage) !== "undefined") localStorage.setItem('dashticz_'+$(this).attr('name'), $(this).val());
+		if($(this).val()==1 || $(this).val()==0){
+			val = parseFloat($(this).val());
+			if(isNaN(val)) val=0;
+			alertSettings+="config['"+$(this).attr('name')+"'] = "+val+";\n";
+		}
 		
-		document.location.href=document.location.href;
-	}
-	else {
-		alert('Oh no, LocalStorage is not supported in your browser!');
-	}
+		else alertSettings+="config['"+$(this).attr('name')+"'] = '"+$(this).val()+"';\n";
+	});
+
+	$('div#settings input[type="checkbox"]').each(function(){
+		if($(this).is(':checked')){
+			if (typeof(Storage) !== "undefined") localStorage.setItem('dashticz_'+$(this).attr('name'), $(this).val());
+			alertSettings+="config['"+$(this).attr('name')+"'] = 1;\n";
+		}
+		else{
+			if (typeof(Storage) !== "undefined") localStorage.setItem('dashticz_'+$(this).attr('name'), 0);
+			alertSettings+="config['"+$(this).attr('name')+"'] = 0;\n";
+		}
+
+	});
+	
+	var html = '<div class="modal fade" id="settingsoutput" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
+	  html+='<div class="modal-dialog modal-dialog-settings">';
+		html+='<div class="modal-content">';
+		  html+='<div class="modal-body" style="padding:20px;font-size:14px;"><br />';
+			html+='<strong>By default, settings are stored in your browser. Downside of this method is it will only work in your current browser. If that\'s not a problem, you can proceed. Otherwise, copy code below to your CONFIG.JS to keep settings across all browsers and devices.</strong><Br /><Br /><textarea style="width:100%;height:500px;" id="codeToCopy">';
+			  
+			 html+=alertSettings;
+	
+			html+='</textarea>';
+		  html+='</div><div class="modal-footer"><button onClick="document.location.href=document.location.href;" type="button" class="btn btn-primary" data-dismiss="modal">Close and reload!</button></div>';
+		html+='</div>';
+	  html+='</div>';
+	html+='</div><div class="settingsoutput" data-toggle="modal" data-target="#settingsoutput"><em class="fa fa-cog" /><div>';
+	
+	$('body').append(html);
+	setTimeout(function(){ 
+		$('.settingsoutput').trigger('click'); 
+	},1000);
 }

@@ -1,17 +1,8 @@
 
-if (typeof(Storage) == "undefined") {
-    alert('Oh no, LocalStorage is not supported in your browser!');
-}
-
 var customfolder = 'custom';
 if(typeof(dashtype)!=='undefined' && parseFloat(dashtype)>1){
 	customfolder = 'custom_'+dashtype;
 }
-
-if(typeof(_BACKGROUND_IMAGE)=='undefined') var _BACKGROUND_IMAGE = 'bg2.jpg';
-if(typeof(_STREAMPLAYER_TRACKS)=='undefined') var _STREAMPLAYER_TRACKS = {"track":1,"name":"Music FM","file":"http://stream.musicfm.hu:8000/musicfm.mp3"};
-if(typeof(_EDIT_MODE)=='undefined') var _EDIT_MODE = false;
-if(typeof(_THEME)=='undefined') var _THEME = 'default';
 
 var cache = new Date().getTime();
 $('<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">').appendTo("head");
@@ -24,49 +15,18 @@ $('<link href="vendor/spectrum/spectrum.css" rel="stylesheet">').appendTo("head"
 $('<link href="css/creative.css?v='+cache+'" rel="stylesheet">').appendTo("head");
 $('<link href="css/sortable.css?v='+cache+'" rel="stylesheet">').appendTo("head");
 
-$.ajax({url: 'vendor/jquery/jquery-ui.js', async: false,dataType: "script"});
-$.ajax({url: 'vendor/jquery/touchpunch.js', async: false,dataType: "script"});
-$.ajax({url: 'vendor/bootstrap/js/bootstrap.min.js', async: false,dataType: "script"});
-$.ajax({url: 'js/functions.js?v='+cache, async: false,dataType: "script"});
-$.ajax({url: 'js/settings.js', async: false,dataType: "script"});
-
-$.ajax({url: customfolder+'/CONFIG.js?v='+cache, async: false,dataType: "script"});
-$.ajax({url: 'lang/'+settings['language']+'.js?v='+cache, async: false,dataType: "script"});
-if(_THEME!=='default'){
-	$('<link rel="stylesheet" type="text/css" href="themes/'+_THEME+'/'+_THEME+'.css?v='+cache+'" />').appendTo("head");
-}
-$('<link href="'+customfolder+'/custom.css?v='+cache+'" rel="stylesheet">').appendTo("head");
-$.ajax({url: 'vendor/raphael/raphael-min.js', async: false,dataType: "script"});
-$.ajax({url: 'vendor/morrisjs/morris.min.js', async: false,dataType: "script"});
-$.ajax({url: 'vendor/moment.js', async: false,dataType: "script"});
-$.ajax({url: 'vendor/moment-with-locales.js', async: false,dataType: "script"});
-$.ajax({url: 'vendor/jquery.newsTicker.min.js', async: false,dataType: "script"});
-$.ajax({url: 'vendor/skycons/skycons.js', async: false,dataType: "script"});
-$.ajax({url: 'vendor/spectrum/spectrum.js', async: false,dataType: "script"});
-$.ajax({url: 'vendor/ion.sound/ion.sound.min.js', async: false,dataType: "script"});
-$.ajax({url: 'vendor/mobiledetect/mobiledetect.js', async: false,dataType: "script"});
-$.ajax({url: 'js/sortable.js', async: false,dataType: "script"});
-$.ajax({url: 'js/switches.js', async: false,dataType: "script"});
-$.ajax({url: 'js/trash.js', async: false,dataType: "script"});
-$.ajax({url: 'js/calendar.js', async: false,dataType: "script"});
-$.ajax({url: 'js/thermostat.js', async: false,dataType: "script"});
-$.ajax({url: 'js/publictransport.js', async: false,dataType: "script"});
-
-if(typeof(_DEBUG)!=='undefined' && _DEBUG){
-	$.ajax({url: 'custom/json_vb.js', async: false,dataType: "script"});
-	$.ajax({url: 'custom/graph_vb.js', async: false,dataType: "script"});
-}
-
-$.ajax({url: ''+customfolder+'/custom.js?v='+cache, async: false,dataType: "script"});
-$.ajax({url: 'js/blocks.js', async: false,dataType: "script"});
-$.ajax({url: 'js/graphs.js', async: false,dataType: "script"});
-
+// device detection
 var standby=true;
 var standbyActive=false;
 var standbyTime=0;
 
 var swipebackTime=0;
 var audio = {};
+var screens = {}
+var columns = {}
+var columns_standby = {}
+var blocks = {}
+var defaultcolumns = true;
 var req;
 var slide;
 var sliding = false;
@@ -78,54 +38,103 @@ var isMobile = false; //initiate as false
 var addedThermostat = [];
 var oldstates = [];
 var gettingDevices = false;
+var _GRAPHS_LOADED = new Object();
+var _BACKGROUND_IMAGE = 'img/bg2.jpg';
+var _EDIT_MODE = false;
+var _THEME = 'default';
+var _STREAMPLAYER_TRACKS = {"track":1,"name":"Music FM","file":"http://stream.musicfm.hu:8000/musicfm.mp3"};
+
 // device detection
 if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|ipad|iris|kindle|Android|Silk|lge |maemo|midp|mmp|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino/i.test(navigator.userAgent) 
-    || /1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(navigator.userAgent.substr(0,4))) isMobile = true;
+	|| /1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(navigator.userAgent.substr(0,4))) isMobile = true;
 
 
-if(typeof(columns)=='undefined') defaultcolumns = true;
-var _GRAPHS_LOADED = new Object();
-_GRAPHREFRESH = 5;
+		
+$.ajax({url: 'vendor/jquery/jquery-ui.js', async: false,dataType: "script"});
+$.ajax({url: 'vendor/jquery/touchpunch.js', async: false,dataType: "script"});
 
-if(typeof(blocks)=='undefined') var blocks = {}
-if(typeof(columns_standby)=='undefined') var columns_standby = {}
+$.ajax({url: 'vendor/bootstrap/js/bootstrap.min.js', async: false,dataType: "script"});
 
-if(typeof(screens)=='undefined'){
-	var screens = {}
-	screens['default'][1] = {}
-	screens['default'][1]['background'] = _BACKGROUND_IMAGE;
-	screens['default'][1]['columns'] = []
-	if(defaultcolumns===false){
-		for(c in columns){
-			screens['default'][1]['columns'].push(c);
+$.ajax({url: 'js/functions.js?v='+cache, async: false,dataType: "script"});
+$.ajax({url: customfolder+'/CONFIG.js?v='+cache, async: false,dataType: "script"}).done(function() {
+	if(objectlength(columns)==0) defaultcolumns = true;
+	
+	_GRAPHREFRESH = 5;
+	if(objectlength(screens)==0){
+			 
+		screens['default'] = {}
+		screens['default'][1] = {}
+		screens['default'][1]['background'] = _BACKGROUND_IMAGE;
+		screens['default'][1]['columns'] = []
+		if(defaultcolumns===false){
+			for(c in columns){
+				screens['default'][1]['columns'].push(c);
+			}
 		}
 	}
-}
+	
+	$.ajax({url: 'js/settings.js', async: false,dataType: "script"}).done(function() {
 
-$.ajax({url: 'vendor/swiper/js/swiper.min.js', async: false,dataType: "script"});
-$.ajax({url: 'js/switches.js', async: false,dataType: "script"});
-$.ajax({url: 'js/blocks.js', async: false,dataType: "script"});
-$.ajax({url: 'js/graphs.js', async: false,dataType: "script"});
-if(typeof(settings['gm_api'])!=='undefined' && settings['gm_api']!=="") $.ajax({url: 'https://maps.googleapis.com/maps/api/js?key='+settings['gm_api']+'&callback=initMap', async: false,dataType: "script"});
-	
-$(document).ready(function(){	
-	
+		loadSettings();
+
+		$.ajax({url: 'lang/'+settings['language']+'.js?v='+cache, async: false,dataType: "script"});
+		if(_THEME!=='default'){
+			$('<link rel="stylesheet" type="text/css" href="themes/'+_THEME+'/'+_THEME+'.css?v='+cache+'" />').appendTo("head");
+		}
+		$('<link href="'+customfolder+'/custom.css?v='+cache+'" rel="stylesheet">').appendTo("head");
+		$.ajax({url: 'vendor/raphael/raphael-min.js', async: false,dataType: "script"});
+		$.ajax({url: 'vendor/morrisjs/morris.min.js', async: false,dataType: "script"});
+		$.ajax({url: 'vendor/moment.js', async: false,dataType: "script"});
+		$.ajax({url: 'vendor/moment-with-locales.js', async: false,dataType: "script"});
+		$.ajax({url: 'vendor/jquery.newsTicker.min.js', async: false,dataType: "script"});
+		$.ajax({url: 'vendor/skycons/skycons.js', async: false,dataType: "script"});
+		$.ajax({url: 'vendor/spectrum/spectrum.js', async: false,dataType: "script"});
+		$.ajax({url: 'vendor/ion.sound/ion.sound.min.js', async: false,dataType: "script"});
+		$.ajax({url: 'vendor/mobiledetect/mobiledetect.js', async: false,dataType: "script"});
+		$.ajax({url: 'js/sortable.js', async: false,dataType: "script"});
+		$.ajax({url: 'js/switches.js', async: false,dataType: "script"});
+		$.ajax({url: 'js/trash.js', async: false,dataType: "script"});
+		$.ajax({url: 'js/calendar.js', async: false,dataType: "script"});
+		$.ajax({url: 'js/thermostat.js', async: false,dataType: "script"});
+		$.ajax({url: 'js/publictransport.js', async: false,dataType: "script"});
+
+		if(typeof(_DEBUG)!=='undefined' && _DEBUG){
+			$.ajax({url: 'custom/json_vb.js', async: false,dataType: "script"});
+			$.ajax({url: 'custom/graph_vb.js', async: false,dataType: "script"});
+		}
+
+		$.ajax({url: ''+customfolder+'/custom.js?v='+cache, async: false,dataType: "script"});
+		$.ajax({url: 'js/blocks.js', async: false,dataType: "script"});
+		$.ajax({url: 'js/graphs.js', async: false,dataType: "script"});
+
+		$.ajax({url: 'vendor/swiper/js/swiper.min.js', async: false,dataType: "script"});
+		$.ajax({url: 'js/switches.js', async: false,dataType: "script"});
+		$.ajax({url: 'js/blocks.js', async: false,dataType: "script"});
+		$.ajax({url: 'js/graphs.js', async: false,dataType: "script"});
+		if(typeof(settings['gm_api'])!=='undefined' && settings['gm_api']!=="" && settings['gm_api']!==0) $.ajax({url: 'https://maps.googleapis.com/maps/api/js?key='+settings['gm_api']+'&callback=initMap', async: false,dataType: "script"});
+
+		onLoad();
+	});
+});
+
+
+function onLoad(){
 	if(_EDIT_MODE){
 		$('body').append('<div class="editmode">EDIT MODE</div>');	
 	}
-	
+
 	$('body').attr('unselectable','on')
-     .css({'-moz-user-select':'-moz-none',
-           '-moz-user-select':'none',
-           '-o-user-select':'none',
-           '-khtml-user-select':'none',
-           '-webkit-user-select':'none',
-           '-ms-user-select':'none',
-           'user-select':'none'
-     }).bind('selectstart', function(){ return false; });
-	
+	 .css({'-moz-user-select':'-moz-none',
+		   '-moz-user-select':'none',
+		   '-o-user-select':'none',
+		   '-khtml-user-select':'none',
+		   '-webkit-user-select':'none',
+		   '-ms-user-select':'none',
+		   'user-select':'none'
+	 }).bind('selectstart', function(){ return false; });
+
 	buildScreens();
-	
+
 	setInterval(function(){ 
 		if(settings['hide_seconds']==true) $('.clock').html(moment().locale(settings['language']).format('HH:mm'));
 		else $('.clock').html(moment().locale(settings['language']).format('HH:mm:ss'));
@@ -134,18 +143,16 @@ $(document).ready(function(){
 	},1000);
 
 	getDevices(); 	
-	
+
 	setClassByTime();
 	setInterval(function(){ 
 		setClassByTime();
 	},(60000));
-	
+
 	setTimeout(function(){
 		document.location.href=document.location.href;
 	},(settings['dashticz_refresh']*60*1000));
-		  
-}); 
-
+}
 function toSlide(num){
 	if(typeof(myswiper)!=='undefined') myswiper.slideTo( num,1000,false );
 }
@@ -166,7 +173,6 @@ function buildStandby(){
 
 function buildScreens(){
 	var num=1;
-	
 	var allscreens = {}
 	for(t in screens){
 		if(typeof(screens[t]['maxwidth'])!=='undefined' && typeof(screens[t]['maxheight'])!=='undefined'){
@@ -186,7 +192,7 @@ function buildScreens(){
 	keys = Object.keys(screens);
   	len = keys.length;
 	keys.sort();
-	console.log(screens);
+	
 	for (i = 0; i < len; i++) {
   		t = keys[i];
 		if(
@@ -204,12 +210,16 @@ function buildScreens(){
 						if(screens[t][s]['background'].indexOf("/")>0) screenhtml+='style="background-image:url(\''+screens[t][s]['background']+'\');"';
 						else screenhtml+='style="background-image:url(\'img/'+screens[t][s]['background']+'\');"';
 					}
+					else if(typeof(screens[t][s][1]['background'])!=='undefined'){
+						if(screens[t][s][1]['background'].indexOf("/")>0) screenhtml+='style="background-image:url(\''+screens[t][s][1]['background']+'\');"';
+						else screenhtml+='style="background-image:url(\'img/'+screens[t][s][1]['background']+'\');"';
+					}
+					
 					screenhtml+='><div class="row"></div></div>';
 					$('div.contents').append(screenhtml);			
 
 					if(defaultcolumns===false){
-
-						if(!settings['hide_topbar']){
+						if(!settings['hide_topbar']==1){
 							if(typeof(columns['bar'])=='undefined'){
 								columns['bar'] = {}
 								columns['bar']['blocks'] = ['logo','miniclock','settings']
@@ -224,13 +234,14 @@ function buildScreens(){
 
 					}
 					else {
-						if(!settings['hide_topbar']) $('body .row').append('<div class="col-sm-undefined col-xs-12 sortable colbar transbg dark"><div data-id="logo" class="logo col-xs-2">'+settings['app_title']+'<div></div></div><div data-id="clock" class="miniclock col-xs-8 text-center"><span class="weekday"></span> <span class="date"></span> <span>&nbsp;&nbsp;&nbsp;&nbsp;</span> <span class="clock"></span></div><div data-id="settings" class="settings col-xs-2 text-right"><em class="fa fa-cog"></em><div></div></div></div>');
+						
+						if(settings['hide_topbar']==0) $('body .row').append('<div class="col-sm-undefined col-xs-12 sortable colbar transbg dark"><div data-id="logo" class="logo col-xs-2">'+settings['app_title']+'<div></div></div><div data-id="clock" class="miniclock col-xs-8 text-center"><span class="weekday"></span> <span class="date"></span> <span>&nbsp;&nbsp;&nbsp;&nbsp;</span> <span class="clock"></span></div><div data-id="settings" class="settings col-xs-2 text-right"><em class="fa fa-cog"></em><div></div></div></div>');
 						$('body .row').append('<div class="col-xs-5 sortable col1"><div class="auto_switches"></div><div class="auto_dimmers"></div></div>');
 						$('body .row').append('<div class="col-xs-5 sortable col2"><div class="block_weather containsweatherfull"></div><div class="auto_media"></div><div class="auto_states"></div></div>');
 						$('body .row').append('<div class="col-xs-2 sortable col3"><div class="auto_clock"></div><div class="auto_sunrise"></div><div class="auto_buttons"></div></div>');
 
-						$('.col2').prepend('<div class="mh transbg big block_currentweather_big col-xs-12 containsweather"><div class="col-xs-1"><div class="weather" id="weather"></div></div><div class="col-xs-11"><span class="title weatherdegrees" id="weatherdegrees"></span> <span class="weatherloc" id="weatherloc"></span></div></div>');
-						if(typeof(settings['wu_api'])!=='undefined' && settings['wu_api']!=="" && typeof(settings['wu_city'])!=='undefined' && settings['wu_city']!==""){
+						if(typeof(settings['wu_api'])!=='undefined' && settings['wu_api']!=="" && settings['wu_api']!==0 && typeof(settings['wu_city'])!=='undefined' && settings['wu_city']!==""){
+							$('.col2').prepend('<div class="mh transbg big block_currentweather_big col-xs-12 containsweather"><div class="col-xs-1"><div class="weather" id="weather"></div></div><div class="col-xs-11"><span class="title weatherdegrees" id="weatherdegrees"></span> <span class="weatherloc" id="weatherloc"></span></div></div>');
 							if(typeof(loadWeatherFull)!=='function') $.ajax({url: 'js/weather.js', async: false,dataType: "script"});
 							loadWeatherFull(settings['wu_city'],settings['wu_country'],$('#weatherfull'));
 							loadWeather(settings['wu_city'],settings['wu_country']);
@@ -291,24 +302,25 @@ function initMap() {
 }
 
 function showMap(mapid,map) {
-	if(typeof(settings['gm_api'])=='undefined' || settings['gm_api']=="") console.error('Please, set Google Maps API KEY!');
-	
-	
-	if(typeof(map)!=='undefined'){
-			var map = new google.maps.Map(document.getElementById(mapid), {
-			  zoom: map.zoom,
-			  center: {lat: map.latitude, lng: map.longitude}
-			});
-	}
+	if(typeof(settings['gm_api'])=='undefined' || settings['gm_api']=="" || settings['gm_api']==0) console.log('Please, set Google Maps API KEY!');
 	else {
-			var map = new google.maps.Map(document.getElementById(mapid), {
-			  zoom: parseFloat(settings['gm_zoomlevel']),
-			  center: {lat: parseFloat(settings['gm_latitude']), lng: parseFloat(settings['gm_longitude'])}
-			});
-	}
+	
+		if(typeof(map)!=='undefined'){
+				var map = new google.maps.Map(document.getElementById(mapid), {
+				  zoom: map.zoom,
+				  center: {lat: map.latitude, lng: map.longitude}
+				});
+		}
+		else {
+				var map = new google.maps.Map(document.getElementById(mapid), {
+				  zoom: parseFloat(settings['gm_zoomlevel']),
+				  center: {lat: parseFloat(settings['gm_latitude']), lng: parseFloat(settings['gm_longitude'])}
+				});
+		}
 
-	var transitLayer = new google.maps.TrafficLayer();
-	transitLayer.setMap(map);
+		var transitLayer = new google.maps.TrafficLayer();
+		transitLayer.setMap(map);
+	}
 	
 }
 
@@ -798,14 +810,17 @@ function getDevices(override){
 	if(!sliding || override){
 		if(typeof(req)!=='undefined') req.abort();
 		gettingDevices=true;
-		req = $.getJSONP({
+		
+		if(settings['domoticz_ip']=='http://192.168.1.10:1407'){
+			if($('.settingsicon').length==0) $('body').append('<div data-id="settings" class="settings settingsicon col-xs-12 text-right" data-toggle="modal" data-target="#settings"><em class="fa fa-cog" /><div>');
+			setTimeout(function(){ $('.settingsicon').trigger('click'); },3000);
+		}
+		else {
+		
+			req = $.getJSONP({
 			url: settings['domoticz_ip']+'/json.htm?type=devices&filter=all&used=true&order=Name&jsoncallback=?',
 			type: 'GET',async: true,contentType: "application/json",dataType: 'jsonp',
 			error: function( jqXHR, textStatus ) {
-				if(typeof(settings['dashticz_domoticz_ip'])=='undefined' || settings['dashticz_domoticz_ip']=='http://192.168.1.10:1407'){
-					if($('.settingsicon').length==0) $('body').append('<div data-id="settings" class="settings settingsicon col-xs-12 text-right" data-toggle="modal" data-target="#settings"><em class="fa fa-cog" /><div>');
-					$('.settingsicon').trigger('click');
-				}
 				console.error("Domoticz error!\nPlease, double check the path to Domoticz in Settings!");
 			},
 			success: function(data) {
@@ -980,7 +995,7 @@ function getDevices(override){
 									html+='<strong class="title">'+device['Name']+'</strong><br />';
 									if(device['Data']==''){
 										device['Data']=lang.mediaplayer_nothing_playing;
-										if(settings['hide_mediaplayer']) $('div.block_'+idx).hide();
+										if(settings['hide_mediaplayer']==1) $('div.block_'+idx).hide();
 									}
 									else {
 										$('div.block_'+idx).show();
@@ -1328,7 +1343,7 @@ function getDevices(override){
 										html+=iconORimage(idx,'',buttonimg+'.png',onoff+' icon');	
 									}
 
-									if(settings['selector_instead_of_buttons']==true){
+									if(settings['selector_instead_of_buttons']==1){
 										html+='<div class="col-xs-8 col-data">';
 											html+='<strong class="title">'+device['Name']+'</strong><br />';
 											html+='<select onchange="slideDevice('+device['idx']+',this.value);">';
@@ -1632,6 +1647,8 @@ function getDevices(override){
 				if(typeof(_DEBUG)=='undefined' || _DEBUG===false) setTimeout(function(){ getDevices(); },(settings['domoticz_refresh']*1000));
 			}
 		});
+			
+		}
 	}
 	else {
 		if(typeof(_DEBUG)=='undefined' || _DEBUG===false) setTimeout(function(){ getDevices(); },(settings['domoticz_refresh']*1000));

@@ -2,7 +2,7 @@
 
 function loadWeather(location,country) {
 	var html = '';
-	if(typeof(settings['wu_api'])!=='undefined' && settings['wu_api']!==''){
+	if(typeof(settings['wu_api'])!=='undefined' && settings['wu_api']!=='' && settings['wu_api']!==0){
 		$.getJSON('https://api.wunderground.com/api/'+settings['wu_api']+'/conditions/q/'+country+'/'+location+'.json',function(weather){
 
 			$('.containsweather').each(function(){
@@ -16,7 +16,7 @@ function loadWeather(location,country) {
 					currentweather = weather.current_observation;
 					var wiclass= getIcon(currentweather.icon);
 					var temp = currentweather.temp_c;
-					if(settings['use_fahrenheit']) temp = currentweather.temp_f;
+					if(settings['use_fahrenheit']==1) temp = currentweather.temp_f;
 
 					if(settings['static_weathericons']==1){
 						html += '<h2><span>'+Math.round(temp)+_TEMP_SYMBOL+'</span> <i class="wi '+wiclass+'"></i></h2>';
@@ -37,7 +37,7 @@ function loadWeather(location,country) {
 					if(typeof(currentweather.wind_dir)!=='undefined'){
 						attr+=' style="-webkit-transform: rotate('+currentweather.wind_degrees+'deg);-moz-transform: rotate('+currentweather.wind_degrees+'deg);-ms-transform: rotate('+currentweather.wind_degrees+'deg);-o-transform: rotate('+currentweather.wind_degrees+'deg); transform: rotate('+currentweather.wind_degrees+'deg);"';
 						//start alteration
-						if (settings['use_beaufort'] ==true){
+						if (settings['use_beaufort'] ==1){
 							wind = Beaufort(currentweather.wind_kph)+', '; 
 						} else {
 							wind = currentweather.wind_kph+' km/u, '; 
@@ -68,7 +68,7 @@ function loadWeather(location,country) {
 }
 
 function loadWeatherFull(location,country) {
-	if(typeof(settings['wu_api'])!=='undefined' && settings['wu_api']!==''){
+	if(typeof(settings['wu_api'])!=='undefined' && settings['wu_api']!=='' && settings['wu_api']!==0){
 		$('div.containsweatherfull').html('<div class="weatherfull"><div class="col-xs-3 transbg"></div><div class="col-xs-3 transbg"></div><div class="col-xs-3 transbg"></div><div class="col-xs-3 transbg"></div></div>');
 
 		var html = '';
@@ -103,7 +103,7 @@ function loadWeatherFull(location,country) {
 						var wiclass = getIcon(curfor.icon);
 						var lowtemp = curfor.low.celsius
 						var hightemp = curfor.high.celsius;
-						if(settings['use_fahrenheit']){
+						if(settings['use_fahrenheit']==1){
 							var lowtemp = curfor.low.fahrenheit
 							var hightemp = curfor.high.fahrenheit;
 						} 
