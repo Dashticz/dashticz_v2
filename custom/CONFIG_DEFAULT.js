@@ -1,3 +1,4 @@
+/*
 var trashnames = {}
 trashnames['Gft'] = 'GFT';
 trashnames['Pmd'] = 'Plastic';
@@ -56,3 +57,4 @@ var screens = {}
 screens[1] = {}
 screens[1]['background'] = 'bg2.jpg';
 screens[1]['columns'] = [1,2,3]
+*/

@@ -2,7 +2,7 @@
 var column;
 function loadNZBGET(columndiv){
 	column = columndiv;
-	if(settings['host_nzbget']!==""){
+	if(typeof(settings['host_nzbget']) !=='undefined' && settings['host_nzbget']!==""){
 		if($('.containsnzbget').length==0){
 			var width = 12;
 			if(typeof(blocks['nzbget'])!=='undefined' && typeof(blocks['nzbget']['width'])!=='undefined'){
