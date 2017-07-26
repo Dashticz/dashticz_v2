@@ -250,11 +250,8 @@ var _TEMP_SYMBOL = '°C';
 if(settings['use_fahrenheit']==1) _TEMP_SYMBOL = '°F';
 
 function loadSettings(){
-	if(typeof(settings['dashticz_domoticz_ip'])=='undefined' || settings['dashticz_domoticz_ip']=='http://192.168.1.10:1407'){
-		if($('.settingsicon').length==0) $('body').append('<div data-id="settings" class="settings settingsicon col-xs-12 text-right" data-toggle="modal" data-target="#settings"><em class="fa fa-cog" /><div>');
-		$('.settingsicon').trigger('click');
-	}
-	var html = '<div class="modal fade" id="settings" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
+	
+	var html = '<div class="modal fade" id="settingspopup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
 	  html+='<div class="modal-dialog modal-dialog-settings">';
 		html+='<div class="modal-content">';
 		  html+='<div class="modal-body"><br />';
@@ -323,6 +320,11 @@ function loadSettings(){
 	html+='</div>';
 	setTimeout(function(){
 		$('body').append(html);
+		
+		if(typeof(settings['domoticz_ip'])=='undefined' || settings['domoticz_ip']=='http://192.168.1.10:1407'){
+			if($('.settingsicon').length==0) $('body').append('<div data-id="settings" class="settings settingsicon col-xs-12 text-right" data-toggle="modal" data-target="#settingspopup"><em class="fa fa-cog" /><div>');
+			$('.settingsicon').trigger('click');
+		}
 	},2000);
 	$( "#tabs" ).tabs();
 
@@ -331,7 +333,7 @@ function loadSettings(){
 function saveSettings(){
 		
 	var alertSettings="var config = {}\n";
-	$('div#settings input[type="text"],div#settings select').each(function(){
+	$('div#settingspopup input[type="text"],div#settingspopup select').each(function(){
 		if (typeof(Storage) !== "undefined") localStorage.setItem('dashticz_'+$(this).attr('name'), $(this).val());
 		if($(this).val()==1 || $(this).val()==0){
 			val = parseFloat($(this).val());
@@ -342,7 +344,7 @@ function saveSettings(){
 		else alertSettings+="config['"+$(this).attr('name')+"'] = '"+$(this).val()+"';\n";
 	});
 
-	$('div#settings input[type="checkbox"]').each(function(){
+	$('div#settingspopup input[type="checkbox"]').each(function(){
 		if($(this).is(':checked')){
 			if (typeof(Storage) !== "undefined") localStorage.setItem('dashticz_'+$(this).attr('name'), $(this).val());
 			alertSettings+="config['"+$(this).attr('name')+"'] = 1;\n";
