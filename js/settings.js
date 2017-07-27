@@ -203,7 +203,6 @@ settingList['media']['hide_mediaplayer']['type'] = 'checkbox';
 
 var settings = {};
 doneSettings=false;
-
 if (typeof(Storage) !== "undefined") {
 	$.each(localStorage, function(key, value){
 	   if(key.substr(0,9)=='dashticz_'){
