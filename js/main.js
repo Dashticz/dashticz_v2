@@ -192,7 +192,6 @@ function buildScreens(){
 	keys = Object.keys(screens);
   	len = keys.length;
 	keys.sort();
-	
 	for (i = 0; i < len; i++) {
   		t = keys[i];
 		if(
@@ -203,6 +202,7 @@ function buildScreens(){
 				parseFloat(screens[t]['maxheight'])>=$(window).height()
 			)
 		){
+			
 			for(s in screens[t]){
 				if(s!=='maxwidth' && s!=='maxheight'){
 					var screenhtml = '<div class="screen screen'+s+' swiper-slide slide'+s+'"';
@@ -210,7 +210,7 @@ function buildScreens(){
 						if(screens[t][s]['background'].indexOf("/")>0) screenhtml+='style="background-image:url(\''+screens[t][s]['background']+'\');"';
 						else screenhtml+='style="background-image:url(\'img/'+screens[t][s]['background']+'\');"';
 					}
-					else if(typeof(screens[t][s][1]['background'])!=='undefined'){
+					else if(typeof(screens[t][s][1])!=='undefined' && typeof(screens[t][s][1]['background'])!=='undefined'){
 						if(screens[t][s][1]['background'].indexOf("/")>0) screenhtml+='style="background-image:url(\''+screens[t][s][1]['background']+'\');"';
 						else screenhtml+='style="background-image:url(\'img/'+screens[t][s][1]['background']+'\');"';
 					}
