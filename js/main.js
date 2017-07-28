@@ -60,15 +60,15 @@ $.ajax({url: customfolder+'/CONFIG.js?v='+cache, async: false,dataType: "script"
 	if(objectlength(columns)==0) defaultcolumns = true;
 	
 	_GRAPHREFRESH = 5;
-	if(objectlength(screens)==0){
+	if(typeof(screens)=='undefined' || objectlength(screens)==0){
 			 
-		screens['default'] = {}
-		screens['default'][1] = {}
-		screens['default'][1]['background'] = _BACKGROUND_IMAGE;
-		screens['default'][1]['columns'] = []
+		screens = {}
+		screens[1] = {}
+		screens[1]['background'] = _BACKGROUND_IMAGE;
+		screens[1]['columns'] = []
 		if(defaultcolumns===false){
 			for(c in columns){
-				screens['default'][1]['columns'].push(c);
+				if(c!=='bar') screens[1]['columns'].push(c);
 			}
 		}
 	}
@@ -812,7 +812,7 @@ function getDevices(override){
 		gettingDevices=true;
 		
 		if(settings['domoticz_ip']=='http://192.168.1.10:1407'){
-			if($('.settingsicon').length==0) $('body').append('<div data-id="settings" class="settings settingsicon col-xs-12 text-right" data-toggle="modal" data-target="#settingspopup"><em class="fa fa-cog" /><div>');
+			if($('.settingsicon').length==0) $('body').prepend('<div data-id="settings" class="settings settingsicon col-xs-12 text-right" data-toggle="modal" data-target="#settingspopup"><em class="fa fa-cog" /><div>');
 			setTimeout(function(){ $('.settingsicon').trigger('click'); },3000);
 		}
 		else {
