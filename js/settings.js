@@ -321,7 +321,7 @@ function loadSettings(){
 		$('body').append(html);
 		
 		if(typeof(settings['domoticz_ip'])=='undefined' || settings['domoticz_ip']=='http://192.168.1.10:1407'){
-			if($('.settingsicon').length==0) $('body').append('<div data-id="settings" class="settings settingsicon col-xs-12 text-right" data-toggle="modal" data-target="#settingspopup"><em class="fa fa-cog" /><div>');
+			if($('.settingsicon').length==0) $('body').prepend('<div data-id="settings" class="settings settingsicon col-xs-12 text-right" data-toggle="modal" data-target="#settingspopup"><em class="fa fa-cog" /><div>');
 			$('.settingsicon').trigger('click');
 		}
 	},2000);
