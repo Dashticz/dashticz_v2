@@ -1,1 +1,2 @@
-Put your custom images here
+# custom imgages
+Put your custom images in this folder
