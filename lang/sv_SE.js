@@ -65,4 +65,4 @@ lang['scheduled'] = 'Planerad';
 lang['select'] = 'Välj';
 lang['value'] = 'Värde';
 
-lang['spotify_select_playlist'] = 'Select playlist';
+lang['spotify_select_playlist'] = 'Välj spellista';
