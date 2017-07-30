@@ -78,6 +78,14 @@ settingList['screen']['slide_effect']['options']['cube'] = 'cube';
 settingList['screen']['slide_effect']['options']['coverflow'] = 'coverflow';
 settingList['screen']['slide_effect']['options']['flip'] = 'flip';
 
+settingList['screen']['standard_graph'] = {}
+settingList['screen']['standard_graph']['title'] = 'Standard graph';
+settingList['screen']['standard_graph']['type'] = 'select';
+settingList['screen']['standard_graph']['options'] = {};
+settingList['screen']['standard_graph']['options']['hours'] = 'last hours';
+settingList['screen']['standard_graph']['options']['month'] = 'last month';
+settingList['screen']['standard_graph']['options']['day'] = 'today';
+
 settingList['localize'] = {}
 settingList['localize']['title'] = 'Localize';
 
@@ -244,6 +252,7 @@ if(typeof(settings['standby_after'])=='undefined') settings['standby_after'] = 0
 if(typeof(settings['selector_instead_of_buttons'])=='undefined') settings['selector_instead_of_buttons'] = 0;
 if(typeof(settings['default_news_url'])=='undefined') settings['default_news_url'] = 'http://www.nu.nl/rss/algemeen';
 if(typeof(settings['news_scroll_after'])=='undefined') settings['news_scroll_after'] = 7;
+if(typeof(settings['standard_graph'])=='undefined') settings['standard_graph'] ='hours';
 
 var _TEMP_SYMBOL = '°C';
 if(settings['use_fahrenheit']==1) _TEMP_SYMBOL = '°F';

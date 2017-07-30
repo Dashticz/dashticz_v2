@@ -72,7 +72,7 @@ function getGraphs(device,popup){
 		txtLabel = txtUnit;
 	}
 	
-	showGraph(device['idx'],device['Name'],txtUnit,'last',device['CounterToday'],false,sensor,popup);
+	showGraph(device['idx'],device['Name'],txtUnit,'initial',device['CounterToday'],false,sensor,popup);
 }
 
 function getGraphByIDX(idx){
@@ -117,6 +117,12 @@ function showGraph(idx,title,label,range,current,forced,sensor,popup){
 	
 	if(forced || popup){
 		_GRAPHS_LOADED[idx] = time();
+		//Check settings for standard graph
+		if(range=='initial'){
+			if(settings['standard_graph']=='hours'){ range='last'}
+			else if(settings['standard_graph']=='day'){ range='day'}
+			else if(settings['standard_graph']=='month'){ range='month'}
+		}
 		realrange=range;
 		if(range=='last') realrange='day';
 		
