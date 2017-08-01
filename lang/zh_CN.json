@@ -68,7 +68,7 @@
     },
     "settings": {
         "save": "保存更改",
-        "close": "关"
-    },
-    "settings:general": "通常"
+        "close": "关",
+        "general": "通常"
+    }
 }

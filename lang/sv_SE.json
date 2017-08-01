@@ -68,7 +68,7 @@
     },
     "settings": {
         "save": "Spara",
-        "close": "Stänga"
-    },
-    "settings:general": "Allmän"
+        "close": "Stänga",
+        "general": "Allmän"
+    }
 }

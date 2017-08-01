@@ -68,7 +68,7 @@
     },
     "settings": {
         "save": "Save",
-        "close": "Dicht"
-    },
-    "settings:general": "Algemeen"
+        "close": "Dicht",
+        "general": "Algemeen"
+    }
 }

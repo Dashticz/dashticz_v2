@@ -68,7 +68,7 @@
     },
     "settings": {
         "save": "Salvare",
-        "close": "Vicino"
-    },
-    "settings:general": "Generale"
+        "close": "Vicino",
+        "general": "Generale"
+    }
 }

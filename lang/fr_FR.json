@@ -68,7 +68,7 @@
     },
     "settings": {
         "save": "Sauver",
-        "close": "Fermer"
-    },
-    "settings:general": "Général"
+        "close": "Fermer",
+        "general": "Général"
+    }
 }

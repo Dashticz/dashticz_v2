@@ -68,7 +68,7 @@
     },
     "settings": {
         "save": "Mentés",
-        "close": "Közel"
-    },
-    "settings:general": "Àltalában"
+        "close": "Közel",
+        "general": "Àltalában"
+    }
 }
