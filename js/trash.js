@@ -31,12 +31,12 @@ function loadTrash (random,trashobject) {
 				html+='<img class="trashcan" src="img/kliko.png" style="opacity:0.1" />';
 			html+='</div>';
 			html+='<div class="col-xs-8 col-data">';
-				html+='<span class="state">'+language.misc.loading+'</span>';
+				html+='<span class="state">'+lang.loading+'</span>';
 			html+='</div>';
 		}
 		else {
 			html+='<div class="col-xs-12 col-data">';
-				html+='<span class="state">'+language.misc.loading+'</span>';
+				html+='<span class="state">'+lang.loading+'</span>';
 			html+='</div>';
 		}
 	html+='</div>';
@@ -156,6 +156,28 @@ function loadTrash (random,trashobject) {
 				
 				addToContainer(random,returnDates,maxitems);
 			});
+		});
+	}
+	if(service=='afvalwijzerarnhem'){
+		$('.trash'+random+' .state').html('');
+	
+		var baseURL = 'http://www.afvalwijzer-arnhem.nl';
+		
+		$.get('https://cors-anywhere.herokuapp.com/'+baseURL + '/applicatie?ZipCode='+postcode+'&HouseNumber='+homenumber+'&HouseNumberAddition=',function(data){
+			$(data).find('ul.ulPickupDates li').each(function(){
+				var row = $(this).html().split('</div>');
+				var curr = row[0].replace('<div>','').trim();
+	 			var testDate = moment(row[1].trim(),'DD-MM-YYYY');
+				if(testDate.isBetween(startDate, endDate, 'days', true)){
+
+					if(typeof(returnDates[curr])=='undefined'){
+						returnDates[curr] = {}
+					}
+					returnDates[curr][testDate.format("YYYY-MM-DD")+'_'+curr]=getTrashRow(curr,testDate);
+				}
+	 
+            });
+			addToContainer(random,returnDates,maxitems);
 		});
 	}
 	if(service=='mijnafvalwijzer'){
@@ -328,11 +350,11 @@ function addToContainer(random,returnDates,maxitems){
 		}
 		
 		if(date == currentdate.format("DD-MM-YYYY")){
-			returnDatesSimple[key] = returnDatesSimple[key].replace(date, language.weekdays.today);
+			returnDatesSimple[key] = returnDatesSimple[key].replace(date, lang['today']);
 			returnDatesSimple[key] = returnDatesSimple[key].replace('trashrow', 'trashtoday');
 		}   
 		else if(date == tomorrow.format("DD-MM-YYYY")){
-			returnDatesSimple[key] = returnDatesSimple[key].replace(date, language.weekdays.tomorrow);
+			returnDatesSimple[key] = returnDatesSimple[key].replace(date, lang['tomorrow']);
 			returnDatesSimple[key] = returnDatesSimple[key].replace('trashrow', 'trashtomorrow');
 		}
 		else if(moment(skey).isBetween(currentdate, nextweek, 'days', true)){
