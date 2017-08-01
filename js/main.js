@@ -1,9 +1,8 @@
-
 var customfolder = 'custom';
 if(typeof(dashtype)!=='undefined' && parseFloat(dashtype)>1){
 	customfolder = 'custom_'+dashtype;
 }
-
+var language = {};
 var cache = new Date().getTime();
 $('<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">').appendTo("head");
 $('<link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">').appendTo("head");
@@ -74,9 +73,14 @@ $.ajax({url: customfolder+'/CONFIG.js?v='+cache, async: false,dataType: "script"
 	}
 	
 	$.ajax({url: 'js/settings.js', async: false,dataType: "script"}).done(function() {
-
 		loadSettings();
-
+	
+		
+		$.ajax({url: 'lang/'+settings['language']+'.json?v='+cache, async: false, dataType: 'json', success: function(data) {
+			language = data
+		}
+		});
+		
 		$.ajax({url: 'lang/'+settings['language']+'.js?v='+cache, async: false,dataType: "script"});
 		if(_THEME!=='default'){
 			$('<link rel="stylesheet" type="text/css" href="themes/'+_THEME+'/'+_THEME+'.css?v='+cache+'" />').appendTo("head");
@@ -994,7 +998,7 @@ function getDevices(override){
 									html+='<div class="col-xs-10 col-data">';
 									html+='<strong class="title">'+device['Name']+'</strong><br />';
 									if(device['Data']==''){
-										device['Data']=lang.mediaplayer_nothing_playing;
+										device['Data']=language.misc.mediaplayer_nothing_playing;
 										if(settings['hide_mediaplayer']==1) $('div.block_'+idx).hide();
 									}
 									else {
@@ -1011,7 +1015,7 @@ function getDevices(override){
 										triggerStatus(idx+'_1',device['LastUpdate'],device);
 										triggerChange(idx+'_1',device['LastUpdate'],device);
 							
-										var title=lang.energy_usage;
+										var title=language.energy.energy_usage;
 										if(typeof(blocks[idx+'_1'])!=='undefined' && typeof(blocks[idx+'_1']['title'])!=='undefined') title=blocks[idx+'_1']['title'];
 										if(typeof(device['UsageDeliv'])!=='undefined' && (parseFloat(device['UsageDeliv'])>0 || parseFloat(device['UsageDeliv'])<0)){
 											html+= getStateBlock(device['idx']+'sub1','fa fa-plug',title,device['UsageDeliv'],device);
@@ -1026,7 +1030,7 @@ function getDevices(override){
 										triggerStatus(idx+'_2',device['LastUpdate'],device);
 										triggerChange(idx+'_2',device['LastUpdate'],device);
 							
-										var title=lang.energy_usagetoday;
+										var title=language.energy.energy_usagetoday;
 										if(typeof(blocks[idx+'_2'])!=='undefined' && typeof(blocks[idx+'_2']['title'])!=='undefined') title=blocks[idx+'_2']['title'];
 										html = getStateBlock(device['idx']+'sub2','fa fa-plug',title,device['CounterToday'],device);
 										if(typeof(allblocks[idx])!=='undefined' && $('div.block_'+idx+'_2').length==0) var duplicate = $('div.block_'+idx+'_1').last().clone().removeClass('block_'+idx+'_1').addClass('block_'+idx+'_2').insertAfter($('div.block_'+idx+'_1'));
@@ -1036,7 +1040,7 @@ function getDevices(override){
 										triggerStatus(idx+'_3',device['LastUpdate'],device);
 										triggerChange(idx+'_3',device['LastUpdate'],device);
 
-										var title=lang.energy_totals;
+										var title=language.energy.energy_totals;
 										if(typeof(blocks[idx+'_3'])!=='undefined' && typeof(blocks[idx+'_3']['title'])!=='undefined') title=blocks[idx+'_3']['title'];
 										html = getStateBlock(device['idx']+'sub3','fa fa-plug',title,device['Counter']+' kWh',device);
 										if(typeof(allblocks[idx])!=='undefined' && $('div.block_'+idx+'_3').length==0) var duplicate = $('div.block_'+idx+'_2').last().clone().removeClass('block_'+idx+'_2').addClass('block_'+idx+'_3').insertAfter($('div.block_'+idx+'_2'));
@@ -1047,7 +1051,7 @@ function getDevices(override){
 											triggerStatus(idx+'_4',device['LastUpdate'],device);
 											triggerChange(idx+'_4',device['LastUpdate'],device);
 							
-											var title=lang.energy_delivered;
+											var title=language.energy.energy_delivered;
 											if(typeof(blocks[idx+'_4'])!=='undefined' && typeof(blocks[idx+'_4']['title'])!=='undefined') title=blocks[idx+'_4']['title'];
 											html = getStateBlock(device['idx']+'sub4','fa fa-plug',title,device['CounterDeliv']+' kWh',device);
 											if(typeof(allblocks[idx])!=='undefined' && $('div.block_'+idx+'_4').length==0) var duplicate = $('div.block_'+idx+'_3').last().clone().removeClass('block_'+idx+'_3').addClass('block_'+idx+'_4').insertAfter($('div.block_'+idx+'_3'));
@@ -1057,7 +1061,7 @@ function getDevices(override){
 											triggerStatus(idx+'_5',device['LastUpdate'],device);
 											triggerChange(idx+'_5',device['LastUpdate'],device);
 							
-											var title=lang.energy_deliveredtoday;
+											var title=language.energy.energy_deliveredtoday;
 											if(typeof(blocks[idx+'_5'])!=='undefined' && typeof(blocks[idx+'_5']['title'])!=='undefined') title=blocks[idx+'_5']['title'];
 											html = getStateBlock(device['idx']+'sub5','fa fa-plug',title,device['CounterDelivToday'],device);
 											if(typeof(allblocks[idx])!=='undefined' && $('div.block_'+idx+'_5').length==0) var duplicate = $('div.block_'+idx+'_4').last().clone().removeClass('block_'+idx+'_4').addClass('block_'+idx+'_5').insertAfter($('div.block_'+idx+'_4'));
@@ -1073,7 +1077,7 @@ function getDevices(override){
 										triggerStatus(idx+'_1',device['LastUpdate'],device);
 										triggerChange(idx+'_1',device['LastUpdate'],device);
 							
-										var title=lang.gas_usagetoday;
+										var title=language.energy.gas_usagetoday;
 										if(typeof(blocks[idx+'_1'])!=='undefined' && typeof(blocks[idx+'_1']['title'])!=='undefined') title=blocks[idx+'_1']['title'];
 										html+= getStateBlock(device['idx']+'sub1','fa fa-fire',title,device['CounterToday'],device);
 										if(!$('div.block_'+idx).hasClass('block_'+idx+'_1')) $('div.block_'+idx).addClass('block_'+idx+'_1');
@@ -1083,7 +1087,7 @@ function getDevices(override){
 										triggerStatus(idx+'_2',device['LastUpdate'],device);
 										triggerChange(idx+'_2',device['LastUpdate'],device);
 							
-										var title=lang.gas_usage;
+										var title=language.energy.gas_usage;
 										if(typeof(blocks[idx+'_2'])!=='undefined' && typeof(blocks[idx+'_2']['title'])!=='undefined') title=blocks[idx+'_2']['title'];
 										html = getStateBlock(device['idx']+'sub2','fa fa-fire',title,device['Counter']+' m3',device);
 										if(typeof(allblocks[idx])!=='undefined' && $('div.block_'+idx+'_2').length==0) var duplicate = $('div.block_'+idx+'_1').last().clone().removeClass('block_'+idx+'_1').addClass('block_'+idx+'_2').insertAfter($('div.block_'+idx+'_1'));
@@ -1114,7 +1118,7 @@ function getDevices(override){
 									triggerStatus(idx+'_2',device['LastUpdate'],device);
 									triggerChange(idx+'_2',device['LastUpdate'],device);
 							
-									var title=lang.energy_totals+' '+device['Name'];
+									var title=language.energy.energy_totals+' '+device['Name'];
 									if(typeof(blocks[idx+'_2'])!=='undefined' && typeof(blocks[idx+'_2']['title'])!=='undefined') title=blocks[idx+'_2']['title'];
 									html= getStateBlock(device['idx']+'b',rfxicon,title,device['Counter'],device);
 									if(typeof(allblocks[idx])!=='undefined' && $('div.block_'+idx+'_2').length==0) var duplicate = $('div.block_'+idx+'_1').last().clone().removeClass('block_'+idx+'_1').addClass('block_'+idx+'_2').insertAfter($('div.block_'+idx+'_1'));
@@ -1142,7 +1146,7 @@ function getDevices(override){
 									triggerStatus(idx+'_1',device['LastUpdate'],device);
 									triggerChange(idx+'_1',device['LastUpdate'],device);
 							
-									var title=device['Name']+' '+lang.energy_now;
+									var title=device['Name']+' '+language.energy.energy_now;
 									if(typeof(blocks[idx+'_1'])!=='undefined' && typeof(blocks[idx+'_1']['title'])!=='undefined') title=blocks[idx+'_1']['title'];
 									html+= getStateBlock(device['idx']+'a','fa fa-plug',title,number_format(device['Usage'],2,',','.')+' W',device);
 									if(!$('div.block_'+idx).hasClass('block_'+idx+'_1')) $('div.block_'+idx).addClass('block_'+idx+'_1');
@@ -1152,7 +1156,7 @@ function getDevices(override){
 									triggerStatus(idx+'_2',device['LastUpdate'],device);
 									triggerChange(idx+'_2',device['LastUpdate'],device);
 							
-									var title=device['Name']+' '+lang.energy_today;
+									var title=device['Name']+' '+language.energy.energy_today;
 									if(typeof(blocks[idx+'_2'])!=='undefined' && typeof(blocks[idx+'_2']['title'])!=='undefined') title=blocks[idx+'_2']['title'];
 									html= getStateBlock(device['idx']+'b','fa fa-plug',title,number_format(device['CounterToday'],2,',','.')+' kWh',device);
 									if(typeof(allblocks[idx])!=='undefined' && $('div.block_'+idx+'_2').length==0) var duplicate = $('div.block_'+idx+'_1').last().clone().removeClass('block_'+idx+'_1').addClass('block_'+idx+'_2').insertAfter($('div.block_'+idx+'_1'));
@@ -1162,7 +1166,7 @@ function getDevices(override){
 									triggerStatus(idx+'_3',device['LastUpdate'],device);
 									triggerChange(idx+'_3',device['LastUpdate'],device);
 							
-									var title=device['Name']+' '+lang.energy_total;
+									var title=device['Name']+' '+language.energy.energy_total;
 									if(typeof(blocks[idx+'_3'])!=='undefined' && typeof(blocks[idx+'_3']['title'])!=='undefined') title=blocks[idx+'_3']['title'];
 									html= getStateBlock(device['idx']+'c','fa fa-plug',title,number_format(device['Data'],2,',','.')+' kWh',device);
 									if(typeof(allblocks[idx])!=='undefined' && $('div.block_'+idx+'_3').length==0) var duplicate = $('div.block_'+idx+'_2').last().clone().removeClass('block_'+idx+'_2').addClass('block_'+idx+'_3').insertAfter($('div.block_'+idx+'_2'));
@@ -1328,7 +1332,7 @@ function getDevices(override){
 										else html+=iconORimage(idx,'',buttonimg+'.png','on icon');	
 									}
 
-									html+=getBlockData(device,idx,lang.state_on,lang.state_off);
+									html+=getBlockData(device,idx,language.switches.state_on,language.switches.state_off);
 								}
 								else if(typeof(device['LevelActions'])!=='undefined' && device['LevelNames']!==""){
 									var names = device['LevelNames'].split('|');
@@ -1347,7 +1351,7 @@ function getDevices(override){
 										html+='<div class="col-xs-8 col-data">';
 											html+='<strong class="title">'+device['Name']+'</strong><br />';
 											html+='<select onchange="slideDevice('+device['idx']+',this.value);">';
-											html+='<option value="">'+lang.select+'</option>';
+											html+='<option value="">'+language.misc.select+'</option>';
 											for(a in names){
 												var s='';
 												if((a*10)==parseFloat(device['Level'])) s = 'selected';
@@ -1438,13 +1442,13 @@ function getDevices(override){
 									if(device['Status']=='Closed') html+=iconORimage(idx,'','door_closed.png','off icon','',2);
 									else html+=iconORimage(idx,'','door_open.png','on icon','',2);
 									
-									html+=getBlockData(device,idx,lang.state_open,lang.state_closed);
+									html+=getBlockData(device,idx,language.switches.state_open,language.switches.state_closed);
 								}
 								else if(device['SwitchType']=='Contact'){
 									if(device['Status']=='Closed') html+=iconORimage(idx,'','door_closed.png','off icon','',2);
 									else html+=iconORimage(idx,'','door_open.png','on icon','',2);
 
-									html+=getBlockData(device,idx,lang.state_open,lang.state_closed);
+									html+=getBlockData(device,idx,language.switches.state_open,language.switches.state_closed);
 								}
 								else if(device['SubType']=='Custom Sensor'){
 
@@ -1478,8 +1482,8 @@ function getDevices(override){
 									html+='<div class="col-xs-8 col-data">';
 									   html+='<strong class="title">'+device['Name']+'</strong><br />';
 
-									   if(device['Status']=='Closed') html+='<span class="state">'+lang.state_closed+'</span>';
-									   else html+='<span class="state">'+lang.state_open+'</span>';
+									   if(device['Status']=='Closed') html+='<span class="state">'+language.switches.state_closed+'</span>';
+									   else html+='<span class="state">'+language.switches.state_open+'</span>';
 
 									html+='</div>';
 									
@@ -1593,12 +1597,12 @@ function getDevices(override){
 										else html+='<img src="img/motion_on.png" class="on icon" style="max-height:35px;" />';	
 
 									html+='</div>';
-									html+=getBlockData(device,idx,lang.state_movement,lang.state_nomovement);
+									html+=getBlockData(device,idx,language.switches.state_movement,language.switches.state_nomovement);
 								}
 								else if(device['SwitchType']=='Smoke Detector'){
 									if(device['Status']=='Off' || device['Status']=='Normal') html+=iconORimage(idx,'','heating.png','off icon','style="max-height:35px;"');
 									else html+=iconORimage(idx,'','heating.png','on icon','style="max-height:35px;border: 5px solid #F05F40;"');	
-									html+=getBlockData(device,idx,lang.state_smoke,lang.state_nosmoke);
+									html+=getBlockData(device,idx,language.switches.state_smoke,language.switches.state_nosmoke);
 								}
 								else if(device['HardwareName']=='Dummy') { 
 									if((typeof(blocks[idx]) == 'undefined' || typeof(blocks[idx]['protected']) == 'undefined' || blocks[idx]['protected'] == false) && device['Protected'] == false){
@@ -1608,13 +1612,13 @@ function getDevices(override){
 									if(device['Status']=='Off') html+=iconORimage(idx,'fa-toggle-off','','off icon');
 									else html+=iconORimage(idx,'fa-toggle-on','','on icon');
 
-									html+=getBlockData(device,idx,lang.state_on,lang.state_off);
+									html+=getBlockData(device,idx,language.switches.state_on,language.switches.state_off);
 								}
 								else if(device['Image']=='Alarm') { 
 									if(device['Status']=='Off') html+=iconORimage(idx,'fa-warning','','off icon');
 									else html+=iconORimage(idx,'fa-warning','','on icon','style="color:#F05F40;"');
 
-									html+=getBlockData(device,idx,lang.state_on,lang.state_off);
+									html+=getBlockData(device,idx,language.switches.state_on,language.switches.state_off);
 								}
 								else {
 
@@ -1629,7 +1633,7 @@ function getDevices(override){
 										if(device['Status']=='Off') html+=iconORimage(idx,'',buttonimg+'.png','off icon');
 										else html+=iconORimage(idx,'',buttonimg+'.png','on icon');
 									}
-									html+=getBlockData(device,idx,lang.state_on,lang.state_off);
+									html+=getBlockData(device,idx,language.switches.state_on,language.switches.state_off);
 								}
 							}
 							
