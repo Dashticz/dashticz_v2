@@ -1,0 +1,74 @@
+{
+    "switches": {
+        "state_on": "PÅ",
+        "state_off": "AV",
+        "state_open": "ÖPPEN",
+        "state_closed": "STÄNGD",
+        "state_movement": "RÖRELSE",
+        "state_nomovement": "INGEN RÖRELSE",
+        "state_switch": "Brytare",
+        "state_nosmoke": "Ingen rök",
+        "state_smoke": "RÖK DETEKTERAD"
+    },
+    "weekdays": {
+        "monday": "Måndag",
+        "tuesday": "Tisdag",
+        "wednesday": "Onsdag",
+        "thursday": "Torsdag",
+        "friday": "Fredag",
+        "saturday": "Lördag",
+        "sunday": "Söndag",
+        "today": "Idag",
+        "tomorrow": "imorgon",
+        "entire_day": "Hela dagen"
+    },
+    "graph": {
+        "last_hours": "senaste timmen",
+        "last_month": "senaste månaden",
+        "today": "idag"
+    },
+    "energy": {
+        "energy_usage": "Energi",
+        "energy_usagetoday": "Energi idag",
+        "energy_totals": "Totalt",
+        "energy_total": "totalt",
+        "energy_now": "nu",
+        "energy_today": "idag",
+        "gas_usagetoday": "Gas idag",
+        "temp_toon": "Vardagsrum"
+    },
+    "wind": {
+        "wind": "Vind",
+        "direction_N": "nord",
+        "direction_NNE": "nord-nordost",
+        "direction_NE": "nordost",
+        "direction_ENE": "ost-nordost",
+        "direction_E": "öst",
+        "direction_ESE": "öst-sydöst",
+        "direction_SE": "sydöst",
+        "direction_SSE": "syd-sydöst",
+        "direction_S": "syd",
+        "direction_SSW": "syd-sydväst",
+        "direction_SW": "syd-väst",
+        "direction_WSW": "väst-sydväst",
+        "direction_W": "väst",
+        "direction_WNW": "väst-nordväst",
+        "direction_NW": "nordväst",
+        "direction_NNW": "nord-nordväst"
+    },
+    "misc": {
+        "last_update": "Senaste uppdateringen",
+        "loading": "Laddning...",
+        "mediaplayer_nothing_playing": "Inget att spela upp just nu",
+        "notifications_ns": "avviseringar från NS",
+        "scheduled": "Planerad",
+        "select": "Välj",
+        "value": "Värde",
+        "spotify_select_playlist": "Välj spellista"
+    },
+    "settings": {
+        "save": "Spara",
+        "close": "Stänga"
+    },
+    "settings:general": "Allmän"
+}

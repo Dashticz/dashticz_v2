@@ -1,0 +1,74 @@
+{
+    "switches": {
+        "state_on": "AAN",
+        "state_off": "UIT",
+        "state_open": "OPEN",
+        "state_closed": "DICHT",
+        "state_movement": "BEWEGING",
+        "state_nomovement": "Geen beweging",
+        "state_switch": "Schakelen",
+        "state_nosmoke": "Geen rook",
+        "state_smoke": "ROOK GEDETECTEERD"
+    },
+    "weekdays": {
+        "monday": "Maandag",
+        "tuesday": "Dinsdag",
+        "wednesday": "Woensdag",
+        "thursday": "Donderdag",
+        "friday": "Vrijdag",
+        "saturday": "Zaterdag",
+        "sunday": "Zondag",
+        "today": "Vandaag",
+        "tomorrow": "Morgen",
+        "entire_day": "Hele dag"
+    },
+    "graph": {
+        "last_hours": "laatste uren",
+        "last_month": "afgelopen maand",
+        "today": "vandaag"
+    },
+    "energy": {
+        "energy_usage": "Energieverbruik",
+        "energy_usagetoday": "Energie vandaag",
+        "energy_totals": "Totaal",
+        "energy_total": "totaal",
+        "energy_now": "nu",
+        "energy_today": "vandaag",
+        "gas_usagetoday": "Gas vandaag",
+        "temp_toon": "Woonkamer"
+    },
+    "wind": {
+        "wind": "Kracht",
+        "direction_N": "noord",
+        "direction_NNE": "noord-noordoost",
+        "direction_NE": "noordoost",
+        "direction_ENE": "oost-noordoost",
+        "direction_E": "oost",
+        "direction_ESE": "oost-zuidoost",
+        "direction_SE": "zuidoost",
+        "direction_SSE": "zuid-zuidoost",
+        "direction_S": "zuid",
+        "direction_SSW": "zuid-zuidwest",
+        "direction_SW": "zuid-west",
+        "direction_WSW": "west-zuidwest",
+        "direction_W": "west",
+        "direction_WNW": "west-noordwest",
+        "direction_NW": "noordwest",
+        "direction_NNW": "noord-noordwest"
+    },
+    "misc": {
+        "last_update": "Laatste update",
+        "loading": "Laden...",
+        "mediaplayer_nothing_playing": "Er wordt momenteel niets afgespeeld",
+        "notifications_ns": "meldingen geplaatst door de NS",
+        "scheduled": "Gepland",
+        "select": "Selecteer",
+        "value": "Waarde",
+        "spotify_select_playlist": "Selecteer afspeellijst"
+    },
+    "settings": {
+        "save": "Save",
+        "close": "Dicht"
+    },
+    "settings:general": "Algemeen"
+}

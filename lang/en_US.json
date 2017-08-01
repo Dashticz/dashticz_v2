@@ -1,0 +1,74 @@
+{
+    "switches": {
+        "state_on": "ON",
+        "state_off": "OFF",
+        "state_open": "OPEN",
+        "state_closed": "CLOSED",
+        "state_movement": "MOVEMENT",
+        "state_nomovement": "NO MOVEMENT",
+        "state_switch": "Switch",
+        "state_nosmoke": "No Smoke",
+        "state_smoke": "SMOKE DETECTED"
+    },
+    "weekdays": {
+        "monday": "Monday",
+        "tuesday": "Tuesday",
+        "wednesday": "Wednesday",
+        "thursday": "Thursday",
+        "friday": "Friday",
+        "saturday": "Saturday",
+        "sunday": "Sunday",
+        "today": "Today",
+        "tomorrow": "tomorrow",
+        "entire_day": "Entire day"
+    },
+    "graph": {
+        "last_hours": "last hours",
+        "last_month": "last month",
+        "today": "today"
+    },
+    "energy": {
+        "energy_usage": "Energy",
+        "energy_usagetoday": "Energy today",
+        "energy_totals": "Total",
+        "energy_total": "total",
+        "energy_now": "now",
+        "energy_today": "today",
+        "gas_usagetoday": "Gas today",
+        "temp_toon": "Living room"
+    },
+    "wind": {
+        "wind": "Wind",
+        "direction_N": "north",
+        "direction_NNE": "north-northeast",
+        "direction_NE": "northeast",
+        "direction_ENE": "east-northeast",
+        "direction_E": "east",
+        "direction_ESE": "east-southeast",
+        "direction_SE": "southeast",
+        "direction_SSE": "south-southeast",
+        "direction_S": "south",
+        "direction_SSW": "south-southwest",
+        "direction_SW": "south-west",
+        "direction_WSW": "west-southwest",
+        "direction_W": "west",
+        "direction_WNW": "west-northwest",
+        "direction_NW": "northwest",
+        "direction_NNW": "north-northwest"
+    },
+    "misc": {
+        "last_update": "Last update",
+        "loading": "Loading...",
+        "mediaplayer_nothing_playing": "Nothing is playing right now",
+        "notifications_ns": "notifications added by NS",
+        "scheduled": "Scheduled",
+        "select": "Select",
+        "value": "Value",
+        "spotify_select_playlist": "Select playlist"
+    },
+    "settings": {
+        "save": "Save",
+        "close": "Close"
+    },
+    "settings:general": "General"
+}

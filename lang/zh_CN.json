@@ -1,0 +1,74 @@
+{
+    "switches": {
+        "state_on": "开",
+        "state_off": "关",
+        "state_open": "开启",
+        "state_closed": "关闭",
+        "state_movement": "有人",
+        "state_nomovement": "无人",
+        "state_switch": "开关",
+        "state_nosmoke": "无烟",
+        "state_smoke": "有烟雾"
+    },
+    "weekdays": {
+        "monday": "周一",
+        "tuesday": "周二",
+        "wednesday": "周三",
+        "thursday": "周四",
+        "friday": "周五",
+        "saturday": "周六",
+        "sunday": "周日",
+        "today": "今天",
+        "tomorrow": "明天",
+        "entire_day": "整天"
+    },
+    "graph": {
+        "last_hours": "最近几小时",
+        "last_month": "上个月",
+        "today": "24小时"
+    },
+    "energy": {
+        "energy_usage": "耗电量",
+        "energy_usagetoday": "今天能量",
+        "energy_totals": "总",
+        "energy_total": "总",
+        "energy_now": "现在",
+        "energy_today": "今天",
+        "gas_usagetoday": "今天气",
+        "temp_toon": "客厅"
+    },
+    "wind": {
+        "wind": "风",
+        "direction_N": "north",
+        "direction_NNE": "north-northeast",
+        "direction_NE": "东北",
+        "direction_ENE": "east-northeast",
+        "direction_E": "east",
+        "direction_ESE": "east-southeast",
+        "direction_SE": "southeast",
+        "direction_SSE": "south-southeast",
+        "direction_S": "south",
+        "direction_SSW": "south-southwest",
+        "direction_SW": "south-west",
+        "direction_WSW": "west-southwest",
+        "direction_W": "west",
+        "direction_WNW": "west-northwest",
+        "direction_NW": "northwest",
+        "direction_NNW": "north-northwest"
+    },
+    "misc": {
+        "last_update": "最后更新",
+        "loading": "加载中...",
+        "mediaplayer_nothing_playing": "未播放任何曲目",
+        "notifications_ns": "NS添加的通知",
+        "scheduled": "日程",
+        "select": "选择",
+        "value": "值",
+        "spotify_select_playlist": "选择播放列表"
+    },
+    "settings": {
+        "save": "保存更改",
+        "close": "关"
+    },
+    "settings:general": "通常"
+}
