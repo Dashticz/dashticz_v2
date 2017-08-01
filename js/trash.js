@@ -7,9 +7,7 @@ function loadTrash (random,trashobject) {
 	if(typeof(trashobject.street)!=='undefined') var street = trashobject.street;
 	
 	var key = 'UNKNOWN';
-	if(typeof(trashobject.key)!=='undefined') key=trashobject.key;
-				
-				
+	if(typeof(trashobject.key)!=='undefined') key=trashobject.key;		
 	
 	var dates = {};
     var curr = '';
