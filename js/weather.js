@@ -1,5 +1,3 @@
-
-
 function loadWeather(location,country) {
 	var html = '';
 	if(typeof(settings['wu_api'])!=='undefined' && settings['wu_api']!=='' && settings['wu_api']!==0){
@@ -91,13 +89,13 @@ function loadWeatherFull(location,country) {
 						day = curfor.date.weekday_short;
 
 						switch(day) {
-							case 'Mon': dayNL = lang.monday; break;
-							case 'Tue': dayNL = lang.tuesday; break;
-							case 'Wed': dayNL = lang.wednesday; break;
-							case 'Thu': dayNL = lang.thursday; break;
-							case 'Fri': dayNL = lang.friday; break;
-							case 'Sat': dayNL = lang.saturday; break;
-							case 'Sun': dayNL = lang.sunday; break;
+							case 'Mon': dayNL = language.weekdays.monday; break;
+							case 'Tue': dayNL = language.weekdays.tuesday; break;
+							case 'Wed': dayNL = language.weekdays.wednesday; break;
+							case 'Thu': dayNL = language.weekdays.thursday; break;
+							case 'Fri': dayNL = language.weekdays.friday; break;
+							case 'Sat': dayNL = language.weekdays.saturday; break;
+							case 'Sun': dayNL = language.weekdays.sunday; break;
 						}
 
 						var wiclass = getIcon(curfor.icon);
