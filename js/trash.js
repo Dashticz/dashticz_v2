@@ -31,12 +31,12 @@ function loadTrash (random,trashobject) {
 				html+='<img class="trashcan" src="img/kliko.png" style="opacity:0.1" />';
 			html+='</div>';
 			html+='<div class="col-xs-8 col-data">';
-				html+='<span class="state">'+lang.loading+'</span>';
+				html+='<span class="state">'+language.misc.loading+'</span>';
 			html+='</div>';
 		}
 		else {
 			html+='<div class="col-xs-12 col-data">';
-				html+='<span class="state">'+lang.loading+'</span>';
+				html+='<span class="state">'+language.misc.loading+'</span>';
 			html+='</div>';
 		}
 	html+='</div>';
@@ -350,11 +350,11 @@ function addToContainer(random,returnDates,maxitems){
 		}
 		
 		if(date == currentdate.format("DD-MM-YYYY")){
-			returnDatesSimple[key] = returnDatesSimple[key].replace(date, lang['today']);
+			returnDatesSimple[key] = returnDatesSimple[key].replace(date, language.weekdays.today);
 			returnDatesSimple[key] = returnDatesSimple[key].replace('trashrow', 'trashtoday');
 		}   
 		else if(date == tomorrow.format("DD-MM-YYYY")){
-			returnDatesSimple[key] = returnDatesSimple[key].replace(date, lang['tomorrow']);
+			returnDatesSimple[key] = returnDatesSimple[key].replace(date, language.weekdays.tomorrow);
 			returnDatesSimple[key] = returnDatesSimple[key].replace('trashrow', 'trashtomorrow');
 		}
 		else if(moment(skey).isBetween(currentdate, nextweek, 'days', true)){
