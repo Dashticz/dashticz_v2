@@ -162,7 +162,6 @@ function loadTrash (random,trashobject) {
 		$('.trash'+random+' .state').html('');
 	
 		var baseURL = 'http://www.afvalwijzer-arnhem.nl';
-		
 		$.get('https://cors-anywhere.herokuapp.com/'+baseURL + '/applicatie?ZipCode='+postcode+'&HouseNumber='+homenumber+'&HouseNumberAddition=',function(data){
 			$(data).find('ul.ulPickupDates li').each(function(){
 				var row = $(this).html().split('</div>');
