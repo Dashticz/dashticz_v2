@@ -1,0 +1,74 @@
+{
+    "switches": {
+        "state_on": "COMUTADA",
+        "state_off": "FORA",
+        "state_open": "ABERTO",
+        "state_closed": "FECHADO",
+        "state_movement": "MOVIMENTO",
+        "state_nomovement": "Sem movimento",
+        "state_switch": "Interruptor",
+        "state_nosmoke": "Não fumo",
+        "state_smoke": "FUMO DETECTADO"
+    },
+    "weekdays": {
+        "monday": "Segunda-feira",
+        "tuesday": "Terça-feira",
+        "wednesday": "Quarta-feira",
+        "thursday": "Quinta-feira",
+        "friday": "Sexta-feira",
+        "saturday": "Sábado",
+        "sunday": "Domingo",
+        "today": "Hoje",
+        "tomorrow": "amanhã",
+        "entire_day": "Durante todo o dia"
+    },
+    "graph": {
+        "last_hours": "últimas horas",
+        "last_month": "último mês",
+        "today": "hoje"
+    },
+    "energy": {
+        "energy_usage": "Energia",
+        "energy_usagetoday": "Energia hoje",
+        "energy_totals": "Total",
+        "energy_total": "total",
+        "energy_now": "agora",
+        "energy_today": "hoje",
+        "gas_usagetoday": "Gás hoje",
+        "temp_toon": "Sala de estar"
+    },
+    "wind": {
+        "wind": "Vento",
+        "direction_N": "norte",
+        "direction_NNE": "norte-nordeste",
+        "direction_NE": "nordeste",
+        "direction_ENE": "leste-nordeste",
+        "direction_E": "leste",
+        "direction_ESE": "leste-sudeste",
+        "direction_SE": "sudeste",
+        "direction_SSE": "sul-sudeste",
+        "direction_S": "sul",
+        "direction_SSW": "sul-sudoeste",
+        "direction_SW": "sudoeste",
+        "direction_WSW": "oeste-sudoeste",
+        "direction_W": "oeste",
+        "direction_WNW": "oeste-noroeste",
+        "direction_NW": "noroeste",
+        "direction_NNW": "norte-noroeste"
+    },
+    "misc": {
+        "last_update": "Última atualização",
+        "loading": "Carregando...",
+        "mediaplayer_nothing_playing": "Agora nada está a tocar",
+        "notifications_ns": "notificações adicionado por NS",
+        "scheduled": "Programado",
+        "select": "Selecionar",
+        "value": "Valor",
+        "spotify_select_playlist": "Selecionar lista"
+    },
+    "settings": {
+        "save": "Salvar",
+        "close": "Fechar",
+        "general": "Geralmente"
+    }
+}

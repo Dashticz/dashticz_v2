@@ -1,0 +1,74 @@
+{
+    "switches": {
+        "state_on": "BE",
+        "state_off": "KI",
+        "state_open": "NYITVA",
+        "state_closed": "ZÁRVA",
+        "state_movement": "MOZGÁS",
+        "state_nomovement": "NINCS MOZGÁS",
+        "state_switch": "Kapcsoló",
+        "state_nosmoke": "Nincs füst",
+        "state_smoke": "FÜST ÉRZÉKELVE"
+    },
+    "weekdays": {
+        "monday": "Hétfő",
+        "tuesday": "Kedd",
+        "wednesday": "Szerda",
+        "thursday": "Csütörtök",
+        "friday": "Péntek",
+        "saturday": "Szombat",
+        "sunday": "Vasárnap",
+        "today": "Ma",
+        "tomorrow": "Holnap",
+        "entire_day": "egész nap"
+    },
+    "graph": {
+        "last_hours": "utolsó órák",
+        "last_month": "utolsó hónap",
+        "today": "ma"
+    },
+    "energy": {
+        "energy_usage": "Energia",
+        "energy_usagetoday": "Energiafogyasztás",
+        "energy_totals": "Összesen",
+        "energy_total": "összesen",
+        "energy_now": "most",
+        "energy_today": "ma",
+        "gas_usagetoday": "Mai gáz",
+        "temp_toon": "Nappali"
+    },
+    "wind": {
+        "wind": "Szél",
+        "direction_N": "észak",
+        "direction_NNE": "észak-északkelet",
+        "direction_NE": "északkeleti",
+        "direction_ENE": "kelet-északkelet",
+        "direction_E": "keleti",
+        "direction_ESE": "kelet-délkelet",
+        "direction_SE": "délkeleti",
+        "direction_SSE": "dél-délkeleti",
+        "direction_S": "dél",
+        "direction_SSW": "dél-délnyugat",
+        "direction_SW": "délnyugati",
+        "direction_WSW": "nyugat-délnyugati",
+        "direction_W": "nyugati",
+        "direction_WNW": "nyugat-északnyugat",
+        "direction_NW": "északnyugat",
+        "direction_NNW": "észak-északnyugat"
+    },
+    "misc": {
+        "last_update": "Betöltés...",
+        "loading": "Utolsó frissítés",
+        "mediaplayer_nothing_playing": "Semmi sem játszódik most",
+        "notifications_ns": "Az NS által tett bejelentések",
+        "scheduled": "Tervezett",
+        "select": "Kiválaszt",
+        "value": "Érték",
+        "spotify_select_playlist": "Lejátszási lista kiválasztása"
+    },
+    "settings": {
+        "save": "Mentés",
+        "close": "Közel",
+        "general": "Àltalában"
+    }
+}

@@ -82,7 +82,7 @@ function addCalendar(calobject,icsUrlorg){
 					enddate='';
 					startdate = startdate.replace('00:00','');
 					startdate = startdate.replace('00:00:00','');
-					startdate+= ' '+lang['entire_day_event']
+					startdate+= ' '+language.weekdays.entire_day
 				}
 				event.enddate = enddate;
 				event.startdate = startdate;

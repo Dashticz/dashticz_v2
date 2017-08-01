@@ -1,0 +1,74 @@
+{
+    "switches": {
+        "state_on": "Allumé",
+        "state_off": "Eteint",
+        "state_open": "OUVERT",
+        "state_closed": "FERMÉ",
+        "state_movement": "MOUVEMENT",
+        "state_nomovement": "Aucun mouvement",
+        "state_switch": "Commuter",
+        "state_nosmoke": "Pas de fumée",
+        "state_smoke": "FUMÉE DÉTECTÉE"
+    },
+    "weekdays": {
+        "monday": "Lundi",
+        "tuesday": "Mardi",
+        "wednesday": "Mercredi",
+        "thursday": "Jeudi",
+        "friday": "Vendredi",
+        "saturday": "Samedi",
+        "sunday": "Dimanche",
+        "today": "Aujourd'hui",
+        "tomorrow": "demain",
+        "entire_day": "Toute la journée"
+    },
+    "graph": {
+        "last_hours": "dernières heures",
+        "last_month": "mois dernier",
+        "today": "aujourd'hui"
+    },
+    "energy": {
+        "energy_usage": "Énergie",
+        "energy_usagetoday": "Énergie aujourd'hui",
+        "energy_totals": "Total",
+        "energy_total": "total",
+        "energy_now": "maintenant",
+        "energy_today": "Énergie aujourd hui",
+        "gas_usagetoday": "Gaz aujourd hui",
+        "temp_toon": "Salon"
+    },
+    "wind": {
+        "wind": "Force",
+        "direction_N": "nord",
+        "direction_NNE": "nord-nord-est",
+        "direction_NE": "nord-est",
+        "direction_ENE": "est-nord-est",
+        "direction_E": "est",
+        "direction_ESE": "est-sud-est",
+        "direction_SE": "sud-est",
+        "direction_SSE": "sud-sud-est",
+        "direction_S": "sud",
+        "direction_SSW": "sud-sud-ouest",
+        "direction_SW": "sud-ouest",
+        "direction_WSW": "ouest-sud-ouest",
+        "direction_W": "ouest",
+        "direction_WNW": "ouest-nord-ouest",
+        "direction_NW": "nord-ouest",
+        "direction_NNW": "nord-nord-ouest"
+    },
+    "misc": {
+        "last_update": "Dernière mise à jour",
+        "loading": "Chargement...",
+        "mediaplayer_nothing_playing": "Il n'y a pas de jeu",
+        "notifications_ns": "messages postés par le NS",
+        "scheduled": "Prévu",
+        "select": "Sélectionnez",
+        "value": "Valeur",
+        "spotify_select_playlist": "Sélectionnez playlist"
+    },
+    "settings": {
+        "save": "Sauver",
+        "close": "Fermer",
+        "general": "Général"
+    }
+}

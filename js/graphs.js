@@ -87,7 +87,7 @@ function getButtonGraphs(device){
 			  html+='<div class="modal-header">';
 				html+='<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
 			  html+='</div>';
-			  html+='<div class="modal-body block_graphpopup_'+device['idx']+'">'+lang.loading;
+			  html+='<div class="modal-body block_graphpopup_'+device['idx']+'">'+language.misc.loading;
 			  html+='</div>';
 			html+='</div>';
 		  html+='</div>';
@@ -139,15 +139,15 @@ function showGraph(idx,title,label,range,current,forced,sensor,popup){
 				
 				var buttons ='<button type="button" class="btn btn-default ';
 				if(range=='last') buttons+='active';
-				buttons+='" onclick="showGraph('+idx+',\''+orgtitle+'\',\''+label+'\',\'last\',\''+current+'\',true,\''+sensor+'\','+popup+');">'+lang['graph_last_hours']+'</button> ';
+				buttons+='" onclick="showGraph('+idx+',\''+orgtitle+'\',\''+label+'\',\'last\',\''+current+'\',true,\''+sensor+'\','+popup+');">'+language.graph.last_hours+'</button> ';
 				
 				buttons+='<button type="button" class="btn btn-default ';
 				if(range=='day') buttons+='active';
-				buttons+='" onclick="showGraph('+idx+',\''+orgtitle+'\',\''+label+'\',\'day\',\''+current+'\',true,\''+sensor+'\','+popup+');">'+lang['graph_today']+'</button> ';
+				buttons+='" onclick="showGraph('+idx+',\''+orgtitle+'\',\''+label+'\',\'day\',\''+current+'\',true,\''+sensor+'\','+popup+');">'+language.graph.today+'</button> ';
 				
 				buttons+='<button type="button" class="btn btn-default ';
 				if(range=='month') buttons+='active';
-				buttons+='" onclick="showGraph('+idx+',\''+orgtitle+'\',\''+label+'\',\'month\',\''+current+'\',true,\''+sensor+'\','+popup+');">'+lang['graph_last_month']+'</button>';
+				buttons+='" onclick="showGraph('+idx+',\''+orgtitle+'\',\''+label+'\',\'month\',\''+current+'\',true,\''+sensor+'\','+popup+');">'+language.graph.last_month+'</button>';
 		
 				if(popup==true) var html = '<div class="graphpopup" id="graph'+idx+'">';
 				else var html = '<div class="graph" id="graph'+idx+'">';

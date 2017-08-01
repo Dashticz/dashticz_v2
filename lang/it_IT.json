@@ -1,0 +1,74 @@
+{
+    "switches": {
+        "state_on": "ON",
+        "state_off": "OFF",
+        "state_open": "APERTO",
+        "state_closed": "CHIUSO",
+        "state_movement": "MOVIMENTO",
+        "state_nomovement": "NO MOVIMENTO",
+        "state_switch": "Interruttore",
+        "state_nosmoke": "No fumo",
+        "state_smoke": "FUMO"
+    },
+    "weekdays": {
+        "monday": "Lunedi",
+        "tuesday": "Martedi",
+        "wednesday": "Mercoledi",
+        "thursday": "Giovedi",
+        "friday": "Venerdi",
+        "saturday": "Sabato",
+        "sunday": "Domenica",
+        "today": "Oggi",
+        "tomorrow": "domani",
+        "entire_day": "per tutta la giornata"
+    },
+    "graph": {
+        "last_hours": "ultime ore",
+        "last_month": "ultimo mese",
+        "today": "oggi"
+    },
+    "energy": {
+        "energy_usage": "Corrente",
+        "energy_usagetoday": "Corrente oggi",
+        "energy_totals": "Totale",
+        "energy_total": "totale",
+        "energy_now": "ora",
+        "energy_today": "oggi",
+        "gas_usagetoday": "Gas oggi",
+        "temp_toon": "Salone"
+    },
+    "wind": {
+        "wind": "Vento",
+        "direction_N": "nord",
+        "direction_NNE": "nord-nordest",
+        "direction_NE": "nordest",
+        "direction_ENE": "est-nordest",
+        "direction_E": "est",
+        "direction_ESE": "est-sudest",
+        "direction_SE": "sudest",
+        "direction_SSE": "sud-sudest",
+        "direction_S": "sud",
+        "direction_SSW": "sud-sudovest",
+        "direction_SW": "sud-ovest",
+        "direction_WSW": "ovest-sudovest",
+        "direction_W": "ovest",
+        "direction_WNW": "ovest-nordovest",
+        "direction_NW": "nordovest",
+        "direction_NNW": "nord-nordovest"
+    },
+    "misc": {
+        "last_update": "Ultimo aggiornamento",
+        "loading": "Caricamento...",
+        "mediaplayer_nothing_playing": "Non in riproduzione ora",
+        "notifications_ns": "notifica aggiunta da NS",
+        "scheduled": "Programmare",
+        "select": "Selezionare",
+        "value": "Valore",
+        "spotify_select_playlist": "Seleziona playlist"
+    },
+    "settings": {
+        "save": "Salvare",
+        "close": "Vicino",
+        "general": "Generale"
+    }
+}

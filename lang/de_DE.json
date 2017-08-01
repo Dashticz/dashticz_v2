@@ -1,0 +1,74 @@
+{
+    "switches": {
+        "state_on": "AN",
+        "state_off": "AUS",
+        "state_open": "OFFEN",
+        "state_closed": "GESCHLOSSEN",
+        "state_movement": "BEWEGUNG",
+        "state_nomovement": "Keine Bewegung",
+        "state_switch": "Schalter",
+        "state_nosmoke": "Kein Rauch",
+        "state_smoke": "RAUCH ENTDECK"
+    },
+    "weekdays": {
+        "monday": "Montag",
+        "tuesday": "Dienstag",
+        "wednesday": "Mittwoch",
+        "thursday": "Donnerstag",
+        "friday": "Freitag",
+        "saturday": "Samstag",
+        "sunday": "Sonntag",
+        "today": "Heute",
+        "tomorrow": "Morgen",
+        "entire_day": "ganzen Tag"
+    },
+    "graph": {
+        "last_hours": "letzten Stunden",
+        "last_month": "letzter Monat",
+        "today": "Heute"
+    },
+    "energy": {
+        "energy_usage": "Stromverbrauch",
+        "energy_usagetoday": "Stromverbrauch heute",
+        "energy_totals": "insgesamt",
+        "energy_total": "insgesamt",
+        "energy_now": "jetzt",
+        "energy_today": "heute",
+        "gas_usagetoday": "Gas heute",
+        "temp_toon": "Wohnzimmer"
+    },
+    "wind": {
+        "wind": "Wind",
+        "direction_N": "nord",
+        "direction_NNE": "nord-nordost",
+        "direction_NE": "nordost",
+        "direction_ENE": "ost-nordost",
+        "direction_E": "ost",
+        "direction_ESE": "ost-südost",
+        "direction_SE": "südost",
+        "direction_SSE": "süd-südost",
+        "direction_S": "süd",
+        "direction_SSW": "süd-südwest",
+        "direction_SW": "südwest",
+        "direction_WSW": "west-südwest",
+        "direction_W": "west",
+        "direction_WNW": "west-nordwest",
+        "direction_NW": "nordwest",
+        "direction_NNW": "nord-nordwest"
+    },
+    "misc": {
+        "last_update": "Zuletzt aktualisiert",
+        "loading": "Lädt...",
+        "mediaplayer_nothing_playing": "Derzeit wird nichts abgespielt",
+        "notifications_ns": "Benachrichtigungen hinzugefügt von NS",
+        "scheduled": "Geplant",
+        "select": "Auswählen",
+        "value": "Wert",
+        "spotify_select_playlist": "Playlist wählen"
+    },
+    "settings": {
+        "save": "Speichern",
+        "close": "Schließen",
+        "general": "Allgemein"
+    }
+}

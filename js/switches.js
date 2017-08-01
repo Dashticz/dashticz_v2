@@ -8,7 +8,7 @@ function switchDevice(cur){
 		
 		$(cur).find('.icon').removeClass('on');
 		$(cur).find('.icon').addClass('off');
-		$(cur).find('.state').html(lang.state_off);
+		$(cur).find('.state').html(language.switches.state_off);
 	}
 	else {
 		var doStatus='On';
@@ -19,7 +19,7 @@ function switchDevice(cur){
 			$(cur).find('.fa-toggle-off').addClass('fa-toggle-on').removeClass('fa-toggle-off');
 		}
 		
-		$(cur).find('.state').html(lang.state_on);
+		$(cur).find('.state').html(language.switches.state_on);
 	}
 	triggerChange(idx,doStatus);
 	if(typeof(req)!=='undefined') req.abort();
@@ -100,13 +100,13 @@ function switchGroup(cur){
 		var doStatus='Off';
 		$(cur).find('.icon').removeClass('on');
 		$(cur).find('.icon').addClass('off');
-		$(cur).find('.state').html(lang.state_off);
+		$(cur).find('.state').html(language.switches.state_off);
 	}
 	else {
 		var doStatus='On';
 		$(cur).find('.icon').removeClass('off');
 		$(cur).find('.icon').addClass('on');
-		$(cur).find('.state').html(lang.state_on);
+		$(cur).find('.state').html(language.switches.state_on);
 	}
 	triggerChange(idx,doStatus);
 	if(typeof(req)!=='undefined') req.abort();	
@@ -130,7 +130,7 @@ function slideDevice(idx,status){
 		$('.block_'+idx).find('.fa-toggle-off').addClass('fa-toggle-on').removeClass('fa-toggle-off');
 	}
 
-	$('.block_'+idx).find('.state').html(lang.state_on);
+	$('.block_'+idx).find('.state').html(language.switches.state_on);
 	
 	slide = $.ajax({
 		url: settings['domoticz_ip']+'/json.htm?type=command&param=switchlight&idx='+idx+'&switchcmd=Set%20Level&level='+status+'&jsoncallback=?',
