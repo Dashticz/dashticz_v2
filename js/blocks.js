@@ -1,4 +1,3 @@
-
 blocktypes = {}
 blocktypes.SubType = {}
 blocktypes.SubType['Visibility'] = { icon: 'fa fa-eye', title: '<Name>', value: '<Data>' }
@@ -19,7 +18,7 @@ blocktypes.SensorUnit['Fertility'] = { icon: 'fa fa-flask', title: '<Name>', val
 
 blocktypes.Type = {}
 blocktypes.Type['Rain'] = { icon: 'fa fa-tint', title: '<Name>', value: '<Rain>mm' }
-blocktypes.Type['Wind'] = { icon: 'wi wi-wind-direction', title: lang.wind, value: '' }
+blocktypes.Type['Wind'] = { icon: 'wi wi-wind-direction', title: language.wind.wind, value: '' }
 blocktypes.Type['Temp'] = { icon: 'fa fa-thermometer-half', title: '<Name>', value: '<Temp>'+_TEMP_SYMBOL }
 blocktypes.Type['Air Quality'] = { image: 'air.png', title: '<Name>', value: '<Data>' }
 blocktypes.Type['UV'] = { icon: 'fa fa-sun-o', title: '<Name>', value: '<Data>' }
@@ -189,7 +188,7 @@ function getBlock(cols,c,columndiv,standby){
 				html+='<div class="col-xs-2 col-icon">';
 					html+='<em class="fa fa-calendar"></em>';
 				html+='</div>';
-				html+='<div class="col-xs-10 items">'+lang.loading+'</div>';
+				html+='<div class="col-xs-10 items">'+language.misc.loading+'</div>';
 				html+='</div>';
 				$(columndiv).append(html);	
 				addCalendar($('.containsicalendar'+random),settings['calendarurl']);
@@ -232,16 +231,16 @@ function getBlock(cols,c,columndiv,standby){
 						html+='<div class="col-xs-2 col-icon">';
 							html+='<em class="fa '+cols['blocks'][b]['icon']+'"></em>';
 						html+='</div>';
-						html+='<div class="col-xs-10 items">'+lang.loading+'</div>';
+						html+='<div class="col-xs-10 items">'+language.misc.loading+'</div>';
 					}
 					else if(typeof(cols['blocks'][b]['image'])!=='undefined' && cols['blocks'][b]['image']!==''){
 						html+='<div class="col-xs-2 col-icon">';
 							html+='<img src="img/'+cols['blocks'][b]['image']+'" class="icon calendar_icon" />';
 						html+='</div>';
-						html+='<div class="col-xs-10 items">'+lang.loading+'</div>';
+						html+='<div class="col-xs-10 items">'+language.misc.loading+'</div>';
 					}
 					else {
-						html+='<div class="col-xs-12 items">'+lang.loading+'</div>';
+						html+='<div class="col-xs-12 items">'+language.misc.loading+'</div>';
 					}
 					
 					html+='</div>';
@@ -258,16 +257,16 @@ function getBlock(cols,c,columndiv,standby){
 						html+='<div class="col-xs-2 col-icon">';
 							html+='<em class="fa '+cols['blocks'][b]['icon']+'"></em>';
 						html+='</div>';
-						html+='<div class="col-xs-10 items">'+lang.loading+'</div>';
+						html+='<div class="col-xs-10 items">'+language.misc.loading+'</div>';
 					}
 					else if(typeof(cols['blocks'][b]['image'])!=='undefined' && cols['blocks'][b]['image']!==''){
 						html+='<div class="col-xs-2 col-icon">';
 							html+='<img src="img/'+cols['blocks'][b]['image']+'" class="icon calendar_icon" />';
 						html+='</div>';
-						html+='<div class="col-xs-10 items">'+lang.loading+'</div>';
+						html+='<div class="col-xs-10 items">'+language.misc.loading+'</div>';
 					}
 					else {
-						html+='<div class="col-xs-12 items">'+lang.loading+'</div>';
+						html+='<div class="col-xs-12 items">'+language.misc.loading+'</div>';
 					}
 					
 					html+='</div>';
@@ -415,6 +414,7 @@ function getStatusBlock(device,block,c){
 			stateBlock+='<strong class="title">'+value+'</strong><br />';
 			stateBlock+='<span>'+title+'</span>';
 		}
+
 		if((settings['last_update']==1 && (typeof(blocks[device['idx']])=='undefined' || typeof(blocks[device['idx']]['hide_lastupdate'])=='undefined' || blocks[device['idx']]['hide_lastupdate']===false)) || 
 		  (settings['last_update']==0 && (typeof(blocks[device['idx']])!=='undefined' && typeof(blocks[device['idx']]['show_lastupdate'])!=='undefined' && blocks[device['idx']]['show_lastupdate']==true)) 
 		  ){
@@ -469,7 +469,7 @@ function getBlockData(device,idx,ontxt,offtxt){
 }
 function TranslateDirection(directionstr){
    directionstr='direction_'+directionstr;
-   return lang[directionstr];
+   return language['wind'][directionstr];
 }
 
 function Beaufort(tmp) {
