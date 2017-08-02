@@ -18,7 +18,6 @@ $('<link href="css/sortable.css?v='+cache+'" rel="stylesheet">').appendTo("head"
 var standby=true;
 var standbyActive=false;
 var standbyTime=0;
-
 var swipebackTime=0;
 var audio = {};
 var screens = {}
