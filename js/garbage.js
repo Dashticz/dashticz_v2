@@ -15,9 +15,9 @@ function loadGarbage () {
 	
 	var width = 12;
 	if(typeof(settings['garbage_width'])!=='undefined' && parseFloat(settings['garbage_width'])>0) width=settings['garbage_width'];
-	
+
 	var maxitems = 5;
-	if(typeof(settings['garbage_maxitems'])!=='undefined' && parseFloat(settings['garbage_maxitems'])>0) width=settings['garbage_maxitems'];
+	if(typeof(settings['garbage_maxitems'])!=='undefined' && parseFloat(settings['garbage_maxitems'])>0) maxitems=settings['garbage_maxitems'];
 	
 	var hide_icon = false;
 	if(typeof(settings['garbage_hideicon'])!=='undefined' && parseFloat(settings['garbage_hideicon'])==1) hide_icon=true;
