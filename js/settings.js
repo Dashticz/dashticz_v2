@@ -226,6 +226,7 @@ settingList['garbage']['garbage_company']['options']['gemeenteberkelland'] = 'Be
 settingList['garbage']['garbage_company']['options']['circulusberkel'] = 'Circulus Berkel (NL)';
 settingList['garbage']['garbage_company']['options']['cure'] = 'Cure (NL)';
 settingList['garbage']['garbage_company']['options']['cyclusnv'] = 'Cyclus NV (NL)';
+settingList['garbage']['garbage_company']['options']['dar'] = 'Dar (NL)';
 settingList['garbage']['garbage_company']['options']['gemertbakelmaandag'] = 'Gemert-Bakel, maandag (NL)';
 settingList['garbage']['garbage_company']['options']['gemertbakeldinsdag'] = 'Gemert-Bakel, dinsdag (NL)';
 settingList['garbage']['garbage_company']['options']['gemertbakelwoensdag'] = 'Gemert-Bakel, woensdag (NL)';
