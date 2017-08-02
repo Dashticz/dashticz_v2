@@ -42,10 +42,14 @@ function loadGarbage () {
 	
 	var startDate = moment();
 	var endDate = moment(Date.now() + 32 * 24 * 3600 * 1000);
-	
-	if(service=='ical'){
-		var url = 'https://wedevise.nl/dashticz/ical/demo/?url='+settings['garbage_icalurl'];
 
+	if(service=='ical' || service=='deurne' || service=='veldhoven' || service=='gemertbakelmaandag' || service=='gemertbakeldinsdag' || service=='gemertbakelwoensdag'){
+		if(service=='ical') var url = 'https://wedevise.nl/dashticz/ical/demo/?url='+settings['garbage_icalurl'];
+		if(service=='gemertbakelmaandag') var url = 'https://wedevise.nl/dashticz/ical/demo/?url=https://calendar.google.com/calendar/ical/o44qrtdhls8saftmesm5rqb85o%40group.calendar.google.com/public/basic.ics';
+		if(service=='gemertbakeldinsdag') var url = 'https://wedevise.nl/dashticz/ical/demo/?url=https://calendar.google.com/calendar/ical/6p8549rssv114ddevingime95o%40group.calendar.google.com/public/basic.ics';
+		if(service=='gemertbakelwoensdag') var url = 'https://wedevise.nl/dashticz/ical/demo/?url=https://calendar.google.com/calendar/ical/cv40f4vaie10v54f72go6ipb78%40group.calendar.google.com/public/basic.ics';
+		if(service=='veldhoven') var url = 'https://wedevise.nl/dashticz/ical/demo/?url=https://www.veldhoven.nl/afvalkalender/2017/' + postcode + '-' + homenumber + '.ics';
+		if(service=='deurne') var url = 'https://wedevise.nl/dashticz/ical/demo/?url=http://afvalkalender.deurne.nl/Afvalkalender/download_ical.php?p=&h=&t=&jaar=2017';
 		$.getJSON(url,function(data,textstatus,jqXHR){
 			respArray = data;
 			for (var i in respArray) {
@@ -64,7 +68,6 @@ function loadGarbage () {
 			addToContainer(random,returnDates,maxitems);
 			
 		});
-		//alert(1);
 	}
 	
 	if(service=='deafvalapp'){
