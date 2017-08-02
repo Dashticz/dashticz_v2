@@ -43,14 +43,16 @@ function loadGarbage () {
 	
 	var returnDates={};
 	
-	if(service=='ical' || service=='vianen' || service=='deurne' || service=='best' || service=='veldhoven' || service=='gemertbakelmaandag' || service=='gemertbakeldinsdag' || service=='gemertbakelwoensdag'){
+	if(service=='ical' || service=='vianen' || service=='goes' || service=='uden' || service=='deurne' || service=='best' || service=='veldhoven' || service=='gemertbakelmaandag' || service=='gemertbakeldinsdag' || service=='gemertbakelwoensdag'){
 		if(service=='ical') var url = 'https://wedevise.nl/dashticz/ical/demo/?url='+settings['garbage_icalurl'];
 		if(service=='gemertbakelmaandag') var url = 'https://wedevise.nl/dashticz/ical/demo/?url=https://calendar.google.com/calendar/ical/o44qrtdhls8saftmesm5rqb85o%40group.calendar.google.com/public/basic.ics';
 		if(service=='gemertbakeldinsdag') var url = 'https://wedevise.nl/dashticz/ical/demo/?url=https://calendar.google.com/calendar/ical/6p8549rssv114ddevingime95o%40group.calendar.google.com/public/basic.ics';
 		if(service=='gemertbakelwoensdag') var url = 'https://wedevise.nl/dashticz/ical/demo/?url=https://calendar.google.com/calendar/ical/cv40f4vaie10v54f72go6ipb78%40group.calendar.google.com/public/basic.ics';
 		if(service=='veldhoven') var url = 'https://wedevise.nl/dashticz/ical/demo/?url=https://www.veldhoven.nl/afvalkalender/2017/' + postcode + '-' + homenumber + '.ics';
 		if(service=='best') var url = 'https://wedevise.nl/dashticz/ical/demo/?url=https://www.gemeentebest.nl/afvalkalender/2017/' + postcode + '-' + homenumber + '.ics';
+		if(service=='uden') var url = 'https://wedevise.nl/dashticz/ical/demo/?url=https://www.uden.nl/inwoners/afval/ophaaldagen-afval/2017/' + postcode + '-' + homenumber + '.ics';
 		if(service=='vianen') var url = 'https://wedevise.nl/dashticz/ical/demo/?url=https://www.vianen.nl/afval/afvalkalender/2017/' + postcode + '-' + homenumber + '.ics';
+		if(service=='goes') var url = 'https://wedevise.nl/dashticz/ical/demo/?url=http://afvalkalender.goes.nl/2017/' + postcode + '-' + homenumber + '.ics';
 		if(service=='deurne') var url = 'https://wedevise.nl/dashticz/ical/demo/?url=http://afvalkalender.deurne.nl/Afvalkalender/download_ical.php?p=&h=&t=&jaar=2017';
 		$.getJSON(url,function(data,textstatus,jqXHR){
 			respArray = data;
