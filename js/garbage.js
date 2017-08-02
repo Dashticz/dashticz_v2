@@ -1,13 +1,12 @@
-function loadTrash (random,trashobject) {
+function loadGarbage () {
+	var random = getRandomInt(1,100000);
 	
-	var service = trashobject.trashapp;
-	var postcode = trashobject.zipcode;
-	var homenumber = trashobject.housenumber;
-	if(typeof(trashobject.country)!=='undefined') var country = trashobject.country;
-	if(typeof(trashobject.street)!=='undefined') var street = trashobject.street;
+	var service = settings['garbage_company'];
+	var postcode = settings['garbage_zipcode'];
+	var homenumber = settings['garbage_housenumber'];
+	var street = settings['garbage_street'];
 	
-	var key = 'UNKNOWN';
-	if(typeof(trashobject.key)!=='undefined') key=trashobject.key;		
+	var key = 'garbage';	
 	
 	var dates = {};
     var curr = '';
@@ -15,13 +14,13 @@ function loadTrash (random,trashobject) {
 	var teller=0;
 	
 	var width = 12;
-	if(typeof(trashobject.width)!=='undefined') width=trashobject.width;
+	if(typeof(settings['garbage_width'])!=='undefined' && parseFloat(settings['garbage_width'])>0) width=settings['garbage_width'];
 	
 	var maxitems = 5;
-	if(typeof(trashobject.maxitems)!=='undefined') maxitems=trashobject.maxitems;
+	if(typeof(settings['garbage_maxitems'])!=='undefined' && parseFloat(settings['garbage_maxitems'])>0) width=settings['garbage_maxitems'];
 	
 	var hide_icon = false;
-	if(typeof(trashobject.hide_icon)!=='undefined') hide_icon=trashobject.hide_icon;
+	if(typeof(settings['garbage_hideicon'])!=='undefined' && parseFloat(settings['garbage_hideicon'])==1) hide_icon=true;
 	
 	var html='<div class="trash trash'+random+' col-xs-'+width+' transbg" data-id="trash.'+key+'">';
 		if(!hide_icon){
@@ -45,7 +44,7 @@ function loadTrash (random,trashobject) {
 	var endDate = moment(Date.now() + 32 * 24 * 3600 * 1000);
 	
 	if(service=='ical'){
-		var url = 'https://wedevise.nl/dashticz/ical/demo/?url='+trashobject.icalurl;
+		var url = 'https://wedevise.nl/dashticz/ical/demo/?url='+settings['garbage_icalurl'];
 
 		$.getJSON(url,function(data,textstatus,jqXHR){
 			respArray = data;
@@ -69,8 +68,7 @@ function loadTrash (random,trashobject) {
 	}
 	
 	if(service=='deafvalapp'){
-		$.get('https://cors-anywhere.herokuapp.com/http://dataservice.deafvalapp.nl/dataservice/DataServiceServlet?type=ANDROID&service=OPHAALSCHEMA&land=' +
-			country + '&postcode=' + postcode + '&straatId=0&huisnr=' + homenumber + '&huisnrtoev=',function(data){
+		$.get('https://cors-anywhere.herokuapp.com/http://dataservice.deafvalapp.nl/dataservice/DataServiceServlet?type=ANDROID&service=OPHAALSCHEMA&land=NL&postcode=' + postcode + '&straatId=0&huisnr=' + homenumber + '&huisnrtoev=',function(data){
 			var respArray = data.toString().split('\n').join('').split(";");
 			respArray.pop();
 			for (var i in respArray) {

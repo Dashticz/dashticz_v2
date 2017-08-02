@@ -209,6 +209,58 @@ settingList['media']['hide_mediaplayer'] = {}
 settingList['media']['hide_mediaplayer']['title'] = 'Hide mediaplayer when it\'s off';
 settingList['media']['hide_mediaplayer']['type'] = 'checkbox';
 
+settingList['garbage'] = {}
+settingList['garbage']['title'] = 'Garbage';
+
+settingList['garbage']['garbage_company'] = {}
+settingList['garbage']['garbage_company']['title'] = 'Company / Service';
+settingList['garbage']['garbage_company']['type'] = 'select';
+settingList['garbage']['garbage_company']['options'] = {};
+settingList['garbage']['garbage_company']['options']['ical'] = 'iCal';
+settingList['garbage']['garbage_company']['options']['ophaalkalender'] = 'Ophaalkalender (BE)';
+settingList['garbage']['garbage_company']['options']['edg'] = 'EDG (DE)';
+settingList['garbage']['garbage_company']['options']['deafvalapp'] = 'Afval App (NL)';
+settingList['garbage']['garbage_company']['options']['cure'] = 'Cure (NL)';
+settingList['garbage']['garbage_company']['options']['cyclusnv'] = 'Cyclus NV (NL)';
+settingList['garbage']['garbage_company']['options']['sudwestfryslan'] = 'Sudwest Fryslan (NL)';
+settingList['garbage']['garbage_company']['options']['alphenaandenrijn'] = 'Alphen aan de Rijn (NL)';
+settingList['garbage']['garbage_company']['options']['rmn'] = 'RMN (NL)';
+settingList['garbage']['garbage_company']['options']['circulusberkel'] = 'Circulus Berkel (NL)';
+settingList['garbage']['garbage_company']['options']['gemeenteberkelland'] = 'Berkelland (NL)';
+settingList['garbage']['garbage_company']['options']['meerlanden'] = 'Meerlanden (NL)';
+settingList['garbage']['garbage_company']['options']['afvalwijzerarnhem'] = 'Afvalwijzer Arnhem (NL)';
+settingList['garbage']['garbage_company']['options']['mijnafvalwijzer'] = 'Mijn Afval Wijzer (NL)';
+settingList['garbage']['garbage_company']['options']['hvc'] = 'HVC Groep (NL)';
+settingList['garbage']['garbage_company']['options']['recyclemanager'] = 'HVC Groep (NL)';
+
+settingList['garbage']['garbage_icalurl'] = {}
+settingList['garbage']['garbage_icalurl']['title'] = 'iCal URL';
+settingList['garbage']['garbage_icalurl']['type'] = 'text';
+
+settingList['garbage']['garbage_zipcode'] = {}
+settingList['garbage']['garbage_zipcode']['title'] = 'Zipcode';
+settingList['garbage']['garbage_zipcode']['type'] = 'text';
+
+settingList['garbage']['garbage_street'] = {}
+settingList['garbage']['garbage_street']['title'] = 'Street';
+settingList['garbage']['garbage_street']['type'] = 'text';
+
+settingList['garbage']['garbage_housenumber'] = {}
+settingList['garbage']['garbage_housenumber']['title'] = 'House number';
+settingList['garbage']['garbage_housenumber']['type'] = 'text';
+
+settingList['garbage']['garbage_maxitems'] = {}
+settingList['garbage']['garbage_maxitems']['title'] = 'Amount of pickups to show';
+settingList['garbage']['garbage_maxitems']['type'] = 'text';
+
+settingList['garbage']['garbage_width'] = {}
+settingList['garbage']['garbage_width']['title'] = 'Width of block (1-12)';
+settingList['garbage']['garbage_width']['type'] = 'text';
+
+settingList['garbage']['garbage_hideicon'] = {}
+settingList['garbage']['garbage_hideicon']['title'] = 'Hide icon in block';
+settingList['garbage']['garbage_hideicon']['type'] = 'checkbox';
+
 var settings = {};
 doneSettings=false;
 if (typeof(Storage) !== "undefined") {

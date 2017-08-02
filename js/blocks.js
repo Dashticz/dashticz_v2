@@ -212,13 +212,16 @@ function getBlock(cols,c,columndiv,standby){
 
 				addStreamPlayer('.containsstreamplayer'+random);					
 			}
+			else if(cols['blocks'][b]=='garbage'){
+				if(typeof(loadGarbage)!=='function') $.ajax({url: 'js/garbage.js', async: false,dataType: "script"});
+				$(columndiv).append(loadGarbage());
+			}
 			else if(typeof(cols['blocks'][b])=='object'){
 				var random = getRandomInt(1,100000);
 				var key = 'UNKNOWN';
 				if(typeof(cols['blocks'][b]['key'])!=='undefined') key=cols['blocks'][b]['key'];
 				
-				if(typeof(cols['blocks'][b]['trashapp'])!=='undefined') $(columndiv).append(loadTrash(random,cols['blocks'][b]));
-				else if(typeof(cols['blocks'][b]['frameurl'])!=='undefined') $(columndiv).append(loadFrame(random,cols['blocks'][b]));
+				if(typeof(cols['blocks'][b]['frameurl'])!=='undefined') $(columndiv).append(loadFrame(random,cols['blocks'][b]));
 				else if(typeof(cols['blocks'][b]['station'])!=='undefined') $(columndiv).append(loadPublicTransport(random,cols['blocks'][b]));
 				else if(typeof(cols['blocks'][b]['channels'])!=='undefined'){
 					if(typeof(addTVGuide)!=='function') $.ajax({url: 'js/tvguide.js', async: false,dataType: "script"});

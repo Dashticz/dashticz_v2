@@ -69,7 +69,6 @@ $.ajax({url: customfolder+'/CONFIG.js?v='+cache, async: false,dataType: "script"
 		$('<link href="'+customfolder+'/custom.css?v='+cache+'" rel="stylesheet">').appendTo("head");
 		$.ajax({url: 'js/sortable.js', async: false,dataType: "script"});
 		$.ajax({url: 'js/switches.js', async: false,dataType: "script"});
-		$.ajax({url: 'js/trash.js', async: false,dataType: "script"});
 		$.ajax({url: 'js/calendar.js', async: false,dataType: "script"});
 		$.ajax({url: 'js/thermostat.js', async: false,dataType: "script"});
 		$.ajax({url: 'js/publictransport.js', async: false,dataType: "script"});
