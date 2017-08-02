@@ -1,4 +1,7 @@
 function loadGarbage () {
+	var startDate = moment();
+	var endDate = moment(Date.now() + 32 * 24 * 3600 * 1000);
+
 	var random = getRandomInt(1,100000);
 	
 	var service = settings['garbage_company'];
@@ -40,15 +43,14 @@ function loadGarbage () {
 	
 	var returnDates={};
 	
-	var startDate = moment();
-	var endDate = moment(Date.now() + 32 * 24 * 3600 * 1000);
-
-	if(service=='ical' || service=='deurne' || service=='veldhoven' || service=='gemertbakelmaandag' || service=='gemertbakeldinsdag' || service=='gemertbakelwoensdag'){
+	if(service=='ical' || service=='vianen' || service=='deurne' || service=='best' || service=='veldhoven' || service=='gemertbakelmaandag' || service=='gemertbakeldinsdag' || service=='gemertbakelwoensdag'){
 		if(service=='ical') var url = 'https://wedevise.nl/dashticz/ical/demo/?url='+settings['garbage_icalurl'];
 		if(service=='gemertbakelmaandag') var url = 'https://wedevise.nl/dashticz/ical/demo/?url=https://calendar.google.com/calendar/ical/o44qrtdhls8saftmesm5rqb85o%40group.calendar.google.com/public/basic.ics';
 		if(service=='gemertbakeldinsdag') var url = 'https://wedevise.nl/dashticz/ical/demo/?url=https://calendar.google.com/calendar/ical/6p8549rssv114ddevingime95o%40group.calendar.google.com/public/basic.ics';
 		if(service=='gemertbakelwoensdag') var url = 'https://wedevise.nl/dashticz/ical/demo/?url=https://calendar.google.com/calendar/ical/cv40f4vaie10v54f72go6ipb78%40group.calendar.google.com/public/basic.ics';
 		if(service=='veldhoven') var url = 'https://wedevise.nl/dashticz/ical/demo/?url=https://www.veldhoven.nl/afvalkalender/2017/' + postcode + '-' + homenumber + '.ics';
+		if(service=='best') var url = 'https://wedevise.nl/dashticz/ical/demo/?url=https://www.gemeentebest.nl/afvalkalender/2017/' + postcode + '-' + homenumber + '.ics';
+		if(service=='vianen') var url = 'https://wedevise.nl/dashticz/ical/demo/?url=https://www.vianen.nl/afval/afvalkalender/2017/' + postcode + '-' + homenumber + '.ics';
 		if(service=='deurne') var url = 'https://wedevise.nl/dashticz/ical/demo/?url=http://afvalkalender.deurne.nl/Afvalkalender/download_ical.php?p=&h=&t=&jaar=2017';
 		$.getJSON(url,function(data,textstatus,jqXHR){
 			respArray = data;
@@ -97,7 +99,43 @@ function loadGarbage () {
 		});
 	}
 	
-	if(service=='cure' || service=='dar' || service=='cyclusnv' || service=='sudwestfryslan' || service=='alphenaandenrijn' || service=='rmn' || service=='circulusberkel' || service=='gemeenteberkelland' || service=='meerlanden' || service=='venray'){
+	if(service=='twentemilieu'){
+		$.post('https://wasteapi.2go-mobile.com/api/FetchAdress',{
+			'companyCode':'8d97bb56-5afd-4cbc-a651-b4f7314264b4',
+			'postCode': postcode,
+			'houseNumber':homenumber,
+			'houseLetter':'',
+			'houseNumberAddition':''
+
+		},function(data){
+			$.post('https://wasteapi.2go-mobile.com/api/GetCalendar',{
+				'companyCode':'8d97bb56-5afd-4cbc-a651-b4f7314264b4',
+				'uniqueAddressID':data['dataList'][0]['UniqueId'],
+				'startDate':startDate.format("YYYY-MM-DD"),
+				'endDate':endDate.format("YYYY-MM-DD")
+
+			},function(data){
+				data = data.dataList;
+				for(d in data){
+					var curr = data[d].description;
+					curr = capitalizeFirstLetter(curr.toLowerCase());
+					if(typeof(returnDates[curr])=='undefined'){
+						returnDates[curr] = {}
+					}
+
+					for(dt in data[d].pickupDates){
+						var testDate = moment(data[d].pickupDates[dt]);
+						if(testDate.isBetween(startDate, endDate, 'days', true)){
+							returnDates[curr][testDate.format("YYYY-MM-DD")+'_'+curr]=getTrashRow(curr,testDate);
+						}
+					}
+				}
+				addToContainer(random,returnDates,maxitems);
+			});
+		});
+		
+	}
+	if(service=='cure' || service=='dar' || service=='waalre' || service=='cyclusnv' || service=='sudwestfryslan' || service=='alphenaandenrijn' || service=='rmn' || service=='circulusberkel' || service=='gemeenteberkelland' || service=='meerlanden' || service=='venray'){
 		$('.trash'+random+' .state').html('');
 	
 		var baseURL = '';
@@ -111,6 +149,7 @@ function loadGarbage () {
 		if(service=='alphenaandenrijn') baseURL = 'http://afvalkalender.alphenaandenrijn.nl';
 		if(service=='sudwestfryslan') baseURL = 'http://afvalkalender.sudwestfryslan.nl';
 		if(service=='dar') baseURL = 'https://afvalkalender.dar.nl';
+		if(service=='waalre') baseURL = 'https://afvalkalender.waalre.nl';
 		
 		$.getJSON('https://cors-anywhere.herokuapp.com/'+baseURL + '/rest/adressen/' + postcode + '-' + homenumber,function(data){
 			$.getJSON('https://cors-anywhere.herokuapp.com/'+baseURL + '/rest/adressen/'+data[0].bagId+'/afvalstromen',function(data){
@@ -279,6 +318,11 @@ function getTrashRow(c,d,orgcolor){
 	if(typeof(trashcolors)!=='undefined' && typeof(trashcolors[c])!=='undefined') color=' style="color:'+trashcolors[c]+'"';
 	if(typeof(trashnames)!=='undefined' && typeof(trashnames[c])!=='undefined') c = trashnames[c];
 	
+	if(c.substr(0,7)=='Bo zl12'){
+		if(c.toLowerCase().indexOf("gft")>0) c='GFT';
+		else if(c.toLowerCase().indexOf("rest")>0) c='Restafval';
+		else if(c.toLowerCase().indexOf("vec")>0) c='Verpakkingen';
+	}
 	orgcolor_attr=' data-color="'+color+'";';
 	if(typeof(orgcolor)!=='undefined') orgcolor_attr=' data-color="'+orgcolor+'"';
 	
