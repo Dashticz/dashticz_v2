@@ -1,75 +1,75 @@
 var settingList = {}
 settingList['general'] = {}
-settingList['general']['title'] = 'General';
+settingList['general']['title'] = language.settings.general.title;
 
 settingList['general']['domoticz_ip'] = {}
-settingList['general']['domoticz_ip']['title'] = 'Domoticz URL';
+settingList['general']['domoticz_ip']['title'] = language.settings.general.domoticz_ip;
 settingList['general']['domoticz_ip']['type'] = 'text';
 
 settingList['general']['app_title'] = {}
-settingList['general']['app_title']['title'] = 'App title';
+settingList['general']['app_title']['title'] = language.settings.general.app_title;
 settingList['general']['app_title']['type'] = 'text';
 
 settingList['general']['selector_instead_of_buttons'] = {}
-settingList['general']['selector_instead_of_buttons']['title'] = 'Selector instead of buttons';
+settingList['general']['selector_instead_of_buttons']['title'] = language.settings.general.selector_instead_of_buttons;
 settingList['general']['selector_instead_of_buttons']['type'] = 'checkbox';
 
 settingList['general']['auto_positioning'] = {}
-settingList['general']['auto_positioning']['title'] = 'Automatically add all devices';
+settingList['general']['auto_positioning']['title'] = language.settings.general.auto_positioning;
 settingList['general']['auto_positioning']['type'] = 'checkbox';
-settingList['general']['auto_positioning']['help'] = 'Don\'t want to configure positions in CONFIG.JS, select this option';
+settingList['general']['auto_positioning']['help'] = language.settings.general.auto_positioning_help;
 
 settingList['general']['use_favorites'] = {}
-settingList['general']['use_favorites']['title'] = 'Only use favorite devices';
+settingList['general']['use_favorites']['title'] = language.settings.general.use_favorites;
 settingList['general']['use_favorites']['type'] = 'checkbox';
-settingList['general']['use_favorites']['help'] = 'Only used when using auto positioning';
+settingList['general']['use_favorites']['help'] = language.settings.general.use_favorites_help;
 
 settingList['general']['domoticz_refresh'] = {}
-settingList['general']['domoticz_refresh']['title'] = 'Refresh Domoticz (seconds)';
+settingList['general']['domoticz_refresh']['title'] = language.settings.general.domoticz_refresh;
 settingList['general']['domoticz_refresh']['type'] = 'text';
 
 settingList['general']['dashticz_refresh'] = {}
-settingList['general']['dashticz_refresh']['title'] = 'Refresh Dashticz (minutes)';
+settingList['general']['dashticz_refresh']['title'] = language.settings.general.dashticz_refresh;
 settingList['general']['dashticz_refresh']['type'] = 'text';
 
 settingList['general']['last_update'] = {}
-settingList['general']['last_update']['title'] = 'Show last update time/date';
+settingList['general']['last_update']['title'] = language.settings.general.last_update;
 settingList['general']['last_update']['type'] = 'checkbox';
 
 settingList['general']['default_news_url'] = {}
-settingList['general']['default_news_url']['title'] = 'Default news URL';
+settingList['general']['default_news_url']['title'] = language.settings.general.default_news_url;
 settingList['general']['default_news_url']['type'] = 'text';
 
 settingList['general']['news_scroll_after'] = {}
-settingList['general']['news_scroll_after']['title'] = 'Scroll news after (seconds)';
+settingList['general']['news_scroll_after']['title'] = language.settings.general.news_scroll_after;
 settingList['general']['news_scroll_after']['type'] = 'text';
 
 settingList['screen'] = {}
-settingList['screen']['title'] = 'Screen';
+settingList['screen']['title'] = language.settings.screen.title;
 
 settingList['screen']['hide_topbar'] = {}
-settingList['screen']['hide_topbar']['title'] = 'Hide topbar';
+settingList['screen']['hide_topbar']['title'] = language.settings.screen.hide_topbar;
 settingList['screen']['hide_topbar']['type'] = 'checkbox';
 
 settingList['screen']['standby_after'] = {}
-settingList['screen']['standby_after']['title'] = 'Standby after (minutes, 0 = never)';
+settingList['screen']['standby_after']['title'] = language.settings.screen.standby_after;
 settingList['screen']['standby_after']['type'] = 'text';
 
 settingList['screen']['auto_swipe_back_to'] = {}
-settingList['screen']['auto_swipe_back_to']['title'] = 'Auto swipe back to screen #';
+settingList['screen']['auto_swipe_back_to']['title'] = language.settings.screen.auto_swipe_back_to;
 settingList['screen']['auto_swipe_back_to']['type'] = 'text';
-settingList['screen']['auto_swipe_back_to']['help'] = 'When no activity, swipe back to main screen after x seconds';
+settingList['screen']['auto_swipe_back_to']['help'] = language.settings.screen.auto_swipe_back_to_help;
 
 settingList['screen']['auto_swipe_back_after'] = {}
-settingList['screen']['auto_swipe_back_after']['title'] = 'Auto swipe back after (seconds)';
+settingList['screen']['auto_swipe_back_after']['title'] = language.settings.screen.auto_swipe_back_after;
 settingList['screen']['auto_swipe_back_after']['type'] = 'text';
 
 settingList['screen']['auto_slide_pages'] = {}
-settingList['screen']['auto_slide_pages']['title'] = 'Auto slide screens (seconds, 0=do not auto slide)';
+settingList['screen']['auto_slide_pages']['title'] = language.settings.screen.auto_slide_pages;
 settingList['screen']['auto_slide_pages']['type'] = 'text';
 
 settingList['screen']['slide_effect'] = {}
-settingList['screen']['slide_effect']['title'] = 'Slide effect';
+settingList['screen']['slide_effect']['title'] = language.settings.screen.slide_effect;
 settingList['screen']['slide_effect']['type'] = 'select';
 settingList['screen']['slide_effect']['options'] = {};
 settingList['screen']['slide_effect']['options']['slide'] = 'slide';
@@ -79,7 +79,7 @@ settingList['screen']['slide_effect']['options']['coverflow'] = 'coverflow';
 settingList['screen']['slide_effect']['options']['flip'] = 'flip';
 
 settingList['screen']['standard_graph'] = {}
-settingList['screen']['standard_graph']['title'] = 'Standard graph';
+settingList['screen']['standard_graph']['title'] = language.settings.screen.standard_graph;
 settingList['screen']['standard_graph']['type'] = 'select';
 settingList['screen']['standard_graph']['options'] = {};
 settingList['screen']['standard_graph']['options']['hours'] = 'last hours';

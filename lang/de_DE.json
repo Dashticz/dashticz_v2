@@ -69,6 +69,31 @@
     "settings": {
         "save": "Speichern",
         "close": "Schließen",
-        "general": "Allgemein"
+        "general": {
+            "title": "Allgemein",
+            "domoticz_ip": "Domoticz URL",
+            "app_title": "Apptitel",
+            "selector_instead_of_buttons": "Wählschalter statt Buttons",
+            "auto_positioning": "Alle Geräte automatisch hinzufügen",
+            "auto_positioning_help": "Wenn diese Option aktiviert ist, müssen die Positionen nicht in de CONFIG.JS konfiguriert werden.",
+            "use_favorites": "Nur favorisierte Geräte anzeigen",
+            "use_favorites_help": "Nur genutzt bei aktivierter Auto Positionierung",
+            "domoticz_refresh": "Domoticzdaten auffrischen (Sekunden)",
+            "dashticz_refresh": "Dashticz neuladen (Minuten)",
+            "last_update": "Zeitpunkt der letzten Aktualisierung anzeigen",
+            "default_news_url": "Standard News URL",
+            "news_scroll_after": "News nach x Sekunden scrollen"
+        },
+        "screen": {
+            "title": "Anzeige",
+            "hide_topbar": "Hide topbar",
+            "standby_after": "Standby after (minutes, 0 = never)",
+            "auto_swipe_back_to": "Auto swipe back to screen #",
+            "auto_swipe_back_to_help": "When no activity, swipe back to main screen after x seconds",
+            "auto_swipe_back_after": "Auto swipe back after (seconds)",
+            "auto_slide_pages": "Auto slide screens (seconds, 0=do not auto slide)",
+            "slide_effect": "Slide effect",
+            "standard_graph": "Standard graph"
+        }
     }
 }
