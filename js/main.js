@@ -1,7 +1,4 @@
-var customfolder = 'custom';
-if(typeof(dashtype)!=='undefined' && parseFloat(dashtype)>1){
-	customfolder = 'custom_'+dashtype;
-}
+
 var language = {};
 var cache = new Date().getTime();
 
@@ -29,14 +26,15 @@ var myswiper;
 var addedThermostat = [];
 var oldstates = [];
 var gettingDevices = false;
-var _GRAPHS_LOADED = new Object();
+var md;
+var _GRAPHS_LOADED = {};
 var _BACKGROUND_IMAGE = 'img/bg2.jpg';
 var _EDIT_MODE = false;
 var _THEME = 'default';
 var _STREAMPLAYER_TRACKS = {"track":1,"name":"Music FM","file":"http://stream.musicfm.hu:8000/musicfm.mp3"};
-var md;
 	
-$.ajax({url: customfolder+'/CONFIG.js?v='+cache, async: false,dataType: "script"}).done(function() {
+function loadFiles(){
+	
 	if(objectlength(columns)==0) defaultcolumns = true;
 	
 	_GRAPHREFRESH = 5;
@@ -57,7 +55,7 @@ $.ajax({url: customfolder+'/CONFIG.js?v='+cache, async: false,dataType: "script"
 	else if(typeof(config.language)!=='undefined'){ setLang = config.language}
 	else {setLang = 'en_US'}
 	$.ajax({url: 'lang/'+setLang+'.json?v='+cache, async: false, dataType: 'json', success: function(data) {
-			language = data
+		language = data
 	}});
 	
 	$.ajax({url: 'js/settings.js', async: false,dataType: "script"}).done(function() {
@@ -78,7 +76,7 @@ $.ajax({url: customfolder+'/CONFIG.js?v='+cache, async: false,dataType: "script"
 			$.ajax({url: 'custom/graph_vb.js', async: false,dataType: "script"});
 		}
 
-		$.ajax({url: ''+customfolder+'/custom.js?v='+cache, async: false,dataType: "script"});
+		$.ajax({url: customfolder+'/custom.js?v='+cache, async: false,dataType: "script"});
 		$.ajax({url: 'js/blocks.js', async: false,dataType: "script"});
 		$.ajax({url: 'js/graphs.js', async: false,dataType: "script"});
 
@@ -86,14 +84,15 @@ $.ajax({url: customfolder+'/CONFIG.js?v='+cache, async: false,dataType: "script"
 		$.ajax({url: 'js/blocks.js', async: false,dataType: "script"});
 		$.ajax({url: 'js/graphs.js', async: false,dataType: "script"});
 		if(typeof(settings['gm_api'])!=='undefined' && settings['gm_api']!=="" && settings['gm_api']!==0){
-			$.ajax({url: 'https://maps.googleapis.com/maps/api/js?key='+settings['gm_api']+'&callback=initMap', async: false,dataType: "script"});
+			$.ajax({url: 'https://maps.googleapis.com/maps/api/js?key='+settings['gm_api']+'&callback=initMap', async: false,dataType: "script"}).done(function() {
+				onLoad();
+			});
 		}
+		else onLoad();
 	});
-});
-
+}
 
 function onLoad(){
-	
 	md = new MobileDetect(window.navigator.userAgent);
 	
 	if(_EDIT_MODE){
@@ -343,22 +342,21 @@ function showMap(mapid,map) {
 	else {
 	
 		if(typeof(map)!=='undefined'){
-				var map = new google.maps.Map(document.getElementById(mapid), {
-				  zoom: map.zoom,
-				  center: {lat: map.latitude, lng: map.longitude}
-				});
+			var map = new google.maps.Map(document.getElementById(mapid), {
+			  zoom: map.zoom,
+			  center: {lat: map.latitude, lng: map.longitude}
+			});
 		}
 		else {
-				var map = new google.maps.Map(document.getElementById(mapid), {
-				  zoom: parseFloat(settings['gm_zoomlevel']),
-				  center: {lat: parseFloat(settings['gm_latitude']), lng: parseFloat(settings['gm_longitude'])}
-				});
+			var map = new google.maps.Map(document.getElementById(mapid), {
+			  zoom: parseFloat(settings['gm_zoomlevel']),
+			  center: {lat: parseFloat(settings['gm_latitude']), lng: parseFloat(settings['gm_longitude'])}
+			});
 		}
 
 		var transitLayer = new google.maps.TrafficLayer();
 		transitLayer.setMap(map);
 	}
-	
 }
 
 function setClassByTime(){

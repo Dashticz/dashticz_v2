@@ -36,6 +36,6 @@ function getLog(columndiv,level,popup,random){
 	
 	setTimeout(function(){
 		getLog(columndiv,level,popup,random);
-	},2000);
+	},5000);
 
 }

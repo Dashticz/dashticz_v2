@@ -53,13 +53,19 @@
 
 		<script>
 			var dashtype=1;	
+			
+			//DO NOT EDIT BELOW
+			var customfolder = 'custom';
+			if(typeof(dashtype)!=='undefined' && parseFloat(dashtype)>1){
+				customfolder = 'custom_'+dashtype;
+			}
+			
             var cache = new Date().getTime();
 			head.load(
 				"vendor/jquery/jquery.min.js",
 				"vendor/jquery/jquery-ui.js",
 				"vendor/jquery/touchpunch.js",
 				"vendor/bootstrap/js/bootstrap.min.js",
-				"js/functions.js",
 				"vendor/raphael/raphael-min.js",
 				"vendor/morrisjs/morris.min.js",
 				"vendor/moment.js",
@@ -69,12 +75,13 @@
 				"vendor/ion.sound/ion.sound.min.js",
 				"vendor/mobiledetect/mobiledetect.js",
 				"vendor/swiper/js/swiper.min.js",
-				"js/main.js?v="+cache
+				"js/functions.js",
+				"js/main.js?v="+cache, function() {
+					head.load(customfolder+'/CONFIG.js?v='+cache,function(){
+						loadFiles();
+					});
+				}
 			);
-			
-			head.ready(function (){
-				onLoad();
-			});
         </script>
         
 		<script>
