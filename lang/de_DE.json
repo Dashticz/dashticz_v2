@@ -86,14 +86,38 @@
         },
         "screen": {
             "title": "Anzeige",
-            "hide_topbar": "Hide topbar",
-            "standby_after": "Standby after (minutes, 0 = never)",
-            "auto_swipe_back_to": "Auto swipe back to screen #",
-            "auto_swipe_back_to_help": "When no activity, swipe back to main screen after x seconds",
+            "hide_topbar": "Topbar ausblenden",
+            "standby_after": "Standby nach x Minuten (0 = niemals)",
+            "auto_swipe_back_to": "Automatisch zurück auf Bildschirm #",
+            "auto_swipe_back_to_help": "Wenn keine Aktivität, zurück auf Startbildschirm nach x Sekunden",
             "auto_swipe_back_after": "Auto swipe back after (seconds)",
             "auto_slide_pages": "Auto slide screens (seconds, 0=do not auto slide)",
-            "slide_effect": "Slide effect",
-            "standard_graph": "Standard graph"
+            "slide_effect": "Slide-Effekt",
+            "standard_graph": "Standardgraph"
+        },
+        "localize": {
+            "title": "Lokalisieren",
+            "cn": "Chinesisch",
+            "nl": "Niederländisch",
+            "en": "Englisch",
+            "fr": "Französisch",
+            "hu": "Ungarisch",
+            "it": "Italienisch",
+            "pt": "Portugiesisch",
+            "sv": "Schwedisch",
+            "de": "Deutsch",
+            "language": "Sprache",
+            "timeformat": "Datumsformat",
+            "calendarformat": "Kalenderformat",
+            "calendarlanguage": "Calendar language",
+            "calendarurl": "Calendar URL (ICS)",
+            "hide_seconds": "Hide seconds",
+            "hide_seconds_stationclock": "Hide seconds in StationClock",
+            "boss_stationclock": "StationClock Type",
+            "gm_api": "GoogleMaps API Key",
+            "gm_zoomlevel": "GoogleMaps Zoom level",
+            "gm_latitude": "Breitengrad",
+            "gm_longitude": "Längengrad"
         }
     }
 }

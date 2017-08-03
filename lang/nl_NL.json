@@ -94,6 +94,30 @@
             "auto_slide_pages": "Auto slide screens (seconds, 0=do not auto slide)",
             "slide_effect": "Slide effect",
             "standard_graph": "Standard graph"
+        },
+        "localize": {
+            "title": "Lokaliseren",
+            "cn": "Chinees",
+            "nl": "Nederlands",
+            "en": "Engels",
+            "fr": "Frans",
+            "hu": "Hongaars",
+            "it": "Italiaans",
+            "pt": "Portugees",
+            "sv": "Zweeds",
+            "de": "Duits",
+            "language": "Taal",
+            "timeformat": "Datetime format",
+            "calendarformat": "Calendar format",
+            "calendarlanguage": "Kalender taal",
+            "calendarurl": "Calendar URL (ICS)",
+            "hide_seconds": "Verberg seconden",
+            "hide_seconds_stationclock": "Verberg seconden in StationClock",
+            "boss_stationclock": "StationClock Type",
+            "gm_api": "GoogleMaps API Key",
+            "gm_zoomlevel": "GoogleMaps Zoom niveau",
+            "gm_latitude": "Breedtegraad",
+            "gm_longitude": "Lengtegraad"
         }
     }
 }
