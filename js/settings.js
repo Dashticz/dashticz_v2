@@ -87,63 +87,64 @@ settingList['screen']['standard_graph']['options']['month'] = 'last month';
 settingList['screen']['standard_graph']['options']['day'] = 'today';
 
 settingList['localize'] = {}
-settingList['localize']['title'] = 'Localize';
+settingList['localize']['title'] = language.settings.localize.title;
 
 settingList['localize']['language'] = {}
-settingList['localize']['language']['title'] = 'Language';
+settingList['localize']['language']['title'] = language.settings.localize.language;
 settingList['localize']['language']['type'] = 'select';
 settingList['localize']['language']['options'] = {};
-settingList['localize']['language']['options']['zh_CN'] = 'Chinese';
-settingList['localize']['language']['options']['nl_NL'] = 'Dutch';
-settingList['localize']['language']['options']['en_US'] = 'English';
-settingList['localize']['language']['options']['fr_FR'] = 'French';
-settingList['localize']['language']['options']['hu_HU'] = 'Hungarian';
-settingList['localize']['language']['options']['it_IT'] = 'Italian';
-settingList['localize']['language']['options']['pt_PT'] = 'Portugese';
-settingList['localize']['language']['options']['sv_SE'] = 'Swedish';
+settingList['localize']['language']['options']['zh_CN'] = language.settings.localize.cn;
+settingList['localize']['language']['options']['nl_NL'] = language.settings.localize.nl;
+settingList['localize']['language']['options']['en_US'] = language.settings.localize.en;
+settingList['localize']['language']['options']['fr_FR'] = language.settings.localize.fr;
+settingList['localize']['language']['options']['hu_HU'] = language.settings.localize.hu;
+settingList['localize']['language']['options']['it_IT'] = language.settings.localize.it;
+settingList['localize']['language']['options']['pt_PT'] = language.settings.localize.pt;
+settingList['localize']['language']['options']['sv_SE'] = language.settings.localize.sv;
+settingList['localize']['language']['options']['de_DE'] = language.settings.localize.de;
 
 settingList['localize']['timeformat'] = {}
-settingList['localize']['timeformat']['title'] = 'Datetime format';
+settingList['localize']['timeformat']['title'] = language.settings.localize.timeformat;
 settingList['localize']['timeformat']['type'] = 'text';
 
 settingList['localize']['calendarformat'] = {}
-settingList['localize']['calendarformat']['title'] = 'Calendar format';
+settingList['localize']['calendarformat']['title'] = language.settings.localize.calendarformat;
 settingList['localize']['calendarformat']['type'] = 'text';
 
 settingList['localize']['calendarlanguage'] = {}
-settingList['localize']['calendarlanguage']['title'] = 'Calendar language';
+settingList['localize']['calendarlanguage']['title'] = language.settings.localize.calendarlanguage;
 settingList['localize']['calendarlanguage']['type'] = 'text';
 
 settingList['localize']['calendarurl'] = {}
-settingList['localize']['calendarurl']['title'] = 'Calendar URL (ICS)';
+settingList['localize']['calendarurl']['title'] = language.settings.localize.calendarurl;
 settingList['localize']['calendarurl']['type'] = 'text';
 
 settingList['localize']['hide_seconds'] = {}
-settingList['localize']['hide_seconds']['title'] = 'Hide seconds';
+settingList['localize']['hide_seconds']['title'] = language.settings.localize.hide_seconds;
 settingList['localize']['hide_seconds']['type'] = 'checkbox';
 
 settingList['localize']['hide_seconds_stationclock'] = {}
-settingList['localize']['hide_seconds_stationclock']['title'] = 'Hide seconds in StationClock';
+settingList['localize']['hide_seconds_stationclock']['title'] = language.settings.localize.hide_seconds_stationclock;
 settingList['localize']['hide_seconds_stationclock']['type'] = 'checkbox';
 
 settingList['localize']['boss_stationclock'] = {}
-settingList['localize']['boss_stationclock']['title'] = 'StationClock Type';
+settingList['localize']['boss_stationclock']['title'] = language.settings.localize.boss_stationclock;
 settingList['localize']['boss_stationclock']['type'] = 'text';
 
 settingList['localize']['gm_api'] = {}
-settingList['localize']['gm_api']['title'] = 'GoogleMaps API Key';
+settingList['localize']['gm_api']['title'] = language.settings.localize.gm_api;
 settingList['localize']['gm_api']['type'] = 'text';
 
 settingList['localize']['gm_zoomlevel'] = {}
-settingList['localize']['gm_zoomlevel']['title'] = 'GoogleMaps Zoom level';
+settingList['localize']['gm_zoomlevel']['title'] = language.settings.localize.gm_zoomlevel;
 settingList['localize']['gm_zoomlevel']['type'] = 'text';
 
 settingList['localize']['gm_latitude'] = {}
-settingList['localize']['gm_latitude']['title'] = 'Latitude';
+settingList['localize']['gm_latitude']['title'] = language.settings.localize.gm_latitude;
 settingList['localize']['gm_latitude']['type'] = 'text';
 
 settingList['localize']['gm_longitude'] = {}
-settingList['localize']['gm_longitude']['title'] = 'Longitude';
+settingList['localize']['gm_longitude']['title'] = language.settings.localize.gm_longitude;
 settingList['localize']['gm_longitude']['type'] = 'text';
 
 
@@ -385,7 +386,7 @@ function loadSettings(){
 				  html+='</div>';
 			  }
 			html+='</div>';
-		  html+='</div><div class="modal-footer"><button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> <button onClick="saveSettings();" type="button" class="btn btn-primary" data-dismiss="modal">Save changes</button></div>';
+		  html+='</div><div class="modal-footer"><button type="button" class="btn btn-secondary" data-dismiss="modal">'+language.settings.close+'</button> <button onClick="saveSettings();" type="button" class="btn btn-primary" data-dismiss="modal">'+language.settings.save+'</button></div>';
 		html+='</div>';
 	  html+='</div>';
 	html+='</div>';
