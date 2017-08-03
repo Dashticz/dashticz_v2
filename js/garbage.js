@@ -101,6 +101,18 @@ function loadGarbage () {
 		});
 	}
 	
+	/*if(service=='omri'){
+		$.post('http://www.omrin.nl/bij-mij-thuis/services/afvalkalender/',{
+			'zipcode': postcode.substr(0,4),
+			'zipcodeend':postcode.substr(4,6),
+			'housenumber':homenumber,
+			'addition':'',
+			'send':'Mijn overzicht'
+
+		},function(data){
+			console.log(data);
+		});
+	}*/
 	if(service=='twentemilieu'){
 		$.post('https://wasteapi.2go-mobile.com/api/FetchAdress',{
 			'companyCode':'8d97bb56-5afd-4cbc-a651-b4f7314264b4',
