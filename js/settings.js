@@ -386,7 +386,7 @@ function loadSettings(){
 				  html+='</div>';
 			  }
 			html+='</div>';
-		  html+='</div><div class="modal-footer"><button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> <button onClick="saveSettings();" type="button" class="btn btn-primary" data-dismiss="modal">Save changes</button></div>';
+		  html+='</div><div class="modal-footer"><button type="button" class="btn btn-secondary" data-dismiss="modal">'+language.settings.close+'</button> <button onClick="saveSettings();" type="button" class="btn btn-primary" data-dismiss="modal">'+language.settings.save+'</button></div>';
 		html+='</div>';
 	  html+='</div>';
 	html+='</div>';
