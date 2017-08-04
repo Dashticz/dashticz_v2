@@ -90,8 +90,8 @@
             "standby_after": "Standby nach x Minuten (0 = niemals)",
             "auto_swipe_back_to": "Automatisch zurück auf Bildschirm #",
             "auto_swipe_back_to_help": "Wenn keine Aktivität, zurück auf Startbildschirm nach x Sekunden",
-            "auto_swipe_back_after": "Auto swipe back after (seconds)",
-            "auto_slide_pages": "Auto slide screens (seconds, 0=do not auto slide)",
+            "auto_swipe_back_after": "Auto zurück nach (Sekunden)",
+            "auto_slide_pages": "Auto-Diashows (Sekunden, 0 = nicht automatisch verschieben)",
             "slide_effect": "Slide-Effekt",
             "standard_graph": "Standardgraph"
         },
@@ -109,15 +109,50 @@
             "language": "Sprache",
             "timeformat": "Datumsformat",
             "calendarformat": "Kalenderformat",
-            "calendarlanguage": "Calendar language",
-            "calendarurl": "Calendar URL (ICS)",
-            "hide_seconds": "Hide seconds",
-            "hide_seconds_stationclock": "Hide seconds in StationClock",
-            "boss_stationclock": "StationClock Type",
+            "calendarlanguage": "Kalendersprache",
+            "calendarurl": "Kalender-URL (ICS)",
+            "hide_seconds": "Sekunden ausblenden",
+            "hide_seconds_stationclock": "Sekunden ausblenden in StationClock",
+            "boss_stationclock": "StationClock Typ",
             "gm_api": "GoogleMaps API Key",
-            "gm_zoomlevel": "GoogleMaps Zoom level",
+            "gm_zoomlevel": "GoogleMaps Zoom-Ebene",
             "gm_latitude": "Breitengrad",
-            "gm_longitude": "Längengrad"
+            "gm_longitude": "Längengrad",
+            "es": "Spanisch"
+        },
+        "weather": {
+            "title": "Wetter",
+            "wu_api": "Wunderground API Schlüssel",
+            "wu_city": "Wunderground Messstation (Stadt oder Code)",
+            "wu_name": "Anzeigename",
+            "wu_country": "Wunderground Land",
+            "idx_moonpicture": "IDX des Mondbildes",
+            "idx_moonpicture_help": "Im Wiki befindet sich eine Anleitung zum Hinzufügen von Mondphasenbildern.",
+            "use_fahrenheit": "Fahrenheit anstelle von Celsius verwenden",
+            "use_beaufort": "Bft anstelle von m\/s verwenden",
+            "translate_windspeed": "Windgeschwindigkeit übersetzen",
+            "translate_windspeed_help": "'Nord-Nordwest' anstelle von 'NNW'",
+            "static_weathericons": "Statische Wetter-Icons nutzen"
+        },
+        "media": {
+            "title": "Medien",
+            "switch_horizon": "Ziggo\/UPC Mediabox Pfad",
+            "host_nzbget": "NZBget Pfad",
+            "host_nzbget_help": "Wenn Du NZBget benutzt, gib hier die IP-Adresse und den Port, bspw. http:\/\/192.168.1.32:8080, ein.",
+            "spot_clientid": "Spotify ClientID",
+            "hide_mediaplayer": "Mediaplayer ausblenden wenn ausgeschaltet",
+            "switch_horizon_help": "If you have a mediabox from ZIGGO or UPC (Horizon), copy switch_horizon.php on a webserver inside your network and change the IP (of Horizon) inside this file."
+        },
+        "garbage": {
+            "title": "Müllabfuhr",
+            "garbage_company": "Unternehmen \/ Anbieter",
+            "garbage_icalurl": "iCal URL",
+            "garbage_zipcode": "Postleitzahl",
+            "garbage_street": "Straße",
+            "garbage_housenumber": "Hausnummer",
+            "garbage_maxitems": "Wie viele Abfuhren sollen angezeigt werden",
+            "garbage_width": "Blockbreite (1-12)",
+            "garbage_hideicon": "Symbol im Block ausblenden"
         }
     }
 }

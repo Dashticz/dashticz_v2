@@ -117,7 +117,42 @@
             "gm_api": "GoogleMaps API Key",
             "gm_zoomlevel": "GoogleMaps Zoom level",
             "gm_latitude": "Latitude",
-            "gm_longitude": "Longitude"
+            "gm_longitude": "Longitude",
+            "es": "Spanish"
+        },
+        "weather": {
+            "title": "Weather",
+            "wu_api": "Wunderground API Key",
+            "wu_city": "Wunderground Station (City or Code)",
+            "wu_name": "Display Name",
+            "wu_country": "Wunderground Country",
+            "idx_moonpicture": "IDX of moonpicture",
+            "idx_moonpicture_help": "Take a look at the wiki to learn how to add an image of the current moon phase.",
+            "use_fahrenheit": "Use Fahrenheit instead of Celcius",
+            "use_beaufort": "Use Bft instead of m\/s",
+            "translate_windspeed": "Translate wind speed",
+            "translate_windspeed_help": "'North northwest' instead of 'NNW'",
+            "static_weathericons": "Use static weather icons"
+        },
+        "media": {
+            "title": "Media",
+            "switch_horizon": "Ziggo\/UPC Mediabox Path",
+            "host_nzbget": "NZBget Path",
+            "host_nzbget_help": "If you use NZBget, enter the ip-address and port, e.g.: http:\/\/192.168.1.32:8080",
+            "spot_clientid": "Spotify ClientID",
+            "hide_mediaplayer": "Hide mediaplayer when it's off",
+            "switch_horizon_help": "If you have a mediabox from ZIGGO or UPC (Horizon), copy switch_horizon.php on a webserver inside your network and change the IP (of Horizon) inside this file."
+        },
+        "garbage": {
+            "title": "Garbage",
+            "garbage_company": "Company \/ Service",
+            "garbage_icalurl": "iCal URL",
+            "garbage_zipcode": "Zipcode",
+            "garbage_street": "Street",
+            "garbage_housenumber": "House number",
+            "garbage_maxitems": "Amount of pickups to show",
+            "garbage_width": "Width of block (1-12)",
+            "garbage_hideicon": "Hide icon in block"
         }
     }
 }
