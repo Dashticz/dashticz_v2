@@ -102,6 +102,7 @@ settingList['localize']['language']['options']['it_IT'] = language.settings.loca
 settingList['localize']['language']['options']['pt_PT'] = language.settings.localize.pt;
 settingList['localize']['language']['options']['sv_SE'] = language.settings.localize.sv;
 settingList['localize']['language']['options']['de_DE'] = language.settings.localize.de;
+settingList['localize']['language']['options']['es_ES'] = language.settings.localize.es;
 
 settingList['localize']['timeformat'] = {}
 settingList['localize']['timeformat']['title'] = language.settings.localize.timeformat;
@@ -149,72 +150,72 @@ settingList['localize']['gm_longitude']['type'] = 'text';
 
 
 settingList['weather'] = {}
-settingList['weather']['title'] = 'Weather';
+settingList['weather']['title'] = language.settings.weather.title;
 
 settingList['weather']['wu_api'] = {}
-settingList['weather']['wu_api']['title'] = 'Wunderground API Key';
+settingList['weather']['wu_api']['title'] = language.settings.weather.wu_api;
 settingList['weather']['wu_api']['type'] = 'text';
 
 settingList['weather']['wu_city'] = {}
-settingList['weather']['wu_city']['title'] = 'Wunderground Station (City or Code)';
+settingList['weather']['wu_city']['title'] = language.settings.weather.wu_city;
 settingList['weather']['wu_city']['type'] = 'text';
 
 settingList['weather']['wu_name'] = {}
-settingList['weather']['wu_name']['title'] = 'Display Name';
+settingList['weather']['wu_name']['title'] = language.settings.weather.wu_name;
 settingList['weather']['wu_name']['type'] = 'text';
 
 settingList['weather']['wu_country'] = {}
-settingList['weather']['wu_country']['title'] = 'Wunderground Country';
+settingList['weather']['wu_country']['title'] = language.settings.weather.wu_country;
 settingList['weather']['wu_country']['type'] = 'text';
 
 settingList['weather']['idx_moonpicture'] = {}
-settingList['weather']['idx_moonpicture']['title'] = 'IDX of moonpicture';
+settingList['weather']['idx_moonpicture']['title'] = language.settings.weather.idx_moonpicture;
 settingList['weather']['idx_moonpicture']['type'] = 'text';
-settingList['weather']['idx_moonpicture']['help'] = 'Take a look at the wiki to learn how to add an image of the current moon phase.';
+settingList['weather']['idx_moonpicture']['help'] = language.settings.weather.idx_moonpicture_help;
 
 settingList['weather']['use_fahrenheit'] = {}
-settingList['weather']['use_fahrenheit']['title'] = 'Use Fahrenheit instead of Celcius';
+settingList['weather']['use_fahrenheit']['title'] = language.settings.weather.use_fahrenheit;
 settingList['weather']['use_fahrenheit']['type'] = 'checkbox';
 
 settingList['weather']['use_beaufort'] = {}
-settingList['weather']['use_beaufort']['title'] = 'Use Bft instead of m/s';
+settingList['weather']['use_beaufort']['title'] = language.settings.weather.use_beaufort;
 settingList['weather']['use_beaufort']['type'] = 'checkbox';
 
 settingList['weather']['translate_windspeed'] = {}
-settingList['weather']['translate_windspeed']['title'] = 'Translate wind speed';
+settingList['weather']['translate_windspeed']['title'] = language.settings.weather.translate_windspeed;
 settingList['weather']['translate_windspeed']['type'] = 'checkbox';
-settingList['weather']['translate_windspeed']['help'] = '\'North northwest\' instead of \'NNW\'';
+settingList['weather']['translate_windspeed']['help'] = language.settings.weather.translate_windspeed_help;
 
 settingList['weather']['static_weathericons'] = {}
-settingList['weather']['static_weathericons']['title'] = 'Use static weather icons';
+settingList['weather']['static_weathericons']['title'] = language.settings.weather.static_weathericons;
 settingList['weather']['static_weathericons']['type'] = 'checkbox';
 
 settingList['media'] = {}
-settingList['media']['title'] = 'Media';
+settingList['media']['title'] = language.settings.media.title;
 
 settingList['media']['switch_horizon'] = {}
-settingList['media']['switch_horizon']['title'] = 'Ziggo/UPC Mediabox Path';
+settingList['media']['switch_horizon']['title'] = language.settings.media.switch_horizon;
 settingList['media']['switch_horizon']['type'] = 'text';
-settingList['media']['switch_horizon']['help'] = 'If you have a mediabox from ZIGGO or UPC (Horizon), copy switch_horizon.php on a webserver inside your network and change the IP (of Horizon) inside this file.';
+settingList['media']['switch_horizon']['help'] = language.settings.media.switch_horizon_help;
 
 settingList['media']['host_nzbget'] = {}
-settingList['media']['host_nzbget']['title'] = 'NZBget Path';
+settingList['media']['host_nzbget']['title'] = language.settings.media.host_nzbget;
 settingList['media']['host_nzbget']['type'] = 'text';
-settingList['media']['host_nzbget']['help'] = 'If you use NZBget, enter the ip-address and port, e.g.: http://192.168.1.32:8080';
+settingList['media']['host_nzbget']['help'] = language.settings.media.host_nzbget_help;
 
 settingList['media']['spot_clientid'] = {}
-settingList['media']['spot_clientid']['title'] = 'Spotify ClientID';
+settingList['media']['spot_clientid']['title'] = language.settings.media.spot_clientid;
 settingList['media']['spot_clientid']['type'] = 'text';
 
 settingList['media']['hide_mediaplayer'] = {}
-settingList['media']['hide_mediaplayer']['title'] = 'Hide mediaplayer when it\'s off';
+settingList['media']['hide_mediaplayer']['title'] = language.settings.media.hide_mediaplayer;
 settingList['media']['hide_mediaplayer']['type'] = 'checkbox';
 
 settingList['garbage'] = {}
-settingList['garbage']['title'] = 'Garbage';
+settingList['garbage']['title'] = language.settings.garbage.title;
 
 settingList['garbage']['garbage_company'] = {}
-settingList['garbage']['garbage_company']['title'] = 'Company / Service';
+settingList['garbage']['garbage_company']['title'] = language.settings.garbage.garbage_company;
 settingList['garbage']['garbage_company']['type'] = 'select';
 settingList['garbage']['garbage_company']['options'] = {};
 settingList['garbage']['garbage_company']['options']['ical'] = 'iCal';
@@ -246,31 +247,31 @@ settingList['garbage']['garbage_company']['options']['vianen'] = 'Vianen (NL)';
 settingList['garbage']['garbage_company']['options']['waalre'] = 'Waalre (NL)';
 
 settingList['garbage']['garbage_icalurl'] = {}
-settingList['garbage']['garbage_icalurl']['title'] = 'iCal URL';
+settingList['garbage']['garbage_icalurl']['title'] = language.settings.garbage.garbage_icalurl;
 settingList['garbage']['garbage_icalurl']['type'] = 'text';
 
 settingList['garbage']['garbage_zipcode'] = {}
-settingList['garbage']['garbage_zipcode']['title'] = 'Zipcode';
+settingList['garbage']['garbage_zipcode']['title'] = language.settings.garbage.garbage_zipcode;
 settingList['garbage']['garbage_zipcode']['type'] = 'text';
 
 settingList['garbage']['garbage_street'] = {}
-settingList['garbage']['garbage_street']['title'] = 'Street';
+settingList['garbage']['garbage_street']['title'] = language.settings.garbage.garbage_street;
 settingList['garbage']['garbage_street']['type'] = 'text';
 
 settingList['garbage']['garbage_housenumber'] = {}
-settingList['garbage']['garbage_housenumber']['title'] = 'House number';
+settingList['garbage']['garbage_housenumber']['title'] = language.settings.garbage.garbage_housenumber;
 settingList['garbage']['garbage_housenumber']['type'] = 'text';
 
 settingList['garbage']['garbage_maxitems'] = {}
-settingList['garbage']['garbage_maxitems']['title'] = 'Amount of pickups to show';
+settingList['garbage']['garbage_maxitems']['title'] = language.settings.garbage.garbage_maxitems;
 settingList['garbage']['garbage_maxitems']['type'] = 'text';
 
 settingList['garbage']['garbage_width'] = {}
-settingList['garbage']['garbage_width']['title'] = 'Width of block (1-12)';
+settingList['garbage']['garbage_width']['title'] = language.settings.garbage.garbage_width;
 settingList['garbage']['garbage_width']['type'] = 'text';
 
 settingList['garbage']['garbage_hideicon'] = {}
-settingList['garbage']['garbage_hideicon']['title'] = 'Hide icon in block';
+settingList['garbage']['garbage_hideicon']['title'] = language.settings.garbage.garbage_hideicon;
 settingList['garbage']['garbage_hideicon']['type'] = 'checkbox';
 
 var settings = {};
