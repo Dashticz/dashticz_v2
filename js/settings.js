@@ -432,13 +432,13 @@ function saveSettings(){
 	var html = '<div class="modal fade" id="settingsoutput" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
 	  html+='<div class="modal-dialog modal-dialog-settings">';
 		html+='<div class="modal-content">';
-		  html+='<div class="modal-body" style="padding:20px;font-size:14px;"><br />';
-			html+='<strong>By default, settings are stored in your browser. Downside of this method is it will only work in your current browser. If that\'s not a problem, you can proceed. Otherwise, copy code below to your CONFIG.JS to keep settings across all browsers and devices.</strong><Br /><Br /><textarea style="width:100%;height:500px;" id="codeToCopy">';
+		  html+='<div class="modal-body" style="padding:20px;font-size:14px;"><br>';
+			html+='<strong>'+language.settings.infosave+'</strong><br><br><textarea style="width:100%;height:500px;" id="codeToCopy">';
 			  
 			 html+=alertSettings;
 	
 			html+='</textarea>';
-		  html+='</div><div class="modal-footer"><button onClick="document.location.href=document.location.href;" type="button" class="btn btn-primary" data-dismiss="modal">Close and reload!</button></div>';
+		  html+='</div><div class="modal-footer"><button onClick="document.location.href=document.location.href;" type="button" class="btn btn-primary" data-dismiss="modal">'+language.settings.close_reload+'</button></div>';
 		html+='</div>';
 	  html+='</div>';
 	html+='</div><div class="settingsoutput" data-toggle="modal" data-target="#settingsoutput"><em class="fa fa-cog" /><div>';
