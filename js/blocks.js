@@ -162,7 +162,8 @@ function getBlock(cols,c,columndiv,standby){
 				window.setInterval(function() { clock.draw() }, 50);
 			}
 			else if(cols['blocks'][b]=='sunrise'){
-				$(columndiv).append('<div data-id="sunrise" class="block_'+cols['blocks'][b]+' col-xs-'+width+' transbg text-center sunriseholder"><em class="wi wi-sunrise"></em><span class="sunrise"></span><em class="wi wi-sunset"></em><span class="sunset"></span></div>');
+				if(c=='bar') $(columndiv).append('<div data-id="sunrise" class="block_'+cols['blocks'][b]+' col-xs-2 text-left sunriseholder"><em class="wi wi-sunrise"></em><span class="sunrise"></span><em class="wi wi-sunset"></em><span class="sunset"></span></div>');
+				else $(columndiv).append('<div data-id="sunrise" class="block_'+cols['blocks'][b]+' col-xs-'+width+' transbg text-center sunriseholder"><em class="wi wi-sunrise"></em><span class="sunrise"></span><em class="wi wi-sunset"></em><span class="sunset"></span></div>');
 			}
 			else if(typeof(cols['blocks'][b])=='object' && typeof(cols['blocks'][b]['isimage'])!=='undefined'){
 				var random = getRandomInt(1,100000);

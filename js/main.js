@@ -310,7 +310,7 @@ function buildScreens(){
 
 function startSwiper(){
 	
-	if(md.mobile()==null || md.tablet()!==null){
+	if(md.mobile()==null){
 		$('<link href="vendor/swiper/css/swiper.min.css" rel="stylesheet">').appendTo("head");
 		if((typeof(_EDIT_MODE)=='undefined' || _EDIT_MODE===false)){
 			setTimeout(function(){
@@ -1212,7 +1212,7 @@ function getDevices(override){
 											html+=' / <span class="lastupdate">'+moment(device['LastUpdate']).format(settings['timeformat'])+'</span>';
 										}
 										html+='<br />';
-										if(device['SubType']=='RGBW'){
+										if(device['SubType']=='RGBW' || device['SubType']=='RGBWW'){
 											html+='<input type="text" class="rgbw" data-light="'+device['idx']+'" />';
 											html+='<div class="slider slider'+device['idx']+'" style="margin-left:55px;" data-light="'+device['idx']+'"></div>';
 										}
@@ -1225,7 +1225,7 @@ function getDevices(override){
 									$('div.block_'+idx).html(html);
 									addHTML=false;
 									
-									if(device['SubType']=='RGBW'){
+									if(device['SubType']=='RGBW' || device['SubType']=='RGBWW'){
 										$(".rgbw").spectrum({
 											color: Cookies.get('rgbw_'+idx)
 										});

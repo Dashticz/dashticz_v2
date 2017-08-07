@@ -107,7 +107,7 @@
             "sv": "Zweeds",
             "de": "Duits",
             "language": "Taal",
-            "timeformat": "Datum/tijd weergave",
+            "timeformat": "Datum\/tijd weergave",
             "calendarformat": "Kalender weergave",
             "calendarlanguage": "Taal van kalender",
             "calendarurl": "Kalender URL (ICS)",
@@ -117,7 +117,44 @@
             "gm_api": "GoogleMaps API Sleutel",
             "gm_zoomlevel": "GoogleMaps Zoom niveau",
             "gm_latitude": "Breedtegraad",
-            "gm_longitude": "Lengtegraad"
-        }
+            "gm_longitude": "Lengtegraad",
+            "es": "Spaans"
+        },
+        "weather": {
+            "title": "Weer",
+            "wu_api": "Wunderground API-Sleutel",
+            "wu_city": "Wunderground Station (Stad of Code)",
+            "wu_name": "Weergavenaam",
+            "wu_country": "Wunderground Land",
+            "idx_moonpicture": "IDX van maanfoto",
+            "idx_moonpicture_help": "Bekijk de wiki om te leren hoe u een afbeelding van de huidige maanfase kunt toevoegen.",
+            "use_fahrenheit": "Gebruik Fahrenheit in plaats van Celcius",
+            "use_beaufort": "Gebruik Bft in plaats van m\/s",
+            "translate_windspeed": "Vertaal windsnelheid",
+            "translate_windspeed_help": "'Noord-noordwest' in plaats van 'NNW'",
+            "static_weathericons": "Gebruik statische weer iconen"
+        },
+        "media": {
+            "title": "Media",
+            "switch_horizon": "Ziggo\/UPC Mediabox Pad",
+            "host_nzbget": "NZBget Pad",
+            "host_nzbget_help": "Als u NZBget gebruikt, voert u het ip-adres en de poort in, bijvoorbeeld: http:\/\/192.168.1.32:8080",
+            "spot_clientid": "Spotify ClientID",
+            "hide_mediaplayer": "Verberg mediaspeler wanneer het uit is",
+            "switch_horizon_help": "Als u een mediabox hebt van ZIGGO of UPC (Horizon), kopieer switch_horizon.php op een webserver in uw netwerk en verander het IP (van Horizon) in dit bestand."
+        },
+        "garbage": {
+            "title": "Afval",
+            "garbage_company": "Bedrijf \/ Dienst",
+            "garbage_icalurl": "ICal URL",
+            "garbage_zipcode": "Postcode",
+            "garbage_street": "Straat",
+            "garbage_housenumber": "Huisnummer",
+            "garbage_maxitems": "Aantal ophaaldagen weer te geven",
+            "garbage_width": "Breedte van het blok (1-12)",
+            "garbage_hideicon": "Verberg icoon in blok"
+        },
+        "close_reload": "Close and reload!",
+        "infosave": "By default, settings are stored in your browser. Downside of this method is it will only work in your current browser. If that's not a problem, you can proceed. Otherwise, copy code below to your CONFIG.JS to keep settings across all browsers and devices."
     }
 }
