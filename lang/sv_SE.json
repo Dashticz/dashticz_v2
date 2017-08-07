@@ -136,25 +136,25 @@
         },
         "media": {
             "title": "Media",
-            "switch_horizon": "Ziggo\/UPC Mediabox Path",
-            "host_nzbget": "NZBget Väg",
-            "host_nzbget_help": "If you use NZBget, enter the ip-address and port, e.g.: http:\/\/192.168.1.32:8080",
-            "spot_clientid": "Spotify ClientID",
-            "hide_mediaplayer": "Hide mediaplayer when it's off",
-            "switch_horizon_help": "If you have a mediabox from ZIGGO or UPC (Horizon), copy switch_horizon.php on a webserver inside your network and change the IP (of Horizon) inside this file."
+            "switch_horizon": "Ziggo\/UPC Mediabox sökväg",
+            "host_nzbget": "NZBget sökväg",
+            "host_nzbget_help": "Om du använder NZBget, ange ip-adressen och port, e.g.: http:\/\/192.168.1.32:8080",
+            "spot_clientid": "Spotify KlientID",
+            "hide_mediaplayer": "Dölj mediaspelare när den är av",
+            "switch_horizon_help": "Om du använder en mediabox från ZIGGO eller UPC (Horizon), kopiera switch_horizon.php på en webbserver i ditt nätverk och ändra IP (av Horizon) i denna fil."
         },
         "garbage": {
-            "title": "Garbage",
-            "garbage_company": "Company \/ Service",
+            "title": "Sopor",
+            "garbage_company": "Företag \/ Service",
             "garbage_icalurl": "iCal URL",
-            "garbage_zipcode": "Zipcode",
-            "garbage_street": "Street",
-            "garbage_housenumber": "House number",
-            "garbage_maxitems": "Amount of pickups to show",
-            "garbage_width": "Width of block (1-12)",
-            "garbage_hideicon": "Hide icon in block"
+            "garbage_zipcode": "Postnummer",
+            "garbage_street": "Gata",
+            "garbage_housenumber": "Hus nummer",
+            "garbage_maxitems": "Antal hämtningar att visa",
+            "garbage_width": "Bredd på block (1-12)",
+            "garbage_hideicon": "Dölj ikon i block"
         },
-        "close_reload": "Close and reload!",
-        "infosave": "By default, settings are stored in your browser. Downside of this method is it will only work in your current browser. If that's not a problem, you can proceed. Otherwise, copy code below to your CONFIG.JS to keep settings across all browsers and devices."
+        "close_reload": "Stäng och ladda om!",
+        "infosave": "Som standard lagras inställningarna i din webbläsare. Nackdelen med den här metoden är att den bara fungerar i din nuvarande webbläsare. Om det inte är ett problem kan du fortsätta. Annars, kopiera koden nedan till CONFIG.JS för att behålla inställningar i alla webbläsare och enheter."
     }
 }
