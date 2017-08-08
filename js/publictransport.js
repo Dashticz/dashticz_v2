@@ -44,7 +44,7 @@ function getData(random,transportobject){
 	if(provider == 'vvs'){
 		dataURL = 'https://efa-api.asw.io/api/v1/station/'+transportobject.station+'/departures/';
 	}
-	else if(provider == '9292' || provider == '9292-train' || provider == '9292-bus' || provider == '9292-metro'){
+	else if(provider == '9292' || provider == '9292-train' || provider == '9292-bus' || provider == '9292-metro' || provider == '9292-tram-bus'){
 		dataURL = 'https://cors-anywhere.herokuapp.com/http://api.9292.nl/0.1/locations/'+transportobject.station+'/departure-times?lang=nl-NL&time='+$.now();
 	}
 	
@@ -58,11 +58,12 @@ function dataPublicTransport(random,data,transportobject){
 	var dataPart = {}
 	var i = 0;
 	for(d in data){
-		if(provider == '9292' || provider == '9292-train' || provider == '9292-bus' || provider =='9292-metro'){
+		if(provider == '9292' || provider == '9292-train' || provider == '9292-bus' || provider =='9292-metro' || provider == '9292-tram-bus'){
 			for(t in data[d]){
 				if(provider == '9292' || 
 				   (data[d][t]['id']=='bus' && provider == '9292-bus') || 
 				   (data[d][t]['id']=='metro' && provider == '9292-metro') || 
+				   (data[d][t]['id']=='tram-bus' && provider == '9292-tram-bus') || 
 				   (data[d][t]['id']=='trein' && provider == '9292-train')
 				){
 					deps = data[d][t]['departures'];
