@@ -53,7 +53,7 @@ function loadFiles(){
 		}
 		//Check language before loading settings and fallback to Englisch when not set
 		if(typeof(localStorage.dashticz_language)!=='undefined'){setLang = localStorage.dashticz_language}
-		else if(typeof(config.language)!=='undefined'){ setLang = config.language}
+		else if(typeof(config)!=='undefined' && typeof(config.language)!=='undefined'){ setLang = config.language}
 		else {setLang = 'en_US'}
 		$.ajax({url: 'lang/'+setLang+'.json?v='+cache, async: false, dataType: 'json', success: function(data) {
 			language = data
