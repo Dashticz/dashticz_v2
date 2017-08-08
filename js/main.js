@@ -35,60 +35,62 @@ var _STREAMPLAYER_TRACKS = {"track":1,"name":"Music FM","file":"http://stream.mu
 	
 function loadFiles(){
 	
-	if(objectlength(columns)==0) defaultcolumns = true;
-	
-	_GRAPHREFRESH = 5;
-	if(typeof(screens)=='undefined' || objectlength(screens)==0){
-			 
-		screens = {}
-		screens[1] = {}
-		screens[1]['background'] = _BACKGROUND_IMAGE;
-		screens[1]['columns'] = []
-		if(defaultcolumns===false){
-			for(c in columns){
-				if(c!=='bar') screens[1]['columns'].push(c);
+	$.ajax({url: customfolder+'/CONFIG.js', async: false,dataType: "script"}).done(function() {
+		if(objectlength(columns)==0) defaultcolumns = true;
+
+		_GRAPHREFRESH = 5;
+		if(typeof(screens)=='undefined' || objectlength(screens)==0){
+
+			screens = {}
+			screens[1] = {}
+			screens[1]['background'] = _BACKGROUND_IMAGE;
+			screens[1]['columns'] = []
+			if(defaultcolumns===false){
+				for(c in columns){
+					if(c!=='bar') screens[1]['columns'].push(c);
+				}
 			}
 		}
-	}
-	//Check language before loading settings and fallback to Englisch when not set
-	if(typeof(localStorage.dashticz_language)!=='undefined'){setLang = localStorage.dashticz_language}
-	else if(typeof(config.language)!=='undefined'){ setLang = config.language}
-	else {setLang = 'en_US'}
-	$.ajax({url: 'lang/'+setLang+'.json?v='+cache, async: false, dataType: 'json', success: function(data) {
-		language = data
-	}});
-	
-	$.ajax({url: 'js/settings.js', async: false,dataType: "script"}).done(function() {
-		loadSettings();
+		//Check language before loading settings and fallback to Englisch when not set
+		if(typeof(localStorage.dashticz_language)!=='undefined'){setLang = localStorage.dashticz_language}
+		else if(typeof(config.language)!=='undefined'){ setLang = config.language}
+		else {setLang = 'en_US'}
+		$.ajax({url: 'lang/'+setLang+'.json?v='+cache, async: false, dataType: 'json', success: function(data) {
+			language = data
+		}});
 
-		if(_THEME!=='default'){
-			$('<link rel="stylesheet" type="text/css" href="themes/'+_THEME+'/'+_THEME+'.css?v='+cache+'" />').appendTo("head");
-		}
-		$('<link href="'+customfolder+'/custom.css?v='+cache+'" rel="stylesheet">').appendTo("head");
-		$.ajax({url: 'js/sortable.js', async: false,dataType: "script"});
-		$.ajax({url: 'js/switches.js', async: false,dataType: "script"});
-		$.ajax({url: 'js/calendar.js', async: false,dataType: "script"});
-		$.ajax({url: 'js/thermostat.js', async: false,dataType: "script"});
-		$.ajax({url: 'js/publictransport.js', async: false,dataType: "script"});
+		$.ajax({url: 'js/settings.js', async: false,dataType: "script"}).done(function() {
+			loadSettings();
 
-		if(typeof(_DEBUG)!=='undefined' && _DEBUG){
-			$.ajax({url: 'custom/json_vb.js', async: false,dataType: "script"});
-			$.ajax({url: 'custom/graph_vb.js', async: false,dataType: "script"});
-		}
+			if(_THEME!=='default'){
+				$('<link rel="stylesheet" type="text/css" href="themes/'+_THEME+'/'+_THEME+'.css?v='+cache+'" />').appendTo("head");
+			}
+			$('<link href="'+customfolder+'/custom.css?v='+cache+'" rel="stylesheet">').appendTo("head");
+			$.ajax({url: 'js/sortable.js', async: false,dataType: "script"});
+			$.ajax({url: 'js/switches.js', async: false,dataType: "script"});
+			$.ajax({url: 'js/calendar.js', async: false,dataType: "script"});
+			$.ajax({url: 'js/thermostat.js', async: false,dataType: "script"});
+			$.ajax({url: 'js/publictransport.js', async: false,dataType: "script"});
 
-		$.ajax({url: customfolder+'/custom.js?v='+cache, async: false,dataType: "script"});
-		$.ajax({url: 'js/blocks.js', async: false,dataType: "script"});
-		$.ajax({url: 'js/graphs.js', async: false,dataType: "script"});
+			if(typeof(_DEBUG)!=='undefined' && _DEBUG){
+				$.ajax({url: 'custom/json_vb.js', async: false,dataType: "script"});
+				$.ajax({url: 'custom/graph_vb.js', async: false,dataType: "script"});
+			}
 
-		$.ajax({url: 'js/switches.js', async: false,dataType: "script"});
-		$.ajax({url: 'js/blocks.js', async: false,dataType: "script"});
-		$.ajax({url: 'js/graphs.js', async: false,dataType: "script"});
-		if(typeof(settings['gm_api'])!=='undefined' && settings['gm_api']!=="" && settings['gm_api']!==0){
-			$.ajax({url: 'https://maps.googleapis.com/maps/api/js?key='+settings['gm_api']+'&callback=initMap', async: false,dataType: "script"}).done(function() {
-				onLoad();
-			});
-		}
-		else onLoad();
+			$.ajax({url: customfolder+'/custom.js?v='+cache, async: false,dataType: "script"});
+			$.ajax({url: 'js/blocks.js', async: false,dataType: "script"});
+			$.ajax({url: 'js/graphs.js', async: false,dataType: "script"});
+
+			$.ajax({url: 'js/switches.js', async: false,dataType: "script"});
+			$.ajax({url: 'js/blocks.js', async: false,dataType: "script"});
+			$.ajax({url: 'js/graphs.js', async: false,dataType: "script"});
+			if(typeof(settings['gm_api'])!=='undefined' && settings['gm_api']!=="" && settings['gm_api']!==0){
+				$.ajax({url: 'https://maps.googleapis.com/maps/api/js?key='+settings['gm_api']+'&callback=initMap', async: false,dataType: "script"}).done(function() {
+					onLoad();
+				});
+			}
+			else onLoad();
+		});
 	});
 }
 
@@ -142,7 +144,6 @@ function onLoad(){
 		}
 	}
 
-	//Loop through pages
 	if((settings['auto_swipe_back_after'] == 0  || typeof(settings['auto_swipe_back_after'])== 'undefined') && parseFloat(settings['auto_slide_pages']) > 0){
 		var nextSlide = 1;
 		setInterval(function(){
