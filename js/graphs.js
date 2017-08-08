@@ -72,7 +72,7 @@ function getGraphs(device,popup){
 		txtLabel = txtUnit;
 	}
 	
-	showGraph(device['idx'],device['Name'],txtUnit,'last',device['CounterToday'],false,sensor,popup);
+	showGraph(device['idx'],device['Name'],txtUnit,'initial',device['CounterToday'],false,sensor,popup);
 }
 
 function getGraphByIDX(idx){
@@ -87,7 +87,7 @@ function getButtonGraphs(device){
 			  html+='<div class="modal-header">';
 				html+='<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
 			  html+='</div>';
-			  html+='<div class="modal-body block_graphpopup_'+device['idx']+'">'+lang.loading;
+			  html+='<div class="modal-body block_graphpopup_'+device['idx']+'">'+language.misc.loading;
 			  html+='</div>';
 			html+='</div>';
 		  html+='</div>';
@@ -117,11 +117,17 @@ function showGraph(idx,title,label,range,current,forced,sensor,popup){
 	
 	if(forced || popup){
 		_GRAPHS_LOADED[idx] = time();
+		//Check settings for standard graph
+		if(range=='initial'){
+			if(settings['standard_graph']=='hours'){ range='last'}
+			else if(settings['standard_graph']=='day'){ range='day'}
+			else if(settings['standard_graph']=='month'){ range='month'}
+		}
 		realrange=range;
 		if(range=='last') realrange='day';
 		
 		$.ajax({
-			url: _HOST_DOMOTICZ+'/json.htm?type=graph&sensor='+sensor+'&idx='+idx+'&range='+realrange+'&time='+new Date().getTime()+'&jsoncallback=?',
+			url: settings['domoticz_ip']+'/json.htm?type=graph&sensor='+sensor+'&idx='+idx+'&range='+realrange+'&time='+new Date().getTime()+'&jsoncallback=?',
 			type: 'GET',async: true,contentType: "application/json",dataType: 'jsonp',
 			success: function(data) {
 				if(typeof(_DEBUG)!=='undefined' && _DEBUG) data = $.parseJSON(graphexample);
@@ -133,15 +139,15 @@ function showGraph(idx,title,label,range,current,forced,sensor,popup){
 				
 				var buttons ='<button type="button" class="btn btn-default ';
 				if(range=='last') buttons+='active';
-				buttons+='" onclick="showGraph('+idx+',\''+orgtitle+'\',\''+label+'\',\'last\',\''+current+'\',true,\''+sensor+'\','+popup+');">'+lang['graph_last_hours']+'</button> ';
+				buttons+='" onclick="showGraph('+idx+',\''+orgtitle+'\',\''+label+'\',\'last\',\''+current+'\',true,\''+sensor+'\','+popup+');">'+language.graph.last_hours+'</button> ';
 				
 				buttons+='<button type="button" class="btn btn-default ';
 				if(range=='day') buttons+='active';
-				buttons+='" onclick="showGraph('+idx+',\''+orgtitle+'\',\''+label+'\',\'day\',\''+current+'\',true,\''+sensor+'\','+popup+');">'+lang['graph_today']+'</button> ';
+				buttons+='" onclick="showGraph('+idx+',\''+orgtitle+'\',\''+label+'\',\'day\',\''+current+'\',true,\''+sensor+'\','+popup+');">'+language.graph.today+'</button> ';
 				
 				buttons+='<button type="button" class="btn btn-default ';
 				if(range=='month') buttons+='active';
-				buttons+='" onclick="showGraph('+idx+',\''+orgtitle+'\',\''+label+'\',\'month\',\''+current+'\',true,\''+sensor+'\','+popup+');">'+lang['graph_last_month']+'</button>';
+				buttons+='" onclick="showGraph('+idx+',\''+orgtitle+'\',\''+label+'\',\'month\',\''+current+'\',true,\''+sensor+'\','+popup+');">'+language.graph.last_month+'</button>';
 		
 				if(popup==true) var html = '<div class="graphpopup" id="graph'+idx+'">';
 				else var html = '<div class="graph" id="graph'+idx+'">';

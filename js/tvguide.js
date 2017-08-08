@@ -14,7 +14,7 @@ function addTVGuide(tvobject,tvObjorg){
 			allchannels[channels[num]['id']] = channels[num]['name'];
 		}
 		curUrl = 'https://wedevise.nl/dashticz/tv/?time='+cache+'&url=http://www.tvgids.nl/json/lists/programs.php?channels='+tvObj.channels.join(',')+'&day=0';
-		moment.locale(_ICALENDAR_LOCALE);
+		moment.locale(settings['calendarlanguage']);
 		$.getJSON(curUrl,function(data,textstatus,jqXHR){
 
 			for(channel in data){

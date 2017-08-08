@@ -27,7 +27,7 @@ function loadPublicTransport(random,transportobject){
 	var interval = 60;
 	if(typeof(transportobject.interval)!=='undefined') interval = transportobject.interval;
 	getData(random,transportobject);
-	setTimeout(function(){$('.publictransport'+random+' .state').html(lang.loading);},100);
+	setTimeout(function(){$('.publictransport'+random+' .state').html(language.misc.loading);},100);
 	
 	if(transportobject.provider.toLowerCase() == 'ns'){
 		if(parseFloat(interval)<60) interval=60; // limit request because of limitations in NS api for my private key ;)
@@ -95,7 +95,7 @@ function dataPublicTransport(random,data,transportobject){
 			if(data[d]['delay'] == 0) latecolor='notlatetrain';	
 			if(data[d]['delay'] > 0) latecolor='latetrain';
 			dataPart[arrivalTime][i]+='<span id="'+latecolor+'">+'+data[d]['delay']+' Min.</span> ';
-			dataPart[arrivalTime][i]+='<span id="departureScheduled">('+lang['scheduled']+': '+arrivalTimeScheduled+')</span> ';
+			dataPart[arrivalTime][i]+='<span id="departureScheduled">('+language.misc.scheduled+': '+arrivalTimeScheduled+')</span> ';
 			dataPart[arrivalTime][i]+='- '+data[d]['number']+' ';
 			
 			dest = data[d]['direction'].split(' via ');
@@ -121,7 +121,7 @@ function dataPublicTransport(random,data,transportobject){
 	
 	if(typeof(transportobject.show_lastupdate)!=='undefined' && transportobject.show_lastupdate==true){
 		var dt = new Date();
-		$('.publictransport'+random+' .state').append('<em>'+lang['last_update']+': '+addZero(dt.getHours()) + ":"+addZero(dt.getMinutes())+":"+addZero(dt.getSeconds())+'</em>')
+		$('.publictransport'+random+' .state').append('<em>'+language.misc.last_update+': '+addZero(dt.getHours()) + ":"+addZero(dt.getMinutes())+":"+addZero(dt.getSeconds())+'</em>')
 	}
 }
 

@@ -1,4 +1,3 @@
-
 var CUR_URI = document.location.href.split('#');
 REDIRECT_URI = CUR_URI[0];
 var userdata;
@@ -15,7 +14,7 @@ function getSpotify(columndiv){
 	
 		var random = getRandomInt(1,100000);
 		var html ='<div data-id="spotify" class="col-xs-12 transbg containsspotify containsspotify'+random+'" style="padding:0px !important;">';
-			html+='<iframe src="" style="width:100%;height:80px;border:0px;"></iframe><a href="javascript:void(0);" class="change">'+lang['spotify_select_playlist']+' &raquo;</a>';
+			html+='<iframe src="" style="width:100%;height:80px;border:0px;"></iframe><a href="javascript:void(0);" class="change">'+language.misc.spotify_select_playlist+' &raquo;</a>';
 		html+='</div>';
 		$(columndiv).append(html);
 				
@@ -62,8 +61,8 @@ function getSpotify(columndiv){
 			});
 		});
 	}
-	else if(!_CLIENTID_SPOTIFY){
-		alert('Enter your Spotify ClientID in CONFIG.JS');
+	else if(!settings['spot_clientid']){
+		console.log('Enter your Spotify ClientID in CONFIG.JS');
 	}
 	else {
 		var url = getLoginURL([
@@ -86,7 +85,7 @@ function getPlayList(purl){
 
 function getLoginURL(scopes) {
 
-	return 'https://accounts.spotify.com/authorize?client_id=' + _CLIENTID_SPOTIFY +
+	return 'https://accounts.spotify.com/authorize?client_id=' + settings['spot_clientid'] +
 	  '&redirect_uri=' + encodeURIComponent(REDIRECT_URI) +
 	  '&scope=' + encodeURIComponent(scopes.join(' ')) +
 	  '&response_type=token';
