@@ -311,7 +311,7 @@ function buildScreens(){
 
 function startSwiper(){
 	
-	if(md.mobile()==null && md.tablet()!==null){
+	if(md.mobile()==null || md.tablet()!==null){
 		$('<link href="vendor/swiper/css/swiper.min.css" rel="stylesheet">').appendTo("head");
 		if((typeof(_EDIT_MODE)=='undefined' || _EDIT_MODE===false)){
 			setTimeout(function(){
