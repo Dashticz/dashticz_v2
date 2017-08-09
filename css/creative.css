@@ -215,6 +215,24 @@ a.playlist {
 	padding: 3px;
 	color: #fff;
 }
+
+.spotback {
+	margin:5px;
+}
+.spottrack {
+	background-color:#fff;
+	width:93%;
+	border:1px solid #ccc;
+	height:60px;
+	margin:5px;
+}
+.spotlist {
+	background-color:#fff;
+	width:93%;
+	border:1px solid #ccc;
+	height:77px;
+	margin:5px;
+}
 /* Thermostat CSS: */
 
 .editmode {
