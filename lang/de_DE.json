@@ -118,7 +118,14 @@
             "gm_zoomlevel": "GoogleMaps Zoom-Ebene",
             "gm_latitude": "Breitengrad",
             "gm_longitude": "Längengrad",
-            "es": "Spanisch"
+            "es": "Spanisch",
+            "no": "Norwegisch",
+            "fi": "Finnisch",
+            "sl": "Slowenisch",
+            "sk": "Slowakische",
+            "uk": "Ukrainisch",
+            "da": "Dänisch",
+            "pl": "Polnisch"
         },
         "weather": {
             "title": "Wetter",

@@ -118,7 +118,14 @@
             "gm_zoomlevel": "GoogleMaps Zoom niveau",
             "gm_latitude": "Breedtegraad",
             "gm_longitude": "Lengtegraad",
-            "es": "Spaans"
+            "es": "Spaans",
+            "no": "Noors",
+            "fi": "Fins",
+            "sl": "Sloveens",
+            "sk": "Slowaaks",
+            "uk": "Oekraïens",
+            "da": "Deens",
+            "pl": "Pools"
         },
         "weather": {
             "title": "Weer",
@@ -154,7 +161,7 @@
             "garbage_width": "Breedte van het blok (1-12)",
             "garbage_hideicon": "Verberg icoon in blok"
         },
-        "close_reload": "Close and reload!",
-        "infosave": "By default, settings are stored in your browser. Downside of this method is it will only work in your current browser. If that's not a problem, you can proceed. Otherwise, copy code below to your CONFIG.JS to keep settings across all browsers and devices."
+        "close_reload": "Sluit venster en herlaad Dashticz",
+        "infosave": "Standaard worden de instellingen opgeslagen in uw browser. Nadeel van deze methode is dat het alleen in uw huidige browser werkt. Als dat geen probleem is, kunt u verdergaan. Anders, kopieer onderstaande code naar uw CONFIG.JS om instellingen te gebruiken in alle browsers waarmee u Dashticz opent."
     }
 }
