@@ -21,6 +21,7 @@
         "notifications_ns": "notifications added by NS",
         "scheduled": "Scheduled",
         "select": "Seleccionar",
+        "spotify_back_to_playlist": "Back to playlists",
         "spotify_select_playlist": "Seleccionar lista de reproducción",
         "value": "Valor"
     },

@@ -21,6 +21,7 @@
         "notifications_ns": "Az NS által tett bejelentések",
         "scheduled": "Tervezett",
         "select": "Kiválaszt",
+        "spotify_back_to_playlist": "Back to playlists",
         "spotify_select_playlist": "Lejátszási lista kiválasztása",
         "value": "Érték"
     },

@@ -85,6 +85,11 @@ function getSpotify(columndiv){
 
 function getPlayList(purl){
 	$('.containsspotify iframe').attr('src',purl);
+	setTimeout(function(){
+		var $iframe = $(".containsspotify iframe").contents();
+    	$("body", $iframe).trigger("click");
+	},1000);
+	
 	$('.modal.fade.in .close').trigger('click');
 }
 
@@ -111,7 +116,7 @@ function showPlaylists(){
 }
 function getTrackList(url,back){
 	getTracks(url).then(function(tracks) {
-		var html='<div class="col-md-12"><div class="spotback"><a href="javascript:void(0);" onclick="showPlaylists();"><< back</a></div></div>';
+		var html='<div class="col-md-12"><div class="spotback"><a href="javascript:void(0);" onclick="showPlaylists();">&laquo; '+language.misc.spotify_back_to_playlist+'</a></div></div>';
 		for(t in tracks.items){	
 			html+='<div class="col-md-3 col-sm-6">';
 				html+='<div class="spottrack">';
