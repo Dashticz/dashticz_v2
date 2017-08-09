@@ -332,6 +332,7 @@ function getTrashRow(c,d,orgcolor){
 	if(typeof(trashcolors)!=='undefined' && typeof(trashcolors[c])!=='undefined') color=' style="color:'+trashcolors[c]+'"';
 	if(typeof(trashnames)!=='undefined' && typeof(trashnames[c])!=='undefined') c = trashnames[c];
 	
+	if (c.length == 0) return '';
 	if(c.substr(0,7)=='Bo zl12'){
 		if(c.toLowerCase().indexOf("gft")>0) c='GFT';
 		else if(c.toLowerCase().indexOf("rest")>0) c='Restafval';
@@ -348,6 +349,7 @@ function addToContainer(random,returnDates,maxitems){
 	var done = {};
 	for(c in returnDates){
 		for(cr in returnDates[c]){
+			if (returnDates[c][cr] == '') continue;
 			returnDatesSimple[cr] = returnDates[c][cr];
 			done[c]=true;
 		}
