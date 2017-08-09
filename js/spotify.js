@@ -35,17 +35,22 @@ function getSpotify(columndiv){
 						 html+='<div class="modal-header">';
 							html+='<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
 						html+='</div>';
-						html+='<div class="modal-body">';
+						html+='<div class="modal-body" style="padding-left:15px;"><div class="row list">';
 
 							for(p in playlists.items){
-								if(typeof(playlists.items[p]['images'][0])!=='undefined'){			 
-									html+='<a class="playlist" href="javascript:void(0);" onclick="getPlayList(\'https://open.spotify.com/embed?uri='+playlists.items[p]['uri']+'\');">';
-									html+='<img style="width:100px;" src="'+playlists.items[p]['images'][0]['url']+'" />';
-									html+='</a> ';
+								if(typeof(playlists.items[p]['images'][0])!=='undefined'){		
+									html+='<div class="col-md-3 col-sm-6">';
+										html+='<div class="spotlist">';
+											html+='<div class="col-lg-4 col-md-5 col-sm-4" style="padding:0px;"><a href="javascript:void(0);" onclick="getPlayList(\'https://open.spotify.com/embed?uri='+playlists.items[p]['uri']+'\');"><img style="height:75px;width:75px;" src="'+playlists.items[p]['images'][0]['url']+'" /></a></div>';
+											html+='<div class="col-lg-8 col-md-7 col-sm-8" style="padding:0px;padding-top:5px;padding-right:10px;">';
+											html+='<a href="javascript:void(0);" onclick="getPlayList(\'https://open.spotify.com/embed?uri='+playlists.items[p]['uri']+'\');">'+playlists.items[p]['name']+'</a><br />';
+											html+='<a href="javascript:void(0);" onclick="getTrackList(\''+playlists.items[p]['tracks']['href']+'\',\''+columndiv+'\');"><em>Tracks: '+playlists.items[p]['tracks']['total']+'</em></a></div>';
+										html+='</div>';
+									html+='</div>';
 								}
 							}
 
-						html+='</div>';
+						html+='</div><div class="row tracks" style="display:none;"></div><br /><br /></div>';
 						html+='</div>';
 					  html+='</div>';
 					html+='</div>';
@@ -94,6 +99,34 @@ function getLoginURL(scopes) {
 function getPlaylists() {
 	return $.ajax({
 		url: 'https://api.spotify.com/v1/me/playlists?offset=0&limit=50',
+		headers: {
+		   'Authorization': 'Bearer ' + accessToken
+		}
+	});
+}
+
+function showPlaylists(){
+	$('div.modal-body .row.list').show();
+	$('div.modal-body .row.tracks').html('').hide();
+}
+function getTrackList(url,back){
+	getTracks(url).then(function(tracks) {
+		var html='<div class="col-md-12"><div class="spotback"><a href="javascript:void(0);" onclick="showPlaylists();"><< back</a></div></div>';
+		for(t in tracks.items){	
+			html+='<div class="col-md-3 col-sm-6">';
+				html+='<div class="spottrack">';
+					html+='<div style="margin:10px;"><a href="javascript:void(0);" onclick="getPlayList(\'https://open.spotify.com/embed?uri='+tracks.items[t]['track']['uri']+'\');"><strong>'+tracks.items[t]['track']['artists'][0]['name']+'</strong><br />'+tracks.items[t]['track']['name']+'</a></div>';
+				html+='</div>';
+			html+='</div>';
+		}
+		$('div.modal-body .row.list').hide();
+		$('div.modal-body .row.tracks').html(html).show();
+		console.log(tracks);
+	});
+}
+function getTracks(url) {
+	return $.ajax({
+		url: url,
 		headers: {
 		   'Authorization': 'Bearer ' + accessToken
 		}

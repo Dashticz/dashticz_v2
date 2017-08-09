@@ -8,6 +8,7 @@ config['dashticz_refresh'] = '60';
 var trashnames = {}
 trashnames['Gft'] = 'GFT';
 trashnames['Pmd'] = 'Plastic';
+trashnames['Rest'] = ''; //LEAVE EMPTY IF YOU WANT TO HIDE IT
 
 var publictransport = {}
 publictransport.ovinfobus = { show_via: false, station: 'son-en-breugel/bushalte-penseelkever', provider: '9292-bus', icon: 'bus', width:5, results: 6 }
