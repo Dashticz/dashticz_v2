@@ -25,22 +25,24 @@ function saveBlocks(){
 				if(key=='bar') key = "'bar'";
 				conf+= "columns["+key+"] = {};\n";
 				conf+= "columns["+key+"]['blocks'] = [";
-
+				
+				var cols = '';
 				curcol.find('> div').each(function(){
 					var curdiv = $(this).data('id');
 
 					if(typeof(curdiv)=='number' || (parseFloat(curdiv) && curdiv.toLowerCase().indexOf("s") <= 0 && curdiv.toLowerCase().indexOf("_") <= 0)){
-						conf+=curdiv+',';
+						cols+=curdiv+', ';
 					}
 					else if(curdiv.indexOf(".") > 0){
-						conf+=curdiv+',';
+						cols+=curdiv+', ';
 					}
 					else {
-						conf+='\''+curdiv+'\',';
+						cols+='\''+curdiv+'\', ';
 					}
 
 				});
-				conf=conf.substr(0,(conf.length-1))+"];";
+				if(cols.length>0) conf+=cols.substr(0,(cols.length-2));
+				conf+="];";
 
 				if(typeof(columns[curcol.data('colindex')]['width'])!=='undefined'){
 					conf+= "\ncolumns["+curcol.data('colindex')+"]['width'] = "+columns[curcol.data('colindex')]['width']+";";
