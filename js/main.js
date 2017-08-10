@@ -308,13 +308,11 @@ function buildScreens(){
 
 function startSwiper(){
 	
-	//if(md.mobile()==null || md.tablet()!==null){
+	if(md.mobile()==null || md.tablet()!==null){
 		if($('.swiper-container .screen').length>1){
-			
 			$.ajax({url: 'vendor/swiper/js/swiper.min.js', async: false,dataType: "script"}).done(function() {
-				
 				$('<link href="vendor/swiper/css/swiper.min.css" rel="stylesheet">').appendTo("head");
-				if((typeof(_EDIT_MODE)=='undefined' || _EDIT_MODE===false)){
+				//if((typeof(_EDIT_MODE)=='undefined' || _EDIT_MODE===false)){
 					setTimeout(function(){
 						myswiper = new Swiper('.swiper-container', {
 							pagination: '.swiper-pagination',
@@ -324,10 +322,10 @@ function startSwiper(){
 							keyboardControl:true
 						});
 					},2000);
-				}
+				//}
 			});
 		}
-	//}
+	}
 	//$( window ).resize(function() { document.location.href=document.location.href });
 }
 

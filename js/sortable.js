@@ -6,10 +6,12 @@ function startSortable(){
 		helper: "clone",
 		tolerance: "pointer",
 		start: function (event, ui) {
+			myswiper.lockSwipes();
 		 if( ui.helper !== undefined )
 		  ui.helper.css('position','absolute').css('margin-top', $(window).scrollTop() );
 		},
 		beforeStop: function (event, ui) {
+			myswiper.unlockSwipes();
 		 if( ui.offset !== undefined )
 		  ui.helper.css('margin-top', 0);
 		}
@@ -17,12 +19,16 @@ function startSortable(){
 }
 
 function saveBlocks(){
+	var done = {};
 	var conf = "var columns = {}\n\n";
 		$( ".sortable" ).each(function(){
 			var curcol = $(this);
-			if(!curcol.hasClass('newblocks')){
-				var key = curcol.data('colindex');
-				if(key=='bar') key = "'bar'";
+			var key = curcol.data('colindex');
+			if(key=='bar') key = "'bar'";
+			if(!curcol.hasClass('newblocks') && typeof(done[key])=='undefined'){
+				
+				done[key]=true;
+				
 				conf+= "columns["+key+"] = {};\n";
 				conf+= "columns["+key+"]['blocks'] = [";
 				
