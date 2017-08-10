@@ -69,6 +69,13 @@ function loadFiles(){
 			if(typeof(_EDIT_MODE)!=='undefined' && _EDIT_MODE==true){
 				$('<link href="css/sortable.css?v='+cache+'" rel="stylesheet">').appendTo("head");
 				$.ajax({url: 'js/sortable.js', async: false,dataType: "script"});
+				
+				var html = '<div class="newblocksHolder" style="display:none;">';
+					html+= '<div class="title">Add block</div>';
+					html+= '<div class="newblocks sortable"></div>';
+				html+= '</div>';
+					
+				$('body').prepend(html);
 			}
 			
 			$.ajax({url: 'js/switches.js', async: false,dataType: "script"});
@@ -821,7 +828,7 @@ function getDevices(override){
 							device['Name'] = blocks[idx]['title'];
 						}
 						
-						if(_EDIT_MODE) $('div.newblocks').append('<div data-id="'+idx+'">'+device['Name']+'</div>');
+						if(_EDIT_MODE) $('div.newblocks').append('<div data-id="'+idx+'"><span class="title">'+device['Name']+'</span></div>');
 						alldevices[idx] = device;
 						
 						if(

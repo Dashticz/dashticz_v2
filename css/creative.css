@@ -30,7 +30,7 @@
     float: left;
 }
 
-.newblocksHolder .title {
+.newblocksHolder div.title {
 	color: #fff;
     padding: 5px;
     margin: 5px;
@@ -38,6 +38,7 @@
     font-weight: bold;
 	height:35px;
 }
+
 .newblocksHolder .newblocks {
     height: calc(100% - 45px);
     overflow-y: scroll;

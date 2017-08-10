@@ -1,6 +1,6 @@
 // JavaScript Document
 function startSortable(){
-	$('.newblocksHolder').slideDown();
+	$('.newblocksHolder').show();
 	$( ".sortable" ).sortable({
 		connectWith: ".sortable",
 		helper: "clone",
@@ -13,7 +13,7 @@ function startSortable(){
 		receive:function(event , ui){
 			var html = '<div class="col-xs-4 col-icon"><em class="fa fa-question on icon"></em></div>';
 			html+= '<div class="col-xs-8 col-data">';
-				html+= '<strong class="title">'+$(ui.item).text()+'</strong><br>';
+				html+= '<strong class="title">'+$(ui.item).find('.title').text()+'</strong><br>';
 				html+= '<span class="lastupdate">Save to see updates!</span>';
 			html+= '</div>';
 			$(ui.item).html(html);
