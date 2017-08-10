@@ -129,7 +129,7 @@ function getBlock(cols,c,columndiv,standby){
 				$(columndiv).append('<div data-id="settings" class="settings settingsicon col-xs-'+width+' text-right" data-toggle="modal" data-target="#settingspopup"><em class="fa fa-cog" /><div>');
 			}
 			else if(cols['blocks'][b]=='miniclock'){
-				$(columndiv).append('<div data-id="clock" class="miniclock col-xs-'+width+' text-center"><span class="weekday"></span> <span class="date"></span> <span>&nbsp;&nbsp;&nbsp;&nbsp;</span> <span class="clock"></span></div>');
+				$(columndiv).append('<div data-id="miniclock" class="miniclock col-xs-'+width+' text-center"><span class="weekday"></span> <span class="date"></span> <span>&nbsp;&nbsp;&nbsp;&nbsp;</span> <span class="clock"></span></div>');
 			}
 			else if(cols['blocks'][b]=='clock'){
 				$(columndiv).append('<div data-id="clock" class="transbg block_'+cols['blocks'][b]+' col-xs-'+width+' text-center"><h1 class="clock"></h1><h4 class="weekday"></h4><h4 class="date"></h4></div>');
