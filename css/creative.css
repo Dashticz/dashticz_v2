@@ -19,6 +19,26 @@
 .modal {
 	z-index:9999;
 }
+.newblocks {
+	display:none;
+	width: 220px;
+    background: rgba(0,0,0,0.9);
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    overflow-y: scroll;
+    overflow-x:hidden;
+}
+.newblocks > div {
+	border: 1px solid #AAA;
+    background: rgba(255,255,255,0.2);
+    margin: 5px;
+    padding: 5px;
+    color: #fff;
+    box-sizing: border-box;
+}
 .skycon {
 	margin: 10px auto 10px auto;
     display: block;

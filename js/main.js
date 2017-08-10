@@ -95,7 +95,7 @@ function onLoad(){
 	md = new MobileDetect(window.navigator.userAgent);
 	
 	if(_EDIT_MODE){
-		$('body').append('<div class="editmode">EDIT MODE</div>');	
+		$('body').append('<div class="editmode">EDIT MODE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:void(0);" style="color:#fff;" onclick="saveBlocks();" data-toggle="modal" data-target="#blocksoutput"><em class="fa fa-save" /></a>&nbsp;&nbsp;</div>');	
 	}
 
 	$('body').attr('unselectable','on')
@@ -269,7 +269,7 @@ function buildScreens(){
 					}
 					else {
 						
-						if(settings['hide_topbar']==0) $('body .row').append('<div class="col-sm-undefined col-xs-12 sortable colbar transbg dark"><div data-id="logo" class="logo col-xs-2">'+settings['app_title']+'<div></div></div><div data-id="clock" class="miniclock col-xs-8 text-center"><span class="weekday"></span> <span class="date"></span> <span>&nbsp;&nbsp;&nbsp;&nbsp;</span> <span class="clock"></span></div><div data-id="settings" class="settings settingsicon text-right" data-toggle="modal" data-target="#settingspopup"><em class="fa fa-cog" /></div></div></div>');
+						if(settings['hide_topbar']==0) $('body .row').append('<div class="col-sm-undefined col-xs-12 sortable colbar transbg dark"><div data-id="logo" class="logo col-xs-2">'+settings['app_title']+'<div></div></div><div data-id="miniclock" class="miniclock col-xs-8 text-center"><span class="weekday"></span> <span class="date"></span> <span>&nbsp;&nbsp;&nbsp;&nbsp;</span> <span class="clock"></span></div><div data-id="settings" class="settings settingsicon text-right" data-toggle="modal" data-target="#settingspopup"><em class="fa fa-cog" /></div></div></div>');
 						$('body .row').append('<div class="col-xs-5 sortable col1" data-colindex="1"><div class="auto_switches"></div><div class="auto_dimmers"></div></div>');
 						$('body .row').append('<div class="col-xs-5 sortable col2" data-colindex="2"><div class="block_weather containsweatherfull"></div><div class="auto_media"></div><div class="auto_states"></div></div>');
 						$('body .row').append('<div class="col-xs-2 sortable col3" data-colindex="3"><div class="auto_clock"></div><div class="auto_sunrise"></div><div class="auto_buttons"></div></div>');
@@ -810,6 +810,7 @@ function getDevices(override){
 					if($('.sunrise').length>0) $('.sunrise').html(data.Sunrise);
 					if($('.sunset').length>0) $('.sunset').html(data.Sunset);
 										
+					$('div.newblocks').html('');
 					for(r in data.result){
 						
 						var device = data.result[r];
@@ -821,6 +822,7 @@ function getDevices(override){
 							device['Name'] = blocks[idx]['title'];
 						}
 						
+						if(_EDIT_MODE) $('div.newblocks').append('<div data-id="'+idx+'">'+device['Name']+'</div>');
 						alldevices[idx] = device;
 						
 						if(
@@ -843,6 +845,8 @@ function getDevices(override){
 								)
 							)
 						){
+							if(_EDIT_MODE) $('div.newblocks > div[data-id="'+idx+'"]').remove();
+							
 							var width=4;
                             if(device['SwitchType']=='Selector') width=8;
 							if(device['SwitchType']=='Media Player') width=12;
@@ -1622,13 +1626,17 @@ function getDevices(override){
 					if(typeof(afterGetDevices)=='function') afterGetDevices();
 				}
 				
-				setTimeout(function(){ getDevices(); },(settings['domoticz_refresh']*1000));
+				if(!_EDIT_MODE){
+					setTimeout(function(){ getDevices(); },(settings['domoticz_refresh']*1000));
+				}
 			}
 		});
 			
 		}
 	}
 	else {
-		setTimeout(function(){ getDevices(); },(settings['domoticz_refresh']*1000));
+		if(!_EDIT_MODE){
+			setTimeout(function(){ getDevices(); },(settings['domoticz_refresh']*1000));
+		}
 	}
 }

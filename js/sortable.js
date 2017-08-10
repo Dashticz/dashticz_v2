@@ -1,5 +1,6 @@
 // JavaScript Document
 function startSortable(){
+	$('.newblocks').slideDown();
 	$( ".sortable" ).sortable({
 		connectWith: ".sortable",
 		helper: "clone",
@@ -11,21 +12,23 @@ function startSortable(){
 		beforeStop: function (event, ui) {
 		 if( ui.offset !== undefined )
 		  ui.helper.css('margin-top', 0);
-		},
-		update: function( ) {
-            var postData2 = $(this).sortable('toArray', {
-				attribute: 'data-id'
-			});
-			
-			var conf = "var columns = {}\n\n";
-			$( ".sortable" ).each(function(){
-				var curcol = $(this);
-				conf+= "columns["+curcol.data('colindex')+"] = {};\n";
-				conf+= "columns["+curcol.data('colindex')+"]['blocks'] = [";
-				
+		}
+	}).disableSelection();
+}
+
+function saveBlocks(){
+	var conf = "var columns = {}\n\n";
+		$( ".sortable" ).each(function(){
+			var curcol = $(this);
+			if(!curcol.hasClass('newblocks')){
+				var key = curcol.data('colindex');
+				if(key=='bar') key = "'bar'";
+				conf+= "columns["+key+"] = {};\n";
+				conf+= "columns["+key+"]['blocks'] = [";
+
 				curcol.find('> div').each(function(){
 					var curdiv = $(this).data('id');
-					
+
 					if(typeof(curdiv)=='number' || (parseFloat(curdiv) && curdiv.toLowerCase().indexOf("s") <= 0 && curdiv.toLowerCase().indexOf("_") <= 0)){
 						conf+=curdiv+',';
 					}
@@ -38,32 +41,28 @@ function startSortable(){
 
 				});
 				conf=conf.substr(0,(conf.length-1))+"];";
-				
+
 				if(typeof(columns[curcol.data('colindex')]['width'])!=='undefined'){
-					conf+= "\ncolumns["+curcol.data('colindex')+"]['blocks'] = "+columns[curcol.data('colindex')]['width']+";";
+					conf+= "\ncolumns["+curcol.data('colindex')+"]['width'] = "+columns[curcol.data('colindex')]['width']+";";
 				}
 				conf+="\n\n";
-			});
-								  
-			var html = '<div class="modal fade" id="blocksoutput" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
-			  html+='<div class="modal-dialog modal-dialog-settings">';
-				html+='<div class="modal-content">';
-				  html+='<div class="modal-body" style="padding:20px;font-size:14px;"><br>';
-					html+='<strong>'+language.settings.blocksave+'</strong><br>If you like my work, you can buy me a beer at: <a href="https://www.paypal.me/robgeerts" target="_blank">https://www.paypal.me/robgeerts</a><br><br><textarea style="width:100%;height:500px;" id="codeToCopy">';
+			}
+		});
 
-					 html+=conf;
+		var html = '<div class="modal fade" id="blocksoutput" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
+		  html+='<div class="modal-dialog modal-dialog-settings">';
+			html+='<div class="modal-content">';
+			  html+='<div class="modal-body" style="padding:20px;font-size:14px;"><br>';
+				html+='<strong>'+language.settings.blocksave+'</strong><br>If you like my work, you can buy me a beer at: <a href="https://www.paypal.me/robgeerts" target="_blank">https://www.paypal.me/robgeerts</a><br><br><textarea style="width:100%;height:500px;" id="codeToCopy">';
 
-					html+='</textarea>';
-				  html+='</div><div class="modal-footer"><button onClick="document.location.href=document.location.href;" type="button" class="btn btn-primary" data-dismiss="modal">'+language.settings.close_reload+'</button></div>';
-				html+='</div>';
-			  html+='</div>';
-			html+='</div><div class="blocksoutput" data-toggle="modal" data-target="#blocksoutput"><em class="fa fa-cog" /><div>';
+				 html+=conf;
 
-			$('body').append(html);
-			setTimeout(function(){ 
-				$('.blocksoutput').trigger('click'); 
-			},2000);
-			
-        }
-	}).disableSelection();
+				html+='</textarea>';
+			  html+='</div><div class="modal-footer"><button onClick="document.location.href=document.location.href;" type="button" class="btn btn-primary" data-dismiss="modal">'+language.settings.close_reload+'</button></div>';
+			html+='</div>';
+		  html+='</div>';
+		html+='</div>';
+	
+	$('#blocksoutput').remove();
+	$('body').append(html);
 }
