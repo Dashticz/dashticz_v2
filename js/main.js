@@ -308,7 +308,7 @@ function buildScreens(){
 
 function startSwiper(){
 	
-	if(md.mobile()==null || md.tablet()!==null){
+	//if(md.mobile()==null || md.tablet()!==null){
 		if($('.swiper-container .screen').length>1){
 			
 			$.ajax({url: 'vendor/swiper/js/swiper.min.js', async: false,dataType: "script"}).done(function() {
@@ -327,7 +327,7 @@ function startSwiper(){
 				}
 			});
 		}
-	}
+	//}
 	//$( window ).resize(function() { document.location.href=document.location.href });
 }
 
