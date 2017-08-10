@@ -298,6 +298,7 @@ function buildScreens(){
 	}
 	
 	if(typeof(_EDIT_MODE)!=='undefined' && _EDIT_MODE==true){
+		$('.swiper-container').addClass('edit');
 		setTimeout(function(){ 
 			startSortable(); 
 		},2000);

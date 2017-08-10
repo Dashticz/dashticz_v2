@@ -2,6 +2,9 @@
 	width: 100%;
 	height: 100%;
 }
+.swiper-container.edit{
+	width:auto;
+}
 .swiper-wrapper {
 	height: 100%;
 }
@@ -19,19 +22,28 @@
 .modal {
 	z-index:9999;
 }
-.newblocks {
+.newblocksHolder {
 	display:none;
 	width: 220px;
     background: rgba(0,0,0,0.9);
     height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 9999;
-    overflow-y: scroll;
-    overflow-x:hidden;
+    float: left;
 }
-.newblocks > div {
+
+.newblocksHolder .title {
+	color: #fff;
+    padding: 5px;
+    margin: 5px;
+    font-size: 17px;
+    font-weight: bold;
+	height:35px;
+}
+.newblocksHolder .newblocks {
+    height: calc(100% - 45px);
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+.newblocksHolder .newblocks > div {
 	border: 1px solid #AAA;
     background: rgba(255,255,255,0.2);
     margin: 5px;

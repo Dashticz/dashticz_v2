@@ -1,19 +1,28 @@
 // JavaScript Document
 function startSortable(){
-	$('.newblocks').slideDown();
+	$('.newblocksHolder').slideDown();
 	$( ".sortable" ).sortable({
 		connectWith: ".sortable",
 		helper: "clone",
 		tolerance: "pointer",
 		start: function (event, ui) {
 			myswiper.lockSwipes();
-		 if( ui.helper !== undefined )
-		  ui.helper.css('position','absolute').css('margin-top', $(window).scrollTop() );
+			if( ui.helper !== undefined )
+			ui.helper.css('position','absolute').css('margin-top', $(window).scrollTop() );
+		},
+		receive:function(event , ui){
+			var html = '<div class="col-xs-4 col-icon"><em class="fa fa-question on icon"></em></div>';
+			html+= '<div class="col-xs-8 col-data">';
+				html+= '<strong class="title">'+$(ui.item).text()+'</strong><br>';
+				html+= '<span class="lastupdate">Save to see updates!</span>';
+			html+= '</div>';
+			$(ui.item).html(html);
+			$(ui.item).addClass('col-xs-6').addClass('mh').addClass('transbg');
 		},
 		beforeStop: function (event, ui) {
 			myswiper.unlockSwipes();
-		 if( ui.offset !== undefined )
-		  ui.helper.css('margin-top', 0);
+			if( ui.offset !== undefined )
+			ui.helper.css('margin-top', 0);
 		}
 	}).disableSelection();
 }
