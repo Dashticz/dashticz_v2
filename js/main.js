@@ -2,9 +2,6 @@
 var language = {};
 var cache = new Date().getTime();
 
-$('<link href="css/creative.css?v='+cache+'" rel="stylesheet">').appendTo("head");
-$('<link href="css/sortable.css?v='+cache+'" rel="stylesheet">').appendTo("head");
-
 // device detection
 var standby=true;
 var standbyActive=false;
@@ -62,20 +59,20 @@ function loadFiles(){
 		$.ajax({url: 'js/settings.js', async: false,dataType: "script"}).done(function() {
 			loadSettings();
 
+			$('<link href="css/creative.css?v='+cache+'" rel="stylesheet">').appendTo("head");
+			
 			if(_THEME!=='default'){
 				$('<link rel="stylesheet" type="text/css" href="themes/'+_THEME+'/'+_THEME+'.css?v='+cache+'" />').appendTo("head");
 			}
 			$('<link href="'+customfolder+'/custom.css?v='+cache+'" rel="stylesheet">').appendTo("head");
-			$.ajax({url: 'js/sortable.js', async: false,dataType: "script"});
-			$.ajax({url: 'js/switches.js', async: false,dataType: "script"});
-			$.ajax({url: 'js/calendar.js', async: false,dataType: "script"});
-			$.ajax({url: 'js/thermostat.js', async: false,dataType: "script"});
-			$.ajax({url: 'js/publictransport.js', async: false,dataType: "script"});
-
-			if(typeof(_DEBUG)!=='undefined' && _DEBUG){
-				$.ajax({url: 'custom/json_vb.js', async: false,dataType: "script"});
-				$.ajax({url: 'custom/graph_vb.js', async: false,dataType: "script"});
+			
+			if(typeof(_EDIT_MODE)!=='undefined' && _EDIT_MODE==true){
+				$('<link href="css/sortable.css?v='+cache+'" rel="stylesheet">').appendTo("head");
+				$.ajax({url: 'js/sortable.js', async: false,dataType: "script"});
 			}
+			
+			$.ajax({url: 'js/switches.js', async: false,dataType: "script"});
+			$.ajax({url: 'js/thermostat.js', async: false,dataType: "script"});
 
 			$.ajax({url: customfolder+'/custom.js?v='+cache, async: false,dataType: "script"});
 			$.ajax({url: 'js/blocks.js', async: false,dataType: "script"});
@@ -312,19 +309,24 @@ function buildScreens(){
 function startSwiper(){
 	
 	if(md.mobile()==null || md.tablet()!==null){
-		$('<link href="vendor/swiper/css/swiper.min.css" rel="stylesheet">').appendTo("head");
-		if((typeof(_EDIT_MODE)=='undefined' || _EDIT_MODE===false)){
-			setTimeout(function(){
-				myswiper = new Swiper('.swiper-container', {
-					pagination: '.swiper-pagination',
-					paginationClickable: true,
-					loop: false,
-					effect: settings['slide_effect'],
-					keyboardControl:true
-				});
-			},2000);
+		if($('.swiper-container .screen').length>1){
+			
+			$.ajax({url: 'vendor/swiper/js/swiper.min.js', async: false,dataType: "script"}).done(function() {
+				
+				$('<link href="vendor/swiper/css/swiper.min.css" rel="stylesheet">').appendTo("head");
+				if((typeof(_EDIT_MODE)=='undefined' || _EDIT_MODE===false)){
+					setTimeout(function(){
+						myswiper = new Swiper('.swiper-container', {
+							pagination: '.swiper-pagination',
+							paginationClickable: true,
+							loop: false,
+							effect: settings['slide_effect'],
+							keyboardControl:true
+						});
+					},2000);
+				}
+			});
 		}
-
 	}
 	//$( window ).resize(function() { document.location.href=document.location.href });
 }
@@ -802,7 +804,6 @@ function getDevices(override){
 			},
 			success: function(data) {
 				gettingDevices = false;
-				if(typeof(_DEBUG)!=='undefined' && _DEBUG) data = $.parseJSON(jsonexample);
 				if(!sliding || override){
 					$('.solar').remove();
 				
@@ -1621,13 +1622,13 @@ function getDevices(override){
 					if(typeof(afterGetDevices)=='function') afterGetDevices();
 				}
 				
-				if(typeof(_DEBUG)=='undefined' || _DEBUG===false) setTimeout(function(){ getDevices(); },(settings['domoticz_refresh']*1000));
+				setTimeout(function(){ getDevices(); },(settings['domoticz_refresh']*1000));
 			}
 		});
 			
 		}
 	}
 	else {
-		if(typeof(_DEBUG)=='undefined' || _DEBUG===false) setTimeout(function(){ getDevices(); },(settings['domoticz_refresh']*1000));
+		setTimeout(function(){ getDevices(); },(settings['domoticz_refresh']*1000));
 	}
 }
