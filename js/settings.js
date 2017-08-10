@@ -441,7 +441,7 @@ function saveSettings(){
 	  html+='<div class="modal-dialog modal-dialog-settings">';
 		html+='<div class="modal-content">';
 		  html+='<div class="modal-body" style="padding:20px;font-size:14px;"><br>';
-			html+='<strong>'+language.settings.infosave+'</strong><br><br><textarea style="width:100%;height:500px;" id="codeToCopy">';
+			html+='<strong>'+language.settings.infosave+'</strong><br>If you like my work, you can buy me a beer at: <a href="https://www.paypal.me/robgeerts" target="_blank">https://www.paypal.me/robgeerts</a><br><br><textarea style="width:100%;height:500px;" id="codeToCopy">';
 			  
 			 html+=alertSettings;
 	
