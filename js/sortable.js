@@ -29,7 +29,17 @@ function startSortable(){
 
 function saveBlocks(){
 	var done = {};
-	var conf = "var columns = {}\n\n";
+	
+	var conf = "/* BLOCKS CONFIGURATION */\nvar blocks = {}\n";
+	for(b in blocks){
+		conf+= "\nblocks['"+b+"'] = {};\n";
+		for(k in blocks[b]){
+			if(typeof(blocks[b][k])=='number') conf+= "blocks['"+b+"']['"+k+"'] = "+blocks[b][k]+";\n";
+			else conf+= "blocks['"+b+"']['"+k+"'] = '"+blocks[b][k]+"';\n";
+		}
+	}
+	
+	conf+= "\n/* COLUMNS CONFIGURATION */\nvar columns = {}\n\n";
 		$( ".sortable" ).each(function(){
 			var curcol = $(this);
 			var key = curcol.data('colindex');

@@ -39,8 +39,14 @@
 	height:35px;
 }
 
-.newblocksHolder .newblocks {
-    height: calc(100% - 45px);
+.newblocksHolder .newblocks.plugins {
+    height: 170px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.newblocksHolder .newblocks.domoticz {
+    height: calc(100% - 260px);
     overflow-y: scroll;
     overflow-x: hidden;
 }

@@ -71,8 +71,10 @@ function loadFiles(){
 				$.ajax({url: 'js/sortable.js', async: false,dataType: "script"});
 				
 				var html = '<div class="newblocksHolder" style="display:none;">';
+					html+= '<div class="title">Add plugin</div>';
+					html+= '<div class="newblocks plugins sortable"></div>';
 					html+= '<div class="title">Add block</div>';
-					html+= '<div class="newblocks sortable"></div>';
+					html+= '<div class="newblocks domoticz sortable"></div>';
 				html+= '</div>';
 					
 				$('body').prepend(html);
@@ -816,7 +818,18 @@ function getDevices(override){
 					if($('.sunrise').length>0) $('.sunrise').html(data.Sunrise);
 					if($('.sunset').length>0) $('.sunset').html(data.Sunset);
 										
-					$('div.newblocks').html('');
+					$('div.newblocks.plugins').html('');
+					$('div.newblocks.domoticz').html('');
+					if(_EDIT_MODE){
+						$('div.newblocks.plugins').append('<div data-id="clock"><span class="title">Clock</span></div>');
+						$('div.newblocks.plugins').append('<div data-id="currentweather_big"><span class="title">Current weather</span></div>');
+						$('div.newblocks.plugins').append('<div data-id="garbage"><span class="title">Garbage</span></div>');
+						$('div.newblocks.plugins').append('<div data-id="streamplayer"><span class="title">Radio</span></div>');
+						$('div.newblocks.plugins').append('<div data-id="nzbget"><span class="title">NZBget</span></div>');
+						$('div.newblocks.plugins').append('<div data-id="sunrise"><span class="title">Sunrise/set</span></div>');
+						$('div.newblocks.plugins').append('<div data-id="weather"><span class="title">Weather</span></div>');
+					}
+					
 					for(r in data.result){
 						
 						var device = data.result[r];
@@ -828,7 +841,7 @@ function getDevices(override){
 							device['Name'] = blocks[idx]['title'];
 						}
 						
-						if(_EDIT_MODE) $('div.newblocks').append('<div data-id="'+idx+'"><span class="title">'+device['Name']+'</span></div>');
+						if(_EDIT_MODE) $('div.newblocks.domoticz').append('<div data-id="'+idx+'"><span class="title">'+device['Name']+'</span></div>');
 						alldevices[idx] = device;
 						
 						if(
