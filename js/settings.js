@@ -106,6 +106,7 @@ settingList['localize']['language']['options']['nl_NL'] = language.settings.loca
 settingList['localize']['language']['options']['nn_NO'] = language.settings.localize.no;
 settingList['localize']['language']['options']['pl_PL'] = language.settings.localize.pl;
 settingList['localize']['language']['options']['pt_PT'] = language.settings.localize.pt;
+settingList['localize']['language']['options']['ru_RU'] = language.settings.localize.ru;
 settingList['localize']['language']['options']['sk_SK'] = language.settings.localize.sk;
 settingList['localize']['language']['options']['sl_SL'] = language.settings.localize.sl;
 settingList['localize']['language']['options']['sv_SE'] = language.settings.localize.sv;

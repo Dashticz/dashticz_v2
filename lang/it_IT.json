@@ -21,7 +21,7 @@
         "notifications_ns": "notifica aggiunta da NS",
         "scheduled": "Programma",
         "select": "Seleziona",
-        "spotify_back_to_playlist": "Back to playlists",
+        "spotify_back_to_playlist": "Torna alle playlist",
         "spotify_select_playlist": "Seleziona playlist",
         "value": "Valore"
     },
@@ -80,6 +80,7 @@
             "no": "Norvegese",
             "pl": "Polacco",
             "pt": "Portoghese",
+            "ru": "Russo",
             "sk": "Slovacco",
             "sl": "Sloveno",
             "sv": "Svedese",
