@@ -26,6 +26,7 @@
         "value": "Valor"
     },
     "settings": {
+        "blocksave": "Save the code below to your CONFIG.js to apply the changes. Reload Dashticz afterwards.",
         "close": "Fechar",
         "close_reload": "Feche e recarregue!",
         "garbage": {

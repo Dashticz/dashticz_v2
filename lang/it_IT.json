@@ -26,6 +26,7 @@
         "value": "Valore"
     },
     "settings": {
+        "blocksave": "Save the code below to your CONFIG.js to apply the changes. Reload Dashticz afterwards.",
         "close": "Chiudi",
         "close_reload": "Chiudi e ricarica!",
         "garbage": {
@@ -54,7 +55,7 @@
             "use_favorites": "Usa solo con i dispositivi preferiti",
             "use_favorites_help": "Usa solo con l'auto posizionamento attivo"
         },
-        "infosave": "Di dafault le impostazioni sono salvate nel browser.Se usi sempre e solo lo stesso browser e lo stesso dispositivo puoi continuare cosi.\nSe usi diversi browser puoi copiare il codice qua sotto all0interno del file CONFIG.JS per mantenere le impostazioni replicate in ogni browser e in ogni dispositivo.",
+        "infosave": "Di dafault le impostazioni sono salvate nel browser.Se usi sempre e solo lo stesso browser e lo stesso dispositivo puoi continuare cosi.\nSe usi diversi browser puoi copiare il codice qua sotto all'interno del file CONFIG.JS per mantenere le impostazioni replicate in ogni browser e in ogni dispositivo.",
         "localize": {
             "boss_stationclock": "Tipo StationClock",
             "calendarformat": "Formato calendario",

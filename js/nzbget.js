@@ -8,7 +8,7 @@ function loadNZBGET(columndiv){
 			if(typeof(blocks['nzbget'])!=='undefined' && typeof(blocks['nzbget']['width'])!=='undefined'){
 				width = blocks['nzbget']['width'];
 			}
-			var html='<div class="containsnzbget clear col-xs-'+width+'" style="display:none;">';
+			var html='<div data-id="nzbget" class="containsnzbget clear col-xs-'+width+'" style="display:none;">';
 				html+='<div id="downloads"></div>';
 			html+='</div>';
 			$(column).append(html);

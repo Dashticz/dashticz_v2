@@ -26,6 +26,7 @@
         "value": "Arvo"
     },
     "settings": {
+        "blocksave": "Save the code below to your CONFIG.js to apply the changes. Reload Dashticz afterwards.",
         "close": "Kiinni",
         "close_reload": "Sulje ja lataa!",
         "garbage": {

@@ -55,7 +55,7 @@ function getBlock(cols,c,columndiv,standby){
 	if(typeof(cols)!=='undefined'){
 		var colclass='';
 		if(c=='bar') colclass='transbg dark';
-		if(!standby) $('div.screen'+s+' .row').append('<div class="col-sm-'+cols['width']+' col-xs-12 sortable col'+c+' '+colclass+'"></div>');
+		if(!standby) $('div.screen'+s+' .row').append('<div data-colindex="'+c+'" class="col-sm-'+cols['width']+' col-xs-12 sortable col'+c+' '+colclass+'"></div>');
 		for(b in cols['blocks']){
 		
 			var width=12;
@@ -231,7 +231,7 @@ function getBlock(cols,c,columndiv,standby){
 				if(typeof(cols['blocks'][b]['frameurl'])!=='undefined') $(columndiv).append(loadFrame(random,cols['blocks'][b]));
 				else if(typeof(cols['blocks'][b]['station'])!=='undefined'){
 					if(typeof(loadPublicTransport)!=='function') $.ajax({url: 'js/publictransport.js', async: false,dataType: "script"});
-					$(columndiv).append(loadPublicTransport(random,cols['blocks'][b]));
+					$(columndiv).append(loadPublicTransport(random,cols['blocks'][b],key));
 				}
 				else if(typeof(cols['blocks'][b]['channels'])!=='undefined'){
 					if(typeof(addTVGuide)!=='function') $.ajax({url: 'js/tvguide.js', async: false,dataType: "script"});

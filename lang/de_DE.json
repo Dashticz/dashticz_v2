@@ -26,6 +26,7 @@
         "value": "Wert"
     },
     "settings": {
+        "blocksave": "Speichern Sie den Code unten auf Ihre CONFIG.js, um die Änderungen zu übernehmen. Laden Sie Dashticz danach wieder auf.",
         "close": "Schließen",
         "close_reload": "Schließen und neu laden!",
         "garbage": {

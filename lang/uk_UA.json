@@ -26,6 +26,7 @@
         "value": "Value"
     },
     "settings": {
+        "blocksave": "Save the code below to your CONFIG.js to apply the changes. Reload Dashticz afterwards.",
         "close": "Close",
         "close_reload": "Close and reload!",
         "garbage": {
@@ -65,7 +66,7 @@
             "de": "German",
             "en": "English",
             "es": "Spanish",
-            "fi": "Finnish",
+            "fi": "Фінський",
             "fr": "French",
             "gm_api": "GoogleMaps API Key",
             "gm_latitude": "Latitude",
@@ -78,9 +79,9 @@
             "language": "Language",
             "nl": "Dutch",
             "no": "Norwegian",
-            "pl": "Polish",
+            "pl": "Польський",
             "pt": "Portugese",
-            "ru": "Russian",
+            "ru": "Російська",
             "sk": "Slovak",
             "sl": "Slovenian",
             "sv": "Swedish",

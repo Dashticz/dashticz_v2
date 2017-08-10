@@ -25,7 +25,7 @@ function loadGarbage () {
 	var hide_icon = false;
 	if(typeof(settings['garbage_hideicon'])!=='undefined' && parseFloat(settings['garbage_hideicon'])==1) hide_icon=true;
 	
-	var html='<div class="trash trash'+random+' col-xs-'+width+' transbg" data-id="trash.'+key+'">';
+	var html='<div class="trash trash'+random+' col-xs-'+width+' transbg" data-id="garbage">';
 		if(!hide_icon){
 			html+='<div class="col-xs-4 col-icon">';
 				html+='<img class="trashcan" src="img/kliko.png" style="opacity:0.1" />';

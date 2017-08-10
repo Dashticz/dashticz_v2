@@ -26,6 +26,7 @@
         "value": "Waarde"
     },
     "settings": {
+        "blocksave": "Sla de onderstaande code op in uw CONFIG.js om de wijzigingen toe te passen en herlaad Dashticz!",
         "close": "Sluiten",
         "close_reload": "Sluit venster en herlaad Dashticz",
         "garbage": {

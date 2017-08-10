@@ -270,9 +270,9 @@ function buildScreens(){
 					else {
 						
 						if(settings['hide_topbar']==0) $('body .row').append('<div class="col-sm-undefined col-xs-12 sortable colbar transbg dark"><div data-id="logo" class="logo col-xs-2">'+settings['app_title']+'<div></div></div><div data-id="clock" class="miniclock col-xs-8 text-center"><span class="weekday"></span> <span class="date"></span> <span>&nbsp;&nbsp;&nbsp;&nbsp;</span> <span class="clock"></span></div><div data-id="settings" class="settings settingsicon text-right" data-toggle="modal" data-target="#settingspopup"><em class="fa fa-cog" /></div></div></div>');
-						$('body .row').append('<div class="col-xs-5 sortable col1"><div class="auto_switches"></div><div class="auto_dimmers"></div></div>');
-						$('body .row').append('<div class="col-xs-5 sortable col2"><div class="block_weather containsweatherfull"></div><div class="auto_media"></div><div class="auto_states"></div></div>');
-						$('body .row').append('<div class="col-xs-2 sortable col3"><div class="auto_clock"></div><div class="auto_sunrise"></div><div class="auto_buttons"></div></div>');
+						$('body .row').append('<div class="col-xs-5 sortable col1" data-colindex="1"><div class="auto_switches"></div><div class="auto_dimmers"></div></div>');
+						$('body .row').append('<div class="col-xs-5 sortable col2" data-colindex="2"><div class="block_weather containsweatherfull"></div><div class="auto_media"></div><div class="auto_states"></div></div>');
+						$('body .row').append('<div class="col-xs-2 sortable col3" data-colindex="3"><div class="auto_clock"></div><div class="auto_sunrise"></div><div class="auto_buttons"></div></div>');
 
 						if(typeof(settings['wu_api'])!=='undefined' && settings['wu_api']!=="" && settings['wu_api']!==0 && typeof(settings['wu_city'])!=='undefined' && settings['wu_city']!==""){
 							$('.col2').prepend('<div class="mh transbg big block_currentweather_big col-xs-12 containsweather"><div class="col-xs-1"><div class="weather" id="weather"></div></div><div class="col-xs-11"><span class="title weatherdegrees" id="weatherdegrees"></span> <span class="weatherloc" id="weatherloc"></span></div></div>');

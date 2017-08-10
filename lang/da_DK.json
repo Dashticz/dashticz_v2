@@ -26,6 +26,7 @@
         "value": "Value"
     },
     "settings": {
+        "blocksave": "Save the code below to your CONFIG.js to apply the changes. Reload Dashticz afterwards.",
         "close": "Close",
         "close_reload": "Close and reload!",
         "garbage": {
@@ -61,11 +62,11 @@
             "calendarlanguage": "Calendar language",
             "calendarurl": "Calendar URL (ICS)",
             "cn": "Chinese",
-            "da": "Danish",
+            "da": "Dansk",
             "de": "German",
             "en": "English",
             "es": "Spanish",
-            "fi": "Finnish",
+            "fi": "Finsk",
             "fr": "French",
             "gm_api": "GoogleMaps API Key",
             "gm_latitude": "Latitude",
@@ -77,16 +78,16 @@
             "it": "Italian",
             "language": "Language",
             "nl": "Dutch",
-            "no": "Norwegian",
-            "pl": "Polish",
+            "no": "Norsk",
+            "pl": "Polsk",
             "pt": "Portugese",
-            "ru": "Russian",
-            "sk": "Slovak",
-            "sl": "Slovenian",
+            "ru": "Russisk",
+            "sk": "Slovakisk",
+            "sl": "Slovensk",
             "sv": "Swedish",
             "timeformat": "Datetime format",
             "title": "Localize",
-            "uk": "Ukrainian"
+            "uk": "Ukrainske"
         },
         "media": {
             "hide_mediaplayer": "Hide mediaplayer when it's off",
