@@ -149,7 +149,7 @@ function loadGarbage () {
 		});
 		
 	}
-	if(service=='cure' || service=='dar' || service=='waalre' || service=='cyclusnv' || service=='sudwestfryslan' || service=='alphenaandenrijn' || service=='rmn' || service=='circulusberkel' || service=='gemeenteberkelland' || service=='meerlanden' || service=='venray'){
+	if(service=='cure' || service=='dar' || service=='avalex' || service=='waalre' || service=='cyclusnv' || service=='sudwestfryslan' || service=='alphenaandenrijn' || service=='rmn' || service=='circulusberkel' || service=='gemeenteberkelland' || service=='meerlanden' || service=='venray'){
 		$('.trash'+random+' .state').html('');
 	
 		var baseURL = '';
@@ -164,6 +164,7 @@ function loadGarbage () {
 		if(service=='sudwestfryslan') baseURL = 'http://afvalkalender.sudwestfryslan.nl';
 		if(service=='dar') baseURL = 'https://afvalkalender.dar.nl';
 		if(service=='waalre') baseURL = 'https://afvalkalender.waalre.nl';
+		if(service=='avalex') baseURL = 'https://www.avalex.nl';
 		
 		$.getJSON('https://cors-anywhere.herokuapp.com/'+baseURL + '/rest/adressen/' + postcode + '-' + homenumber,function(data){
 			$.getJSON('https://cors-anywhere.herokuapp.com/'+baseURL + '/rest/adressen/'+data[0].bagId+'/afvalstromen',function(data){
