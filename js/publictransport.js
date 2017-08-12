@@ -83,6 +83,7 @@ function dataPublicTransport(random,data,transportobject){
 							else if(typeof(deps[de]['RouteTekst'])!=='undefined') dataPart[key][i]+=' via '+deps[de]['viaNames'];
 						}
 						dataPart[key][i]+=' </div>';
+						i++;
 					}
 				}
 			}
@@ -107,8 +108,8 @@ function dataPublicTransport(random,data,transportobject){
 			}
 			
 			dataPart[arrivalTime][i]+='</div>';
+			i++;
 		}
-		i = i+1;
 	}
 	
 	$('.publictransport'+random+' .state').html('');
