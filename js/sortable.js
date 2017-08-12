@@ -6,7 +6,7 @@ function startSortable(){
 		helper: "clone",
 		tolerance: "pointer",
 		start: function (event, ui) {
-			if(typeof(myswiper)!=='undefined') myswiper.lockSwipes();
+			if($('.swiper-container .screen').length>1 && typeof(myswiper)!=='undefined') myswiper.lockSwipes();
 			if( ui.helper !== undefined )
 			ui.helper.css('position','absolute').css('margin-top', $(window).scrollTop() );
 		},
@@ -20,7 +20,7 @@ function startSortable(){
 			$(ui.item).addClass('col-xs-6').addClass('mh').addClass('transbg');
 		},
 		beforeStop: function (event, ui) {
-			if(typeof(myswiper)!=='undefined') myswiper.unlockSwipes();
+			if($('.swiper-container .screen').length>1 && typeof(myswiper)!=='undefined') myswiper.unlockSwipes();
 			if( ui.offset !== undefined )
 			ui.helper.css('margin-top', 0);
 		}

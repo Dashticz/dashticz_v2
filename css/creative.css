@@ -4,6 +4,8 @@
 }
 .swiper-container.edit{
 	width:auto;
+	float: right;
+    width: calc(100% - 220px);
 }
 .swiper-wrapper {
 	height: 100%;
