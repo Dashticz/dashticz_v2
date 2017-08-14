@@ -568,17 +568,26 @@ function loadButton(b,button){
 	if(typeof(button.newwindow)!=='undefined'){
 		var html='<div class="col-xs-'+width+' hover transbg" data-id="buttons.'+key+'" onclick="window.open(\''+button.url+'\')">';
 	}
+	else if(typeof(button.slide)!=='undefined'){
+		var html='<div class="col-xs-'+width+' hover transbg" data-id="buttons.'+key+'" onclick="toSlide('+(parseFloat(button.slide)-1)+')">';
+	}
 	else {
 		var html='<div class="col-xs-'+width+' hover transbg" data-id="buttons.'+key+'" data-toggle="modal" data-target="#button_'+b+'_'+random+'" onclick="setSrc(this);">';
 	}
-		html+='<div class="col-xs-4 col-icon">';
-			if(typeof(button.image)!=='undefined') html+='<img class="buttonimg" src="'+button.image+'" />';
+		
+		if(typeof(button.title)!=='undefined'){
+			html+='<div class="col-xs-4 col-icon">';
+		}
+		else {html+='<div class="col-xs-12 col-icon">';}
+		if(typeof(button.image)!=='undefined') html+='<img class="buttonimg" src="'+button.image+'" />';
 			else html+='<em class="fa '+button.icon+' fa-small"></em>';
 		html+='</div>';
-		html+='<div class="col-xs-8 col-data">';
-			html+='<strong class="title">'+button.title+'</strong><br>';
-			html+='<span class="state"></span>';
-		html+='</div>';
+		if(typeof(button.title)!=='undefined'){
+			html+='<div class="col-xs-8 col-data">';
+				html+='<strong class="title">'+button.title+'</strong><br>';
+				html+='<span class="state"></span>';
+			html+='</div>';
+		}
 	html+='</div>';
 	return html;
 }
