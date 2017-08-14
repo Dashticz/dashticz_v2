@@ -1257,7 +1257,7 @@ function getDevices(override){
 											html+=' / <span class="lastupdate">'+moment(device['LastUpdate']).format(settings['timeformat'])+'</span>';
 										}
 										html+='<br />';
-										if(device['SubType']=='RGBW' || device['SubType']=='RGBWW'){
+										if(device['SubType']=='removeRGBW' || device['SubType']=='removeRGBWW'){
 											html+='<input type="text" class="rgbw" data-light="'+device['idx']+'" />';
 											html+='<div class="slider slider'+device['idx']+'" style="margin-left:55px;" data-light="'+device['idx']+'"></div>';
 										}
@@ -1270,7 +1270,7 @@ function getDevices(override){
 									$('div.block_'+idx).html(html);
 									addHTML=false;
 									
-									if(device['SubType']=='RGBW' || device['SubType']=='RGBWW'){
+									if(device['SubType']=='removeRGBW' || device['SubType']=='removeRGBWW'){
 										$(".rgbw").spectrum({
 											color: Cookies.get('rgbw_'+idx)
 										});
