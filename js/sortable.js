@@ -90,6 +90,7 @@ function saveBlocks(){
 		  html+='</div>';
 		html+='</div>';
 	
-	$('#blocksoutput').remove();
+	//$('#blocksoutput').remove();
 	$('body').append(html);
+	$('#blocksoutput').modal('show');
 }

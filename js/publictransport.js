@@ -41,8 +41,12 @@ function loadPublicTransport(random,transportobject,key){
 
 function getData(random,transportobject){
 	var provider = transportobject.provider.toLowerCase();
+	var dataURL = '';
 	if(provider == 'vvs'){
 		dataURL = 'https://efa-api.asw.io/api/v1/station/'+transportobject.station+'/departures/';
+	}
+	else if(provider == 'mobiliteit'){
+		dataURL = 'https://cors-anywhere.herokuapp.com/http://travelplanner.mobiliteit.lu/restproxy/departureBoard?accessId=cdt&format=json&id=A=1@O='+transportobject.station;
 	}
 	else if(provider == '9292' || provider == '9292-train' || provider == '9292-bus' || provider == '9292-metro' || provider == '9292-tram-bus'){
 		dataURL = 'https://cors-anywhere.herokuapp.com/http://api.9292.nl/0.1/locations/'+transportobject.station+'/departure-times?lang=nl-NL&time='+$.now();
@@ -86,6 +90,27 @@ function dataPublicTransport(random,data,transportobject){
 						i++;
 					}
 				}
+			}
+		}
+		else if(provider == 'mobiliteit') {
+			for(t in data[d]) {
+				if(data[d][t]['time']==null){
+					continue;
+				}
+				key = data[d][t]['time'];
+				if(typeof(dataPart[key])=='undefined') dataPart[key]=[];
+				BusTime = data[d][t]['time'].slice(0,-3);
+				dataPart[key][i]='';
+				dataPart[key][i]+='<div><b>'+ BusTime +'</b> ';
+				dataPart[key][i]+=' - '+data[d][t]['name']+' - ';
+				//console.log(data[d][t]['time']+ ' - ' +data[d][t]['name']+ ' - ' +data[d][t]['direction'] );
+				dest = data[d][t]['direction'].split(' via ');
+				dataPart[key][i]+=dest[0];
+				if(typeof(transportobject.show_via)=='undefined' || transportobject.show_via==true){
+					if(typeof(dest[1])!=='undefined') dataPart[key][i]+=' via '+dest[1];
+				}
+
+				dataPart[key][i]+=' </div>';
 			}
 		}
 		else if(provider == 'vvs'){

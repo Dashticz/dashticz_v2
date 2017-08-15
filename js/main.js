@@ -104,7 +104,7 @@ function onLoad(){
 	md = new MobileDetect(window.navigator.userAgent);
 	
 	if(_EDIT_MODE){
-		$('body').append('<div class="editmode">EDIT MODE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:saveBlocks();" style="color:#fff;" data-toggle="modal" data-target="#blocksoutput"><em class="fa fa-save" /></a>&nbsp;&nbsp;</div>');	
+		$('body').append('<div class="editmode">EDIT MODE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:void(0);" onclick="saveBlocks();" style="color:#fff;"><em class="fa fa-save" /></a>&nbsp;&nbsp;</div>');	
 	}
 
 	$('body').attr('unselectable','on')
