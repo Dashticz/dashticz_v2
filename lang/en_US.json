@@ -109,7 +109,8 @@
             "slide_effect": "Slide effect",
             "standard_graph": "Standard graph",
             "standby_after": "Standby after (minutes, 0 = never)",
-            "title": "Screen"
+            "title": "Screen",
+            "edit_mode": "Edit mode"
         },
         "weather": {
             "idx_moonpicture": "IDX of moonpicture",
