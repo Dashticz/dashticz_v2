@@ -26,7 +26,7 @@
         "value": "Valore"
     },
     "settings": {
-        "blocksave": "Save the code below to your CONFIG.js to apply the changes. Reload Dashticz afterwards.",
+        "blocksave": "Salva il codice qui sotto al tuo CONFIG.js per applicare le modifiche. Ricarica Dashticz in seguito.",
         "close": "Chiudi",
         "close_reload": "Chiudi e ricarica!",
         "garbage": {
@@ -48,6 +48,7 @@
             "default_news_url": "URL default notizie",
             "domoticz_ip": "Domoticz URL",
             "domoticz_refresh": "Aggiorna Domoticz (secondi)",
+            "hide_off_button": "Hide off button at Selector Switches",
             "last_update": "Mostra ultimo agiornamento (ora e data)",
             "news_scroll_after": "Scorri notizie dopo (secondi)",
             "selector_instead_of_buttons": "Utilizza selettore al posto del pulsante",

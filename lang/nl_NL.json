@@ -48,6 +48,7 @@
             "default_news_url": "Standaard nieuws URL",
             "domoticz_ip": "Domoticz URL",
             "domoticz_refresh": "Ververs Domoticz (seconden)",
+            "hide_off_button": "Verberg UIT-knop bij Selector Switches",
             "last_update": "Geef laatste update datum weer",
             "news_scroll_after": "Volgende nieuwsbericht na (seconden)",
             "selector_instead_of_buttons": "Dropdown i.p.v. buttons",

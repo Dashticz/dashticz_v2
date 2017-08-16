@@ -44,6 +44,10 @@ settingList['general']['news_scroll_after'] = {}
 settingList['general']['news_scroll_after']['title'] = language.settings.general.news_scroll_after;
 settingList['general']['news_scroll_after']['type'] = 'text';
 
+settingList['general']['hide_off_button'] = {}
+settingList['general']['hide_off_button']['title'] = language.settings.general.hide_off_button;
+settingList['general']['hide_off_button']['type'] = 'checkbox';
+
 settingList['screen'] = {}
 settingList['screen']['title'] = language.settings.screen.title;
 

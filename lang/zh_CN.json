@@ -48,6 +48,7 @@
             "default_news_url": "Default news URL",
             "domoticz_ip": "Domoticz 网址",
             "domoticz_refresh": "Refresh Domoticz (seconds)",
+            "hide_off_button": "Hide off button at Selector Switches",
             "last_update": "Show last update time\/date",
             "news_scroll_after": "Scroll news after (seconds)",
             "selector_instead_of_buttons": "Selector instead of buttons",
@@ -119,10 +120,10 @@
             "translate_windspeed_help": "'North northwest' instead of 'NNW'",
             "use_beaufort": "Use Bft instead of m\/s",
             "use_fahrenheit": "Use Fahrenheit instead of Celcius",
-            "wu_api": "Wunderground API Key",
-            "wu_city": "Wunderground Station (City or Code)",
+            "wu_api": "Wunderground API密钥",
+            "wu_city": "Wunderground站（城市或代码）",
             "wu_country": "Wunderground Country",
-            "wu_name": "Display Name"
+            "wu_name": "显示名称"
         }
     },
     "switches": {

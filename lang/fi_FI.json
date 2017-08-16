@@ -21,12 +21,12 @@
         "notifications_ns": "NS:n lisäämät ilmoitukset",
         "scheduled": "Suunniteltu",
         "select": "Valitse",
-        "spotify_back_to_playlist": "Back to playlists",
+        "spotify_back_to_playlist": "Takaisin soittolistoihin",
         "spotify_select_playlist": "Valitse soittolista",
         "value": "Arvo"
     },
     "settings": {
-        "blocksave": "Save the code below to your CONFIG.js to apply the changes. Reload Dashticz afterwards.",
+        "blocksave": "Tallenna muutokset alla olevaan koodiin CONFIG.js. Lataa Dashticz sen jälkeen.",
         "close": "Kiinni",
         "close_reload": "Sulje ja lataa!",
         "garbage": {
@@ -48,6 +48,7 @@
             "default_news_url": "Oletusarvoinen uutisosoite",
             "domoticz_ip": "Domoticz:n osoite",
             "domoticz_refresh": "Päivitä Domoticz (sekuntia)",
+            "hide_off_button": "Hide off button at Selector Switches",
             "last_update": "Näytä viimeinen päivitys aika\/päivämäärä",
             "news_scroll_after": "Vieritä uutisia (sekuntia)",
             "selector_instead_of_buttons": "Valitsin painikkeiden sijaan",
@@ -81,7 +82,7 @@
             "no": "Norja",
             "pl": "Puola",
             "pt": "Portugali",
-            "ru": "Russian",
+            "ru": "Venäjän",
             "sk": "Slovakia",
             "sl": "Slovenia",
             "sv": "Ruotsi",

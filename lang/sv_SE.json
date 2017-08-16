@@ -26,7 +26,7 @@
         "value": "Värde"
     },
     "settings": {
-        "blocksave": "Save the code below to your CONFIG.js to apply the changes. Reload Dashticz afterwards.",
+        "blocksave": "Spara koden nedan i din CONFIG.js för att tillämpa ändringarna. Uppdatera Dashticz efteråt.",
         "close": "Stäng",
         "close_reload": "Stäng och ladda om!",
         "garbage": {
@@ -48,6 +48,7 @@
             "default_news_url": "Standard nyhets\/rss URL",
             "domoticz_ip": "Domoticz URL",
             "domoticz_refresh": "Updatera Domoticz (seconds)",
+            "hide_off_button": "Hide off button at Selector Switches",
             "last_update": "Visa sista enhets updatering tid\/datum",
             "news_scroll_after": "Skrolla nyheter efter (sekunder)",
             "selector_instead_of_buttons": "Väljare istället för knappar",

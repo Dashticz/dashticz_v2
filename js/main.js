@@ -1382,11 +1382,13 @@ function getDevices(override){
 											html+='<strong class="title">'+device['Name']+'</strong><br />';
 											html+='<div class="btn-group" data-toggle="buttons">';
 											for(a in names) {
-												var s = '';
-												if ((a * 10) == parseFloat(device['Level'])) s = 'active';
-												html+='<label class="btn btn-default '+s+'" onclick="slideDevice('+device['idx']+',$(this).children(\'input\').val());">';
-												html += '<input type="radio" name="options" autocomplete="off" value="'+(a*10)+'" checked>'+names[a];
-												html+='</label>';
+												if( typeof(settings['hide_off_button'])=='undefined' || parseFloat(settings['hide_off_button'])==0 || parseFloat(a)>0) {
+													var s = '';
+													if ((a * 10) == parseFloat(device['Level'])) s = 'active';
+													html+='<label class="btn btn-default '+s+'" onclick="slideDevice('+device['idx']+',$(this).children(\'input\').val());">';
+													html += '<input type="radio" name="options" autocomplete="off" value="'+(a*10)+'" checked>'+names[a];
+													html+='</label>';
+												}
 											}
 											html+='</select>';
 											html+='</div>';
