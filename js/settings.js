@@ -44,6 +44,10 @@ settingList['general']['news_scroll_after'] = {}
 settingList['general']['news_scroll_after']['title'] = language.settings.general.news_scroll_after;
 settingList['general']['news_scroll_after']['type'] = 'text';
 
+settingList['general']['hide_off_button'] = {}
+settingList['general']['hide_off_button']['title'] = language.settings.general.hide_off_button;
+settingList['general']['hide_off_button']['type'] = 'checkbox';
+
 settingList['screen'] = {}
 settingList['screen']['title'] = language.settings.screen.title;
 
@@ -94,15 +98,23 @@ settingList['localize']['language']['title'] = language.settings.localize.langua
 settingList['localize']['language']['type'] = 'select';
 settingList['localize']['language']['options'] = {};
 settingList['localize']['language']['options']['zh_CN'] = language.settings.localize.cn;
-settingList['localize']['language']['options']['nl_NL'] = language.settings.localize.nl;
+settingList['localize']['language']['options']['da_DK'] = language.settings.localize.da;
+settingList['localize']['language']['options']['de_DE'] = language.settings.localize.de;
 settingList['localize']['language']['options']['en_US'] = language.settings.localize.en;
+settingList['localize']['language']['options']['es_ES'] = language.settings.localize.es;
+settingList['localize']['language']['options']['fi_FI'] = language.settings.localize.fi;
 settingList['localize']['language']['options']['fr_FR'] = language.settings.localize.fr;
 settingList['localize']['language']['options']['hu_HU'] = language.settings.localize.hu;
 settingList['localize']['language']['options']['it_IT'] = language.settings.localize.it;
+settingList['localize']['language']['options']['nl_NL'] = language.settings.localize.nl;
+settingList['localize']['language']['options']['nn_NO'] = language.settings.localize.no;
+settingList['localize']['language']['options']['pl_PL'] = language.settings.localize.pl;
 settingList['localize']['language']['options']['pt_PT'] = language.settings.localize.pt;
+settingList['localize']['language']['options']['ru_RU'] = language.settings.localize.ru;
+settingList['localize']['language']['options']['sk_SK'] = language.settings.localize.sk;
+settingList['localize']['language']['options']['sl_SL'] = language.settings.localize.sl;
 settingList['localize']['language']['options']['sv_SE'] = language.settings.localize.sv;
-settingList['localize']['language']['options']['de_DE'] = language.settings.localize.de;
-settingList['localize']['language']['options']['es_ES'] = language.settings.localize.es;
+settingList['localize']['language']['options']['uk_UA'] = language.settings.localize.uk;
 
 settingList['localize']['timeformat'] = {}
 settingList['localize']['timeformat']['title'] = language.settings.localize.timeformat;
@@ -224,6 +236,7 @@ settingList['garbage']['garbage_company']['options']['edg'] = 'EDG (DE)';
 settingList['garbage']['garbage_company']['options']['deafvalapp'] = 'Afval App (NL)';
 settingList['garbage']['garbage_company']['options']['afvalwijzerarnhem'] = 'Afvalwijzer Arnhem (NL)';
 settingList['garbage']['garbage_company']['options']['alphenaandenrijn'] = 'Alphen aan de Rijn (NL)';
+settingList['garbage']['garbage_company']['options']['avalex'] = 'Avalex (NL)';
 settingList['garbage']['garbage_company']['options']['gemeenteberkelland'] = 'Berkelland (NL)';
 settingList['garbage']['garbage_company']['options']['best'] = 'Best (NL)';
 settingList['garbage']['garbage_company']['options']['circulusberkel'] = 'Circulus Berkel (NL)';
@@ -433,7 +446,7 @@ function saveSettings(){
 	  html+='<div class="modal-dialog modal-dialog-settings">';
 		html+='<div class="modal-content">';
 		  html+='<div class="modal-body" style="padding:20px;font-size:14px;"><br>';
-			html+='<strong>'+language.settings.infosave+'</strong><br><br><textarea style="width:100%;height:500px;" id="codeToCopy">';
+			html+='<strong>'+language.settings.infosave+'</strong><br>If you like my work, you can buy me a beer at: <a href="https://www.paypal.me/robgeerts" target="_blank">https://www.paypal.me/robgeerts</a><br><br><textarea style="width:100%;height:500px;" id="codeToCopy">';
 			  
 			 html+=alertSettings;
 	

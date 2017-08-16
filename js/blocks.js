@@ -55,7 +55,7 @@ function getBlock(cols,c,columndiv,standby){
 	if(typeof(cols)!=='undefined'){
 		var colclass='';
 		if(c=='bar') colclass='transbg dark';
-		if(!standby) $('div.screen'+s+' .row').append('<div class="col-sm-'+cols['width']+' col-xs-12 sortable col'+c+' '+colclass+'"></div>');
+		if(!standby) $('div.screen'+s+' .row').append('<div data-colindex="'+c+'" class="col-sm-'+cols['width']+' col-xs-12 sortable col'+c+' '+colclass+'"></div>');
 		for(b in cols['blocks']){
 		
 			var width=12;
@@ -70,19 +70,22 @@ function getBlock(cols,c,columndiv,standby){
 			if(typeof(blocks[cols['blocks'][b]])!=='undefined' && typeof(blocks[cols['blocks'][b]]['type'])!=='undefined') blocktype = blocks[cols['blocks'][b]]['type'];
 
 			if(blocktype=='blocktitle'){
-				var key = 'UNKNOWN';
-				if(typeof(blocks[cols['blocks'][b]]['key'])!=='undefined') key=blocks[cols['blocks'][b]]['key'];
-				
-				$(columndiv).append('<div data-id="'+key+'" class="col-xs-12 mh titlegroups transbg"><h3>'+blocks[cols['blocks'][b]]['title']+'</h3></div>');
+				$(columndiv).append('<div data-id="'+cols['blocks'][b]+'" class="col-xs-12 mh titlegroups transbg"><h3>'+blocks[cols['blocks'][b]]['title']+'</h3></div>');
 			}
 			else if(cols['blocks'][b]=='weather'){
-				if(typeof(loadWeatherFull)!=='function') $.ajax({url: 'js/weather.js', async: false,dataType: "script"});
+				if(typeof(loadWeatherFull)!=='function'){
+					$('<link href="vendor/weather/css/weather-icons.min.css?v='+cache+'" rel="stylesheet">').appendTo("head");
+					$.ajax({url: 'js/weather.js', async: false,dataType: "script"});
+				}
 				$(columndiv).append('<div data-id="weather" class="block_'+cols['blocks'][b]+' containsweatherfull"></div>');
 				if(settings['wu_api']!=="" && settings['wu_city']!=="") loadWeatherFull(settings['wu_city'],settings['wu_country'],$('.weatherfull'));
 			}
 			else if(cols['blocks'][b]=='currentweather' || cols['blocks'][b]=='currentweather_big'){
 				if(settings['wu_api']!=="" && settings['wu_city']!==""){
-					if(typeof(loadWeather)!=='function') $.ajax({url: 'js/weather.js', async: false,dataType: "script"});
+					if(typeof(loadWeather)!=='function'){
+						$('<link href="vendor/weather/css/weather-icons.min.css?v='+cache+'" rel="stylesheet">').appendTo("head");
+						$.ajax({url: 'js/weather.js', async: false,dataType: "script"});
+					}
 					var cl = '';
 					if(cols['blocks'][b]=='currentweather_big') $(columndiv).append('<div data-id="currentweather_big" class="mh transbg big block_'+cols['blocks'][b]+' col-xs-'+width+' containsweather"><div class="col-xs-1"><div class="weather" id="weather"></div></div><div class="col-xs-11"><span class="title weatherdegrees" id="weatherdegrees"></span> <span class="weatherloc" id="weatherloc"></span></div></div>');
 					else $(columndiv).append('<div data-id="currentweather" class="mh transbg block_'+cols['blocks'][b]+' col-xs-'+width+' containsweather"><div class="col-xs-4"><div class="weather" id="weather"></div></div><div class="col-xs-8"><strong class="title weatherdegrees" id="weatherdegrees"></strong><br /><span class="weatherloc" id="weatherloc"></span></div></div>');
@@ -123,7 +126,7 @@ function getBlock(cols,c,columndiv,standby){
 				$(columndiv).append('<div data-id="settings" class="settings settingsicon col-xs-'+width+' text-right" data-toggle="modal" data-target="#settingspopup"><em class="fa fa-cog" /><div>');
 			}
 			else if(cols['blocks'][b]=='miniclock'){
-				$(columndiv).append('<div data-id="clock" class="miniclock col-xs-'+width+' text-center"><span class="weekday"></span> <span class="date"></span> <span>&nbsp;&nbsp;&nbsp;&nbsp;</span> <span class="clock"></span></div>');
+				$(columndiv).append('<div data-id="miniclock" class="miniclock col-xs-'+width+' text-center"><span class="weekday"></span> <span class="date"></span> <span>&nbsp;&nbsp;&nbsp;&nbsp;</span> <span class="clock"></span></div>');
 			}
 			else if(cols['blocks'][b]=='clock'){
 				$(columndiv).append('<div data-id="clock" class="transbg block_'+cols['blocks'][b]+' col-xs-'+width+' text-center"><h1 class="clock"></h1><h4 class="weekday"></h4><h4 class="date"></h4></div>');
@@ -133,7 +136,7 @@ function getBlock(cols,c,columndiv,standby){
 				getSpotify(columndiv);		
 			}
 			else if(cols['blocks'][b]=='nzbget'){
-				if(typeof(loadNZBGET)!=='function') $.ajax({url: 'vendor/nzbget/nzbget.js', async: false,dataType: "script"});
+				if(typeof(loadNZBGET)!=='function') $.ajax({url: 'js/nzbget.js', async: false,dataType: "script"});
 				loadNZBGET(columndiv);		
 			}
 			else if(cols['blocks'][b]=='log'){
@@ -223,7 +226,10 @@ function getBlock(cols,c,columndiv,standby){
 				if(typeof(cols['blocks'][b]['key'])!=='undefined') key=cols['blocks'][b]['key'];
 				
 				if(typeof(cols['blocks'][b]['frameurl'])!=='undefined') $(columndiv).append(loadFrame(random,cols['blocks'][b]));
-				else if(typeof(cols['blocks'][b]['station'])!=='undefined') $(columndiv).append(loadPublicTransport(random,cols['blocks'][b]));
+				else if(typeof(cols['blocks'][b]['station'])!=='undefined'){
+					if(typeof(loadPublicTransport)!=='function') $.ajax({url: 'js/publictransport.js', async: false,dataType: "script"});
+					$(columndiv).append(loadPublicTransport(random,cols['blocks'][b],key));
+				}
 				else if(typeof(cols['blocks'][b]['channels'])!=='undefined'){
 					if(typeof(addTVGuide)!=='function') $.ajax({url: 'js/tvguide.js', async: false,dataType: "script"});
 				
@@ -275,6 +281,8 @@ function getBlock(cols,c,columndiv,standby){
 					
 					html+='</div>';
 					$(columndiv).append(html);	
+					
+					if(typeof(addCalendar)!=='function') $.ajax({url: 'js/calendar.js', async: false,dataType: "script"});
 					addCalendar($('.containsicalendar'+random),cols['blocks'][b]);
 
 				}

@@ -15,7 +15,7 @@
         "today": "today"
     },
     "misc": {
-        "last_update": "Last update",
+        "last_update": "Siste oppdatering",
         "loading": "Loading...",
         "mediaplayer_nothing_playing": "Nothing is playing right now",
         "notifications_ns": "notifications added by NS",
@@ -23,22 +23,22 @@
         "select": "Select",
         "spotify_back_to_playlist": "Back to playlists",
         "spotify_select_playlist": "Select playlist",
-        "value": "Value"
+        "value": "Verdi"
     },
     "settings": {
         "blocksave": "Save the code below to your CONFIG.js to apply the changes. Reload Dashticz afterwards.",
         "close": "Close",
-        "close_reload": "Close and reload!",
+        "close_reload": "Lukk og oppdater!",
         "garbage": {
-            "garbage_company": "Company \/ Service",
-            "garbage_hideicon": "Hide icon in block",
-            "garbage_housenumber": "House number",
-            "garbage_icalurl": "iCal URL",
-            "garbage_maxitems": "Amount of pickups to show",
-            "garbage_street": "Street",
-            "garbage_width": "Width of block (1-12)",
-            "garbage_zipcode": "Zipcode",
-            "title": "Garbage"
+            "garbage_company": "Firma \/ Service",
+            "garbage_hideicon": "Skjul ikon i blokk",
+            "garbage_housenumber": "Hus nummer",
+            "garbage_icalurl": "ICal URL",
+            "garbage_maxitems": "Antall pickup å vise",
+            "garbage_street": "Gate",
+            "garbage_width": "Bredde av blokk (1-12)",
+            "garbage_zipcode": "Post kode",
+            "title": "Søppel"
         },
         "general": {
             "app_title": "App title",
@@ -56,7 +56,7 @@
             "use_favorites": "Only use favorite devices",
             "use_favorites_help": "Only used when using auto positioning"
         },
-        "infosave": "By default, settings are stored in your browser. Downside of this method is it will only work in your current browser. If that's not a problem, you can proceed. Otherwise, copy code below to your CONFIG.JS to keep settings across all browsers and devices.",
+        "infosave": "Som standard lagres innstillingene i nettleseren din. Ulempen med denne metoden er at den bare vil fungere i din nåværende nettleser. Hvis det ikke er et problem, kan du fortsette. Ellers kopier koden nedenfor til CONFIG.JS for å holde innstillingene over alle nettlesere og enheter.",
         "localize": {
             "boss_stationclock": "StationClock Type",
             "calendarformat": "Calendar format",
@@ -66,18 +66,18 @@
             "da": "Danish",
             "de": "German",
             "en": "English",
-            "es": "Spanish",
+            "es": "Spansk",
             "fi": "Finnish",
             "fr": "French",
-            "gm_api": "GoogleMaps API Key",
+            "gm_api": "GoogleMaps API-Nøkkel",
             "gm_latitude": "Latitude",
-            "gm_longitude": "Longitude",
-            "gm_zoomlevel": "GoogleMaps Zoom level",
-            "hide_seconds": "Hide seconds",
+            "gm_longitude": "Lengde",
+            "gm_zoomlevel": "GoogleMaps Zoom nivå",
+            "hide_seconds": "Skjul sekunder",
             "hide_seconds_stationclock": "Hide seconds in StationClock",
             "hu": "Hungarian",
             "it": "Italian",
-            "language": "Language",
+            "language": "Språk",
             "nl": "Dutch",
             "no": "Norwegian",
             "pl": "Polish",
@@ -91,12 +91,12 @@
             "uk": "Ukrainian"
         },
         "media": {
-            "hide_mediaplayer": "Hide mediaplayer when it's off",
-            "host_nzbget": "NZBget Path",
-            "host_nzbget_help": "If you use NZBget, enter the ip-address and port, e.g.: http:\/\/192.168.1.32:8080",
+            "hide_mediaplayer": "Skjul mediaplayer når den er av",
+            "host_nzbget": "NZBget Banen",
+            "host_nzbget_help": "Hvis du bruker NZBget, skriver du inn ip-adressen og porten, for eksempel: http:\/\/192.168.1.32:8080",
             "spot_clientid": "Spotify ClientID",
-            "switch_horizon": "Ziggo\/UPC Mediabox Path",
-            "switch_horizon_help": "If you have a mediabox from ZIGGO or UPC (Horizon), copy switch_horizon.php on a webserver inside your network and change the IP (of Horizon) inside this file.",
+            "switch_horizon": "Ziggo\/UPC Mediabox Banen",
+            "switch_horizon_help": "Hvis du har en mediabox fra ZIGGO eller UPC (Horizon), kopier switch_horizon.php på en webserver i nettverket ditt og endre IP (av Horizon) i denne filen.",
             "title": "Media"
         },
         "save": "Save",
@@ -114,16 +114,16 @@
         "weather": {
             "idx_moonpicture": "IDX of moonpicture",
             "idx_moonpicture_help": "Take a look at the wiki to learn how to add an image of the current moon phase.",
-            "static_weathericons": "Use static weather icons",
-            "title": "Weather",
-            "translate_windspeed": "Translate wind speed",
-            "translate_windspeed_help": "'North northwest' instead of 'NNW'",
-            "use_beaufort": "Use Bft instead of m\/s",
-            "use_fahrenheit": "Use Fahrenheit instead of Celcius",
-            "wu_api": "Wunderground API Key",
-            "wu_city": "Wunderground Station (City or Code)",
+            "static_weathericons": "Bruke statiske vær ikoner",
+            "title": "Vær",
+            "translate_windspeed": "Oversett vindhastighet",
+            "translate_windspeed_help": "'Nord-nordvest' i stedet for 'NNW'",
+            "use_beaufort": "Bruk Bft i stedet for m\/s",
+            "use_fahrenheit": "Bruk Fahrenheit istedenfor Celcius",
+            "wu_api": "Wunderground API-Nøkkel",
+            "wu_city": "Wunderground Station (Byen eller Kode)",
             "wu_country": "Wunderground Country",
-            "wu_name": "Display Name"
+            "wu_name": "Visningsnavn"
         }
     },
     "switches": {

@@ -2,9 +2,6 @@
 var language = {};
 var cache = new Date().getTime();
 
-$('<link href="css/creative.css?v='+cache+'" rel="stylesheet">').appendTo("head");
-$('<link href="css/sortable.css?v='+cache+'" rel="stylesheet">').appendTo("head");
-
 // device detection
 var standby=true;
 var standbyActive=false;
@@ -35,60 +32,71 @@ var _STREAMPLAYER_TRACKS = {"track":1,"name":"Music FM","file":"http://stream.mu
 	
 function loadFiles(){
 	
-	if(objectlength(columns)==0) defaultcolumns = true;
-	
-	_GRAPHREFRESH = 5;
-	if(typeof(screens)=='undefined' || objectlength(screens)==0){
-			 
-		screens = {}
-		screens[1] = {}
-		screens[1]['background'] = _BACKGROUND_IMAGE;
-		screens[1]['columns'] = []
-		if(defaultcolumns===false){
-			for(c in columns){
-				if(c!=='bar') screens[1]['columns'].push(c);
+	$.ajax({url: customfolder+'/CONFIG.js', async: false,dataType: "script"}).done(function() {
+		if(objectlength(columns)==0) defaultcolumns = true;
+
+		_GRAPHREFRESH = 5;
+		if(typeof(screens)=='undefined' || objectlength(screens)==0){
+
+			screens = {}
+			screens[1] = {}
+			screens[1]['background'] = _BACKGROUND_IMAGE;
+			screens[1]['columns'] = []
+			if(defaultcolumns===false){
+				for(c in columns){
+					if(c!=='bar') screens[1]['columns'].push(c);
+				}
 			}
 		}
-	}
-	//Check language before loading settings and fallback to Englisch when not set
-	if(typeof(localStorage.dashticz_language)!=='undefined'){setLang = localStorage.dashticz_language}
-	else if(typeof(config.language)!=='undefined'){ setLang = config.language}
-	else {setLang = 'en_US'}
-	$.ajax({url: 'lang/'+setLang+'.json?v='+cache, async: false, dataType: 'json', success: function(data) {
-		language = data
-	}});
-	
-	$.ajax({url: 'js/settings.js', async: false,dataType: "script"}).done(function() {
-		loadSettings();
+		//Check language before loading settings and fallback to Englisch when not set
+		if(typeof(localStorage.dashticz_language)!=='undefined'){setLang = localStorage.dashticz_language}
+		else if(typeof(config)!=='undefined' && typeof(config.language)!=='undefined'){ setLang = config.language}
+		else {setLang = 'en_US'}
+		$.ajax({url: 'lang/'+setLang+'.json?v='+cache, async: false, dataType: 'json', success: function(data) {
+			language = data
+		}});
 
-		if(_THEME!=='default'){
-			$('<link rel="stylesheet" type="text/css" href="themes/'+_THEME+'/'+_THEME+'.css?v='+cache+'" />').appendTo("head");
-		}
-		$('<link href="'+customfolder+'/custom.css?v='+cache+'" rel="stylesheet">').appendTo("head");
-		$.ajax({url: 'js/sortable.js', async: false,dataType: "script"});
-		$.ajax({url: 'js/switches.js', async: false,dataType: "script"});
-		$.ajax({url: 'js/calendar.js', async: false,dataType: "script"});
-		$.ajax({url: 'js/thermostat.js', async: false,dataType: "script"});
-		$.ajax({url: 'js/publictransport.js', async: false,dataType: "script"});
+		$.ajax({url: 'js/settings.js', async: false,dataType: "script"}).done(function() {
+			loadSettings();
 
-		if(typeof(_DEBUG)!=='undefined' && _DEBUG){
-			$.ajax({url: 'custom/json_vb.js', async: false,dataType: "script"});
-			$.ajax({url: 'custom/graph_vb.js', async: false,dataType: "script"});
-		}
+			$('<link href="css/creative.css?v='+cache+'" rel="stylesheet">').appendTo("head");
+			
+			if(_THEME!=='default'){
+				$('<link rel="stylesheet" type="text/css" href="themes/'+_THEME+'/'+_THEME+'.css?v='+cache+'" />').appendTo("head");
+			}
+			$('<link href="'+customfolder+'/custom.css?v='+cache+'" rel="stylesheet">').appendTo("head");
+			
+			if(typeof(_EDIT_MODE)!=='undefined' && _EDIT_MODE==true){
+				$('<link href="css/sortable.css?v='+cache+'" rel="stylesheet">').appendTo("head");
+				$.ajax({url: 'js/sortable.js', async: false,dataType: "script"});
+				
+				var html = '<div class="newblocksHolder" style="display:none;">';
+					html+= '<div class="title">Add plugin</div>';
+					html+= '<div class="newblocks plugins sortable"></div>';
+					html+= '<div class="title">Add block</div>';
+					html+= '<div class="newblocks domoticz sortable"></div>';
+				html+= '</div>';
+					
+				$('body').prepend(html);
+			}
+			
+			$.ajax({url: 'js/switches.js', async: false,dataType: "script"});
+			$.ajax({url: 'js/thermostat.js', async: false,dataType: "script"});
 
-		$.ajax({url: customfolder+'/custom.js?v='+cache, async: false,dataType: "script"});
-		$.ajax({url: 'js/blocks.js', async: false,dataType: "script"});
-		$.ajax({url: 'js/graphs.js', async: false,dataType: "script"});
+			$.ajax({url: customfolder+'/custom.js?v='+cache, async: false,dataType: "script"});
+			$.ajax({url: 'js/blocks.js', async: false,dataType: "script"});
+			$.ajax({url: 'js/graphs.js', async: false,dataType: "script"});
 
-		$.ajax({url: 'js/switches.js', async: false,dataType: "script"});
-		$.ajax({url: 'js/blocks.js', async: false,dataType: "script"});
-		$.ajax({url: 'js/graphs.js', async: false,dataType: "script"});
-		if(typeof(settings['gm_api'])!=='undefined' && settings['gm_api']!=="" && settings['gm_api']!==0){
-			$.ajax({url: 'https://maps.googleapis.com/maps/api/js?key='+settings['gm_api']+'&callback=initMap', async: false,dataType: "script"}).done(function() {
-				onLoad();
-			});
-		}
-		else onLoad();
+			$.ajax({url: 'js/switches.js', async: false,dataType: "script"});
+			$.ajax({url: 'js/blocks.js', async: false,dataType: "script"});
+			$.ajax({url: 'js/graphs.js', async: false,dataType: "script"});
+			if(typeof(settings['gm_api'])!=='undefined' && settings['gm_api']!=="" && settings['gm_api']!==0){
+				$.ajax({url: 'https://maps.googleapis.com/maps/api/js?key='+settings['gm_api']+'&callback=initMap', async: false,dataType: "script"}).done(function() {
+					onLoad();
+				});
+			}
+			else onLoad();
+		});
 	});
 }
 
@@ -96,7 +104,7 @@ function onLoad(){
 	md = new MobileDetect(window.navigator.userAgent);
 	
 	if(_EDIT_MODE){
-		$('body').append('<div class="editmode">EDIT MODE</div>');	
+		$('body').append('<div class="editmode">EDIT MODE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:void(0);" onclick="saveBlocks();" style="color:#fff;"><em class="fa fa-save" /></a>&nbsp;&nbsp;</div>');	
 	}
 
 	$('body').attr('unselectable','on')
@@ -142,7 +150,6 @@ function onLoad(){
 		}
 	}
 
-	//Loop through pages
 	if((settings['auto_swipe_back_after'] == 0  || typeof(settings['auto_swipe_back_after'])== 'undefined') && parseFloat(settings['auto_slide_pages']) > 0){
 		var nextSlide = 1;
 		setInterval(function(){
@@ -271,25 +278,34 @@ function buildScreens(){
 					}
 					else {
 						
-						if(settings['hide_topbar']==0) $('body .row').append('<div class="col-sm-undefined col-xs-12 sortable colbar transbg dark"><div data-id="logo" class="logo col-xs-2">'+settings['app_title']+'<div></div></div><div data-id="clock" class="miniclock col-xs-8 text-center"><span class="weekday"></span> <span class="date"></span> <span>&nbsp;&nbsp;&nbsp;&nbsp;</span> <span class="clock"></span></div><div data-id="settings" class="settings settingsicon text-right" data-toggle="modal" data-target="#settingspopup"><em class="fa fa-cog" /></div></div></div>');
-						$('body .row').append('<div class="col-xs-5 sortable col1"><div class="auto_switches"></div><div class="auto_dimmers"></div></div>');
-						$('body .row').append('<div class="col-xs-5 sortable col2"><div class="block_weather containsweatherfull"></div><div class="auto_media"></div><div class="auto_states"></div></div>');
-						$('body .row').append('<div class="col-xs-2 sortable col3"><div class="auto_clock"></div><div class="auto_sunrise"></div><div class="auto_buttons"></div></div>');
-
-						if(typeof(settings['wu_api'])!=='undefined' && settings['wu_api']!=="" && settings['wu_api']!==0 && typeof(settings['wu_city'])!=='undefined' && settings['wu_city']!==""){
-							$('.col2').prepend('<div class="mh transbg big block_currentweather_big col-xs-12 containsweather"><div class="col-xs-1"><div class="weather" id="weather"></div></div><div class="col-xs-11"><span class="title weatherdegrees" id="weatherdegrees"></span> <span class="weatherloc" id="weatherloc"></span></div></div>');
-							if(typeof(loadWeatherFull)!=='function') $.ajax({url: 'js/weather.js', async: false,dataType: "script"});
-							loadWeatherFull(settings['wu_city'],settings['wu_country'],$('#weatherfull'));
-							loadWeather(settings['wu_city'],settings['wu_country']);
-						}
-
-						$('.col3 .auto_clock').html('<div class="transbg block_clock col-xs-12 text-center"><h1 id="clock" class="clock"></h1><h4 id="weekday" class="weekday"></h4><h4 id="date" class="date"></h4></div>');
-						$('.col3 .auto_sunrise').html('<div class="block_sunrise col-xs-12 transbg text-center sunriseholder"><em class="wi wi-sunrise"></em><span id="sunrise" class="sunrise"></span><em class="wi wi-sunset"></em><span id="sunset" class="sunset"></span></div>');
-						if(typeof(buttons)!=='undefined'){
-							for(b in buttons){
-								if(buttons[b].isimage) $('.col3 .auto_buttons').append(loadImage(b,buttons[b]));
-								else $('.col3 .auto_buttons').append(loadButton(b,buttons[b]));
+						if(settings['hide_topbar']==0) $('body .row').append('<div class="col-sm-undefined col-xs-12 sortable colbar transbg dark"><div data-id="logo" class="logo col-xs-2">'+settings['app_title']+'<div></div></div><div data-id="miniclock" class="miniclock col-xs-8 text-center"><span class="weekday"></span> <span class="date"></span> <span>&nbsp;&nbsp;&nbsp;&nbsp;</span> <span class="clock"></span></div><div data-id="settings" class="settings settingsicon text-right" data-toggle="modal" data-target="#settingspopup"><em class="fa fa-cog" /></div></div></div>');
+						if(typeof(settings['default_columns'])=='undefined' || parseFloat(settings['default_columns'])==3){
+							$('body .row').append('<div class="col-xs-5 sortable col1" data-colindex="1"><div class="auto_switches"></div><div class="auto_dimmers"></div></div>');
+							$('body .row').append('<div class="col-xs-5 sortable col2" data-colindex="2"><div class="block_weather containsweatherfull"></div><div class="auto_media"></div><div class="auto_states"></div></div>');
+							$('body .row').append('<div class="col-xs-2 sortable col3" data-colindex="3"><div class="auto_clock"></div><div class="auto_sunrise"></div><div class="auto_buttons"></div></div>');
+						
+							if(typeof(settings['wu_api'])!=='undefined' && settings['wu_api']!=="" && settings['wu_api']!==0 && typeof(settings['wu_city'])!=='undefined' && settings['wu_city']!==""){
+								$('.col2').prepend('<div class="mh transbg big block_currentweather_big col-xs-12 containsweather"><div class="col-xs-1"><div class="weather" id="weather"></div></div><div class="col-xs-11"><span class="title weatherdegrees" id="weatherdegrees"></span> <span class="weatherloc" id="weatherloc"></span></div></div>');
+								if(typeof(loadWeatherFull)!=='function') $.ajax({url: 'js/weather.js', async: false,dataType: "script"});
+								loadWeatherFull(settings['wu_city'],settings['wu_country'],$('#weatherfull'));
+								loadWeather(settings['wu_city'],settings['wu_country']);
 							}
+
+							$('.col3 .auto_clock').html('<div class="transbg block_clock col-xs-12 text-center"><h1 id="clock" class="clock"></h1><h4 id="weekday" class="weekday"></h4><h4 id="date" class="date"></h4></div>');
+							$('.col3 .auto_sunrise').html('<div class="block_sunrise col-xs-12 transbg text-center sunriseholder"><em class="wi wi-sunrise"></em><span id="sunrise" class="sunrise"></span><em class="wi wi-sunset"></em><span id="sunset" class="sunset"></span></div>');
+							if(typeof(buttons)!=='undefined'){
+								for(b in buttons){
+									if(buttons[b].isimage) $('.col3 .auto_buttons').append(loadImage(b,buttons[b]));
+									else $('.col3 .auto_buttons').append(loadButton(b,buttons[b]));
+								}
+							}
+						}
+						else if(parseFloat(settings['default_columns'])==1){
+							$('body .row').append('<div class="col-xs-12 sortable col1" data-colindex="1"><div class="auto_switches"></div><div class="auto_dimmers"></div></div>');
+						}
+						else if(parseFloat(settings['default_columns'])==2){
+							$('body .row').append('<div class="col-xs-6 sortable col1" data-colindex="1"><div class="auto_switches"></div><div class="auto_dimmers"></div></div>');
+							$('body .row').append('<div class="col-xs-6 sortable col2" data-colindex="2"><div class="block_weather containsweatherfull"></div><div class="auto_media"></div><div class="auto_states"></div></div>');
 						}
 					}
 					num++;
@@ -300,6 +316,7 @@ function buildScreens(){
 	}
 	
 	if(typeof(_EDIT_MODE)!=='undefined' && _EDIT_MODE==true){
+		$('.swiper-container').addClass('edit');
 		setTimeout(function(){ 
 			startSortable(); 
 		},2000);
@@ -310,20 +327,23 @@ function buildScreens(){
 
 function startSwiper(){
 	
-	if(md.mobile()==null){
-		$('<link href="vendor/swiper/css/swiper.min.css" rel="stylesheet">').appendTo("head");
-		if((typeof(_EDIT_MODE)=='undefined' || _EDIT_MODE===false)){
-			setTimeout(function(){
-				myswiper = new Swiper('.swiper-container', {
-					pagination: '.swiper-pagination',
-					paginationClickable: true,
-					loop: false,
-					effect: settings['slide_effect'],
-					keyboardControl:true
-				});
-			},2000);
+	if(md.mobile()==null || md.tablet()!==null){
+		if($('.swiper-container .screen').length>1){
+			$.ajax({url: 'vendor/swiper/js/swiper.min.js', async: false,dataType: "script"}).done(function() {
+				$('<link href="vendor/swiper/css/swiper.min.css" rel="stylesheet">').appendTo("head");
+				//if((typeof(_EDIT_MODE)=='undefined' || _EDIT_MODE===false)){
+					setTimeout(function(){
+						myswiper = new Swiper('.swiper-container', {
+							pagination: '.swiper-pagination',
+							paginationClickable: true,
+							loop: false,
+							effect: settings['slide_effect'],
+							keyboardControl:true
+						});
+					},2000);
+				//}
+			});
 		}
-
 	}
 	//$( window ).resize(function() { document.location.href=document.location.href });
 }
@@ -548,17 +568,26 @@ function loadButton(b,button){
 	if(typeof(button.newwindow)!=='undefined'){
 		var html='<div class="col-xs-'+width+' hover transbg" data-id="buttons.'+key+'" onclick="window.open(\''+button.url+'\')">';
 	}
+	else if(typeof(button.slide)!=='undefined'){
+		var html='<div class="col-xs-'+width+' hover transbg" data-id="buttons.'+key+'" onclick="toSlide('+(parseFloat(button.slide)-1)+')">';
+	}
 	else {
 		var html='<div class="col-xs-'+width+' hover transbg" data-id="buttons.'+key+'" data-toggle="modal" data-target="#button_'+b+'_'+random+'" onclick="setSrc(this);">';
 	}
-		html+='<div class="col-xs-4 col-icon">';
-			if(typeof(button.image)!=='undefined') html+='<img class="buttonimg" src="'+button.image+'" />';
+		
+		if(typeof(button.title)!=='undefined'){
+			html+='<div class="col-xs-4 col-icon">';
+		}
+		else {html+='<div class="col-xs-12 col-icon">';}
+		if(typeof(button.image)!=='undefined') html+='<img class="buttonimg" src="'+button.image+'" />';
 			else html+='<em class="fa '+button.icon+' fa-small"></em>';
 		html+='</div>';
-		html+='<div class="col-xs-8 col-data">';
-			html+='<strong class="title">'+button.title+'</strong><br>';
-			html+='<span class="state"></span>';
-		html+='</div>';
+		if(typeof(button.title)!=='undefined'){
+			html+='<div class="col-xs-8 col-data">';
+				html+='<strong class="title">'+button.title+'</strong><br>';
+				html+='<span class="state"></span>';
+			html+='</div>';
+		}
 	html+='</div>';
 	return html;
 }
@@ -801,13 +830,24 @@ function getDevices(override){
 			},
 			success: function(data) {
 				gettingDevices = false;
-				if(typeof(_DEBUG)!=='undefined' && _DEBUG) data = $.parseJSON(jsonexample);
 				if(!sliding || override){
 					$('.solar').remove();
 				
 					if($('.sunrise').length>0) $('.sunrise').html(data.Sunrise);
 					if($('.sunset').length>0) $('.sunset').html(data.Sunset);
 										
+					$('div.newblocks.plugins').html('');
+					$('div.newblocks.domoticz').html('');
+					if(_EDIT_MODE){
+						$('div.newblocks.plugins').append('<div data-id="clock"><span class="title">Clock</span></div>');
+						$('div.newblocks.plugins').append('<div data-id="currentweather_big"><span class="title">Current weather</span></div>');
+						$('div.newblocks.plugins').append('<div data-id="garbage"><span class="title">Garbage</span></div>');
+						$('div.newblocks.plugins').append('<div data-id="streamplayer"><span class="title">Radio</span></div>');
+						$('div.newblocks.plugins').append('<div data-id="nzbget"><span class="title">NZBget</span></div>');
+						$('div.newblocks.plugins').append('<div data-id="sunrise"><span class="title">Sunrise/set</span></div>');
+						$('div.newblocks.plugins').append('<div data-id="weather"><span class="title">Weather</span></div>');
+					}
+					
 					for(r in data.result){
 						
 						var device = data.result[r];
@@ -819,6 +859,7 @@ function getDevices(override){
 							device['Name'] = blocks[idx]['title'];
 						}
 						
+						if(_EDIT_MODE) $('div.newblocks.domoticz').append('<div data-id="'+idx+'"><span class="title">'+device['Name']+'</span></div>');
 						alldevices[idx] = device;
 						
 						if(
@@ -841,6 +882,8 @@ function getDevices(override){
 								)
 							)
 						){
+							if(_EDIT_MODE) $('div.newblocks > div[data-id="'+idx+'"]').remove();
+							
 							var width=4;
                             if(device['SwitchType']=='Selector') width=8;
 							if(device['SwitchType']=='Media Player') width=12;
@@ -887,7 +930,9 @@ function getDevices(override){
 							if(device['Image']=='Heating') buttonimg = 'heating';
 							
 							$('div.block_'+idx).data('light',idx);
-							$('div.block_'+idx).addClass('col-xs-'+width);
+							if(typeof(settings['default_columns'])=='undefined' || parseFloat(settings['default_columns'])==3) $('div.block_'+idx).addClass('col-xs-'+width);
+							else if(parseFloat(settings['default_columns'])==1) $('div.block_'+idx).addClass('col-xs-3');
+							else if(parseFloat(settings['default_columns'])==2) $('div.block_'+idx).addClass('col-xs-4');
 							
 							
 							var i=1;
@@ -1212,7 +1257,7 @@ function getDevices(override){
 											html+=' / <span class="lastupdate">'+moment(device['LastUpdate']).format(settings['timeformat'])+'</span>';
 										}
 										html+='<br />';
-										if(device['SubType']=='RGBW' || device['SubType']=='RGBWW'){
+										if(device['SubType']=='removeRGBW' || device['SubType']=='removeRGBWW'){
 											html+='<input type="text" class="rgbw" data-light="'+device['idx']+'" />';
 											html+='<div class="slider slider'+device['idx']+'" style="margin-left:55px;" data-light="'+device['idx']+'"></div>';
 										}
@@ -1225,7 +1270,7 @@ function getDevices(override){
 									$('div.block_'+idx).html(html);
 									addHTML=false;
 									
-									if(device['SubType']=='RGBW' || device['SubType']=='RGBWW'){
+									if(device['SubType']=='removeRGBW' || device['SubType']=='removeRGBWW'){
 										$(".rgbw").spectrum({
 											color: Cookies.get('rgbw_'+idx)
 										});
@@ -1337,11 +1382,13 @@ function getDevices(override){
 											html+='<strong class="title">'+device['Name']+'</strong><br />';
 											html+='<div class="btn-group" data-toggle="buttons">';
 											for(a in names) {
-												var s = '';
-												if ((a * 10) == parseFloat(device['Level'])) s = 'active';
-												html+='<label class="btn btn-default '+s+'" onclick="slideDevice('+device['idx']+',$(this).children(\'input\').val());">';
-												html += '<input type="radio" name="options" autocomplete="off" value="'+(a*10)+'" checked>'+names[a];
-												html+='</label>';
+												if( typeof(settings['hide_off_button'])=='undefined' || parseFloat(settings['hide_off_button'])==0 || parseFloat(a)>0) {
+													var s = '';
+													if ((a * 10) == parseFloat(device['Level'])) s = 'active';
+													html+='<label class="btn btn-default '+s+'" onclick="slideDevice('+device['idx']+',$(this).children(\'input\').val());">';
+													html += '<input type="radio" name="options" autocomplete="off" value="'+(a*10)+'" checked>'+names[a];
+													html+='</label>';
+												}
 											}
 											html+='</select>';
 											html+='</div>';
@@ -1620,13 +1667,17 @@ function getDevices(override){
 					if(typeof(afterGetDevices)=='function') afterGetDevices();
 				}
 				
-				if(typeof(_DEBUG)=='undefined' || _DEBUG===false) setTimeout(function(){ getDevices(); },(settings['domoticz_refresh']*1000));
+				if(!_EDIT_MODE){
+					setTimeout(function(){ getDevices(); },(settings['domoticz_refresh']*1000));
+				}
 			}
 		});
 			
 		}
 	}
 	else {
-		if(typeof(_DEBUG)=='undefined' || _DEBUG===false) setTimeout(function(){ getDevices(); },(settings['domoticz_refresh']*1000));
+		if(!_EDIT_MODE){
+			setTimeout(function(){ getDevices(); },(settings['domoticz_refresh']*1000));
+		}
 	}
 }
