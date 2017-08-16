@@ -22,9 +22,11 @@ function getSpotify(columndiv){
 		.then(function(userdata) {
 			getCurrentlyPlaying().then(function(currently) {
 
-				if(currently.item!==null){
-					playList = 'https://open.spotify.com/embed?uri=' + currently.item.uri;
-					$('.containsspotify iframe').attr('src',playList);
+				if(currently.item!==null && typeof(currently.item)!=='undefined'){
+					if(typeof(currently.item.uri)!=='undefined'){
+						playList = 'https://open.spotify.com/embed?uri=' + currently.item.uri;
+						$('.containsspotify iframe').attr('src',playList);
+					}
 				}
 				
 				getPlaylists()
@@ -38,7 +40,7 @@ function getSpotify(columndiv){
 						html+='<div class="modal-body" style="padding-left:15px;"><div class="row list">';
 
 							for(p in playlists.items){
-								if(typeof(playlists.items[p]['images'][0])!=='undefined'){		
+								if(typeof(playlists.items[p])!=='undefined' && typeof(playlists.items[p]['uri'])!=='undefined' && typeof(playlists.items[p]['images'][0])!=='undefined'){		
 									html+='<div class="col-md-3 col-sm-6">';
 										html+='<div class="spotlist">';
 											html+='<div class="col-lg-4 col-md-5 col-sm-4" style="padding:0px;"><a href="javascript:void(0);" onclick="getPlayList(\'https://open.spotify.com/embed?uri='+playlists.items[p]['uri']+'\');"><img style="height:75px;width:75px;" src="'+playlists.items[p]['images'][0]['url']+'" /></a></div>';
@@ -118,11 +120,13 @@ function getTrackList(url,back){
 	getTracks(url).then(function(tracks) {
 		var html='<div class="col-md-12"><div class="spotback"><a href="javascript:void(0);" onclick="showPlaylists();">&laquo; '+language.misc.spotify_back_to_playlist+'</a></div></div>';
 		for(t in tracks.items){	
-			html+='<div class="col-md-3 col-sm-6">';
+			if(typeof(tracks.items[t]['track'])!=='undefined' && typeof(tracks.items[t]['track']['uri'])!=='undefined'){
+				html+='<div class="col-md-3 col-sm-6">';
 				html+='<div class="spottrack">';
 					html+='<div style="margin:10px;"><a href="javascript:void(0);" onclick="getPlayList(\'https://open.spotify.com/embed?uri='+tracks.items[t]['track']['uri']+'\');"><strong>'+tracks.items[t]['track']['artists'][0]['name']+'</strong><br />'+tracks.items[t]['track']['name']+'</a></div>';
 				html+='</div>';
 			html+='</div>';
+			}
 		}
 		$('div.modal-body .row.list').hide();
 		$('div.modal-body .row.tracks').html(html).show();
