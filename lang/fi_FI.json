@@ -22,6 +22,7 @@
         "scheduled": "Suunniteltu",
         "select": "Valitse",
         "spotify_back_to_playlist": "Takaisin soittolistoihin",
+        "spotify_select_device": "Select device",
         "spotify_select_playlist": "Valitse soittolista",
         "value": "Arvo"
     },
@@ -105,6 +106,7 @@
             "auto_swipe_back_after": "Automaattinen siirtyminen takaisin (sekuntia)",
             "auto_swipe_back_to": "Automaattinen siirtyminen takaisin näytölle #",
             "auto_swipe_back_to_help": "Kun ei toimintaa, siirry takaisin päänäyttöön x sekunnin kuluttua",
+            "edit_mode": "Go to edit mode",
             "hide_topbar": "Piilota yläpalkki",
             "slide_effect": "Slide-vaikutus",
             "standard_graph": "Standardi kuvaaja",

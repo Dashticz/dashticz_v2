@@ -22,6 +22,7 @@
         "scheduled": "Запланированные",
         "select": "Выбрать",
         "spotify_back_to_playlist": "Назад в плейлисты",
+        "spotify_select_device": "Select device",
         "spotify_select_playlist": "Выбрать плейлист",
         "value": "Значение"
     },
@@ -105,6 +106,7 @@
             "auto_swipe_back_after": "Авто-переход через (секунд)",
             "auto_swipe_back_to": "Авто-переход на экран #",
             "auto_swipe_back_to_help": "Прокрутить назад к главному экрану через N секунд неактивности",
+            "edit_mode": "Go to edit mode",
             "hide_topbar": "Скрыть верхнюю панель",
             "slide_effect": "Эффект прокрутки",
             "standard_graph": "Стандартный график",
