@@ -22,6 +22,7 @@
         "scheduled": "Gepland",
         "select": "Selecteer",
         "spotify_back_to_playlist": "Terug naar afspeellijsten",
+        "spotify_select_device": "Selecteer apparaat",
         "spotify_select_playlist": "Selecteer afspeellijst",
         "value": "Waarde"
     },
@@ -105,6 +106,7 @@
             "auto_swipe_back_after": "Ga terug naar beginscherm na (seconden)",
             "auto_swipe_back_to": "Ga terug naar scherm #",
             "auto_swipe_back_to_help": "Bij geen activiteit, schuif terug naar beginscherm na x seconden",
+            "edit_mode": "Ga naar de bewerkingsmodus",
             "hide_topbar": "Verberg titelbalk",
             "slide_effect": "Schuif effect",
             "standard_graph": "Standaard grafiek",

@@ -22,6 +22,7 @@
         "scheduled": "Programado",
         "select": "Seleccionar",
         "spotify_back_to_playlist": "Volver a listas de reproducción",
+        "spotify_select_device": "Select device",
         "spotify_select_playlist": "Seleccionar lista de reproducción",
         "value": "Valor"
     },
@@ -105,6 +106,7 @@
             "auto_swipe_back_after": "Auto pase de vuelta después de (segundos)",
             "auto_swipe_back_to": "Auto pase de nuevo a la pantalla #",
             "auto_swipe_back_to_help": "Cuando no hay actividad, vuelva a la pantalla principal después de x segundos",
+            "edit_mode": "Go to edit mode",
             "hide_topbar": "Ocultar topbar",
             "slide_effect": "El efecto de Slide",
             "standard_graph": "Gráfico estándar",
