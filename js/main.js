@@ -70,9 +70,9 @@ function loadFiles(){
 				$.ajax({url: 'js/sortable.js', async: false,dataType: "script"});
 				
 				var html = '<div class="newblocksHolder" style="display:none;">';
-					html+= '<div class="title">Add plugin</div>';
+					html+= '<div class="title">'+language.editmode.add_plugin+'</div>';
 					html+= '<div class="newblocks plugins sortable"></div>';
-					html+= '<div class="title">Add block</div>';
+					html+= '<div class="title">'+language.editmode.add_block+'</div>';
 					html+= '<div class="newblocks domoticz sortable"></div>';
 				html+= '</div>';
 					
@@ -103,7 +103,7 @@ function onLoad(){
 	md = new MobileDetect(window.navigator.userAgent);
 	
 	if(settings['edit_mode']){
-		$('body').append('<div class="editmode">EDIT MODE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:void(0);" onclick="saveBlocks();" style="color:#fff;"><em class="fa fa-save" /></a>&nbsp;&nbsp;</div>');	
+		$('body').append('<div class="editmode">'+language.editmode.edit+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:void(0);" onclick="saveBlocks();" style="color:#fff;"><em class="fa fa-save" /></a>&nbsp;&nbsp;</div>');	
 	}
 
 	$('body').attr('unselectable','on')
