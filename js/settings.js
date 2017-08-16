@@ -90,6 +90,10 @@ settingList['screen']['standard_graph']['options']['hours'] = 'last hours';
 settingList['screen']['standard_graph']['options']['month'] = 'last month';
 settingList['screen']['standard_graph']['options']['day'] = 'today';
 
+settingList['screen']['edit_mode'] = {}
+settingList['screen']['edit mode']['title'] = language.settings.screen.edit_mode;
+settingList['screen']['edit_mode']['type'] = 'checkbox';
+
 settingList['localize'] = {}
 settingList['localize']['title'] = language.settings.localize.title;
 
@@ -331,6 +335,7 @@ if(typeof(settings['selector_instead_of_buttons'])=='undefined') settings['selec
 if(typeof(settings['default_news_url'])=='undefined') settings['default_news_url'] = 'http://www.nu.nl/rss/algemeen';
 if(typeof(settings['news_scroll_after'])=='undefined') settings['news_scroll_after'] = 7;
 if(typeof(settings['standard_graph'])=='undefined') settings['standard_graph'] ='hours';
+if(typeof(settings['edit_mode'])== 'undefined') settings['edit_mode'] = 0
 
 var _TEMP_SYMBOL = '°C';
 if(settings['use_fahrenheit']==1) _TEMP_SYMBOL = '°F';

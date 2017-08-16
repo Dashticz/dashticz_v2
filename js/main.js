@@ -26,7 +26,6 @@ var gettingDevices = false;
 var md;
 var _GRAPHS_LOADED = {};
 var _BACKGROUND_IMAGE = 'img/bg2.jpg';
-var _EDIT_MODE = false;
 var _THEME = 'default';
 var _STREAMPLAYER_TRACKS = {"track":1,"name":"Music FM","file":"http://stream.musicfm.hu:8000/musicfm.mp3"};
 	
@@ -66,7 +65,7 @@ function loadFiles(){
 			}
 			$('<link href="'+customfolder+'/custom.css?v='+cache+'" rel="stylesheet">').appendTo("head");
 			
-			if(typeof(_EDIT_MODE)!=='undefined' && _EDIT_MODE==true){
+			if(typeof(settings['edit_mode'])!=='undefined' && settings['edit_mode']==1){
 				$('<link href="css/sortable.css?v='+cache+'" rel="stylesheet">').appendTo("head");
 				$.ajax({url: 'js/sortable.js', async: false,dataType: "script"});
 				
@@ -103,7 +102,7 @@ function loadFiles(){
 function onLoad(){
 	md = new MobileDetect(window.navigator.userAgent);
 	
-	if(_EDIT_MODE){
+	if(settings['edit_mode']){
 		$('body').append('<div class="editmode">EDIT MODE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:void(0);" onclick="saveBlocks();" style="color:#fff;"><em class="fa fa-save" /></a>&nbsp;&nbsp;</div>');	
 	}
 
@@ -315,7 +314,7 @@ function buildScreens(){
 		}
 	}
 	
-	if(typeof(_EDIT_MODE)!=='undefined' && _EDIT_MODE==true){
+	if(typeof(settings['edit_mode'])!=='undefined' && settings['edit_mode']==1){
 		$('.swiper-container').addClass('edit');
 		setTimeout(function(){ 
 			startSortable(); 
@@ -331,7 +330,7 @@ function startSwiper(){
 		if($('.swiper-container .screen').length>1){
 			$.ajax({url: 'vendor/swiper/js/swiper.min.js', async: false,dataType: "script"}).done(function() {
 				$('<link href="vendor/swiper/css/swiper.min.css" rel="stylesheet">').appendTo("head");
-				//if((typeof(_EDIT_MODE)=='undefined' || _EDIT_MODE===false)){
+				//if((typeof(settings['edit_mode'])=='undefined' || settings['edit_mode']===false)){
 					setTimeout(function(){
 						myswiper = new Swiper('.swiper-container', {
 							pagination: '.swiper-pagination',
@@ -838,7 +837,7 @@ function getDevices(override){
 										
 					$('div.newblocks.plugins').html('');
 					$('div.newblocks.domoticz').html('');
-					if(_EDIT_MODE){
+					if(settings['edit_mode']){
 						$('div.newblocks.plugins').append('<div data-id="clock"><span class="title">Clock</span></div>');
 						$('div.newblocks.plugins').append('<div data-id="currentweather_big"><span class="title">Current weather</span></div>');
 						$('div.newblocks.plugins').append('<div data-id="garbage"><span class="title">Garbage</span></div>');
@@ -859,7 +858,7 @@ function getDevices(override){
 							device['Name'] = blocks[idx]['title'];
 						}
 						
-						if(_EDIT_MODE) $('div.newblocks.domoticz').append('<div data-id="'+idx+'"><span class="title">'+device['Name']+'</span></div>');
+						if(settings['edit_mode']) $('div.newblocks.domoticz').append('<div data-id="'+idx+'"><span class="title">'+device['Name']+'</span></div>');
 						alldevices[idx] = device;
 						
 						if(
@@ -882,7 +881,7 @@ function getDevices(override){
 								)
 							)
 						){
-							if(_EDIT_MODE) $('div.newblocks > div[data-id="'+idx+'"]').remove();
+							if(settings['edit_mode']) $('div.newblocks > div[data-id="'+idx+'"]').remove();
 							
 							var width=4;
                             if(device['SwitchType']=='Selector') width=8;
@@ -1667,7 +1666,7 @@ function getDevices(override){
 					if(typeof(afterGetDevices)=='function') afterGetDevices();
 				}
 				
-				if(!_EDIT_MODE){
+				if(!settings['edit_mode']){
 					setTimeout(function(){ getDevices(); },(settings['domoticz_refresh']*1000));
 				}
 			}
@@ -1676,7 +1675,7 @@ function getDevices(override){
 		}
 	}
 	else {
-		if(!_EDIT_MODE){
+		if(!settings['edit_mode']){
 			setTimeout(function(){ getDevices(); },(settings['domoticz_refresh']*1000));
 		}
 	}
