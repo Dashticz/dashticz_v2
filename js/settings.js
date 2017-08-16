@@ -90,6 +90,10 @@ settingList['screen']['standard_graph']['options']['hours'] = 'last hours';
 settingList['screen']['standard_graph']['options']['month'] = 'last month';
 settingList['screen']['standard_graph']['options']['day'] = 'today';
 
+settingList['screen']['edit_mode'] = {}
+settingList['screen']['edit mode']['title'] = language.settings.screen.edit_mode;
+settingList['screen']['edit_mode']['type'] = 'checkbox';
+
 settingList['localize'] = {}
 settingList['localize']['title'] = language.settings.localize.title;
 
