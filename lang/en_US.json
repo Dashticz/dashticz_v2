@@ -169,10 +169,5 @@
         "direction_WNW": "west-northwest",
         "direction_WSW": "west-southwest",
         "wind": "Wind"
-    },
-    "editmode":	{
-		"edit": "EDIT MODE",
-		"add_plugin": "Add plugin",
-		"add_block": "Add block"
     }
 }
