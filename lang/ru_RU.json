@@ -1,4 +1,9 @@
 {
+    "editmode": {
+        "add_block": "Add block",
+        "add_plugin": "Add plugin",
+        "edit": "Edit"
+    },
     "energy": {
         "energy_now": "сейчас",
         "energy_today": "сегодня",
@@ -27,6 +32,9 @@
         "value": "Значение"
     },
     "settings": {
+        "about": {
+            "title": "Info"
+        },
         "blocksave": "Сохраните приведённый ниже код в CONFIG.js для применения изменений. Затем перезапустите Dashticz.",
         "close": "Закрыть",
         "close_reload": "Закрыть и перезагрузить!",

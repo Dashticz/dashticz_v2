@@ -1,4 +1,9 @@
 {
+    "editmode": {
+        "add_block": "Add block",
+        "add_plugin": "Add plugin",
+        "edit": "Edit"
+    },
     "energy": {
         "energy_now": "nu",
         "energy_today": "idag",
@@ -27,6 +32,9 @@
         "value": "Värde"
     },
     "settings": {
+        "about": {
+            "title": "Info"
+        },
         "blocksave": "Spara koden nedan i din CONFIG.js för att tillämpa ändringarna. Uppdatera Dashticz efteråt.",
         "close": "Stäng",
         "close_reload": "Stäng och ladda om!",
@@ -106,7 +114,7 @@
             "auto_swipe_back_after": "Automatiskt svep tillbaka efter (sekunder)",
             "auto_swipe_back_to": "Automatiskt svep tillbaka till skärm #",
             "auto_swipe_back_to_help": "Vid ingen aktivitet, svep tillbaka till startsidan efter x sekunder",
-            "edit_mode": "Go to edit mode",
+            "edit_mode": "Gå till redigeringsläget",
             "hide_topbar": "Dölj topbar",
             "slide_effect": "Slide effect",
             "standard_graph": "Standard graf",

@@ -1,4 +1,9 @@
 {
+    "editmode": {
+        "add_block": "Add block",
+        "add_plugin": "Add plugin",
+        "edit": "Edit"
+    },
     "energy": {
         "energy_now": "Nyt",
         "energy_today": "Tänään",
@@ -27,6 +32,9 @@
         "value": "Arvo"
     },
     "settings": {
+        "about": {
+            "title": "Info"
+        },
         "blocksave": "Tallenna muutokset alla olevaan koodiin CONFIG.js. Lataa Dashticz sen jälkeen.",
         "close": "Kiinni",
         "close_reload": "Sulje ja lataa!",
