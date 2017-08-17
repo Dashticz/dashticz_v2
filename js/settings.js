@@ -291,6 +291,18 @@ settingList['garbage']['garbage_hideicon'] = {}
 settingList['garbage']['garbage_hideicon']['title'] = language.settings.garbage.garbage_hideicon;
 settingList['garbage']['garbage_hideicon']['type'] = 'checkbox';
 
+settingList['about'] = {}
+settingList['about']['title'] = language.settings.about.title;
+
+settingList['about']['about_text'] = {}
+settingList['about']['about_text']['title'] = 'Dashticz V2.0 by Rob Geerts';
+
+settingList['about']['about_text2'] = {}
+settingList['about']['about_text2']['title'] = 'Years after developing the old and original Dashticz, I decided to start over.<br><br>For more help visit: <a href="http://www.domoticz.com/wiki/Dashticz_V2" target="_blank">http://www.domoticz.com/wiki/Dashticz_V2</a><br>You can also check out our helpful <a href="https://www.domoticz.com/forum/viewtopic.php?f=8&t=16526" target="_blank">community</a> in Dashticz topic on the Domoticz forum.';
+
+settingList['about']['about_text3'] = {}
+settingList['about']['about_text3']['title'] = 'Do you appreciate my work and want to buy me a beer? Do that here: <a href="https://www.paypal.me/robgeerts" target="_blank">https://www.paypal.me/robgeerts</a>'
+
 var settings = {};
 doneSettings=false;
 if (typeof(Storage) !== "undefined") {
