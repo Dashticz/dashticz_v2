@@ -1,4 +1,9 @@
 {
+    "editmode": {
+        "add_block": "Voeg blok toe",
+        "add_plugin": "Voeg plugin toe",
+        "edit": "Bewerken"
+    },
     "energy": {
         "energy_now": "nu",
         "energy_today": "vandaag",
@@ -27,6 +32,9 @@
         "value": "Waarde"
     },
     "settings": {
+        "about": {
+            "title": "Info"
+        },
         "blocksave": "Sla de onderstaande code op in uw CONFIG.js om de wijzigingen toe te passen en herlaad Dashticz!",
         "close": "Sluiten",
         "close_reload": "Sluit venster en herlaad Dashticz",

@@ -261,7 +261,21 @@ a.playlist {
 	display: block;
 	margin-top: -4px;
 	padding: 3px;
+	padding-left: 4px;
 	color: #fff;
+}
+
+.containsspotify select.devices{
+	width: 100%;
+    max-width: 100%;
+    color: #fff !important;
+    background-color: #282828;
+    border: 0px;
+    padding-left: 0px;
+}
+
+.containsspotify select.devices option{
+    color: #fff !important;
 }
 
 .spotback {
