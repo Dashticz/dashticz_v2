@@ -102,7 +102,7 @@ function loadFiles(){
 function onLoad(){
 	md = new MobileDetect(window.navigator.userAgent);
 	
-	if(settings['edit_mode']){
+	if(settings['edit_mode']==1){
 		$('body').append('<div class="editmode">'+language.editmode.edit+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:void(0);" onclick="saveBlocks();" style="color:#fff;"><em class="fa fa-save" /></a>&nbsp;&nbsp;</div>');	
 	}
 
