@@ -86,9 +86,9 @@ settingList['screen']['standard_graph'] = {}
 settingList['screen']['standard_graph']['title'] = language.settings.screen.standard_graph;
 settingList['screen']['standard_graph']['type'] = 'select';
 settingList['screen']['standard_graph']['options'] = {};
-settingList['screen']['standard_graph']['options']['hours'] = 'last hours';
-settingList['screen']['standard_graph']['options']['month'] = 'last month';
-settingList['screen']['standard_graph']['options']['day'] = 'today';
+settingList['screen']['standard_graph']['options']['hours'] = language.graph.last_hours;
+settingList['screen']['standard_graph']['options']['month'] = language.graph.last_month;
+settingList['screen']['standard_graph']['options']['day'] = language.graph.today;
 
 settingList['screen']['edit_mode'] = {}
 settingList['screen']['edit_mode']['title'] = language.settings.screen.edit_mode;
