@@ -566,13 +566,13 @@ function loadButton(b,button){
 	if(typeof(button.key)!=='undefined') key=button.key;
 	
 	if(typeof(button.newwindow)!=='undefined'){
-		var html='<div class="col-xs-'+width+' hover transbg" data-id="buttons.'+key+'" onclick="window.open(\''+button.url+'\')">';
+		var html='<div class="col-xs-'+width+' hover transbg buttons-'+key+'" data-id="buttons.'+key+'" onclick="window.open(\''+button.url+'\')">';
 	}
 	else if(typeof(button.slide)!=='undefined'){
-		var html='<div class="col-xs-'+width+' hover transbg" data-id="buttons.'+key+'" onclick="toSlide('+(parseFloat(button.slide)-1)+')">';
+		var html='<div class="col-xs-'+width+' hover transbg buttons-'+key+'" data-id="buttons.'+key+'" onclick="toSlide('+(parseFloat(button.slide)-1)+')">';
 	}
 	else {
-		var html='<div class="col-xs-'+width+' hover transbg" data-id="buttons.'+key+'" data-toggle="modal" data-target="#button_'+b+'_'+random+'" onclick="setSrc(this);">';
+		var html='<div class="col-xs-'+width+' hover transbg buttons-'+key+'" data-id="buttons.'+key+'" data-toggle="modal" data-target="#button_'+b+'_'+random+'" onclick="setSrc(this);">';
 	}
 		
 		if(typeof(button.title)!=='undefined'){
