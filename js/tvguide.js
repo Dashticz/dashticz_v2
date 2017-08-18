@@ -1,18 +1,27 @@
 var recurring = {}
+var allchannels = []
 function addTVGuide(tvobject,tvObjorg){
-	tvObj = tvObjorg;
-	
-	var tvitems = []	
-	var allchannels = []
-	var maxitems = 10;
-	if(typeof(tvObj.maxitems)!=='undefined') maxitems = tvObj.maxitems;
+	if(typeof(allchannels[1])=='undefined'){
+		var cache = new Date().getTime();
+		curUrl = 'https://wedevise.nl/dashticz/tv/?time='+cache+'&url=http://www.tvgids.nl/json/lists/channels.php';
+		$.getJSON(curUrl,function(channels,textstatus,jqXHR){
+			for(num in channels){
+				allchannels[channels[num]['id']] = channels[num]['name'];
+			}
+		});
+		
+		setTimeout(function(){
+			addTVGuide(tvobject,tvObjorg);
+		},500);
+	}
+	else {
+		tvObj = tvObjorg;
+		var tvitems = []	
+		var maxitems = 10;
+		if(typeof(tvObj.maxitems)!=='undefined') maxitems = tvObj.maxitems;
 
-	var cache = new Date().getTime();
-	curUrl = 'https://wedevise.nl/dashticz/tv/?time='+cache+'&url=http://www.tvgids.nl/json/lists/channels.php';
-	$.getJSON(curUrl,function(channels,textstatus,jqXHR){
-		for(num in channels){
-			allchannels[channels[num]['id']] = channels[num]['name'];
-		}
+		var cache = new Date().getTime();
+
 		curUrl = 'https://wedevise.nl/dashticz/tv/?time='+cache+'&url=http://www.tvgids.nl/json/lists/programs.php?channels='+tvObj.channels.join(',')+'&day=0';
 		moment.locale(settings['calendarlanguage']);
 		$.getJSON(curUrl,function(data,textstatus,jqXHR){
@@ -20,11 +29,11 @@ function addTVGuide(tvobject,tvObjorg){
 			for(channel in data){
 				for(e in data[channel]){
 					event = data[channel][e];
-					
+
 					var enddateStamp = moment(event.datum_end).format("X");
 					var startdate = event.datum_start;
 					var enddate = event.datum_end;
-					
+
 					enddate = moment(event.datum_end).format('HH:mm');
 					if(enddate!=='') enddate =' - ' + enddate;
 
@@ -55,10 +64,10 @@ function addTVGuide(tvobject,tvObjorg){
 			}	
 
 		});
-	});
-	
-	setTimeout(function(){
-		addTVGuide(tvobject,tvObjorg);
-	},(60000*5));
+
+		setTimeout(function(){
+			addTVGuide(tvobject,tvObjorg);
+		},(60000*5));
+	}
 	
 }

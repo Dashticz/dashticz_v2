@@ -100,6 +100,7 @@ function loadFiles(){
 }
 
 function onLoad(){
+	
 	md = new MobileDetect(window.navigator.userAgent);
 	
 	if(settings['edit_mode']==1){
