@@ -829,6 +829,7 @@ function getDevices(override){
 				console.error("Domoticz error!\nPlease, double check the path to Domoticz in Settings!");
 			},
 			success: function(data) {
+			
 				gettingDevices = false;
 				if(!sliding || override){
 					$('.solar').remove();
@@ -1072,7 +1073,7 @@ function getDevices(override){
 											if(typeof(blocks[idx+'_4'])!=='undefined' && typeof(blocks[idx+'_4']['title'])!=='undefined') title=blocks[idx+'_4']['title'];
 											html = getStateBlock(device['idx']+'sub4','fa fa-plug',title,device['CounterDeliv']+' kWh',device);
 											if(typeof(allblocks[idx])!=='undefined' && $('div.block_'+idx+'_4').length==0) var duplicate = $('div.block_'+idx+'_3').last().clone().removeClass('block_'+idx+'_3').addClass('block_'+idx+'_4').insertAfter($('div.block_'+idx+'_3'));
-											$('div.block_'+idx+'_3').html(html);
+											$('div.block_'+idx+'_4').html(html);
 											addHTML=false;
 
 											triggerStatus(idx+'_5',device['LastUpdate'],device);
@@ -1104,7 +1105,7 @@ function getDevices(override){
 										triggerStatus(idx+'_2',device['LastUpdate'],device);
 										triggerChange(idx+'_2',device['LastUpdate'],device);
 							
-										var title=language.energy.gas_usage;
+										var title=language.energy.energy_totals;
 										if(typeof(blocks[idx+'_2'])!=='undefined' && typeof(blocks[idx+'_2']['title'])!=='undefined') title=blocks[idx+'_2']['title'];
 										html = getStateBlock(device['idx']+'sub2','fa fa-fire',title,device['Counter']+' m3',device);
 										if(typeof(allblocks[idx])!=='undefined' && $('div.block_'+idx+'_2').length==0) var duplicate = $('div.block_'+idx+'_1').last().clone().removeClass('block_'+idx+'_1').addClass('block_'+idx+'_2').insertAfter($('div.block_'+idx+'_1'));
