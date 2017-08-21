@@ -840,13 +840,14 @@ function getDevices(override){
 					$('div.newblocks.plugins').html('');
 					$('div.newblocks.domoticz').html('');
 					if(settings['edit_mode']){
-						$('div.newblocks.plugins').append('<div data-id="clock"><span class="title">Clock</span></div>');
-						$('div.newblocks.plugins').append('<div data-id="currentweather_big"><span class="title">Current weather</span></div>');
-						$('div.newblocks.plugins').append('<div data-id="garbage"><span class="title">Garbage</span></div>');
+						$('div.newblocks.plugins').append('<div data-id="clock"><span class="title">'+language.editmode.clock+'</span></div>');
+						$('div.newblocks.plugins').append('<div data-id="currentweather_big"><span class="title">'+language.editmode.currentweather_big+'</span></div>');
+						$('div.newblocks.plugins').append('<div data-id="garbage"><span class="title">'+language.settings.garbage.title+'</span></div>');
 						$('div.newblocks.plugins').append('<div data-id="streamplayer"><span class="title">Radio</span></div>');
 						$('div.newblocks.plugins').append('<div data-id="nzbget"><span class="title">NZBget</span></div>');
-						$('div.newblocks.plugins').append('<div data-id="sunrise"><span class="title">Sunrise/set</span></div>');
-						$('div.newblocks.plugins').append('<div data-id="weather"><span class="title">Weather</span></div>');
+						$('div.newblocks.plugins').append('<div data-id="sunrise"><span class="title">'+language.editmode.sunrise+'</set</span></div>');
+						$('div.newblocks.plugins').append('<div data-id="weather"><span class="title">'+language.settings.weather.title+'</span></div>');
+						$('div.newblocks.plugins').append('<div data-id="news"><span class="title">'+language.editmode.news+'</span></div>');
 					}
 					
 					for(r in data.result){
