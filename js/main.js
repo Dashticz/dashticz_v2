@@ -100,6 +100,7 @@ function loadFiles(){
 }
 
 function onLoad(){
+	
 	md = new MobileDetect(window.navigator.userAgent);
 	
 	if(settings['edit_mode']==1){
@@ -565,13 +566,13 @@ function loadButton(b,button){
 	if(typeof(button.key)!=='undefined') key=button.key;
 	
 	if(typeof(button.newwindow)!=='undefined'){
-		var html='<div class="col-xs-'+width+' hover transbg" data-id="buttons.'+key+'" onclick="window.open(\''+button.url+'\')">';
+		var html='<div class="col-xs-'+width+' hover transbg buttons-'+key+'" data-id="buttons.'+key+'" onclick="window.open(\''+button.url+'\')">';
 	}
 	else if(typeof(button.slide)!=='undefined'){
-		var html='<div class="col-xs-'+width+' hover transbg" data-id="buttons.'+key+'" onclick="toSlide('+(parseFloat(button.slide)-1)+')">';
+		var html='<div class="col-xs-'+width+' hover transbg buttons-'+key+'" data-id="buttons.'+key+'" onclick="toSlide('+(parseFloat(button.slide)-1)+')">';
 	}
 	else {
-		var html='<div class="col-xs-'+width+' hover transbg" data-id="buttons.'+key+'" data-toggle="modal" data-target="#button_'+b+'_'+random+'" onclick="setSrc(this);">';
+		var html='<div class="col-xs-'+width+' hover transbg buttons-'+key+'" data-id="buttons.'+key+'" data-toggle="modal" data-target="#button_'+b+'_'+random+'" onclick="setSrc(this);">';
 	}
 		
 		if(typeof(button.title)!=='undefined'){
@@ -828,6 +829,7 @@ function getDevices(override){
 				console.error("Domoticz error!\nPlease, double check the path to Domoticz in Settings!");
 			},
 			success: function(data) {
+			
 				gettingDevices = false;
 				if(!sliding || override){
 					$('.solar').remove();
@@ -1072,7 +1074,7 @@ function getDevices(override){
 											if(typeof(blocks[idx+'_4'])!=='undefined' && typeof(blocks[idx+'_4']['title'])!=='undefined') title=blocks[idx+'_4']['title'];
 											html = getStateBlock(device['idx']+'sub4','fa fa-plug',title,device['CounterDeliv']+' kWh',device);
 											if(typeof(allblocks[idx])!=='undefined' && $('div.block_'+idx+'_4').length==0) var duplicate = $('div.block_'+idx+'_3').last().clone().removeClass('block_'+idx+'_3').addClass('block_'+idx+'_4').insertAfter($('div.block_'+idx+'_3'));
-											$('div.block_'+idx+'_3').html(html);
+											$('div.block_'+idx+'_4').html(html);
 											addHTML=false;
 
 											triggerStatus(idx+'_5',device['LastUpdate'],device);
@@ -1104,7 +1106,7 @@ function getDevices(override){
 										triggerStatus(idx+'_2',device['LastUpdate'],device);
 										triggerChange(idx+'_2',device['LastUpdate'],device);
 							
-										var title=language.energy.gas_usage;
+										var title=language.energy.energy_totals;
 										if(typeof(blocks[idx+'_2'])!=='undefined' && typeof(blocks[idx+'_2']['title'])!=='undefined') title=blocks[idx+'_2']['title'];
 										html = getStateBlock(device['idx']+'sub2','fa fa-fire',title,device['Counter']+' m3',device);
 										if(typeof(allblocks[idx])!=='undefined' && $('div.block_'+idx+'_2').length==0) var duplicate = $('div.block_'+idx+'_1').last().clone().removeClass('block_'+idx+'_1').addClass('block_'+idx+'_2').insertAfter($('div.block_'+idx+'_1'));
