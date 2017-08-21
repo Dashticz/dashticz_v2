@@ -1,8 +1,12 @@
 {
     "editmode": {
-        "add_block": "Add block",
-        "add_plugin": "Add plugin",
-        "edit": "Edit"
+        "add_block": "Block hinzufügen",
+        "add_plugin": "Plugin hinzufügen",
+        "clock": "Uhr",
+        "currentweather_big": "Aktuelles Wetter (Big)",
+        "edit": "Bearbeiten",
+        "news": "Nachrichten",
+        "sunrise": "Sonnenaufgang"
     },
     "energy": {
         "energy_now": "jetzt",
@@ -114,7 +118,7 @@
             "auto_swipe_back_after": "Auto zurück nach (Sekunden)",
             "auto_swipe_back_to": "Automatisch zurück auf Bildschirm #",
             "auto_swipe_back_to_help": "Wenn keine Aktivität, zurück auf Startbildschirm nach x Sekunden",
-            "edit_mode": "Go to edit mode",
+            "edit_mode": "Gehe zum Bearbeitungsmodus",
             "hide_topbar": "Topbar ausblenden",
             "slide_effect": "Slide-Effekt",
             "standard_graph": "Standardgraph",

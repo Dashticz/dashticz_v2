@@ -1,8 +1,12 @@
 {
     "editmode": {
-        "add_block": "Add block",
-        "add_plugin": "Add plugin",
-        "edit": "Edit"
+        "add_block": "Dodaj blok",
+        "add_plugin": "Dodaj wtyczkę",
+        "clock": "Clock",
+        "currentweather_big": "Current Weather (Big)",
+        "edit": "Edycja",
+        "news": "News",
+        "sunrise": "Sunrise"
     },
     "energy": {
         "energy_now": "aktualnie",
@@ -33,7 +37,7 @@
     },
     "settings": {
         "about": {
-            "title": "Info"
+            "title": "Informacje"
         },
         "blocksave": "Zapisz poniższy kod w pliku CONFIG.js, aby zastosować zmiany. Następnie przeładuj Dashticz.",
         "close": "Zamknij",
