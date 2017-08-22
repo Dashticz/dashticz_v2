@@ -2,7 +2,11 @@
     "editmode": {
         "add_block": "Voeg blok toe",
         "add_plugin": "Voeg plugin toe",
-        "edit": "Bewerken"
+        "clock": "Klok",
+        "currentweather_big": "Huidig ​​weer (groot)",
+        "edit": "Bewerken",
+        "news": "Nieuws",
+        "sunrise": "Zonsopkomst"
     },
     "energy": {
         "energy_now": "nu",

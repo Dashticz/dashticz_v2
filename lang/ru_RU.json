@@ -1,8 +1,12 @@
 {
     "editmode": {
-        "add_block": "Add block",
-        "add_plugin": "Add plugin",
-        "edit": "Edit"
+        "add_block": "Добавить блок",
+        "add_plugin": "Добавить плагин",
+        "clock": "Clock",
+        "currentweather_big": "Current Weather (Big)",
+        "edit": "Редактировать",
+        "news": "News",
+        "sunrise": "Sunrise"
     },
     "energy": {
         "energy_now": "сейчас",
@@ -27,13 +31,13 @@
         "scheduled": "Запланированные",
         "select": "Выбрать",
         "spotify_back_to_playlist": "Назад в плейлисты",
-        "spotify_select_device": "Select device",
+        "spotify_select_device": "Выбрать устройство",
         "spotify_select_playlist": "Выбрать плейлист",
         "value": "Значение"
     },
     "settings": {
         "about": {
-            "title": "Info"
+            "title": "Информация"
         },
         "blocksave": "Сохраните приведённый ниже код в CONFIG.js для применения изменений. Затем перезапустите Dashticz.",
         "close": "Закрыть",
@@ -57,7 +61,7 @@
             "default_news_url": "URL-адрес новостей по умолчанию",
             "domoticz_ip": "URL-адрес Domoticz",
             "domoticz_refresh": "Обновить Domoticz (в секундах)",
-            "hide_off_button": "Hide off button at Selector Switches",
+            "hide_off_button": "Скрыть кнопку выключения в выпадающем списке",
             "last_update": "Показать время\/дату последнего обновления",
             "news_scroll_after": "Прокручивать новости через (секунд)",
             "selector_instead_of_buttons": "Выпадающий список вместо кнопок",
@@ -114,7 +118,7 @@
             "auto_swipe_back_after": "Авто-переход через (секунд)",
             "auto_swipe_back_to": "Авто-переход на экран #",
             "auto_swipe_back_to_help": "Прокрутить назад к главному экрану через N секунд неактивности",
-            "edit_mode": "Go to edit mode",
+            "edit_mode": "Перейти в режим редактирования",
             "hide_topbar": "Скрыть верхнюю панель",
             "slide_effect": "Эффект прокрутки",
             "standard_graph": "Стандартный график",

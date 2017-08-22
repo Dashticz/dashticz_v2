@@ -2,7 +2,11 @@
     "editmode": {
         "add_block": "Add block",
         "add_plugin": "Add plugin",
-        "edit": "Edit"
+        "clock": "Clock",
+        "currentweather_big": "Current Weather (Big)",
+        "edit": "Edit",
+        "news": "News",
+        "sunrise": "Sunrise"
     },
     "energy": {
         "energy_now": "most",
