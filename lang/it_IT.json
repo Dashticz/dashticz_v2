@@ -1,12 +1,12 @@
 {
     "editmode": {
-        "add_block": "Add block",
-        "add_plugin": "Add plugin",
-        "clock": "Clock",
-        "currentweather_big": "Current Weather (Big)",
-        "edit": "Edit",
-        "news": "News",
-        "sunrise": "Sunrise"
+        "add_block": "Aggiungi blocco",
+        "add_plugin": "Aggiungi plugin",
+        "clock": "Orologio",
+        "currentweather_big": "Meteo attuale (grande)",
+        "edit": "Modifica",
+        "news": "Notizie",
+        "sunrise": "Alba"
     },
     "energy": {
         "energy_now": "ora",
@@ -31,13 +31,13 @@
         "scheduled": "Programma",
         "select": "Seleziona",
         "spotify_back_to_playlist": "Torna alle playlist",
-        "spotify_select_device": "Select device",
+        "spotify_select_device": "Seleziona dispositivo",
         "spotify_select_playlist": "Seleziona playlist",
         "value": "Valore"
     },
     "settings": {
         "about": {
-            "title": "Info"
+            "title": "Informazioni"
         },
         "blocksave": "Salva il codice qui sotto al tuo CONFIG.js per applicare le modifiche. Ricarica Dashticz in seguito.",
         "close": "Chiudi",
@@ -61,7 +61,7 @@
             "default_news_url": "URL default notizie",
             "domoticz_ip": "Domoticz URL",
             "domoticz_refresh": "Aggiorna Domoticz (secondi)",
-            "hide_off_button": "Hide off button at Selector Switches",
+            "hide_off_button": "Nascondi pulsante di spegimento del selettore",
             "last_update": "Mostra ultimo agiornamento (ora e data)",
             "news_scroll_after": "Scorri notizie dopo (secondi)",
             "selector_instead_of_buttons": "Utilizza selettore al posto del pulsante",
@@ -118,7 +118,7 @@
             "auto_swipe_back_after": "Ritorno a schermata precedente dopo (secondi)",
             "auto_swipe_back_to": "Torna automaticamente alla schermata #",
             "auto_swipe_back_to_help": "Ritorno ad homescreen dopo inattivita di (secondi)",
-            "edit_mode": "Go to edit mode",
+            "edit_mode": "Passa alla modalita di modifica",
             "hide_topbar": "Naconti topbar",
             "slide_effect": "Effetto scorrimento",
             "standard_graph": "Grafico standard",

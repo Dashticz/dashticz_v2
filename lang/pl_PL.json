@@ -2,11 +2,11 @@
     "editmode": {
         "add_block": "Dodaj blok",
         "add_plugin": "Dodaj wtyczkę",
-        "clock": "Clock",
-        "currentweather_big": "Current Weather (Big)",
+        "clock": "Zegar",
+        "currentweather_big": "Aktualna Pogoda (Duży)",
         "edit": "Edycja",
-        "news": "News",
-        "sunrise": "Sunrise"
+        "news": "Wiadomości",
+        "sunrise": "Wschód słońca"
     },
     "energy": {
         "energy_now": "aktualnie",

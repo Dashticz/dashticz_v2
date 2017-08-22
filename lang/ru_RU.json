@@ -2,11 +2,11 @@
     "editmode": {
         "add_block": "Добавить блок",
         "add_plugin": "Добавить плагин",
-        "clock": "Clock",
-        "currentweather_big": "Current Weather (Big)",
+        "clock": "Часы",
+        "currentweather_big": "Текущая погода (Крупно)",
         "edit": "Редактировать",
-        "news": "News",
-        "sunrise": "Sunrise"
+        "news": "Новости",
+        "sunrise": "Восход"
     },
     "energy": {
         "energy_now": "сейчас",
