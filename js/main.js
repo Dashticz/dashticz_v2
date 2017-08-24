@@ -829,48 +829,6 @@ function getDevices(override){
 				console.error("Domoticz error!\nPlease, double check the path to Domoticz in Settings!");
 			},
 			success: function(data) {
-				data.result = `[{
-"AddjMulti" : 1.0,
-"AddjMulti2" : 1.0,
-"AddjValue" : 0.0,
-"AddjValue2" : 0.0,
-"BatteryLevel" : 255,
-"Counter" : "17145.002",
-"CounterDeliv" : "2346.261",
-"CounterDelivToday" : "3.181 kWh",
-"CounterToday" : "6.481 kWh",
-"CustomImage" : 0,
-"Data" : "9906088;7238914;610321;1735940;130;0",
-"Description" : "",
-"Favorite" : 1,
-"HardwareID" : 10,
-"HardwareName" : "Toon",
-"HardwareType" : "Toon Thermostat",
-"HardwareTypeVal" : 34,
-"HaveTimeout" : false,
-"ID" : "1",
-"LastUpdate" : "2017-08-24 18:43:39",
-"Name" : "Elektra Meter",
-"Notifications" : "false",
-"PlanID" : "6",
-"PlanIDs" : [ 6 ],
-"Protected" : false,
-"ShowNotifications" : true,
-"SignalLevel" : "-",
-"SubType" : "Energy",
-"SwitchTypeVal" : 0,
-"Timers" : "false",
-"Type" : "P1 Smart Meter",
-"TypeImg" : "counter",
-"Unit" : 1,
-"Usage" : "130 Watt",
-"UsageDeliv" : "0 Watt",
-"Used" : 1,
-"XOffset" : "101",
-"YOffset" : "392",
-"idx" : "120"
-}]`;
-				data.result = $.parseJSON(data.result);
 				gettingDevices = false;
 				if(!sliding || override){
 					$('.solar').remove();
