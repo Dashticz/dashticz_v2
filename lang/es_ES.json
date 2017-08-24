@@ -9,6 +9,8 @@
         "sunrise": "Sunrise"
     },
     "energy": {
+        "energy_delivered": "Delivered",
+        "energy_deliveredtoday": "Delivered today",
         "energy_now": "ahora",
         "energy_today": "hoy",
         "energy_total": "total",

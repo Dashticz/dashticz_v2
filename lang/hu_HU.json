@@ -9,6 +9,8 @@
         "sunrise": "Sunrise"
     },
     "energy": {
+        "energy_delivered": "Delivered",
+        "energy_deliveredtoday": "Delivered today",
         "energy_now": "most",
         "energy_today": "ma",
         "energy_total": "összesen",

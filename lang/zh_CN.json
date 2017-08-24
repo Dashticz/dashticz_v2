@@ -9,6 +9,8 @@
         "sunrise": "Sunrise"
     },
     "energy": {
+        "energy_delivered": "Delivered",
+        "energy_deliveredtoday": "Delivered today",
         "energy_now": "现在",
         "energy_today": "今天",
         "energy_total": "总",

@@ -2,13 +2,15 @@
     "editmode": {
         "add_block": "Lägg till block",
         "add_plugin": "Lägg till plugin",
-        "clock": "Clock",
-        "currentweather_big": "Current Weather (Big)",
+        "clock": "Klocka",
+        "currentweather_big": "Aktuellt väder (stor)",
         "edit": "Redigera",
-        "news": "News",
-        "sunrise": "Sunrise"
+        "news": "Nyheter",
+        "sunrise": "Soluppgång"
     },
     "energy": {
+        "energy_delivered": "Delivered",
+        "energy_deliveredtoday": "Delivered today",
         "energy_now": "nu",
         "energy_today": "idag",
         "energy_total": "totalt",

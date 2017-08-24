@@ -829,7 +829,48 @@ function getDevices(override){
 				console.error("Domoticz error!\nPlease, double check the path to Domoticz in Settings!");
 			},
 			success: function(data) {
-			
+				data.result = `[{
+"AddjMulti" : 1.0,
+"AddjMulti2" : 1.0,
+"AddjValue" : 0.0,
+"AddjValue2" : 0.0,
+"BatteryLevel" : 255,
+"Counter" : "17145.002",
+"CounterDeliv" : "2346.261",
+"CounterDelivToday" : "3.181 kWh",
+"CounterToday" : "6.481 kWh",
+"CustomImage" : 0,
+"Data" : "9906088;7238914;610321;1735940;130;0",
+"Description" : "",
+"Favorite" : 1,
+"HardwareID" : 10,
+"HardwareName" : "Toon",
+"HardwareType" : "Toon Thermostat",
+"HardwareTypeVal" : 34,
+"HaveTimeout" : false,
+"ID" : "1",
+"LastUpdate" : "2017-08-24 18:43:39",
+"Name" : "Elektra Meter",
+"Notifications" : "false",
+"PlanID" : "6",
+"PlanIDs" : [ 6 ],
+"Protected" : false,
+"ShowNotifications" : true,
+"SignalLevel" : "-",
+"SubType" : "Energy",
+"SwitchTypeVal" : 0,
+"Timers" : "false",
+"Type" : "P1 Smart Meter",
+"TypeImg" : "counter",
+"Unit" : 1,
+"Usage" : "130 Watt",
+"UsageDeliv" : "0 Watt",
+"Used" : 1,
+"XOffset" : "101",
+"YOffset" : "392",
+"idx" : "120"
+}]`;
+				data.result = $.parseJSON(data.result);
 				gettingDevices = false;
 				if(!sliding || override){
 					$('.solar').remove();
@@ -963,16 +1004,16 @@ function getDevices(override){
 							catch(err) {
 								
 								if(typeof(device['SubType'])!=='undefined' && device['SubType'] in blocktypes['SubType']){
-									html+= getStatusBlock(device,blocktypes['SubType'][device['SubType']]);
+									html+= getStatusBlock(idx,device,blocktypes['SubType'][device['SubType']]);
 								}
 								else if(typeof(device['HardwareType'])!=='undefined' && device['HardwareType'] in blocktypes['HardwareType']){
 									if(typeof(blocktypes['HardwareType'][device['HardwareType']]['icon'])!=='undefined'){
-										html+= getStatusBlock(device,blocktypes['HardwareType'][device['HardwareType']]);
+										html+= getStatusBlock(idx,device,blocktypes['HardwareType'][device['HardwareType']]);
 									}
 									else {
 										var c=1;
 										for(de in blocktypes['HardwareType'][device['HardwareType']]){
-											html = getStatusBlock(device,blocktypes['HardwareType'][device['HardwareType']][de],c);
+											html = getStatusBlock(idx,device,blocktypes['HardwareType'][device['HardwareType']][de],c);
 											
 											triggerStatus(idx+'_'+c,device['LastUpdate'],device);
 											triggerChange(idx+'_'+c,device['LastUpdate'],device);
@@ -984,16 +1025,16 @@ function getDevices(override){
 									}
 								}
 								else if(typeof(device['HardwareName'])!=='undefined' && device['HardwareName'] in blocktypes['HardwareName']){
-									html+= getStatusBlock(device,blocktypes['HardwareName'][device['HardwareName']]);
+									html+= getStatusBlock(idx,device,blocktypes['HardwareName'][device['HardwareName']]);
 								}
 								else if(typeof(device['SensorUnit'])!=='undefined' && device['SensorUnit'] in blocktypes['SensorUnit']){
-									html+= getStatusBlock(device,blocktypes['SensorUnit'][device['SensorUnit']]);
+									html+= getStatusBlock(idx,device,blocktypes['SensorUnit'][device['SensorUnit']]);
 								}
 								else if(typeof(device['Type'])!=='undefined' && device['Type'] in blocktypes['Type']){
-									html+= getStatusBlock(device,blocktypes['Type'][device['Type']]);
+									html+= getStatusBlock(idx,device,blocktypes['Type'][device['Type']]);
 								}
 								else if(typeof(device['Name'])!=='undefined' && device['Name'] in blocktypes['Name']){
-									html+= getStatusBlock(device,blocktypes['Name'][device['Name']]);
+									html+= getStatusBlock(idx,device,blocktypes['Name'][device['Name']]);
 								}
 								else if(device['HardwareType']=='Logitech Media Server'){
 									html+=iconORimage(idx,'fa-music','','on icon','',2);
@@ -1037,10 +1078,10 @@ function getDevices(override){
 										var title=language.energy.energy_usage;
 										if(typeof(blocks[idx+'_1'])!=='undefined' && typeof(blocks[idx+'_1']['title'])!=='undefined') title=blocks[idx+'_1']['title'];
 										if(typeof(device['UsageDeliv'])!=='undefined' && (parseFloat(device['UsageDeliv'])>0 || parseFloat(device['UsageDeliv'])<0)){
-											html+= getStateBlock(device['idx']+'sub1','fa fa-plug',title,device['UsageDeliv'],device);
+											html+= getStateBlock(idx+'_1','fa fa-plug',title,device['UsageDeliv'],device);
 										}
 										else {
-											html+= getStateBlock(device['idx']+'sub1','fa fa-plug',title,device['Usage'],device);
+											html+= getStateBlock(idx+'_1','fa fa-plug',title,device['Usage'],device);
 										}
 										if(!$('div.block_'+idx).hasClass('block_'+idx+'_1')) $('div.block_'+idx).addClass('block_'+idx+'_1');
 										$('div.block_'+idx+'_1').html(html);
@@ -1051,7 +1092,7 @@ function getDevices(override){
 							
 										var title=language.energy.energy_usagetoday;
 										if(typeof(blocks[idx+'_2'])!=='undefined' && typeof(blocks[idx+'_2']['title'])!=='undefined') title=blocks[idx+'_2']['title'];
-										html = getStateBlock(device['idx']+'sub2','fa fa-plug',title,device['CounterToday'],device);
+										html = getStateBlock(idx+'_2','fa fa-plug',title,device['CounterToday'],device);
 										if(typeof(allblocks[idx])!=='undefined' && $('div.block_'+idx+'_2').length==0) var duplicate = $('div.block_'+idx+'_1').last().clone().removeClass('block_'+idx+'_1').addClass('block_'+idx+'_2').insertAfter($('div.block_'+idx+'_1'));
 										$('div.block_'+idx+'_2').html(html);
 										addHTML=false;
@@ -1061,7 +1102,7 @@ function getDevices(override){
 
 										var title=language.energy.energy_totals;
 										if(typeof(blocks[idx+'_3'])!=='undefined' && typeof(blocks[idx+'_3']['title'])!=='undefined') title=blocks[idx+'_3']['title'];
-										html = getStateBlock(device['idx']+'sub3','fa fa-plug',title,device['Counter']+' kWh',device);
+										html = getStateBlock(idx+'_3','fa fa-plug',title,device['Counter']+' kWh',device);
 										if(typeof(allblocks[idx])!=='undefined' && $('div.block_'+idx+'_3').length==0) var duplicate = $('div.block_'+idx+'_2').last().clone().removeClass('block_'+idx+'_2').addClass('block_'+idx+'_3').insertAfter($('div.block_'+idx+'_2'));
 										$('div.block_'+idx+'_3').html(html);
 										addHTML=false;
@@ -1072,7 +1113,7 @@ function getDevices(override){
 							
 											var title=language.energy.energy_delivered;
 											if(typeof(blocks[idx+'_4'])!=='undefined' && typeof(blocks[idx+'_4']['title'])!=='undefined') title=blocks[idx+'_4']['title'];
-											html = getStateBlock(device['idx']+'sub4','fa fa-plug',title,device['CounterDeliv']+' kWh',device);
+											html = getStateBlock(idx+'_4','fa fa-plug',title,device['CounterDeliv']+' kWh',device);
 											if(typeof(allblocks[idx])!=='undefined' && $('div.block_'+idx+'_4').length==0) var duplicate = $('div.block_'+idx+'_3').last().clone().removeClass('block_'+idx+'_3').addClass('block_'+idx+'_4').insertAfter($('div.block_'+idx+'_3'));
 											$('div.block_'+idx+'_4').html(html);
 											addHTML=false;
@@ -1082,7 +1123,7 @@ function getDevices(override){
 							
 											var title=language.energy.energy_deliveredtoday;
 											if(typeof(blocks[idx+'_5'])!=='undefined' && typeof(blocks[idx+'_5']['title'])!=='undefined') title=blocks[idx+'_5']['title'];
-											html = getStateBlock(device['idx']+'sub5','fa fa-plug',title,device['CounterDelivToday'],device);
+											html = getStateBlock(idx+'_5','fa fa-plug',title,device['CounterDelivToday'],device);
 											if(typeof(allblocks[idx])!=='undefined' && $('div.block_'+idx+'_5').length==0) var duplicate = $('div.block_'+idx+'_4').last().clone().removeClass('block_'+idx+'_4').addClass('block_'+idx+'_5').insertAfter($('div.block_'+idx+'_4'));
 											$('div.block_'+idx+'_5').html(html);
 											addHTML=false;
@@ -1098,7 +1139,7 @@ function getDevices(override){
 							
 										var title=language.energy.gas_usagetoday;
 										if(typeof(blocks[idx+'_1'])!=='undefined' && typeof(blocks[idx+'_1']['title'])!=='undefined') title=blocks[idx+'_1']['title'];
-										html+= getStateBlock(device['idx']+'sub1','fa fa-fire',title,device['CounterToday'],device);
+										html+= getStateBlock(idx+'_1','fa fa-fire',title,device['CounterToday'],device);
 										if(!$('div.block_'+idx).hasClass('block_'+idx+'_1')) $('div.block_'+idx).addClass('block_'+idx+'_1');
 										$('div.block_'+idx+'_1').html(html);
 										addHTML=false;
@@ -1108,7 +1149,7 @@ function getDevices(override){
 							
 										var title=language.energy.energy_totals;
 										if(typeof(blocks[idx+'_2'])!=='undefined' && typeof(blocks[idx+'_2']['title'])!=='undefined') title=blocks[idx+'_2']['title'];
-										html = getStateBlock(device['idx']+'sub2','fa fa-fire',title,device['Counter']+' m3',device);
+										html = getStateBlock(idx+'_2','fa fa-fire',title,device['Counter']+' m3',device);
 										if(typeof(allblocks[idx])!=='undefined' && $('div.block_'+idx+'_2').length==0) var duplicate = $('div.block_'+idx+'_1').last().clone().removeClass('block_'+idx+'_1').addClass('block_'+idx+'_2').insertAfter($('div.block_'+idx+'_1'));
 										$('div.block_'+idx+'_2').html(html);
 										addHTML=false;

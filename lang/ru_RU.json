@@ -9,6 +9,8 @@
         "sunrise": "Восход"
     },
     "energy": {
+        "energy_delivered": "Delivered",
+        "energy_deliveredtoday": "Delivered today",
         "energy_now": "сейчас",
         "energy_today": "сегодня",
         "energy_total": "всего",
