@@ -10,6 +10,7 @@ blocktypes.SubType['Alert'] = { icon: 'fa fa-warning', title: '<Data>', value: '
 blocktypes.SubType['Percentage'] = { icon: 'fa fa-percent', title: '<Name>', value: '<Data>' }
 blocktypes.SubType['Text'] = { icon: 'fa fa-file', title: '<Name>', value: '<Data>' }
 blocktypes.SubType['Counter Incremental'] = { icon: 'fa fa-bolt', title: '<Name>', value: '<Data>' }
+blocktypes.SubType['Voltage'] = { icon: 'fa fa-bolt', title: '<Name>', value: '<Data>' }
 blocktypes.SubType['Solar Radiation'] = { icon: 'fa fa-sun-o', title: '<Name>', value: '<Data>' }
 blocktypes.SubType['Thermostat Mode'] = { icon: 'fa fa-thermometer-half', title: '<Name>', value: '<Data>' }
 
@@ -297,38 +298,26 @@ function getBlock(cols,c,columndiv,standby){
 
 function getStateBlock(id,icon,title,value,device){
 	
-	if(typeof(blocks[device['idx']])!=='undefined' && typeof(blocks[device['idx']]['unit'])!=='undefined'){
-		var unitArray = blocks[device['idx']]['unit'].split(";");
+	if(typeof(blocks[id])!=='undefined' && typeof(blocks[id]['unit'])!=='undefined'){
+		var unitArray = blocks[id]['unit'].split(";");
 		value = value.replace(unitArray[0], unitArray[1]);
 	}
 	
 	if(device['SubType']=='Percentage' || device['SubType']=='Custom Sensor' || device['TypeImg']=='counter' || device['Type']=='Temp' || device['Type']=='Wind' || device['Type']=='Rain' || device['Type']== 'Temp + Humidity' || device['Type']== 'Temp + Humidity + Baro'){
 		getButtonGraphs(device);
-		if($('.block_'+device['idx']).length>0){
-			$('.block_'+device['idx']).addClass('hover');
-			$('.block_'+device['idx']).attr('data-toggle','modal');
-			$('.block_'+device['idx']).attr('data-target','#opengraph'+device['idx']);
-		}
-		if($('.block_'+device['idx']+'_1').length>0){
-			$('.block_'+device['idx']+'_1').addClass('hover');
-			$('.block_'+device['idx']+'_1').attr('data-toggle','modal');
-			$('.block_'+device['idx']+'_1').attr('data-target','#opengraph'+device['idx']);
-		}
-		if($('.block_'+device['idx']+'_2').length>0){
-			$('.block_'+device['idx']+'_2').addClass('hover');
-			$('.block_'+device['idx']+'_2').attr('data-toggle','modal');
-			$('.block_'+device['idx']+'_2').attr('data-target','#opengraph'+device['idx']);
+		if($('.block_'+id).length>0){
+			$('.block_'+id).addClass('hover');
+			$('.block_'+id).attr('data-toggle','modal');
+			$('.block_'+id).attr('data-target','#opengraph'+device['idx']);
 		}
 	}
-	
-	//triggerChange(device['idx'],device['LastUpdate']);
 	
 	var stateBlock ='<div class="col-xs-4 col-icon">';
 		stateBlock+='<em class="'+icon+'"></em>';
 	stateBlock+='</div>';
 	stateBlock+='<div class="col-xs-8 col-data">';
 		
-		if(typeof(blocks[device['idx']])!=='undefined' && typeof(blocks[device['idx']]['switch'])!=='undefined' && blocks[device['idx']]['switch']==true){
+		if(typeof(blocks[id])!=='undefined' && typeof(blocks[id]['switch'])!=='undefined' && blocks[id]['switch']==true){
 			stateBlock+='<strong class="title">'+title+'</strong><br />';
 			stateBlock+='<span>'+value+'</span>';
 		}
@@ -337,8 +326,8 @@ function getStateBlock(id,icon,title,value,device){
 			stateBlock+='<span>'+title+'</span>';
 
 		}
-		if((settings['last_update']==1 && (typeof(blocks[device['idx']])=='undefined' || typeof(blocks[device['idx']]['hide_lastupdate'])=='undefined' || blocks[device['idx']]['hide_lastupdate']===false)) || 
-		  (settings['last_update']==0 && (typeof(blocks[device['idx']])!=='undefined' && typeof(blocks[device['idx']]['show_lastupdate'])!=='undefined' && blocks[device['idx']]['show_lastupdate']==true)) 
+		if((settings['last_update']==1 && (typeof(blocks[id])=='undefined' || typeof(blocks[id]['hide_lastupdate'])=='undefined' || blocks[id]['hide_lastupdate']===false)) || 
+		  (settings['last_update']==0 && (typeof(blocks[id])!=='undefined' && typeof(blocks[id]['show_lastupdate'])!=='undefined' && blocks[id]['show_lastupdate']==true)) 
 		  ){
 			stateBlock+='<br /><span class="lastupdate">'+moment(device['LastUpdate']).format(settings['timeformat'])+'</span>';
 		}
@@ -348,47 +337,34 @@ function getStateBlock(id,icon,title,value,device){
 }
 
 
-function getStatusBlock(device,block,c){
+function getStatusBlock(idx,device,block,c){
 	
 	var value = block.value;
 	var title = block.title;
-	if(typeof(blocks[device['idx']])!=='undefined' && typeof(blocks[device['idx']]['title'])!=='undefined') title=blocks[device['idx']]['title'];
-	else if(typeof(blocks[device['idx']+'_'+c])!=='undefined' && typeof(blocks[device['idx']+'_'+c]['title'])!=='undefined') title=blocks[device['idx']+'_'+c]['title'];
-	
+	if(typeof(blocks[idx])!=='undefined' && typeof(blocks[idx]['title'])!=='undefined') title=blocks[idx]['title'];
+
 	for(d in device) {
 		value = value.replace('<'+d+'>',device[d]);
 		title = title.replace('<'+d+'>',device[d]);
 	}
 	
-	if(typeof(blocks[device['idx']])!=='undefined' && typeof(blocks[device['idx']]['unit'])!=='undefined'){
-		var unitArray = blocks[device['idx']]['unit'].split(";");
+	if(typeof(blocks[idx])!=='undefined' && typeof(blocks[idx]['unit'])!=='undefined'){
+		var unitArray = blocks[idx]['unit'].split(";");
 		value = value.replace(unitArray[0], unitArray[1]);
 	}
 						
 	if(device['SubType']=='Percentage' || device['SubType']=='Custom Sensor' || device['TypeImg']=='counter' || device['Type']=='Temp' || device['Type']=='Wind' || device['Type']=='Rain' || device['Type']== 'Temp + Humidity' || device['Type']== 'Temp + Humidity + Baro'){
 		getButtonGraphs(device);
-		if($('.block_'+device['idx']).length>0){
-			$('.block_'+device['idx']).addClass('hover');
-			$('.block_'+device['idx']).attr('data-toggle','modal');
-			$('.block_'+device['idx']).attr('data-target','#opengraph'+device['idx']);
+		if($('.block_'+idx).length>0){
+			$('.block_'+idx).addClass('hover');
+			$('.block_'+idx).attr('data-toggle','modal');
+			$('.block_'+idx).attr('data-target','#opengraph'+device['idx']);
 		}
-		if($('.block_'+device['idx']+'_1').length>0){
-			$('.block_'+device['idx']+'_1').addClass('hover');
-			$('.block_'+device['idx']+'_1').attr('data-toggle','modal');
-			$('.block_'+device['idx']+'_1').attr('data-target','#opengraph'+device['idx']);
-		}
-		if($('.block_'+device['idx']+'_2').length>0){
-			$('.block_'+device['idx']+'_2').addClass('hover');
-			$('.block_'+device['idx']+'_2').attr('data-toggle','modal');
-			$('.block_'+device['idx']+'_2').attr('data-target','#opengraph'+device['idx']);
-		}
-		
 	}
 	
 	var attr='';
 	if(typeof(device['Direction'])!=='undefined' && typeof(device['DirectionStr'])!=='undefined'){
 		attr+=' style="-webkit-transform: rotate('+device['Direction']+'deg);-moz-transform: rotate('+device['Direction']+'deg);-ms-transform: rotate('+device['Direction']+'deg);-o-transform: rotate('+device['Direction']+'deg); transform: rotate('+device['Direction']+'deg);"';
-		//start alteration
 		if (settings['use_beaufort'] == 1){
 			value = Beaufort(device['Speed'])+', '; 
 		} else {
@@ -400,17 +376,14 @@ function getStatusBlock(device,block,c){
 		} else {
 			value+=device['DirectionStr'];
 		}
-		//end alteration
 	}
 	
-	//triggerChange(device['idx'],device['LastUpdate']);
-	
 	var stateBlock ='<div class="col-xs-4 col-icon">';
-		if(typeof(blocks[device['idx']])!=='undefined' && typeof(blocks[device['idx']]['icon'])!=='undefined'){
-			stateBlock+='<em class="fa '+blocks[device['idx']]['icon']+'"'+attr+'></em>';
+		if(typeof(blocks[idx])!=='undefined' && typeof(blocks[idx]['icon'])!=='undefined'){
+			stateBlock+='<em class="fa '+blocks[idx]['icon']+'"'+attr+'></em>';
 		}
-		else if(typeof(blocks[device['idx']])!=='undefined' && typeof(blocks[device['idx']]['image'])!=='undefined'){
-			stateBlock+='<img src="img/'+blocks[device['idx']]['image']+'"'+attr+' class="icon" />';
+		else if(typeof(blocks[idx])!=='undefined' && typeof(blocks[idx]['image'])!=='undefined'){
+			stateBlock+='<img src="img/'+blocks[idx]['image']+'"'+attr+' class="icon" />';
 		}
 		else {
 			if(typeof(block.image)!=='undefined') stateBlock+='<img src="img/'+block.image+'"'+attr+' class="icon" />';
@@ -418,7 +391,7 @@ function getStatusBlock(device,block,c){
 		}
 	stateBlock+='</div>';
 	stateBlock+='<div class="col-xs-8 col-data">';
-		if(typeof(blocks[device['idx']])!=='undefined' && typeof(blocks[device['idx']]['switch'])!=='undefined' && blocks[device['idx']]['switch']==true){
+		if(typeof(blocks[idx])!=='undefined' && typeof(blocks[idx]['switch'])!=='undefined' && blocks[idx]['switch']==true){
 			stateBlock+='<strong class="title">'+title+'</strong><br />';
 			stateBlock+='<span>'+value+'</span>';
 		}
@@ -427,8 +400,8 @@ function getStatusBlock(device,block,c){
 			stateBlock+='<span>'+title+'</span>';
 		}
 
-		if((settings['last_update']==1 && (typeof(blocks[device['idx']])=='undefined' || typeof(blocks[device['idx']]['hide_lastupdate'])=='undefined' || blocks[device['idx']]['hide_lastupdate']===false)) || 
-		  (settings['last_update']==0 && (typeof(blocks[device['idx']])!=='undefined' && typeof(blocks[device['idx']]['show_lastupdate'])!=='undefined' && blocks[device['idx']]['show_lastupdate']==true)) 
+		if((settings['last_update']==1 && (typeof(blocks[idx])=='undefined' || typeof(blocks[idx]['hide_lastupdate'])=='undefined' || blocks[idx]['hide_lastupdate']===false)) || 
+		  (settings['last_update']==0 && (typeof(blocks[idx])!=='undefined' && typeof(blocks[idx]['show_lastupdate'])!=='undefined' && blocks[idx]['show_lastupdate']==true)) 
 		  ){
 			stateBlock+='<br /><span class="lastupdate">'+moment(device['LastUpdate']).format(settings['timeformat'])+'</span>';
 		}
@@ -455,7 +428,7 @@ function iconORimage(idx,defaulticon,defaultimage,classnames,attr,colwidth,attrc
 }
 
 function getBlockData(device,idx,ontxt,offtxt){
-	//triggerChange(device['idx'],device['LastUpdate']);
+	//triggerChange(idx,device['LastUpdate']);
 	
 	var data='<div class="col-xs-8 col-data">';
 	if(typeof(blocks[idx])!=='undefined' && typeof(blocks[idx]['hide_data'])!=='undefined' && blocks[idx]['hide_data']==true){

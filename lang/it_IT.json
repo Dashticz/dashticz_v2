@@ -9,6 +9,8 @@
         "sunrise": "Alba"
     },
     "energy": {
+        "energy_delivered": "Delivered",
+        "energy_deliveredtoday": "Delivered today",
         "energy_now": "ora",
         "energy_today": "oggi",
         "energy_total": "totale",

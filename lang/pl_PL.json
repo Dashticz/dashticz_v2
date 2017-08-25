@@ -9,6 +9,8 @@
         "sunrise": "Wschód słońca"
     },
     "energy": {
+        "energy_delivered": "Delivered",
+        "energy_deliveredtoday": "Delivered today",
         "energy_now": "aktualnie",
         "energy_today": "dzisiaj",
         "energy_total": "całkowite",

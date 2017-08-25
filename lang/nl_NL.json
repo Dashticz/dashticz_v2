@@ -9,6 +9,8 @@
         "sunrise": "Zonsopkomst"
     },
     "energy": {
+        "energy_delivered": "Geleverd",
+        "energy_deliveredtoday": "Vandaag geleverd",
         "energy_now": "nu",
         "energy_today": "vandaag",
         "energy_total": "totaal",
