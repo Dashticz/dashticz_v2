@@ -1035,11 +1035,13 @@ function getDevices(override){
 							
 										var title=language.energy.energy_usage;
 										if(typeof(blocks[idx+'_1'])!=='undefined' && typeof(blocks[idx+'_1']['title'])!=='undefined') title=blocks[idx+'_1']['title'];
+										var icon = 'fa fa-plug';
+										if(typeof(blocks[idx+'_1'])!=='undefined' && typeof(blocks[idx+'_1']['icon'])!=='undefined') icon=blocks[idx+'_1']['icon'];
 										if(typeof(device['UsageDeliv'])!=='undefined' && (parseFloat(device['UsageDeliv'])>0 || parseFloat(device['UsageDeliv'])<0)){
-											html+= getStateBlock(idx+'_1','fa fa-plug',title,device['UsageDeliv'],device);
+											html+= getStateBlock(idx+'_1',icon,title,device['UsageDeliv'],device);
 										}
 										else {
-											html+= getStateBlock(idx+'_1','fa fa-plug',title,device['Usage'],device);
+											html+= getStateBlock(idx+'_1',icon,title,device['Usage'],device);
 										}
 										if(!$('div.block_'+idx).hasClass('block_'+idx+'_1')) $('div.block_'+idx).addClass('block_'+idx+'_1');
 										$('div.block_'+idx+'_1').html(html);
@@ -1050,7 +1052,9 @@ function getDevices(override){
 							
 										var title=language.energy.energy_usagetoday;
 										if(typeof(blocks[idx+'_2'])!=='undefined' && typeof(blocks[idx+'_2']['title'])!=='undefined') title=blocks[idx+'_2']['title'];
-										html = getStateBlock(idx+'_2','fa fa-plug',title,device['CounterToday'],device);
+										var icon = 'fa fa-plug';
+										if(typeof(blocks[idx+'_2'])!=='undefined' && typeof(blocks[idx+'_2']['icon'])!=='undefined') icon=blocks[idx+'_2']['icon'];
+										html = getStateBlock(idx+'_2',icon,title,device['CounterToday'],device);
 										if(typeof(allblocks[idx])!=='undefined' && $('div.block_'+idx+'_2').length==0) var duplicate = $('div.block_'+idx+'_1').last().clone().removeClass('block_'+idx+'_1').addClass('block_'+idx+'_2').insertAfter($('div.block_'+idx+'_1'));
 										$('div.block_'+idx+'_2').html(html);
 										addHTML=false;
@@ -1060,7 +1064,9 @@ function getDevices(override){
 
 										var title=language.energy.energy_totals;
 										if(typeof(blocks[idx+'_3'])!=='undefined' && typeof(blocks[idx+'_3']['title'])!=='undefined') title=blocks[idx+'_3']['title'];
-										html = getStateBlock(idx+'_3','fa fa-plug',title,device['Counter']+' kWh',device);
+										var icon = 'fa fa-plug';
+										if(typeof(blocks[idx+'_3'])!=='undefined' && typeof(blocks[idx+'_3']['icon'])!=='undefined') icon=blocks[idx+'_3']['icon'];
+										html = getStateBlock(idx+'_3',icon,title,device['Counter']+' kWh',device);
 										if(typeof(allblocks[idx])!=='undefined' && $('div.block_'+idx+'_3').length==0) var duplicate = $('div.block_'+idx+'_2').last().clone().removeClass('block_'+idx+'_2').addClass('block_'+idx+'_3').insertAfter($('div.block_'+idx+'_2'));
 										$('div.block_'+idx+'_3').html(html);
 										addHTML=false;
@@ -1071,7 +1077,9 @@ function getDevices(override){
 							
 											var title=language.energy.energy_delivered;
 											if(typeof(blocks[idx+'_4'])!=='undefined' && typeof(blocks[idx+'_4']['title'])!=='undefined') title=blocks[idx+'_4']['title'];
-											html = getStateBlock(idx+'_4','fa fa-plug',title,device['CounterDeliv']+' kWh',device);
+											var icon = 'fa fa-plug';
+											if(typeof(blocks[idx+'_4'])!=='undefined' && typeof(blocks[idx+'_4']['icon'])!=='undefined') icon=blocks[idx+'_4']['icon'];
+											html = getStateBlock(idx+'_4',icon,title,device['CounterDeliv']+' kWh',device);
 											if(typeof(allblocks[idx])!=='undefined' && $('div.block_'+idx+'_4').length==0) var duplicate = $('div.block_'+idx+'_3').last().clone().removeClass('block_'+idx+'_3').addClass('block_'+idx+'_4').insertAfter($('div.block_'+idx+'_3'));
 											$('div.block_'+idx+'_4').html(html);
 											addHTML=false;
@@ -1081,7 +1089,9 @@ function getDevices(override){
 							
 											var title=language.energy.energy_deliveredtoday;
 											if(typeof(blocks[idx+'_5'])!=='undefined' && typeof(blocks[idx+'_5']['title'])!=='undefined') title=blocks[idx+'_5']['title'];
-											html = getStateBlock(idx+'_5','fa fa-plug',title,device['CounterDelivToday'],device);
+											var icon = 'fa fa-plug';
+											if(typeof(blocks[idx+'_5'])!=='undefined' && typeof(blocks[idx+'_5']['icon'])!=='undefined') icon=blocks[idx+'_5']['icon'];
+											html = getStateBlock(idx+'_5',icon,title,device['CounterDelivToday'],device);
 											if(typeof(allblocks[idx])!=='undefined' && $('div.block_'+idx+'_5').length==0) var duplicate = $('div.block_'+idx+'_4').last().clone().removeClass('block_'+idx+'_4').addClass('block_'+idx+'_5').insertAfter($('div.block_'+idx+'_4'));
 											$('div.block_'+idx+'_5').html(html);
 											addHTML=false;
@@ -1097,7 +1107,9 @@ function getDevices(override){
 							
 										var title=language.energy.gas_usagetoday;
 										if(typeof(blocks[idx+'_1'])!=='undefined' && typeof(blocks[idx+'_1']['title'])!=='undefined') title=blocks[idx+'_1']['title'];
-										html+= getStateBlock(idx+'_1','fa fa-fire',title,device['CounterToday'],device);
+										var icon = 'fa fa-fire';
+										if(typeof(blocks[idx+'_1'])!=='undefined' && typeof(blocks[idx+'_1']['icon'])!=='undefined') icon=blocks[idx+'_1']['icon'];
+										html+= getStateBlock(idx+'_1',icon,title,device['CounterToday'],device);
 										if(!$('div.block_'+idx).hasClass('block_'+idx+'_1')) $('div.block_'+idx).addClass('block_'+idx+'_1');
 										$('div.block_'+idx+'_1').html(html);
 										addHTML=false;
@@ -1107,7 +1119,9 @@ function getDevices(override){
 							
 										var title=language.energy.energy_totals;
 										if(typeof(blocks[idx+'_2'])!=='undefined' && typeof(blocks[idx+'_2']['title'])!=='undefined') title=blocks[idx+'_2']['title'];
-										html = getStateBlock(idx+'_2','fa fa-fire',title,device['Counter']+' m3',device);
+										var icon = 'fa fa-fire';
+										if(typeof(blocks[idx+'_2'])!=='undefined' && typeof(blocks[idx+'_2']['icon'])!=='undefined') icon=blocks[idx+'_2']['icon'];
+										html = getStateBlock(idx+'_2',icon,title,device['Counter']+' m3',device);
 										if(typeof(allblocks[idx])!=='undefined' && $('div.block_'+idx+'_2').length==0) var duplicate = $('div.block_'+idx+'_1').last().clone().removeClass('block_'+idx+'_1').addClass('block_'+idx+'_2').insertAfter($('div.block_'+idx+'_1'));
 										$('div.block_'+idx+'_2').html(html);
 										addHTML=false;
@@ -1123,6 +1137,8 @@ function getDevices(override){
 									if(device['Name']=='Water'){
 										var rfxicon='fa fa-tint';
 									}
+									if(typeof(blocks[idx+'_1'])!=='undefined' && typeof(blocks[idx+'_1']['icon'])!=='undefined') rfxicon=blocks[idx+'_1']['icon'];
+									
 									triggerStatus(idx+'_1',device['LastUpdate'],device);
 									triggerChange(idx+'_1',device['LastUpdate'],device);
 							
@@ -1166,7 +1182,9 @@ function getDevices(override){
 							
 									var title=device['Name']+' '+language.energy.energy_now;
 									if(typeof(blocks[idx+'_1'])!=='undefined' && typeof(blocks[idx+'_1']['title'])!=='undefined') title=blocks[idx+'_1']['title'];
-									html+= getStateBlock(device['idx']+'a','fa fa-plug',title,number_format(device['Usage'],2,',','.')+' W',device);
+									var icon = 'fa fa-fire';
+									if(typeof(blocks[idx+'_1'])!=='undefined' && typeof(blocks[idx+'_1']['icon'])!=='undefined') icon=blocks[idx+'_1']['icon'];
+									html+= getStateBlock(device['idx']+'a',icon,title,number_format(device['Usage'],2,',','.')+' W',device);
 									if(!$('div.block_'+idx).hasClass('block_'+idx+'_1')) $('div.block_'+idx).addClass('block_'+idx+'_1');
 									$('div.block_'+idx+'_1').html(html);
 									addHTML=false;
@@ -1176,7 +1194,9 @@ function getDevices(override){
 							
 									var title=device['Name']+' '+language.energy.energy_today;
 									if(typeof(blocks[idx+'_2'])!=='undefined' && typeof(blocks[idx+'_2']['title'])!=='undefined') title=blocks[idx+'_2']['title'];
-									html= getStateBlock(device['idx']+'b','fa fa-plug',title,number_format(device['CounterToday'],2,',','.')+' kWh',device);
+									var icon = 'fa fa-fire';
+									if(typeof(blocks[idx+'_2'])!=='undefined' && typeof(blocks[idx+'_2']['icon'])!=='undefined') icon=blocks[idx+'_2']['icon'];
+									html= getStateBlock(device['idx']+'b',icon,title,number_format(device['CounterToday'],2,',','.')+' kWh',device);
 									if(typeof(allblocks[idx])!=='undefined' && $('div.block_'+idx+'_2').length==0) var duplicate = $('div.block_'+idx+'_1').last().clone().removeClass('block_'+idx+'_1').addClass('block_'+idx+'_2').insertAfter($('div.block_'+idx+'_1'));
 									$('div.block_'+idx+'_2').html(html);
 									addHTML=false;
@@ -1186,7 +1206,9 @@ function getDevices(override){
 							
 									var title=device['Name']+' '+language.energy.energy_total;
 									if(typeof(blocks[idx+'_3'])!=='undefined' && typeof(blocks[idx+'_3']['title'])!=='undefined') title=blocks[idx+'_3']['title'];
-									html= getStateBlock(device['idx']+'c','fa fa-plug',title,number_format(device['Data'],2,',','.')+' kWh',device);
+									var icon = 'fa fa-fire';
+									if(typeof(blocks[idx+'_3'])!=='undefined' && typeof(blocks[idx+'_3']['icon'])!=='undefined') icon=blocks[idx+'_3']['icon'];
+									html= getStateBlock(device['idx']+'c',icon,title,number_format(device['Data'],2,',','.')+' kWh',device);
 									if(typeof(allblocks[idx])!=='undefined' && $('div.block_'+idx+'_3').length==0) var duplicate = $('div.block_'+idx+'_2').last().clone().removeClass('block_'+idx+'_2').addClass('block_'+idx+'_3').insertAfter($('div.block_'+idx+'_2'));
 									$('div.block_'+idx+'_3').html(html);
 									addHTML=false;
@@ -1207,7 +1229,9 @@ function getDevices(override){
 							
 									var title=device['Name'];
 									if(typeof(blocks[idx+'_1'])!=='undefined' && typeof(blocks[idx+'_1']['title'])!=='undefined') title=blocks[idx+'_1']['title'];
-									html+= getStateBlock(device['idx']+'a','fa fa-thermometer-half',title,number_format(device['Temp'],1,',','.')+_TEMP_SYMBOL,device);
+									var icon = 'fa fa-thermometer-half';
+									if(typeof(blocks[idx+'_3'])!=='undefined' && typeof(blocks[idx+'_3']['icon'])!=='undefined') icon=blocks[idx+'_3']['icon'];
+									html+= getStateBlock(device['idx']+'a',icon,title,number_format(device['Temp'],1,',','.')+_TEMP_SYMBOL,device);
 									if(!$('div.block_'+idx).hasClass('block_'+idx+'_1')) $('div.block_'+idx).addClass('block_'+idx+'_1');
 									$('div.block_'+idx+'_1').html(html);
 									addHTML=false;
@@ -1218,7 +1242,9 @@ function getDevices(override){
 							
 										var title=device['Name'];
 										if(typeof(blocks[idx+'_2'])!=='undefined' && typeof(blocks[idx+'_2']['title'])!=='undefined') title=blocks[idx+'_2']['title'];
-										html= getStateBlock(device['idx']+'b','wi wi-humidity',title,number_format(device['Humidity'],2,',','.')+'%',device);
+										var icon = 'wi wi-humidity';
+										if(typeof(blocks[idx+'_2'])!=='undefined' && typeof(blocks[idx+'_2']['icon'])!=='undefined') icon=blocks[idx+'_2']['icon'];
+										html= getStateBlock(device['idx']+'b',icon,title,number_format(device['Humidity'],2,',','.')+'%',device);
 										if(typeof(allblocks[idx])!=='undefined' && $('div.block_'+idx+'_2').length==0) var duplicate = $('div.block_'+idx+'_1').last().clone().removeClass('block_'+idx+'_1').addClass('block_'+idx+'_2').insertAfter($('div.block_'+idx+'_1'));
 										$('div.block_'+idx+'_2').html(html);
 										addHTML=false;
@@ -1230,7 +1256,9 @@ function getDevices(override){
 							
 										var title=device['Name'];
 										if(typeof(blocks[idx+'_3'])!=='undefined' && typeof(blocks[idx+'_3']['title'])!=='undefined') title=blocks[idx+'_3']['title'];
-										html= getStateBlock(device['idx']+'c','wi wi-barometer',title,device['Barometer']+' hPa',device);
+										var icon = 'wi wi-barometer';
+										if(typeof(blocks[idx+'_3'])!=='undefined' && typeof(blocks[idx+'_3']['icon'])!=='undefined') icon=blocks[idx+'_3']['icon'];
+										html= getStateBlock(device['idx']+'c',icon,title,device['Barometer']+' hPa',device);
 										if(typeof(allblocks[idx])!=='undefined' && $('div.block_'+idx+'_3').length==0) var duplicate = $('div.block_'+idx+'_2').last().clone().removeClass('block_'+idx+'_2').addClass('block_'+idx+'_3').insertAfter($('div.block_'+idx+'_2'));
 										$('div.block_'+idx+'_3').html(html);
 										addHTML=false;
