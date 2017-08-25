@@ -9,7 +9,7 @@
         "sunrise": "Sunrise"
     },
     "energy": {
-        "energy_delivered": "Delivered",
+        "energy_delivered": "Total delivered",
         "energy_deliveredtoday": "Delivered today",
         "energy_now": "ahora",
         "energy_today": "hoy",
@@ -109,6 +109,8 @@
             "hide_mediaplayer": "Ocultar mediaplayer cuando está apagado",
             "host_nzbget": "Ruta de NZBget",
             "host_nzbget_help": "Si utiliza NZBget, introduzca la dirección ip y el puerto, por ejemplo: http:\/\/192.168.1.32:8080",
+            "sonarr_apikey": "Sonarr ApiKey",
+            "sonarr_url": "Sonarr URL",
             "spot_clientid": "Spotify ClientID",
             "switch_horizon": "Ziggo\/UPC Mediabox Camino",
             "switch_horizon_help": "Si tienes un mediabox de ZIGGO o UPC (Horizon), copia change_horizon.php en un servidor web dentro de tu red y cambia la IP (de Horizon) dentro de este archivo.",

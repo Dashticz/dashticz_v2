@@ -9,7 +9,7 @@
         "sunrise": "Sonnenaufgang"
     },
     "energy": {
-        "energy_delivered": "Delivered",
+        "energy_delivered": "Total delivered",
         "energy_deliveredtoday": "Delivered today",
         "energy_now": "jetzt",
         "energy_today": "heute",
@@ -109,6 +109,8 @@
             "hide_mediaplayer": "Mediaplayer ausblenden wenn ausgeschaltet",
             "host_nzbget": "NZBget Pfad",
             "host_nzbget_help": "Wenn Du NZBget benutzt, gib hier die IP-Adresse und den Port, bspw. http:\/\/192.168.1.32:8080, ein.",
+            "sonarr_apikey": "Sonarr ApiKey",
+            "sonarr_url": "Sonarr URL",
             "spot_clientid": "Spotify ClientID",
             "switch_horizon": "Ziggo\/UPC Mediabox Pfad",
             "switch_horizon_help": "Wenn Du eine Mediabox von ZIGGO oder UPC (Horizon) hast, kopiere switch_horizon.php auf einen Webserver in deinem Netzwerk und ändere die IP (von Horizon) in der Datei.",

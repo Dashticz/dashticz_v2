@@ -17,6 +17,46 @@
 .swiper-pagination-bullet-active {
 	background-color:#fff !important;
 }
+
+.fa-tv:before  {font-size:26px;}
+
+.SonarrItem {
+    clear: both; 
+    width:100%;  
+    
+}
+.SonarrData {
+    float:Left; 
+    width:75%;
+}
+.SonarrPoster {
+    float:Left; 
+    width:25%;  
+    padding: 0px 5px 5px 10px;
+}
+.SonarrData span {
+    display: block;
+}
+.SonarrBigTitle {
+    transform: rotate(90deg);
+    padding-top: 15px;
+    font-size:24px;
+    text-transform: uppercase;
+}
+.SonarrTitleShow {
+    font-size: 12px;
+    font-weight: bold;
+}
+.SonarrEpisode {
+    color: darkgray;
+}
+.SonarrDownloaded {
+    color: lightskyblue;
+}
+.SonarrAirDate{
+    color: darkgray;
+}
+
 .trashcan {
     width: 100%;
 	margin-left:-4px;
@@ -255,6 +295,34 @@ a.playlist {
     margin: 5px !important;
     display: inline-block;
     border: 1px solid #ccc;
+}
+
+.containsspotify #current {
+	overflow: hidden;
+	background-color: #282828;
+}
+
+.containsspotify #current .current_image {
+	float: left;
+	margin:2px 0px 5px 2px;
+	width: calc(32% - 2px);
+}
+
+.containsspotify #current .current_image img {
+	max-width:64px;
+}
+.containsspotify #current .current_info {
+	float: left;
+	padding-left:10px;
+	width: calc(68%);
+}
+.containsspotify #current .current_artist {
+	font-weight: bold;
+}
+
+.containsspotify #current .current_album {
+	overflow: hidden;
+    max-height: 33px;
 }
 .containsspotify .change {
 	background-color: #282828;

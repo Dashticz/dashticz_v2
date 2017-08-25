@@ -9,7 +9,7 @@
         "sunrise": "Sunrise"
     },
     "energy": {
-        "energy_delivered": "Delivered",
+        "energy_delivered": "Total delivered",
         "energy_deliveredtoday": "Delivered today",
         "energy_now": "Nyt",
         "energy_today": "Tänään",
@@ -109,6 +109,8 @@
             "hide_mediaplayer": "Piilota mediasoitin, kun se on pois päältä",
             "host_nzbget": "NZBget-polku",
             "host_nzbget_help": "Jos käytät NZBget, anna IP-osoite ja portti (esimerkiksi: http:\/\/192.168.1.32:8080)",
+            "sonarr_apikey": "Sonarr ApiKey",
+            "sonarr_url": "Sonarr URL",
             "spot_clientid": "Spotify asiakastunnus",
             "switch_horizon": "Ziggo \/ UPC Mediabox-polku",
             "switch_horizon_help": "Jos sinulla on ZIGGO- tai UPC (Horizon) -medialaite, kopioi switch_horizon.php tiedosto verkossasi olevalle nettipalvelimelle ja muuta IP-osoitetta (Horizonin) tämän tiedoston sisällä.",

@@ -9,7 +9,7 @@
         "sunrise": "Zonsopkomst"
     },
     "energy": {
-        "energy_delivered": "Geleverd",
+        "energy_delivered": "Totaal geleverd",
         "energy_deliveredtoday": "Vandaag geleverd",
         "energy_now": "nu",
         "energy_today": "vandaag",
@@ -109,6 +109,8 @@
             "hide_mediaplayer": "Verberg mediaspeler wanneer het uit is",
             "host_nzbget": "NZBget Pad",
             "host_nzbget_help": "Als u NZBget gebruikt, voert u het ip-adres en de poort in, bijvoorbeeld: http:\/\/192.168.1.32:8080",
+            "sonarr_apikey": "Sonarr ApiKey",
+            "sonarr_url": "Sonarr URL",
             "spot_clientid": "Spotify ClientID",
             "switch_horizon": "Ziggo\/UPC Mediabox Pad",
             "switch_horizon_help": "Als u een mediabox hebt van ZIGGO of UPC (Horizon), kopieer switch_horizon.php op een webserver in uw netwerk en verander het IP (van Horizon) in dit bestand.",

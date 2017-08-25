@@ -9,8 +9,8 @@
         "sunrise": "Восход"
     },
     "energy": {
-        "energy_delivered": "Delivered",
-        "energy_deliveredtoday": "Delivered today",
+        "energy_delivered": "Потреблено",
+        "energy_deliveredtoday": "Потреблено сегодня",
         "energy_now": "сейчас",
         "energy_today": "сегодня",
         "energy_total": "всего",
@@ -109,6 +109,8 @@
             "hide_mediaplayer": "Скрывать выключенный медиаплеер",
             "host_nzbget": "Путь до NZBget",
             "host_nzbget_help": "Если Вы используете NZBget, введите IP-адрес и порт, например: http:\/\/192.168.1.32:8080",
+            "sonarr_apikey": "Sonarr ApiKey",
+            "sonarr_url": "Sonarr URL",
             "spot_clientid": "ID клиента в Spotify",
             "switch_horizon": "Путь до медиаплеера Ziggo\/UPC",
             "switch_horizon_help": "Если у Вас есть медиаплеер от ZIGGO или UPC (Horizon), скопируйте switch_horizon.php на веб-сервер внутри Вашей локальной сети и измените IP-адрес Horizon'а внутри этого файла.",
