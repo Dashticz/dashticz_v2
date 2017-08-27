@@ -14,7 +14,7 @@ function loadSonarr(){
 
 function getSonarrCalendar() {
 	var maxItems = 5;
-	
+	if(typeof(settings['sonarr_maxitems'])!=='undefined' && parseFloat(settings['sonarr_maxitems'])>0) maxItems=settings['sonarr_maxitems'];
 	// generate Url
 	var url = settings['sonarr_url'];
 	var apiKey = settings['sonarr_apikey'];

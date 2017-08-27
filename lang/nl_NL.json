@@ -110,6 +110,7 @@
             "host_nzbget": "NZBget Pad",
             "host_nzbget_help": "Als u NZBget gebruikt, voert u het ip-adres en de poort in, bijvoorbeeld: http:\/\/192.168.1.32:8080",
             "sonarr_apikey": "Sonarr ApiKey",
+            "sonarr_maxitems": "Sonarr max items in lijst",
             "sonarr_url": "Sonarr URL",
             "spot_clientid": "Spotify ClientID",
             "switch_horizon": "Ziggo\/UPC Mediabox Pad",

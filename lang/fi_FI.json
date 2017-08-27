@@ -110,6 +110,7 @@
             "host_nzbget": "NZBget-polku",
             "host_nzbget_help": "Jos käytät NZBget, anna IP-osoite ja portti (esimerkiksi: http:\/\/192.168.1.32:8080)",
             "sonarr_apikey": "Sonarr ApiKey",
+            "sonarr_maxitems": "Sonarr max items in list",
             "sonarr_url": "Sonarr URL",
             "spot_clientid": "Spotify asiakastunnus",
             "switch_horizon": "Ziggo \/ UPC Mediabox-polku",

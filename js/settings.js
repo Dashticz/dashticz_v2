@@ -250,6 +250,10 @@ settingList['media']['sonarr_apikey'] = {}
 settingList['media']['sonarr_apikey']['title'] = language.settings.media.sonarr_apikey;
 settingList['media']['sonarr_apikey']['type'] = 'text';
 
+settingList['media']['sonarr_maxitems'] = {}
+settingList['media']['sonarr_maxitems']['title'] = language.settings.media.sonarr_maxitems;
+settingList['media']['sonarr_maxitems']['type'] = 'text';
+
 settingList['media']['hide_mediaplayer'] = {}
 settingList['media']['hide_mediaplayer']['title'] = language.settings.media.hide_mediaplayer;
 settingList['media']['hide_mediaplayer']['type'] = 'checkbox';
