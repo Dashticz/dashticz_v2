@@ -99,11 +99,27 @@ function dataPublicTransport(random,data,transportobject){
 				}
 				key = data[d][t]['time'];
 				if(typeof(dataPart[key])=='undefined') dataPart[key]=[];
-				BusTime = data[d][t]['time'].slice(0,-3);
+				var fullArrivalDate = data[d][t]['date'] + ' ' + data[d][t]['time'];
+				var arrivalTime =  moment(fullArrivalDate);
+				var delay = 'Null';
+				if (data[d][t]['rtTime']) {
+					var fullRealArrivalDate = data[d][t]['rtDate'] + ' ' + data[d][t]['rtTime'];
+					var realArrivalTime = moment(fullRealArrivalDate);
+					var delay = '+' + realArrivalTime.diff(arrivalTime, 'minutes');
+				}
 				dataPart[key][i]='';
-				dataPart[key][i]+='<div><b>'+ BusTime +'</b> ';
+				dataPart[key][i]+='<div><b>'+ arrivalTime.format('HH:mm') +'</b> ';
+			
+				if (delay <= 0) {
+					dataPart[key][i]+='<span id="notlatetrain">'+delay+'</span> ';
+				} 
+				else if (delay > 0) {
+					dataPart[key][i]+='<span id="latetrain">'+delay+'</span> ';
+				}
+				
 				dataPart[key][i]+=' - '+data[d][t]['name']+' - ';
-				//console.log(data[d][t]['time']+ ' - ' +data[d][t]['name']+ ' - ' +data[d][t]['direction'] );
+				
+
 				dest = data[d][t]['direction'].split(' via ');
 				dataPart[key][i]+=dest[0];
 				if(typeof(transportobject.show_via)=='undefined' || transportobject.show_via==true){
