@@ -9,8 +9,8 @@
         "sunrise": "Soluppgång"
     },
     "energy": {
-        "energy_delivered": "Delivered",
-        "energy_deliveredtoday": "Delivered today",
+        "energy_delivered": "Levererad",
+        "energy_deliveredtoday": "Levererade idag",
         "energy_now": "nu",
         "energy_today": "idag",
         "energy_total": "totalt",
@@ -109,6 +109,9 @@
             "hide_mediaplayer": "Dölj mediaplayer när den är avstängd",
             "host_nzbget": "NZBget Sökväg",
             "host_nzbget_help": "Om du använder NZBget, ange ip-adress och port, t ex: http:\/\/192.168.1.32:8080",
+            "sonarr_apikey": "Sonarr ApiKey",
+            "sonarr_maxitems": "Sonarr max items in list",
+            "sonarr_url": "Sonarr URL",
             "spot_clientid": "Spotify KlientID",
             "switch_horizon": "Ziggo \/ UPC Mediabox Sökväg",
             "switch_horizon_help": "Om du har en mediabox från ZIGGO eller UPC (Horizon), kopiera switch_horizon.php på en webbserver i ditt nätverk och ändra IP (av Horizon) i den här filen.",

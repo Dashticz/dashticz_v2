@@ -9,8 +9,8 @@
         "sunrise": "Wschód słońca"
     },
     "energy": {
-        "energy_delivered": "Delivered",
-        "energy_deliveredtoday": "Delivered today",
+        "energy_delivered": "Pobór całkowity",
+        "energy_deliveredtoday": "Pobór dzisiaj",
         "energy_now": "aktualnie",
         "energy_today": "dzisiaj",
         "energy_total": "całkowite",
@@ -109,6 +109,9 @@
             "hide_mediaplayer": "Ukryj odtwarzacz, gdy jest wyłączony",
             "host_nzbget": "Ścieżka do NZBget",
             "host_nzbget_help": "Jeśli używasz programu NZBget, wpisz adres IP i port, np .: http:\/\/192.168.1.32:8080",
+            "sonarr_apikey": "Klucz API aplikacji Sonarr",
+            "sonarr_maxitems": "Sonarr max items in list",
+            "sonarr_url": "Adres URL do Sonarr",
             "spot_clientid": "ClientID dla usługi Spotify",
             "switch_horizon": "Ścieżka do Ziggo\/UPC Mediabox",
             "switch_horizon_help": "Jeśli masz mediabox ZIGGO lub UPC (Horizon), skopiuj switch_horizon.php na serwer WWW wewnątrz sieci i zmień adres IP (urządzenia Horizon) w tym pliku.",

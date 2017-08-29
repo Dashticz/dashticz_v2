@@ -9,7 +9,7 @@
         "sunrise": "Sunrise"
     },
     "energy": {
-        "energy_delivered": "Delivered",
+        "energy_delivered": "Total delivered",
         "energy_deliveredtoday": "Delivered today",
         "energy_now": "now",
         "energy_today": "today",
@@ -109,6 +109,9 @@
             "hide_mediaplayer": "Skjul mediaplayer når den er av",
             "host_nzbget": "NZBget Banen",
             "host_nzbget_help": "Hvis du bruker NZBget, skriver du inn ip-adressen og porten, for eksempel: http:\/\/192.168.1.32:8080",
+            "sonarr_apikey": "Sonarr ApiKey",
+            "sonarr_maxitems": "Sonarr max items in list",
+            "sonarr_url": "Sonarr URL",
             "spot_clientid": "Spotify ClientID",
             "switch_horizon": "Ziggo\/UPC Mediabox Banen",
             "switch_horizon_help": "Hvis du har en mediabox fra ZIGGO eller UPC (Horizon), kopier switch_horizon.php på en webserver i nettverket ditt og endre IP (av Horizon) i denne filen.",

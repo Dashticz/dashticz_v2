@@ -9,7 +9,7 @@
         "sunrise": "Sunrise"
     },
     "energy": {
-        "energy_delivered": "Delivered",
+        "energy_delivered": "Total delivered",
         "energy_deliveredtoday": "Delivered today",
         "energy_now": "most",
         "energy_today": "ma",
@@ -109,6 +109,9 @@
             "hide_mediaplayer": "Hide mediaplayer when it's off",
             "host_nzbget": "NZBget Path",
             "host_nzbget_help": "Ha használja NZBget, adja meg az ip-címet, portot, például: http:\/\/192.168.1.32:8080",
+            "sonarr_apikey": "Sonarr ApiKey",
+            "sonarr_maxitems": "Sonarr max items in list",
+            "sonarr_url": "Sonarr URL",
             "spot_clientid": "Spotify ClientID",
             "switch_horizon": "Ziggo\/UPC Médiabox Út",
             "switch_horizon_help": "If you have a mediabox from ZIGGO or UPC (Horizon), copy switch_horizon.php on a webserver inside your network and change the IP (of Horizon) inside this file.",

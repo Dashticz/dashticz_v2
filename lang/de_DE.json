@@ -9,8 +9,8 @@
         "sunrise": "Sonnenaufgang"
     },
     "energy": {
-        "energy_delivered": "Delivered",
-        "energy_deliveredtoday": "Delivered today",
+        "energy_delivered": "Insgesamt verbraucht",
+        "energy_deliveredtoday": "Verbrauch heute",
         "energy_now": "jetzt",
         "energy_today": "heute",
         "energy_total": "insgesamt",
@@ -71,7 +71,7 @@
             "use_favorites": "Nur favorisierte Geräte anzeigen",
             "use_favorites_help": "Nur genutzt bei aktivierter Auto Positionierung"
         },
-        "infosave": "Die Einstellungen werden standardmäßig im Browser selber gespeichert. Der Nachteil dieser Methode ist, sie gelten entsprechend nur für den aktuellen Browser. Wenn das kein Problem darstellt kannst das Fenster schließen und musst nichts weiter unternehmen. Ansonsten kopiere den unten dargestellten Code in deine CONFIG.JS um die Einstellungen für alle Browser und Geräte zu aktivieren.",
+        "infosave": "Die Einstellungen werden standardmäßig im Browser selber gespeichert. Der Nachteil dieser Methode ist, sie gelten entsprechend nur für den aktuellen Browser. Wenn das kein Problem darstellt, kannst das Fenster schließen und musst nichts weiter unternehmen. Ansonsten kopiere den unten dargestellten Code in deine CONFIG.JS um die Einstellungen für alle Browser und Geräte zu aktivieren.",
         "localize": {
             "boss_stationclock": "StationClock Typ",
             "calendarformat": "Kalenderformat",
@@ -109,6 +109,9 @@
             "hide_mediaplayer": "Mediaplayer ausblenden wenn ausgeschaltet",
             "host_nzbget": "NZBget Pfad",
             "host_nzbget_help": "Wenn Du NZBget benutzt, gib hier die IP-Adresse und den Port, bspw. http:\/\/192.168.1.32:8080, ein.",
+            "sonarr_apikey": "Sonarr API-Schlüssel",
+            "sonarr_maxitems": "Sonarr max items in list",
+            "sonarr_url": "Sonarr URL",
             "spot_clientid": "Spotify ClientID",
             "switch_horizon": "Ziggo\/UPC Mediabox Pfad",
             "switch_horizon_help": "Wenn Du eine Mediabox von ZIGGO oder UPC (Horizon) hast, kopiere switch_horizon.php auf einen Webserver in deinem Netzwerk und ändere die IP (von Horizon) in der Datei.",
@@ -136,7 +139,7 @@
             "translate_windspeed_help": "'Nord-Nordwest' anstelle von 'NNW'",
             "use_beaufort": "Bft anstelle von m\/s verwenden",
             "use_fahrenheit": "Fahrenheit anstelle von Celsius verwenden",
-            "wu_api": "Wunderground API Schlüssel",
+            "wu_api": "Wunderground API-Schlüssel",
             "wu_city": "Wunderground Messstation (Stadt oder Code)",
             "wu_country": "Wunderground Land",
             "wu_name": "Anzeigename"

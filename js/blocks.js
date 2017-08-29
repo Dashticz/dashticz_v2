@@ -221,6 +221,10 @@ function getBlock(cols,c,columndiv,standby){
 				if(typeof(loadGarbage)!=='function') $.ajax({url: 'js/garbage.js', async: false,dataType: "script"});
 				$(columndiv).append(loadGarbage());
 			}
+			else if(cols['blocks'][b]=='sonarr'){
+	            if(typeof(loadSonarr)!=='function') $.ajax({url: 'js/sonarr.js', async: false,dataType: "script"});
+                $(columndiv).append(loadSonarr());
+            }
 			else if(typeof(cols['blocks'][b])=='object'){
 				var random = getRandomInt(1,100000);
 				var key = 'UNKNOWN';
