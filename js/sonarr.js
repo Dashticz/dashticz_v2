@@ -1,8 +1,20 @@
 function loadSonarr(){
 	
 	// create html
-    var html = '<div class="sonarrMain col-xs-12 transbg">';
-	html += '<div class="col-xs-2 col-icon"><em class="fa fa-tv"></em><div class="SonarrBigTitle">Upcoming&nbsp;shows</div></div>';
+	var width = 12;
+	if(typeof(blocks['sonarr'])!=='undefined' && typeof(blocks['sonarr']['width'])!=='undefined'){
+		width = blocks['sonarr']['width'];
+	}
+    var html = '<div class="sonarrMain col-xs-'+width+' transbg">';
+	html += '<div class="col-xs-2 col-icon"><em class="fa fa-tv"></em>';
+	var SonarrTitleObject = 'Upcoming&nbsp;shows';
+	
+	if(typeof(blocks['sonarr'])!=='undefined' && typeof(blocks['sonarr']['title'])!=='undefined'){
+		SonarrTitleObject = blocks['sonarr']['title'];
+	}
+
+	html += '<div class="SonarrBigTitle">'+ SonarrTitleObject +'</div></div>';
+
 	html += '<div class="col-xs-10 col-data"><span class="state">' +language.misc.loading+ '</span></div>';
     html += '</div>';
 
