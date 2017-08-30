@@ -307,14 +307,7 @@ function getStateBlock(id,icon,title,value,device){
 		value = value.replace(unitArray[0], unitArray[1]);
 	}
 	
-	if(device['SubType']=='Percentage' || device['SubType']=='Custom Sensor' || device['TypeImg']=='counter' || device['Type']=='Temp' || device['Type']=='Wind' || device['Type']=='Rain' || device['Type']== 'Temp + Humidity' || device['Type']== 'Temp + Humidity + Baro'){
-		getButtonGraphs(device);
-		if($('.block_'+id).length>0){
-			$('.block_'+id).addClass('hover');
-			$('.block_'+id).attr('data-toggle','modal');
-			$('.block_'+id).attr('data-target','#opengraph'+device['idx']);
-		}
-	}
+	getBlockClick(id,device);
 	
 	var stateBlock ='<div class="col-xs-4 col-icon">';
 		stateBlock+='<em class="'+icon+'"></em>';
@@ -357,14 +350,7 @@ function getStatusBlock(idx,device,block,c){
 		value = value.replace(unitArray[0], unitArray[1]);
 	}
 						
-	if(device['SubType']=='Percentage' || device['SubType']=='Custom Sensor' || device['TypeImg']=='counter' || device['Type']=='Temp' || device['Type']=='Wind' || device['Type']=='Rain' || device['Type']== 'Temp + Humidity' || device['Type']== 'Temp + Humidity + Baro'){
-		getButtonGraphs(device);
-		if($('.block_'+idx).length>0){
-			$('.block_'+idx).addClass('hover');
-			$('.block_'+idx).attr('data-toggle','modal');
-			$('.block_'+idx).attr('data-target','#opengraph'+device['idx']);
-		}
-	}
+	getBlockClick(idx,device);
 	
 	var attr='';
 	if(typeof(device['Direction'])!=='undefined' && typeof(device['DirectionStr'])!=='undefined'){
@@ -413,7 +399,46 @@ function getStatusBlock(idx,device,block,c){
 	return stateBlock;
 }
 
+function getBlockClick(idx,device){
+	if(typeof(blocks[idx])!=='undefined' && typeof(blocks[idx]['link'])!=='undefined' && blocks[idx]['link']!==""){
+		if($('.block_'+idx).length>0){
+			$('.block_'+idx).addClass('hover');
+			
+			if(typeof(blocks[idx]['target'])=='undefined' || blocks[idx]['target']=='_blank'){
+				$('.block_'+idx).attr('onclick','window.open(\''+blocks[idx]['link']+'\');');
+			}
+			else if(typeof(blocks[idx]['target'])!=='undefined' && blocks[idx]['target']=='iframe'){
+				$('.block_'+idx).attr('onclick','addBlockClickFrame('+idx+');');
+			}
+		}
+	}
+	else if(device['SubType']=='Percentage' || device['SubType']=='Custom Sensor' || device['TypeImg']=='counter' || device['Type']=='Temp' || device['Type']=='Wind' || device['Type']=='Rain' || device['Type']== 'Temp + Humidity' || device['Type']== 'Temp + Humidity + Baro'){
+		getButtonGraphs(device);
+		if($('.block_'+idx).length>0){
+			$('.block_'+idx).addClass('hover');
+			$('.block_'+idx).attr('data-toggle','modal');
+			$('.block_'+idx).attr('data-target','#opengraph'+device['idx']);
+		}
+	}
+}
 
+function addBlockClickFrame(idx){
+	$('#button_'+idx).remove();
+	var html = '<div class="modal fade" id="button_'+idx+'" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
+	  html+='<div class="modal-dialog">';
+		html+='<div class="modal-content">';
+		  html+='<div class="modal-header">';
+			html+='<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
+		  html+='</div>';
+		  html+='<div class="modal-body">';
+			  html+='<iframe src="'+blocks[idx]['link']+'" width="100%" height="570" frameborder="0" allowtransparency="true"></iframe> '; 
+		  html+='</div>';
+		html+='</div>';
+	  html+='</div>';
+	html+='</div>';
+	$('body').append(html);
+	$('#button_'+idx).modal('show');
+}
 function iconORimage(idx,defaulticon,defaultimage,classnames,attr,colwidth,attrcol){
 	if(typeof(colwidth)=='undefined') colwidth=4;
 	if(typeof(attrcol)=='undefined') attrcol='';
@@ -432,7 +457,6 @@ function iconORimage(idx,defaulticon,defaultimage,classnames,attr,colwidth,attrc
 }
 
 function getBlockData(device,idx,ontxt,offtxt){
-	//triggerChange(idx,device['LastUpdate']);
 	
 	var data='<div class="col-xs-8 col-data">';
 	if(typeof(blocks[idx])!=='undefined' && typeof(blocks[idx]['hide_data'])!=='undefined' && blocks[idx]['hide_data']==true){
