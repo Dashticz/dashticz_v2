@@ -108,25 +108,25 @@ function dataPublicTransport(random,data,transportobject){
 					var delay = '+' + realArrivalTime.diff(arrivalTime, 'minutes');
 				}
 				dataPart[key][i]='';
-				dataPart[key][i]+='<div><b>'+ arrivalTime.format('HH:mm') +'</b> ';
+				dataPart[key][i]+='<div><span class="trainTime">'+ arrivalTime.format('HH:mm') +'</span>';
 			
 				if (delay <= 0) {
-					dataPart[key][i]+='<span id="notlatetrain">'+delay+'</span> ';
+					dataPart[key][i]+='<span id="notlatetrain">'+delay+'</span>';
 				} 
 				else if (delay > 0) {
-					dataPart[key][i]+='<span id="latetrain">'+delay+'</span> ';
+					dataPart[key][i]+='<span id="latetrain">'+delay+'</span>';
 				}
-				
-				dataPart[key][i]+=' - '+data[d][t]['name']+' - ';
-				
+				dataPart[key][i]+='<span class="trainSeparator"> - </span>'
+				dataPart[key][i]+='<span class="trainLine '+(data[d][t]['name']).replace(/ /g,'')+'">'+data[d][t]['name']+'</span>';
+				dataPart[key][i]+='<span class="trainSeparator"> - </span>'
 
 				dest = data[d][t]['direction'].split(' via ');
-				dataPart[key][i]+=dest[0];
+				dataPart[key][i]+='<span class="trainDestination">'+dest[0];
 				if(typeof(transportobject.show_via)=='undefined' || transportobject.show_via==true){
 					if(typeof(dest[1])!=='undefined') dataPart[key][i]+=' via '+dest[1];
 				}
 
-				dataPart[key][i]+=' </div>';
+				dataPart[key][i]+='</span></div>';
 			}
 		}
 		else if(provider == 'vvs'){
