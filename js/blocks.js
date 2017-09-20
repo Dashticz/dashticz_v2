@@ -63,6 +63,7 @@ function getBlock(cols,c,columndiv,standby){
 			if(cols['blocks'][b]=='logo') width=2;
 			if(cols['blocks'][b]=='miniclock') width=8;
 			if(cols['blocks'][b]=='settings') width=2;
+			if(cols['blocks'][b]=='flipclock') width=8;
 			
 			if(typeof(blocks[cols['blocks'][b]])!=='undefined' && typeof(blocks[cols['blocks'][b]]['width'])!=='undefined') width = blocks[cols['blocks'][b]]['width'];
 			else if(typeof(cols['blocks'][b])!=='undefined' && typeof(cols['blocks'][b]['width'])!=='undefined') width = cols['blocks'][b]['width'];
@@ -164,6 +165,17 @@ function getBlock(cols,c,columndiv,standby){
 				clock.secondHandBehavoir = StationClock.OverhastySecondHand;
 
 				window.setInterval(function() { clock.draw() }, 50);
+			}
+			else if(cols['blocks'][b]=='flipclock'){
+				$('<link href="vendor/flipclock/flipclock.css?v='+cache+'" rel="stylesheet">').appendTo("head");
+				$(columndiv).append('<div data-id="flipclock" class="flipclock transbg block_'+cols['blocks'][b]+' col-xs-'+width+' text-center"></div');
+				if(typeof(FlipClock)!=='function') $.ajax({url: 'vendor/flipclock/flipclock.min.js', async: false, datatype: "script"});
+				//Detect 12/24 hour locales - it's better via locales config files?
+				if ( new Date(Date.UTC(2017, 11, 11, 3, 0, 0)).toLocaleTimeString().match(/am|pm/i)) {
+					var flipclock = new FlipClock($('.flipclock'), { clockFace: 'TwelveHourClock' });
+				} else {
+					var flipclock = new FlipClock($('.flipclock'), { clockFace: 'TwentyFourHourClock' });
+				}
 			}
 			else if(cols['blocks'][b]=='sunrise'){
 				if(c=='bar') $(columndiv).append('<div data-id="sunrise" class="block_'+cols['blocks'][b]+' col-xs-2 text-left sunriseholder"><em class="wi wi-sunrise"></em><span class="sunrise"></span><em class="wi wi-sunset"></em><span class="sunset"></span></div>');
