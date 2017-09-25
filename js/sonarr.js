@@ -5,7 +5,7 @@ function loadSonarr(){
 	if(typeof(blocks['sonarr'])!=='undefined' && typeof(blocks['sonarr']['width'])!=='undefined'){
 		width = blocks['sonarr']['width'];
 	}
-    var html = '<div class="sonarrMain col-xs-'+width+' transbg">';
+    var html = '<div class="sonarrMain block_sonarr col-xs-'+width+' transbg">';
 	html += '<div class="col-xs-2 col-icon"><em class="fa fa-tv"></em>';
 	var SonarrTitleObject = 'Upcoming&nbsp;shows';
 	

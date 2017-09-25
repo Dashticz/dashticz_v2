@@ -102,6 +102,7 @@ settingList['localize']['language']['title'] = language.settings.localize.langua
 settingList['localize']['language']['type'] = 'select';
 settingList['localize']['language']['options'] = {};
 settingList['localize']['language']['options']['zh_CN'] = language.settings.localize.cn;
+settingList['localize']['language']['options']['cs_CZ'] = language.settings.localize.cs;
 settingList['localize']['language']['options']['da_DK'] = language.settings.localize.da;
 settingList['localize']['language']['options']['de_DE'] = language.settings.localize.de;
 settingList['localize']['language']['options']['en_US'] = language.settings.localize.en;

@@ -219,11 +219,15 @@ function getBlock(cols,c,columndiv,standby){
 			}
 			else if(cols['blocks'][b]=='garbage'){
 				if(typeof(loadGarbage)!=='function') $.ajax({url: 'js/garbage.js', async: false,dataType: "script"});
+				
+				
 				$(columndiv).append(loadGarbage());
+				getBlockClick('garbage');
 			}
 			else if(cols['blocks'][b]=='sonarr'){
 	            if(typeof(loadSonarr)!=='function') $.ajax({url: 'js/sonarr.js', async: false,dataType: "script"});
                 $(columndiv).append(loadSonarr());
+				getBlockClick('sonarr');
             }
 			else if(typeof(cols['blocks'][b])=='object'){
 				var random = getRandomInt(1,100000);
@@ -241,7 +245,7 @@ function getBlock(cols,c,columndiv,standby){
 					var html ='';
 					if(typeof(cols['blocks'][b]['title'])!=='undefined') html+='<div class="col-xs-'+width+' mh titlegroups transbg"><h3>'+cols['blocks'][b]['title']+'</h3></div>';
 					
-					html+='<div data-id="tvguide.'+key+'" class="col-xs-'+width+' transbg containstvguide containstvguide'+random+'">';
+					html+='<div data-id="tvguide.'+key+'" class="col-xs-'+width+' block_tvguide transbg containstvguide containstvguide'+random+'">';
 					if(typeof(cols['blocks'][b]['icon'])!=='undefined' && cols['blocks'][b]['icon']!==''){
 						html+='<div class="col-xs-2 col-icon">';
 							html+='<em class="fa '+cols['blocks'][b]['icon']+'"></em>';
@@ -261,7 +265,7 @@ function getBlock(cols,c,columndiv,standby){
 					html+='</div>';
 					$(columndiv).append(html);	
 					addTVGuide($('.containstvguide'+random),cols['blocks'][b]);
-
+					getBlockClick('tvguide');
 				}
 				else if(typeof(cols['blocks'][b]['icalurl'])!=='undefined' || typeof(cols['blocks'][b]['calendars'])!=='undefined'){
 					var html ='';
@@ -408,16 +412,18 @@ function getBlockClick(idx,device){
 				$('.block_'+idx).attr('onclick','window.open(\''+blocks[idx]['link']+'\');');
 			}
 			else if(typeof(blocks[idx]['target'])!=='undefined' && blocks[idx]['target']=='iframe'){
-				$('.block_'+idx).attr('onclick','addBlockClickFrame('+idx+');');
+				$('.block_'+idx).attr('onclick','addBlockClickFrame(\''+idx+'\');');
 			}
 		}
 	}
-	else if(device['SubType']=='Percentage' || device['SubType']=='Custom Sensor' || device['TypeImg']=='counter' || device['Type']=='Temp' || device['Type']=='Wind' || device['Type']=='Rain' || device['Type']== 'Temp + Humidity' || device['Type']== 'Temp + Humidity + Baro'){
-		getButtonGraphs(device);
-		if($('.block_'+idx).length>0){
-			$('.block_'+idx).addClass('hover');
-			$('.block_'+idx).attr('data-toggle','modal');
-			$('.block_'+idx).attr('data-target','#opengraph'+device['idx']);
+	else if(typeof(device)!=='undefined'){
+		if(device['SubType']=='Percentage' || device['SubType']=='Custom Sensor' || device['TypeImg']=='counter' || device['Type']=='Temp' || device['Type']=='Wind' || device['Type']=='Rain' || device['Type']== 'Temp + Humidity' || device['Type']== 'Temp + Humidity + Baro'){
+			getButtonGraphs(device);
+			if($('.block_'+idx).length>0){
+				$('.block_'+idx).addClass('hover');
+				$('.block_'+idx).attr('data-toggle','modal');
+				$('.block_'+idx).attr('data-target','#opengraph'+device['idx']);
+			}
 		}
 	}
 }

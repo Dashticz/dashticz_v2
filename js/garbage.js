@@ -15,7 +15,7 @@ function loadGarbage () {
     var curr = '';
     var data = '';
 	var teller=0;
-	
+
 	var width = 12;
 	if(typeof(settings['garbage_width'])!=='undefined' && parseFloat(settings['garbage_width'])>0) width=settings['garbage_width'];
 
@@ -25,7 +25,7 @@ function loadGarbage () {
 	var hide_icon = false;
 	if(typeof(settings['garbage_hideicon'])!=='undefined' && parseFloat(settings['garbage_hideicon'])==1) hide_icon=true;
 	
-	var html='<div class="trash trash'+random+' col-xs-'+width+' transbg" data-id="garbage">';
+	var html='<div class="trash trash'+random+' block_garbage col-xs-'+width+' transbg" data-id="garbage">';
 		if(!hide_icon){
 			html+='<div class="col-xs-4 col-icon">';
 				html+='<img class="trashcan" src="img/kliko.png" style="opacity:0.1" />';
