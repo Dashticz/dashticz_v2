@@ -899,10 +899,12 @@ function getDevices(override){
 									device['Type']=='Usage' || 
 									device['Type']=='Temp' || 
 									device['Type']=='Humidity' || 
+									device['Type']=='Heating' || 
 									device['Type']=='General' || 
 									device['Type']=='Wind' || 
 									device['Type']=='Rain' || 
 									device['Type']=='RFXMeter' || 
+									device['Type']=='Security' || 
 									device['Type']=='P1 Smart Meter' || 
 									device['Type']=='P1 Smart Meter USB' || 
 									device['Type']=='Group' || 
@@ -1217,7 +1219,8 @@ function getDevices(override){
 								else if(
 									device['Type']=='Temp + Humidity + Baro' || 
 									device['Type']=='Temp + Humidity' || 
-									device['Type']=='Humidity'
+									device['Type']=='Humidity' || 
+									device['Type']=='Heating'
 								){
 
 									if($('div.block_'+idx).length>0){
