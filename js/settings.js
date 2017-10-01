@@ -467,6 +467,7 @@ function loadSettings(){
 
 function saveSettings(){
 		
+	var saveSettings = {};
 	var alertSettings="var config = {}\n";
 	$('div#settingspopup input[type="text"],div#settingspopup select').each(function(){
 		if (typeof(Storage) !== "undefined") localStorage.setItem('dashticz_'+$(this).attr('name'), $(this).val());
@@ -474,39 +475,50 @@ function saveSettings(){
 			val = parseFloat($(this).val());
 			if(isNaN(val)) val=0;
 			alertSettings+="config['"+$(this).attr('name')+"'] = "+val+";\n";
+			saveSettings[$(this).attr('name')] = val;
 		}
 		
 		else alertSettings+="config['"+$(this).attr('name')+"'] = '"+$(this).val()+"';\n";
+			saveSettings[$(this).attr('name')] = $(this).val();
 	});
 
 	$('div#settingspopup input[type="checkbox"]').each(function(){
 		if($(this).is(':checked')){
 			if (typeof(Storage) !== "undefined") localStorage.setItem('dashticz_'+$(this).attr('name'), $(this).val());
 			alertSettings+="config['"+$(this).attr('name')+"'] = 1;\n";
+			saveSettings[$(this).attr('name')] = 1;
 		}
 		else{
 			if (typeof(Storage) !== "undefined") localStorage.setItem('dashticz_'+$(this).attr('name'), 0);
 			alertSettings+="config['"+$(this).attr('name')+"'] = 0;\n";
+			saveSettings[$(this).attr('name')] = 0;
 		}
 
 	});
 	
-	var html = '<div class="modal fade" id="settingsoutput" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
-	  html+='<div class="modal-dialog modal-dialog-settings">';
-		html+='<div class="modal-content">';
-		  html+='<div class="modal-body" style="padding:20px;font-size:14px;"><br>';
-			html+='<strong>'+language.settings.infosave+'</strong><br>If you like my work, you can buy me a beer at: <a href="https://www.paypal.me/robgeerts" target="_blank">https://www.paypal.me/robgeerts</a><br><br><textarea style="width:100%;height:500px;" id="codeToCopy">';
-			  
-			 html+=alertSettings;
-	
-			html+='</textarea>';
-		  html+='</div><div class="modal-footer"><button onClick="document.location.href=document.location.href;" type="button" class="btn btn-primary" data-dismiss="modal">'+language.settings.close_reload+'</button></div>';
-		html+='</div>';
-	  html+='</div>';
-	html+='</div><div class="settingsoutput" data-toggle="modal" data-target="#settingsoutput"><em class="fa fa-cog" /><div>';
-	
-	$('body').append(html);
-	setTimeout(function(){ 
-		$('.settingsoutput').trigger('click'); 
-	},1000);
+	$.post('js/savesettings.php',saveSettings,function(data){
+		if(data!==''){
+			var html = '<div class="modal fade" id="settingsoutput" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
+			  html+='<div class="modal-dialog modal-dialog-settings">';
+				html+='<div class="modal-content">';
+				  html+='<div class="modal-body" style="padding:20px;font-size:14px;"><br>';
+					html+='<strong>'+language.settings.infosave+'</strong><br>If you like my work, you can buy me a beer at: <a href="https://www.paypal.me/robgeerts" target="_blank">https://www.paypal.me/robgeerts</a><br><br><textarea style="width:100%;height:500px;" id="codeToCopy">';
+
+					 html+=alertSettings;
+
+					html+='</textarea>';
+				  html+='</div><div class="modal-footer"><button onClick="document.location.href=document.location.href;" type="button" class="btn btn-primary" data-dismiss="modal">'+language.settings.close_reload+'</button></div>';
+				html+='</div>';
+			  html+='</div>';
+			html+='</div><div class="settingsoutput" data-toggle="modal" data-target="#settingsoutput"><em class="fa fa-cog" /><div>';
+
+			$('body').append(html);
+			setTimeout(function(){ 
+				$('.settingsoutput').trigger('click'); 
+			},1000);
+		}
+		else {
+			document.location.href=document.location.href;
+		}
+	});
 }
