@@ -1,4 +1,4 @@
-ffunction loadSonarr(){
+function loadSonarr(){
 	
 	// Default value for user settings
 	var html = '';
