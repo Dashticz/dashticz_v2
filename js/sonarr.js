@@ -11,9 +11,6 @@ function loadSonarr(){
 	if(typeof(blocks['sonarr'])!=='undefined' && typeof(blocks['sonarr']['width'])!=='undefined'){
 		width = blocks['sonarr']['width'];
 	}
-    var html = '<div class="sonarrMain block_sonarr col-xs-'+width+' transbg">';
-	html += '<div class="col-xs-2 col-icon"><em class="fa fa-tv"></em>';
-	var SonarrTitleObject = 'Upcoming&nbsp;shows';
 	
 	if(typeof(blocks['sonarr'])!=='undefined' && typeof(blocks['sonarr']['title_position'])!=='undefined'){
 		sonarrTitlePosition = blocks['sonarr']['title_position'];
@@ -28,7 +25,7 @@ function loadSonarr(){
 	if (sonarrTitlePosition == 'top'){
 		html +='<div class="col-xs-12 mh titlegroups transbg"><h3><em class="fa fa-tv"></em> '+sonarrTitleObject+'</h3></div>';
 	}
-	html += '<div class="sonarrMain col-xs-'+width+' transbg">';
+	html += '<div class="sonarrMain block_sonarr col-xs-'+width+' transbg">';
 	
 	if (sonarrTitlePosition == 'left') {
 		html += '<div class="col-xs-2 col-icon"><em class="fa fa-tv"></em><div class="SonarrBigTitle">'+ sonarrTitleObject +'</div></div>';
