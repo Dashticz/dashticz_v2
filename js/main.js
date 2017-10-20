@@ -1671,6 +1671,17 @@ function getDevices(override){
 
 									html+=getBlockData(device,idx,language.switches.state_on,language.switches.state_off);
 								}
+								else if(device['SwitchType'] =='Doorbell') {
+									if(buttonimg==''){
+										if(device['Status']=='Off') html+=iconORimage(idx,'fa-bell-o','','off icon');
+										else html+=iconORimage(idx,'fa-bell-o','','on icon');
+									}
+									else {
+										if(device['Status']=='Off') html+=iconORimage(idx,'',buttonimg+'.png','off icon');
+										else html+=iconORimage(idx,'',buttonimg+'.png','on icon');
+									}
+									html+=getBlockData(device,idx,'','');
+								}
 								else {
 
 									if((typeof(blocks[idx]) == 'undefined' || typeof(blocks[idx]['protected']) == 'undefined' || blocks[idx]['protected'] == false) && device['Protected'] == false){
