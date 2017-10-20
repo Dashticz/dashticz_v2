@@ -32,11 +32,8 @@
        
        	<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 		<link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-		<link href="fonts/opensans/open-sans.css" rel="stylesheet" type="text/css">
-		<link href="vendor/weather/css/weather-icons.min.css?v='+cache+'" rel="stylesheet">
+		<link href="css/fonts/opensans/open-sans.css" rel="stylesheet" type="text/css">
 		<link href="vendor/jquery/jquery-ui.css" rel="stylesheet">
-		<link href="vendor/morrisjs/morris.css" rel="stylesheet">
-		<link href="vendor/spectrum/spectrum.css" rel="stylesheet">
 		
 		<script src="vendor/head.js"></script>
 		<title>Dashticz</title>
@@ -44,7 +41,7 @@
 	</head>
 
 	<body id="page-top">
-	
+		
 		<div class="swiper-container">
 			<div class="contents swiper-wrapper"> </div>
         	<div class="swiper-pagination"></div>
@@ -62,18 +59,8 @@
             var cache = new Date().getTime();
 			head.load(
 				"vendor/jquery/jquery.min.js",
-				"vendor/jquery/jquery-ui.js",
-				"vendor/jquery/touchpunch.js",
-				"vendor/bootstrap/js/bootstrap.min.js",
-				"vendor/raphael/raphael-min.js",
-				"vendor/morrisjs/morris.min.js",
+				"vendor/plugins.js",
 				"vendor/moment.js",
-				"vendor/jquery.newsTicker.min.js",
-				"vendor/skycons/skycons.js",
-				"vendor/spectrum/spectrum.js",
-				"vendor/ion.sound/ion.sound.min.js",
-				"vendor/mobiledetect/mobiledetect.js",
-				"vendor/swiper/js/swiper.min.js",
 				"js/functions.js",
 				"js/main.js?v="+cache, function() {
 					loadFiles();
