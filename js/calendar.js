@@ -63,18 +63,18 @@ function addCalendar(calobject,icsUrlorg){
 			
 			done++;
 			for(e in data){
-				event = data[e];
-				var startdateStamp = event.start;
-				var enddateStamp = event.end;
-				var startdate = moment.unix(event.start).format(settings['calendarformat']);
-				var enddate = moment.unix(event.end).format(settings['calendarformat']);
+				event1 = data[e];
+				var startdateStamp = event1.start;
+				var enddateStamp = event1.end;
+				var startdate = moment.unix(event1.start).format(settings['calendarformat']);
+				var enddate = moment.unix(event1.end).format(settings['calendarformat']);
 
-				if(event.allDay==''){
+				if(event1.allDay==''){
 					var test = settings['calendarformat'];
 					test = test.replace('dd','');
 					test = test.replace('dddd','');
 					if(moment(enddate,test).format('YYYY-MM-DD') == moment(startdate,test).format('YYYY-MM-DD')){
-						enddate = moment.unix(event.end+60).format('HH:mm');
+						enddate = moment.unix(event1.end+60).format('HH:mm');
 					}
 					if(enddate!=='') enddate =' - ' + enddate;
 				}
@@ -84,13 +84,13 @@ function addCalendar(calobject,icsUrlorg){
 					startdate = startdate.replace('00:00:00','');
 					startdate+= ' '+language.weekdays.entire_day
 				}
-				event.enddate = enddate;
-				event.startdate = startdate;
+				event1.enddate = enddate;
+				event1.startdate = startdate;
 				
-				event.color = colors[$.md5(url)];
+				event1.color = colors[$.md5(url)];
 				if(parseFloat(enddateStamp) > moment().format('X')){
 					if(typeof(calitems[enddateStamp])=='undefined') calitems[enddateStamp] = []
-					calitems[enddateStamp].push(event);
+					calitems[enddateStamp].push(event1);
 				}
 			}
 			
@@ -101,9 +101,9 @@ function addCalendar(calobject,icsUrlorg){
 				for(check in calitems){	
 					items = calitems[check];
 					for(c in items){
-						item = items[c];
+						item1 = items[c];
 						if(check > moment().format('X') && counter <= maxitems){
-							var widget = '<div style="color:'+item['color']+'">' + item['startdate']+""+item['enddate']  + ' - <b>' + item['title'] + '</b></div>';		
+							var widget = '<div style="color:'+item1['color']+'">' + item1['startdate']+""+item1['enddate']  + ' - <b>' + item1['title'] + '</b></div>';		
 							calobject.find('.items').append(widget);
 							counter++;
 						}
