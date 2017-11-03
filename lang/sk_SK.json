@@ -1,5 +1,16 @@
 {
+    "editmode": {
+        "add_block": "Add block",
+        "add_plugin": "Add plugin",
+        "clock": "Clock",
+        "currentweather_big": "Current Weather (Big)",
+        "edit": "Edit",
+        "news": "News",
+        "sunrise": "Sunrise"
+    },
     "energy": {
+        "energy_delivered": "Total delivered",
+        "energy_deliveredtoday": "Delivered today",
         "energy_now": "now",
         "energy_today": "today",
         "energy_total": "total",
@@ -21,10 +32,16 @@
         "notifications_ns": "notifications added by NS",
         "scheduled": "Scheduled",
         "select": "Select",
+        "spotify_back_to_playlist": "Back to playlists",
+        "spotify_select_device": "Select device",
         "spotify_select_playlist": "Select playlist",
-        "value": "Value"
+        "value": "Hodnota"
     },
     "settings": {
+        "about": {
+            "title": "Info"
+        },
+        "blocksave": "Save the code below to your CONFIG.js to apply the changes. Reload Dashticz afterwards.",
         "close": "Close",
         "close_reload": "Close and reload!",
         "garbage": {
@@ -46,6 +63,7 @@
             "default_news_url": "Default news URL",
             "domoticz_ip": "Domoticz URL",
             "domoticz_refresh": "Refresh Domoticz (seconds)",
+            "hide_off_button": "Hide off button at Selector Switches",
             "last_update": "Show last update time\/date",
             "news_scroll_after": "Scroll news after (seconds)",
             "selector_instead_of_buttons": "Selector instead of buttons",
@@ -60,6 +78,7 @@
             "calendarlanguage": "Calendar language",
             "calendarurl": "Calendar URL (ICS)",
             "cn": "Chinese",
+            "cs": "Čeština",
             "da": "Danish",
             "de": "German",
             "en": "English",
@@ -79,6 +98,7 @@
             "no": "Norwegian",
             "pl": "Polish",
             "pt": "Portugese",
+            "ru": "Russian",
             "sk": "Slovak",
             "sl": "Slovenian",
             "sv": "Swedish",
@@ -90,6 +110,9 @@
             "hide_mediaplayer": "Hide mediaplayer when it's off",
             "host_nzbget": "NZBget Path",
             "host_nzbget_help": "If you use NZBget, enter the ip-address and port, e.g.: http:\/\/192.168.1.32:8080",
+            "sonarr_apikey": "Sonarr ApiKey",
+            "sonarr_maxitems": "Sonarr max items in list",
+            "sonarr_url": "Sonarr URL",
             "spot_clientid": "Spotify ClientID",
             "switch_horizon": "Ziggo\/UPC Mediabox Path",
             "switch_horizon_help": "If you have a mediabox from ZIGGO or UPC (Horizon), copy switch_horizon.php on a webserver inside your network and change the IP (of Horizon) inside this file.",
@@ -101,6 +124,7 @@
             "auto_swipe_back_after": "Auto swipe back after (seconds)",
             "auto_swipe_back_to": "Auto swipe back to screen #",
             "auto_swipe_back_to_help": "When no activity, swipe back to main screen after x seconds",
+            "edit_mode": "Go to edit mode",
             "hide_topbar": "Hide topbar",
             "slide_effect": "Slide effect",
             "standard_graph": "Standard graph",
@@ -116,10 +140,10 @@
             "translate_windspeed_help": "'North northwest' instead of 'NNW'",
             "use_beaufort": "Use Bft instead of m\/s",
             "use_fahrenheit": "Use Fahrenheit instead of Celcius",
-            "wu_api": "Wunderground API Key",
-            "wu_city": "Wunderground Station (City or Code)",
+            "wu_api": "Wunderground API Kľúč",
+            "wu_city": "Stanica Wunderground (mesto alebo kód)",
             "wu_country": "Wunderground Country",
-            "wu_name": "Display Name"
+            "wu_name": "Zobraziť meno"
         }
     },
     "switches": {

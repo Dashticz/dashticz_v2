@@ -29,22 +29,57 @@
 		<meta name="msapplication-square150x150logo" content="img/favicon/mediumtile.png" />
 		<meta name="msapplication-wide310x150logo" content="img/favicon/widetile.png" />
 		<meta name="msapplication-square310x310logo" content="img/favicon/largetile.png" />
-
+       
+       	<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+		<link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+		<link href="css/fonts/opensans/open-sans.css" rel="stylesheet" type="text/css">
+		<link href="vendor/jquery/jquery-ui.css" rel="stylesheet">
+		
+		<script src="vendor/head.js"></script>
 		<title>Dashticz</title>
+
 	</head>
 
 	<body id="page-top">
-	
+		
 		<div class="swiper-container">
 			<div class="contents swiper-wrapper"> </div>
         	<div class="swiper-pagination"></div>
 		</div>
 
-		<script src="vendor/jquery/jquery.min.js"></script>
 		<script>
-		var dashtype=2;		
-		$.ajax({url: 'js/main.js?v='+new Date().getTime(), async: false,dataType: "script"});
-		</script>
+			var dashtype=2;	
+			
+			//DO NOT EDIT BELOW
+			var customfolder = 'custom';
+			if(typeof(dashtype)!=='undefined' && parseFloat(dashtype)>1){
+				customfolder = 'custom_'+dashtype;
+			}
+			
+            var cache = new Date().getTime();
+			head.load(
+				"vendor/jquery/jquery.min.js",
+				"vendor/jquery/jquery-ui.js",
+				"vendor/jquery/touchpunch.js",
+				"vendor/bootstrap/js/bootstrap.min.js",
+				"vendor/plugins.js",
+				"vendor/moment.js",
+				"js/functions.js",
+				"js/main.js?v="+cache, function() {
+					loadFiles();
+				}
+			);
+        </script>
+        
+		<script>
+		  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
+		  ga('create', 'UA-102837285-1', 'auto');
+		  ga('send', 'pageview');
+
+		</script>
 	</body>
 </html>

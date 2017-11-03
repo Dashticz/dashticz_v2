@@ -2,9 +2,6 @@
 var language = {};
 var cache = new Date().getTime();
 
-$('<link href="css/creative.css?v='+cache+'" rel="stylesheet">').appendTo("head");
-$('<link href="css/sortable.css?v='+cache+'" rel="stylesheet">').appendTo("head");
-
 // device detection
 var standby=true;
 var standbyActive=false;
@@ -29,7 +26,6 @@ var gettingDevices = false;
 var md;
 var _GRAPHS_LOADED = {};
 var _BACKGROUND_IMAGE = 'img/bg2.jpg';
-var _EDIT_MODE = false;
 var _THEME = 'default';
 var _STREAMPLAYER_TRACKS = {"track":1,"name":"Music FM","file":"http://stream.musicfm.hu:8000/musicfm.mp3"};
 	
@@ -62,20 +58,29 @@ function loadFiles(){
 		$.ajax({url: 'js/settings.js', async: false,dataType: "script"}).done(function() {
 			loadSettings();
 
+			$('<link href="css/creative.css?v='+cache+'" rel="stylesheet">').appendTo("head");
+			
 			if(_THEME!=='default'){
 				$('<link rel="stylesheet" type="text/css" href="themes/'+_THEME+'/'+_THEME+'.css?v='+cache+'" />').appendTo("head");
 			}
 			$('<link href="'+customfolder+'/custom.css?v='+cache+'" rel="stylesheet">').appendTo("head");
-			$.ajax({url: 'js/sortable.js', async: false,dataType: "script"});
-			$.ajax({url: 'js/switches.js', async: false,dataType: "script"});
-			$.ajax({url: 'js/calendar.js', async: false,dataType: "script"});
-			$.ajax({url: 'js/thermostat.js', async: false,dataType: "script"});
-			$.ajax({url: 'js/publictransport.js', async: false,dataType: "script"});
-
-			if(typeof(_DEBUG)!=='undefined' && _DEBUG){
-				$.ajax({url: 'custom/json_vb.js', async: false,dataType: "script"});
-				$.ajax({url: 'custom/graph_vb.js', async: false,dataType: "script"});
+			
+			if(typeof(settings['edit_mode'])!=='undefined' && settings['edit_mode']==1){
+				$('<link href="css/sortable.css?v='+cache+'" rel="stylesheet">').appendTo("head");
+				$.ajax({url: 'js/sortable.js', async: false,dataType: "script"});
+				
+				var html = '<div class="newblocksHolder" style="display:none;">';
+					html+= '<div class="title">'+language.editmode.add_plugin+'</div>';
+					html+= '<div class="newblocks plugins sortable"></div>';
+					html+= '<div class="title">'+language.editmode.add_block+'</div>';
+					html+= '<div class="newblocks domoticz sortable"></div>';
+				html+= '</div>';
+					
+				$('body').prepend(html);
 			}
+			
+			$.ajax({url: 'js/switches.js', async: false,dataType: "script"});
+			$.ajax({url: 'js/thermostat.js', async: false,dataType: "script"});
 
 			$.ajax({url: customfolder+'/custom.js?v='+cache, async: false,dataType: "script"});
 			$.ajax({url: 'js/blocks.js', async: false,dataType: "script"});
@@ -95,10 +100,11 @@ function loadFiles(){
 }
 
 function onLoad(){
+	
 	md = new MobileDetect(window.navigator.userAgent);
 	
-	if(_EDIT_MODE){
-		$('body').append('<div class="editmode">EDIT MODE</div>');	
+	if(settings['edit_mode']==1){
+		$('body').append('<div class="editmode">'+language.editmode.edit+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:void(0);" onclick="saveBlocks();" style="color:#fff;"><em class="fa fa-save" /></a>&nbsp;&nbsp;</div>');	
 	}
 
 	$('body').attr('unselectable','on')
@@ -272,25 +278,34 @@ function buildScreens(){
 					}
 					else {
 						
-						if(settings['hide_topbar']==0) $('body .row').append('<div class="col-sm-undefined col-xs-12 sortable colbar transbg dark"><div data-id="logo" class="logo col-xs-2">'+settings['app_title']+'<div></div></div><div data-id="clock" class="miniclock col-xs-8 text-center"><span class="weekday"></span> <span class="date"></span> <span>&nbsp;&nbsp;&nbsp;&nbsp;</span> <span class="clock"></span></div><div data-id="settings" class="settings settingsicon text-right" data-toggle="modal" data-target="#settingspopup"><em class="fa fa-cog" /></div></div></div>');
-						$('body .row').append('<div class="col-xs-5 sortable col1"><div class="auto_switches"></div><div class="auto_dimmers"></div></div>');
-						$('body .row').append('<div class="col-xs-5 sortable col2"><div class="block_weather containsweatherfull"></div><div class="auto_media"></div><div class="auto_states"></div></div>');
-						$('body .row').append('<div class="col-xs-2 sortable col3"><div class="auto_clock"></div><div class="auto_sunrise"></div><div class="auto_buttons"></div></div>');
-
-						if(typeof(settings['wu_api'])!=='undefined' && settings['wu_api']!=="" && settings['wu_api']!==0 && typeof(settings['wu_city'])!=='undefined' && settings['wu_city']!==""){
-							$('.col2').prepend('<div class="mh transbg big block_currentweather_big col-xs-12 containsweather"><div class="col-xs-1"><div class="weather" id="weather"></div></div><div class="col-xs-11"><span class="title weatherdegrees" id="weatherdegrees"></span> <span class="weatherloc" id="weatherloc"></span></div></div>');
-							if(typeof(loadWeatherFull)!=='function') $.ajax({url: 'js/weather.js', async: false,dataType: "script"});
-							loadWeatherFull(settings['wu_city'],settings['wu_country'],$('#weatherfull'));
-							loadWeather(settings['wu_city'],settings['wu_country']);
-						}
-
-						$('.col3 .auto_clock').html('<div class="transbg block_clock col-xs-12 text-center"><h1 id="clock" class="clock"></h1><h4 id="weekday" class="weekday"></h4><h4 id="date" class="date"></h4></div>');
-						$('.col3 .auto_sunrise').html('<div class="block_sunrise col-xs-12 transbg text-center sunriseholder"><em class="wi wi-sunrise"></em><span id="sunrise" class="sunrise"></span><em class="wi wi-sunset"></em><span id="sunset" class="sunset"></span></div>');
-						if(typeof(buttons)!=='undefined'){
-							for(b in buttons){
-								if(buttons[b].isimage) $('.col3 .auto_buttons').append(loadImage(b,buttons[b]));
-								else $('.col3 .auto_buttons').append(loadButton(b,buttons[b]));
+						if(settings['hide_topbar']==0) $('body .row').append('<div class="col-sm-undefined col-xs-12 sortable colbar transbg dark"><div data-id="logo" class="logo col-xs-2">'+settings['app_title']+'<div></div></div><div data-id="miniclock" class="miniclock col-xs-8 text-center"><span class="weekday"></span> <span class="date"></span> <span>&nbsp;&nbsp;&nbsp;&nbsp;</span> <span class="clock"></span></div><div data-id="settings" class="settings settingsicon text-right" data-toggle="modal" data-target="#settingspopup"><em class="fa fa-cog" /></div></div></div>');
+						if(typeof(settings['default_columns'])=='undefined' || parseFloat(settings['default_columns'])==3){
+							$('body .row').append('<div class="col-xs-5 sortable col1" data-colindex="1"><div class="auto_switches"></div><div class="auto_dimmers"></div></div>');
+							$('body .row').append('<div class="col-xs-5 sortable col2" data-colindex="2"><div class="block_weather containsweatherfull"></div><div class="auto_media"></div><div class="auto_states"></div></div>');
+							$('body .row').append('<div class="col-xs-2 sortable col3" data-colindex="3"><div class="auto_clock"></div><div class="auto_sunrise"></div><div class="auto_buttons"></div></div>');
+						
+							if(typeof(settings['wu_api'])!=='undefined' && settings['wu_api']!=="" && settings['wu_api']!==0 && typeof(settings['wu_city'])!=='undefined' && settings['wu_city']!==""){
+								$('.col2').prepend('<div class="mh transbg big block_currentweather_big col-xs-12 containsweather"><div class="col-xs-1"><div class="weather" id="weather"></div></div><div class="col-xs-11"><span class="title weatherdegrees" id="weatherdegrees"></span> <span class="weatherloc" id="weatherloc"></span></div></div>');
+								if(typeof(loadWeatherFull)!=='function') $.ajax({url: 'js/weather.js', async: false,dataType: "script"});
+								loadWeatherFull(settings['wu_city'],settings['wu_country'],$('#weatherfull'));
+								loadWeather(settings['wu_city'],settings['wu_country']);
 							}
+
+							$('.col3 .auto_clock').html('<div class="transbg block_clock col-xs-12 text-center"><h1 id="clock" class="clock"></h1><h4 id="weekday" class="weekday"></h4><h4 id="date" class="date"></h4></div>');
+							$('.col3 .auto_sunrise').html('<div class="block_sunrise col-xs-12 transbg text-center sunriseholder"><em class="wi wi-sunrise"></em><span id="sunrise" class="sunrise"></span><em class="wi wi-sunset"></em><span id="sunset" class="sunset"></span></div>');
+							if(typeof(buttons)!=='undefined'){
+								for(b in buttons){
+									if(buttons[b].isimage) $('.col3 .auto_buttons').append(loadImage(b,buttons[b]));
+									else $('.col3 .auto_buttons').append(loadButton(b,buttons[b]));
+								}
+							}
+						}
+						else if(parseFloat(settings['default_columns'])==1){
+							$('body .row').append('<div class="col-xs-12 sortable col1" data-colindex="1"><div class="auto_switches"></div><div class="auto_dimmers"></div></div>');
+						}
+						else if(parseFloat(settings['default_columns'])==2){
+							$('body .row').append('<div class="col-xs-6 sortable col1" data-colindex="1"><div class="auto_switches"></div><div class="auto_dimmers"></div></div>');
+							$('body .row').append('<div class="col-xs-6 sortable col2" data-colindex="2"><div class="block_weather containsweatherfull"></div><div class="auto_media"></div><div class="auto_states"></div></div>');
 						}
 					}
 					num++;
@@ -300,7 +315,8 @@ function buildScreens(){
 		}
 	}
 	
-	if(typeof(_EDIT_MODE)!=='undefined' && _EDIT_MODE==true){
+	if(typeof(settings['edit_mode'])!=='undefined' && settings['edit_mode']==1){
+		$('.swiper-container').addClass('edit');
 		setTimeout(function(){ 
 			startSortable(); 
 		},2000);
@@ -312,19 +328,22 @@ function buildScreens(){
 function startSwiper(){
 	
 	if(md.mobile()==null || md.tablet()!==null){
-		$('<link href="vendor/swiper/css/swiper.min.css" rel="stylesheet">').appendTo("head");
-		if((typeof(_EDIT_MODE)=='undefined' || _EDIT_MODE===false)){
-			setTimeout(function(){
-				myswiper = new Swiper('.swiper-container', {
-					pagination: '.swiper-pagination',
-					paginationClickable: true,
-					loop: false,
-					effect: settings['slide_effect'],
-					keyboardControl:true
-				});
-			},2000);
+		if($('.swiper-container .screen').length>1){
+			$.ajax({url: 'vendor/swiper/js/swiper.min.js', async: false,dataType: "script"}).done(function() {
+				$('<link href="vendor/swiper/css/swiper.min.css" rel="stylesheet">').appendTo("head");
+				//if((typeof(settings['edit_mode'])=='undefined' || settings['edit_mode']===false)){
+					setTimeout(function(){
+						myswiper = new Swiper('.swiper-container', {
+							pagination: '.swiper-pagination',
+							paginationClickable: true,
+							loop: false,
+							effect: settings['slide_effect'],
+							keyboardControl:true
+						});
+					},2000);
+				//}
+			});
 		}
-
 	}
 	//$( window ).resize(function() { document.location.href=document.location.href });
 }
@@ -547,19 +566,28 @@ function loadButton(b,button){
 	if(typeof(button.key)!=='undefined') key=button.key;
 	
 	if(typeof(button.newwindow)!=='undefined'){
-		var html='<div class="col-xs-'+width+' hover transbg" data-id="buttons.'+key+'" onclick="window.open(\''+button.url+'\')">';
+		var html='<div class="col-xs-'+width+' hover transbg buttons-'+key+'" data-id="buttons.'+key+'" onclick="window.open(\''+button.url+'\')">';
+	}
+	else if(typeof(button.slide)!=='undefined'){
+		var html='<div class="col-xs-'+width+' hover transbg buttons-'+key+'" data-id="buttons.'+key+'" onclick="toSlide('+(parseFloat(button.slide)-1)+')">';
 	}
 	else {
-		var html='<div class="col-xs-'+width+' hover transbg" data-id="buttons.'+key+'" data-toggle="modal" data-target="#button_'+b+'_'+random+'" onclick="setSrc(this);">';
+		var html='<div class="col-xs-'+width+' hover transbg buttons-'+key+'" data-id="buttons.'+key+'" data-toggle="modal" data-target="#button_'+b+'_'+random+'" onclick="setSrc(this);">';
 	}
-		html+='<div class="col-xs-4 col-icon">';
-			if(typeof(button.image)!=='undefined') html+='<img class="buttonimg" src="'+button.image+'" />';
+		
+		if(typeof(button.title)!=='undefined'){
+			html+='<div class="col-xs-4 col-icon">';
+		}
+		else {html+='<div class="col-xs-12 col-icon">';}
+		if(typeof(button.image)!=='undefined') html+='<img class="buttonimg" src="'+button.image+'" />';
 			else html+='<em class="fa '+button.icon+' fa-small"></em>';
 		html+='</div>';
-		html+='<div class="col-xs-8 col-data">';
-			html+='<strong class="title">'+button.title+'</strong><br>';
-			html+='<span class="state"></span>';
-		html+='</div>';
+		if(typeof(button.title)!=='undefined'){
+			html+='<div class="col-xs-8 col-data">';
+				html+='<strong class="title">'+button.title+'</strong><br>';
+				html+='<span class="state"></span>';
+			html+='</div>';
+		}
 	html+='</div>';
 	return html;
 }
@@ -802,13 +830,25 @@ function getDevices(override){
 			},
 			success: function(data) {
 				gettingDevices = false;
-				if(typeof(_DEBUG)!=='undefined' && _DEBUG) data = $.parseJSON(jsonexample);
 				if(!sliding || override){
 					$('.solar').remove();
 				
 					if($('.sunrise').length>0) $('.sunrise').html(data.Sunrise);
 					if($('.sunset').length>0) $('.sunset').html(data.Sunset);
 										
+					$('div.newblocks.plugins').html('');
+					$('div.newblocks.domoticz').html('');
+					if(settings['edit_mode']){
+						$('div.newblocks.plugins').append('<div data-id="clock"><span class="title">'+language.editmode.clock+'</span></div>');
+						$('div.newblocks.plugins').append('<div data-id="currentweather_big"><span class="title">'+language.editmode.currentweather_big+'</span></div>');
+						$('div.newblocks.plugins').append('<div data-id="garbage"><span class="title">'+language.settings.garbage.title+'</span></div>');
+						$('div.newblocks.plugins').append('<div data-id="streamplayer"><span class="title">Radio</span></div>');
+						$('div.newblocks.plugins').append('<div data-id="nzbget"><span class="title">NZBget</span></div>');
+						$('div.newblocks.plugins').append('<div data-id="sunrise"><span class="title">'+language.editmode.sunrise+'</set</span></div>');
+						$('div.newblocks.plugins').append('<div data-id="weather"><span class="title">'+language.settings.weather.title+'</span></div>');
+						$('div.newblocks.plugins').append('<div data-id="news"><span class="title">'+language.editmode.news+'</span></div>');
+					}
+					
 					for(r in data.result){
 						
 						var device = data.result[r];
@@ -820,6 +860,7 @@ function getDevices(override){
 							device['Name'] = blocks[idx]['title'];
 						}
 						
+						if(settings['edit_mode']) $('div.newblocks.domoticz').append('<div data-id="'+idx+'"><span class="title">'+device['Name']+'</span></div>');
 						alldevices[idx] = device;
 						
 						if(
@@ -842,6 +883,8 @@ function getDevices(override){
 								)
 							)
 						){
+							if(settings['edit_mode']) $('div.newblocks > div[data-id="'+idx+'"]').remove();
+							
 							var width=4;
                             if(device['SwitchType']=='Selector') width=8;
 							if(device['SwitchType']=='Media Player') width=12;
@@ -856,10 +899,12 @@ function getDevices(override){
 									device['Type']=='Usage' || 
 									device['Type']=='Temp' || 
 									device['Type']=='Humidity' || 
+									device['Type']=='Heating' || 
 									device['Type']=='General' || 
 									device['Type']=='Wind' || 
 									device['Type']=='Rain' || 
 									device['Type']=='RFXMeter' || 
+									device['Type']=='Security' || 
 									device['Type']=='P1 Smart Meter' || 
 									device['Type']=='P1 Smart Meter USB' || 
 									device['Type']=='Group' || 
@@ -888,7 +933,9 @@ function getDevices(override){
 							if(device['Image']=='Heating') buttonimg = 'heating';
 							
 							$('div.block_'+idx).data('light',idx);
-							$('div.block_'+idx).addClass('col-xs-'+width);
+							if(typeof(settings['default_columns'])=='undefined' || parseFloat(settings['default_columns'])==3) $('div.block_'+idx).addClass('col-xs-'+width);
+							else if(parseFloat(settings['default_columns'])==1) $('div.block_'+idx).addClass('col-xs-3');
+							else if(parseFloat(settings['default_columns'])==2) $('div.block_'+idx).addClass('col-xs-4');
 							
 							
 							var i=1;
@@ -917,16 +964,16 @@ function getDevices(override){
 							catch(err) {
 								
 								if(typeof(device['SubType'])!=='undefined' && device['SubType'] in blocktypes['SubType']){
-									html+= getStatusBlock(device,blocktypes['SubType'][device['SubType']]);
+									html+= getStatusBlock(idx,device,blocktypes['SubType'][device['SubType']]);
 								}
 								else if(typeof(device['HardwareType'])!=='undefined' && device['HardwareType'] in blocktypes['HardwareType']){
 									if(typeof(blocktypes['HardwareType'][device['HardwareType']]['icon'])!=='undefined'){
-										html+= getStatusBlock(device,blocktypes['HardwareType'][device['HardwareType']]);
+										html+= getStatusBlock(idx,device,blocktypes['HardwareType'][device['HardwareType']]);
 									}
 									else {
 										var c=1;
 										for(de in blocktypes['HardwareType'][device['HardwareType']]){
-											html = getStatusBlock(device,blocktypes['HardwareType'][device['HardwareType']][de],c);
+											html = getStatusBlock(idx,device,blocktypes['HardwareType'][device['HardwareType']][de],c);
 											
 											triggerStatus(idx+'_'+c,device['LastUpdate'],device);
 											triggerChange(idx+'_'+c,device['LastUpdate'],device);
@@ -938,16 +985,16 @@ function getDevices(override){
 									}
 								}
 								else if(typeof(device['HardwareName'])!=='undefined' && device['HardwareName'] in blocktypes['HardwareName']){
-									html+= getStatusBlock(device,blocktypes['HardwareName'][device['HardwareName']]);
+									html+= getStatusBlock(idx,device,blocktypes['HardwareName'][device['HardwareName']]);
 								}
 								else if(typeof(device['SensorUnit'])!=='undefined' && device['SensorUnit'] in blocktypes['SensorUnit']){
-									html+= getStatusBlock(device,blocktypes['SensorUnit'][device['SensorUnit']]);
+									html+= getStatusBlock(idx,device,blocktypes['SensorUnit'][device['SensorUnit']]);
 								}
 								else if(typeof(device['Type'])!=='undefined' && device['Type'] in blocktypes['Type']){
-									html+= getStatusBlock(device,blocktypes['Type'][device['Type']]);
+									html+= getStatusBlock(idx,device,blocktypes['Type'][device['Type']]);
 								}
 								else if(typeof(device['Name'])!=='undefined' && device['Name'] in blocktypes['Name']){
-									html+= getStatusBlock(device,blocktypes['Name'][device['Name']]);
+									html+= getStatusBlock(idx,device,blocktypes['Name'][device['Name']]);
 								}
 								else if(device['HardwareType']=='Logitech Media Server'){
 									html+=iconORimage(idx,'fa-music','','on icon','',2);
@@ -990,11 +1037,13 @@ function getDevices(override){
 							
 										var title=language.energy.energy_usage;
 										if(typeof(blocks[idx+'_1'])!=='undefined' && typeof(blocks[idx+'_1']['title'])!=='undefined') title=blocks[idx+'_1']['title'];
+										var icon = 'fa fa-plug';
+										if(typeof(blocks[idx+'_1'])!=='undefined' && typeof(blocks[idx+'_1']['icon'])!=='undefined') icon=blocks[idx+'_1']['icon'];
 										if(typeof(device['UsageDeliv'])!=='undefined' && (parseFloat(device['UsageDeliv'])>0 || parseFloat(device['UsageDeliv'])<0)){
-											html+= getStateBlock(device['idx']+'sub1','fa fa-plug',title,device['UsageDeliv'],device);
+											html+= getStateBlock(idx+'_1',icon,title,device['UsageDeliv'],device);
 										}
 										else {
-											html+= getStateBlock(device['idx']+'sub1','fa fa-plug',title,device['Usage'],device);
+											html+= getStateBlock(idx+'_1',icon,title,device['Usage'],device);
 										}
 										if(!$('div.block_'+idx).hasClass('block_'+idx+'_1')) $('div.block_'+idx).addClass('block_'+idx+'_1');
 										$('div.block_'+idx+'_1').html(html);
@@ -1005,7 +1054,9 @@ function getDevices(override){
 							
 										var title=language.energy.energy_usagetoday;
 										if(typeof(blocks[idx+'_2'])!=='undefined' && typeof(blocks[idx+'_2']['title'])!=='undefined') title=blocks[idx+'_2']['title'];
-										html = getStateBlock(device['idx']+'sub2','fa fa-plug',title,device['CounterToday'],device);
+										var icon = 'fa fa-plug';
+										if(typeof(blocks[idx+'_2'])!=='undefined' && typeof(blocks[idx+'_2']['icon'])!=='undefined') icon=blocks[idx+'_2']['icon'];
+										html = getStateBlock(idx+'_2',icon,title,device['CounterToday'],device);
 										if(typeof(allblocks[idx])!=='undefined' && $('div.block_'+idx+'_2').length==0) var duplicate = $('div.block_'+idx+'_1').last().clone().removeClass('block_'+idx+'_1').addClass('block_'+idx+'_2').insertAfter($('div.block_'+idx+'_1'));
 										$('div.block_'+idx+'_2').html(html);
 										addHTML=false;
@@ -1015,7 +1066,9 @@ function getDevices(override){
 
 										var title=language.energy.energy_totals;
 										if(typeof(blocks[idx+'_3'])!=='undefined' && typeof(blocks[idx+'_3']['title'])!=='undefined') title=blocks[idx+'_3']['title'];
-										html = getStateBlock(device['idx']+'sub3','fa fa-plug',title,device['Counter']+' kWh',device);
+										var icon = 'fa fa-plug';
+										if(typeof(blocks[idx+'_3'])!=='undefined' && typeof(blocks[idx+'_3']['icon'])!=='undefined') icon=blocks[idx+'_3']['icon'];
+										html = getStateBlock(idx+'_3',icon,title,device['Counter']+' kWh',device);
 										if(typeof(allblocks[idx])!=='undefined' && $('div.block_'+idx+'_3').length==0) var duplicate = $('div.block_'+idx+'_2').last().clone().removeClass('block_'+idx+'_2').addClass('block_'+idx+'_3').insertAfter($('div.block_'+idx+'_2'));
 										$('div.block_'+idx+'_3').html(html);
 										addHTML=false;
@@ -1026,9 +1079,11 @@ function getDevices(override){
 							
 											var title=language.energy.energy_delivered;
 											if(typeof(blocks[idx+'_4'])!=='undefined' && typeof(blocks[idx+'_4']['title'])!=='undefined') title=blocks[idx+'_4']['title'];
-											html = getStateBlock(device['idx']+'sub4','fa fa-plug',title,device['CounterDeliv']+' kWh',device);
+											var icon = 'fa fa-plug';
+											if(typeof(blocks[idx+'_4'])!=='undefined' && typeof(blocks[idx+'_4']['icon'])!=='undefined') icon=blocks[idx+'_4']['icon'];
+											html = getStateBlock(idx+'_4',icon,title,device['CounterDeliv']+' kWh',device);
 											if(typeof(allblocks[idx])!=='undefined' && $('div.block_'+idx+'_4').length==0) var duplicate = $('div.block_'+idx+'_3').last().clone().removeClass('block_'+idx+'_3').addClass('block_'+idx+'_4').insertAfter($('div.block_'+idx+'_3'));
-											$('div.block_'+idx+'_3').html(html);
+											$('div.block_'+idx+'_4').html(html);
 											addHTML=false;
 
 											triggerStatus(idx+'_5',device['LastUpdate'],device);
@@ -1036,7 +1091,9 @@ function getDevices(override){
 							
 											var title=language.energy.energy_deliveredtoday;
 											if(typeof(blocks[idx+'_5'])!=='undefined' && typeof(blocks[idx+'_5']['title'])!=='undefined') title=blocks[idx+'_5']['title'];
-											html = getStateBlock(device['idx']+'sub5','fa fa-plug',title,device['CounterDelivToday'],device);
+											var icon = 'fa fa-plug';
+											if(typeof(blocks[idx+'_5'])!=='undefined' && typeof(blocks[idx+'_5']['icon'])!=='undefined') icon=blocks[idx+'_5']['icon'];
+											html = getStateBlock(idx+'_5',icon,title,device['CounterDelivToday'],device);
 											if(typeof(allblocks[idx])!=='undefined' && $('div.block_'+idx+'_5').length==0) var duplicate = $('div.block_'+idx+'_4').last().clone().removeClass('block_'+idx+'_4').addClass('block_'+idx+'_5').insertAfter($('div.block_'+idx+'_4'));
 											$('div.block_'+idx+'_5').html(html);
 											addHTML=false;
@@ -1052,7 +1109,9 @@ function getDevices(override){
 							
 										var title=language.energy.gas_usagetoday;
 										if(typeof(blocks[idx+'_1'])!=='undefined' && typeof(blocks[idx+'_1']['title'])!=='undefined') title=blocks[idx+'_1']['title'];
-										html+= getStateBlock(device['idx']+'sub1','fa fa-fire',title,device['CounterToday'],device);
+										var icon = 'fa fa-fire';
+										if(typeof(blocks[idx+'_1'])!=='undefined' && typeof(blocks[idx+'_1']['icon'])!=='undefined') icon=blocks[idx+'_1']['icon'];
+										html+= getStateBlock(idx+'_1',icon,title,device['CounterToday'],device);
 										if(!$('div.block_'+idx).hasClass('block_'+idx+'_1')) $('div.block_'+idx).addClass('block_'+idx+'_1');
 										$('div.block_'+idx+'_1').html(html);
 										addHTML=false;
@@ -1060,9 +1119,11 @@ function getDevices(override){
 										triggerStatus(idx+'_2',device['LastUpdate'],device);
 										triggerChange(idx+'_2',device['LastUpdate'],device);
 							
-										var title=language.energy.gas_usage;
+										var title=language.energy.energy_totals;
 										if(typeof(blocks[idx+'_2'])!=='undefined' && typeof(blocks[idx+'_2']['title'])!=='undefined') title=blocks[idx+'_2']['title'];
-										html = getStateBlock(device['idx']+'sub2','fa fa-fire',title,device['Counter']+' m3',device);
+										var icon = 'fa fa-fire';
+										if(typeof(blocks[idx+'_2'])!=='undefined' && typeof(blocks[idx+'_2']['icon'])!=='undefined') icon=blocks[idx+'_2']['icon'];
+										html = getStateBlock(idx+'_2',icon,title,device['Counter']+' m3',device);
 										if(typeof(allblocks[idx])!=='undefined' && $('div.block_'+idx+'_2').length==0) var duplicate = $('div.block_'+idx+'_1').last().clone().removeClass('block_'+idx+'_1').addClass('block_'+idx+'_2').insertAfter($('div.block_'+idx+'_1'));
 										$('div.block_'+idx+'_2').html(html);
 										addHTML=false;
@@ -1078,6 +1139,8 @@ function getDevices(override){
 									if(device['Name']=='Water'){
 										var rfxicon='fa fa-tint';
 									}
+									if(typeof(blocks[idx+'_1'])!=='undefined' && typeof(blocks[idx+'_1']['icon'])!=='undefined') rfxicon=blocks[idx+'_1']['icon'];
+									
 									triggerStatus(idx+'_1',device['LastUpdate'],device);
 									triggerChange(idx+'_1',device['LastUpdate'],device);
 							
@@ -1121,7 +1184,9 @@ function getDevices(override){
 							
 									var title=device['Name']+' '+language.energy.energy_now;
 									if(typeof(blocks[idx+'_1'])!=='undefined' && typeof(blocks[idx+'_1']['title'])!=='undefined') title=blocks[idx+'_1']['title'];
-									html+= getStateBlock(device['idx']+'a','fa fa-plug',title,number_format(device['Usage'],2,',','.')+' W',device);
+									var icon = 'fa fa-fire';
+									if(typeof(blocks[idx+'_1'])!=='undefined' && typeof(blocks[idx+'_1']['icon'])!=='undefined') icon=blocks[idx+'_1']['icon'];
+									html+= getStateBlock(device['idx']+'a',icon,title,number_format(device['Usage'],2,',','.')+' W',device);
 									if(!$('div.block_'+idx).hasClass('block_'+idx+'_1')) $('div.block_'+idx).addClass('block_'+idx+'_1');
 									$('div.block_'+idx+'_1').html(html);
 									addHTML=false;
@@ -1131,7 +1196,9 @@ function getDevices(override){
 							
 									var title=device['Name']+' '+language.energy.energy_today;
 									if(typeof(blocks[idx+'_2'])!=='undefined' && typeof(blocks[idx+'_2']['title'])!=='undefined') title=blocks[idx+'_2']['title'];
-									html= getStateBlock(device['idx']+'b','fa fa-plug',title,number_format(device['CounterToday'],2,',','.')+' kWh',device);
+									var icon = 'fa fa-fire';
+									if(typeof(blocks[idx+'_2'])!=='undefined' && typeof(blocks[idx+'_2']['icon'])!=='undefined') icon=blocks[idx+'_2']['icon'];
+									html= getStateBlock(device['idx']+'b',icon,title,number_format(device['CounterToday'],2,',','.')+' kWh',device);
 									if(typeof(allblocks[idx])!=='undefined' && $('div.block_'+idx+'_2').length==0) var duplicate = $('div.block_'+idx+'_1').last().clone().removeClass('block_'+idx+'_1').addClass('block_'+idx+'_2').insertAfter($('div.block_'+idx+'_1'));
 									$('div.block_'+idx+'_2').html(html);
 									addHTML=false;
@@ -1141,7 +1208,9 @@ function getDevices(override){
 							
 									var title=device['Name']+' '+language.energy.energy_total;
 									if(typeof(blocks[idx+'_3'])!=='undefined' && typeof(blocks[idx+'_3']['title'])!=='undefined') title=blocks[idx+'_3']['title'];
-									html= getStateBlock(device['idx']+'c','fa fa-plug',title,number_format(device['Data'],2,',','.')+' kWh',device);
+									var icon = 'fa fa-fire';
+									if(typeof(blocks[idx+'_3'])!=='undefined' && typeof(blocks[idx+'_3']['icon'])!=='undefined') icon=blocks[idx+'_3']['icon'];
+									html= getStateBlock(device['idx']+'c',icon,title,number_format(device['Data'],2,',','.')+' kWh',device);
 									if(typeof(allblocks[idx])!=='undefined' && $('div.block_'+idx+'_3').length==0) var duplicate = $('div.block_'+idx+'_2').last().clone().removeClass('block_'+idx+'_2').addClass('block_'+idx+'_3').insertAfter($('div.block_'+idx+'_2'));
 									$('div.block_'+idx+'_3').html(html);
 									addHTML=false;
@@ -1150,7 +1219,8 @@ function getDevices(override){
 								else if(
 									device['Type']=='Temp + Humidity + Baro' || 
 									device['Type']=='Temp + Humidity' || 
-									device['Type']=='Humidity'
+									device['Type']=='Humidity' || 
+									device['Type']=='Heating'
 								){
 
 									if($('div.block_'+idx).length>0){
@@ -1162,7 +1232,9 @@ function getDevices(override){
 							
 									var title=device['Name'];
 									if(typeof(blocks[idx+'_1'])!=='undefined' && typeof(blocks[idx+'_1']['title'])!=='undefined') title=blocks[idx+'_1']['title'];
-									html+= getStateBlock(device['idx']+'a','fa fa-thermometer-half',title,number_format(device['Temp'],1,',','.')+_TEMP_SYMBOL,device);
+									var icon = 'fa fa-thermometer-half';
+									if(typeof(blocks[idx+'_3'])!=='undefined' && typeof(blocks[idx+'_3']['icon'])!=='undefined') icon=blocks[idx+'_3']['icon'];
+									html+= getStateBlock(device['idx']+'a',icon,title,number_format(device['Temp'],1,',','.')+_TEMP_SYMBOL,device);
 									if(!$('div.block_'+idx).hasClass('block_'+idx+'_1')) $('div.block_'+idx).addClass('block_'+idx+'_1');
 									$('div.block_'+idx+'_1').html(html);
 									addHTML=false;
@@ -1173,7 +1245,9 @@ function getDevices(override){
 							
 										var title=device['Name'];
 										if(typeof(blocks[idx+'_2'])!=='undefined' && typeof(blocks[idx+'_2']['title'])!=='undefined') title=blocks[idx+'_2']['title'];
-										html= getStateBlock(device['idx']+'b','wi wi-humidity',title,number_format(device['Humidity'],2,',','.')+'%',device);
+										var icon = 'wi wi-humidity';
+										if(typeof(blocks[idx+'_2'])!=='undefined' && typeof(blocks[idx+'_2']['icon'])!=='undefined') icon=blocks[idx+'_2']['icon'];
+										html= getStateBlock(device['idx']+'b',icon,title,number_format(device['Humidity'],2,',','.')+'%',device);
 										if(typeof(allblocks[idx])!=='undefined' && $('div.block_'+idx+'_2').length==0) var duplicate = $('div.block_'+idx+'_1').last().clone().removeClass('block_'+idx+'_1').addClass('block_'+idx+'_2').insertAfter($('div.block_'+idx+'_1'));
 										$('div.block_'+idx+'_2').html(html);
 										addHTML=false;
@@ -1185,7 +1259,9 @@ function getDevices(override){
 							
 										var title=device['Name'];
 										if(typeof(blocks[idx+'_3'])!=='undefined' && typeof(blocks[idx+'_3']['title'])!=='undefined') title=blocks[idx+'_3']['title'];
-										html= getStateBlock(device['idx']+'c','wi wi-barometer',title,device['Barometer']+' hPa',device);
+										var icon = 'wi wi-barometer';
+										if(typeof(blocks[idx+'_3'])!=='undefined' && typeof(blocks[idx+'_3']['icon'])!=='undefined') icon=blocks[idx+'_3']['icon'];
+										html= getStateBlock(device['idx']+'c',icon,title,device['Barometer']+' hPa',device);
 										if(typeof(allblocks[idx])!=='undefined' && $('div.block_'+idx+'_3').length==0) var duplicate = $('div.block_'+idx+'_2').last().clone().removeClass('block_'+idx+'_2').addClass('block_'+idx+'_3').insertAfter($('div.block_'+idx+'_2'));
 										$('div.block_'+idx+'_3').html(html);
 										addHTML=false;
@@ -1213,7 +1289,7 @@ function getDevices(override){
 											html+=' / <span class="lastupdate">'+moment(device['LastUpdate']).format(settings['timeformat'])+'</span>';
 										}
 										html+='<br />';
-										if(device['SubType']=='RGBW' || device['SubType']=='RGBWW'){
+										if(device['SubType']=='removeRGBW' || device['SubType']=='removeRGBWW'){
 											html+='<input type="text" class="rgbw" data-light="'+device['idx']+'" />';
 											html+='<div class="slider slider'+device['idx']+'" style="margin-left:55px;" data-light="'+device['idx']+'"></div>';
 										}
@@ -1226,7 +1302,7 @@ function getDevices(override){
 									$('div.block_'+idx).html(html);
 									addHTML=false;
 									
-									if(device['SubType']=='RGBW' || device['SubType']=='RGBWW'){
+									if(device['SubType']=='removeRGBW' || device['SubType']=='removeRGBWW'){
 										$(".rgbw").spectrum({
 											color: Cookies.get('rgbw_'+idx)
 										});
@@ -1338,11 +1414,13 @@ function getDevices(override){
 											html+='<strong class="title">'+device['Name']+'</strong><br />';
 											html+='<div class="btn-group" data-toggle="buttons">';
 											for(a in names) {
-												var s = '';
-												if ((a * 10) == parseFloat(device['Level'])) s = 'active';
-												html+='<label class="btn btn-default '+s+'" onclick="slideDevice('+device['idx']+',$(this).children(\'input\').val());">';
-												html += '<input type="radio" name="options" autocomplete="off" value="'+(a*10)+'" checked>'+names[a];
-												html+='</label>';
+												if( typeof(settings['hide_off_button'])=='undefined' || parseFloat(settings['hide_off_button'])==0 || parseFloat(a)>0) {
+													var s = '';
+													if ((a * 10) == parseFloat(device['Level'])) s = 'active';
+													html+='<label class="btn btn-default '+s+'" onclick="slideDevice('+device['idx']+',$(this).children(\'input\').val());">';
+													html += '<input type="radio" name="options" autocomplete="off" value="'+(a*10)+'" checked>'+names[a];
+													html+='</label>';
+												}
 											}
 											html+='</select>';
 											html+='</div>';
@@ -1593,6 +1671,17 @@ function getDevices(override){
 
 									html+=getBlockData(device,idx,language.switches.state_on,language.switches.state_off);
 								}
+								else if(device['SwitchType'] =='Doorbell') {
+									if(buttonimg==''){
+										if(device['Status']=='Off') html+=iconORimage(idx,'fa-bell-o','','off icon');
+										else html+=iconORimage(idx,'fa-bell-o','','on icon');
+									}
+									else {
+										if(device['Status']=='Off') html+=iconORimage(idx,'',buttonimg+'.png','off icon');
+										else html+=iconORimage(idx,'',buttonimg+'.png','on icon');
+									}
+									html+=getBlockData(device,idx,'','');
+								}
 								else {
 
 									if((typeof(blocks[idx]) == 'undefined' || typeof(blocks[idx]['protected']) == 'undefined' || blocks[idx]['protected'] == false) && device['Protected'] == false){
@@ -1621,13 +1710,17 @@ function getDevices(override){
 					if(typeof(afterGetDevices)=='function') afterGetDevices();
 				}
 				
-				if(typeof(_DEBUG)=='undefined' || _DEBUG===false) setTimeout(function(){ getDevices(); },(settings['domoticz_refresh']*1000));
+				if(!settings['edit_mode']){
+					setTimeout(function(){ getDevices(); },(settings['domoticz_refresh']*1000));
+				}
 			}
 		});
 			
 		}
 	}
 	else {
-		if(typeof(_DEBUG)=='undefined' || _DEBUG===false) setTimeout(function(){ getDevices(); },(settings['domoticz_refresh']*1000));
+		if(!settings['edit_mode']){
+			setTimeout(function(){ getDevices(); },(settings['domoticz_refresh']*1000));
+		}
 	}
 }
