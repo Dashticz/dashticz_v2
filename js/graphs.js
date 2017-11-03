@@ -15,6 +15,10 @@ function getGraphs(device,popup){
 		sensor = 'temp';
 		txtUnit = '°';
 	}
+	if(device['Type']=='Humidity'){
+		sensor = 'temp';
+		txtUnit = '%';
+	}
 	
 	if (sensortype == "Gas") {
 		txtUnit = "m3";
@@ -213,6 +217,12 @@ function showGraph(idx,title,label,range,current,forced,sensor,popup){
 									ykey2: data.result[r]['hu'],
 									ykey3: data.result[r]['te']
 								}; 
+							}
+							else if(typeof(data.result[r]['hu'])!=='undefined'){
+								data_com[count] = {
+									xkey: currentdate,
+									ykey: data.result[r]['hu']
+								};
 							}
 							else if(typeof(data.result[r]['mm'])!=='undefined'){
 								data_com[count] = {
