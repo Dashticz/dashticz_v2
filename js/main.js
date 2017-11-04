@@ -116,7 +116,8 @@ function onLoad(){
 	setInterval(function(){ 
 		if(settings['hide_seconds']==true) $('.clock').html(moment().locale(settings['language']).format('HH:mm'));
 		else $('.clock').html(moment().locale(settings['language']).format('HH:mm:ss'));
-		$('.date').html(moment().locale(settings['language']).format('D MMMM YYYY'));
+		if(settings['language']=='zh_CN') $('.date').html(moment().format('YYYY年MM月D日'));
+		else $('.date').html(moment().locale(settings['language']).format('D MMMM YYYY'));
 		$('.weekday').html(moment().locale(settings['language']).format('dddd'));
 	},1000);
 
