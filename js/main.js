@@ -1348,6 +1348,25 @@ function getDevices(override){
 											}
 										});
 									}
+									else  if(parseFloat(device['MaxDimLevel'])==32){
+										$( ".slider"+device['idx'] ).slider({
+											value:Math.ceil((device['Level']/100)*32),
+											step: 1,
+											min:2,
+											max:32,
+											slide: function( event, ui ) {
+												sliding = true;
+												slideDevice($(this).data('light'),ui.value);
+											},
+											change:function( event, ui ) {
+												sliding = true;
+												slideDevice($(this).data('light'),ui.value);
+											},
+											stop: function( event, ui ) {
+												sliding = false;
+											}
+										});
+									}
 									else {
 										$( ".slider"+device['idx'] ).slider({
 											value:Math.ceil((device['Level']/100)*16),
@@ -1524,7 +1543,7 @@ function getDevices(override){
 									html+='</div>';
 								}
 								else if(device['SwitchType']=='Venetian Blinds EU' || device['SwitchType']=='Blinds' || 
-									   device['SwitchType']=='Venetian Blinds EU Percentage' || device['SwitchType']=='Blinds Percentage' || 
+									   device['SwitchType']=='Venetian Blinds EU Percentage' || device['SwitchType']=='Blinds Percentage' || device['SwitchType']=='Blinds Percentage Inverted' || 
 									   device['SwitchType']=='Venetian Blinds EU Inverted' || device['SwitchType']=='Blinds Inverted'){
 									html+='<div class="col-xs-4 col-icon">';
 									   if(device['Status']=='Closed') html+='<img src="img/blinds_closed.png" class="off icon" />';
@@ -1547,7 +1566,7 @@ function getDevices(override){
 										html+='<ul class="input-groupBtn input-chevron hidestop">';
 									}
 									
-										if(device['SwitchType']=='Venetian Blinds EU Inverted' || device['SwitchType']=='Blinds Inverted'){
+										if(device['SwitchType']=='Venetian Blinds EU Inverted' || device['SwitchType']=='Blinds Inverted' || device['SwitchType']=='Blinds Percentage Inverted'){
 											html+='<li class="up"><a href="javascript:void(0)" class="btn btn-number plus" onclick="switchBlinds('+device['idx']+',\'On\');">';
 											html+='<em class="fa fa-chevron-up fa-small"></em>';
 											html+='</a></li>';
