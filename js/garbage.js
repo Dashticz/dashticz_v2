@@ -275,6 +275,27 @@ function loadGarbage () {
 			addToContainer(random,returnDates,maxitems);
 		});
 	}
+	//https://wedevise.nl/dashticz/rova.php?zipcode=7731ZT&number=84
+	if(service=='rova'){
+		$.getJSON('https://wedevise.nl/dashticz/rova.php?zipcode=' + postcode + '&number=' + homenumber,function(data){
+			for(d in data){
+				var curr = data[d].GarbageType;
+				curr = capitalizeFirstLetter(curr.toLowerCase());
+				if(typeof(returnDates[curr])=='undefined'){
+					returnDates[curr] = {}
+				}
+
+				var testDate = moment(data[d].Date);
+				if(testDate.isBetween(startDate, endDate, 'days', true)){
+					returnDates[curr][testDate.format("YYYY-MM-DD")+'_'+teller]=getTrashRow(curr,testDate);
+					teller++;
+				}
+			}
+			
+			addToContainer(random,returnDates,maxitems);
+
+		});
+	}
 	if(service=='recyclemanager'){
 		$.getJSON('https://vpn-wec-api.recyclemanager.nl/v2/calendars?postalcode=' + postcode + '&number=' + homenumber,function(data){
 			for(d in data.data){
