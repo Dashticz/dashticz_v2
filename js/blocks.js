@@ -365,7 +365,7 @@ function getStatusBlock(idx,device,block,c){
 		var unitArray = blocks[idx]['unit'].split(";");
 		value = value.replace(unitArray[0], unitArray[1]);
 	}
-						
+					
 	getBlockClick(idx,device);
 	
 	var attr='';
