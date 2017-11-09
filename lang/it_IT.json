@@ -9,8 +9,8 @@
         "sunrise": "Alba"
     },
     "energy": {
-        "energy_delivered": "Total delivered",
-        "energy_deliveredtoday": "Delivered today",
+        "energy_delivered": "Consumo totale",
+        "energy_deliveredtoday": "Consumo odierno",
         "energy_now": "ora",
         "energy_today": "oggi",
         "energy_total": "totale",
@@ -111,7 +111,7 @@
             "host_nzbget": "Percordo NZBget",
             "host_nzbget_help": "Se si utilizza NZBget, inserire l'indirizzo ip e la porta, ad esempio: http:\/\/192.168.1.32:8080",
             "sonarr_apikey": "Sonarr ApiKey",
-            "sonarr_maxitems": "Sonarr max items in list",
+            "sonarr_maxitems": "Sonarr massimo di elementi nella lista",
             "sonarr_url": "Sonarr URL",
             "spot_clientid": "Spotify ClientID",
             "switch_horizon": "Ziggo\/UPC Mediabox Percorso",

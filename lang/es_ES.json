@@ -1,16 +1,16 @@
 {
     "editmode": {
-        "add_block": "Add block",
-        "add_plugin": "Add plugin",
-        "clock": "Clock",
-        "currentweather_big": "Current Weather (Big)",
+        "add_block": "Añadir bloque",
+        "add_plugin": "Añadir plugin",
+        "clock": "Reloj",
+        "currentweather_big": "Tiempo Actual (Grande)",
         "edit": "Editar",
-        "news": "News",
-        "sunrise": "Sunrise"
+        "news": "Noticias",
+        "sunrise": "Amanecer"
     },
     "energy": {
-        "energy_delivered": "Total delivered",
-        "energy_deliveredtoday": "Delivered today",
+        "energy_delivered": "Total entregado",
+        "energy_deliveredtoday": "Entregan hoy",
         "energy_now": "ahora",
         "energy_today": "hoy",
         "energy_total": "total",
@@ -33,7 +33,7 @@
         "scheduled": "Programado",
         "select": "Seleccionar",
         "spotify_back_to_playlist": "Volver a listas de reproducción",
-        "spotify_select_device": "Select device",
+        "spotify_select_device": "Seleccione dispositivo",
         "spotify_select_playlist": "Seleccionar lista de reproducción",
         "value": "Valor"
     },
@@ -63,7 +63,7 @@
             "default_news_url": "URL de noticias predeterminada",
             "domoticz_ip": "Domoticz URL",
             "domoticz_refresh": "Actualizar Domoticz (segundos)",
-            "hide_off_button": "Hide off button at Selector Switches",
+            "hide_off_button": "Ocultar botón de apagado en Interruptores de selección",
             "last_update": "Mostrar fecha \/ hora de la última actualización",
             "news_scroll_after": "Scroll de noticias después de (segundos)",
             "selector_instead_of_buttons": "Selector en lugar de botones",
@@ -111,7 +111,7 @@
             "host_nzbget": "Ruta de NZBget",
             "host_nzbget_help": "Si utiliza NZBget, introduzca la dirección ip y el puerto, por ejemplo: http:\/\/192.168.1.32:8080",
             "sonarr_apikey": "Sonarr ApiKey",
-            "sonarr_maxitems": "Sonarr max items in list",
+            "sonarr_maxitems": "Sonarr max elementos en la lista",
             "sonarr_url": "Sonarr URL",
             "spot_clientid": "Spotify ClientID",
             "switch_horizon": "Ziggo\/UPC Mediabox Camino",

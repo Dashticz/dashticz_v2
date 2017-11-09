@@ -41,7 +41,7 @@
         "about": {
             "title": "Információ"
         },
-        "blocksave": "Save the code below to your CONFIG.js to apply the changes. Reload Dashticz afterwards.",
+        "blocksave": "Mentsd meg az alábbi kódot a CONFIG.js a változtatások alkalmazásához. Reload Dashticz utána.",
         "close": "Bezárás",
         "close_reload": "Zárja be és töltse újra!",
         "garbage": {
@@ -49,7 +49,7 @@
             "garbage_hideicon": "Ikon elrejtése blokkban",
             "garbage_housenumber": "Házszám",
             "garbage_icalurl": "iCal URL",
-            "garbage_maxitems": "Amount of pickups to show",
+            "garbage_maxitems": "Összege pickupok mutatni",
             "garbage_street": "Utca",
             "garbage_width": "A blokk szélessége (1-12)",
             "garbage_zipcode": "Irányítószám",
@@ -63,7 +63,7 @@
             "default_news_url": "Alapértelmezett hír URL",
             "domoticz_ip": "Domoticz URL",
             "domoticz_refresh": "Domoticz frissítése (másodperc)",
-            "hide_off_button": "Hide off button at Selector Switches",
+            "hide_off_button": "Elrejteni off gombot a Választó Kapcsolók",
             "last_update": "Az utolsó frissítési idő és dátum megjelenítése",
             "news_scroll_after": "Hírek görgetése ennyi idő után (másodperc)",
             "selector_instead_of_buttons": "Gomb helyett a választó (Selector)",
@@ -103,7 +103,7 @@
             "sl": "Szlovén",
             "sv": "Svéd",
             "timeformat": "Datetime formátum",
-            "title": "Localize",
+            "title": "Lokalizálni",
             "uk": "Ukrán"
         },
         "media": {
@@ -111,22 +111,22 @@
             "host_nzbget": "NZBget Path",
             "host_nzbget_help": "Ha használja NZBget-et, adja meg az ip-címet, portot, például: http:\/\/192.168.1.32:8080",
             "sonarr_apikey": "Sonarr ApiKey",
-            "sonarr_maxitems": "Sonarr max items in list",
+            "sonarr_maxitems": "Sonarr max tételek listája",
             "sonarr_url": "Sonarr URL",
             "spot_clientid": "Spotify ClientID",
             "switch_horizon": "Ziggo\/UPC Mediabox elérési útvonal",
-            "switch_horizon_help": "If you have a mediabox from ZIGGO or UPC (Horizon), copy switch_horizon.php on a webserver inside your network and change the IP (of Horizon) inside this file.",
+            "switch_horizon_help": "Ha a médiabox a ZIGGO vagy a UPC (Horizont), másolás switch_horizon.php a webszerver be a hálózatot, majd változtassa meg az IP (Horizont) be ezt a fájlt.",
             "title": "Média"
         },
         "save": "Mentés",
         "screen": {
-            "auto_slide_pages": "Auto slide screens (seconds, 0=do not auto slide)",
+            "auto_slide_pages": "Automatikus diavetítések (másodperc, 0 = nem automatikus dia)",
             "auto_swipe_back_after": "Automatikus visszalapozás (másodperc)",
             "auto_swipe_back_to": "Automatikus visszaugrás a képernyőre #",
             "auto_swipe_back_to_help": "Ha nincs aktivitás, ugorjon vissza a főképernyőre x másodperc múlva",
             "edit_mode": "Ugrás a szerkesztési módba",
             "hide_topbar": "A felső sáv elrejtése",
-            "slide_effect": "Slide effect",
+            "slide_effect": "Dia hatás",
             "standard_graph": "Standard grafikon",
             "standby_after": "Készenléti állapot (perc, 0 = soha)",
             "title": "Képernyő"
