@@ -10,9 +10,11 @@ settingList['general']['app_title'] = {}
 settingList['general']['app_title']['title'] = language.settings.general.app_title;
 settingList['general']['app_title']['type'] = 'text';
 
+/*
 settingList['general']['selector_instead_of_buttons'] = {}
 settingList['general']['selector_instead_of_buttons']['title'] = language.settings.general.selector_instead_of_buttons;
 settingList['general']['selector_instead_of_buttons']['type'] = 'checkbox';
+*/
 
 settingList['general']['auto_positioning'] = {}
 settingList['general']['auto_positioning']['title'] = language.settings.general.auto_positioning;
@@ -44,9 +46,11 @@ settingList['general']['news_scroll_after'] = {}
 settingList['general']['news_scroll_after']['title'] = language.settings.general.news_scroll_after;
 settingList['general']['news_scroll_after']['type'] = 'text';
 
+/*
 settingList['general']['hide_off_button'] = {}
 settingList['general']['hide_off_button']['title'] = language.settings.general.hide_off_button;
 settingList['general']['hide_off_button']['type'] = 'checkbox';
+*/
 
 settingList['screen'] = {}
 settingList['screen']['title'] = language.settings.screen.title;
