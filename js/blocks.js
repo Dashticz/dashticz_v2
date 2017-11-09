@@ -72,7 +72,7 @@ function getBlock(cols,c,columndiv,standby){
 			if(typeof(blocks[cols['blocks'][b]])!=='undefined' && typeof(blocks[cols['blocks'][b]]['type'])!=='undefined') blocktype = blocks[cols['blocks'][b]]['type'];
 
 			if(blocktype=='blocktitle'){
-				$(columndiv).append('<div data-id="'+cols['blocks'][b]+'" class="col-xs-12 mh titlegroups transbg"><h3>'+blocks[cols['blocks'][b]]['title']+'</h3></div>');
+				$(columndiv).append('<div data-id="'+cols['blocks'][b]+'" class="col-xs-'+width+' mh titlegroups transbg"><h3>'+blocks[cols['blocks'][b]]['title']+'</h3></div>');
 			}
 			else if(cols['blocks'][b]=='weather'){
 				if(typeof(loadWeatherFull)!=='function'){
