@@ -1157,7 +1157,7 @@ function getDevices(override){
 							
 									var title=language.energy.energy_totals+' '+device['Name'];
 									if(typeof(blocks[idx+'_2'])!=='undefined' && typeof(blocks[idx+'_2']['title'])!=='undefined') title=blocks[idx+'_2']['title'];
-									html= getStateBlock(device['idx']+'b',rfxicon,title,device['Counter'],device);
+									html= getStateBlock(device['idx']+'_2',rfxicon,title,device['Counter'],device);
 									if(typeof(allblocks[idx])!=='undefined' && $('div.block_'+idx+'_2').length==0) var duplicate = $('div.block_'+idx+'_1').last().clone().removeClass('block_'+idx+'_1').addClass('block_'+idx+'_2').insertAfter($('div.block_'+idx+'_1'));
 									$('div.block_'+idx+'_2').html(html);
 									addHTML=false;
@@ -1168,7 +1168,7 @@ function getDevices(override){
 
 										var title=device['Name'];
 										if(typeof(blocks[idx+'_3'])!=='undefined' && typeof(blocks[idx+'_3']['title'])!=='undefined') title=blocks[idx+'_3']['title'];
-										html= getStateBlock(device['idx']+'c',rfxicon,title,device['Usage'],device);
+										html= getStateBlock(device['idx']+'_3',rfxicon,title,device['Usage'],device);
 										if(typeof(allblocks[idx])!=='undefined' && $('div.block_'+idx+'_3').length==0) var duplicate = $('div.block_'+idx+'_2').last().clone().removeClass('block_'+idx+'_2').addClass('block_'+idx+'_3').insertAfter($('div.block_'+idx+'_2'));
 										$('div.block_'+idx+'_3').html(html);
 										addHTML=false;
@@ -1234,7 +1234,7 @@ function getDevices(override){
 									var title=device['Name'];
 									if(typeof(blocks[idx+'_1'])!=='undefined' && typeof(blocks[idx+'_1']['title'])!=='undefined') title=blocks[idx+'_1']['title'];
 									var icon = 'fa fa-thermometer-half';
-									if(typeof(blocks[idx+'_3'])!=='undefined' && typeof(blocks[idx+'_3']['icon'])!=='undefined') icon=blocks[idx+'_3']['icon'];
+									if(typeof(blocks[idx+'_1'])!=='undefined' && typeof(blocks[idx+'_1']['icon'])!=='undefined') icon=blocks[idx+'_1']['icon'];
 									
 									if(typeof(blocks[idx+'_1'])!=='undefined' && typeof(blocks[idx+'_1']['switch'])!=='undefined' && blocks[idx+'_1']['switch']==true){ 
 										html+=getStateBlock(device['idx']+'_1',icon,number_format(device['Temp'],1,',','.')+_TEMP_SYMBOL,title,device);
