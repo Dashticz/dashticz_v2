@@ -1547,7 +1547,6 @@ function getDevices(override){
 									html+='</div>';
 								}
 								else if(device['SwitchType']=='Venetian Blinds EU' || device['SwitchType']=='Blinds' || 
-									   device['SwitchType']=='Venetian Blinds EU Percentage' || device['SwitchType']=='Blinds Percentage' || device['SwitchType']=='Blinds Percentage Inverted' || 
 									   device['SwitchType']=='Venetian Blinds EU Inverted' || device['SwitchType']=='Blinds Inverted'){
 									html+='<div class="col-xs-4 col-icon">';
 									   if(device['Status']=='Closed') html+='<img src="img/blinds_closed.png" class="off icon" />';
@@ -1570,7 +1569,7 @@ function getDevices(override){
 										html+='<ul class="input-groupBtn input-chevron hidestop">';
 									}
 									
-										if(device['SwitchType']=='Venetian Blinds EU Inverted' || device['SwitchType']=='Blinds Inverted' || device['SwitchType']=='Blinds Percentage Inverted'){
+										if(device['SwitchType']=='Venetian Blinds EU Inverted' || device['SwitchType']=='Blinds Inverted'){
 											html+='<li class="up"><a href="javascript:void(0)" class="btn btn-number plus" onclick="switchBlinds('+device['idx']+',\'On\');">';
 											html+='<em class="fa fa-chevron-up fa-small"></em>';
 											html+='</a></li>';
@@ -1578,12 +1577,6 @@ function getDevices(override){
 											html+='<li class="down"><a href="javascript:void(0)" class="btn btn-number min" onclick="switchBlinds('+device['idx']+',\'Off\');">';
 											html+='<em class="fa fa-chevron-down fa-small"></em>';
 											html+='</a></li>';
-
-											if(!hidestop){
-												html+='<li class="stop"><a href="javascript:void(0)" class="btn btn-number stop" onclick="switchBlinds('+device['idx']+',\'Stop\');">';
-												html+='STOP';
-												html+='</a></li>';
-											}
 										}
 										else {
 											html+='<li><a href="javascript:void(0)" class="btn btn-number plus" onclick="switchBlinds('+device['idx']+',\'Off\');">';
@@ -1593,28 +1586,34 @@ function getDevices(override){
 											html+='<li><a href="javascript:void(0)" class="btn btn-number min" onclick="switchBlinds('+device['idx']+',\'On\');">';
 											html+='<em class="fa fa-chevron-down fa-small"></em>';
 											html+='</a></li>';
+										}
 
-											if(!hidestop){
-												html+='<li class="stop"><a href="javascript:void(0)" class="btn btn-number stop" onclick="switchBlinds('+device['idx']+',\'Stop\');">';
-												html+='STOP';
-												html+='</a></li>';
-											}
+										if(!hidestop){
+											html+='<li class="stop"><a href="javascript:void(0)" class="btn btn-number stop" onclick="switchBlinds('+device['idx']+',\'Stop\');">';
+											html+='STOP';
+											html+='</a></li>';
 										}
 
 									html+='</ul>';
 								}
-								else if(device['SwitchType']=='Blinds Percentage Inverted'){
+								else if(
+										device['SwitchType']=='Venetian Blinds EU Percentage' || 
+										device['SwitchType']=='Venetian Blinds EU Inverted Percentage' || 
+										device['SwitchType']=='Blinds Percentage' || 
+										device['SwitchType']=='Blinds Percentage Inverted'
+								){
 									html+='<div class="col-xs-2 col-icon">';
 									   if(device['Status']=='Closed') html+='<img src="img/blinds_closed.png" class="off icon" />';
 									   else html+='<img src="img/blinds_open.png" class="on icon" />';
 									html+='</div>';
 									html+='<div class="col-xs-9 col-data">';
-									   html+='<strong class="title">'+device['Name']+'</strong><br />';
+									   html+='<strong class="title">'+device['Name'];
+									if(typeof(blocks[idx])=='undefined' || typeof(blocks[idx]['hide_data'])=='undefined' || blocks[idx]['hide_data']==false){
+										html+=' '+device['Level']+'%';
+									}
+									html+='</strong><br />';
 
-									   //if(device['Status']=='Closed') html+='<span class="state">'+lang.state_closed+'</span>';
-									   //else html+='<span class="state">'+lang.state_open+'</span>';
-										
-									    html+='<div class="slider slider'+device['idx']+'" data-light="'+device['idx']+'"></div>';
+									   	html+='<div class="slider slider'+device['idx']+'" data-light="'+device['idx']+'"></div>';
 										
 									html+='</div>';
 									
@@ -1627,13 +1626,24 @@ function getDevices(override){
 										html+='<ul class="input-groupBtn input-chevron hidestop">';
 									}
 									
-									html+='<li class="up"><a href="javascript:void(0)" class="btn btn-number plus" onclick="switchBlinds('+device['idx']+',\'On\');">';
-									html+='<em class="fa fa-chevron-up fa-small"></em>';
-									html+='</a></li>';
+									if(device['SwitchType']=='Blinds Percentage Inverted'){
+										html+='<li class="up"><a href="javascript:void(0)" class="btn btn-number plus" onclick="switchBlinds('+device['idx']+',\'On\');">';
+										html+='<em class="fa fa-chevron-up fa-small"></em>';
+										html+='</a></li>';
 
-									html+='<li class="down"><a href="javascript:void(0)" class="btn btn-number min" onclick="switchBlinds('+device['idx']+',\'Off\');">';
-									html+='<em class="fa fa-chevron-down fa-small"></em>';
-									html+='</a></li>';
+										html+='<li class="down"><a href="javascript:void(0)" class="btn btn-number min" onclick="switchBlinds('+device['idx']+',\'Off\');">';
+										html+='<em class="fa fa-chevron-down fa-small"></em>';
+										html+='</a></li>';
+									}
+									else {
+										html+='<li class="up"><a href="javascript:void(0)" class="btn btn-number plus" onclick="switchBlinds('+device['idx']+',\'Off\');">';
+										html+='<em class="fa fa-chevron-up fa-small"></em>';
+										html+='</a></li>';
+
+										html+='<li class="down"><a href="javascript:void(0)" class="btn btn-number min" onclick="switchBlinds('+device['idx']+',\'On\');">';
+										html+='<em class="fa fa-chevron-down fa-small"></em>';
+										html+='</a></li>';
+									}
 
 									if(!hidestop){
 										html+='<li class="stop"><a href="javascript:void(0)" class="btn btn-number stop" onclick="switchBlinds('+device['idx']+',\'Stop\');">';
