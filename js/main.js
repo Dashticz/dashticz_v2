@@ -1440,7 +1440,7 @@ function getDevices(override){
 										html+='</div>';
 									}
 									else {
-										html+='<div class="col-xs-8 col-data">';
+										html+='<div class="col-xs-12 col-data">';
 											html+='<strong class="title">'+device['Name']+'</strong><br />';
 											html+='<div class="btn-group" data-toggle="buttons">';
 											for(a in names) {
