@@ -28,33 +28,6 @@ function loadWeather(location,country) {
 
 					if(settings['wu_name']!=='' && settings['wu_name']!==0) curfull.find(".weatherloc").html(settings['wu_name']);
 					else curfull.find(".weatherloc").html(location);
-
-					/*
-					var attr='';
-					var wind='';
-					if(typeof(currentweather.wind_dir)!=='undefined'){
-						attr+=' style="-webkit-transform: rotate('+currentweather.wind_degrees+'deg);-moz-transform: rotate('+currentweather.wind_degrees+'deg);-ms-transform: rotate('+currentweather.wind_degrees+'deg);-o-transform: rotate('+currentweather.wind_degrees+'deg); transform: rotate('+currentweather.wind_degrees+'deg);"';
-						//start alteration
-						if (settings['use_beaufort'] ==1){
-							wind = Beaufort(currentweather.wind_kph)+', '; 
-						} else {
-							wind = currentweather.wind_kph+' km/u, '; 
-						}
-						wind+=currentweather.wind_degrees+'&deg ';
-						if (settings['translate_windspeed']==true){
-							wind+=TranslateDirection(currentweather.wind_dir)
-						} else {
-							wind+=currentweather.wind_dir;
-						}
-						//end alteration
-					}
-
-					$('.block_currentweather_big_misc').remove();
-					$('.block_currentweather_big').after('<div class="mh transbg block_currentweather_big_misc col-xs-3 hover"><div class="col-xs-4 col-icon"><em class="wi wi-humidity"></em></div><div class="col-xs-8 col-data"><strong class="title">'+currentweather.relative_humidity+'</strong><br><span>Luchtvochtigheid</span></div></div>');
-					$('.block_currentweather_big').after('<div class="mh transbg block_currentweather_big_misc col-xs-3 hover"><div class="col-xs-4 col-icon"><em class="fa fa-eye"></em></div><div class="col-xs-8 col-data"><strong class="title">'+currentweather.visibility_km+'</strong><br><span>Zicht</span></div></div>');
-					$('.block_currentweather_big').after('<div class="mh transbg block_currentweather_big_misc col-xs-3 hover"><div class="col-xs-4 col-icon"><em class="wi wi-wind-direction" style="'+attr+'"></em></div><div class="col-xs-8 col-data"><strong class="title">'+wind+'</strong><br><span>'+lang.wind+'</span></div></div>');
-					$('.block_currentweather_big').after('<div class="mh transbg block_currentweather_big_misc col-xs-3 hover"><div class="col-xs-4 col-icon"><em class="wi wi-humidity"></em></div><div class="col-xs-8 col-data"><strong class="title">'+currentweather.relative_humidity+'</strong><br><span>Luchtvochtigheid</span></div></div>');
-					*/
 				}
 			});
 

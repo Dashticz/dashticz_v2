@@ -373,7 +373,7 @@ function getStatusBlock(idx,device,block,c){
 	
 	var attr='';
 	if(typeof(device['Direction'])!=='undefined' && typeof(device['DirectionStr'])!=='undefined'){
-		attr+=' style="-webkit-transform: rotate('+device['Direction']+'deg);-moz-transform: rotate('+device['Direction']+'deg);-ms-transform: rotate('+device['Direction']+'deg);-o-transform: rotate('+device['Direction']+'deg); transform: rotate('+device['Direction']+'deg);"';
+		attr+=' style="-webkit-transform: rotate('+(device['Direction']+180)+'deg);-moz-transform: rotate('+(device['Direction']+180)+'deg);-ms-transform: rotate('+(device['Direction']+180)+'deg);-o-transform: rotate('+(device['Direction']+180)+'deg); transform: rotate('+(device['Direction']+180)+'deg);"';
 		if (settings['use_beaufort'] == 1){
 			value = Beaufort(device['Speed'])+', '; 
 		} else {
