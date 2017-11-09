@@ -337,7 +337,7 @@ function startSwiper(){
 						myswiper = new Swiper('.swiper-container', {
 							pagination: '.swiper-pagination',
 							paginationClickable: true,
-							loop: true,
+							loop: false,
 							effect: settings['slide_effect'],
 							keyboardControl:true
 						});
