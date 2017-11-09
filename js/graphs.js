@@ -134,7 +134,6 @@ function showGraph(idx,title,label,range,current,forced,sensor,popup){
 			url: settings['domoticz_ip']+'/json.htm?type=graph&sensor='+sensor+'&idx='+idx+'&range='+realrange+'&time='+new Date().getTime()+'&jsoncallback=?',
 			type: 'GET',async: true,contentType: "application/json",dataType: 'jsonp',
 			success: function(data) {
-				if(typeof(_DEBUG)!=='undefined' && _DEBUG) data = $.parseJSON(graphexample);
 				
 				var orgtitle = title;
 				title = '<h4>'+title;

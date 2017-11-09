@@ -10,9 +10,11 @@ settingList['general']['app_title'] = {}
 settingList['general']['app_title']['title'] = language.settings.general.app_title;
 settingList['general']['app_title']['type'] = 'text';
 
+/*
 settingList['general']['selector_instead_of_buttons'] = {}
 settingList['general']['selector_instead_of_buttons']['title'] = language.settings.general.selector_instead_of_buttons;
 settingList['general']['selector_instead_of_buttons']['type'] = 'checkbox';
+*/
 
 settingList['general']['auto_positioning'] = {}
 settingList['general']['auto_positioning']['title'] = language.settings.general.auto_positioning;
@@ -43,6 +45,12 @@ settingList['general']['default_news_url']['type'] = 'text';
 settingList['general']['news_scroll_after'] = {}
 settingList['general']['news_scroll_after']['title'] = language.settings.general.news_scroll_after;
 settingList['general']['news_scroll_after']['type'] = 'text';
+
+/*
+settingList['general']['hide_off_button'] = {}
+settingList['general']['hide_off_button']['title'] = language.settings.general.hide_off_button;
+settingList['general']['hide_off_button']['type'] = 'checkbox';
+*/
 
 settingList['screen'] = {}
 settingList['screen']['title'] = language.settings.screen.title;
@@ -82,9 +90,13 @@ settingList['screen']['standard_graph'] = {}
 settingList['screen']['standard_graph']['title'] = language.settings.screen.standard_graph;
 settingList['screen']['standard_graph']['type'] = 'select';
 settingList['screen']['standard_graph']['options'] = {};
-settingList['screen']['standard_graph']['options']['hours'] = 'last hours';
-settingList['screen']['standard_graph']['options']['month'] = 'last month';
-settingList['screen']['standard_graph']['options']['day'] = 'today';
+settingList['screen']['standard_graph']['options']['hours'] = language.graph.last_hours;
+settingList['screen']['standard_graph']['options']['month'] = language.graph.last_month;
+settingList['screen']['standard_graph']['options']['day'] = language.graph.today;
+
+settingList['screen']['edit_mode'] = {}
+settingList['screen']['edit_mode']['title'] = language.settings.screen.edit_mode;
+settingList['screen']['edit_mode']['type'] = 'checkbox';
 
 settingList['localize'] = {}
 settingList['localize']['title'] = language.settings.localize.title;
@@ -94,6 +106,7 @@ settingList['localize']['language']['title'] = language.settings.localize.langua
 settingList['localize']['language']['type'] = 'select';
 settingList['localize']['language']['options'] = {};
 settingList['localize']['language']['options']['zh_CN'] = language.settings.localize.cn;
+settingList['localize']['language']['options']['cs_CZ'] = language.settings.localize.cs;
 settingList['localize']['language']['options']['da_DK'] = language.settings.localize.da;
 settingList['localize']['language']['options']['de_DE'] = language.settings.localize.de;
 settingList['localize']['language']['options']['en_US'] = language.settings.localize.en;
@@ -106,6 +119,7 @@ settingList['localize']['language']['options']['nl_NL'] = language.settings.loca
 settingList['localize']['language']['options']['nn_NO'] = language.settings.localize.no;
 settingList['localize']['language']['options']['pl_PL'] = language.settings.localize.pl;
 settingList['localize']['language']['options']['pt_PT'] = language.settings.localize.pt;
+settingList['localize']['language']['options']['ru_RU'] = language.settings.localize.ru;
 settingList['localize']['language']['options']['sk_SK'] = language.settings.localize.sk;
 settingList['localize']['language']['options']['sl_SL'] = language.settings.localize.sl;
 settingList['localize']['language']['options']['sv_SE'] = language.settings.localize.sv;
@@ -121,7 +135,26 @@ settingList['localize']['calendarformat']['type'] = 'text';
 
 settingList['localize']['calendarlanguage'] = {}
 settingList['localize']['calendarlanguage']['title'] = language.settings.localize.calendarlanguage;
-settingList['localize']['calendarlanguage']['type'] = 'text';
+settingList['localize']['calendarlanguage']['type'] = 'select';
+settingList['localize']['calendarlanguage']['options'] = {};
+settingList['localize']['calendarlanguage']['options']['zh_CN'] = language.settings.localize.cn;
+settingList['localize']['calendarlanguage']['options']['da_DK'] = language.settings.localize.da;
+settingList['localize']['calendarlanguage']['options']['de_DE'] = language.settings.localize.de;
+settingList['localize']['calendarlanguage']['options']['en_US'] = language.settings.localize.en;
+settingList['localize']['calendarlanguage']['options']['es_ES'] = language.settings.localize.es;
+settingList['localize']['calendarlanguage']['options']['fi_FI'] = language.settings.localize.fi;
+settingList['localize']['calendarlanguage']['options']['fr_FR'] = language.settings.localize.fr;
+settingList['localize']['calendarlanguage']['options']['hu_HU'] = language.settings.localize.hu;
+settingList['localize']['calendarlanguage']['options']['it_IT'] = language.settings.localize.it;
+settingList['localize']['calendarlanguage']['options']['nl_NL'] = language.settings.localize.nl;
+settingList['localize']['calendarlanguage']['options']['nn_NO'] = language.settings.localize.no;
+settingList['localize']['calendarlanguage']['options']['pl_PL'] = language.settings.localize.pl;
+settingList['localize']['calendarlanguage']['options']['pt_PT'] = language.settings.localize.pt;
+settingList['localize']['calendarlanguage']['options']['ru_RU'] = language.settings.localize.ru;
+settingList['localize']['calendarlanguage']['options']['sk_SK'] = language.settings.localize.sk;
+settingList['localize']['calendarlanguage']['options']['sl_SL'] = language.settings.localize.sl;
+settingList['localize']['calendarlanguage']['options']['sv_SE'] = language.settings.localize.sv;
+settingList['localize']['calendarlanguage']['options']['uk_UA'] = language.settings.localize.uk;
 
 settingList['localize']['calendarurl'] = {}
 settingList['localize']['calendarurl']['title'] = language.settings.localize.calendarurl;
@@ -214,6 +247,18 @@ settingList['media']['spot_clientid'] = {}
 settingList['media']['spot_clientid']['title'] = language.settings.media.spot_clientid;
 settingList['media']['spot_clientid']['type'] = 'text';
 
+settingList['media']['sonarr_url'] = {}
+settingList['media']['sonarr_url']['title'] = language.settings.media.sonarr_url;
+settingList['media']['sonarr_url']['type'] = 'text';
+
+settingList['media']['sonarr_apikey'] = {}
+settingList['media']['sonarr_apikey']['title'] = language.settings.media.sonarr_apikey;
+settingList['media']['sonarr_apikey']['type'] = 'text';
+
+settingList['media']['sonarr_maxitems'] = {}
+settingList['media']['sonarr_maxitems']['title'] = language.settings.media.sonarr_maxitems;
+settingList['media']['sonarr_maxitems']['type'] = 'text';
+
 settingList['media']['hide_mediaplayer'] = {}
 settingList['media']['hide_mediaplayer']['title'] = language.settings.media.hide_mediaplayer;
 settingList['media']['hide_mediaplayer']['type'] = 'checkbox';
@@ -231,6 +276,7 @@ settingList['garbage']['garbage_company']['options']['edg'] = 'EDG (DE)';
 settingList['garbage']['garbage_company']['options']['deafvalapp'] = 'Afval App (NL)';
 settingList['garbage']['garbage_company']['options']['afvalwijzerarnhem'] = 'Afvalwijzer Arnhem (NL)';
 settingList['garbage']['garbage_company']['options']['alphenaandenrijn'] = 'Alphen aan de Rijn (NL)';
+settingList['garbage']['garbage_company']['options']['avalex'] = 'Avalex (NL)';
 settingList['garbage']['garbage_company']['options']['gemeenteberkelland'] = 'Berkelland (NL)';
 settingList['garbage']['garbage_company']['options']['best'] = 'Best (NL)';
 settingList['garbage']['garbage_company']['options']['circulusberkel'] = 'Circulus Berkel (NL)';
@@ -246,6 +292,7 @@ settingList['garbage']['garbage_company']['options']['meerlanden'] = 'Meerlanden
 settingList['garbage']['garbage_company']['options']['mijnafvalwijzer'] = 'Mijn Afval Wijzer (NL)';
 settingList['garbage']['garbage_company']['options']['recyclemanager'] = 'Recycle Manager';
 settingList['garbage']['garbage_company']['options']['rmn'] = 'RMN (NL)';
+settingList['garbage']['garbage_company']['options']['rova'] = 'Rova (NL)';
 settingList['garbage']['garbage_company']['options']['sudwestfryslan'] = 'Sudwest Fryslan (NL)';
 settingList['garbage']['garbage_company']['options']['twentemilieu'] = 'Twente Milieu (NL)';
 settingList['garbage']['garbage_company']['options']['uden'] = 'Uden (NL)';
@@ -280,6 +327,18 @@ settingList['garbage']['garbage_width']['type'] = 'text';
 settingList['garbage']['garbage_hideicon'] = {}
 settingList['garbage']['garbage_hideicon']['title'] = language.settings.garbage.garbage_hideicon;
 settingList['garbage']['garbage_hideicon']['type'] = 'checkbox';
+
+settingList['about'] = {}
+settingList['about']['title'] = language.settings.about.title;
+
+settingList['about']['about_text'] = {}
+settingList['about']['about_text']['title'] = 'Dashticz V2.0 by Rob Geerts';
+
+settingList['about']['about_text2'] = {}
+settingList['about']['about_text2']['title'] = 'Years after developing the old and original Dashticz, I decided to start over.<br><br>For more help visit: <a href="http://www.domoticz.com/wiki/Dashticz_V2" target="_blank">http://www.domoticz.com/wiki/Dashticz_V2</a><br>You can also check out our helpful <a href="https://www.domoticz.com/forum/viewtopic.php?f=8&t=16526" target="_blank">community</a> in Dashticz topic on the Domoticz forum.';
+
+settingList['about']['about_text3'] = {}
+settingList['about']['about_text3']['title'] = 'Do you appreciate my work and want to buy me a beer? You can send me Bitcoins (17Qy4bsLM9J238fCZt5kaRc2bD5S1Aw6og) or donate via PayPal: <a href="https://www.paypal.me/robgeerts" target="_blank">https://www.paypal.me/robgeerts</a>'
 
 var settings = {};
 doneSettings=false;
@@ -325,6 +384,7 @@ if(typeof(settings['selector_instead_of_buttons'])=='undefined') settings['selec
 if(typeof(settings['default_news_url'])=='undefined') settings['default_news_url'] = 'http://www.nu.nl/rss/algemeen';
 if(typeof(settings['news_scroll_after'])=='undefined') settings['news_scroll_after'] = 7;
 if(typeof(settings['standard_graph'])=='undefined') settings['standard_graph'] ='hours';
+if(typeof(settings['edit_mode'])== 'undefined') settings['edit_mode'] = 0
 
 var _TEMP_SYMBOL = '°C';
 if(settings['use_fahrenheit']==1) _TEMP_SYMBOL = '°F';
@@ -412,6 +472,7 @@ function loadSettings(){
 
 function saveSettings(){
 		
+	var saveSettings = {};
 	var alertSettings="var config = {}\n";
 	$('div#settingspopup input[type="text"],div#settingspopup select').each(function(){
 		if (typeof(Storage) !== "undefined") localStorage.setItem('dashticz_'+$(this).attr('name'), $(this).val());
@@ -419,39 +480,50 @@ function saveSettings(){
 			val = parseFloat($(this).val());
 			if(isNaN(val)) val=0;
 			alertSettings+="config['"+$(this).attr('name')+"'] = "+val+";\n";
+			saveSettings[$(this).attr('name')] = val;
 		}
 		
 		else alertSettings+="config['"+$(this).attr('name')+"'] = '"+$(this).val()+"';\n";
+			saveSettings[$(this).attr('name')] = $(this).val();
 	});
 
 	$('div#settingspopup input[type="checkbox"]').each(function(){
 		if($(this).is(':checked')){
 			if (typeof(Storage) !== "undefined") localStorage.setItem('dashticz_'+$(this).attr('name'), $(this).val());
 			alertSettings+="config['"+$(this).attr('name')+"'] = 1;\n";
+			saveSettings[$(this).attr('name')] = 1;
 		}
 		else{
 			if (typeof(Storage) !== "undefined") localStorage.setItem('dashticz_'+$(this).attr('name'), 0);
 			alertSettings+="config['"+$(this).attr('name')+"'] = 0;\n";
+			saveSettings[$(this).attr('name')] = 0;
 		}
 
 	});
 	
-	var html = '<div class="modal fade" id="settingsoutput" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
-	  html+='<div class="modal-dialog modal-dialog-settings">';
-		html+='<div class="modal-content">';
-		  html+='<div class="modal-body" style="padding:20px;font-size:14px;"><br>';
-			html+='<strong>'+language.settings.infosave+'</strong><br><br><textarea style="width:100%;height:500px;" id="codeToCopy">';
-			  
-			 html+=alertSettings;
-	
-			html+='</textarea>';
-		  html+='</div><div class="modal-footer"><button onClick="document.location.href=document.location.href;" type="button" class="btn btn-primary" data-dismiss="modal">'+language.settings.close_reload+'</button></div>';
-		html+='</div>';
-	  html+='</div>';
-	html+='</div><div class="settingsoutput" data-toggle="modal" data-target="#settingsoutput"><em class="fa fa-cog" /><div>';
-	
-	$('body').append(html);
-	setTimeout(function(){ 
-		$('.settingsoutput').trigger('click'); 
-	},1000);
+	$.post('js/savesettings.php',saveSettings,function(data){
+		if(data!==''){
+			var html = '<div class="modal fade" id="settingsoutput" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
+			  html+='<div class="modal-dialog modal-dialog-settings">';
+				html+='<div class="modal-content">';
+				  html+='<div class="modal-body" style="padding:20px;font-size:14px;"><br>';
+					html+='<strong>'+language.settings.infosave+'</strong><br>If you like my work, you can buy me a beer at: <a href="https://www.paypal.me/robgeerts" target="_blank">https://www.paypal.me/robgeerts</a><br><br><textarea style="width:100%;height:500px;" id="codeToCopy">';
+
+					 html+=alertSettings;
+
+					html+='</textarea>';
+				  html+='</div><div class="modal-footer"><button onClick="document.location.href=document.location.href;" type="button" class="btn btn-primary" data-dismiss="modal">'+language.settings.close_reload+'</button></div>';
+				html+='</div>';
+			  html+='</div>';
+			html+='</div><div class="settingsoutput" data-toggle="modal" data-target="#settingsoutput"><em class="fa fa-cog" /><div>';
+
+			$('body').append(html);
+			setTimeout(function(){ 
+				$('.settingsoutput').trigger('click'); 
+			},1000);
+		}
+		else {
+			document.location.href=document.location.href;
+		}
+	});
 }

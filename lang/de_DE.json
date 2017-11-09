@@ -1,5 +1,16 @@
 {
+    "editmode": {
+        "add_block": "Block hinzufügen",
+        "add_plugin": "Plugin hinzufügen",
+        "clock": "Uhr",
+        "currentweather_big": "Aktuelles Wetter (Groß)",
+        "edit": "Bearbeiten",
+        "news": "Nachrichten",
+        "sunrise": "Sonnenaufgang"
+    },
     "energy": {
+        "energy_delivered": "Insgesamt verbraucht",
+        "energy_deliveredtoday": "Verbrauch heute",
         "energy_now": "jetzt",
         "energy_today": "heute",
         "energy_total": "insgesamt",
@@ -21,10 +32,16 @@
         "notifications_ns": "Benachrichtigungen hinzugefügt von NS",
         "scheduled": "Geplant",
         "select": "Auswählen",
+        "spotify_back_to_playlist": "Zurück zu Wiedergabelisten",
+        "spotify_select_device": "Gerät auswählen",
         "spotify_select_playlist": "Playlist wählen",
         "value": "Wert"
     },
     "settings": {
+        "about": {
+            "title": "Info"
+        },
+        "blocksave": "Speichern Sie den Code unten auf Ihre CONFIG.js, um die Änderungen zu übernehmen. Laden Sie Dashticz danach wieder auf.",
         "close": "Schließen",
         "close_reload": "Schließen und neu laden!",
         "garbage": {
@@ -46,6 +63,7 @@
             "default_news_url": "Standard News URL",
             "domoticz_ip": "Domoticz URL",
             "domoticz_refresh": "Domoticzdaten auffrischen (Sekunden)",
+            "hide_off_button": "Schaltfläche ausschalten bei Wahlschalter",
             "last_update": "Zeitpunkt der letzten Aktualisierung anzeigen",
             "news_scroll_after": "News nach x Sekunden scrollen",
             "selector_instead_of_buttons": "Wählschalter statt Buttons",
@@ -53,13 +71,14 @@
             "use_favorites": "Nur favorisierte Geräte anzeigen",
             "use_favorites_help": "Nur genutzt bei aktivierter Auto Positionierung"
         },
-        "infosave": "Die Einstellungen werden standardmäßig im Browser selber gespeichert. Der Nachteil dieser Methode ist, sie gelten entsprechend nur für den aktuellen Browser. Wenn das kein Problem darstellt kannst das Fenster schließen und musst nichts weiter unternehmen. Ansonsten kopiere den unten dargestellten Code in deine CONFIG.JS um die Einstellungen für alle Browser und Geräte zu aktivieren.",
+        "infosave": "Die Einstellungen werden standardmäßig im Browser selber gespeichert. Der Nachteil dieser Methode ist, sie gelten entsprechend nur für den aktuellen Browser. Wenn das kein Problem darstellt, kannst das Fenster schließen und musst nichts weiter unternehmen. Ansonsten kopiere den unten dargestellten Code in deine CONFIG.JS um die Einstellungen für alle Browser und Geräte zu aktivieren.",
         "localize": {
             "boss_stationclock": "StationClock Typ",
             "calendarformat": "Kalenderformat",
             "calendarlanguage": "Kalendersprache",
             "calendarurl": "Kalender-URL (ICS)",
             "cn": "Chinesisch",
+            "cs": "Čeština",
             "da": "Dänisch",
             "de": "Deutsch",
             "en": "Englisch",
@@ -79,6 +98,7 @@
             "no": "Norwegisch",
             "pl": "Polnisch",
             "pt": "Portugiesisch",
+            "ru": "Russisch",
             "sk": "Slowakische",
             "sl": "Slowenisch",
             "sv": "Schwedisch",
@@ -90,6 +110,9 @@
             "hide_mediaplayer": "Mediaplayer ausblenden wenn ausgeschaltet",
             "host_nzbget": "NZBget Pfad",
             "host_nzbget_help": "Wenn Du NZBget benutzt, gib hier die IP-Adresse und den Port, bspw. http:\/\/192.168.1.32:8080, ein.",
+            "sonarr_apikey": "Sonarr API-Schlüssel",
+            "sonarr_maxitems": "Sonarr max. Listeneinträge",
+            "sonarr_url": "Sonarr URL",
             "spot_clientid": "Spotify ClientID",
             "switch_horizon": "Ziggo\/UPC Mediabox Pfad",
             "switch_horizon_help": "Wenn Du eine Mediabox von ZIGGO oder UPC (Horizon) hast, kopiere switch_horizon.php auf einen Webserver in deinem Netzwerk und ändere die IP (von Horizon) in der Datei.",
@@ -101,6 +124,7 @@
             "auto_swipe_back_after": "Auto zurück nach (Sekunden)",
             "auto_swipe_back_to": "Automatisch zurück auf Bildschirm #",
             "auto_swipe_back_to_help": "Wenn keine Aktivität, zurück auf Startbildschirm nach x Sekunden",
+            "edit_mode": "Zum Bearbeitungsmodus gehen",
             "hide_topbar": "Topbar ausblenden",
             "slide_effect": "Slide-Effekt",
             "standard_graph": "Standardgraph",
@@ -116,7 +140,7 @@
             "translate_windspeed_help": "'Nord-Nordwest' anstelle von 'NNW'",
             "use_beaufort": "Bft anstelle von m\/s verwenden",
             "use_fahrenheit": "Fahrenheit anstelle von Celsius verwenden",
-            "wu_api": "Wunderground API Schlüssel",
+            "wu_api": "Wunderground API-Schlüssel",
             "wu_city": "Wunderground Messstation (Stadt oder Code)",
             "wu_country": "Wunderground Land",
             "wu_name": "Anzeigename"

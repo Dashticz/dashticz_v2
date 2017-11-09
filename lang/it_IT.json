@@ -1,5 +1,16 @@
 {
+    "editmode": {
+        "add_block": "Aggiungi blocco",
+        "add_plugin": "Aggiungi plugin",
+        "clock": "Orologio",
+        "currentweather_big": "Meteo attuale (grande)",
+        "edit": "Modifica",
+        "news": "Notizie",
+        "sunrise": "Alba"
+    },
     "energy": {
+        "energy_delivered": "Consumo totale",
+        "energy_deliveredtoday": "Consumo odierno",
         "energy_now": "ora",
         "energy_today": "oggi",
         "energy_total": "totale",
@@ -21,10 +32,16 @@
         "notifications_ns": "notifica aggiunta da NS",
         "scheduled": "Programma",
         "select": "Seleziona",
+        "spotify_back_to_playlist": "Torna alle playlist",
+        "spotify_select_device": "Seleziona dispositivo",
         "spotify_select_playlist": "Seleziona playlist",
         "value": "Valore"
     },
     "settings": {
+        "about": {
+            "title": "Informazioni"
+        },
+        "blocksave": "Salva il codice qui sotto al tuo CONFIG.js per applicare le modifiche. Ricarica Dashticz in seguito.",
         "close": "Chiudi",
         "close_reload": "Chiudi e ricarica!",
         "garbage": {
@@ -46,6 +63,7 @@
             "default_news_url": "URL default notizie",
             "domoticz_ip": "Domoticz URL",
             "domoticz_refresh": "Aggiorna Domoticz (secondi)",
+            "hide_off_button": "Nascondi pulsante di spegimento del selettore",
             "last_update": "Mostra ultimo agiornamento (ora e data)",
             "news_scroll_after": "Scorri notizie dopo (secondi)",
             "selector_instead_of_buttons": "Utilizza selettore al posto del pulsante",
@@ -53,13 +71,14 @@
             "use_favorites": "Usa solo con i dispositivi preferiti",
             "use_favorites_help": "Usa solo con l'auto posizionamento attivo"
         },
-        "infosave": "Di dafault le impostazioni sono salvate nel browser.Se usi sempre e solo lo stesso browser e lo stesso dispositivo puoi continuare cosi.\nSe usi diversi browser puoi copiare il codice qua sotto all0interno del file CONFIG.JS per mantenere le impostazioni replicate in ogni browser e in ogni dispositivo.",
+        "infosave": "Di dafault le impostazioni sono salvate nel browser.Se usi sempre e solo lo stesso browser e lo stesso dispositivo puoi continuare cosi.\nSe usi diversi browser puoi copiare il codice qua sotto all'interno del file CONFIG.JS per mantenere le impostazioni replicate in ogni browser e in ogni dispositivo.",
         "localize": {
             "boss_stationclock": "Tipo StationClock",
             "calendarformat": "Formato calendario",
             "calendarlanguage": "Lingua calendario",
             "calendarurl": "URL Calendario (ICS)",
             "cn": "Cinese",
+            "cs": "Čeština",
             "da": "Danese",
             "de": "Tedesco",
             "en": "Inglese",
@@ -79,6 +98,7 @@
             "no": "Norvegese",
             "pl": "Polacco",
             "pt": "Portoghese",
+            "ru": "Russo",
             "sk": "Slovacco",
             "sl": "Sloveno",
             "sv": "Svedese",
@@ -90,6 +110,9 @@
             "hide_mediaplayer": "Se spento,nascondi il mediaplayer",
             "host_nzbget": "Percordo NZBget",
             "host_nzbget_help": "Se si utilizza NZBget, inserire l'indirizzo ip e la porta, ad esempio: http:\/\/192.168.1.32:8080",
+            "sonarr_apikey": "Sonarr ApiKey",
+            "sonarr_maxitems": "Sonarr massimo di elementi nella lista",
+            "sonarr_url": "Sonarr URL",
             "spot_clientid": "Spotify ClientID",
             "switch_horizon": "Ziggo\/UPC Mediabox Percorso",
             "switch_horizon_help": "Se hai un mediabox ZIGGO o UPC (Horizon) copia il file switch_horizon.php sul server nella tua rete e cambia l'ip (di Horizon) all'interno del file.",
@@ -101,6 +124,7 @@
             "auto_swipe_back_after": "Ritorno a schermata precedente dopo (secondi)",
             "auto_swipe_back_to": "Torna automaticamente alla schermata #",
             "auto_swipe_back_to_help": "Ritorno ad homescreen dopo inattivita di (secondi)",
+            "edit_mode": "Passa alla modalita di modifica",
             "hide_topbar": "Naconti topbar",
             "slide_effect": "Effetto scorrimento",
             "standard_graph": "Grafico standard",

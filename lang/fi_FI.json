@@ -1,5 +1,16 @@
 {
+    "editmode": {
+        "add_block": "Add block",
+        "add_plugin": "Add plugin",
+        "clock": "Clock",
+        "currentweather_big": "Current Weather (Big)",
+        "edit": "Edit",
+        "news": "News",
+        "sunrise": "Sunrise"
+    },
     "energy": {
+        "energy_delivered": "Total delivered",
+        "energy_deliveredtoday": "Delivered today",
         "energy_now": "Nyt",
         "energy_today": "Tänään",
         "energy_total": "Yhteensä",
@@ -21,10 +32,16 @@
         "notifications_ns": "NS:n lisäämät ilmoitukset",
         "scheduled": "Suunniteltu",
         "select": "Valitse",
+        "spotify_back_to_playlist": "Takaisin soittolistoihin",
+        "spotify_select_device": "Select device",
         "spotify_select_playlist": "Valitse soittolista",
         "value": "Arvo"
     },
     "settings": {
+        "about": {
+            "title": "Info"
+        },
+        "blocksave": "Tallenna muutokset alla olevaan koodiin CONFIG.js. Lataa Dashticz sen jälkeen.",
         "close": "Kiinni",
         "close_reload": "Sulje ja lataa!",
         "garbage": {
@@ -46,6 +63,7 @@
             "default_news_url": "Oletusarvoinen uutisosoite",
             "domoticz_ip": "Domoticz:n osoite",
             "domoticz_refresh": "Päivitä Domoticz (sekuntia)",
+            "hide_off_button": "Hide off button at Selector Switches",
             "last_update": "Näytä viimeinen päivitys aika\/päivämäärä",
             "news_scroll_after": "Vieritä uutisia (sekuntia)",
             "selector_instead_of_buttons": "Valitsin painikkeiden sijaan",
@@ -60,7 +78,8 @@
             "calendarlanguage": "Kalenterin kieli",
             "calendarurl": "Kalenterin osoite (ICS)",
             "cn": "Kiina",
-            "da": "Danish",
+            "cs": "Čeština",
+            "da": "Tanska",
             "de": "Saksa",
             "en": "Englanti",
             "es": "Espanja",
@@ -77,8 +96,9 @@
             "language": "Kieli",
             "nl": "Hollanti",
             "no": "Norja",
-            "pl": "Polish",
+            "pl": "Puola",
             "pt": "Portugali",
+            "ru": "Venäjän",
             "sk": "Slovakia",
             "sl": "Slovenia",
             "sv": "Ruotsi",
@@ -90,6 +110,9 @@
             "hide_mediaplayer": "Piilota mediasoitin, kun se on pois päältä",
             "host_nzbget": "NZBget-polku",
             "host_nzbget_help": "Jos käytät NZBget, anna IP-osoite ja portti (esimerkiksi: http:\/\/192.168.1.32:8080)",
+            "sonarr_apikey": "Sonarr ApiKey",
+            "sonarr_maxitems": "Sonarr max items in list",
+            "sonarr_url": "Sonarr URL",
             "spot_clientid": "Spotify asiakastunnus",
             "switch_horizon": "Ziggo \/ UPC Mediabox-polku",
             "switch_horizon_help": "Jos sinulla on ZIGGO- tai UPC (Horizon) -medialaite, kopioi switch_horizon.php tiedosto verkossasi olevalle nettipalvelimelle ja muuta IP-osoitetta (Horizonin) tämän tiedoston sisällä.",
@@ -101,6 +124,7 @@
             "auto_swipe_back_after": "Automaattinen siirtyminen takaisin (sekuntia)",
             "auto_swipe_back_to": "Automaattinen siirtyminen takaisin näytölle #",
             "auto_swipe_back_to_help": "Kun ei toimintaa, siirry takaisin päänäyttöön x sekunnin kuluttua",
+            "edit_mode": "Go to edit mode",
             "hide_topbar": "Piilota yläpalkki",
             "slide_effect": "Slide-vaikutus",
             "standard_graph": "Standardi kuvaaja",

@@ -1,5 +1,16 @@
 {
+    "editmode": {
+        "add_block": "Voeg blok toe",
+        "add_plugin": "Voeg plugin toe",
+        "clock": "Klok",
+        "currentweather_big": "Huidig ​​weer (groot)",
+        "edit": "Bewerken",
+        "news": "Nieuws",
+        "sunrise": "Zonsopkomst"
+    },
     "energy": {
+        "energy_delivered": "Totaal geleverd",
+        "energy_deliveredtoday": "Vandaag geleverd",
         "energy_now": "nu",
         "energy_today": "vandaag",
         "energy_total": "totaal",
@@ -21,10 +32,16 @@
         "notifications_ns": "meldingen geplaatst door de NS",
         "scheduled": "Gepland",
         "select": "Selecteer",
+        "spotify_back_to_playlist": "Terug naar afspeellijsten",
+        "spotify_select_device": "Selecteer apparaat",
         "spotify_select_playlist": "Selecteer afspeellijst",
         "value": "Waarde"
     },
     "settings": {
+        "about": {
+            "title": "Info"
+        },
+        "blocksave": "Sla de onderstaande code op in uw CONFIG.js om de wijzigingen toe te passen en herlaad Dashticz!",
         "close": "Sluiten",
         "close_reload": "Sluit venster en herlaad Dashticz",
         "garbage": {
@@ -46,6 +63,7 @@
             "default_news_url": "Standaard nieuws URL",
             "domoticz_ip": "Domoticz URL",
             "domoticz_refresh": "Ververs Domoticz (seconden)",
+            "hide_off_button": "Verberg UIT-knop bij Selector Switches",
             "last_update": "Geef laatste update datum weer",
             "news_scroll_after": "Volgende nieuwsbericht na (seconden)",
             "selector_instead_of_buttons": "Dropdown i.p.v. buttons",
@@ -60,6 +78,7 @@
             "calendarlanguage": "Taal van kalender",
             "calendarurl": "Kalender URL (ICS)",
             "cn": "Chinees",
+            "cs": "Čeština",
             "da": "Deens",
             "de": "Duits",
             "en": "Engels",
@@ -79,6 +98,7 @@
             "no": "Noors",
             "pl": "Pools",
             "pt": "Portugees",
+            "ru": "Russisch",
             "sk": "Slowaaks",
             "sl": "Sloveens",
             "sv": "Zweeds",
@@ -90,6 +110,9 @@
             "hide_mediaplayer": "Verberg mediaspeler wanneer het uit is",
             "host_nzbget": "NZBget Pad",
             "host_nzbget_help": "Als u NZBget gebruikt, voert u het ip-adres en de poort in, bijvoorbeeld: http:\/\/192.168.1.32:8080",
+            "sonarr_apikey": "Sonarr ApiKey",
+            "sonarr_maxitems": "Sonarr max items in lijst",
+            "sonarr_url": "Sonarr URL",
             "spot_clientid": "Spotify ClientID",
             "switch_horizon": "Ziggo\/UPC Mediabox Pad",
             "switch_horizon_help": "Als u een mediabox hebt van ZIGGO of UPC (Horizon), kopieer switch_horizon.php op een webserver in uw netwerk en verander het IP (van Horizon) in dit bestand.",
@@ -101,6 +124,7 @@
             "auto_swipe_back_after": "Ga terug naar beginscherm na (seconden)",
             "auto_swipe_back_to": "Ga terug naar scherm #",
             "auto_swipe_back_to_help": "Bij geen activiteit, schuif terug naar beginscherm na x seconden",
+            "edit_mode": "Ga naar de bewerkingsmodus",
             "hide_topbar": "Verberg titelbalk",
             "slide_effect": "Schuif effect",
             "standard_graph": "Standaard grafiek",
