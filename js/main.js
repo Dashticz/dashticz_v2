@@ -1235,7 +1235,14 @@ function getDevices(override){
 									if(typeof(blocks[idx+'_1'])!=='undefined' && typeof(blocks[idx+'_1']['title'])!=='undefined') title=blocks[idx+'_1']['title'];
 									var icon = 'fa fa-thermometer-half';
 									if(typeof(blocks[idx+'_3'])!=='undefined' && typeof(blocks[idx+'_3']['icon'])!=='undefined') icon=blocks[idx+'_3']['icon'];
-									html+= getStateBlock(device['idx']+'a',icon,title,number_format(device['Temp'],1,',','.')+_TEMP_SYMBOL,device);
+									
+									if(typeof(blocks[idx+'_1'])!=='undefined' && typeof(blocks[idx+'_1']['switch'])!=='undefined' && blocks[idx+'_1']['switch']==true){ 
+										html+=getStateBlock(device['idx']+'_1',icon,number_format(device['Temp'],1,',','.')+_TEMP_SYMBOL,title,device);
+									} 
+									else { 
+										html+=getStateBlock(device['idx']+'_1',icon,title,number_format(device['Temp'],1,',','.')+_TEMP_SYMBOL,device); 
+									}
+									
 									if(!$('div.block_'+idx).hasClass('block_'+idx+'_1')) $('div.block_'+idx).addClass('block_'+idx+'_1');
 									$('div.block_'+idx+'_1').html(html);
 									addHTML=false;
