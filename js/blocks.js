@@ -247,6 +247,9 @@ function getBlock(cols,c,columndiv,standby){
 				if(typeof(cols['blocks'][b]['key'])!=='undefined') key=cols['blocks'][b]['key'];
 				
 				if(typeof(cols['blocks'][b]['frameurl'])!=='undefined') $(columndiv).append(loadFrame(random,cols['blocks'][b]));
+				else if(typeof(cols['blocks'][b]['empty'])!=='undefined'){
+					$(columndiv).append('<div data-id="'+key+'" class="mh transbg col-xs-'+width+'">');
+				}
 				else if(typeof(cols['blocks'][b]['station'])!=='undefined'){
 					if(typeof(loadPublicTransport)!=='function') $.ajax({url: 'js/publictransport.js', async: false,dataType: "script"});
 					$(columndiv).append(loadPublicTransport(random,cols['blocks'][b],key));
