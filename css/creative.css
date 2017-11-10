@@ -773,6 +773,10 @@ p {
 	cursor:pointer;
 }
 
+.cast-button {
+	padding: 3px !important;
+}
+
 	.col-xs-1,
 	.col-xs-2,
 	.col-xs-3,
