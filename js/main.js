@@ -1440,7 +1440,7 @@ function getDevices(override){
 										html+='</div>';
 									}
 									else {
-										html+='<div class="col-xs-12 col-data">';
+										html+='<div class="col-xs-8 col-data" style="width: calc(100% - 50px);">';
 											html+='<strong class="title">'+device['Name']+'</strong><br />';
 											html+='<div class="btn-group" data-toggle="buttons">';
 											for(a in names) {
@@ -1751,7 +1751,7 @@ function getDevices(override){
 				}
 				
 				if(!settings['edit_mode']){
-					setTimeout(function(){ getDevices(); },(settings['domoticz_refresh']*1000));
+					//setTimeout(function(){ getDevices(); },(settings['domoticz_refresh']*1000));
 				}
 			}
 		});
