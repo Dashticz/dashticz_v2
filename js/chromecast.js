@@ -10,16 +10,22 @@ function loadChromecast(columndiv) {
     var random = getRandomInt(1, 100000);
     var html = '<div data-id="chromecast" class="transbg containschromecast' + random + '">';
     html += '<div class="col-xs-12 transbg smalltitle"><h3></h3></div>';
-    html += '<div class="col-xs-4 transbg hover text-center btnPrev">';
-    html += '<em class="fa fa-chevron-left fa-small"></em>';
+    html += '<div class="col-xs-2 transbg hover text-center btnPrev">';
+    html += '   <em class="fa fa-chevron-left fa-small"></em>';
     html += '</div>';
-    html += '<div class="col-xs-4 transbg hover text-center cast-button">';
+    html += '<div class="col-xs-2 transbg hover text-center btnNext">';
+    html += '   <em class="fa fa-chevron-right fa-small"></em>';
+    html += '</div>';
+    html += '<div class="col-xs-4 transbg hover text-center cast-button-container">';
     html += '<div class="col-xs-4 col-xs-push-4">';
-    html += '<button style="height: 25px; width: 25px; padding: 1px; vertical-align: middle; display: inline; --disconnected-color: red; --connected-color: green" is="google-cast-button"></button>';
+    html += '   <button class="cast-button" is="google-cast-button"></button>';
     html += '</div>';
     html += '</div>';
-    html += '<div class="col-xs-4 transbg hover text-center btnNext">';
-    html += '<em class="fa fa-chevron-right fa-small"></em>';
+    html += '<div class="col-xs-2 transbg hover text-center btnVolDown">';
+    html += '   <em class="fa fa-volume-down fa-small"></em>';
+    html += '</div>';
+    html += '<div class="col-xs-2 transbg hover text-center btnVolUp">';
+    html += '   <em class="fa fa-volume-up fa-small"></em>';
     html += '</div>';
     html += '</div>';
     $(columndiv).append(html);
@@ -72,6 +78,19 @@ function loadStream(currentMediaURL) {
     }
 }
 
+function changeVolume(action) {
+    var castSession = cast.framework.CastContext.getInstance().getCurrentSession();
+    if (castSession !== null) {
+        var volume = castSession.getVolume();
+        log('Volume: ' + volume);
+        if (action === 'up') {
+            castSession.setVolume(volume + 0.02);
+        } else {
+            castSession.setVolume(volume - 0.02);
+        }
+    }
+}
+
 function selectStream(streamelement) {
     var trackCount = _STREAMPLAYER_TRACKS.length,
         titleElement = $(streamelement + ' h3');
@@ -89,6 +108,12 @@ function selectStream(streamelement) {
         }
 
         loadTrack(selectedStreamIndex);
+    });
+    $(streamelement + ' .btnVolDown').click(function() {
+        changeVolume('down');
+    });
+    $(streamelement + ' .btnVolUp').click(function() {
+        changeVolume('up');
     });
     var loadTrack = function(id) {
         titleElement.text(_STREAMPLAYER_TRACKS[id].name);

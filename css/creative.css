@@ -773,8 +773,17 @@ p {
 	cursor:pointer;
 }
 
-.cast-button {
+.cast-button-container {
 	padding: 3px !important;
+}
+.cast-button {
+	height: 25px;
+	width: 25px;
+	padding: 1px;
+	vertical-align: middle;
+	display: inline;
+	--disconnected-color: red;
+	--connected-color: green;
 }
 
 	.col-xs-1,
