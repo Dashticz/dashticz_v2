@@ -254,6 +254,13 @@ function getBlock(cols,c,columndiv,standby){
 					if(typeof(loadPublicTransport)!=='function') $.ajax({url: 'js/publictransport.js', async: false,dataType: "script"});
 					$(columndiv).append(loadPublicTransport(random,cols['blocks'][b],key));
 				}
+				else if(typeof(cols['blocks'][b]['currency'])!=='undefined'){
+					if(typeof(getCoin)!=='function') $.ajax({url: 'js/coins.js', async: false,dataType: "script"});
+					var html='<div class="col-xs-'+width+' transbg coins-'+cols['blocks'][b]['key']+'" data-id="coins.'+cols['blocks'][b]['key']+'"></div>';
+					$(columndiv).append(html);
+					getCoin(cols['blocks'][b]);
+					
+				}
 				else if(typeof(cols['blocks'][b]['channels'])!=='undefined'){
 					if(typeof(addTVGuide)!=='function') $.ajax({url: 'js/tvguide.js', async: false,dataType: "script"});
 				

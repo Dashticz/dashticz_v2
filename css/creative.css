@@ -18,8 +18,23 @@
 	background-color:#fff !important;
 }
 
-.fa-tv:before  {font-size:26px;}
 
+
+.currencydown {
+	background: rgba(132,22,12,0.7) !important;
+	background-clip: padding-box;
+	border: 7px solid rgba(255,255,255,0);
+}
+
+
+.currencyup {
+	background: rgba(0, 128, 0, 0.7) !important;
+	background-clip: padding-box;
+	border: 7px solid rgba(255,255,255,0);
+}
+
+.fa-tv:before  {font-size:26px;}
+.col-currency {font-size: 20px;text-align:right;}
 .SonarrItem {
     clear: both; 
     width:100%;  
