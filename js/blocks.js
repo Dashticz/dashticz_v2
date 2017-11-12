@@ -62,8 +62,9 @@ function getBlock(cols,c,columndiv,standby){
 			var width=12;
 			if(cols['blocks'][b]=='logo') width=2;
 			if(cols['blocks'][b]=='miniclock') width=8;
-			if(cols['blocks'][b]=='settings') width=2;
-			if(cols['blocks'][b]=='flipclock') width=8;
+            if(cols['blocks'][b]=='settings') width=2;
+            if(cols['blocks'][b]=='fullscreen') width=2;
+            if(cols['blocks'][b]=='flipclock') width=8;
 			
 			if(typeof(blocks[cols['blocks'][b]])!=='undefined' && typeof(blocks[cols['blocks'][b]]['width'])!=='undefined') width = blocks[cols['blocks'][b]]['width'];
 			else if(typeof(cols['blocks'][b])!=='undefined' && typeof(cols['blocks'][b]['width'])!=='undefined') width = cols['blocks'][b]['width'];
@@ -122,10 +123,14 @@ function getBlock(cols,c,columndiv,standby){
 				getNews(cols['blocks'][b],blocks[cols['blocks'][b]]['feed']);
 			}
 			else if(cols['blocks'][b]=='logo'){
-				$(columndiv).append('<div data-id="logo" class="logo col-xs-'+width+'">'+settings['app_title']+'<div>');
+				$(columndiv).append('<div data-id="logo" class="logo col-xs-'+width+'">'+settings['app_title']+'</div>');
 			}
 			else if(cols['blocks'][b]=='settings'){
-				$(columndiv).append('<div data-id="settings" class="settings settingsicon col-xs-'+width+' text-right" data-toggle="modal" data-target="#settingspopup"><em class="fa fa-cog" /><div>');
+				$(columndiv).append('<div data-id="settings" class="settings settingsicon col-xs-'+width+' text-right" data-toggle="modal" data-target="#settingspopup"><em class="fa fa-cog" /></div>');
+			}
+			else if(cols['blocks'][b] === 'fullscreen') {
+                $.ajax({url: 'js/fullscreen.js', async: false, dataType: "script"});
+                getFullScreenIcon(columndiv);
 			}
 			else if(cols['blocks'][b]=='miniclock'){
 				$(columndiv).append('<div data-id="miniclock" class="miniclock col-xs-'+width+' text-center"><span class="weekday"></span> <span class="date"></span> <span>&nbsp;&nbsp;&nbsp;&nbsp;</span> <span class="clock"></span></div>');
@@ -168,7 +173,7 @@ function getBlock(cols,c,columndiv,standby){
 			}
 			else if(cols['blocks'][b]=='flipclock'){
 				$('<link href="vendor/flipclock/flipclock.css?v='+cache+'" rel="stylesheet">').appendTo("head");
-				$(columndiv).append('<div data-id="flipclock" class="flipclock transbg block_'+cols['blocks'][b]+' col-xs-'+width+' text-center"></div');
+				$(columndiv).append('<div data-id="flipclock" class="flipclock transbg block_'+cols['blocks'][b]+' col-xs-'+width+' text-center"></div>');
 				if(typeof(FlipClock)!=='function') $.ajax({url: 'vendor/flipclock/flipclock.min.js', async: false, datatype: "script"});
 				//Detect 12/24 hour locales - it's better via locales config files?
 				if ( new Date(Date.UTC(2017, 11, 11, 3, 0, 0)).toLocaleTimeString().match(/am|pm/i)) {
@@ -521,7 +526,6 @@ function TranslateDirection(directionstr){
  * Calculate windspeed in meters per second to Beaufort
  * @param windSpeed in m/s
  * @returns string Wind speed in Bft
- * @constructor
  */
 function Beaufort(windSpeed) {
     windSpeed = Math.abs(windSpeed);

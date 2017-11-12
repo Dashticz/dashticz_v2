@@ -309,7 +309,8 @@
     font-size:15px !important;
 	font-weight:bold !important;
 }
-.colbar div.settings {
+.colbar div.settings,
+.colbar div.fullscreen {
 	cursor:pointer;
 }
 a.playlist {
