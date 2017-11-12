@@ -229,6 +229,10 @@ function getBlock(cols,c,columndiv,standby){
 
 				addStreamPlayer('.containsstreamplayer'+random);					
 			}
+			else if(cols['blocks'][b] == 'chromecast') {
+				$.ajax({url: 'js/chromecast.js', async: false,dataType: "script"});
+				loadChromecast(columndiv);
+			}
 			else if(cols['blocks'][b]=='garbage'){
 				if(typeof(loadGarbage)!=='function') $.ajax({url: 'js/garbage.js', async: false,dataType: "script"});
 				
