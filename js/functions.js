@@ -22,6 +22,15 @@ function number_format (number, decimals, decPoint, thousandsSep) { // eslint-di
   return s.join(dec)
 }
 
+/**
+ * Simple log function to log to the console if debug is true (set this in CONFIG.js)
+ * @param message
+ */
+function log(message) {
+    if (config['debug']) {
+        console.log(message);
+    }
+}
 function setSrc(cur){
 	$($(cur).data('target')).on('hidden.bs.modal', function () {
 		$($(cur).data('target')).find('iframe').removeAttr('src');
