@@ -517,45 +517,49 @@ function TranslateDirection(directionstr){
    return language['wind'][directionstr];
 }
 
-function Beaufort(tmp) {
-   if (tmp >= 0 && tmp <= 0,2) {
-      bft = "0 Bft";
-   }
-   if (tmp >= 0.3 && tmp <= 1.5) {
-      bft = "1 Bft";
-   }
-   if (tmp >= 1.6 && tmp <= 3.3) {
-      bft = "2 Bft";
-   }
-   if (tmp >= 3.4 && tmp <= 5.4) {
-      bft = "3 Bft";
-   }
-   if (tmp >= 5.5 && tmp <= 7.9) {
-      bft = "4 Bft";
-   }
-   if (tmp >= 8.0 && tmp <= 10.7) {
-      bft = "5 Bft";
-   }
-   if (tmp >= 10.8 && tmp <= 13.8) {
-      bft = "6 Bft";
-   }
-   if (tmp >= 13.9 && tmp <= 17.1) {
-      bft = "7 Bft";
-   }
-   if (tmp >= 17.2 && tmp <= 20.7) {
-      bft = "8 Bft";
-   }
-   if (tmp >= 20.8 && tmp <= 24.4) {
-      bft = "9 Bft";
-   }
-   if (tmp >= 24.5 && tmp <= 28.4) {
-      bft = "10 Bft";
-   }
-   if (tmp >= 28.5 && tmp <= 32.6) {
-      bft = "11 Bft";
-   }
-   if (tmp >= 32.7) {
-      bft = "12 Bft";
-   }
-   return bft
+/**
+ * Calculate windspeed in meters per second to Beaufort
+ * @param windSpeed in m/s
+ * @returns string Wind speed in Bft
+ * @constructor
+ */
+function Beaufort(windSpeed) {
+    windSpeed = Math.abs(windSpeed);
+    if (windSpeed <= 0.2) {
+        return "0 Bft";
+    }
+    if (windSpeed <= 1.5) {
+        return "1 Bft";
+    }
+    if (windSpeed <= 3.3) {
+        return "2 Bft";
+    }
+    if (windSpeed <= 5.4) {
+        return "3 Bft";
+    }
+    if (windSpeed <= 7.9) {
+        return "4 Bft";
+    }
+    if (windSpeed <= 10.7) {
+        return "5 Bft";
+    }
+    if (windSpeed <= 13.8) {
+        return "6 Bft";
+    }
+    if (windSpeed <= 17.1) {
+        return "7 Bft";
+    }
+    if (windSpeed <= 20.7) {
+        return "8 Bft";
+    }
+    if (windSpeed <= 24.4) {
+        return "9 Bft";
+    }
+    if (windSpeed <= 28.4) {
+        return "10 Bft";
+    }
+    if (windSpeed <= 32.6) {
+        return "11 Bft";
+    }
+    return "12 Bft";
 }
