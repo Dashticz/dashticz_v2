@@ -58,14 +58,13 @@ function getBlock(cols,c,columndiv,standby){
 		if(c=='bar') colclass='transbg dark';
 		if(!standby) $('div.screen'+s+' .row').append('<div data-colindex="'+c+'" class="col-sm-'+cols['width']+' col-xs-12 sortable col'+c+' '+colclass+'"></div>');
 		for(b in cols['blocks']){
-		
+
 			var width=12;
 			if(cols['blocks'][b]=='logo') width=2;
 			if(cols['blocks'][b]=='miniclock') width=8;
             if(cols['blocks'][b]=='settings') width=2;
-            if(cols['blocks'][b]=='fullscreen') width=2;
             if(cols['blocks'][b]=='flipclock') width=8;
-			
+
 			if(typeof(blocks[cols['blocks'][b]])!=='undefined' && typeof(blocks[cols['blocks'][b]]['width'])!=='undefined') width = blocks[cols['blocks'][b]]['width'];
 			else if(typeof(cols['blocks'][b])!=='undefined' && typeof(cols['blocks'][b]['width'])!=='undefined') width = cols['blocks'][b]['width'];
 
@@ -125,13 +124,27 @@ function getBlock(cols,c,columndiv,standby){
 			else if(cols['blocks'][b]=='logo'){
 				$(columndiv).append('<div data-id="logo" class="logo col-xs-'+width+'">'+settings['app_title']+'</div>');
 			}
-			else if(cols['blocks'][b]=='settings'){
-				$(columndiv).append('<div data-id="settings" class="settings settingsicon col-xs-'+width+' text-right" data-toggle="modal" data-target="#settingspopup"><em class="fa fa-cog" /></div>');
-			}
-			else if(cols['blocks'][b] === 'fullscreen') {
-                $.ajax({url: 'js/fullscreen.js', async: false, dataType: "script"});
-                getFullScreenIcon(columndiv);
-			}
+            else if (cols['blocks'][b] === 'settings') {
+                var icons = ["settings"];
+                if (typeof (settings['settings_icons']) !== 'undefined') {
+                    icons = settings['settings_icons'];
+                }
+                var content = '<div class="col-xs-' + width + ' text-right" data-toggle="modal">';
+                for (i = 0; i < icons.length; i++) {
+                    switch (icons[i]) {
+                        case 'settings':
+                            content += '<span class="settings settingsicon" data-id="settings" data-target="#settingspopup" data-toggle="modal"><em class="fa fa-cog"/></span>';
+                            break;
+
+                        case 'fullscreen':
+                            $.ajax({url: 'js/fullscreen.js', async: false, dataType: "script"});
+                            content += getFullScreenIcon();
+                            break;
+                    }
+                }
+                content += '</div>';
+                $(columndiv).append(content);
+            }
 			else if(cols['blocks'][b]=='miniclock'){
 				$(columndiv).append('<div data-id="miniclock" class="miniclock col-xs-'+width+' text-center"><span class="weekday"></span> <span class="date"></span> <span>&nbsp;&nbsp;&nbsp;&nbsp;</span> <span class="clock"></span></div>');
 			}
@@ -140,20 +153,20 @@ function getBlock(cols,c,columndiv,standby){
 			}
 			else if(cols['blocks'][b]=='spotify'){
 				if(typeof(getSpotify)!=='function') $.ajax({url: 'js/spotify.js', async: false,dataType: "script"});
-				getSpotify(columndiv);		
+				getSpotify(columndiv);
 			}
 			else if(cols['blocks'][b]=='nzbget'){
 				if(typeof(loadNZBGET)!=='function') $.ajax({url: 'js/nzbget.js', async: false,dataType: "script"});
-				loadNZBGET(columndiv);		
+				loadNZBGET(columndiv);
 			}
 			else if(cols['blocks'][b]=='log'){
 				if(typeof(getLog)!=='function') $.ajax({url: 'js/log.js', async: false,dataType: "script"});
-				getLog(columndiv);		
+				getLog(columndiv);
 			}
 			else if(cols['blocks'][b]=='stationclock'){
 				$(columndiv).append('<div data-id="clock" class="transbg block_'+cols['blocks'][b]+' col-xs-'+width+' text-center"><canvas id="clock" width="150" height="150">Your browser is unfortunately not supported.</canvas></div>');
 				if(typeof(StationClock)!=='function') $.ajax({url: 'vendor/stationclock.js', async: false,dataType: "script"});
-				
+
 				var clock = new StationClock("clock");
 				clock.body = StationClock.RoundBody;
 				clock.dial = StationClock.GermanStrokeDial;
@@ -212,7 +225,7 @@ function getBlock(cols,c,columndiv,standby){
 				html+='</div>';
 				html+='<div class="col-xs-10 items">'+language.misc.loading+'</div>';
 				html+='</div>';
-				$(columndiv).append(html);	
+				$(columndiv).append(html);
 				addCalendar($('.containsicalendar'+random),settings['calendarurl']);
 			}
 			else if(cols['blocks'][b]=='streamplayer'){
@@ -232,7 +245,7 @@ function getBlock(cols,c,columndiv,standby){
 					html+='</div>';
 				$(columndiv).append(html);
 
-				addStreamPlayer('.containsstreamplayer'+random);					
+				addStreamPlayer('.containsstreamplayer'+random);
 			}
 			else if(cols['blocks'][b] == 'chromecast') {
 				$.ajax({url: 'js/chromecast.js', async: false,dataType: "script"});
@@ -240,8 +253,8 @@ function getBlock(cols,c,columndiv,standby){
 			}
 			else if(cols['blocks'][b]=='garbage'){
 				if(typeof(loadGarbage)!=='function') $.ajax({url: 'js/garbage.js', async: false,dataType: "script"});
-				
-				
+
+
 				$(columndiv).append(loadGarbage());
 				getBlockClick('garbage');
 			}
@@ -254,7 +267,7 @@ function getBlock(cols,c,columndiv,standby){
 				var random = getRandomInt(1,100000);
 				var key = 'UNKNOWN';
 				if(typeof(cols['blocks'][b]['key'])!=='undefined') key=cols['blocks'][b]['key'];
-				
+
 				if(typeof(cols['blocks'][b]['frameurl'])!=='undefined') $(columndiv).append(loadFrame(random,cols['blocks'][b]));
 				else if(typeof(cols['blocks'][b]['empty'])!=='undefined'){
 					$(columndiv).append('<div data-id="'+key+'" class="mh transbg col-xs-'+width+'">');
@@ -268,14 +281,14 @@ function getBlock(cols,c,columndiv,standby){
 					var html='<div class="col-xs-'+width+' transbg coins-'+cols['blocks'][b]['key']+'" data-id="coins.'+cols['blocks'][b]['key']+'"></div>';
 					$(columndiv).append(html);
 					getCoin(cols['blocks'][b]);
-					
+
 				}
 				else if(typeof(cols['blocks'][b]['channels'])!=='undefined'){
 					if(typeof(addTVGuide)!=='function') $.ajax({url: 'js/tvguide.js', async: false,dataType: "script"});
-				
+
 					var html ='';
 					if(typeof(cols['blocks'][b]['title'])!=='undefined') html+='<div class="col-xs-'+width+' mh titlegroups transbg"><h3>'+cols['blocks'][b]['title']+'</h3></div>';
-					
+
 					html+='<div data-id="tvguide.'+key+'" class="col-xs-'+width+' block_tvguide transbg containstvguide containstvguide'+random+'">';
 					if(typeof(cols['blocks'][b]['icon'])!=='undefined' && cols['blocks'][b]['icon']!==''){
 						html+='<div class="col-xs-2 col-icon">';
@@ -292,16 +305,16 @@ function getBlock(cols,c,columndiv,standby){
 					else {
 						html+='<div class="col-xs-12 items">'+language.misc.loading+'</div>';
 					}
-					
+
 					html+='</div>';
-					$(columndiv).append(html);	
+					$(columndiv).append(html);
 					addTVGuide($('.containstvguide'+random),cols['blocks'][b]);
 					getBlockClick('tvguide');
 				}
 				else if(typeof(cols['blocks'][b]['icalurl'])!=='undefined' || typeof(cols['blocks'][b]['calendars'])!=='undefined'){
 					var html ='';
 					if(typeof(cols['blocks'][b]['title'])!=='undefined') html+='<div class="col-xs-'+width+' mh titlegroups transbg"><h3>'+cols['blocks'][b]['title']+'</h3></div>';
-					
+
 					html+='<div data-id="calendars.'+key+'" class="col-xs-'+width+' transbg containsicalendar containsicalendar'+random+'">';
 					if(typeof(cols['blocks'][b]['icon'])!=='undefined' && cols['blocks'][b]['icon']!==''){
 						html+='<div class="col-xs-2 col-icon">';
@@ -318,10 +331,10 @@ function getBlock(cols,c,columndiv,standby){
 					else {
 						html+='<div class="col-xs-12 items">'+language.misc.loading+'</div>';
 					}
-					
+
 					html+='</div>';
-					$(columndiv).append(html);	
-					
+					$(columndiv).append(html);
+
 					if(typeof(addCalendar)!=='function') $.ajax({url: 'js/calendar.js', async: false,dataType: "script"});
 					addCalendar($('.containsicalendar'+random),cols['blocks'][b]);
 
