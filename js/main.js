@@ -1004,6 +1004,7 @@ function getDevices(override){
 									html+= getStatusBlock(idx,device,blocktypes['Name'][device['Name']]);
 								}
 								else if(device['HardwareType']=='Logitech Media Server'){
+									
 									html+=iconORimage(idx,'fa-music','','on icon','',2);
 									html+='<div class="col-xs-10 col-data">';
 									html+='<strong class="title">'+device['Name']+'</strong><br />';
@@ -1011,9 +1012,17 @@ function getDevices(override){
 									html+='<div>';
 										html+='<a href="javascript:controlLogitech('+device['idx']+',\'Rewind\');"><em class="fa fa-arrow-circle-left fa-small"></em></a> ';
 										html+='<a href="javascript:controlLogitech('+device['idx']+',\'Stop\');"><em class="fa fa-stop-circle fa-small"></em></a> ';
-										if(device['Status']=='Playing') html+='<a href="javascript:controlLogitech('+device['idx']+',\'Pause\');"><em class="fa fa-pause-circle fa-small"></em></a> ';
-										else html+='<a href="javascript:controlLogitech('+device['idx']+',\'Play\');"><em class="fa fa-play-circle fa-small"></em></a> ';
+										if(device['Status']=='Playing') {
+												html+='<a href="javascript:controlLogitech('+device['idx']+',\'Pause\');"><em class="fa fa-pause-circle fa-small"></em></a> ';
+										}
+										else {
+											html+='<a href="javascript:controlLogitech('+device['idx']+',\'Play\');"><em class="fa fa-play-circle fa-small"></em></a> ';
+										}
 										html+='<a href="javascript:controlLogitech('+device['idx']+',\'Forward\');"><em class="fa fa-arrow-circle-right fa-small"></em></a>';
+										html+='&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'; 
+										html+='<a href="javascript:controlLogitech('+device['idx']+',\'VolumeDown\');"><em class="fa fa-minus-circle fa-small"></em></a>';
+										html+='&nbsp;'; 
+										html+='<a href="javascript:controlLogitech('+device['idx']+',\'VolumeUp\');"><em class="fa fa-plus-circle fa-small"></em></a>';
 									html+='</div>';
 									html+='</div>';
 
