@@ -288,8 +288,14 @@ function buildScreens(){
 							if(typeof(settings['wu_api'])!=='undefined' && settings['wu_api']!=="" && settings['wu_api']!==0 && typeof(settings['wu_city'])!=='undefined' && settings['wu_city']!==""){
 								$('.col2').prepend('<div class="mh transbg big block_currentweather_big col-xs-12 containsweather"><div class="col-xs-1"><div class="weather" id="weather"></div></div><div class="col-xs-11"><span class="title weatherdegrees" id="weatherdegrees"></span> <span class="weatherloc" id="weatherloc"></span></div></div>');
 								if(typeof(loadWeatherFull)!=='function') $.ajax({url: 'js/weather.js', async: false,dataType: "script"});
+								
 								loadWeatherFull(settings['wu_city'],settings['wu_country'],$('#weatherfull'));
 								loadWeather(settings['wu_city'],settings['wu_country']);
+								
+								setInterval(function(){ 
+									loadWeatherFull(settings['wu_city'],settings['wu_country'],$('#weatherfull'));
+									loadWeather(settings['wu_city'],settings['wu_country']);
+								}, (60000*30));
 							}
 
 							$('.col3 .auto_clock').html('<div class="transbg block_clock col-xs-12 text-center"><h1 id="clock" class="clock"></h1><h4 id="weekday" class="weekday"></h4><h4 id="date" class="date"></h4></div>');
@@ -1725,7 +1731,9 @@ function getDevices(override){
 								else {
 
 									if((typeof(blocks[idx]) == 'undefined' || typeof(blocks[idx]['protected']) == 'undefined' || blocks[idx]['protected'] == false) && device['Protected'] == false){
-										$('.block_'+idx).attr('onclick','switchDevice(this)');
+										if(device['SwitchType']=='Push On Button') $('.block_'+idx).attr('onclick','switchOnOff(this,\'on\')');
+										else if(device['SwitchType']=='Push Off Button') $('.block_'+idx).attr('onclick','switchOnOff(this,\'off\')');
+										else $('.block_'+idx).attr('onclick','switchDevice(this)');
 									}
 									if(buttonimg==''){
 										if(device['Status']=='Off') html+=iconORimage(idx,'fa-lightbulb-o','','off icon');

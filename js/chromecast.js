@@ -122,12 +122,3 @@ function selectStream(streamelement) {
     loadTrack(selectedStreamIndex);
 }
 
-/**
- * Simple log function to log to the console if debug is true (set this in CONFIG.js)
- * @param message
- */
-function log(message) {
-    if (config['debug']) {
-        console.log(message);
-    }
-}

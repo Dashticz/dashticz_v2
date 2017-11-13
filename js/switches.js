@@ -44,6 +44,42 @@ function switchDevice(cur){
 	}
 }
 
+function switchOnOff(cur,onOrOff){
+	var idx = $(cur).data('light');
+	if(onOrOff=='off'){
+		var doStatus='Off';
+		if($(cur).find('.fa-toggle-on').length>0){
+			$(cur).find('.fa-toggle-on').addClass('fa-toggle-off').removeClass('fa-toggle-on');
+		}
+		
+		$(cur).find('.icon').removeClass('on');
+		$(cur).find('.icon').addClass('off');
+		$(cur).find('.state').html(language.switches.state_off);
+	}
+	else {
+		var doStatus='On';
+		$(cur).find('.icon').removeClass('off');
+		$(cur).find('.icon').addClass('on');
+		
+		if($(cur).find('.fa-toggle-off').length>0){
+			$(cur).find('.fa-toggle-off').addClass('fa-toggle-on').removeClass('fa-toggle-off');
+		}
+		
+		$(cur).find('.state').html(language.switches.state_on);
+	}
+	
+	triggerChange(idx,doStatus);
+	if(typeof(req)!=='undefined') req.abort();
+
+	$.ajax({
+		url: settings['domoticz_ip']+'/json.htm?type=command&param=switchlight&idx='+idx+'&switchcmd='+doStatus+'&level=0&passcode=&jsoncallback=?',
+		type: 'GET',async: false,contentType: "application/json",dataType: 'jsonp',
+		success:function(data) {
+			getDevices(true);
+		}
+	});
+}
+
 function switchThermostat(setpoint,cur){
 	sliding = true;
 	var idx = $(cur).data('light');	

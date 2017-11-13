@@ -30,10 +30,6 @@ function loadWeather(location,country) {
 					else curfull.find(".weatherloc").html(location);
 				}
 			});
-
-			setTimeout(function(){ 
-				loadWeather(settings['wu_city'],settings['wu_country']);
-			}, (60000*30));
 		});
 	}
 }
@@ -92,10 +88,6 @@ function loadWeatherFull(location,country) {
 					}
 				}
 			});
-
-			setTimeout(function(){ 
-				loadWeatherFull(settings['wu_city'],settings['wu_country'],$('.weatherfull'));
-			}, (60000*30));
 		});
 	}
 }
