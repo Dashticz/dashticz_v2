@@ -1768,7 +1768,7 @@ function getDevices(override){
 				}
 				
 				if(!settings['edit_mode']){
-					//setTimeout(function(){ getDevices(); },(settings['domoticz_refresh']*1000));
+					setTimeout(function(){ getDevices(); },(settings['domoticz_refresh']*1000));
 				}
 			}
 		});
