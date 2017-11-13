@@ -129,6 +129,7 @@ function getBlock(cols,c,columndiv,standby){
                 if (typeof (settings['settings_icons']) !== 'undefined') {
                     icons = settings['settings_icons'];
                 }
+				else icons = ["settings", "fullscreen"];
                 var content = '<div class="col-xs-' + width + ' text-right" data-toggle="modal">';
                 for (i = 0; i < icons.length; i++) {
                     switch (icons[i]) {

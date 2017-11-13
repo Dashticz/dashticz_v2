@@ -39,5 +39,5 @@ function getCoin(coin){
 		coinsvalue[coin['key']] = data[0][varname];
 		$('.coins-'+data[0]['id']).html(html);
 	});
-	setInterval(function(){ getCoin(coin); },15000);
+	setTimeout(function(){ getCoin(coin); },15000);
 }
