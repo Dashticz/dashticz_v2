@@ -301,16 +301,17 @@
     margin-top: -4px;
     margin-bottom: -4px;
 }
-.colbar.transbg .fa.fa-cog {
+.colbar.transbg .fa {
     margin-top: 0px;
     font-size: 20px !important;
+	margin-left: 10px;
 }
 .colbar.transbg .miniclock span{
     font-size:15px !important;
 	font-weight:bold !important;
 }
-.colbar div.settings,
-.colbar div.fullscreen {
+.colbar span.settings,
+.colbar span.fullscreen {
 	cursor:pointer;
 }
 a.playlist {
