@@ -1046,7 +1046,6 @@ function getDevices(override){
 								}
 								else if((device['HardwareType']=='Toon Thermostat' && device['SubType']!=='SetPoint' && device['SubType']!=='AC') || device['Type']=='P1 Smart Meter' || device['HardwareType']=='P1 Smart Meter USB'){
 									if(device['Type']=='P1 Smart Meter' && device['SubType']=='Energy'){
-										console.log(device);
 										if($('div.block_'+idx).length>0){
 											allblocks[idx] = true;
 										}

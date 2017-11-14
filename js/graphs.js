@@ -52,6 +52,11 @@ function getGraphs(device,popup){
         case 'Energy':
             txtUnit = "kWh";
             break;
+        case 'kWh':
+        case 'YouLess counter':
+            txtUnit = "kWh";
+            currentValue = device['CounterToday'];
+            break;
         case 'Visibility':
             txtUnit = "km";
             break;
@@ -99,7 +104,6 @@ function getGraphs(device,popup){
     }
 
 	currentValue = number_format(currentValue, decimals);
-	log(device);
 	showGraph(device['idx'], device['Name'], txtUnit, 'initial', currentValue, false, sensor, popup);
 }
 
@@ -129,7 +133,6 @@ function getButtonGraphs(device){
 }
 
 function showGraph(idx,title,label,range,current,forced,sensor,popup){
-
 	graphColor = '#eee';
 	graphColor2 = '#eee';
 	if(typeof(popup)=='undefined') forced=false;
@@ -158,7 +161,6 @@ function showGraph(idx,title,label,range,current,forced,sensor,popup){
 			url: settings['domoticz_ip']+'/json.htm?type=graph&sensor='+sensor+'&idx='+idx+'&range='+realrange+'&time='+new Date().getTime()+'&jsoncallback=?',
 			type: 'GET',async: true,contentType: "application/json",dataType: 'jsonp',
 			success: function(data) {
-				
 				var orgtitle = title;
 				title = '<h4>'+title;
 				if(typeof(current)!=='undefined' && current!=='undefined') title+=': <B class="graphcurrent'+idx+'">' + current + ' ' + label + '</B>';
@@ -272,10 +274,22 @@ function showGraph(idx,title,label,range,current,forced,sensor,popup){
 								}; 
 							}
 							else if(typeof(data.result[r]['v'])!=='undefined'){
+							    if (data.method === 1) {
+							        continue;
+                                }
 								data_com[count] = {
 									xkey: currentdate,
 									ykey: data.result[r]['v']
 								}; 
+							}
+							else if(typeof(data.result[r]['eu'])!=='undefined'){
+							    if (data.method !== 1) {
+							        continue;
+                                }
+								data_com[count] = {
+									xkey: currentdate,
+									ykey: data.result[r]['eu']
+								};
 							}
 							else if(typeof(data.result[r]['u'])!=='undefined'){
 								data_com[count] = {
@@ -289,7 +303,9 @@ function showGraph(idx,title,label,range,current,forced,sensor,popup){
 									ykey: data.result[r]['u_max'],
 									ykey2: data.result[r]['u_min']
 								};
-							}
+							} else {
+							    continue;
+                            }
 							
 							count++;
 						}
