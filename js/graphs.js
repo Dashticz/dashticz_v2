@@ -2,81 +2,105 @@ function getGraphs(device,popup){
 	var sensor='counter';
 	var sensortype = device['SubType'];
 	var switchtype = device['SensorUnit'];
-	var txtLabelOrg = sensortype;
 	var txtUnit = "?";
-	
-	if(device['Type']=='Rain') sensor='rain';
-	if(device['Type']=='Wind') sensor='wind';
-	if(device['SubType']=='Percentage' || device['SubType']=='Custom Sensor') {
-		sensor='Percentage';
-		txtUnit = '%';
-	}
-	if(device['Type']=='Temp' || device['Type']== 'Temp + Humidity' || device['Type']== 'Temp + Humidity + Baro') {
-		sensor = 'temp';
-		txtUnit = '°';
-	}
-	if(device['Type']=='Humidity'){
-		sensor = 'temp';
-		txtUnit = '%';
-	}
-	
-	if (sensortype == "Gas") {
-		txtUnit = "m3";
-	}
-	else if (sensortype == "Energy") {
-		txtUnit = "W";
-	}
-	else if (sensortype == "Custom Sensor") {
-		txtUnit = switchtype;
-		sensor = "Percentage";
-	}
-	else if (sensortype == "Visibility") {
-		txtUnit = "km";
-	}
-	else if (sensortype == "Radiation") {
-		txtUnit = "Watt/m2";
-	}
-	else if (sensortype == "Pressure") {
-		txtUnit = "Bar";
-	}
-	else if (sensortype == "Soil Moisture") {
-		txtUnit = "cb";
-	}
-	else if (sensortype == "Leaf Wetness") {
-		txtUnit = "Range";
-	}
-	else if ((sensortype == "Voltage") || (sensortype == "A/D")) {
-		txtUnit = "mV";
-	}
-	else if (sensortype == "VoltageGeneral") {
-		txtLabelOrg = "Voltage";
-		txtUnit = "V";
-	}
-	else if ((sensortype == "DistanceGeneral") || (sensortype == "Distance")) {
-		txtLabelOrg = "Distance";
-		txtUnit = "cm";
-	}
-	else if (sensortype == "Sound Level") {
-		txtUnit = "dB";
-	}
-	else if ((sensortype == "CurrentGeneral") || (sensortype == "Current")) {
-		txtLabelOrg = "Current";
-		txtUnit = "A";
-	}
-	else if (switchtype == "Weight") {
-		txtUnit = "kg";
-	}
-	else if (sensortype == "Waterflow") {
-		txtUnit = "l/min";
-		sensor = "Percentage";
+	var currentValue = device['Data'];
+	var decimals = 2;
+
+	switch (device['Type']) {
+		case 'Rain':
+			sensor = 'rain';
+			txtUnit = 'mm';
+			decimals = 1;
+			break;
+		case 'Wind':
+			sensor = 'wind';
+			if (config['use_beaufort']) {
+                currentValue = Beaufort(device['Speed']);
+                decimals = 0;
+                txtUnit = 'Bft';
+            } else {
+                currentValue = device['Speed'];
+                decimals = 1;
+                txtUnit = 'm/s'
+            }
+			break;
+		case 'Temp':
+		case 'Temp + Humidity':
+		case 'Temp + Humidity + Baro':
+			sensor = 'temp';
+            txtUnit = '°C';
+            currentValue = device['Temp'];
+            decimals = 1;
+			break;
+        case 'Humidity':
+            sensor = 'temp';
+            txtUnit = '%';
+            decimals = 1;
+            break;
 	}
 
-	var txtLabel = txtLabelOrg + " (" + txtUnit + ")";
-	if (sensortype == "Custom Sensor") {
-		txtLabel = txtUnit;
-	}
-	
-	showGraph(device['idx'],device['Name'],txtUnit,'initial',device['CounterToday'],false,sensor,popup);
+    switch (device['SubType']) {
+        case 'Percentage':
+        case 'Custom Sensor':
+            sensor = 'Percentage';
+            txtUnit = '%';
+            decimals = 1;
+            break;
+        case 'Gas':
+            txtUnit = "m3";
+            break;
+        case 'Energy':
+            txtUnit = "kWh";
+            break;
+        case 'Visibility':
+            txtUnit = "km";
+            break;
+        case 'Radiation':
+            txtUnit = "Watt/m2";
+            break;
+        case 'Pressure':
+            txtUnit = "Bar";
+            break;
+        case 'Soil Moisture':
+            txtUnit = "cb";
+            break;
+        case 'Leaf Wetness':
+            txtUnit = "Range";
+            break;
+        case 'Voltage':
+        case 'A/D':
+            txtUnit = "mV";
+            break;
+        case 'VoltageGeneral':
+            txtUnit = "V";
+            break;
+        case 'DistanceGeneral':
+        case 'Distance':
+            txtUnit = "cm";
+            break;
+        case 'Sound Level':
+            txtUnit = "dB";
+            break;
+        case 'CurrentGeneral':
+        case 'Current':
+            txtUnit = "A";
+            break;
+        case 'Weight':
+            txtUnit = "kg";
+            break;
+        case 'Waterflow':
+            sensor = "Percentage";
+            txtUnit = "l/min";
+            break;
+        case 'Counter Incremental':
+            txtUnit = device['CounterToday'].split(' ')[1];
+            currentValue = device['CounterToday'].split(' ')[0];
+            break;
+    }
+
+	currentValue = number_format(currentValue, decimals);
+	log(device);
+	showGraph(device['idx'], device['Name'], txtUnit, 'initial', currentValue, false, sensor, popup);
 }
 
 function getGraphByIDX(idx){
@@ -137,7 +161,7 @@ function showGraph(idx,title,label,range,current,forced,sensor,popup){
 				
 				var orgtitle = title;
 				title = '<h4>'+title;
-				if(typeof(current)!=='undefined' && current!=='undefined') title+=': <B class="graphcurrent'+idx+'">'+current+'</B>';
+				if(typeof(current)!=='undefined' && current!=='undefined') title+=': <B class="graphcurrent'+idx+'">' + current + ' ' + label + '</B>';
 				title+='</h4>';
 				
 				var buttons ='<button type="button" class="btn btn-default ';
