@@ -9,7 +9,7 @@ blocktypes.SubType['Distance'] = { icon: 'fa fa-eye', title: '<Name>', value: '<
 blocktypes.SubType['Alert'] = { icon: 'fa fa-warning', title: '<Data>', value: '<Name>' }
 blocktypes.SubType['Percentage'] = { icon: 'fa fa-percent', title: '<Name>', value: '<Data>' }
 blocktypes.SubType['Text'] = { icon: 'fa fa-file', title: '<Name>', value: '<Data>' }
-blocktypes.SubType['Counter Incremental'] = { icon: 'fa fa-bolt', title: '<Name>', value: '<Data>' }
+blocktypes.SubType['Counter Incremental'] = { icon: 'fa fa-bolt', title: '<Name>', value: '<Data>', format: true, decimals: 2 }
 blocktypes.SubType['Voltage'] = { icon: 'fa fa-bolt', title: '<Name>', value: '<Data>' }
 blocktypes.SubType['Solar Radiation'] = { icon: 'fa fa-sun-o', title: '<Name>', value: '<Data>' }
 blocktypes.SubType['Thermostat Mode'] = { icon: 'fa fa-thermometer-half', title: '<Name>', value: '<Data>' }
@@ -20,7 +20,7 @@ blocktypes.SensorUnit['Fertility'] = { icon: 'fa fa-flask', title: '<Name>', val
 blocktypes.Type = {}
 blocktypes.Type['Rain'] = { icon: 'fa fa-tint', title: '<Name>', value: '<Rain>mm' }
 blocktypes.Type['Wind'] = { icon: 'wi wi-wind-direction', title: language.wind.wind, value: '' }
-blocktypes.Type['Temp'] = { icon: 'fa fa-thermometer-half', title: '<Name>', value: '<Temp>'+_TEMP_SYMBOL }
+blocktypes.Type['Temp'] = { icon: 'fa fa-thermometer-half', title: '<Name>', value: '<Temp>'+_TEMP_SYMBOL, format: true, decimals: 1}
 blocktypes.Type['Air Quality'] = { image: 'air.png', title: '<Name>', value: '<Data>' }
 blocktypes.Type['UV'] = { icon: 'fa fa-sun-o', title: '<Name>', value: '<Data>' }
 
@@ -384,14 +384,29 @@ function getStateBlock(id,icon,title,value,device){
 
 
 function getStatusBlock(idx,device,block,c){
-	
 	var value = block.value;
 	var title = block.title;
+	var elements = [];
 	if(typeof(blocks[idx])!=='undefined' && typeof(blocks[idx]['title'])!=='undefined') title=blocks[idx]['title'];
 
-	for(d in device) {
-		value = value.replace('<'+d+'>',device[d]);
-		title = title.replace('<'+d+'>',device[d]);
+    var tagRegEx = /<[\w\s="/.':;#-\/\?]+>/gi;
+    if (matches = (title + value).match(tagRegEx)) {
+        matches.map(function (val) {
+            elements.push(val.replace(/([<,>])+/g, ''));
+        });
+    }
+
+	for(d of elements) {
+	    deviceValue = device[d];
+	    if (block.hasOwnProperty('format') && block.format) {
+	        unit = '';
+	        if (isNaN(device[d])) {
+	            unit = ' ' + device[d].split(' ')[1];
+            }
+            deviceValue = number_format(deviceValue, block.decimals) + unit;
+        }
+		value = value.replace('<'+d+'>', deviceValue);
+		title = title.replace('<'+d+'>', device[d]);
 	}
 	
 	if(typeof(blocks[idx])!=='undefined' && typeof(blocks[idx]['unit'])!=='undefined'){
