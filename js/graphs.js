@@ -143,7 +143,7 @@ function showGraph(idx,title,label,range,current,forced,sensor,popup){
 	}
 	
 	if($('.graphcurrent'+idx).length>0){
-		$('.graphcurrent'+idx).html(current);
+		$('.graphcurrent'+idx).html(current + ' ' + label);
 	}
 	
 	if(forced || popup){
