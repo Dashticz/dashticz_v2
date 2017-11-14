@@ -791,7 +791,7 @@ p {
 }
 
 .cast-button-container {
-	padding: 3px !important;
+	padding: 13px !important;
 }
 .cast-button {
 	height: 25px;
@@ -985,6 +985,9 @@ img.icon {
 	#weather .wi {
 		font-size:24px !important;
 	}
+	.cast-button-container {
+		padding: 11px !important;
+	}
 }
 @media (max-width: 975px) {
 	div.mh {
@@ -996,6 +999,9 @@ img.icon {
 	.transbg.col-xs-1, .transbg.col-xs-2, .transbg.col-xs-3, .transbg.col-xs-4, .transbg.col-xs-5, .transbg.col-xs-6, .transbg.col-xs-7, .transbg.col-xs-8, .transbg.col-xs-9, .transbg.col-xs-10, .transbg.col-xs-11, .transbg.col-xs-12 {
 		padding-top: 7px;
 		padding-bottom: 7px;
+	}
+	.cast-button-container {
+		padding: 3px !important;
 	}
 	h1,h4 {
 		margin-left:0px !important

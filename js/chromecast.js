@@ -17,9 +17,7 @@ function loadChromecast(columndiv) {
     html += '   <em class="fa fa-chevron-right fa-small"></em>';
     html += '</div>';
     html += '<div class="col-xs-4 transbg hover text-center cast-button-container">';
-    html += '<div class="col-xs-4 col-xs-push-4">';
     html += '   <button class="cast-button" is="google-cast-button"></button>';
-    html += '</div>';
     html += '</div>';
     html += '<div class="col-xs-2 transbg hover text-center btnVolDown">';
     html += '   <em class="fa fa-volume-down fa-small"></em>';
