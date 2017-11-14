@@ -28,7 +28,9 @@ var _GRAPHS_LOADED = {};
 var _BACKGROUND_IMAGE = 'img/bg2.jpg';
 var _THEME = 'default';
 var _STREAMPLAYER_TRACKS = {"track":1,"name":"Music FM","file":"http://stream.musicfm.hu:8000/musicfm.mp3"};
-	
+var _THOUSAND_SEPARATOR = '.';
+var _DECIMAL_POINT = ',';
+
 function loadFiles(){
 	
 	$.ajax({url: customfolder+'/CONFIG.js', async: false,dataType: "script"}).done(function() {
@@ -1044,6 +1046,7 @@ function getDevices(override){
 								}
 								else if((device['HardwareType']=='Toon Thermostat' && device['SubType']!=='SetPoint' && device['SubType']!=='AC') || device['Type']=='P1 Smart Meter' || device['HardwareType']=='P1 Smart Meter USB'){
 									if(device['Type']=='P1 Smart Meter' && device['SubType']=='Energy'){
+										console.log(device);
 										if($('div.block_'+idx).length>0){
 											allblocks[idx] = true;
 										}
@@ -1072,7 +1075,8 @@ function getDevices(override){
 										if(typeof(blocks[idx+'_2'])!=='undefined' && typeof(blocks[idx+'_2']['title'])!=='undefined') title=blocks[idx+'_2']['title'];
 										var icon = 'fa fa-plug';
 										if(typeof(blocks[idx+'_2'])!=='undefined' && typeof(blocks[idx+'_2']['icon'])!=='undefined') icon=blocks[idx+'_2']['icon'];
-										html = getStateBlock(idx+'_2',icon,title,device['CounterToday'],device);
+                                        device['CounterToday'] = device['CounterToday'].split(' ')[0];
+										html = getStateBlock(idx+'_2',icon,title,number_format(device['CounterToday'], settings['units'].decimals.kwh) + ' ' + settings['units'].names.kwh,device);
 										if(typeof(allblocks[idx])!=='undefined' && $('div.block_'+idx+'_2').length==0) var duplicate = $('div.block_'+idx+'_1').last().clone().removeClass('block_'+idx+'_1').addClass('block_'+idx+'_2').insertAfter($('div.block_'+idx+'_1'));
 										$('div.block_'+idx+'_2').html(html);
 										addHTML=false;
@@ -1084,8 +1088,8 @@ function getDevices(override){
 										if(typeof(blocks[idx+'_3'])!=='undefined' && typeof(blocks[idx+'_3']['title'])!=='undefined') title=blocks[idx+'_3']['title'];
 										var icon = 'fa fa-plug';
 										if(typeof(blocks[idx+'_3'])!=='undefined' && typeof(blocks[idx+'_3']['icon'])!=='undefined') icon=blocks[idx+'_3']['icon'];
-										html = getStateBlock(idx+'_3',icon,title,device['Counter']+' kWh',device);
-										if(typeof(allblocks[idx])!=='undefined' && $('div.block_'+idx+'_3').length==0) var duplicate = $('div.block_'+idx+'_2').last().clone().removeClass('block_'+idx+'_2').addClass('block_'+idx+'_3').insertAfter($('div.block_'+idx+'_2'));
+                                        html = getStateBlock(idx+'_3', icon, title, number_format(device['Counter'], 0) + ' ' + settings['units'].names.kwh, device);
+                                        if(typeof(allblocks[idx])!=='undefined' && $('div.block_'+idx+'_3').length==0) var duplicate = $('div.block_'+idx+'_2').last().clone().removeClass('block_'+idx+'_2').addClass('block_'+idx+'_3').insertAfter($('div.block_'+idx+'_2'));
 										$('div.block_'+idx+'_3').html(html);
 										addHTML=false;
 
@@ -1097,7 +1101,7 @@ function getDevices(override){
 											if(typeof(blocks[idx+'_4'])!=='undefined' && typeof(blocks[idx+'_4']['title'])!=='undefined') title=blocks[idx+'_4']['title'];
 											var icon = 'fa fa-plug';
 											if(typeof(blocks[idx+'_4'])!=='undefined' && typeof(blocks[idx+'_4']['icon'])!=='undefined') icon=blocks[idx+'_4']['icon'];
-											html = getStateBlock(idx+'_4',icon,title,device['CounterDeliv']+' kWh',device);
+                                            html = getStateBlock(idx+'_4', icon, title, number_format(device['CounterDeliv'], 0) + ' ' + settings['units'].names.kwh, device);
 											if(typeof(allblocks[idx])!=='undefined' && $('div.block_'+idx+'_4').length==0) var duplicate = $('div.block_'+idx+'_3').last().clone().removeClass('block_'+idx+'_3').addClass('block_'+idx+'_4').insertAfter($('div.block_'+idx+'_3'));
 											$('div.block_'+idx+'_4').html(html);
 											addHTML=false;
@@ -1109,7 +1113,8 @@ function getDevices(override){
 											if(typeof(blocks[idx+'_5'])!=='undefined' && typeof(blocks[idx+'_5']['title'])!=='undefined') title=blocks[idx+'_5']['title'];
 											var icon = 'fa fa-plug';
 											if(typeof(blocks[idx+'_5'])!=='undefined' && typeof(blocks[idx+'_5']['icon'])!=='undefined') icon=blocks[idx+'_5']['icon'];
-											html = getStateBlock(idx+'_5',icon,title,device['CounterDelivToday'],device);
+                                            device['CounterDelivToday'] = device['CounterDelivToday'].split(' ')[0];
+                                            html = getStateBlock(idx+'_2',icon,title,number_format(device['CounterDelivToday'], settings['units'].decimals.kwh) + ' ' + settings['units'].names.kwh,device);
 											if(typeof(allblocks[idx])!=='undefined' && $('div.block_'+idx+'_5').length==0) var duplicate = $('div.block_'+idx+'_4').last().clone().removeClass('block_'+idx+'_4').addClass('block_'+idx+'_5').insertAfter($('div.block_'+idx+'_4'));
 											$('div.block_'+idx+'_5').html(html);
 											addHTML=false;
@@ -1145,12 +1150,10 @@ function getDevices(override){
 										addHTML=false;
 									}
 								}
-								else if(
-									(device['Type']=='RFXMeter' && device['SubType']=='RFXMeter counter') || device['Type']=='YouLess Meter'){
+								else if(device['Type']=='RFXMeter' && device['SubType']=='RFXMeter counter') {
 									if($('div.block_'+idx).length>0){
 										allblocks[idx] = true;
 									}
-
 									var rfxicon='fa fa-fire';
 									if(device['Name']=='Water'){
 										var rfxicon='fa fa-tint';
@@ -1189,6 +1192,51 @@ function getDevices(override){
 										addHTML=false;
 									}
 								}
+								else if(device['Type'] === 'YouLess Meter') {
+									if($('div.block_'+idx).length > 0) {
+										allblocks[idx] = true;
+									}
+									device['CounterToday'] = device['CounterToday'].split(' ')[0];
+									var rfxicon='fa fa-fire';
+									if(typeof(blocks[idx+'_1'])!=='undefined' && typeof(blocks[idx+'_1']['icon'])!=='undefined') rfxicon=blocks[idx+'_1']['icon'];
+
+									triggerStatus(idx+'_1',device['LastUpdate'],device);
+									triggerChange(idx+'_1',device['LastUpdate'],device);
+
+									var title=device['Name'];
+									if(typeof(blocks[idx+'_1'])!=='undefined' && typeof(blocks[idx+'_1']['title'])!=='undefined') title=blocks[idx+'_1']['title'];
+									html += getStateBlock(device['idx'] + 'a', rfxicon, title, number_format(device['CounterToday'], settings['units'].decimals.kwh) + ' ' + settings['units'].names.kwh, device);
+									if(!$('div.block_'+idx).hasClass('block_'+idx+'_1')) $('div.block_'+idx).addClass('block_'+idx+'_1');
+									$('div.block_' + idx + '_1').html(html);
+									addHTML=false;
+
+									triggerStatus(idx+'_2',device['LastUpdate'],device);
+									triggerChange(idx+'_2',device['LastUpdate'],device);
+
+									var title = language.energy.energy_totals+' '+device['Name'];
+                                    var rfxicon = 'fa fa-fire';
+                                    if(typeof(blocks[idx+'_2'])!=='undefined' && typeof(blocks[idx+'_2']['icon'])!=='undefined') rfxicon=blocks[idx+'_2']['icon'];
+									if(typeof(blocks[idx+'_2'])!=='undefined' && typeof(blocks[idx+'_2']['title'])!=='undefined') title=blocks[idx+'_2']['title'];
+									html = getStateBlock(device['idx'] + '_2', rfxicon, title, number_format(device['Counter'], settings['units'].decimals.kwh) + ' ' + settings['units'].names.kwh, device);
+									if(typeof(allblocks[idx])!=='undefined' && $('div.block_'+idx+'_2').length==0) var duplicate = $('div.block_'+idx+'_1').last().clone().removeClass('block_'+idx+'_1').addClass('block_'+idx+'_2').insertAfter($('div.block_'+idx+'_1'));
+									$('div.block_'+idx+'_2').html(html);
+									addHTML=false;
+
+									if(typeof(device['Usage'])!=='undefined'){
+										triggerStatus(idx+'_3',device['LastUpdate'],device);
+										triggerChange(idx+'_3',device['LastUpdate'],device);
+
+                                        var rfxicon = 'fa fa-fire';
+                                        if(typeof(blocks[idx+'_3'])!=='undefined' && typeof(blocks[idx+'_3']['icon'])!=='undefined') rfxicon=blocks[idx+'_3']['icon'];
+										var title=device['Name'];
+										if(typeof(blocks[idx+'_3'])!=='undefined' && typeof(blocks[idx+'_3']['title'])!=='undefined') title=blocks[idx+'_3']['title'];
+										device['Usage'] = device['Usage'].split(' ')[0];
+										html = getStateBlock(device['idx']+'_3', rfxicon, title, number_format(device['Usage'], settings['units'].decimals.watt) + ' ' + settings['units'].names.watt, device);
+										if(typeof(allblocks[idx])!=='undefined' && $('div.block_'+idx+'_3').length==0) var duplicate = $('div.block_'+idx+'_2').last().clone().removeClass('block_'+idx+'_2').addClass('block_'+idx+'_3').insertAfter($('div.block_'+idx+'_2'));
+										$('div.block_'+idx+'_3').html(html);
+										addHTML=false;
+									}
+								}
 
 								else if(device['Type']=='General' && device['SubType']=='kWh'){
 									if($('div.block_'+idx).length>0){
@@ -1202,7 +1250,7 @@ function getDevices(override){
 									if(typeof(blocks[idx+'_1'])!=='undefined' && typeof(blocks[idx+'_1']['title'])!=='undefined') title=blocks[idx+'_1']['title'];
 									var icon = 'fa fa-fire';
 									if(typeof(blocks[idx+'_1'])!=='undefined' && typeof(blocks[idx+'_1']['icon'])!=='undefined') icon=blocks[idx+'_1']['icon'];
-									html+= getStateBlock(device['idx']+'a',icon,title,number_format(device['Usage'],2,',','.')+' W',device);
+									html+= getStateBlock(device['idx'] + 'a', icon, title, number_format(device['Usage'], settings['units'].decimals.watt) + ' ' + settings['units'].names.watt, device);
 									if(!$('div.block_'+idx).hasClass('block_'+idx+'_1')) $('div.block_'+idx).addClass('block_'+idx+'_1');
 									$('div.block_'+idx+'_1').html(html);
 									addHTML=false;
@@ -1214,7 +1262,7 @@ function getDevices(override){
 									if(typeof(blocks[idx+'_2'])!=='undefined' && typeof(blocks[idx+'_2']['title'])!=='undefined') title=blocks[idx+'_2']['title'];
 									var icon = 'fa fa-fire';
 									if(typeof(blocks[idx+'_2'])!=='undefined' && typeof(blocks[idx+'_2']['icon'])!=='undefined') icon=blocks[idx+'_2']['icon'];
-									html= getStateBlock(device['idx']+'b',icon,title,number_format(device['CounterToday'],2,',','.')+' kWh',device);
+									html= getStateBlock(device['idx'] + 'b', icon, title, number_format(device['CounterToday'], settings['units'].decimals.kwh) + ' ' + settings['units'].names.kwh, device);
 									if(typeof(allblocks[idx])!=='undefined' && $('div.block_'+idx+'_2').length==0) var duplicate = $('div.block_'+idx+'_1').last().clone().removeClass('block_'+idx+'_1').addClass('block_'+idx+'_2').insertAfter($('div.block_'+idx+'_1'));
 									$('div.block_'+idx+'_2').html(html);
 									addHTML=false;
@@ -1226,7 +1274,7 @@ function getDevices(override){
 									if(typeof(blocks[idx+'_3'])!=='undefined' && typeof(blocks[idx+'_3']['title'])!=='undefined') title=blocks[idx+'_3']['title'];
 									var icon = 'fa fa-fire';
 									if(typeof(blocks[idx+'_3'])!=='undefined' && typeof(blocks[idx+'_3']['icon'])!=='undefined') icon=blocks[idx+'_3']['icon'];
-									html= getStateBlock(device['idx']+'c',icon,title,number_format(device['Data'],2,',','.')+' kWh',device);
+									html= getStateBlock(device['idx'] + 'c', icon, title, number_format(device['Data'], 2) + ' ' + settings['units'].names.kwh, device);
 									if(typeof(allblocks[idx])!=='undefined' && $('div.block_'+idx+'_3').length==0) var duplicate = $('div.block_'+idx+'_2').last().clone().removeClass('block_'+idx+'_2').addClass('block_'+idx+'_3').insertAfter($('div.block_'+idx+'_2'));
 									$('div.block_'+idx+'_3').html(html);
 									addHTML=false;
