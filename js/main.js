@@ -1299,10 +1299,9 @@ function getDevices(override){
 									if(typeof(blocks[idx+'_1'])!=='undefined' && typeof(blocks[idx+'_1']['icon'])!=='undefined') icon=blocks[idx+'_1']['icon'];
 									
 									if(typeof(blocks[idx+'_1'])!=='undefined' && typeof(blocks[idx+'_1']['switch'])!=='undefined' && blocks[idx+'_1']['switch']==true){ 
-										html+=getStateBlock(device['idx']+'_1',icon,number_format(device['Temp'],1,',','.')+_TEMP_SYMBOL,title,device);
-									} 
-									else { 
-										html+=getStateBlock(device['idx']+'_1',icon,title,number_format(device['Temp'],1,',','.')+_TEMP_SYMBOL,device); 
+										html += getStateBlock(device['idx'] + '_1', icon, number_format(device['Temp'], 1) + _TEMP_SYMBOL, title, device);
+									}  else {
+										html += getStateBlock(device['idx'] + '_1', icon, title, number_format(device['Temp'], 1) + _TEMP_SYMBOL, device);
 									}
 									
 									if(!$('div.block_'+idx).hasClass('block_'+idx+'_1')) $('div.block_'+idx).addClass('block_'+idx+'_1');
@@ -1317,7 +1316,7 @@ function getDevices(override){
 										if(typeof(blocks[idx+'_2'])!=='undefined' && typeof(blocks[idx+'_2']['title'])!=='undefined') title=blocks[idx+'_2']['title'];
 										var icon = 'wi wi-humidity';
 										if(typeof(blocks[idx+'_2'])!=='undefined' && typeof(blocks[idx+'_2']['icon'])!=='undefined') icon=blocks[idx+'_2']['icon'];
-										html= getStateBlock(device['idx']+'b',icon,title,number_format(device['Humidity'],2,',','.')+'%',device);
+										html = getStateBlock(device['idx'] + 'b', icon, title, number_format(device['Humidity'], 2) + '%', device);
 										if(typeof(allblocks[idx])!=='undefined' && $('div.block_'+idx+'_2').length==0) var duplicate = $('div.block_'+idx+'_1').last().clone().removeClass('block_'+idx+'_1').addClass('block_'+idx+'_2').insertAfter($('div.block_'+idx+'_1'));
 										$('div.block_'+idx+'_2').html(html);
 										addHTML=false;
@@ -1559,11 +1558,13 @@ function getDevices(override){
 									html+='<div class="col-xs-8 col-data">';
 										if(typeof(blocks[idx+'_2'])!=='undefined' && typeof(blocks[idx+'_2']['switch'])!=='undefined' && blocks[idx+'_2']['switch']==true){
 											html+='<strong class="title input-number title-input" min="12" max="25" data-light="'+device['idx']+'">'+device['Name']+'</strong>';
-											html+='<div class="state stateheating">'+device['Data']+_TEMP_SYMBOL+'</div>';
+											html += '<div class="state stateheating">' + number_format(device['Data'], 1) + _TEMP_SYMBOL + '</div>';
 										}
-										else {	
-											html+='<strong class="title input-number title-input" min="12" max="25" data-light="'+device['idx']+'">'+device['Data']+_TEMP_SYMBOL+'</strong>';
-											html+='<div class="state stateheating">'+device['Name']+'</div>';
+										else {
+											html += '<strong class="title input-number title-input" min="12" max="25" data-light="' + device['idx'] + '">'
+												+ number_format(device['Data'], 1) + _TEMP_SYMBOL
+												+ '</strong>';
+											html += '<div class="state stateheating">' + device['Name'] + '</div>';
 										}
 
 									html+='</div>';
