@@ -11,14 +11,14 @@ blocktypes.SubType['Percentage'] = { icon: 'fa fa-percent', title: '<Name>', val
 blocktypes.SubType['Text'] = { icon: 'fa fa-file', title: '<Name>', value: '<Data>' }
 blocktypes.SubType['Counter Incremental'] = { icon: 'fa fa-bolt', title: '<Name>', value: '<Data>', format: true, decimals: 2 }
 blocktypes.SubType['Voltage'] = { icon: 'fa fa-bolt', title: '<Name>', value: '<Data>' }
-blocktypes.SubType['Solar Radiation'] = { icon: 'fa fa-sun-o', title: '<Name>', value: '<Data>' }
+blocktypes.SubType['Solar Radiation'] = { icon: 'fa fa-sun-o', title: '<Name>', value: '<Data>', format: true, decimals: 0 }
 blocktypes.SubType['Thermostat Mode'] = { icon: 'fa fa-thermometer-half', title: '<Name>', value: '<Data>' }
 
 blocktypes.SensorUnit = {}
 blocktypes.SensorUnit['Fertility'] = { icon: 'fa fa-flask', title: '<Name>', value: '<Data>' }
 
 blocktypes.Type = {}
-blocktypes.Type['Rain'] = { icon: 'fa fa-tint', title: '<Name>', value: '<Rain>mm' }
+blocktypes.Type['Rain'] = { icon: 'fa fa-tint', title: '<Name>', value: '<Rain>mm', format: true, decimals: 1 }
 blocktypes.Type['Wind'] = { icon: 'wi wi-wind-direction', title: language.wind.wind, value: '' }
 blocktypes.Type['Temp'] = { icon: 'fa fa-thermometer-half', title: '<Name>', value: '<Temp>'+_TEMP_SYMBOL, format: true, decimals: 1}
 blocktypes.Type['Air Quality'] = { image: 'air.png', title: '<Name>', value: '<Data>' }
