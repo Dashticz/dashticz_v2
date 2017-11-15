@@ -207,6 +207,7 @@ function showGraph(idx,title,label,range,current,forced,sensor,popup){
                 else $('.block_graph_'+idx).html(html);
 
                 var data_com=new Array();
+                var labels = [label];;
                 var count=0;
                 for(r in data.result){
 
@@ -238,6 +239,7 @@ function showGraph(idx,title,label,range,current,forced,sensor,popup){
                                 xkey: currentdate,
                                 ykey: data.result[r]['lux']
                             };
+                            labels = ['Lux'];
                         }
                         else if(typeof(data.result[r]['gu'])!=='undefined' && typeof(data.result[r]['sp'])!=='undefined'){
                             data_com[count] = {
@@ -245,6 +247,7 @@ function showGraph(idx,title,label,range,current,forced,sensor,popup){
                                 ykey: data.result[r]['gu'],
                                 ykey2: data.result[r]['sp']
                             };
+                            labels = ['?', '?']; // todo Unit
                         }
                         else if(typeof(data.result[r]['ba'])!=='undefined' && typeof(data.result[r]['hu'])!=='undefined' && typeof(data.result[r]['te'])!=='undefined'){
                             data_com[count] = {
@@ -253,24 +256,36 @@ function showGraph(idx,title,label,range,current,forced,sensor,popup){
                                 ykey2: data.result[r]['hu'],
                                 ykey3: data.result[r]['te']
                             };
+                            labels = ['hPa', '%', _TEMP_SYMBOL];
+                        }
+                        else if(typeof(data.result[r]['hu']) !== 'undefined' && typeof(data.result[r]['te']) !== 'undefined') {
+                            data_com[count] = {
+                                xkey: currentdate,
+                                ykey: data.result[r]['hu'],
+                                ykey2: data.result[r]['te'],
+                            };
+                            labels = ['%', _TEMP_SYMBOL];
                         }
                         else if(typeof(data.result[r]['hu'])!=='undefined'){
                             data_com[count] = {
                                 xkey: currentdate,
                                 ykey: data.result[r]['hu']
                             };
+                            labels = ['%'];
                         }
                         else if(typeof(data.result[r]['mm'])!=='undefined'){
                             data_com[count] = {
                                 xkey: currentdate,
                                 ykey: data.result[r]['mm']
                             };
+                            labels = ['mm'];
                         }
                         else if(typeof(data.result[r]['te'])!=='undefined'){
                             data_com[count] = {
                                 xkey: currentdate,
                                 ykey: data.result[r]['te']
                             };
+                            labels = [_TEMP_SYMBOL];
                         }
                         else if(typeof(data.result[r]['v_max'])!=='undefined'){
                             data_com[count] = {
@@ -292,6 +307,9 @@ function showGraph(idx,title,label,range,current,forced,sensor,popup){
                                 xkey: currentdate,
                                 ykey: data.result[r]['v']
                             };
+                            if (typeof(data.result[r]['c']) === 'undefined') {
+                                labels = ['Wh'];
+                            }
                         }
                         else if(typeof(data.result[r]['eu'])!=='undefined'){
                             if (data.method !== 1) {
@@ -314,6 +332,7 @@ function showGraph(idx,title,label,range,current,forced,sensor,popup){
                                 ykey: data.result[r]['u_max'],
                                 ykey2: data.result[r]['u_min']
                             };
+                            labels = ['?', '?']; // TODO Unit
                         } else {
                             continue;
                         }
@@ -333,7 +352,7 @@ function showGraph(idx,title,label,range,current,forced,sensor,popup){
                         var ykeys = ['ykey'];
                         var lineColors = [graphColor];
                     }
-                    Morris.Area({
+                    Morris.Line({
                         parseTime:false,
                         element: 'graphoutput'+idx,
                         data: data_com,
@@ -342,17 +361,21 @@ function showGraph(idx,title,label,range,current,forced,sensor,popup){
                         lineWidth:2,
                         xkey: ['xkey'],
                         ykeys: ykeys,
-                        labels: [label],
+                        labels: labels,
                         lineColors: lineColors,
                         pointFillColors: ['none'],
                         pointSize: 3,
                         hideHover: 'auto',
                         resize: true,
                         hoverCallback: function (index, options, content, row) {
-                          row.ykey = parseFloat(row.ykey);
-                          row.ykey = row.ykey.toFixed(2);
-                          row.ykey = row.ykey.replace('.00','');
-                          return row.xkey + ": " + row.ykey+" "+label;
+                          var text = row.xkey + ": " + number_format(parseFloat(row.ykey), 2) + " " + labels[0];
+                          if (row.hasOwnProperty('ykey2')) {
+                              text += " / " + number_format(row.ykey2, 2) + " " + labels[1];
+                          }
+                          if (row.hasOwnProperty('ykey3')) {
+                              text += " / " + number_format(row.ykey3, 2) + " " + labels[2];
+                          }
+                          return text;
                         }
                     });
                 }
