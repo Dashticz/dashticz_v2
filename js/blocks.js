@@ -76,7 +76,6 @@ function getBlock(cols,c,columndiv,standby){
 			}
 			else if(cols['blocks'][b]=='weather'){
 				if(typeof(loadWeatherFull)!=='function'){
-					$('<link href="vendor/weather/css/weather-icons.min.css?v='+cache+'" rel="stylesheet">').appendTo("head");
 					$.ajax({url: 'js/weather.js', async: false,dataType: "script"});
 				}
 				$(columndiv).append('<div data-id="weather" class="block_'+cols['blocks'][b]+' containsweatherfull"></div>');
@@ -85,7 +84,6 @@ function getBlock(cols,c,columndiv,standby){
 			else if(cols['blocks'][b]=='currentweather' || cols['blocks'][b]=='currentweather_big'){
 				if(settings['wu_api']!=="" && settings['wu_city']!==""){
 					if(typeof(loadWeather)!=='function'){
-						$('<link href="vendor/weather/css/weather-icons.min.css?v='+cache+'" rel="stylesheet">').appendTo("head");
 						$.ajax({url: 'js/weather.js', async: false,dataType: "script"});
 					}
 					var cl = '';
