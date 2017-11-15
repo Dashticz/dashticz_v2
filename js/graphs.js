@@ -1,7 +1,5 @@
 function getGraphs(device,popup){
 	var sensor='counter';
-	var sensortype = device['SubType'];
-	var switchtype = device['SensorUnit'];
 	var txtUnit = "?";
 	var currentValue = device['Data'];
 	var decimals = 2;
@@ -207,7 +205,9 @@ function showGraph(idx,title,label,range,current,forced,sensor,popup){
                 else $('.block_graph_'+idx).html(html);
 
                 var data_com=new Array();
-                var labels = [label];;
+                var labels = [label];
+                var ykeys = ['ykey'];
+                var lineColors = [graphColor, graphColor2, graphColor2];
                 var count=0;
                 for(r in data.result){
 
@@ -248,6 +248,7 @@ function showGraph(idx,title,label,range,current,forced,sensor,popup){
                                 ykey2: data.result[r]['sp']
                             };
                             labels = ['m/s', 'm/s'];
+                            ykeys = ['ykey', 'ykey2'];
                         }
                         else if(typeof(data.result[r]['ba'])!=='undefined' && typeof(data.result[r]['hu'])!=='undefined' && typeof(data.result[r]['te'])!=='undefined'){
                             data_com[count] = {
@@ -257,6 +258,7 @@ function showGraph(idx,title,label,range,current,forced,sensor,popup){
                                 ykey3: data.result[r]['te']
                             };
                             labels = ['hPa', '%', _TEMP_SYMBOL];
+                            ykeys = ['ykey', 'ykey2', 'ykey3'];
                         }
                         else if(typeof(data.result[r]['hu']) !== 'undefined' && typeof(data.result[r]['te']) !== 'undefined') {
                             data_com[count] = {
@@ -265,6 +267,7 @@ function showGraph(idx,title,label,range,current,forced,sensor,popup){
                                 ykey2: data.result[r]['te'],
                             };
                             labels = ['%', _TEMP_SYMBOL];
+                            ykeys = ['ykey', 'ykey2'];
                         }
                         else if(typeof(data.result[r]['hu'])!=='undefined'){
                             data_com[count] = {
@@ -333,6 +336,7 @@ function showGraph(idx,title,label,range,current,forced,sensor,popup){
                                 ykey2: data.result[r]['u_min']
                             };
                             labels = ['?', '?']; // TODO Unit
+                            ykeys = ['ykey', 'ykey2'];
                         } else {
                             continue;
                         }
@@ -342,16 +346,6 @@ function showGraph(idx,title,label,range,current,forced,sensor,popup){
                 }
 
                 if($('#graphoutput'+idx).length>0 && typeof(data_com[0])!=='undefined') {
-                    if(typeof(data_com[0]['ykey3'])!=='undefined') {
-                        var ykeys = ['ykey', 'ykey2', 'ykey3'];
-                        var lineColors = [graphColor, graphColor2, graphColor2];
-                    } else if(typeof(data_com[0]['ykey2'])!=='undefined') {
-                        var ykeys = ['ykey', 'ykey2'];
-                        var lineColors = [graphColor, graphColor2];
-                    } else {
-                        var ykeys = ['ykey'];
-                        var lineColors = [graphColor];
-                    }
                     Morris.Line({
                         parseTime:false,
                         element: 'graphoutput'+idx,
