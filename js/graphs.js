@@ -150,9 +150,17 @@ function showGraph(idx,title,label,range,current,forced,sensor,popup){
 		_GRAPHS_LOADED[idx] = time();
 		//Check settings for standard graph
 		if(range=='initial'){
-			if(settings['standard_graph']=='hours'){ range='last'}
-			else if(settings['standard_graph']=='day'){ range='day'}
-			else if(settings['standard_graph']=='month'){ range='month'}
+		    switch (settings['standard_graph']) {
+                case 'hours':
+                    range = 'last';
+                    break;
+                case 'day':
+                    range = 'day';
+                    break;
+                case 'month':
+                    range = 'month';
+                    break;
+            }
 		}
 		realrange=range;
 		if(range=='last') realrange='day';
@@ -166,7 +174,8 @@ function showGraph(idx,title,label,range,current,forced,sensor,popup){
 				if(typeof(current)!=='undefined' && current!=='undefined') title+=': <B class="graphcurrent'+idx+'">' + current + ' ' + label + '</B>';
 				title+='</h4>';
 				
-				var buttons ='<button type="button" class="btn btn-default ';
+				var buttons = '<div class="btn-group" role="group" aria-label="Basic example">';
+                    buttons +='<button type="button" class="btn btn-default ';
 				if(range=='last') buttons+='active';
 				buttons+='" onclick="showGraph('+idx+',\''+orgtitle+'\',\''+label+'\',\'last\',\''+current+'\',true,\''+sensor+'\','+popup+');">'+language.graph.last_hours+'</button> ';
 				
@@ -177,6 +186,7 @@ function showGraph(idx,title,label,range,current,forced,sensor,popup){
 				buttons+='<button type="button" class="btn btn-default ';
 				if(range=='month') buttons+='active';
 				buttons+='" onclick="showGraph('+idx+',\''+orgtitle+'\',\''+label+'\',\'month\',\''+current+'\',true,\''+sensor+'\','+popup+');">'+language.graph.last_month+'</button>';
+				buttons += '</div>';
 		
 				if(popup==true) var html = '<div class="graphpopup" id="graph'+idx+'">';
 				else var html = '<div class="graph" id="graph'+idx+'">';
@@ -186,208 +196,166 @@ function showGraph(idx,title,label,range,current,forced,sensor,popup){
 					html+='</div>';
 				html+='</div>';
 				
-				if(data.status=="ERR") alert('Could not load graph!');
-				else {
-				
-					if($('#graph'+idx+'.graph').length>0){
-						$('#graph'+idx+'.graph').replaceWith(html);
-					}
-					else if(popup) $('.block_graphpopup_'+idx).html(html);
-					else $('.block_graph_'+idx).html(html);
-					
-					var data_com=new Array();
-					var count=0;
-					for(r in data.result){
-						
-						var currentdate = data.result[r].d;
-						var currentstamp = strtotime(currentdate);
-						var currenttimeLessFour = Math.round((new Date().getTime()) / 1000)-(3600*4);
-						
-						if(range=='month' || range=='year'){
-							currentdate = currentdate.split('-');
-							currentdate = currentdate[2]+'/'+currentdate[1];
-						}
-						else {
-							currentdate = currentdate.split(' ');
-							currentdate = currentdate[1];
-							
-							hourmin = currentdate.split(':');
-						}
-						
-						if(range!=='last' || (range=='last' && currentstamp>currenttimeLessFour))
-						{
-							if(typeof(data.result[r]['uvi'])!=='undefined'){
-								data_com[count] = {
-									xkey: currentdate,
-									ykey: data.result[r]['uvi']
-								}; 
-							}
-							else if(typeof(data.result[r]['lux'])!=='undefined'){
-								data_com[count] = {
-									xkey: currentdate,
-									ykey: data.result[r]['lux']
-								}; 
-							}
-							else if(typeof(data.result[r]['gu'])!=='undefined' && typeof(data.result[r]['sp'])!=='undefined'){
-								data_com[count] = {
-									xkey: currentdate,
-									ykey: data.result[r]['gu'],
-									ykey2: data.result[r]['sp']
-								}; 
-							}
-							else if(typeof(data.result[r]['ba'])!=='undefined' && typeof(data.result[r]['hu'])!=='undefined' && typeof(data.result[r]['te'])!=='undefined'){
-								data_com[count] = {
-									xkey: currentdate,
-									ykey: data.result[r]['ba'],
-									ykey2: data.result[r]['hu'],
-									ykey3: data.result[r]['te']
-								}; 
-							}
-							else if(typeof(data.result[r]['hu'])!=='undefined'){
-								data_com[count] = {
-									xkey: currentdate,
-									ykey: data.result[r]['hu']
-								};
-							}
-							else if(typeof(data.result[r]['mm'])!=='undefined'){
-								data_com[count] = {
-									xkey: currentdate,
-									ykey: data.result[r]['mm']
-								}; 
-							}
-							else if(typeof(data.result[r]['te'])!=='undefined'){
-								data_com[count] = {
-									xkey: currentdate,
-									ykey: data.result[r]['te']
-								}; 
-							}
-							else if(typeof(data.result[r]['v_max'])!=='undefined'){
-								data_com[count] = {
-									xkey: currentdate,
-									ykey: data.result[r]['v_max']
-								}; 
-							}
-							else if(typeof(data.result[r]['v2'])!=='undefined'){
-								data_com[count] = {
-									xkey: currentdate,
-									ykey: parseFloat(data.result[r]['v2'])+parseFloat(data.result[r]['v'])
-								}; 
-							}
-							else if(typeof(data.result[r]['v'])!=='undefined'){
-							    if (data.method === 1) {
-							        continue;
-                                }
-								data_com[count] = {
-									xkey: currentdate,
-									ykey: data.result[r]['v']
-								}; 
-							}
-							else if(typeof(data.result[r]['eu'])!=='undefined'){
-							    if (data.method !== 1) {
-							        continue;
-                                }
-								data_com[count] = {
-									xkey: currentdate,
-									ykey: data.result[r]['eu']
-								};
-							}
-							else if(typeof(data.result[r]['u'])!=='undefined'){
-								data_com[count] = {
-									xkey: currentdate,
-									ykey: data.result[r]['u']
-								};
-							}
-							else if(typeof(data.result[r]['u_max'])!=='undefined' ){
-								data_com[count] = {
-									xkey: currentdate,
-									ykey: data.result[r]['u_max'],
-									ykey2: data.result[r]['u_min']
-								};
-							} else {
-							    continue;
+				if(data.status=="ERR") {
+                    alert('Could not load graph!');
+                    return;
+                }
+                if($('#graph'+idx+'.graph').length>0){
+                    $('#graph'+idx+'.graph').replaceWith(html);
+                }
+                else if(popup) $('.block_graphpopup_'+idx).html(html);
+                else $('.block_graph_'+idx).html(html);
+
+                var data_com=new Array();
+                var count=0;
+                for(r in data.result){
+
+                    var currentdate = data.result[r].d;
+                    var currentstamp = strtotime(currentdate);
+                    var currenttimeLessFour = Math.round((new Date().getTime()) / 1000)-(3600*4);
+
+                    if(range=='month' || range=='year'){
+                        currentdate = currentdate.split('-');
+                        currentdate = currentdate[2]+'/'+currentdate[1];
+                    }
+                    else {
+                        currentdate = currentdate.split(' ');
+                        currentdate = currentdate[1];
+
+                        hourmin = currentdate.split(':');
+                    }
+
+                    if(range!=='last' || (range=='last' && currentstamp>currenttimeLessFour))
+                    {
+                        if(typeof(data.result[r]['uvi'])!=='undefined'){
+                            data_com[count] = {
+                                xkey: currentdate,
+                                ykey: data.result[r]['uvi']
+                            };
+                        }
+                        else if(typeof(data.result[r]['lux'])!=='undefined'){
+                            data_com[count] = {
+                                xkey: currentdate,
+                                ykey: data.result[r]['lux']
+                            };
+                        }
+                        else if(typeof(data.result[r]['gu'])!=='undefined' && typeof(data.result[r]['sp'])!=='undefined'){
+                            data_com[count] = {
+                                xkey: currentdate,
+                                ykey: data.result[r]['gu'],
+                                ykey2: data.result[r]['sp']
+                            };
+                        }
+                        else if(typeof(data.result[r]['ba'])!=='undefined' && typeof(data.result[r]['hu'])!=='undefined' && typeof(data.result[r]['te'])!=='undefined'){
+                            data_com[count] = {
+                                xkey: currentdate,
+                                ykey: data.result[r]['ba'],
+                                ykey2: data.result[r]['hu'],
+                                ykey3: data.result[r]['te']
+                            };
+                        }
+                        else if(typeof(data.result[r]['hu'])!=='undefined'){
+                            data_com[count] = {
+                                xkey: currentdate,
+                                ykey: data.result[r]['hu']
+                            };
+                        }
+                        else if(typeof(data.result[r]['mm'])!=='undefined'){
+                            data_com[count] = {
+                                xkey: currentdate,
+                                ykey: data.result[r]['mm']
+                            };
+                        }
+                        else if(typeof(data.result[r]['te'])!=='undefined'){
+                            data_com[count] = {
+                                xkey: currentdate,
+                                ykey: data.result[r]['te']
+                            };
+                        }
+                        else if(typeof(data.result[r]['v_max'])!=='undefined'){
+                            data_com[count] = {
+                                xkey: currentdate,
+                                ykey: data.result[r]['v_max']
+                            };
+                        }
+                        else if(typeof(data.result[r]['v2'])!=='undefined'){
+                            data_com[count] = {
+                                xkey: currentdate,
+                                ykey: parseFloat(data.result[r]['v2'])+parseFloat(data.result[r]['v'])
+                            };
+                        }
+                        else if(typeof(data.result[r]['v'])!=='undefined'){
+                            if (data.method === 1) {
+                                continue;
                             }
-							
-							count++;
-						}
-					}
-					
-					if($('#graphoutput'+idx).length>0 && typeof(data_com[0])!=='undefined'){
-						if(typeof(data_com[0]['ykey3'])!=='undefined'){
-							
-							Morris.Area({
-								parseTime:false,
-								element: 'graphoutput'+idx,
-								data: data_com,
-								fillOpacity:0.2,
-								gridTextColor:'#fff',
-								lineWidth:2,
-								xkey: ['xkey'],
-								ykeys: ['ykey', 'ykey2', 'ykey3'],
-								labels: [label],
-								lineColors: [graphColor, graphColor2, graphColor2],
-								pointFillColors: ['none'],
-								pointSize: 3,
-								hideHover: 'auto',
-								resize: true,
-								hoverCallback: function (index, options, content, row) {
-								  row.ykey = parseFloat(row.ykey);
-								  row.ykey = row.ykey.toFixed(2);
-								  row.ykey = row.ykey.replace('.00','');
-								  return row.xkey + ": " + row.ykey+" "+label;
-								}
-							});
-						}
-						else if(typeof(data_com[0]['ykey2'])!=='undefined'){
-							
-							Morris.Area({
-								parseTime:false,
-								element: 'graphoutput'+idx,
-								data: data_com,
-								fillOpacity:0.2,
-								gridTextColor:'#fff',
-								lineWidth:2,
-								xkey: ['xkey'],
-								ykeys: ['ykey', 'ykey2'],
-								labels: [label],
-								lineColors: [graphColor, graphColor2],
-								pointFillColors: ['none'],
-								pointSize: 3,
-								hideHover: 'auto',
-								resize: true,
-								hoverCallback: function (index, options, content, row) {
-								  row.ykey = parseFloat(row.ykey);
-								  row.ykey = row.ykey.toFixed(2);
-								  row.ykey = row.ykey.replace('.00','');
-								  return row.xkey + ": " + row.ykey+" "+label;
-								}
-							});
-						}
-						else {
-							Morris.Area({
-								parseTime:false,
-								element: 'graphoutput'+idx,
-								data: data_com,
-								fillOpacity:0.2,
-								lineWidth:2,
-								gridTextColor:'#fff',
-								xkey: ['xkey'],
-								ykeys: ['ykey'],
-								labels: [label],
-								lineColors: [graphColor],
-								pointFillColors: ['none'],
-								pointSize: 3,
-								hideHover: 'auto',
-								resize: true,
-								hoverCallback: function (index, options, content, row) {
-								  row.ykey = parseFloat(row.ykey);
-								  row.ykey = row.ykey.toFixed(2);
-								  row.ykey = row.ykey.replace('.00','');
-								  return row.xkey + ": " + row.ykey+label;
-								}
-							});
-						}
-					}
-				}
+                            data_com[count] = {
+                                xkey: currentdate,
+                                ykey: data.result[r]['v']
+                            };
+                        }
+                        else if(typeof(data.result[r]['eu'])!=='undefined'){
+                            if (data.method !== 1) {
+                                continue;
+                            }
+                            data_com[count] = {
+                                xkey: currentdate,
+                                ykey: data.result[r]['eu']
+                            };
+                        }
+                        else if(typeof(data.result[r]['u'])!=='undefined'){
+                            data_com[count] = {
+                                xkey: currentdate,
+                                ykey: data.result[r]['u']
+                            };
+                        }
+                        else if(typeof(data.result[r]['u_max'])!=='undefined' ){
+                            data_com[count] = {
+                                xkey: currentdate,
+                                ykey: data.result[r]['u_max'],
+                                ykey2: data.result[r]['u_min']
+                            };
+                        } else {
+                            continue;
+                        }
+
+                        count++;
+                    }
+                }
+
+                if($('#graphoutput'+idx).length>0 && typeof(data_com[0])!=='undefined') {
+                    if(typeof(data_com[0]['ykey3'])!=='undefined') {
+                        var ykeys = ['ykey', 'ykey2', 'ykey3'];
+                        var lineColors = [graphColor, graphColor2, graphColor2];
+                    } else if(typeof(data_com[0]['ykey2'])!=='undefined') {
+                        var ykeys = ['ykey', 'ykey2'];
+                        var lineColors = [graphColor, graphColor2];
+                    } else {
+                        var ykeys = ['ykey'];
+                        var lineColors = [graphColor];
+                    }
+                    Morris.Area({
+                        parseTime:false,
+                        element: 'graphoutput'+idx,
+                        data: data_com,
+                        fillOpacity:0.2,
+                        gridTextColor:'#fff',
+                        lineWidth:2,
+                        xkey: ['xkey'],
+                        ykeys: ykeys,
+                        labels: [label],
+                        lineColors: lineColors,
+                        pointFillColors: ['none'],
+                        pointSize: 3,
+                        hideHover: 'auto',
+                        resize: true,
+                        hoverCallback: function (index, options, content, row) {
+                          row.ykey = parseFloat(row.ykey);
+                          row.ykey = row.ykey.toFixed(2);
+                          row.ykey = row.ykey.replace('.00','');
+                          return row.xkey + ": " + row.ykey+" "+label;
+                        }
+                    });
+                }
 			}
 		});
 	}
