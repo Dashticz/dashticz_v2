@@ -2,8 +2,8 @@ function number_format (number, decimals, decPoint, thousandsSep) { // eslint-di
   number = (number + '').replace(/[^0-9+\-Ee.]/g, '')
   var n = !isFinite(+number) ? 0 : +number
   var prec = !isFinite(+decimals) ? 0 : Math.abs(decimals)
-  var sep = (typeof thousandsSep === 'undefined') ? ',' : thousandsSep
-  var dec = (typeof decPoint === 'undefined') ? '.' : decPoint
+  var sep = (typeof thousandsSep === 'undefined') ? _THOUSAND_SEPARATOR : thousandsSep;
+  var dec = (typeof decPoint === 'undefined') ? _DECIMAL_POINT : decPoint;
   var s = ''
   var toFixedFix = function (n, prec) {
     var k = Math.pow(10, prec)

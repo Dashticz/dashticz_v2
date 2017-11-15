@@ -1,82 +1,108 @@
 function getGraphs(device,popup){
 	var sensor='counter';
-	var sensortype = device['SubType'];
-	var switchtype = device['SensorUnit'];
-	var txtLabelOrg = sensortype;
 	var txtUnit = "?";
-	
-	if(device['Type']=='Rain') sensor='rain';
-	if(device['Type']=='Wind') sensor='wind';
-	if(device['SubType']=='Percentage' || device['SubType']=='Custom Sensor') {
-		sensor='Percentage';
-		txtUnit = '%';
-	}
-	if(device['Type']=='Temp' || device['Type']== 'Temp + Humidity' || device['Type']== 'Temp + Humidity + Baro') {
-		sensor = 'temp';
-		txtUnit = '°';
-	}
-	if(device['Type']=='Humidity'){
-		sensor = 'temp';
-		txtUnit = '%';
-	}
-	
-	if (sensortype == "Gas") {
-		txtUnit = "m3";
-	}
-	else if (sensortype == "Energy") {
-		txtUnit = "W";
-	}
-	else if (sensortype == "Custom Sensor") {
-		txtUnit = switchtype;
-		sensor = "Percentage";
-	}
-	else if (sensortype == "Visibility") {
-		txtUnit = "km";
-	}
-	else if (sensortype == "Radiation") {
-		txtUnit = "Watt/m2";
-	}
-	else if (sensortype == "Pressure") {
-		txtUnit = "Bar";
-	}
-	else if (sensortype == "Soil Moisture") {
-		txtUnit = "cb";
-	}
-	else if (sensortype == "Leaf Wetness") {
-		txtUnit = "Range";
-	}
-	else if ((sensortype == "Voltage") || (sensortype == "A/D")) {
-		txtUnit = "mV";
-	}
-	else if (sensortype == "VoltageGeneral") {
-		txtLabelOrg = "Voltage";
-		txtUnit = "V";
-	}
-	else if ((sensortype == "DistanceGeneral") || (sensortype == "Distance")) {
-		txtLabelOrg = "Distance";
-		txtUnit = "cm";
-	}
-	else if (sensortype == "Sound Level") {
-		txtUnit = "dB";
-	}
-	else if ((sensortype == "CurrentGeneral") || (sensortype == "Current")) {
-		txtLabelOrg = "Current";
-		txtUnit = "A";
-	}
-	else if (switchtype == "Weight") {
-		txtUnit = "kg";
-	}
-	else if (sensortype == "Waterflow") {
-		txtUnit = "l/min";
-		sensor = "Percentage";
+	var currentValue = device['Data'];
+	var decimals = 2;
+
+	switch (device['Type']) {
+		case 'Rain':
+			sensor = 'rain';
+			txtUnit = 'mm';
+			decimals = 1;
+			break;
+		case 'Wind':
+			sensor = 'wind';
+			if (config['use_beaufort']) {
+                currentValue = Beaufort(device['Speed']);
+                decimals = 0;
+                txtUnit = 'Bft';
+            } else {
+                currentValue = device['Speed'];
+                decimals = 1;
+                txtUnit = 'm/s'
+            }
+			break;
+		case 'Temp':
+		case 'Temp + Humidity':
+		case 'Temp + Humidity + Baro':
+			sensor = 'temp';
+            txtUnit = '°C';
+            currentValue = device['Temp'];
+            decimals = 1;
+			break;
+        case 'Humidity':
+            sensor = 'temp';
+            txtUnit = '%';
+            decimals = 1;
+            break;
 	}
 
-	var txtLabel = txtLabelOrg + " (" + txtUnit + ")";
-	if (sensortype == "Custom Sensor") {
-		txtLabel = txtUnit;
-	}
-	
-	showGraph(device['idx'],device['Name'],txtUnit,'initial',device['CounterToday'],false,sensor,popup);
+    switch (device['SubType']) {
+        case 'Percentage':
+        case 'Custom Sensor':
+            sensor = 'Percentage';
+            txtUnit = '%';
+            decimals = 1;
+            break;
+        case 'Gas':
+            txtUnit = "m3";
+            break;
+        case 'Energy':
+            txtUnit = "kWh";
+            break;
+        case 'kWh':
+        case 'YouLess counter':
+            txtUnit = "kWh";
+            currentValue = device['CounterToday'];
+            break;
+        case 'Visibility':
+            txtUnit = "km";
+            break;
+        case 'Radiation':
+            txtUnit = "Watt/m2";
+            break;
+        case 'Pressure':
+            txtUnit = "Bar";
+            break;
+        case 'Soil Moisture':
+            txtUnit = "cb";
+            break;
+        case 'Leaf Wetness':
+            txtUnit = "Range";
+            break;
+        case 'Voltage':
+        case 'A/D':
+            txtUnit = "mV";
+            break;
+        case 'VoltageGeneral':
+            txtUnit = "V";
+            break;
+        case 'DistanceGeneral':
+        case 'Distance':
+            txtUnit = "cm";
+            break;
+        case 'Sound Level':
+            txtUnit = "dB";
+            break;
+        case 'CurrentGeneral':
+        case 'Current':
+            txtUnit = "A";
+            break;
+        case 'Weight':
+            txtUnit = "kg";
+            break;
+        case 'Waterflow':
+            sensor = "Percentage";
+            txtUnit = "l/min";
+            break;
+        case 'Counter Incremental':
+            txtUnit = device['CounterToday'].split(' ')[1];
+            currentValue = device['CounterToday'].split(' ')[0];
+            break;
+    }
+
+	currentValue = number_format(currentValue, decimals);
+	showGraph(device['idx'], device['Name'], txtUnit, 'initial', currentValue, false, sensor, popup);
 }
 
 function getGraphByIDX(idx){
@@ -105,7 +131,6 @@ function getButtonGraphs(device){
 }
 
 function showGraph(idx,title,label,range,current,forced,sensor,popup){
-
 	graphColor = '#eee';
 	graphColor2 = '#eee';
 	if(typeof(popup)=='undefined') forced=false;
@@ -116,16 +141,24 @@ function showGraph(idx,title,label,range,current,forced,sensor,popup){
 	}
 	
 	if($('.graphcurrent'+idx).length>0){
-		$('.graphcurrent'+idx).html(current);
+		$('.graphcurrent'+idx).html(current + ' ' + label);
 	}
 	
 	if(forced || popup){
 		_GRAPHS_LOADED[idx] = time();
 		//Check settings for standard graph
 		if(range=='initial'){
-			if(settings['standard_graph']=='hours'){ range='last'}
-			else if(settings['standard_graph']=='day'){ range='day'}
-			else if(settings['standard_graph']=='month'){ range='month'}
+		    switch (settings['standard_graph']) {
+                case 'hours':
+                    range = 'last';
+                    break;
+                case 'day':
+                    range = 'day';
+                    break;
+                case 'month':
+                    range = 'month';
+                    break;
+            }
 		}
 		realrange=range;
 		if(range=='last') realrange='day';
@@ -134,13 +167,13 @@ function showGraph(idx,title,label,range,current,forced,sensor,popup){
 			url: settings['domoticz_ip']+'/json.htm?type=graph&sensor='+sensor+'&idx='+idx+'&range='+realrange+'&time='+new Date().getTime()+'&jsoncallback=?',
 			type: 'GET',async: true,contentType: "application/json",dataType: 'jsonp',
 			success: function(data) {
-				
 				var orgtitle = title;
 				title = '<h4>'+title;
-				if(typeof(current)!=='undefined' && current!=='undefined') title+=': <B class="graphcurrent'+idx+'">'+current+'</B>';
+				if(typeof(current)!=='undefined' && current!=='undefined') title+=': <B class="graphcurrent'+idx+'">' + current + ' ' + label + '</B>';
 				title+='</h4>';
 				
-				var buttons ='<button type="button" class="btn btn-default ';
+				var buttons = '<div class="btn-group" role="group" aria-label="Basic example">';
+                    buttons +='<button type="button" class="btn btn-default ';
 				if(range=='last') buttons+='active';
 				buttons+='" onclick="showGraph('+idx+',\''+orgtitle+'\',\''+label+'\',\'last\',\''+current+'\',true,\''+sensor+'\','+popup+');">'+language.graph.last_hours+'</button> ';
 				
@@ -151,6 +184,7 @@ function showGraph(idx,title,label,range,current,forced,sensor,popup){
 				buttons+='<button type="button" class="btn btn-default ';
 				if(range=='month') buttons+='active';
 				buttons+='" onclick="showGraph('+idx+',\''+orgtitle+'\',\''+label+'\',\'month\',\''+current+'\',true,\''+sensor+'\','+popup+');">'+language.graph.last_month+'</button>';
+				buttons += '</div>';
 		
 				if(popup==true) var html = '<div class="graphpopup" id="graph'+idx+'">';
 				else var html = '<div class="graph" id="graph'+idx+'">';
@@ -160,194 +194,185 @@ function showGraph(idx,title,label,range,current,forced,sensor,popup){
 					html+='</div>';
 				html+='</div>';
 				
-				if(data.status=="ERR") alert('Could not load graph!');
-				else {
-				
-					if($('#graph'+idx+'.graph').length>0){
-						$('#graph'+idx+'.graph').replaceWith(html);
-					}
-					else if(popup) $('.block_graphpopup_'+idx).html(html);
-					else $('.block_graph_'+idx).html(html);
-					
-					var data_com=new Array();
-					var count=0;
-					for(r in data.result){
-						
-						var currentdate = data.result[r].d;
-						var currentstamp = strtotime(currentdate);
-						var currenttimeLessFour = Math.round((new Date().getTime()) / 1000)-(3600*4);
-						
-						if(range=='month' || range=='year'){
-							currentdate = currentdate.split('-');
-							currentdate = currentdate[2]+'/'+currentdate[1];
-						}
-						else {
-							currentdate = currentdate.split(' ');
-							currentdate = currentdate[1];
-							
-							hourmin = currentdate.split(':');
-						}
-						
-						if(range!=='last' || (range=='last' && currentstamp>currenttimeLessFour))
-						{
-							if(typeof(data.result[r]['uvi'])!=='undefined'){
-								data_com[count] = {
-									xkey: currentdate,
-									ykey: data.result[r]['uvi']
-								}; 
-							}
-							else if(typeof(data.result[r]['lux'])!=='undefined'){
-								data_com[count] = {
-									xkey: currentdate,
-									ykey: data.result[r]['lux']
-								}; 
-							}
-							else if(typeof(data.result[r]['gu'])!=='undefined' && typeof(data.result[r]['sp'])!=='undefined'){
-								data_com[count] = {
-									xkey: currentdate,
-									ykey: data.result[r]['gu'],
-									ykey2: data.result[r]['sp']
-								}; 
-							}
-							else if(typeof(data.result[r]['ba'])!=='undefined' && typeof(data.result[r]['hu'])!=='undefined' && typeof(data.result[r]['te'])!=='undefined'){
-								data_com[count] = {
-									xkey: currentdate,
-									ykey: data.result[r]['ba'],
-									ykey2: data.result[r]['hu'],
-									ykey3: data.result[r]['te']
-								}; 
-							}
-							else if(typeof(data.result[r]['hu'])!=='undefined'){
-								data_com[count] = {
-									xkey: currentdate,
-									ykey: data.result[r]['hu']
-								};
-							}
-							else if(typeof(data.result[r]['mm'])!=='undefined'){
-								data_com[count] = {
-									xkey: currentdate,
-									ykey: data.result[r]['mm']
-								}; 
-							}
-							else if(typeof(data.result[r]['te'])!=='undefined'){
-								data_com[count] = {
-									xkey: currentdate,
-									ykey: data.result[r]['te']
-								}; 
-							}
-							else if(typeof(data.result[r]['v_max'])!=='undefined'){
-								data_com[count] = {
-									xkey: currentdate,
-									ykey: data.result[r]['v_max']
-								}; 
-							}
-							else if(typeof(data.result[r]['v2'])!=='undefined'){
-								data_com[count] = {
-									xkey: currentdate,
-									ykey: parseFloat(data.result[r]['v2'])+parseFloat(data.result[r]['v'])
-								}; 
-							}
-							else if(typeof(data.result[r]['v'])!=='undefined'){
-								data_com[count] = {
-									xkey: currentdate,
-									ykey: data.result[r]['v']
-								}; 
-							}
-							else if(typeof(data.result[r]['u'])!=='undefined'){
-								data_com[count] = {
-									xkey: currentdate,
-									ykey: data.result[r]['u']
-								};
-							}
-							else if(typeof(data.result[r]['u_max'])!=='undefined' ){
-								data_com[count] = {
-									xkey: currentdate,
-									ykey: data.result[r]['u_max'],
-									ykey2: data.result[r]['u_min']
-								};
-							}
-							
-							count++;
-						}
-					}
-					
-					if($('#graphoutput'+idx).length>0 && typeof(data_com[0])!=='undefined'){
-						if(typeof(data_com[0]['ykey3'])!=='undefined'){
-							
-							Morris.Area({
-								parseTime:false,
-								element: 'graphoutput'+idx,
-								data: data_com,
-								fillOpacity:0.2,
-								gridTextColor:'#fff',
-								lineWidth:2,
-								xkey: ['xkey'],
-								ykeys: ['ykey', 'ykey2', 'ykey3'],
-								labels: [label],
-								lineColors: [graphColor, graphColor2, graphColor2],
-								pointFillColors: ['none'],
-								pointSize: 3,
-								hideHover: 'auto',
-								resize: true,
-								hoverCallback: function (index, options, content, row) {
-								  row.ykey = parseFloat(row.ykey);
-								  row.ykey = row.ykey.toFixed(2);
-								  row.ykey = row.ykey.replace('.00','');
-								  return row.xkey + ": " + row.ykey+" "+label;
-								}
-							});
-						}
-						else if(typeof(data_com[0]['ykey2'])!=='undefined'){
-							
-							Morris.Area({
-								parseTime:false,
-								element: 'graphoutput'+idx,
-								data: data_com,
-								fillOpacity:0.2,
-								gridTextColor:'#fff',
-								lineWidth:2,
-								xkey: ['xkey'],
-								ykeys: ['ykey', 'ykey2'],
-								labels: [label],
-								lineColors: [graphColor, graphColor2],
-								pointFillColors: ['none'],
-								pointSize: 3,
-								hideHover: 'auto',
-								resize: true,
-								hoverCallback: function (index, options, content, row) {
-								  row.ykey = parseFloat(row.ykey);
-								  row.ykey = row.ykey.toFixed(2);
-								  row.ykey = row.ykey.replace('.00','');
-								  return row.xkey + ": " + row.ykey+" "+label;
-								}
-							});
-						}
-						else {
-							Morris.Area({
-								parseTime:false,
-								element: 'graphoutput'+idx,
-								data: data_com,
-								fillOpacity:0.2,
-								lineWidth:2,
-								gridTextColor:'#fff',
-								xkey: ['xkey'],
-								ykeys: ['ykey'],
-								labels: [label],
-								lineColors: [graphColor],
-								pointFillColors: ['none'],
-								pointSize: 3,
-								hideHover: 'auto',
-								resize: true,
-								hoverCallback: function (index, options, content, row) {
-								  row.ykey = parseFloat(row.ykey);
-								  row.ykey = row.ykey.toFixed(2);
-								  row.ykey = row.ykey.replace('.00','');
-								  return row.xkey + ": " + row.ykey+label;
-								}
-							});
-						}
-					}
-				}
+				if(data.status=="ERR") {
+                    alert('Could not load graph!');
+                    return;
+                }
+                if($('#graph'+idx+'.graph').length>0){
+                    $('#graph'+idx+'.graph').replaceWith(html);
+                }
+                else if(popup) $('.block_graphpopup_'+idx).html(html);
+                else $('.block_graph_'+idx).html(html);
+
+                var data_com=new Array();
+                var labels = [label];
+                var ykeys = ['ykey'];
+                var lineColors = [graphColor, graphColor2, graphColor2];
+                var count=0;
+                for(r in data.result){
+
+                    var currentdate = data.result[r].d;
+                    var currentstamp = strtotime(currentdate);
+                    var currenttimeLessFour = Math.round((new Date().getTime()) / 1000)-(3600*4);
+
+                    if(range=='month' || range=='year'){
+                        currentdate = currentdate.split('-');
+                        currentdate = currentdate[2]+'/'+currentdate[1];
+                    }
+                    else {
+                        currentdate = currentdate.split(' ');
+                        currentdate = currentdate[1];
+
+                        hourmin = currentdate.split(':');
+                    }
+
+                    if(range!=='last' || (range=='last' && currentstamp>currenttimeLessFour))
+                    {
+                        if(typeof(data.result[r]['uvi'])!=='undefined'){
+                            data_com[count] = {
+                                xkey: currentdate,
+                                ykey: data.result[r]['uvi']
+                            };
+                        }
+                        else if(typeof(data.result[r]['lux'])!=='undefined'){
+                            data_com[count] = {
+                                xkey: currentdate,
+                                ykey: data.result[r]['lux']
+                            };
+                            labels = ['Lux'];
+                        }
+                        else if(typeof(data.result[r]['gu'])!=='undefined' && typeof(data.result[r]['sp'])!=='undefined'){
+                            data_com[count] = {
+                                xkey: currentdate,
+                                ykey: data.result[r]['gu'],
+                                ykey2: data.result[r]['sp']
+                            };
+                            labels = ['m/s', 'm/s'];
+                            ykeys = ['ykey', 'ykey2'];
+                        }
+                        else if(typeof(data.result[r]['ba'])!=='undefined' && typeof(data.result[r]['hu'])!=='undefined' && typeof(data.result[r]['te'])!=='undefined'){
+                            data_com[count] = {
+                                xkey: currentdate,
+                                ykey: data.result[r]['ba'],
+                                ykey2: data.result[r]['hu'],
+                                ykey3: data.result[r]['te']
+                            };
+                            labels = ['hPa', '%', _TEMP_SYMBOL];
+                            ykeys = ['ykey', 'ykey2', 'ykey3'];
+                        }
+                        else if(typeof(data.result[r]['hu']) !== 'undefined' && typeof(data.result[r]['te']) !== 'undefined') {
+                            data_com[count] = {
+                                xkey: currentdate,
+                                ykey: data.result[r]['hu'],
+                                ykey2: data.result[r]['te'],
+                            };
+                            labels = ['%', _TEMP_SYMBOL];
+                            ykeys = ['ykey', 'ykey2'];
+                        }
+                        else if(typeof(data.result[r]['hu'])!=='undefined'){
+                            data_com[count] = {
+                                xkey: currentdate,
+                                ykey: data.result[r]['hu']
+                            };
+                            labels = ['%'];
+                        }
+                        else if(typeof(data.result[r]['mm'])!=='undefined'){
+                            data_com[count] = {
+                                xkey: currentdate,
+                                ykey: data.result[r]['mm']
+                            };
+                            labels = ['mm'];
+                        }
+                        else if(typeof(data.result[r]['te'])!=='undefined'){
+                            data_com[count] = {
+                                xkey: currentdate,
+                                ykey: data.result[r]['te']
+                            };
+                            labels = [_TEMP_SYMBOL];
+                        }
+                        else if(typeof(data.result[r]['v_max'])!=='undefined'){
+                            data_com[count] = {
+                                xkey: currentdate,
+                                ykey: data.result[r]['v_max']
+                            };
+                        }
+                        else if(typeof(data.result[r]['v2'])!=='undefined'){
+                            data_com[count] = {
+                                xkey: currentdate,
+                                ykey: parseFloat(data.result[r]['v2'])+parseFloat(data.result[r]['v'])
+                            };
+                        }
+                        else if(typeof(data.result[r]['v'])!=='undefined'){
+                            if (data.method === 1) {
+                                continue;
+                            }
+                            data_com[count] = {
+                                xkey: currentdate,
+                                ykey: data.result[r]['v']
+                            };
+                            if (label === 'kWh' && typeof(data.result[r]['c']) === 'undefined') {
+                                labels = ['Wh'];
+                            }
+                        }
+                        else if(typeof(data.result[r]['eu'])!=='undefined'){
+                            if (data.method !== 1) {
+                                continue;
+                            }
+                            data_com[count] = {
+                                xkey: currentdate,
+                                ykey: data.result[r]['eu']
+                            };
+                        }
+                        else if(typeof(data.result[r]['u'])!=='undefined'){
+                            data_com[count] = {
+                                xkey: currentdate,
+                                ykey: data.result[r]['u']
+                            };
+                        }
+                        else if(typeof(data.result[r]['u_max'])!=='undefined' ){
+                            data_com[count] = {
+                                xkey: currentdate,
+                                ykey: data.result[r]['u_max'],
+                                ykey2: data.result[r]['u_min']
+                            };
+                            labels = ['?', '?']; // TODO Unit
+                            ykeys = ['ykey', 'ykey2'];
+                        } else {
+                            continue;
+                        }
+
+                        count++;
+                    }
+                }
+
+                if($('#graphoutput'+idx).length>0 && typeof(data_com[0])!=='undefined') {
+                    Morris.Line({
+                        parseTime:false,
+                        element: 'graphoutput'+idx,
+                        data: data_com,
+                        fillOpacity:0.2,
+                        gridTextColor:'#fff',
+                        lineWidth:2,
+                        xkey: ['xkey'],
+                        ykeys: ykeys,
+                        labels: labels,
+                        lineColors: lineColors,
+                        pointFillColors: ['none'],
+                        pointSize: 3,
+                        hideHover: 'auto',
+                        resize: true,
+                        hoverCallback: function (index, options, content, row) {
+                          var text = row.xkey + ": " + number_format(parseFloat(row.ykey), 2) + " " + labels[0];
+                          if (row.hasOwnProperty('ykey2')) {
+                              text += " / " + number_format(row.ykey2, 2) + " " + labels[1];
+                          }
+                          if (row.hasOwnProperty('ykey3')) {
+                              text += " / " + number_format(row.ykey3, 2) + " " + labels[2];
+                          }
+                          return text;
+                        }
+                    });
+                }
 			}
 		});
 	}

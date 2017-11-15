@@ -9,18 +9,18 @@ blocktypes.SubType['Distance'] = { icon: 'fa fa-eye', title: '<Name>', value: '<
 blocktypes.SubType['Alert'] = { icon: 'fa fa-warning', title: '<Data>', value: '<Name>' }
 blocktypes.SubType['Percentage'] = { icon: 'fa fa-percent', title: '<Name>', value: '<Data>' }
 blocktypes.SubType['Text'] = { icon: 'fa fa-file', title: '<Name>', value: '<Data>' }
-blocktypes.SubType['Counter Incremental'] = { icon: 'fa fa-bolt', title: '<Name>', value: '<Data>' }
+blocktypes.SubType['Counter Incremental'] = { icon: 'fa fa-bolt', title: '<Name>', value: '<Data>', format: true, decimals: 2 }
 blocktypes.SubType['Voltage'] = { icon: 'fa fa-bolt', title: '<Name>', value: '<Data>' }
-blocktypes.SubType['Solar Radiation'] = { icon: 'fa fa-sun-o', title: '<Name>', value: '<Data>' }
+blocktypes.SubType['Solar Radiation'] = { icon: 'fa fa-sun-o', title: '<Name>', value: '<Data>', format: true, decimals: 0 }
 blocktypes.SubType['Thermostat Mode'] = { icon: 'fa fa-thermometer-half', title: '<Name>', value: '<Data>' }
 
 blocktypes.SensorUnit = {}
 blocktypes.SensorUnit['Fertility'] = { icon: 'fa fa-flask', title: '<Name>', value: '<Data>' }
 
 blocktypes.Type = {}
-blocktypes.Type['Rain'] = { icon: 'fa fa-tint', title: '<Name>', value: '<Rain>mm' }
+blocktypes.Type['Rain'] = { icon: 'fa fa-tint', title: '<Name>', value: '<Rain>mm', format: true, decimals: 1 }
 blocktypes.Type['Wind'] = { icon: 'wi wi-wind-direction', title: language.wind.wind, value: '' }
-blocktypes.Type['Temp'] = { icon: 'fa fa-thermometer-half', title: '<Name>', value: '<Temp>'+_TEMP_SYMBOL }
+blocktypes.Type['Temp'] = { icon: 'fa fa-thermometer-half', title: '<Name>', value: '<Temp>'+_TEMP_SYMBOL, format: true, decimals: 1}
 blocktypes.Type['Air Quality'] = { image: 'air.png', title: '<Name>', value: '<Data>' }
 blocktypes.Type['UV'] = { icon: 'fa fa-sun-o', title: '<Name>', value: '<Data>' }
 
@@ -76,7 +76,6 @@ function getBlock(cols,c,columndiv,standby){
 			}
 			else if(cols['blocks'][b]=='weather'){
 				if(typeof(loadWeatherFull)!=='function'){
-					$('<link href="vendor/weather/css/weather-icons.min.css?v='+cache+'" rel="stylesheet">').appendTo("head");
 					$.ajax({url: 'js/weather.js', async: false,dataType: "script"});
 				}
 				$(columndiv).append('<div data-id="weather" class="block_'+cols['blocks'][b]+' containsweatherfull"></div>');
@@ -85,7 +84,6 @@ function getBlock(cols,c,columndiv,standby){
 			else if(cols['blocks'][b]=='currentweather' || cols['blocks'][b]=='currentweather_big'){
 				if(settings['wu_api']!=="" && settings['wu_city']!==""){
 					if(typeof(loadWeather)!=='function'){
-						$('<link href="vendor/weather/css/weather-icons.min.css?v='+cache+'" rel="stylesheet">').appendTo("head");
 						$.ajax({url: 'js/weather.js', async: false,dataType: "script"});
 					}
 					var cl = '';
@@ -359,7 +357,7 @@ function getStateBlock(id,icon,title,value,device){
 	getBlockClick(id,device);
 	
 	var stateBlock ='<div class="col-xs-4 col-icon">';
-		stateBlock+='<em class="'+icon+'"></em>';
+		stateBlock += '<em class="fa ' + icon + '"></em>';
 	stateBlock+='</div>';
 	stateBlock+='<div class="col-xs-8 col-data">';
 		
@@ -384,14 +382,29 @@ function getStateBlock(id,icon,title,value,device){
 
 
 function getStatusBlock(idx,device,block,c){
-	
 	var value = block.value;
 	var title = block.title;
+	var elements = [];
 	if(typeof(blocks[idx])!=='undefined' && typeof(blocks[idx]['title'])!=='undefined') title=blocks[idx]['title'];
 
-	for(d in device) {
-		value = value.replace('<'+d+'>',device[d]);
-		title = title.replace('<'+d+'>',device[d]);
+    var tagRegEx = /<[\w\s="/.':;#-\/\?]+>/gi;
+    if (matches = (title + value).match(tagRegEx)) {
+        matches.map(function (val) {
+            elements.push(val.replace(/([<,>])+/g, ''));
+        });
+    }
+
+	for(d of elements) {
+	    deviceValue = device[d];
+	    if (block.hasOwnProperty('format') && block.format) {
+	        unit = '';
+	        if (isNaN(device[d])) {
+	            unit = ' ' + device[d].split(' ')[1];
+            }
+            deviceValue = number_format(deviceValue, block.decimals) + unit;
+        }
+		value = value.replace('<'+d+'>', deviceValue);
+		title = title.replace('<'+d+'>', device[d]);
 	}
 	
 	if(typeof(blocks[idx])!=='undefined' && typeof(blocks[idx]['unit'])!=='undefined'){
