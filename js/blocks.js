@@ -359,7 +359,7 @@ function getStateBlock(id,icon,title,value,device){
 	getBlockClick(id,device);
 	
 	var stateBlock ='<div class="col-xs-4 col-icon">';
-		stateBlock+='<em class="'+icon+'"></em>';
+		stateBlock += '<em class="fa ' + icon + '"></em>';
 	stateBlock+='</div>';
 	stateBlock+='<div class="col-xs-8 col-data">';
 		

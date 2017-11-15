@@ -307,7 +307,7 @@ function showGraph(idx,title,label,range,current,forced,sensor,popup){
                                 xkey: currentdate,
                                 ykey: data.result[r]['v']
                             };
-                            if (typeof(data.result[r]['c']) === 'undefined') {
+                            if (label === 'kWh' && typeof(data.result[r]['c']) === 'undefined') {
                                 labels = ['Wh'];
                             }
                         }
