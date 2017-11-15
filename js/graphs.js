@@ -247,7 +247,7 @@ function showGraph(idx,title,label,range,current,forced,sensor,popup){
                                 ykey: data.result[r]['gu'],
                                 ykey2: data.result[r]['sp']
                             };
-                            labels = ['?', '?']; // todo Unit
+                            labels = ['m/s', 'm/s'];
                         }
                         else if(typeof(data.result[r]['ba'])!=='undefined' && typeof(data.result[r]['hu'])!=='undefined' && typeof(data.result[r]['te'])!=='undefined'){
                             data_com[count] = {
