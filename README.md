@@ -20,7 +20,7 @@ Visit the wikipage at: http://www.domoticz.com/wiki/Dashticz_V2
 # Run in Docker
 Navigate the directory to be in the same level as the Dockerfile and run this command
 - `docker build -t docker-dashticz .`
-- `docker run -p 7000:90 -v ${PWD}=/usr/share/nginx/html/ docker-dashticz`
+- `docker run -p 7000:90 -v ${PWD}:/usr/share/nginx/html/ docker-dashticz`
 
 Dashticz will now be available on [http://localhost:7000]()
 
