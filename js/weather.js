@@ -64,7 +64,7 @@ function loadWeatherFull(location,country) {
 							var hightemp = curfor.high.fahrenheit;
 						} 
 
-						html = '<div class="day">' + date.format('dddd') + '<br />' + date.format(settings['shortdate']) + '</div>';
+						html = '<div class="day">' + date.format(settings['weekday']) + '<br />' + date.format(settings['shortdate']) + '</div>';
 						if(settings['static_weathericons']==1) html += '<div class="icon"><i class="wi '+wiclass+'"></i></div>';
 						else html += getSkycon(curfor.icon,'skycon');
 						html += '<div class="temp"><span class="dayT">'+hightemp+_TEMP_SYMBOL+'</span><span class="nightT">'+lowtemp+_TEMP_SYMBOL+'</span></div>';
