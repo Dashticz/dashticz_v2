@@ -426,7 +426,7 @@ function speak(textToSpeak) {
 	/* var voices = window.speechSynthesis.getVoices(); */
 	newUtterance.text = textToSpeak;
 	/* newUtterance.voice = voices.filter(function(voice) { return voice.name == 'Google UK English Male'; })[0]; */
-	newUtterance.lang = 'en-US'; // change to your langage if its supported
+	newUtterance.lang = settings['speak_lang'];
 	window.speechSynthesis.speak(newUtterance);
 }
 
