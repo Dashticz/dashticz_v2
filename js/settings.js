@@ -368,7 +368,7 @@ if(typeof(config)!=='undefined'){
 }
 
 if(typeof(settings['language'])=='undefined') settings['language'] = 'en_US';
-if(typeof(settings['speak_lang'])=='undefined') settings['language'] = 'en-US';
+if(typeof(settings['speak_lang'])=='undefined') settings['speak_lang'] = 'en-US';
 if(typeof(settings['timeformat'])=='undefined') settings['timeformat'] = 'DD-MM-YY HH:mm';
 if(typeof(settings['calendarformat'])=='undefined') settings['calendarformat'] = 'dd DD.MM HH:mm';
 if(typeof(settings['calendarlanguage'])=='undefined') settings['calendarlanguage'] = 'en_US';
