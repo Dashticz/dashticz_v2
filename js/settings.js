@@ -188,6 +188,18 @@ settingList['localize']['gm_longitude'] = {}
 settingList['localize']['gm_longitude']['title'] = language.settings.localize.gm_longitude;
 settingList['localize']['gm_longitude']['type'] = 'text';
 
+settingList['localize']['speak_lang'] = {}
+settingList['localize']['speak_lang']['title'] = language.settings.localize.speak_language;
+settingList['localize']['speak_lang']['type'] = 'select';
+settingList['localize']['speak_lang']['options'] = {};
+settingList['localize']['speak_lang']['options']['de-DE'] = language.settings.localize.de;
+settingList['localize']['speak_lang']['options']['en-US'] = language.settings.localize.en;
+settingList['localize']['speak_lang']['options']['es-ES'] = language.settings.localize.es;
+settingList['localize']['speak_lang']['options']['fr-FR'] = language.settings.localize.fr;
+settingList['localize']['speak_lang']['options']['it-IT'] = language.settings.localize.it;
+settingList['localize']['speak_lang']['options']['nl-NL'] = language.settings.localize.nl;
+settingList['localize']['speak_lang']['options']['pl-PL'] = language.settings.localize.pl;
+settingList['localize']['speak_lang']['options']['ru-RU'] = language.settings.localize.ru;
 
 settingList['weather'] = {}
 settingList['weather']['title'] = language.settings.weather.title;
@@ -356,6 +368,7 @@ if(typeof(config)!=='undefined'){
 }
 
 if(typeof(settings['language'])=='undefined') settings['language'] = 'en_US';
+if(typeof(settings['speak_lang'])=='undefined') settings['language'] = 'en-US';
 if(typeof(settings['timeformat'])=='undefined') settings['timeformat'] = 'DD-MM-YY HH:mm';
 if(typeof(settings['calendarformat'])=='undefined') settings['calendarformat'] = 'dd DD.MM HH:mm';
 if(typeof(settings['calendarlanguage'])=='undefined') settings['calendarlanguage'] = 'en_US';
