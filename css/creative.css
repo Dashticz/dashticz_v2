@@ -18,8 +18,23 @@
 	background-color:#fff !important;
 }
 
-.fa-tv:before  {font-size:26px;}
 
+
+.currencydown {
+	background: rgba(132,22,12,0.7) !important;
+	background-clip: padding-box;
+	border: 7px solid rgba(255,255,255,0);
+}
+
+
+.currencyup {
+	background: rgba(0, 128, 0, 0.7) !important;
+	background-clip: padding-box;
+	border: 7px solid rgba(255,255,255,0);
+}
+
+.fa-tv:before  {font-size:26px;}
+.col-currency {font-size: 20px;text-align:right;}
 .SonarrItem {
     clear: both; 
     width:100%;  
@@ -286,15 +301,17 @@
     margin-top: -4px;
     margin-bottom: -4px;
 }
-.colbar.transbg .fa.fa-cog {
+.colbar.transbg .fa {
     margin-top: 0px;
     font-size: 20px !important;
+	margin-left: 10px;
 }
 .colbar.transbg .miniclock span{
     font-size:15px !important;
 	font-weight:bold !important;
 }
-.colbar div.settings {
+.colbar span.settings,
+.colbar span.fullscreen {
 	cursor:pointer;
 }
 a.playlist {
@@ -773,6 +790,19 @@ p {
 	cursor:pointer;
 }
 
+.cast-button-container {
+	padding: 13px !important;
+}
+.cast-button {
+	height: 25px;
+	width: 25px;
+	padding: 1px;
+	vertical-align: middle;
+	display: inline;
+	--disconnected-color: red;
+	--connected-color: green;
+}
+
 	.col-xs-1,
 	.col-xs-2,
 	.col-xs-3,
@@ -955,6 +985,9 @@ img.icon {
 	#weather .wi {
 		font-size:24px !important;
 	}
+	.cast-button-container {
+		padding: 11px !important;
+	}
 }
 @media (max-width: 975px) {
 	div.mh {
@@ -966,6 +999,9 @@ img.icon {
 	.transbg.col-xs-1, .transbg.col-xs-2, .transbg.col-xs-3, .transbg.col-xs-4, .transbg.col-xs-5, .transbg.col-xs-6, .transbg.col-xs-7, .transbg.col-xs-8, .transbg.col-xs-9, .transbg.col-xs-10, .transbg.col-xs-11, .transbg.col-xs-12 {
 		padding-top: 7px;
 		padding-bottom: 7px;
+	}
+	.cast-button-container {
+		padding: 3px !important;
 	}
 	h1,h4 {
 		margin-left:0px !important

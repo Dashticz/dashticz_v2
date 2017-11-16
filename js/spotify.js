@@ -2,7 +2,7 @@ var CUR_URI = document.location.href.split('#');
 REDIRECT_URI = CUR_URI[0];
 var userdata;
 var accessToken;
-
+var currentPlaying=false;
 function getSpotify(columndiv){
 	if(typeof(Cookies.get('spotifyToken'))!=='undefined' || typeof(CUR_URI[1])!=='undefined'){
 		if(typeof(CUR_URI[1])!=='undefined'){
@@ -14,72 +14,11 @@ function getSpotify(columndiv){
 	
 		var random = getRandomInt(1,100000);
 		var html ='<div data-id="spotify" class="col-xs-12 transbg containsspotify containsspotify'+random+'" style="padding:0px !important;">';
-			html+='<div id="current"></div><a href="javascript:void(0);" class="change">'+language.misc.spotify_select_playlist+' &raquo;</a><select class="devices"><option>'+language.misc.spotify_select_device+'</option></select>';
+			html+='<div id="current"></div><a href="javascript:void(0);" class="change">'+language.misc.spotify_select_playlist+' &raquo;</a><select class="devices" onchange="changeDevice();"></select>';
 		html+='</div>';
 		$(columndiv).append(html);
-				
-		getUserData()
-		.then(function(userdata) {
-			getDevices()
-			.then(function(devices) {
-				if(typeof(devices['devices'])!=='undefined'){
-					devices = devices['devices'];
-					var sel='';
-					for(d in devices){
-						sel='';
-						if(devices[d]['is_active']){ 
-							sel='selected';
-						}
-						if(!devices[d]['is_restricted']) $('select.devices').append('<option value="'+devices[d]['id']+'" '+sel+'>'+devices[d]['name']+'</option>');					
-					}
-				}
-				
-				getCurrentlyPlaying().then(function(currently) {
-					
-					if(currently.item!==null && typeof(currently.item)!=='undefined'){
-						getCurrentHTML(currently.item);
-					}
-					
-					getPlaylists()
-					.then(function(playlists) {
-						var html = '<div class="modal fade" id="spotify_'+random+'" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
-						html+='<div class="modal-dialog">';
-							html+='<div class="modal-content">';
-							 html+='<div class="modal-header">';
-								html+='<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
-							html+='</div>';
-							html+='<div class="modal-body" style="padding-left:15px;"><div class="row list">';
-
-								for(p in playlists.items){
-									if(typeof(playlists.items[p])!=='undefined' && typeof(playlists.items[p]['uri'])!=='undefined' && typeof(playlists.items[p]['images'][0])!=='undefined'){		
-										console.log(playlists.items[p]);
-										html+='<div class="col-md-3 col-sm-6">';
-											html+='<div class="spotlist">';
-												html+='<div class="col-lg-4 col-md-5 col-sm-4" style="padding:0px;"><a href="javascript:void(0);" onclick="getPlayList(\''+playlists.items[p]['href']+'\');"><img style="height:75px;width:75px;" src="'+playlists.items[p]['images'][0]['url']+'" /></a></div>';
-												html+='<div class="col-lg-8 col-md-7 col-sm-8" style="padding:0px;padding-top:5px;padding-right:10px;">';
-												html+='<a href="javascript:void(0);" onclick="getPlayList(\''+playlists.items[p]['href']+'\');">'+playlists.items[p]['name']+'</a><br />';
-												html+='<a href="javascript:void(0);" onclick="getTrackList(\''+playlists.items[p]['tracks']['href']+'\',\''+columndiv+'\');"><em>Tracks: '+playlists.items[p]['tracks']['total']+'</em></a></div>';
-											html+='</div>';
-										html+='</div>';
-									}
-								}
-
-							html+='</div><div class="row tracks" style="display:none;"></div><br /><br /></div>';
-							html+='</div>';
-						  html+='</div>';
-						html+='</div>';
-
-						$('body').append(html);
-					});
-
-					var calobject = $('.containsspotify'+random+' a.change');
-					calobject.attr('data-toggle','modal');
-					calobject.attr('data-id','');
-					calobject.attr('data-target','#spotify_'+random);
-					calobject.attr('onclick','setSrc(this);');
-				});
-			});
-		});
+		
+		setInterval(function(){ getSpotifyData(); },5000);
 	}
 	else if(!settings['spot_clientid']){
 		console.log('Enter your Spotify ClientID in CONFIG.JS');
@@ -98,16 +37,84 @@ function getSpotify(columndiv){
 
 }
 
+function getSpotifyData(){
+	$('select.devices').html('<option>'+language.misc.spotify_select_device+'</option>');
+	
+	currentPlaying=false;
+	getUserData()
+	.then(function(userdata) {
+		getDevices()
+		.then(function(devices) {
+			//console.log(devices);
+			if(typeof(devices['devices'])!=='undefined'){
+				devices = devices['devices'];
+				var sel='';
+				for(d in devices){
+					sel='';
+					if(devices[d]['is_active']){ 
+						sel='selected';
+					}
+					if(!devices[d]['is_restricted']) $('select.devices').append('<option value="'+devices[d]['id']+'" '+sel+'>'+devices[d]['name']+'</option>');					
+				}
+			}
+
+			getCurrentlyPlaying().then(function(currently) {
+
+				if(currently.item!==null && typeof(currently.item)!=='undefined'){
+					getCurrentHTML(currently.item);
+					currentPlaying=currently.item;
+				}
+
+				getPlaylists()
+				.then(function(playlists) {
+					var html = '<div class="modal fade" id="spotify_'+random+'" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
+					html+='<div class="modal-dialog">';
+						html+='<div class="modal-content">';
+						 html+='<div class="modal-header">';
+							html+='<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
+						html+='</div>';
+						html+='<div class="modal-body" style="padding-left:15px;"><div class="row list">';
+
+							for(p in playlists.items){
+								if(typeof(playlists.items[p])!=='undefined' && typeof(playlists.items[p]['uri'])!=='undefined' && typeof(playlists.items[p]['images'][0])!=='undefined'){		
+									//console.log(playlists.items[p]);
+									html+='<div class="col-md-3 col-sm-6">';
+										html+='<div class="spotlist">';
+											html+='<div class="col-lg-4 col-md-5 col-sm-4" style="padding:0px;"><a href="javascript:void(0);" onclick="getPlayList(\''+playlists.items[p]['href']+'\');"><img style="height:75px;width:75px;" src="'+playlists.items[p]['images'][0]['url']+'" /></a></div>';
+											html+='<div class="col-lg-8 col-md-7 col-sm-8" style="padding:0px;padding-top:5px;padding-right:10px;">';
+											html+='<a href="javascript:void(0);" onclick="getPlayList(\''+playlists.items[p]['href']+'\');">'+playlists.items[p]['name']+'</a><br />';
+											html+='<a href="javascript:void(0);" onclick="getTrackList(\''+playlists.items[p]['tracks']['href']+'\',\''+columndiv+'\');"><em>Tracks: '+playlists.items[p]['tracks']['total']+'</em></a></div>';
+										html+='</div>';
+									html+='</div>';
+								}
+							}
+
+						html+='</div><div class="row tracks" style="display:none;"></div><br /><br /></div>';
+						html+='</div>';
+					  html+='</div>';
+					html+='</div>';
+
+					$('body').append(html);
+				});
+
+				var calobject = $('.containsspotify'+random+' a.change');
+				calobject.attr('data-toggle','modal');
+				calobject.attr('data-id','');
+				calobject.attr('data-target','#spotify_'+random);
+				calobject.attr('onclick','setSrc(this);');
+			});
+		});
+	});
+}
+function changeDevice(){
+	getCurrentHTML(currentPlaying);
+}
 function getCurrentHTML(item){
 						
-	console.log('{"uris":["'+item.uri+'"]}');
-	
 	$.ajax({
 		type: 'PUT',
-		//data: "device_id="+$('select.devices').find('option:selected').val(),
-		//data: "uris="+item.uri,
 		data: '{"uris":["'+item.uri+'"]}',
-		url: 'https://api.spotify.com/v1/me/player/play',
+		url: 'https://api.spotify.com/v1/me/player/play?device_id='+$('select.devices').find('option:selected').val(),
 		headers: {
 		   'Authorization': 'Bearer ' + accessToken
 		}
@@ -164,7 +171,6 @@ function getPlayList(url){
 		   'Authorization': 'Bearer ' + accessToken
 		},
 		success:function(item){
-			console.log(item);
 			getCurrentHTML(item);
 			$('.modal.fade.in .close').trigger('click');
 		}
@@ -207,7 +213,7 @@ function getTrackList(url,back){
 		}
 		$('div.modal-body .row.list').hide();
 		$('div.modal-body .row.tracks').html(html).show();
-		console.log(tracks);
+		//console.log(tracks);
 	});
 }
 function getTracks(url) {

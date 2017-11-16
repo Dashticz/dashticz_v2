@@ -22,13 +22,16 @@ var alldevices={}
 var myswiper;
 var addedThermostat = [];
 var oldstates = [];
+var onOffstates = [];
 var gettingDevices = false;
 var md;
 var _GRAPHS_LOADED = {};
 var _BACKGROUND_IMAGE = 'img/bg2.jpg';
 var _THEME = 'default';
 var _STREAMPLAYER_TRACKS = {"track":1,"name":"Music FM","file":"http://stream.musicfm.hu:8000/musicfm.mp3"};
-	
+var _THOUSAND_SEPARATOR = '.';
+var _DECIMAL_POINT = ',';
+
 function loadFiles(){
 	
 	$.ajax({url: customfolder+'/CONFIG.js', async: false,dataType: "script"}).done(function() {
@@ -59,6 +62,7 @@ function loadFiles(){
 			loadSettings();
 
 			$('<link href="css/creative.css?v='+cache+'" rel="stylesheet">').appendTo("head");
+			$('<link href="vendor/weather/css/weather-icons.min.css?v=' + cache + '" rel="stylesheet">').appendTo("head");
 			
 			if(_THEME!=='default'){
 				$('<link rel="stylesheet" type="text/css" href="themes/'+_THEME+'/'+_THEME+'.css?v='+cache+'" />').appendTo("head");
@@ -90,7 +94,8 @@ function loadFiles(){
 			$.ajax({url: 'js/blocks.js', async: false,dataType: "script"});
 			$.ajax({url: 'js/graphs.js', async: false,dataType: "script"});
 			if(typeof(settings['gm_api'])!=='undefined' && settings['gm_api']!=="" && settings['gm_api']!==0){
-				$.ajax({url: 'https://maps.googleapis.com/maps/api/js?key='+settings['gm_api']+'&callback=initMap', async: false,dataType: "script"}).done(function() {
+				$.ajax({url: 'https://maps.googleapis.com/maps/api/js?key='+settings['gm_api'], async: false,dataType: "script"}).done(function() {
+					setTimeout(function(){ initMap(); } ,2000);
 					onLoad();
 				});
 			}
@@ -288,8 +293,14 @@ function buildScreens(){
 							if(typeof(settings['wu_api'])!=='undefined' && settings['wu_api']!=="" && settings['wu_api']!==0 && typeof(settings['wu_city'])!=='undefined' && settings['wu_city']!==""){
 								$('.col2').prepend('<div class="mh transbg big block_currentweather_big col-xs-12 containsweather"><div class="col-xs-1"><div class="weather" id="weather"></div></div><div class="col-xs-11"><span class="title weatherdegrees" id="weatherdegrees"></span> <span class="weatherloc" id="weatherloc"></span></div></div>');
 								if(typeof(loadWeatherFull)!=='function') $.ajax({url: 'js/weather.js', async: false,dataType: "script"});
+								
 								loadWeatherFull(settings['wu_city'],settings['wu_country'],$('#weatherfull'));
 								loadWeather(settings['wu_city'],settings['wu_country']);
+								
+								setInterval(function(){ 
+									loadWeatherFull(settings['wu_city'],settings['wu_country'],$('#weatherfull'));
+									loadWeather(settings['wu_city'],settings['wu_country']);
+								}, (60000*30));
 							}
 
 							$('.col3 .auto_clock').html('<div class="transbg block_clock col-xs-12 text-center"><h1 id="clock" class="clock"></h1><h4 id="weekday" class="weekday"></h4><h4 id="date" class="date"></h4></div>');
@@ -410,6 +421,15 @@ function setClassByTime(){
 	$('body').removeClass('morning noon afternoon night').addClass(newClass);
 }
 
+function speak(textToSpeak) {
+	var newUtterance = new SpeechSynthesisUtterance();
+	/* var voices = window.speechSynthesis.getVoices(); */
+	newUtterance.text = textToSpeak;
+	/* newUtterance.voice = voices.filter(function(voice) { return voice.name == 'Google UK English Male'; })[0]; */
+	newUtterance.lang = settings['speak_lang'];
+	window.speechSynthesis.speak(newUtterance);
+}
+
 function playAudio(file){
 	var key = $.md5(file);
 	file = file.split('/');
@@ -434,10 +454,29 @@ function playAudio(file){
 }
 
 function triggerStatus(idx,value,device){
-	try {
-		eval('getStatus_'+idx+'(idx,value,device)');
+	if(typeof(onOffstates[idx])!=='undefined' && value!==onOffstates[idx]){
+		try {
+			eval('getStatus_'+idx+'(idx,value,device)');
+		}
+		catch(err) {}
+		if(device['Status']=='On'|| device['Status']=='Open'){
+			if(typeof(blocks[idx])!=='undefined' && typeof(blocks[idx]['playsoundOn'])!=='undefined'){
+				playAudio(blocks[idx]['playsoundOn']);
+			}
+			if(typeof(blocks[idx])!=='undefined' && typeof(blocks[idx]['speakOn'])!=='undefined'){
+				speak(blocks[idx]['speakOn']);
+			}
+		}
+		if(device['Status']=='Off'|| device['Status']=='Closed'){
+			if(typeof(blocks[idx])!=='undefined' && typeof(blocks[idx]['playsoundOff'])!=='undefined'){
+				playAudio(blocks[idx]['playsoundOff']);
+			}
+			if(typeof(blocks[idx])!=='undefined' && typeof(blocks[idx]['speakOff'])!=='undefined'){
+				speak(blocks[idx]['speakOff']);
+			}
+		}
 	}
-	catch(err) {}
+	onOffstates[idx] = value;
 }
 
 function triggerChange(idx,value,device){
@@ -451,6 +490,9 @@ function triggerChange(idx,value,device){
 		if(typeof(blocks[idx])!=='undefined' && typeof(blocks[idx]['playsound'])!=='undefined'){
 			playAudio(blocks[idx]['playsound']);
 		}
+		if(typeof(blocks[idx])!=='undefined' && typeof(blocks[idx]['speak'])!=='undefined'){
+				speak(blocks[idx]['speak']);
+			}
 		if(typeof(blocks[idx])!=='undefined' && typeof(blocks[idx]['gotoslide'])!=='undefined'){
 			toSlide((blocks[idx]['gotoslide']-1));
 		}
@@ -998,6 +1040,7 @@ function getDevices(override){
 									html+= getStatusBlock(idx,device,blocktypes['Name'][device['Name']]);
 								}
 								else if(device['HardwareType']=='Logitech Media Server'){
+									
 									html+=iconORimage(idx,'fa-music','','on icon','',2);
 									html+='<div class="col-xs-10 col-data">';
 									html+='<strong class="title">'+device['Name']+'</strong><br />';
@@ -1005,9 +1048,17 @@ function getDevices(override){
 									html+='<div>';
 										html+='<a href="javascript:controlLogitech('+device['idx']+',\'Rewind\');"><em class="fa fa-arrow-circle-left fa-small"></em></a> ';
 										html+='<a href="javascript:controlLogitech('+device['idx']+',\'Stop\');"><em class="fa fa-stop-circle fa-small"></em></a> ';
-										if(device['Status']=='Playing') html+='<a href="javascript:controlLogitech('+device['idx']+',\'Pause\');"><em class="fa fa-pause-circle fa-small"></em></a> ';
-										else html+='<a href="javascript:controlLogitech('+device['idx']+',\'Play\');"><em class="fa fa-play-circle fa-small"></em></a> ';
+										if(device['Status']=='Playing') {
+												html+='<a href="javascript:controlLogitech('+device['idx']+',\'Pause\');"><em class="fa fa-pause-circle fa-small"></em></a> ';
+										}
+										else {
+											html+='<a href="javascript:controlLogitech('+device['idx']+',\'Play\');"><em class="fa fa-play-circle fa-small"></em></a> ';
+										}
 										html+='<a href="javascript:controlLogitech('+device['idx']+',\'Forward\');"><em class="fa fa-arrow-circle-right fa-small"></em></a>';
+										html+='&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'; 
+										html+='<a href="javascript:controlLogitech('+device['idx']+',\'VolumeDown\');"><em class="fa fa-minus-circle fa-small"></em></a>';
+										html+='&nbsp;'; 
+										html+='<a href="javascript:controlLogitech('+device['idx']+',\'VolumeUp\');"><em class="fa fa-plus-circle fa-small"></em></a>';
 									html+='</div>';
 									html+='</div>';
 
@@ -1038,7 +1089,7 @@ function getDevices(override){
 							
 										var title=language.energy.energy_usage;
 										if(typeof(blocks[idx+'_1'])!=='undefined' && typeof(blocks[idx+'_1']['title'])!=='undefined') title=blocks[idx+'_1']['title'];
-										var icon = 'fa fa-plug';
+										var icon = 'fa-plug';
 										if(typeof(blocks[idx+'_1'])!=='undefined' && typeof(blocks[idx+'_1']['icon'])!=='undefined') icon=blocks[idx+'_1']['icon'];
 										if(typeof(device['UsageDeliv'])!=='undefined' && (parseFloat(device['UsageDeliv'])>0 || parseFloat(device['UsageDeliv'])<0)){
 											html+= getStateBlock(idx+'_1',icon,title,device['UsageDeliv'],device);
@@ -1055,9 +1106,10 @@ function getDevices(override){
 							
 										var title=language.energy.energy_usagetoday;
 										if(typeof(blocks[idx+'_2'])!=='undefined' && typeof(blocks[idx+'_2']['title'])!=='undefined') title=blocks[idx+'_2']['title'];
-										var icon = 'fa fa-plug';
+										var icon = 'fa-plug';
 										if(typeof(blocks[idx+'_2'])!=='undefined' && typeof(blocks[idx+'_2']['icon'])!=='undefined') icon=blocks[idx+'_2']['icon'];
-										html = getStateBlock(idx+'_2',icon,title,device['CounterToday'],device);
+                                        device['CounterToday'] = device['CounterToday'].split(' ')[0];
+										html = getStateBlock(idx+'_2',icon,title,number_format(device['CounterToday'], settings['units'].decimals.kwh) + ' ' + settings['units'].names.kwh,device);
 										if(typeof(allblocks[idx])!=='undefined' && $('div.block_'+idx+'_2').length==0) var duplicate = $('div.block_'+idx+'_1').last().clone().removeClass('block_'+idx+'_1').addClass('block_'+idx+'_2').insertAfter($('div.block_'+idx+'_1'));
 										$('div.block_'+idx+'_2').html(html);
 										addHTML=false;
@@ -1067,10 +1119,10 @@ function getDevices(override){
 
 										var title=language.energy.energy_totals;
 										if(typeof(blocks[idx+'_3'])!=='undefined' && typeof(blocks[idx+'_3']['title'])!=='undefined') title=blocks[idx+'_3']['title'];
-										var icon = 'fa fa-plug';
+										var icon = 'fa-plug';
 										if(typeof(blocks[idx+'_3'])!=='undefined' && typeof(blocks[idx+'_3']['icon'])!=='undefined') icon=blocks[idx+'_3']['icon'];
-										html = getStateBlock(idx+'_3',icon,title,device['Counter']+' kWh',device);
-										if(typeof(allblocks[idx])!=='undefined' && $('div.block_'+idx+'_3').length==0) var duplicate = $('div.block_'+idx+'_2').last().clone().removeClass('block_'+idx+'_2').addClass('block_'+idx+'_3').insertAfter($('div.block_'+idx+'_2'));
+                                        html = getStateBlock(idx+'_3', icon, title, number_format(device['Counter'], 0) + ' ' + settings['units'].names.kwh, device);
+                                        if(typeof(allblocks[idx])!=='undefined' && $('div.block_'+idx+'_3').length==0) var duplicate = $('div.block_'+idx+'_2').last().clone().removeClass('block_'+idx+'_2').addClass('block_'+idx+'_3').insertAfter($('div.block_'+idx+'_2'));
 										$('div.block_'+idx+'_3').html(html);
 										addHTML=false;
 
@@ -1080,9 +1132,9 @@ function getDevices(override){
 							
 											var title=language.energy.energy_delivered;
 											if(typeof(blocks[idx+'_4'])!=='undefined' && typeof(blocks[idx+'_4']['title'])!=='undefined') title=blocks[idx+'_4']['title'];
-											var icon = 'fa fa-plug';
+											var icon = 'fa-plug';
 											if(typeof(blocks[idx+'_4'])!=='undefined' && typeof(blocks[idx+'_4']['icon'])!=='undefined') icon=blocks[idx+'_4']['icon'];
-											html = getStateBlock(idx+'_4',icon,title,device['CounterDeliv']+' kWh',device);
+                                            html = getStateBlock(idx+'_4', icon, title, number_format(device['CounterDeliv'], 0) + ' ' + settings['units'].names.kwh, device);
 											if(typeof(allblocks[idx])!=='undefined' && $('div.block_'+idx+'_4').length==0) var duplicate = $('div.block_'+idx+'_3').last().clone().removeClass('block_'+idx+'_3').addClass('block_'+idx+'_4').insertAfter($('div.block_'+idx+'_3'));
 											$('div.block_'+idx+'_4').html(html);
 											addHTML=false;
@@ -1092,9 +1144,10 @@ function getDevices(override){
 							
 											var title=language.energy.energy_deliveredtoday;
 											if(typeof(blocks[idx+'_5'])!=='undefined' && typeof(blocks[idx+'_5']['title'])!=='undefined') title=blocks[idx+'_5']['title'];
-											var icon = 'fa fa-plug';
+											var icon = 'fa-plug';
 											if(typeof(blocks[idx+'_5'])!=='undefined' && typeof(blocks[idx+'_5']['icon'])!=='undefined') icon=blocks[idx+'_5']['icon'];
-											html = getStateBlock(idx+'_5',icon,title,device['CounterDelivToday'],device);
+                                            device['CounterDelivToday'] = device['CounterDelivToday'].split(' ')[0];
+                                            html = getStateBlock(idx+'_2',icon,title,number_format(device['CounterDelivToday'], settings['units'].decimals.kwh) + ' ' + settings['units'].names.kwh,device);
 											if(typeof(allblocks[idx])!=='undefined' && $('div.block_'+idx+'_5').length==0) var duplicate = $('div.block_'+idx+'_4').last().clone().removeClass('block_'+idx+'_4').addClass('block_'+idx+'_5').insertAfter($('div.block_'+idx+'_4'));
 											$('div.block_'+idx+'_5').html(html);
 											addHTML=false;
@@ -1110,7 +1163,7 @@ function getDevices(override){
 							
 										var title=language.energy.gas_usagetoday;
 										if(typeof(blocks[idx+'_1'])!=='undefined' && typeof(blocks[idx+'_1']['title'])!=='undefined') title=blocks[idx+'_1']['title'];
-										var icon = 'fa fa-fire';
+										var icon = 'fa-fire';
 										if(typeof(blocks[idx+'_1'])!=='undefined' && typeof(blocks[idx+'_1']['icon'])!=='undefined') icon=blocks[idx+'_1']['icon'];
 										html+= getStateBlock(idx+'_1',icon,title,device['CounterToday'],device);
 										if(!$('div.block_'+idx).hasClass('block_'+idx+'_1')) $('div.block_'+idx).addClass('block_'+idx+'_1');
@@ -1122,7 +1175,7 @@ function getDevices(override){
 							
 										var title=language.energy.energy_totals;
 										if(typeof(blocks[idx+'_2'])!=='undefined' && typeof(blocks[idx+'_2']['title'])!=='undefined') title=blocks[idx+'_2']['title'];
-										var icon = 'fa fa-fire';
+										var icon = 'fa-fire';
 										if(typeof(blocks[idx+'_2'])!=='undefined' && typeof(blocks[idx+'_2']['icon'])!=='undefined') icon=blocks[idx+'_2']['icon'];
 										html = getStateBlock(idx+'_2',icon,title,device['Counter']+' m3',device);
 										if(typeof(allblocks[idx])!=='undefined' && $('div.block_'+idx+'_2').length==0) var duplicate = $('div.block_'+idx+'_1').last().clone().removeClass('block_'+idx+'_1').addClass('block_'+idx+'_2').insertAfter($('div.block_'+idx+'_1'));
@@ -1130,15 +1183,13 @@ function getDevices(override){
 										addHTML=false;
 									}
 								}
-								else if(
-									(device['Type']=='RFXMeter' && device['SubType']=='RFXMeter counter') || device['Type']=='YouLess Meter'){
+								else if(device['Type']=='RFXMeter' && device['SubType']=='RFXMeter counter') {
 									if($('div.block_'+idx).length>0){
 										allblocks[idx] = true;
 									}
-
-									var rfxicon='fa fa-fire';
+									var rfxicon='fa-fire';
 									if(device['Name']=='Water'){
-										var rfxicon='fa fa-tint';
+										var rfxicon='fa-tint';
 									}
 									if(typeof(blocks[idx+'_1'])!=='undefined' && typeof(blocks[idx+'_1']['icon'])!=='undefined') rfxicon=blocks[idx+'_1']['icon'];
 									
@@ -1157,7 +1208,7 @@ function getDevices(override){
 							
 									var title=language.energy.energy_totals+' '+device['Name'];
 									if(typeof(blocks[idx+'_2'])!=='undefined' && typeof(blocks[idx+'_2']['title'])!=='undefined') title=blocks[idx+'_2']['title'];
-									html= getStateBlock(device['idx']+'b',rfxicon,title,device['Counter'],device);
+									html= getStateBlock(device['idx']+'_2',rfxicon,title,device['Counter'],device);
 									if(typeof(allblocks[idx])!=='undefined' && $('div.block_'+idx+'_2').length==0) var duplicate = $('div.block_'+idx+'_1').last().clone().removeClass('block_'+idx+'_1').addClass('block_'+idx+'_2').insertAfter($('div.block_'+idx+'_1'));
 									$('div.block_'+idx+'_2').html(html);
 									addHTML=false;
@@ -1168,7 +1219,52 @@ function getDevices(override){
 
 										var title=device['Name'];
 										if(typeof(blocks[idx+'_3'])!=='undefined' && typeof(blocks[idx+'_3']['title'])!=='undefined') title=blocks[idx+'_3']['title'];
-										html= getStateBlock(device['idx']+'c',rfxicon,title,device['Usage'],device);
+										html= getStateBlock(device['idx']+'_3',rfxicon,title,device['Usage'],device);
+										if(typeof(allblocks[idx])!=='undefined' && $('div.block_'+idx+'_3').length==0) var duplicate = $('div.block_'+idx+'_2').last().clone().removeClass('block_'+idx+'_2').addClass('block_'+idx+'_3').insertAfter($('div.block_'+idx+'_2'));
+										$('div.block_'+idx+'_3').html(html);
+										addHTML=false;
+									}
+								}
+								else if(device['Type'] === 'YouLess Meter') {
+									if($('div.block_'+idx).length > 0) {
+										allblocks[idx] = true;
+									}
+									device['CounterToday'] = device['CounterToday'].split(' ')[0];
+									var rfxicon='fa-fire';
+									if(typeof(blocks[idx+'_1'])!=='undefined' && typeof(blocks[idx+'_1']['icon'])!=='undefined') rfxicon=blocks[idx+'_1']['icon'];
+
+									triggerStatus(idx+'_1',device['LastUpdate'],device);
+									triggerChange(idx+'_1',device['LastUpdate'],device);
+
+									var title=device['Name'];
+									if(typeof(blocks[idx+'_1'])!=='undefined' && typeof(blocks[idx+'_1']['title'])!=='undefined') title=blocks[idx+'_1']['title'];
+									html += getStateBlock(device['idx'] + 'a', rfxicon, title, number_format(device['CounterToday'], settings['units'].decimals.kwh) + ' ' + settings['units'].names.kwh, device);
+									if(!$('div.block_'+idx).hasClass('block_'+idx+'_1')) $('div.block_'+idx).addClass('block_'+idx+'_1');
+									$('div.block_' + idx + '_1').html(html);
+									addHTML=false;
+
+									triggerStatus(idx+'_2',device['LastUpdate'],device);
+									triggerChange(idx+'_2',device['LastUpdate'],device);
+
+									var title = language.energy.energy_totals+' '+device['Name'];
+                                    var rfxicon = 'fa-fire';
+                                    if(typeof(blocks[idx+'_2'])!=='undefined' && typeof(blocks[idx+'_2']['icon'])!=='undefined') rfxicon=blocks[idx+'_2']['icon'];
+									if(typeof(blocks[idx+'_2'])!=='undefined' && typeof(blocks[idx+'_2']['title'])!=='undefined') title=blocks[idx+'_2']['title'];
+									html = getStateBlock(device['idx'] + '_2', rfxicon, title, number_format(device['Counter'], settings['units'].decimals.kwh) + ' ' + settings['units'].names.kwh, device);
+									if(typeof(allblocks[idx])!=='undefined' && $('div.block_'+idx+'_2').length==0) var duplicate = $('div.block_'+idx+'_1').last().clone().removeClass('block_'+idx+'_1').addClass('block_'+idx+'_2').insertAfter($('div.block_'+idx+'_1'));
+									$('div.block_'+idx+'_2').html(html);
+									addHTML=false;
+
+									if(typeof(device['Usage'])!=='undefined'){
+										triggerStatus(idx+'_3',device['LastUpdate'],device);
+										triggerChange(idx+'_3',device['LastUpdate'],device);
+
+                                        var rfxicon = 'fa-fire';
+                                        if(typeof(blocks[idx+'_3'])!=='undefined' && typeof(blocks[idx+'_3']['icon'])!=='undefined') rfxicon=blocks[idx+'_3']['icon'];
+										var title=device['Name'];
+										if(typeof(blocks[idx+'_3'])!=='undefined' && typeof(blocks[idx+'_3']['title'])!=='undefined') title=blocks[idx+'_3']['title'];
+										device['Usage'] = device['Usage'].split(' ')[0];
+										html = getStateBlock(device['idx']+'_3', rfxicon, title, number_format(device['Usage'], settings['units'].decimals.watt) + ' ' + settings['units'].names.watt, device);
 										if(typeof(allblocks[idx])!=='undefined' && $('div.block_'+idx+'_3').length==0) var duplicate = $('div.block_'+idx+'_2').last().clone().removeClass('block_'+idx+'_2').addClass('block_'+idx+'_3').insertAfter($('div.block_'+idx+'_2'));
 										$('div.block_'+idx+'_3').html(html);
 										addHTML=false;
@@ -1185,9 +1281,9 @@ function getDevices(override){
 							
 									var title=device['Name']+' '+language.energy.energy_now;
 									if(typeof(blocks[idx+'_1'])!=='undefined' && typeof(blocks[idx+'_1']['title'])!=='undefined') title=blocks[idx+'_1']['title'];
-									var icon = 'fa fa-fire';
+									var icon = 'fa-fire';
 									if(typeof(blocks[idx+'_1'])!=='undefined' && typeof(blocks[idx+'_1']['icon'])!=='undefined') icon=blocks[idx+'_1']['icon'];
-									html+= getStateBlock(device['idx']+'a',icon,title,number_format(device['Usage'],2,',','.')+' W',device);
+									html+= getStateBlock(device['idx'] + 'a', icon, title, number_format(device['Usage'], settings['units'].decimals.watt) + ' ' + settings['units'].names.watt, device);
 									if(!$('div.block_'+idx).hasClass('block_'+idx+'_1')) $('div.block_'+idx).addClass('block_'+idx+'_1');
 									$('div.block_'+idx+'_1').html(html);
 									addHTML=false;
@@ -1197,9 +1293,9 @@ function getDevices(override){
 							
 									var title=device['Name']+' '+language.energy.energy_today;
 									if(typeof(blocks[idx+'_2'])!=='undefined' && typeof(blocks[idx+'_2']['title'])!=='undefined') title=blocks[idx+'_2']['title'];
-									var icon = 'fa fa-fire';
+									var icon = 'fa-fire';
 									if(typeof(blocks[idx+'_2'])!=='undefined' && typeof(blocks[idx+'_2']['icon'])!=='undefined') icon=blocks[idx+'_2']['icon'];
-									html= getStateBlock(device['idx']+'b',icon,title,number_format(device['CounterToday'],2,',','.')+' kWh',device);
+									html= getStateBlock(device['idx'] + 'b', icon, title, number_format(device['CounterToday'], settings['units'].decimals.kwh) + ' ' + settings['units'].names.kwh, device);
 									if(typeof(allblocks[idx])!=='undefined' && $('div.block_'+idx+'_2').length==0) var duplicate = $('div.block_'+idx+'_1').last().clone().removeClass('block_'+idx+'_1').addClass('block_'+idx+'_2').insertAfter($('div.block_'+idx+'_1'));
 									$('div.block_'+idx+'_2').html(html);
 									addHTML=false;
@@ -1209,9 +1305,9 @@ function getDevices(override){
 							
 									var title=device['Name']+' '+language.energy.energy_total;
 									if(typeof(blocks[idx+'_3'])!=='undefined' && typeof(blocks[idx+'_3']['title'])!=='undefined') title=blocks[idx+'_3']['title'];
-									var icon = 'fa fa-fire';
+									var icon = 'fa-fire';
 									if(typeof(blocks[idx+'_3'])!=='undefined' && typeof(blocks[idx+'_3']['icon'])!=='undefined') icon=blocks[idx+'_3']['icon'];
-									html= getStateBlock(device['idx']+'c',icon,title,number_format(device['Data'],2,',','.')+' kWh',device);
+									html= getStateBlock(device['idx'] + 'c', icon, title, number_format(device['Data'], 2) + ' ' + settings['units'].names.kwh, device);
 									if(typeof(allblocks[idx])!=='undefined' && $('div.block_'+idx+'_3').length==0) var duplicate = $('div.block_'+idx+'_2').last().clone().removeClass('block_'+idx+'_2').addClass('block_'+idx+'_3').insertAfter($('div.block_'+idx+'_2'));
 									$('div.block_'+idx+'_3').html(html);
 									addHTML=false;
@@ -1233,9 +1329,15 @@ function getDevices(override){
 							
 									var title=device['Name'];
 									if(typeof(blocks[idx+'_1'])!=='undefined' && typeof(blocks[idx+'_1']['title'])!=='undefined') title=blocks[idx+'_1']['title'];
-									var icon = 'fa fa-thermometer-half';
-									if(typeof(blocks[idx+'_3'])!=='undefined' && typeof(blocks[idx+'_3']['icon'])!=='undefined') icon=blocks[idx+'_3']['icon'];
-									html+= getStateBlock(device['idx']+'a',icon,title,number_format(device['Temp'],1,',','.')+_TEMP_SYMBOL,device);
+									var icon = 'fa-thermometer-half';
+									if(typeof(blocks[idx+'_1'])!=='undefined' && typeof(blocks[idx+'_1']['icon'])!=='undefined') icon=blocks[idx+'_1']['icon'];
+									
+									if(typeof(blocks[idx+'_1'])!=='undefined' && typeof(blocks[idx+'_1']['switch'])!=='undefined' && blocks[idx+'_1']['switch']==true){ 
+										html += getStateBlock(device['idx'] + '_1', icon, number_format(device['Temp'], 1) + _TEMP_SYMBOL, title, device);
+									}  else {
+										html += getStateBlock(device['idx'] + '_1', icon, title, number_format(device['Temp'], 1) + _TEMP_SYMBOL, device);
+									}
+									
 									if(!$('div.block_'+idx).hasClass('block_'+idx+'_1')) $('div.block_'+idx).addClass('block_'+idx+'_1');
 									$('div.block_'+idx+'_1').html(html);
 									addHTML=false;
@@ -1248,7 +1350,7 @@ function getDevices(override){
 										if(typeof(blocks[idx+'_2'])!=='undefined' && typeof(blocks[idx+'_2']['title'])!=='undefined') title=blocks[idx+'_2']['title'];
 										var icon = 'wi wi-humidity';
 										if(typeof(blocks[idx+'_2'])!=='undefined' && typeof(blocks[idx+'_2']['icon'])!=='undefined') icon=blocks[idx+'_2']['icon'];
-										html= getStateBlock(device['idx']+'b',icon,title,number_format(device['Humidity'],2,',','.')+'%',device);
+										html = getStateBlock(device['idx'] + 'b', icon, title, number_format(device['Humidity'], 2) + '%', device);
 										if(typeof(allblocks[idx])!=='undefined' && $('div.block_'+idx+'_2').length==0) var duplicate = $('div.block_'+idx+'_1').last().clone().removeClass('block_'+idx+'_1').addClass('block_'+idx+'_2').insertAfter($('div.block_'+idx+'_1'));
 										$('div.block_'+idx+'_2').html(html);
 										addHTML=false;
@@ -1433,7 +1535,7 @@ function getDevices(override){
 										html+='</div>';
 									}
 									else {
-										html+='<div class="col-xs-8 col-data">';
+										html+='<div class="col-xs-8 col-data" style="width: calc(100% - 50px);">';
 											html+='<strong class="title">'+device['Name']+'</strong><br />';
 											html+='<div class="btn-group" data-toggle="buttons">';
 											for(a in names) {
@@ -1490,11 +1592,13 @@ function getDevices(override){
 									html+='<div class="col-xs-8 col-data">';
 										if(typeof(blocks[idx+'_2'])!=='undefined' && typeof(blocks[idx+'_2']['switch'])!=='undefined' && blocks[idx+'_2']['switch']==true){
 											html+='<strong class="title input-number title-input" min="12" max="25" data-light="'+device['idx']+'">'+device['Name']+'</strong>';
-											html+='<div class="state stateheating">'+device['Data']+_TEMP_SYMBOL+'</div>';
+											html += '<div class="state stateheating">' + number_format(device['Data'], 1) + _TEMP_SYMBOL + '</div>';
 										}
-										else {	
-											html+='<strong class="title input-number title-input" min="12" max="25" data-light="'+device['idx']+'">'+device['Data']+_TEMP_SYMBOL+'</strong>';
-											html+='<div class="state stateheating">'+device['Name']+'</div>';
+										else {
+											html += '<strong class="title input-number title-input" min="12" max="25" data-light="' + device['idx'] + '">'
+												+ number_format(device['Data'], 1) + _TEMP_SYMBOL
+												+ '</strong>';
+											html += '<div class="state stateheating">' + device['Name'] + '</div>';
 										}
 
 									html+='</div>';
@@ -1547,7 +1651,6 @@ function getDevices(override){
 									html+='</div>';
 								}
 								else if(device['SwitchType']=='Venetian Blinds EU' || device['SwitchType']=='Blinds' || 
-									   device['SwitchType']=='Venetian Blinds EU Percentage' || device['SwitchType']=='Blinds Percentage' || device['SwitchType']=='Blinds Percentage Inverted' || 
 									   device['SwitchType']=='Venetian Blinds EU Inverted' || device['SwitchType']=='Blinds Inverted'){
 									html+='<div class="col-xs-4 col-icon">';
 									   if(device['Status']=='Closed') html+='<img src="img/blinds_closed.png" class="off icon" />';
@@ -1570,7 +1673,7 @@ function getDevices(override){
 										html+='<ul class="input-groupBtn input-chevron hidestop">';
 									}
 									
-										if(device['SwitchType']=='Venetian Blinds EU Inverted' || device['SwitchType']=='Blinds Inverted' || device['SwitchType']=='Blinds Percentage Inverted'){
+										if(device['SwitchType']=='Venetian Blinds EU Inverted' || device['SwitchType']=='Blinds Inverted'){
 											html+='<li class="up"><a href="javascript:void(0)" class="btn btn-number plus" onclick="switchBlinds('+device['idx']+',\'On\');">';
 											html+='<em class="fa fa-chevron-up fa-small"></em>';
 											html+='</a></li>';
@@ -1578,12 +1681,6 @@ function getDevices(override){
 											html+='<li class="down"><a href="javascript:void(0)" class="btn btn-number min" onclick="switchBlinds('+device['idx']+',\'Off\');">';
 											html+='<em class="fa fa-chevron-down fa-small"></em>';
 											html+='</a></li>';
-
-											if(!hidestop){
-												html+='<li class="stop"><a href="javascript:void(0)" class="btn btn-number stop" onclick="switchBlinds('+device['idx']+',\'Stop\');">';
-												html+='STOP';
-												html+='</a></li>';
-											}
 										}
 										else {
 											html+='<li><a href="javascript:void(0)" class="btn btn-number plus" onclick="switchBlinds('+device['idx']+',\'Off\');">';
@@ -1593,28 +1690,34 @@ function getDevices(override){
 											html+='<li><a href="javascript:void(0)" class="btn btn-number min" onclick="switchBlinds('+device['idx']+',\'On\');">';
 											html+='<em class="fa fa-chevron-down fa-small"></em>';
 											html+='</a></li>';
+										}
 
-											if(!hidestop){
-												html+='<li class="stop"><a href="javascript:void(0)" class="btn btn-number stop" onclick="switchBlinds('+device['idx']+',\'Stop\');">';
-												html+='STOP';
-												html+='</a></li>';
-											}
+										if(!hidestop){
+											html+='<li class="stop"><a href="javascript:void(0)" class="btn btn-number stop" onclick="switchBlinds('+device['idx']+',\'Stop\');">';
+											html+='STOP';
+											html+='</a></li>';
 										}
 
 									html+='</ul>';
 								}
-								else if(device['SwitchType']=='Blinds Percentage Inverted'){
+								else if(
+										device['SwitchType']=='Venetian Blinds EU Percentage' || 
+										device['SwitchType']=='Venetian Blinds EU Inverted Percentage' || 
+										device['SwitchType']=='Blinds Percentage' || 
+										device['SwitchType']=='Blinds Percentage Inverted'
+								){
 									html+='<div class="col-xs-2 col-icon">';
 									   if(device['Status']=='Closed') html+='<img src="img/blinds_closed.png" class="off icon" />';
 									   else html+='<img src="img/blinds_open.png" class="on icon" />';
 									html+='</div>';
 									html+='<div class="col-xs-9 col-data">';
-									   html+='<strong class="title">'+device['Name']+'</strong><br />';
+									   html+='<strong class="title">'+device['Name'];
+									if(typeof(blocks[idx])=='undefined' || typeof(blocks[idx]['hide_data'])=='undefined' || blocks[idx]['hide_data']==false){
+										html+=' '+device['Level']+'%';
+									}
+									html+='</strong><br />';
 
-									   //if(device['Status']=='Closed') html+='<span class="state">'+lang.state_closed+'</span>';
-									   //else html+='<span class="state">'+lang.state_open+'</span>';
-										
-									    html+='<div class="slider slider'+device['idx']+'" data-light="'+device['idx']+'"></div>';
+									   	html+='<div class="slider slider'+device['idx']+'" data-light="'+device['idx']+'"></div>';
 										
 									html+='</div>';
 									
@@ -1627,13 +1730,24 @@ function getDevices(override){
 										html+='<ul class="input-groupBtn input-chevron hidestop">';
 									}
 									
-									html+='<li class="up"><a href="javascript:void(0)" class="btn btn-number plus" onclick="switchBlinds('+device['idx']+',\'On\');">';
-									html+='<em class="fa fa-chevron-up fa-small"></em>';
-									html+='</a></li>';
+									if(device['SwitchType']=='Blinds Percentage Inverted'){
+										html+='<li class="up"><a href="javascript:void(0)" class="btn btn-number plus" onclick="switchBlinds('+device['idx']+',\'On\');">';
+										html+='<em class="fa fa-chevron-up fa-small"></em>';
+										html+='</a></li>';
 
-									html+='<li class="down"><a href="javascript:void(0)" class="btn btn-number min" onclick="switchBlinds('+device['idx']+',\'Off\');">';
-									html+='<em class="fa fa-chevron-down fa-small"></em>';
-									html+='</a></li>';
+										html+='<li class="down"><a href="javascript:void(0)" class="btn btn-number min" onclick="switchBlinds('+device['idx']+',\'Off\');">';
+										html+='<em class="fa fa-chevron-down fa-small"></em>';
+										html+='</a></li>';
+									}
+									else {
+										html+='<li class="up"><a href="javascript:void(0)" class="btn btn-number plus" onclick="switchBlinds('+device['idx']+',\'Off\');">';
+										html+='<em class="fa fa-chevron-up fa-small"></em>';
+										html+='</a></li>';
+
+										html+='<li class="down"><a href="javascript:void(0)" class="btn btn-number min" onclick="switchBlinds('+device['idx']+',\'On\');">';
+										html+='<em class="fa fa-chevron-down fa-small"></em>';
+										html+='</a></li>';
+									}
 
 									if(!hidestop){
 										html+='<li class="stop"><a href="javascript:void(0)" class="btn btn-number stop" onclick="switchBlinds('+device['idx']+',\'Stop\');">';
@@ -1708,7 +1822,9 @@ function getDevices(override){
 								else {
 
 									if((typeof(blocks[idx]) == 'undefined' || typeof(blocks[idx]['protected']) == 'undefined' || blocks[idx]['protected'] == false) && device['Protected'] == false){
-										$('.block_'+idx).attr('onclick','switchDevice(this)');
+										if(device['SwitchType']=='Push On Button') $('.block_'+idx).attr('onclick','switchOnOff(this,\'on\')');
+										else if(device['SwitchType']=='Push Off Button') $('.block_'+idx).attr('onclick','switchOnOff(this,\'off\')');
+										else $('.block_'+idx).attr('onclick','switchDevice(this)');
 									}
 									if(buttonimg==''){
 										if(device['Status']=='Off') html+=iconORimage(idx,'fa-lightbulb-o','','off icon');
