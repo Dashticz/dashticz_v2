@@ -475,12 +475,20 @@ function getBlockClick(idx,device){
 		}
 	}
 	else if(typeof(device)!=='undefined'){
-		if(device['SubType']=='Percentage' || device['SubType']=='Custom Sensor' || device['TypeImg']=='counter' || device['Type']=='Temp' || device['Type']=='Wind' || device['Type']=='Rain' || device['Type']== 'Temp + Humidity' || device['Type']== 'Temp + Humidity + Baro'){
+		if (device['SubType']=='Percentage' || device['SubType']=='Custom Sensor' || device['TypeImg']=='counter'
+            || device['Type']=='Temp' || device['Type']=='Wind' || device['Type']=='Rain'
+            || device['Type']== 'Temp + Humidity' || device['Type']== 'Temp + Humidity + Baro'
+            || device['SubType'] == 'kWh' || device['SubType'] === 'Lux' || device['SubType'] === 'Solar Radiation'
+        ){
 			getButtonGraphs(device);
-			if($('.block_'+idx).length>0){
-				$('.block_'+idx).addClass('hover');
-				$('.block_'+idx).attr('data-toggle','modal');
-				$('.block_'+idx).attr('data-target','#opengraph'+device['idx']);
+			if($('.block_' + idx).length > 0) {
+				$('.block_' + idx).addClass('hover');
+				$('.block_' + idx).attr('data-toggle','modal');
+				$('.block_' + idx).attr('data-target','#opengraph' + device['idx']);
+			} else if($('.block_' + device['idx']).length > 0) {
+				$('.block_' + device['idx']).addClass('hover');
+				$('.block_' + device['idx']).attr('data-toggle','modal');
+				$('.block_' + device['idx']).attr('data-target','#opengraph' + device['idx']);
 			}
 		}
 	}

@@ -1198,7 +1198,7 @@ function getDevices(override){
 							
 									var title=device['Name'];
 									if(typeof(blocks[idx+'_1'])!=='undefined' && typeof(blocks[idx+'_1']['title'])!=='undefined') title=blocks[idx+'_1']['title'];
-									html+= getStateBlock(device['idx']+'a',rfxicon,title,device['CounterToday'],device);
+									html+= getStateBlock(device['idx']+'_1',rfxicon,title,device['CounterToday'],device);
 									if(!$('div.block_'+idx).hasClass('block_'+idx+'_1')) $('div.block_'+idx).addClass('block_'+idx+'_1');
 									$('div.block_'+idx+'_1').html(html);
 									addHTML=false;
@@ -1238,7 +1238,7 @@ function getDevices(override){
 
 									var title=device['Name'];
 									if(typeof(blocks[idx+'_1'])!=='undefined' && typeof(blocks[idx+'_1']['title'])!=='undefined') title=blocks[idx+'_1']['title'];
-									html += getStateBlock(device['idx'] + 'a', rfxicon, title, number_format(device['CounterToday'], settings['units'].decimals.kwh) + ' ' + settings['units'].names.kwh, device);
+									html += getStateBlock(device['idx'] + '_1', rfxicon, title, number_format(device['CounterToday'], settings['units'].decimals.kwh) + ' ' + settings['units'].names.kwh, device);
 									if(!$('div.block_'+idx).hasClass('block_'+idx+'_1')) $('div.block_'+idx).addClass('block_'+idx+'_1');
 									$('div.block_' + idx + '_1').html(html);
 									addHTML=false;
@@ -1283,7 +1283,7 @@ function getDevices(override){
 									if(typeof(blocks[idx+'_1'])!=='undefined' && typeof(blocks[idx+'_1']['title'])!=='undefined') title=blocks[idx+'_1']['title'];
 									var icon = 'fa-fire';
 									if(typeof(blocks[idx+'_1'])!=='undefined' && typeof(blocks[idx+'_1']['icon'])!=='undefined') icon=blocks[idx+'_1']['icon'];
-									html+= getStateBlock(device['idx'] + 'a', icon, title, number_format(device['Usage'], settings['units'].decimals.watt) + ' ' + settings['units'].names.watt, device);
+									html+= getStateBlock(device['idx'] + '_1', icon, title, number_format(device['Usage'], settings['units'].decimals.watt) + ' ' + settings['units'].names.watt, device);
 									if(!$('div.block_'+idx).hasClass('block_'+idx+'_1')) $('div.block_'+idx).addClass('block_'+idx+'_1');
 									$('div.block_'+idx+'_1').html(html);
 									addHTML=false;
@@ -1295,7 +1295,7 @@ function getDevices(override){
 									if(typeof(blocks[idx+'_2'])!=='undefined' && typeof(blocks[idx+'_2']['title'])!=='undefined') title=blocks[idx+'_2']['title'];
 									var icon = 'fa-fire';
 									if(typeof(blocks[idx+'_2'])!=='undefined' && typeof(blocks[idx+'_2']['icon'])!=='undefined') icon=blocks[idx+'_2']['icon'];
-									html= getStateBlock(device['idx'] + 'b', icon, title, number_format(device['CounterToday'], settings['units'].decimals.kwh) + ' ' + settings['units'].names.kwh, device);
+									html= getStateBlock(device['idx'] + '_2', icon, title, number_format(device['CounterToday'], settings['units'].decimals.kwh) + ' ' + settings['units'].names.kwh, device);
 									if(typeof(allblocks[idx])!=='undefined' && $('div.block_'+idx+'_2').length==0) var duplicate = $('div.block_'+idx+'_1').last().clone().removeClass('block_'+idx+'_1').addClass('block_'+idx+'_2').insertAfter($('div.block_'+idx+'_1'));
 									$('div.block_'+idx+'_2').html(html);
 									addHTML=false;
@@ -1307,7 +1307,7 @@ function getDevices(override){
 									if(typeof(blocks[idx+'_3'])!=='undefined' && typeof(blocks[idx+'_3']['title'])!=='undefined') title=blocks[idx+'_3']['title'];
 									var icon = 'fa-fire';
 									if(typeof(blocks[idx+'_3'])!=='undefined' && typeof(blocks[idx+'_3']['icon'])!=='undefined') icon=blocks[idx+'_3']['icon'];
-									html= getStateBlock(device['idx'] + 'c', icon, title, number_format(device['Data'], 2) + ' ' + settings['units'].names.kwh, device);
+									html= getStateBlock(device['idx'] + '_3', icon, title, number_format(device['Data'], 2) + ' ' + settings['units'].names.kwh, device);
 									if(typeof(allblocks[idx])!=='undefined' && $('div.block_'+idx+'_3').length==0) var duplicate = $('div.block_'+idx+'_2').last().clone().removeClass('block_'+idx+'_2').addClass('block_'+idx+'_3').insertAfter($('div.block_'+idx+'_2'));
 									$('div.block_'+idx+'_3').html(html);
 									addHTML=false;
@@ -1350,7 +1350,7 @@ function getDevices(override){
 										if(typeof(blocks[idx+'_2'])!=='undefined' && typeof(blocks[idx+'_2']['title'])!=='undefined') title=blocks[idx+'_2']['title'];
 										var icon = 'wi wi-humidity';
 										if(typeof(blocks[idx+'_2'])!=='undefined' && typeof(blocks[idx+'_2']['icon'])!=='undefined') icon=blocks[idx+'_2']['icon'];
-										html = getStateBlock(device['idx'] + 'b', icon, title, number_format(device['Humidity'], 2) + '%', device);
+										html = getStateBlock(device['idx'] + '_2', icon, title, number_format(device['Humidity'], 2) + '%', device);
 										if(typeof(allblocks[idx])!=='undefined' && $('div.block_'+idx+'_2').length==0) var duplicate = $('div.block_'+idx+'_1').last().clone().removeClass('block_'+idx+'_1').addClass('block_'+idx+'_2').insertAfter($('div.block_'+idx+'_1'));
 										$('div.block_'+idx+'_2').html(html);
 										addHTML=false;
@@ -1364,7 +1364,7 @@ function getDevices(override){
 										if(typeof(blocks[idx+'_3'])!=='undefined' && typeof(blocks[idx+'_3']['title'])!=='undefined') title=blocks[idx+'_3']['title'];
 										var icon = 'wi wi-barometer';
 										if(typeof(blocks[idx+'_3'])!=='undefined' && typeof(blocks[idx+'_3']['icon'])!=='undefined') icon=blocks[idx+'_3']['icon'];
-										html= getStateBlock(device['idx']+'c',icon,title,device['Barometer']+' hPa',device);
+										html= getStateBlock(device['idx']+'_3',icon,title,device['Barometer']+' hPa',device);
 										if(typeof(allblocks[idx])!=='undefined' && $('div.block_'+idx+'_3').length==0) var duplicate = $('div.block_'+idx+'_2').last().clone().removeClass('block_'+idx+'_2').addClass('block_'+idx+'_3').insertAfter($('div.block_'+idx+'_2'));
 										$('div.block_'+idx+'_3').html(html);
 										addHTML=false;
