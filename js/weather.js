@@ -48,24 +48,13 @@ function loadWeatherFull(location,country) {
 				else {
 					curfull.find(".weatherfull .col-xs-3").html('');
 
-					var day;
 					var start=0;
 					if(parseFloat(moment().locale('nl').format('H'))>15){
 						start=1;
 					}
 					for(var i=start;i<(start+4);i++) {
 						curfor = currentforecast.forecast.simpleforecast.forecastday[i];
-						day = curfor.date.weekday_short;
-
-						switch(day) {
-							case 'Mon': dayNL = language.weekdays.monday; break;
-							case 'Tue': dayNL = language.weekdays.tuesday; break;
-							case 'Wed': dayNL = language.weekdays.wednesday; break;
-							case 'Thu': dayNL = language.weekdays.thursday; break;
-							case 'Fri': dayNL = language.weekdays.friday; break;
-							case 'Sat': dayNL = language.weekdays.saturday; break;
-							case 'Sun': dayNL = language.weekdays.sunday; break;
-						}
+						var date = moment.unix(curfor.date.epoch).locale(settings['calendarlanguage']);
 
 						var wiclass = getIcon(curfor.icon);
 						var lowtemp = curfor.low.celsius
@@ -75,7 +64,7 @@ function loadWeatherFull(location,country) {
 							var hightemp = curfor.high.fahrenheit;
 						} 
 
-						html = '<div class="day">'+dayNL.toLowerCase()+'<br />'+curfor.date.day+'/'+curfor.date.month+'</div>';
+						html = '<div class="day">' + date.format('dddd') + '<br />' + date.format(settings['shortdate']) + '</div>';
 						if(settings['static_weathericons']==1) html += '<div class="icon"><i class="wi '+wiclass+'"></i></div>';
 						else html += getSkycon(curfor.icon,'skycon');
 						html += '<div class="temp"><span class="dayT">'+hightemp+_TEMP_SYMBOL+'</span><span class="nightT">'+lowtemp+_TEMP_SYMBOL+'</span></div>';

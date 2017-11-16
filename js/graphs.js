@@ -216,24 +216,17 @@ function showGraph(idx,title,label,range,current,forced,sensor,popup){
                 var ykeys = ['ykey'];
                 var lineColors = [graphColor, graphColor2, graphColor2];
                 var count=0;
-                for(r in data.result){
+                for (r in data.result) {
+                    var currentdate = moment(data.result[r].d, 'YYYY-MM-DD HH:mm').locale(settings['calendarlanguage']);
+                    var isLater = currentdate.isAfter(moment().subtract(4, 'hours'));
 
-                    var currentdate = data.result[r].d;
-                    var currentstamp = strtotime(currentdate);
-                    var currenttimeLessFour = Math.round((new Date().getTime()) / 1000)-(3600*4);
-
-                    if(range=='month' || range=='year'){
-                        currentdate = currentdate.split('-');
-                        currentdate = currentdate[2]+'/'+currentdate[1];
-                    }
-                    else {
-                        currentdate = currentdate.split(' ');
-                        currentdate = currentdate[1];
-
-                        hourmin = currentdate.split(':');
+                    if(range === 'month' || range === 'year'){
+                        currentdate = currentdate.format(settings['shortdate']);
+                    } else {
+                        currentdate = currentdate.format(settings['shorttime']);
                     }
 
-                    if(range!=='last' || (range=='last' && currentstamp>currenttimeLessFour))
+                    if (range!=='last' || (range=='last' && isLater))
                     {
                         if(typeof(data.result[r]['uvi'])!=='undefined'){
                             data_com[count] = {
