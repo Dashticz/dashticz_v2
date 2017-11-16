@@ -22,6 +22,7 @@ var alldevices={}
 var myswiper;
 var addedThermostat = [];
 var oldstates = [];
+var onOffstates = [];
 var gettingDevices = false;
 var md;
 var _GRAPHS_LOADED = {};
@@ -420,6 +421,15 @@ function setClassByTime(){
 	$('body').removeClass('morning noon afternoon night').addClass(newClass);
 }
 
+function speak(textToSpeak) {
+	var newUtterance = new SpeechSynthesisUtterance();
+	/* var voices = window.speechSynthesis.getVoices(); */
+	newUtterance.text = textToSpeak;
+	/* newUtterance.voice = voices.filter(function(voice) { return voice.name == 'Google UK English Male'; })[0]; */
+	newUtterance.lang = 'en-US'; // change to your langage if its supported
+	window.speechSynthesis.speak(newUtterance);
+}
+
 function playAudio(file){
 	var key = $.md5(file);
 	file = file.split('/');
@@ -444,10 +454,29 @@ function playAudio(file){
 }
 
 function triggerStatus(idx,value,device){
-	try {
-		eval('getStatus_'+idx+'(idx,value,device)');
+	if(typeof(onOffstates[idx])!=='undefined' && value!==onOffstates[idx]){
+		try {
+			eval('getStatus_'+idx+'(idx,value,device)');
+		}
+		catch(err) {}
+		if(device['Status']=='On'|| device['Status']=='Open'){
+			if(typeof(blocks[idx])!=='undefined' && typeof(blocks[idx]['playsoundOn'])!=='undefined'){
+				playAudio(blocks[idx]['playsoundOn']);
+			}
+			if(typeof(blocks[idx])!=='undefined' && typeof(blocks[idx]['speakOn'])!=='undefined'){
+				speak(blocks[idx]['speakOn']);
+			}
+		}
+		if(device['Status']=='Off'|| device['Status']=='Closed'){
+			if(typeof(blocks[idx])!=='undefined' && typeof(blocks[idx]['playsoundOff'])!=='undefined'){
+				playAudio(blocks[idx]['playsoundOff']);
+			}
+			if(typeof(blocks[idx])!=='undefined' && typeof(blocks[idx]['speakOff'])!=='undefined'){
+				speak(blocks[idx]['speakOff']);
+			}
+		}
 	}
-	catch(err) {}
+	onOffstates[idx] = value;
 }
 
 function triggerChange(idx,value,device){
@@ -461,6 +490,9 @@ function triggerChange(idx,value,device){
 		if(typeof(blocks[idx])!=='undefined' && typeof(blocks[idx]['playsound'])!=='undefined'){
 			playAudio(blocks[idx]['playsound']);
 		}
+		if(typeof(blocks[idx])!=='undefined' && typeof(blocks[idx]['speak'])!=='undefined'){
+				speak(blocks[idx]['speak']);
+			}
 		if(typeof(blocks[idx])!=='undefined' && typeof(blocks[idx]['gotoslide'])!=='undefined'){
 			toSlide((blocks[idx]['gotoslide']-1));
 		}
