@@ -10,6 +10,11 @@ function getGraphs(device,popup){
 			txtUnit = 'mm';
 			decimals = 1;
 			break;
+        case 'Lux':
+            sensor = 'counter';
+            txtUnit = 'Lux';
+            decimals = 0;
+            break;
 		case 'Wind':
 			sensor = 'wind';
 			if (config['use_beaufort']) {
@@ -59,7 +64,9 @@ function getGraphs(device,popup){
             txtUnit = "km";
             break;
         case 'Radiation':
+        case 'Solar Radiation':
             txtUnit = "Watt/m2";
+            decimals = 0;
             break;
         case 'Pressure':
             txtUnit = "Bar";
@@ -240,6 +247,16 @@ function showGraph(idx,title,label,range,current,forced,sensor,popup){
                                 ykey: data.result[r]['lux']
                             };
                             labels = ['Lux'];
+                        }
+                        else if(typeof(data.result[r]['lux_avg']) !== 'undefined'){
+                            data_com[count] = {
+                                xkey: currentdate,
+                                ykey: data.result[r]['lux_avg'],
+                                ykey2: data.result[r]['lux_min'],
+                                ykey3: data.result[r]['lux_max'],
+                            };
+                            labels = ['Lux average', 'Minimum', 'Maximum'];
+                            ykeys = ['ykey', 'ykey2', 'ykey3'];
                         }
                         else if(typeof(data.result[r]['gu'])!=='undefined' && typeof(data.result[r]['sp'])!=='undefined'){
                             data_com[count] = {
