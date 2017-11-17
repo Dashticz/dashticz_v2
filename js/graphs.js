@@ -53,8 +53,6 @@ function getGraphs(device,popup){
             txtUnit = "m3";
             break;
         case 'Energy':
-            txtUnit = "kWh";
-            break;
         case 'kWh':
         case 'YouLess counter':
             txtUnit = "kWh";
@@ -311,6 +309,9 @@ function showGraph(idx,title,label,range,current,forced,sensor,popup){
                                 xkey: currentdate,
                                 ykey: parseFloat(data.result[r]['v2'])+parseFloat(data.result[r]['v'])
                             };
+                            if (label === 'kWh' && realrange === 'day') {
+                                labels = ['Watt'];
+                            }
                         }
                         else if(typeof(data.result[r]['v'])!=='undefined'){
                             if (data.method === 1) {
@@ -320,8 +321,8 @@ function showGraph(idx,title,label,range,current,forced,sensor,popup){
                                 xkey: currentdate,
                                 ykey: data.result[r]['v']
                             };
-                            if (label === 'kWh' && typeof(data.result[r]['c']) === 'undefined') {
-                                labels = ['Wh'];
+                            if (label === 'kWh' && realrange === 'day') {
+                                labels = ['Watt'];
                             }
                         }
                         else if(typeof(data.result[r]['eu'])!=='undefined'){
