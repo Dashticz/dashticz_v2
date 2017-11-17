@@ -451,12 +451,12 @@ function playAudio(file){
 	}
 }
 
-function triggerStatus(idx,value,device){
-	if(typeof(onOffstates[idx])!=='undefined' && value!==onOffstates[idx]){
+function triggerStatus(idx,value,device){	
 		try {
 			eval('getStatus_'+idx+'(idx,value,device)');
 		}
 		catch(err) {}
+	if(typeof(onOffstates[idx])!=='undefined' && value!==onOffstates[idx]){
 		if(device['Status']=='On'|| device['Status']=='Open'){
 			if(typeof(blocks[idx])!=='undefined' && typeof(blocks[idx]['playsoundOn'])!=='undefined'){
 				playAudio(blocks[idx]['playsoundOn']);
