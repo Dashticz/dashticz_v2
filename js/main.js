@@ -464,6 +464,9 @@ function triggerStatus(idx,value,device){
 			if(typeof(blocks[idx])!=='undefined' && typeof(blocks[idx]['speakOn'])!=='undefined'){
 				speak(blocks[idx]['speakOn']);
 			}
+			if(typeof(blocks[idx])!=='undefined' && typeof(blocks[idx]['gotoslide'])!=='undefined'){
+			toSlide((blocks[idx]['gotoslideOn']-1));
+			}
 		}
 		if(device['Status']=='Off'|| device['Status']=='Closed'){
 			if(typeof(blocks[idx])!=='undefined' && typeof(blocks[idx]['playsoundOff'])!=='undefined'){
@@ -472,6 +475,9 @@ function triggerStatus(idx,value,device){
 			if(typeof(blocks[idx])!=='undefined' && typeof(blocks[idx]['speakOff'])!=='undefined'){
 				speak(blocks[idx]['speakOff']);
 			}
+			if(typeof(blocks[idx])!=='undefined' && typeof(blocks[idx]['gotoslide'])!=='undefined'){
+			toSlide((blocks[idx]['gotoslideOff']-1));
+		}
 		}
 	}
 	onOffstates[idx] = value;
