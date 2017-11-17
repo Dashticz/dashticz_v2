@@ -769,23 +769,39 @@ p {
 	padding-top: 6px !important;
 }
 
-.transbg.col-xs-1.hover:hover,
-.transbg.col-xs-2.hover:hover,
-.transbg.col-xs-3.hover:hover,
-.transbg.col-xs-4.hover:hover,
-.transbg.col-xs-5.hover:hover,
-.transbg.col-xs-6.hover:hover,
-.transbg.col-xs-7.hover:hover,
-.transbg.col-xs-8.hover:hover,
-.transbg.col-xs-9.hover:hover,
-.transbg.col-xs-10.hover:hover,
-.transbg.col-xs-11.hover:hover,
-.transbg.col-xs-12.hover:hover {
-    background: rgba(255,255,255,0.1);
-    background-clip: padding-box;
+/*
+Only add this hover on NON touch devices
+*/
+@media (hover: hover) {
+	
+	.transbg.col-xs-1.hover:hover,
+	.transbg.col-xs-2.hover:hover,
+	.transbg.col-xs-3.hover:hover,
+	.transbg.col-xs-4.hover:hover,
+	.transbg.col-xs-5.hover:hover,
+	.transbg.col-xs-6.hover:hover,
+	.transbg.col-xs-7.hover:hover,
+	.transbg.col-xs-8.hover:hover,
+	.transbg.col-xs-9.hover:hover,
+	.transbg.col-xs-10.hover:hover,
+	.transbg.col-xs-11.hover:hover,
+	.transbg.col-xs-12.hover:hover {
+		background: rgba(255,255,255,0.1);
+		background-clip: padding-box;
+		border: 7px solid rgba(255,255,255,0);
+	}
+}
+
+.transbg.hover {
+	cursor:pointer;
+}
+.transbg.hover.hovered {
+	background: rgba(255,255,255,0.1);
+	background-clip: padding-box;
 	border: 7px solid rgba(255,255,255,0);
 	cursor:pointer;
 }
+
 .iconslider {
 	cursor:pointer;
 }

@@ -129,7 +129,7 @@ function onLoad(){
 		$('.date').html(moment().locale(settings['language']).format(settings['longdate']));
 		$('.weekday').html(moment().locale(settings['language']).format(settings['weekday']));
 	}, 1000);
-
+	
 	getDevices(); 	
 
 	setClassByTime();
@@ -1847,6 +1847,13 @@ function getDevices(override){
 							}
 							if(addHTML){
 								$('div.block_'+idx).html(html);
+							}
+							
+							if($('div.block_'+idx).hasClass('hover')){
+								$('.block_'+idx+'.transbg.hover').on('touchstart',function(){
+									$(this).addClass('hovered');
+									setTimeout(function(){ $('.transbg.hover').removeClass('hovered'); },200);
+								});
 							}
 						}
 					}
