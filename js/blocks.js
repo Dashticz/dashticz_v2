@@ -394,17 +394,17 @@ function getStatusBlock(idx,device,block,c){
         });
     }
 
-	for(d of elements) {
-	    deviceValue = device[d];
+	for(d in elements) {
+	    deviceValue = device[elements[d]];
 	    if (block.hasOwnProperty('format') && block.format) {
 	        unit = '';
-	        if (isNaN(device[d])) {
-	            unit = ' ' + device[d].split(' ')[1];
+	        if (isNaN(device[elements[d]])) {
+	            unit = ' ' + device[elements[d]].split(' ')[1];
             }
             deviceValue = number_format(deviceValue, block.decimals) + unit;
         }
-		value = value.replace('<'+d+'>', deviceValue);
-		title = title.replace('<'+d+'>', device[d]);
+		value = value.replace('<' + elements[d] + '>', deviceValue);
+		title = title.replace('<' + elements[d] + '>', device[elements[d]]);
 	}
 	
 	if(typeof(blocks[idx])!=='undefined' && typeof(blocks[idx]['unit'])!=='undefined'){
