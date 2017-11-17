@@ -48,24 +48,13 @@ function loadWeatherFull(location,country) {
 				else {
 					curfull.find(".weatherfull .col-xs-3").html('');
 
-					var day;
 					var start=0;
 					if(parseFloat(moment().locale('nl').format('H'))>15){
 						start=1;
 					}
 					for(var i=start;i<(start+4);i++) {
 						curfor = currentforecast.forecast.simpleforecast.forecastday[i];
-						day = curfor.date.weekday_short;
-
-						switch(day) {
-							case 'Mon': dayNL = language.weekdays.monday; break;
-							case 'Tue': dayNL = language.weekdays.tuesday; break;
-							case 'Wed': dayNL = language.weekdays.wednesday; break;
-							case 'Thu': dayNL = language.weekdays.thursday; break;
-							case 'Fri': dayNL = language.weekdays.friday; break;
-							case 'Sat': dayNL = language.weekdays.saturday; break;
-							case 'Sun': dayNL = language.weekdays.sunday; break;
-						}
+						var date = moment.unix(curfor.date.epoch).locale(settings['calendarlanguage']);
 
 						var wiclass = getIcon(curfor.icon);
 						var lowtemp = curfor.low.celsius
@@ -75,7 +64,7 @@ function loadWeatherFull(location,country) {
 							var hightemp = curfor.high.fahrenheit;
 						} 
 
-						html = '<div class="day">'+dayNL.toLowerCase()+'<br />'+curfor.date.day+'/'+curfor.date.month+'</div>';
+						html = '<div class="day">' + date.format(settings['weekday']) + '<br />' + date.format(settings['shortdate']) + '</div>';
 						if(settings['static_weathericons']==1) html += '<div class="icon"><i class="wi '+wiclass+'"></i></div>';
 						else html += getSkycon(curfor.icon,'skycon');
 						html += '<div class="temp"><span class="dayT">'+hightemp+_TEMP_SYMBOL+'</span><span class="nightT">'+lowtemp+_TEMP_SYMBOL+'</span></div>';
@@ -92,29 +81,34 @@ function loadWeatherFull(location,country) {
 	}
 }
 
-function getSkycon(code,classname){
-	var random = getRandomInt(1,100000);
+function getSkycon(code, classname) {
+	var random = getRandomInt(1, 100000);
 	
-	var icon="PARTLY_CLOUDY_DAY";
-	if(code=='chanceflurries') 	icon="WIND";
-	if(code=='chancerain') 		icon="RAIN";
-	if(code=='chancesleet') 	icon="SLEET";
-	if(code=='chancesnow') 		icon="SNOW";
-	if(code=='chancetstorms') 	icon="WIND";
-	if(code=='clear') 			icon="CLEAR_DAY";
-	if(code=='cloudy') 			icon="CLOUDY";
-	if(code=='flurries') 		icon="WIND";
-	if(code=='fog') 			icon="FOG";
-	if(code=='hazy') 			icon="PARTLY_CLOUDY_DAY";
-	if(code=='mostlycloudy') 	icon="CLOUDY";
-	if(code=='mostlysunny') 	icon="CLEAR_DAY";
-	if(code=='partlycloudy') 	icon="PARTLY_CLOUDY_DAY";
-	if(code=='partlysunny') 	icon="PARTLY_CLOUDY_DAY";
-	if(code=='sleet') 			icon="SLEET";
-	if(code=='rain') 			icon="RAIN";
-	if(code=='snow') 			icon="SNOW";
-	if(code=='sunny') 			icon="CLEAR_DAY";
-	if(code=='tstorms') 		icon="WIND";
+	var icon = "PARTLY_CLOUDY_DAY";
+	var icons = {
+        chanceflurries: "WIND",
+        chancerain: "RAIN",
+		chancesleet: "SLEET",
+		chancesnow: "SNOW",
+		chancetstorms: "WIND",
+		clear: "CLEAR_DAY",
+		cloudy: "CLOUDY",
+		flurries: "WIND",
+		fog: "FOG",
+		hazy: "PARTLY_CLOUDY_DAY",
+		mostlycloudy: "CLOUDY",
+		mostlysunny: "CLEAR_DAY",
+		partlycloudy: "PARTLY_CLOUDY_DAY",
+		partlysunny: "PARTLY_CLOUDY_DAY",
+		sleet: "SLEET",
+		rain: "RAIN",
+		snow: "SNOW",
+		sunny: "CLEAR_DAY",
+		tstorms: "WIND",
+	};
+	if (icons.hasOwnProperty(code)) {
+		icon = icons[code];
+	}
 
 	var skycon ='<script>';
 	skycon+='var skycons = new Skycons({"color": "white"});';
@@ -125,24 +119,33 @@ function getSkycon(code,classname){
 	return skycon;
 }
 
-function getIcon(code){
+function getIcon(code) {
 	var wiclass='wi-cloudy';
+
+	var icons = {
+		clear: "wi-day-sunny",
+		rain: "wi-rain",
+		chancerain: "wi-rain",
+		cloudy: "wi-cloudy",
+		partlycloudy: "wi-cloudy",
+		tstorms: "wi-thunderstorm",
+		snow: "wi-snow",
+
+	};
+    if (icons.hasOwnProperty(code)) {
+        wiclass = icons[code];
+    }
 	
-	if(code=='clear') 	wiclass="wi-day-sunny";
-	if(code=='') 		wiclass="wi-day-cloudy";
-	if(code=='') 		wiclass="wi-day-thunderstorm";
-	if(code=='rain' || code=='chancerain') 	wiclass="wi-rain";
-	if(code=='') 		wiclass="wi-rain-mix";
-	if(code=='') 		wiclass="wi-showers";
-	if(code=='cloudy' || code=='partlycloudy') 	wiclass="wi-cloudy";
-	if(code=='') 		wiclass="wi-night-cloudy";
-	if(code=='') 		wiclass="wi-night-clear";
-	if(code=='') 		wiclass="wi-cloudy-gusts";
-	if(code=='') 		wiclass="wi-tornado";
-	if(code=='') 		wiclass="wi-storm-showers";
-	if(code=='tstorms') wiclass="wi-thunderstorm";
-	if(code=='snow') 	wiclass="wi-snow";
-	if(code=='') 		wiclass="wi-hail";
-	if(code=='') 		wiclass="wi-fog";
+	// if(code=='') 		wiclass="wi-day-cloudy";
+	// if(code=='') 		wiclass="wi-day-thunderstorm";
+	// if(code=='') 		wiclass="wi-rain-mix";
+	// if(code=='') 		wiclass="wi-showers";
+	// if(code=='') 		wiclass="wi-night-cloudy";
+	// if(code=='') 		wiclass="wi-night-clear";
+	// if(code=='') 		wiclass="wi-cloudy-gusts";
+	// if(code=='') 		wiclass="wi-tornado";
+	// if(code=='') 		wiclass="wi-storm-showers";
+	// if(code=='') 		wiclass="wi-hail";
+	// if(code=='') 		wiclass="wi-fog";
 	return wiclass;
 }

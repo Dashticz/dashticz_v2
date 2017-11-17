@@ -124,13 +124,11 @@ function onLoad(){
 
 	buildScreens();
 
-	setInterval(function(){ 
-		if(settings['hide_seconds']==true) $('.clock').html(moment().locale(settings['language']).format('HH:mm'));
-		else $('.clock').html(moment().locale(settings['language']).format('HH:mm:ss'));
-		if(settings['language']=='zh_CN') $('.date').html(moment().format('YYYY年MM月D日'));
-		else $('.date').html(moment().locale(settings['language']).format('D MMMM YYYY'));
-		$('.weekday').html(moment().locale(settings['language']).format('dddd'));
-	},1000);
+	setInterval(function() {
+        $('.clock').html(moment().locale(settings['language']).format(settings['hide_seconds'] ? settings['shorttime'] : settings['longtime']));
+		$('.date').html(moment().locale(settings['language']).format(settings['longdate']));
+		$('.weekday').html(moment().locale(settings['language']).format(settings['weekday']));
+	}, 1000);
 
 	getDevices(); 	
 
