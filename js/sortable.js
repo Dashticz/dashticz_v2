@@ -69,7 +69,7 @@ function saveBlocks(){
 				if(cols.length>0) conf+=cols.substr(0,(cols.length-2));
 				conf+="];";
 
-				if(typeof(columns[curcol.data('colindex')]['width'])!=='undefined'){
+				if(typeof(columns[curcol.data('colindex')])!=='undefined' && typeof(columns[curcol.data('colindex')]['width'])!=='undefined'){
 					conf+= "\ncolumns["+curcol.data('colindex')+"]['width'] = "+columns[curcol.data('colindex')]['width']+";";
 				}
 				conf+="\n\n";
