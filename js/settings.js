@@ -347,7 +347,7 @@ settingList['about']['about_text'] = {}
 settingList['about']['about_text']['title'] = 'Dashticz V2.0 by Rob Geerts';
 
 settingList['about']['about_text2'] = {}
-settingList['about']['about_text2']['title'] = 'Years after developing the old and original Dashticz, I decided to start over.<br><br>For more help visit: <a href="http://www.domoticz.com/wiki/Dashticz_V2" target="_blank">http://www.domoticz.com/wiki/Dashticz_V2</a><br>You can also check out our helpful <a href="https://www.domoticz.com/forum/viewtopic.php?f=8&t=16526" target="_blank">community</a> in Dashticz topic on the Domoticz forum.';
+settingList['about']['about_text2']['title'] = 'Years after developing the old and original Dashticz, I decided to start over.<br><br>For more help visit: <a href="http://www.domoticz.com/wiki/Dashticz_V2" target="_blank">http://www.domoticz.com/wiki/Dashticz_V2</a><br>You can also check out our helpful <a href="https://www.domoticz.com/forum/viewforum.php?f=67" target="_blank">community</a> in Dashticz topic on the Domoticz forum.';
 
 settingList['about']['about_text3'] = {}
 settingList['about']['about_text3']['title'] = 'Do you appreciate my work and want to buy me a beer? You can send me Bitcoins (17Qy4bsLM9J238fCZt5kaRc2bD5S1Aw6og) or donate via PayPal: <a href="https://www.paypal.me/robgeerts" target="_blank">https://www.paypal.me/robgeerts</a>'
@@ -368,7 +368,7 @@ if(typeof(config)!=='undefined'){
 }
 
 if(typeof(settings['language'])=='undefined') settings['language'] = 'en_US';
-if(typeof(settings['speak_lang'])=='undefined') settings['language'] = 'en-US';
+if(typeof(settings['speak_lang'])=='undefined') settings['speak_lang'] = 'en-US';
 if(typeof(settings['timeformat'])=='undefined') settings['timeformat'] = 'DD-MM-YY HH:mm';
 if(typeof(settings['calendarformat'])=='undefined') settings['calendarformat'] = 'dd DD.MM HH:mm';
 if(typeof(settings['calendarlanguage'])=='undefined') settings['calendarlanguage'] = 'en_US';
