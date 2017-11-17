@@ -1,10 +1,11 @@
-/*
+
 var config = {}
 config['domoticz_ip'] = 'http://192.168.1.3:8084';
 config['app_title'] = 'Dashticz';
 config['domoticz_refresh'] = '5';
 config['dashticz_refresh'] = '60';
 
+/*  REMOVE THIS LINE, INCLUDING THIS TEXT IF YOU WANT TO USE THE CODE BELOW, ALS REMOVE THE LAST LINE OF THIS FILE ( the asterisk * with the slash)
 var trashnames = {}
 trashnames['Gft'] = 'GFT';
 trashnames['Pmd'] = 'Plastic';
