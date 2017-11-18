@@ -66,6 +66,7 @@
             "hide_off_button": "Ukryj opcję wyłączania w przełącznikach wyboru",
             "last_update": "Pokaż godzinę\/datę ostatniej aktualizacji",
             "news_scroll_after": "Przewiń wiadomości po (sekund)",
+            "no_rgb": "Do not use colorpicker for RGB devices.",
             "selector_instead_of_buttons": "Lista wyboru zamiast przycisków",
             "title": "Ogólne",
             "use_favorites": "Tylko Ulubione urządzenia",

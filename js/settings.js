@@ -10,11 +10,9 @@ settingList['general']['app_title'] = {}
 settingList['general']['app_title']['title'] = language.settings.general.app_title;
 settingList['general']['app_title']['type'] = 'text';
 
-/*
-settingList['general']['selector_instead_of_buttons'] = {}
-settingList['general']['selector_instead_of_buttons']['title'] = language.settings.general.selector_instead_of_buttons;
-settingList['general']['selector_instead_of_buttons']['type'] = 'checkbox';
-*/
+settingList['general']['no_rgb'] = {}
+settingList['general']['no_rgb']['title'] = language.settings.general.no_rgb;
+settingList['general']['no_rgb']['type'] = 'checkbox';
 
 settingList['general']['auto_positioning'] = {}
 settingList['general']['auto_positioning']['title'] = language.settings.general.auto_positioning;

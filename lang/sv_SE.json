@@ -66,6 +66,7 @@
             "hide_off_button": "Dölj av-knappen på väljaromkopplare",
             "last_update": "Visa sista enhets updatering tid\/datum",
             "news_scroll_after": "Skrolla nyheter efter (sekunder)",
+            "no_rgb": "Do not use colorpicker for RGB devices.",
             "selector_instead_of_buttons": "Väljare istället för knappar",
             "title": "Allmän",
             "use_favorites": "Använd bara dina favorit enheter",

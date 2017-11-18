@@ -66,6 +66,7 @@
             "hide_off_button": "Hide off button at Selector Switches",
             "last_update": "Show last update time\/date",
             "news_scroll_after": "Scroll news after (seconds)",
+            "no_rgb": "Do not use colorpicker for RGB devices.",
             "selector_instead_of_buttons": "Selector instead of buttons",
             "title": "通常",
             "use_favorites": "Only use favorite devices",

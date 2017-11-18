@@ -66,6 +66,7 @@
             "hide_off_button": "Ocultar botón de apagado en Interruptores de selección",
             "last_update": "Mostrar fecha \/ hora de la última actualización",
             "news_scroll_after": "Scroll de noticias después de (segundos)",
+            "no_rgb": "Do not use colorpicker for RGB devices.",
             "selector_instead_of_buttons": "Selector en lugar de botones",
             "title": "General",
             "use_favorites": "Sólo utilice dispositivos favoritos",

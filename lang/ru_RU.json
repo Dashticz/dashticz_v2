@@ -66,6 +66,7 @@
             "hide_off_button": "Скрыть кнопку выключения в выпадающем списке",
             "last_update": "Показать время\/дату последнего обновления",
             "news_scroll_after": "Прокручивать новости через (секунд)",
+            "no_rgb": "Do not use colorpicker for RGB devices.",
             "selector_instead_of_buttons": "Выпадающий список вместо кнопок",
             "title": "Общие",
             "use_favorites": "Использовать только избранные устройства",

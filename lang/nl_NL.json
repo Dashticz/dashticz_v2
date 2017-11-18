@@ -66,6 +66,7 @@
             "hide_off_button": "Verberg UIT-knop bij Selector Switches",
             "last_update": "Geef laatste update datum weer",
             "news_scroll_after": "Volgende nieuwsbericht na (seconden)",
+            "no_rgb": "Gebruik geen colorpicker voor RGB-apparaten.",
             "selector_instead_of_buttons": "Dropdown i.p.v. buttons",
             "title": "Algemeen",
             "use_favorites": "Gebruik alleen favoriete schakelaars",

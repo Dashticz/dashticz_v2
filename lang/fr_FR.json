@@ -66,6 +66,7 @@
             "hide_off_button": "Masquer le bouton off sur les Commutateurs de sélection",
             "last_update": "Afficher la dernière heure \/ date de mise à jour",
             "news_scroll_after": "Faire défiler les nouvelles après (secondes)",
+            "no_rgb": "Do not use colorpicker for RGB devices.",
             "selector_instead_of_buttons": "Sélecteur au lieu des boutons",
             "title": "Général",
             "use_favorites": "Utilisez uniquement des périphériques favoris",

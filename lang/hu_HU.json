@@ -66,6 +66,7 @@
             "hide_off_button": "Elrejteni off gombot a Választó Kapcsolók",
             "last_update": "Az utolsó frissítési idő és dátum megjelenítése",
             "news_scroll_after": "Hírek görgetése ennyi idő után (másodperc)",
+            "no_rgb": "Do not use colorpicker for RGB devices.",
             "selector_instead_of_buttons": "Gomb helyett a választó (Selector)",
             "title": "Általános",
             "use_favorites": "Csak a kedvenc eszközök használata",

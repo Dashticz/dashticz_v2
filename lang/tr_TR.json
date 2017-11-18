@@ -66,6 +66,7 @@
             "hide_off_button": "Seçme Anahtarlarında Kapalı Düğmesini Gizle",
             "last_update": "Son güncelleme saat\/tarih göster",
             "news_scroll_after": "Haber geçiş süresi (saniye)",
+            "no_rgb": "Do not use colorpicker for RGB devices.",
             "selector_instead_of_buttons": "Düğme yerine seçme anahtarı kullan",
             "title": "Genel",
             "use_favorites": "Sadece favori cihazları kullan",

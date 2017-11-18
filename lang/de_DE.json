@@ -66,6 +66,7 @@
             "hide_off_button": "Schaltfläche ausschalten bei Wahlschalter",
             "last_update": "Zeitpunkt der letzten Aktualisierung anzeigen",
             "news_scroll_after": "News nach x Sekunden scrollen",
+            "no_rgb": "Do not use colorpicker for RGB devices.",
             "selector_instead_of_buttons": "Wählschalter statt Buttons",
             "title": "Allgemein",
             "use_favorites": "Nur favorisierte Geräte anzeigen",
