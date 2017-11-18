@@ -879,7 +879,53 @@ function getDevices(override){
 				gettingDevices = false;
 				if(!sliding || override){
 					$('.solar').remove();
-				
+					/*
+					data = `{
+   "ActTime" : 1511020792,
+   "ServerTime" : "2017-11-18 16:59:52",
+   "Sunrise" : "08:02",
+   "Sunset" : "16:43",
+   "result" : [
+      {
+         "AddjMulti" : 1.0,
+"AddjMulti2" : 1.0,
+"AddjValue" : 0.0,
+"AddjValue2" : 0.0,
+"BatteryLevel" : 255,
+"CustomImage" : 0,
+"Data" : "15.0",
+"Description" : "",
+"Favorite" : 0,
+"HardwareID" : 2,
+"HardwareName" : "RFXCOM",
+"HardwareType" : "RFXCOM - RFXtrx433 USB 433.92MHz Transceiver",
+"HardwareTypeVal" : 1,
+"HaveTimeout" : false,
+"ID" : "16E2000",
+"LastUpdate" : "2017-11-17 22:46:10",
+"Name" : "Radiator",
+"Notifications" : "false",
+"PlanID" : "10",
+"PlanIDs" : [ 10 ],
+"Protected" : false,
+"SetPoint" : "15.0",
+"ShowNotifications" : true,
+"SignalLevel" : "-",
+"SubType" : "Smartwares",
+"Timers" : "false",
+"Type" : "Radiator 1",
+"TypeImg" : "override_mini",
+"Unit" : 2,
+"Used" : 1,
+"XOffset" : "0",
+"YOffset" : "0",
+"idx" : "43"
+}
+   ],
+   "status" : "OK",
+   "title" : "Devices"
+}`
+					data = $.parseJSON(data);*/
 					if($('.sunrise').length>0) $('.sunrise').html(data.Sunrise);
 					if($('.sunset').length>0) $('.sunset').html(data.Sunset);
 										
@@ -1321,7 +1367,8 @@ function getDevices(override){
 									device['Type']=='Temp + Humidity + Baro' || 
 									device['Type']=='Temp + Humidity' || 
 									device['Type']=='Humidity' || 
-									device['Type']=='Heating'
+									device['Type']=='Heating' || 
+									device['Type']=='Radiator 1'
 								){
 
 									if($('div.block_'+idx).length>0){
@@ -1332,14 +1379,16 @@ function getDevices(override){
 									triggerChange(idx+'_1',device['LastUpdate'],device);
 							
 									var title=device['Name'];
+									var value=device['Data'];
+									if(typeof(device['Temp'])!=='undefined') value=device['Temp'];
 									if(typeof(blocks[idx+'_1'])!=='undefined' && typeof(blocks[idx+'_1']['title'])!=='undefined') title=blocks[idx+'_1']['title'];
 									var icon = 'fa-thermometer-half';
 									if(typeof(blocks[idx+'_1'])!=='undefined' && typeof(blocks[idx+'_1']['icon'])!=='undefined') icon=blocks[idx+'_1']['icon'];
 									
 									if(typeof(blocks[idx+'_1'])!=='undefined' && typeof(blocks[idx+'_1']['switch'])!=='undefined' && blocks[idx+'_1']['switch']==true){ 
-										html += getStateBlock(device['idx'] + '_1', icon, number_format(device['Temp'], 1) + _TEMP_SYMBOL, title, device);
+										html += getStateBlock(device['idx'] + '_1', icon, number_format(value, 1) + _TEMP_SYMBOL, title, device);
 									}  else {
-										html += getStateBlock(device['idx'] + '_1', icon, title, number_format(device['Temp'], 1) + _TEMP_SYMBOL, device);
+										html += getStateBlock(device['idx'] + '_1', icon, title, number_format(value, 1) + _TEMP_SYMBOL, device);
 									}
 									
 									if(!$('div.block_'+idx).hasClass('block_'+idx+'_1')) $('div.block_'+idx).addClass('block_'+idx+'_1');
