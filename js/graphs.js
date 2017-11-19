@@ -44,9 +44,13 @@ function getGraphs(device,popup){
 
     switch (device['SubType']) {
         case 'Percentage':
-        case 'Custom Sensor':
             sensor = 'Percentage';
             txtUnit = '%';
+            decimals = 1;
+            break;
+        case 'Custom Sensor':
+            sensor = 'Percentage';
+            txtUnit = device['SensorUnit'];
             decimals = 1;
             break;
         case 'Gas':
@@ -135,9 +139,7 @@ function getButtonGraphs(device){
 	}
 }
 
-function showGraph(idx,title,label,range,current,forced,sensor,popup){
-	graphColor = '#eee';
-	graphColor2 = '#eee';
+function showGraph(idx, title, label, range, current, forced, sensor, popup) {
 	if(typeof(popup)=='undefined') forced=false;
 	if(typeof(forced)=='undefined') forced=false;
 	
@@ -172,6 +174,10 @@ function showGraph(idx,title,label,range,current,forced,sensor,popup){
 			url: settings['domoticz_ip']+'/json.htm?type=graph&sensor='+sensor+'&idx='+idx+'&range='+realrange+'&time='+new Date().getTime()+'&jsoncallback=?',
 			type: 'GET',async: true,contentType: "application/json",dataType: 'jsonp',
 			success: function(data) {
+                if(data.status=="ERR") {
+                    alert('Could not load graph!');
+                    return;
+                }
 				var orgtitle = title;
 				title = '<h4>'+title;
 				if(typeof(current)!=='undefined' && current!=='undefined') title+=': <B class="graphcurrent'+idx+'">' + current + ' ' + label + '</B>';
@@ -199,10 +205,6 @@ function showGraph(idx,title,label,range,current,forced,sensor,popup){
 					html+='</div>';
 				html+='</div>';
 				
-				if(data.status=="ERR") {
-                    alert('Could not load graph!');
-                    return;
-                }
                 if($('#graph'+idx+'.graph').length>0){
                     $('#graph'+idx+'.graph').replaceWith(html);
                 }
@@ -212,7 +214,6 @@ function showGraph(idx,title,label,range,current,forced,sensor,popup){
                 var data_com=new Array();
                 var labels = [label];
                 var ykeys = ['ykey'];
-                var lineColors = [graphColor, graphColor2, graphColor2];
                 var count=0;
                 for (r in data.result) {
                     var currentdate = moment(data.result[r].d, 'YYYY-MM-DD HH:mm').locale(settings['calendarlanguage']);
@@ -367,7 +368,7 @@ function showGraph(idx,title,label,range,current,forced,sensor,popup){
                         xkey: ['xkey'],
                         ykeys: ykeys,
                         labels: labels,
-                        lineColors: lineColors,
+                        lineColors: settings['lineColors'],
                         pointFillColors: ['none'],
                         pointSize: 3,
                         hideHover: 'auto',
