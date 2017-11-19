@@ -413,6 +413,7 @@ if(typeof(settings['units']) === 'undefined') {
         }
     };
 }
+if(typeof(settings['lineColors']) === 'undefined') settings['lineColors'] = ['#eee', '#eee', '#eee'];
 
 var _TEMP_SYMBOL = '°C';
 if(settings['use_fahrenheit']==1) _TEMP_SYMBOL = '°F';
