@@ -41,8 +41,8 @@ blocktypes.Name['Regen verwacht'] = { icon: 'fa fa-tint', title: '<Data>', value
 blocktypes.Name['Regen Verwacht'] = { icon: 'fa fa-tint', title: '<Data>', value: '<Name>' }
 
 blocktypes.Name['Ping'] = { icon: 'fa fa-arrows-v', title: '<Name>', value: '<Data>' }
-blocktypes.Name['Upload'] = { icon: 'fa fa-upload', title: '<Name>', value: '<Data>' }
-blocktypes.Name['Download'] = { icon: 'fa fa-download', title: '<Name>', value: '<Data>' }
+blocktypes.Name['Upload'] = { icon: 'fa fa-upload', title: '<Name>', value: '<Data>', format: true, decimals: 3 }
+blocktypes.Name['Download'] = { icon: 'fa fa-download', title: '<Name>', value: '<Data>', format: true, decimals: 3 }
 
 blocktypes.Name['Maanfase'] = { icon: 'fa fa-moon-o', title: '<Data>', value: '<Name>' }
 blocktypes.Name['Moon phase'] = { icon: 'fa fa-moon-o', title: '<Data>', value: '<Name>' }

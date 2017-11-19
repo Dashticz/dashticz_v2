@@ -44,9 +44,13 @@ function getGraphs(device,popup){
 
     switch (device['SubType']) {
         case 'Percentage':
-        case 'Custom Sensor':
             sensor = 'Percentage';
             txtUnit = '%';
+            decimals = 1;
+            break;
+        case 'Custom Sensor':
+            sensor = 'Percentage';
+            txtUnit = device['SensorUnit'];
             decimals = 1;
             break;
         case 'Gas':
