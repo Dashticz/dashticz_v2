@@ -102,6 +102,7 @@
             "ru": "Russian",
             "sk": "Slovak",
             "sl": "Slovenian",
+            "speak_language": "Text to speech language",
             "sv": "Swedish",
             "timeformat": "Datetime format",
             "title": "本土化",

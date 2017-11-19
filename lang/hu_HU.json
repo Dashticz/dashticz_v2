@@ -102,6 +102,7 @@
             "ru": "Orosz",
             "sk": "Szlovák",
             "sl": "Szlovén",
+            "speak_language": "Text to speech language",
             "sv": "Svéd",
             "timeformat": "Datetime formátum",
             "title": "Lokalizálni",

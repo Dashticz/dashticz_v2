@@ -102,6 +102,7 @@
             "ru": "Rosyjski",
             "sk": "Słowacki",
             "sl": "Słoweński",
+            "speak_language": "Text to speech language",
             "sv": "Szwedzki",
             "timeformat": "Format daty i czasu",
             "title": "Lokalizacja",
