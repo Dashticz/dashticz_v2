@@ -1385,12 +1385,8 @@ function getDevices(override){
 									var icon = 'fa-thermometer-half';
 									if(typeof(blocks[idx+'_1'])!=='undefined' && typeof(blocks[idx+'_1']['icon'])!=='undefined') icon=blocks[idx+'_1']['icon'];
 									
-									if(typeof(blocks[idx+'_1'])!=='undefined' && typeof(blocks[idx+'_1']['switch'])!=='undefined' && blocks[idx+'_1']['switch']==true){ 
-										html += getStateBlock(device['idx'] + '_1', icon, number_format(value, 1) + _TEMP_SYMBOL, title, device);
-									}  else {
-										html += getStateBlock(device['idx'] + '_1', icon, title, number_format(value, 1) + _TEMP_SYMBOL, device);
-									}
-									
+									html += getStateBlock(device['idx'] + '_1', icon, title, number_format(value, 1) + _TEMP_SYMBOL, device);
+
 									if(!$('div.block_'+idx).hasClass('block_'+idx+'_1')) $('div.block_'+idx).addClass('block_'+idx+'_1');
 									$('div.block_'+idx+'_1').html(html);
 									addHTML=false;
