@@ -464,7 +464,7 @@ function triggerStatus(idx,value,device){
 			if(typeof(blocks[idx])!=='undefined' && typeof(blocks[idx]['speakOn'])!=='undefined'){
 				speak(blocks[idx]['speakOn']);
 			}
-			if(typeof(blocks[idx])!=='undefined' && typeof(blocks[idx]['gotoslide'])!=='undefined'){
+			if(typeof(blocks[idx])!=='undefined' && typeof(blocks[idx]['gotoslideOn'])!=='undefined'){
 			toSlide((blocks[idx]['gotoslideOn']-1));
 			}
 		}
@@ -475,7 +475,7 @@ function triggerStatus(idx,value,device){
 			if(typeof(blocks[idx])!=='undefined' && typeof(blocks[idx]['speakOff'])!=='undefined'){
 				speak(blocks[idx]['speakOff']);
 			}
-			if(typeof(blocks[idx])!=='undefined' && typeof(blocks[idx]['gotoslide'])!=='undefined'){
+			if(typeof(blocks[idx])!=='undefined' && typeof(blocks[idx]['gotoslideOff'])!=='undefined'){
 			toSlide((blocks[idx]['gotoslideOff']-1));
 		}
 		}
