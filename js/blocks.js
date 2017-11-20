@@ -123,11 +123,10 @@ function getBlock(cols,c,columndiv,standby){
 				$(columndiv).append('<div data-id="logo" class="logo col-xs-'+width+'">'+settings['app_title']+'</div>');
 			}
             else if (cols['blocks'][b] === 'settings') {
-                var icons = ["settings"];
+                var icons = ["settings", "fullscreen"];
                 if (typeof (settings['settings_icons']) !== 'undefined') {
                     icons = settings['settings_icons'];
                 }
-				else icons = ["settings", "fullscreen"];
                 var content = '<div class="col-xs-' + width + ' text-right" data-toggle="modal">';
                 for (i = 0; i < icons.length; i++) {
                     switch (icons[i]) {
