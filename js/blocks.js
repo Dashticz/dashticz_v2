@@ -70,318 +70,284 @@ function getBlock(cols, c, columndiv, standby) {
                     break;
             }
             if(typeof(blocks[cols['blocks'][b]])!=='undefined' && typeof(blocks[cols['blocks'][b]]['width'])!=='undefined') width = blocks[cols['blocks'][b]]['width'];
-            else if(typeof(cols['blocks'][b])!=='undefined' && typeof(cols['blocks'][b]['width'])!=='undefined') width = cols['blocks'][b]['width'];
 
-            switch (cols['blocks'][b]) {
-				case 'logo':
-                    $(columndiv).append('<div data-id="logo" class="logo col-xs-' + width + '">' + settings['app_title'] + '</div>');
-					continue;
-                case 'settings':
-                    var icons = ["settings", "fullscreen"];
-                    if (typeof (settings['settings_icons']) !== 'undefined') {
-                        icons = settings['settings_icons'];
-                    }
-                    var content = '<div class="col-xs-' + width + ' text-right" data-toggle="modal">';
-                    for (i = 0; i < icons.length; i++) {
-                        switch (icons[i]) {
-                            case 'settings':
-                                content += '<span class="settings settingsicon" data-id="settings" data-target="#settingspopup" data-toggle="modal"><em class="fa fa-cog"/></span>';
-                                break;
-
-                            case 'fullscreen':
-                                $.ajax({url: 'js/fullscreen.js', async: false, dataType: "script"});
-                                content += getFullScreenIcon();
-                                break;
-                        }
-                    }
-                    content += '</div>';
-                    $(columndiv).append(content);
-                    continue;
-				case 'flipclock':
-                    $('<link href="vendor/flipclock/flipclock.css?v='+cache+'" rel="stylesheet">').appendTo("head");
-                    $(columndiv).append('<div data-id="flipclock" class="transbg block_' + cols['blocks'][b] + ' col-xs-' + width + ' text-center"><div class="flipclock"></div></div>');
-                    if(typeof(FlipClock)!=='function') $.ajax({url: 'vendor/flipclock/flipclock.min.js', async: false, datatype: "script"});
-                    FlipClock($('.flipclock'), {
-                        clockFace: settings['shorttime'].match(/A/i) ? 'TwelveHourClock' : 'TwentyFourHourClock',
-                        showSeconds: !settings['hide_seconds']
-                    });
-                    continue;
-				case 'miniclock':
-                    $(columndiv).append('<div data-id="miniclock" class="miniclock col-xs-' + width + ' text-center">' +
-						'<span class="weekday"></span> <span class="date"></span> <span>&nbsp;&nbsp;&nbsp;&nbsp;</span> <span class="clock"></span>' +
-						'</div>');
-                    continue;
-				case 'clock':
-                    $(columndiv).append('<div data-id="clock" class="transbg block_' + cols['blocks'][b] + ' col-xs-' + width + ' text-center">' +
-						'<h1 class="clock"></h1><h4 class="weekday"></h4><h4 class="date"></h4>' +
-						'</div>');
-                    continue;
-				case 'weather':
-                    if(typeof(loadWeatherFull)!=='function'){
-                        $.ajax({url: 'js/weather.js', async: false,dataType: "script"});
-                    }
-                    $(columndiv).append('<div data-id="weather" class="block_'+cols['blocks'][b]+' containsweatherfull"></div>');
-                    if(settings['wu_api']!=="" && settings['wu_city']!=="") loadWeatherFull(settings['wu_city'],settings['wu_country'],$('.weatherfull'));
-					continue;
-				case 'currentweather':
-                    if(settings['wu_api']!=="" && settings['wu_city']!=="") {
-                        if (typeof(loadWeather) !== 'function') {
-                            $.ajax({url: 'js/weather.js', async: false, dataType: "script"});
-                        }
-                        $(columndiv).append('<div data-id="currentweather" class="mh transbg block_' + cols['blocks'][b] + ' col-xs-' + width + ' containsweather">' +
-                            '<div class="col-xs-4"><div class="weather" id="weather"></div></div>' +
-                            '<div class="col-xs-8"><strong class="title weatherdegrees" id="weatherdegrees"></strong><br /><span class="weatherloc" id="weatherloc"></span></div>' +
-                            '</div>');
-                        loadWeather(settings['wu_city'], settings['wu_country']);
-                    }
-                    continue;
-				case 'currentweather_big':
-                    if(settings['wu_api']!=="" && settings['wu_city']!==""){
-                        if(typeof(loadWeather)!=='function'){
-                            $.ajax({url: 'js/weather.js', async: false,dataType: "script"});
-                        }
-                        $(columndiv).append('<div data-id="currentweather_big" class="mh transbg big block_'+cols['blocks'][b]+' col-xs-'+width+' containsweather">' +
-							'<div class="col-xs-1"><div class="weather" id="weather"></div></div>' +
-							'<div class="col-xs-11"><span class="title weatherdegrees" id="weatherdegrees"></span> <span class="weatherloc" id="weatherloc"></span></div>' +
-							'</div>');
-
-                        loadWeather(settings['wu_city'],settings['wu_country']);
-                    }
-                    continue;
-				case 'spotify':
-                    if(typeof(getSpotify)!=='function') $.ajax({url: 'js/spotify.js', async: false,dataType: "script"});
-                    getSpotify(columndiv);
-					continue;
-				case 'nzbget':
-                    if(typeof(loadNZBGET)!=='function') $.ajax({url: 'js/nzbget.js', async: false,dataType: "script"});
-                    loadNZBGET(columndiv);
-					continue;
-				case 'train':
-                    if(typeof(getTrainInfo)!=='function') $.ajax({url: 'js/ns.js', async: false,dataType: "script"});
-                    $(columndiv).append('<div data-id="train" class="train"></div>');
-                    getTrainInfo();
-					continue;
-				case 'traffic':
-                    if(typeof(getTraffic)!=='function') $.ajax({url: 'js/traffic.js', async: false,dataType: "script"});
-                    $(columndiv).append('<div data-id="traffic" class="traffic"></div>');
-                    getTraffic();
-					continue;
-				case 'trafficmap':
-                    $(columndiv).append('<div data-id="trafficmap" class="mh transbg block_trafficmap col-xs-12"><div id="trafficm" class="trafficmap"></div></div>');
-                    continue;
-				case 'news':
-                    if(typeof(getNews)!=='function') $.ajax({url: 'js/news.js', async: false,dataType: "script"});
-                    $(columndiv).append('<div data-id="news" class="news"></div>');
-                    getNews('news',settings['default_news_url']);
-                    continue;
-				case 'log':
-                    if(typeof(getLog)!=='function') $.ajax({url: 'js/log.js', async: false,dataType: "script"});
-                    getLog(columndiv);
-                    continue;
-				case 'stationclock':
-                    $(columndiv).append('<div data-id="clock" class="transbg block_'+cols['blocks'][b]+' col-xs-'+width+' text-center"><canvas id="clock" width="150" height="150">Your browser is unfortunately not supported.</canvas></div>');
-                    if(typeof(StationClock)!=='function') $.ajax({url: 'vendor/stationclock.js', async: false,dataType: "script"});
-
-                    var clock = new StationClock("clock");
-                    clock.body = StationClock.RoundBody;
-                    clock.dial = StationClock.GermanStrokeDial;
-                    clock.hourHand = StationClock.PointedHourHand;
-                    clock.minuteHand = StationClock.PointedMinuteHand;
-                    if(settings['hide_seconds_stationclock']==true)  clock.secondHand = false;
-                    else {
-                        clock.secondHand = StationClock.HoleShapedSecondHand;
-                        if(typeof(settings['boss_stationclock'])=='undefined') clock.boss = StationClock.NoBoss;
-                        else if(settings['boss_stationclock']=='RedBoss') clock.boss = StationClock.RedBoss;
-                    }
-
-                    clock.minuteHandBehavoir = StationClock.BouncingMinuteHand;
-                    clock.secondHandBehavoir = StationClock.OverhastySecondHand;
-
-                    window.setInterval(function() { clock.draw() }, 50);
-                    continue;
-				case 'sunrise':
-					var classes = 'block_' + cols['blocks'][b] + ' col-xs-' + width + ' transbg text-center sunriseholder';
-                    if(c === 'bar') {
-                        classes = 'block_' + cols['blocks'][b] + ' col-xs-2 text-center sunriseholder';
-                    }
-					$(columndiv).append('<div data-id="sunrise" class="' + classes + '">' +
-						'<em class="wi wi-sunrise"></em><span class="sunrise"></span><em class="wi wi-sunset"></em><span class="sunset"></span>' +
-						'</div>');
-                    continue;
-				case 'horizon':
-                    var html ='<div data-id="horizon" class="containshorizon">';
-                    html+='<div class="col-xs-4 transbg hover text-center" onclick="ziggoRemote(\'E0x07\')">';
-                    html+='<em class="fa fa-chevron-left fa-small"></em>';
-                    html+='</div>';
-                    html+='<div class="col-xs-4 transbg hover text-center" onclick="ziggoRemote(\'E4x00\')">';
-                    html+='<em class="fa fa-pause fa-small"></em>';
-                    html+='</div>';
-                    html+='<div class="col-xs-4 transbg hover text-center" onclick="ziggoRemote(\'E0x06\')">';
-                    html+='<em class="fa fa-chevron-right fa-small"></em>';
-                    html+='</div>';
-                    html+='</div>';
-                    $(columndiv).append(html);
-					continue;
-				case 'icalendar':
-                    var random = getRandomInt(1,100000);
-                    var html ='<div class="col-xs-'+width+' transbg containsicalendar containsicalendar'+random+'">';
-                    html+='<div class="col-xs-2 col-icon">';
-                    html+='<em class="fa fa-calendar"></em>';
-                    html+='</div>';
-                    html+='<div class="col-xs-10 items">'+language.misc.loading+'</div>';
-                    html+='</div>';
-                    $(columndiv).append(html);
-                    addCalendar($('.containsicalendar'+random),settings['calendarurl']);
-					continue;
-				case 'streamplayer':
-                    var random = getRandomInt(1,100000);
-                    var html ='<div data-id="streamplayer" class="transbg containsstreamplayer' + random + '">';
-                    html+='<div class="col-xs-12 transbg smalltitle"><h3></h3></div>';
-                    html+='<audio class="audio1" preload="none"></audio>';
-                    html+='<div class="col-xs-4 transbg hover text-center btnPrev">';
-                    html+='<em class="fa fa-chevron-left fa-small"></em>';
-                    html+='</div>';
-                    html+='<div class="col-xs-4 transbg hover text-center playStream">';
-                    html+='<em class="fa fa-play fa-small stateicon"></em>';
-                    html+='</div>';
-                    html+='<div class="col-xs-4 transbg hover text-center btnNext">';
-                    html+='<em class="fa fa-chevron-right fa-small"></em>';
-                    html+='</div>';
-                    html+='</div>';
-                    $(columndiv).append(html);
-
-                    addStreamPlayer('.containsstreamplayer' + random);
-					continue;
-				case 'chromecast':
-                    $.ajax({url: 'js/chromecast.js', async: false,dataType: "script"});
-                    loadChromecast(columndiv);
-                    continue;
-				case 'garbage':
-                    if(typeof(loadGarbage)!=='function') $.ajax({url: 'js/garbage.js', async: false,dataType: "script"});
-                    $(columndiv).append(loadGarbage());
-                    getBlockClick('garbage');
-                    continue;
-				case 'sonarr':
-                    if(typeof(loadSonarr)!=='function') $.ajax({url: 'js/sonarr.js', async: false,dataType: "script"});
-                    $(columndiv).append(loadSonarr());
-                    getBlockClick('sonarr');
-                    continue;
-				case 'fullscreen':
-                    $(columndiv).append('<div data-id="fullscreen" class="col-xs-' + width + ' text-right">' + getFullScreenIcon() + '</div>');
-                    continue;
-            }
 			var blocktype='';
-			if(typeof(blocks[cols['blocks'][b]])!=='undefined' && typeof(blocks[cols['blocks'][b]]['type'])!=='undefined') {
+			if (typeof(blocks[cols['blocks'][b]]) !== 'undefined' && typeof(blocks[cols['blocks'][b]]['type']) !== 'undefined') {
 				blocktype = blocks[cols['blocks'][b]]['type'];
-                if(blocktype=='blocktitle'){
-                    $(columndiv).append('<div data-id="'+cols['blocks'][b]+'" class="col-xs-'+width+' mh titlegroups transbg"><h3>'+blocks[cols['blocks'][b]]['title']+'</h3></div>');
+                if (blocktype === 'blocktitle') {
+                    $(columndiv).append('<div data-id="' + cols['blocks'][b] + '" class="col-xs-'+width+' mh titlegroups transbg">' +
+                        '<h3>' + blocks[cols['blocks'][b]]['title'] + '</h3>' +
+                        '</div>');
                     continue;
                 }
 			}
 
 			switch (typeof(cols['blocks'][b])) {
 				case 'object':
-                    var random = getRandomInt(1,100000);
-					if (cols['blocks'][b].hasOwnProperty('latitude')) {
-                        $(columndiv).append(loadMaps(random,cols['blocks'][b]));
-                        continue;
-					} else if (cols['blocks'][b].hasOwnProperty('isimage')) {
-                        $(columndiv).append(loadImage(random,cols['blocks'][b]));
-                        continue;
-					}
-                    var key = 'UNKNOWN';
-                    if (cols['blocks'][b].hasOwnProperty('key')) key = cols['blocks'][b]['key'];
-
-                    if (cols['blocks'][b].hasOwnProperty('frameurl')) {
-                    	$(columndiv).append(loadFrame(random,cols['blocks'][b]));
-                    	continue;
-                    } else if (cols['blocks'][b].hasOwnProperty('empty')) {
-                        $(columndiv).append('<div data-id="'+key+'" class="mh transbg col-xs-'+width+'">');
-                    } else if (cols['blocks'][b].hasOwnProperty('station')) {
-                        if(typeof(loadPublicTransport)!=='function') $.ajax({url: 'js/publictransport.js', async: false,dataType: "script"});
-                        $(columndiv).append(loadPublicTransport(random,cols['blocks'][b],key));
-                    } else if (cols['blocks'][b].hasOwnProperty('currency')) {
-                        if(typeof(getCoin)!=='function') $.ajax({url: 'js/coins.js', async: false,dataType: "script"});
-                        var html='<div class="col-xs-'+width+' transbg coins-'+cols['blocks'][b]['key']+'" data-id="coins.'+cols['blocks'][b]['key']+'"></div>';
-                        $(columndiv).append(html);
-                        getCoin(cols['blocks'][b]);
-
-                    } else if (cols['blocks'][b].hasOwnProperty('channels')) {
-                        if(typeof(addTVGuide)!=='function') $.ajax({url: 'js/tvguide.js', async: false,dataType: "script"});
-
-                        var html ='';
-                        if(cols['blocks'][b].hasOwnProperty('title')) html+='<div class="col-xs-'+width+' mh titlegroups transbg"><h3>'+cols['blocks'][b]['title']+'</h3></div>';
-
-                        html+='<div data-id="tvguide.'+key+'" class="col-xs-'+width+' block_tvguide transbg containstvguide containstvguide'+random+'">';
-                        if(cols['blocks'][b].hasOwnProperty('icon') && cols['blocks'][b]['icon']!==''){
-                            html+='<div class="col-xs-2 col-icon">';
-                            html+='<em class="fa '+cols['blocks'][b]['icon']+'"></em>';
-                            html+='</div>';
-                            html+='<div class="col-xs-10 items">'+language.misc.loading+'</div>';
-                        }
-                        else if(cols['blocks'][b].hasOwnProperty('image') && cols['blocks'][b]['image']!==''){
-                            html+='<div class="col-xs-2 col-icon">';
-                            html+='<img src="img/'+cols['blocks'][b]['image']+'" class="icon calendar_icon" />';
-                            html+='</div>';
-                            html+='<div class="col-xs-10 items">'+language.misc.loading+'</div>';
-                        }
-                        else {
-                            html+='<div class="col-xs-12 items">'+language.misc.loading+'</div>';
-                        }
-
-                        html+='</div>';
-                        $(columndiv).append(html);
-                        addTVGuide($('.containstvguide'+random),cols['blocks'][b]);
-                        getBlockClick('tvguide');
-                    } else if(cols['blocks'][b].hasOwnProperty('icalurl')
-							|| cols['blocks'][b].hasOwnProperty('calendars')) {
-                        var html ='';
-                        if (cols['blocks'][b].hasOwnProperty('title')) {
-                            html += '<div class="col-xs-' + width + ' mh titlegroups transbg"><h3>' + cols['blocks'][b]['title'] + '</h3></div>';
-                        }
-
-                        html+='<div data-id="calendars.'+key+'" class="col-xs-'+width+' transbg containsicalendar containsicalendar'+random+'">';
-                        if(cols['blocks'][b].hasOwnProperty('icon') && cols['blocks'][b]['icon']!==''){
-                            html+='<div class="col-xs-2 col-icon">';
-                            html+='<em class="fa '+cols['blocks'][b]['icon']+'"></em>';
-                            html+='</div>';
-                            html+='<div class="col-xs-10 items">'+language.misc.loading+'</div>';
-                        }
-                        else if(cols['blocks'][b].hasOwnProperty('image') && cols['blocks'][b]['image']!==''){
-                            html+='<div class="col-xs-2 col-icon">';
-                            html+='<img src="img/'+cols['blocks'][b]['image']+'" class="icon calendar_icon" />';
-                            html+='</div>';
-                            html+='<div class="col-xs-10 items">'+language.misc.loading+'</div>';
-                        }
-                        else {
-                            html+='<div class="col-xs-12 items">'+language.misc.loading+'</div>';
-                        }
-
-                        html+='</div>';
-                        $(columndiv).append(html);
-
-                        if(typeof(addCalendar)!=='function') $.ajax({url: 'js/calendar.js', async: false,dataType: "script"});
-                        addCalendar($('.containsicalendar'+random),cols['blocks'][b]);
-                    } else {
-                        $(columndiv).append(loadButton(b, cols['blocks'][b]));
-                    }
-
+                    handleObjectBlock(cols['blocks'][b], b, columndiv, width);
                     continue;
 
 				case 'string':
-					if (cols['blocks'][b].substring(0,5)=='news_') {
-                        if(typeof(getNews)!=='function') $.ajax({url: 'js/news.js', async: false,dataType: "script"});
-                        $(columndiv).append('<div class="' + cols['blocks'][b] + '"></div>');
-                        getNews(cols['blocks'][b],blocks[cols['blocks'][b]]['feed']);
-                        continue;
-					}
-				// Intended fall through
+                    handleStringBlock(cols['blocks'][b], columndiv, width);
+                    continue;
+
 				default:
                     $(columndiv).append('<div data-id="' + cols['blocks'][b] + '" class="mh transbg block_' + cols['blocks'][b] + '"></div>');
 					break;
 			}
 		}
 	}
+}
+
+function handleStringBlock(block, columndiv, width) {
+    switch (block) {
+        case 'logo':
+            $(columndiv).append('<div data-id="logo" class="logo col-xs-' + width + '">' + settings['app_title'] + '</div>');
+            return;
+        case 'settings':
+            var icons = ["settings", "fullscreen"];
+            if (typeof (settings['settings_icons']) !== 'undefined') {
+                icons = settings['settings_icons'];
+            }
+            var content = '<div class="col-xs-' + width + ' text-right" data-toggle="modal">';
+            for (i = 0; i < icons.length; i++) {
+                switch (icons[i]) {
+                    case 'settings':
+                        content += '<span class="settings settingsicon" data-id="settings" data-target="#settingspopup" data-toggle="modal"><em class="fa fa-cog"/></span>';
+                        break;
+
+                    case 'fullscreen':
+                        $.ajax({url: 'js/fullscreen.js', async: false, dataType: "script"});
+                        content += getFullScreenIcon();
+                        break;
+                }
+            }
+            content += '</div>';
+            $(columndiv).append(content);
+            return;
+        case 'flipclock':
+            $('<link href="vendor/flipclock/flipclock.css?v=' + cache + '" rel="stylesheet">').appendTo("head");
+            $(columndiv).append('<div data-id="flipclock" class="transbg block_' + block + ' col-xs-' + width + ' text-center"><div class="flipclock"></div></div>');
+            if(typeof(FlipClock)!=='function') $.ajax({url: 'vendor/flipclock/flipclock.min.js', async: false, datatype: "script"});
+            FlipClock($('.flipclock'), {
+                clockFace: settings['shorttime'].match(/A/i) ? 'TwelveHourClock' : 'TwentyFourHourClock',
+                showSeconds: !settings['hide_seconds']
+            });
+            return;
+        case 'miniclock':
+            $(columndiv).append('<div data-id="miniclock" class="miniclock col-xs-' + width + ' text-center">' +
+                '<span class="weekday"></span> <span class="date"></span> <span>&nbsp;&nbsp;&nbsp;&nbsp;</span> <span class="clock"></span>' +
+                '</div>');
+            return;
+        case 'clock':
+            $(columndiv).append('<div data-id="clock" class="transbg block_' + block + ' col-xs-' + width + ' text-center">' +
+                '<h1 class="clock"></h1><h4 class="weekday"></h4><h4 class="date"></h4>' +
+                '</div>');
+            return;
+        case 'weather':
+            if(typeof(loadWeatherFull)!=='function'){
+                $.ajax({url: 'js/weather.js', async: false,dataType: "script"});
+            }
+            $(columndiv).append('<div data-id="weather" class="block_' + block + ' containsweatherfull"></div>');
+            if (settings['wu_api'] !== "" && settings['wu_city'] !== "") loadWeatherFull(settings['wu_city'], settings['wu_country'], $('.weatherfull'));
+            return;
+        case 'currentweather':
+            if(settings['wu_api'] !== "" && settings['wu_city'] !== "") {
+                if (typeof(loadWeather) !== 'function') {
+                    $.ajax({url: 'js/weather.js', async: false, dataType: "script"});
+                }
+                $(columndiv).append('<div data-id="currentweather" class="mh transbg block_' + block + ' col-xs-' + width + ' containsweather">' +
+                    '<div class="col-xs-4"><div class="weather" id="weather"></div></div>' +
+                    '<div class="col-xs-8"><strong class="title weatherdegrees" id="weatherdegrees"></strong><br /><span class="weatherloc" id="weatherloc"></span></div>' +
+                    '</div>');
+                loadWeather(settings['wu_city'], settings['wu_country']);
+            }
+            return;
+        case 'currentweather_big':
+            if(settings['wu_api']!=="" && settings['wu_city']!==""){
+                if(typeof(loadWeather)!=='function'){
+                    $.ajax({url: 'js/weather.js', async: false, dataType: "script"});
+                }
+                $(columndiv).append('<div data-id="currentweather_big" class="mh transbg big block_' + block + ' col-xs-' + width + ' containsweather">' +
+                    '<div class="col-xs-1"><div class="weather" id="weather"></div></div>' +
+                    '<div class="col-xs-11"><span class="title weatherdegrees" id="weatherdegrees"></span> <span class="weatherloc" id="weatherloc"></span></div>' +
+                    '</div>');
+
+                loadWeather(settings['wu_city'],settings['wu_country']);
+            }
+            return;
+        case 'spotify':
+            if(typeof(getSpotify)!=='function') $.ajax({url: 'js/spotify.js', async: false, dataType: "script"});
+            getSpotify(columndiv);
+            return;
+        case 'nzbget':
+            if(typeof(loadNZBGET)!=='function') $.ajax({url: 'js/nzbget.js', async: false, dataType: "script"});
+            loadNZBGET(columndiv);
+            return;
+        case 'train':
+            if(typeof(getTrainInfo)!=='function') $.ajax({url: 'js/ns.js', async: false, dataType: "script"});
+            $(columndiv).append('<div data-id="train" class="train"></div>');
+            getTrainInfo();
+            return;
+        case 'traffic':
+            if(typeof(getTraffic)!=='function') $.ajax({url: 'js/traffic.js', async: false, dataType: "script"});
+            $(columndiv).append('<div data-id="traffic" class="traffic"></div>');
+            getTraffic();
+            return;
+        case 'trafficmap':
+            $(columndiv).append('<div data-id="trafficmap" class="mh transbg block_trafficmap col-xs-12"><div id="trafficm" class="trafficmap"></div></div>');
+            return;
+        case 'news':
+            if(typeof(getNews)!=='function') $.ajax({url: 'js/news.js', async: false, dataType: "script"});
+            $(columndiv).append('<div data-id="news" class="news"></div>');
+            getNews('news',settings['default_news_url']);
+            return;
+        case 'log':
+            if(typeof(getLog)!=='function') $.ajax({url: 'js/log.js', async: false, dataType: "script"});
+            getLog(columndiv);
+            return;
+        case 'stationclock':
+            appendStationClock(columndiv, block, width);
+            return;
+        case 'sunrise':
+            var classes = 'block_' + block + ' col-xs-' + width + ' transbg text-center sunriseholder';
+            if(c === 'bar') {
+                classes = 'block_' + block + ' col-xs-2 text-center sunriseholder';
+            }
+            $(columndiv).append('<div data-id="sunrise" class="' + classes + '">' +
+                '<em class="wi wi-sunrise"></em><span class="sunrise"></span><em class="wi wi-sunset"></em><span class="sunset"></span>' +
+                '</div>');
+            return;
+        case 'horizon':
+            appendHorizon(columndiv);
+            return;
+        case 'icalendar':
+            var random = getRandomInt(1, 100000);
+            var html ='<div class="col-xs-' + width + ' transbg containsicalendar containsicalendar' + random + '">';
+            html += '<div class="col-xs-2 col-icon">';
+            html += '<em class="fa fa-calendar"></em>';
+            html += '</div>';
+            html += '<div class="col-xs-10 items">' + language.misc.loading + '</div>';
+            html += '</div>';
+            $(columndiv).append(html);
+            addCalendar($('.containsicalendar' + random), settings['calendarurl']);
+            return;
+        case 'streamplayer':
+            appendStreamPlayer(columndiv);
+            return;
+        case 'chromecast':
+            $.ajax({url: 'js/chromecast.js', async: false, dataType: "script"});
+            loadChromecast(columndiv);
+            return;
+        case 'garbage':
+            if(typeof(loadGarbage)!=='function') $.ajax({url: 'js/garbage.js', async: false, dataType: "script"});
+            $(columndiv).append(loadGarbage());
+            getBlockClick('garbage');
+            return;
+        case 'sonarr':
+            if(typeof(loadSonarr)!=='function') $.ajax({url: 'js/sonarr.js', async: false, dataType: "script"});
+            $(columndiv).append(loadSonarr());
+            getBlockClick('sonarr');
+            return;
+        case 'fullscreen':
+            $(columndiv).append('<div data-id="fullscreen" class="col-xs-' + width + ' text-right">' + getFullScreenIcon() + '</div>');
+            return;
+        default:
+            if (block.substring(0, 5) === 'news_') {
+                if(typeof(getNews)!=='function') $.ajax({url: 'js/news.js', async: false, dataType: "script"});
+                $(columndiv).append('<div class="' + block + '"></div>');
+                getNews(block,blocks[block]['feed']);
+                return;
+            }
+            $(columndiv).append('<div data-id="' + block + '" class="mh transbg block_' + block + '"></div>');
+            return;
+    }
+}
+
+function handleObjectBlock(block, index, columndiv, width) {
+    var random = getRandomInt(1, 100000);
+    if (block.hasOwnProperty('latitude')) {
+        $(columndiv).append(loadMaps(random, block));
+        return;
+    } else if (block.hasOwnProperty('isimage')) {
+        $(columndiv).append(loadImage(random, block));
+        return;
+    }
+    var key = 'UNKNOWN';
+    if (block.hasOwnProperty('key')) key = block['key'];
+    if (block.hasOwnProperty('width')) width = block['width'];
+
+    if (block.hasOwnProperty('frameurl')) {
+        $(columndiv).append(loadFrame(random, block));
+        return;
+    } else if (block.hasOwnProperty('empty')) {
+        $(columndiv).append('<div data-id="' + key + '" class="mh transbg col-xs-' + width + '">');
+    } else if (block.hasOwnProperty('station')) {
+        if (typeof(loadPublicTransport)!=='function') $.ajax({url: 'js/publictransport.js', async: false, dataType: "script"});
+        $(columndiv).append(loadPublicTransport(random, block, key));
+    } else if (block.hasOwnProperty('currency')) {
+        if(typeof(getCoin)!=='function') $.ajax({url: 'js/coins.js', async: false,dataType: "script"});
+        var html = '<div class="col-xs-' + width + ' transbg coins-' + block['key'] + '" data-id="coins.' + block['key'] + '"></div>';
+        $(columndiv).append(html);
+        getCoin(block);
+
+    } else if (block.hasOwnProperty('channels')) {
+        if(typeof(addTVGuide)!=='function') $.ajax({url: 'js/tvguide.js', async: false, dataType: "script"});
+
+        var html ='';
+        if (block.hasOwnProperty('title')) html += '<div class="col-xs-' + width + ' mh titlegroups transbg"><h3>' + block['title'] + '</h3></div>';
+
+        html += '<div data-id="tvguide.' + key + '" class="col-xs-' + width + ' block_tvguide transbg containstvguide containstvguide' + random + '">';
+        if (block.hasOwnProperty('icon') && block['icon'] !== '') {
+            html += '<div class="col-xs-2 col-icon">';
+            html += '<em class="fa ' + block['icon'] + '"></em>';
+            html += '</div>';
+            html += '<div class="col-xs-10 items">' + language.misc.loading + '</div>';
+        }
+        else if (block.hasOwnProperty('image') && block['image']!=='') {
+            html += '<div class="col-xs-2 col-icon">';
+            html += '<img src="img/' + block['image'] + '" class="icon calendar_icon" />';
+            html += '</div>';
+            html += '<div class="col-xs-10 items">' + language.misc.loading + '</div>';
+        } else {
+            html += '<div class="col-xs-12 items">' + language.misc.loading + '</div>';
+        }
+
+        html += '</div>';
+        $(columndiv).append(html);
+        addTVGuide($('.containstvguide' + random), block);
+        getBlockClick('tvguide');
+    } else if (block.hasOwnProperty('icalurl')
+        ||  block.hasOwnProperty('calendars')) {
+        var html ='';
+        if (block.hasOwnProperty('title')) {
+            html += '<div class="col-xs-' + width + ' mh titlegroups transbg"><h3>' + block['title'] + '</h3></div>';
+        }
+
+        html += '<div data-id="calendars.' + key + '" class="col-xs-' + width + ' transbg containsicalendar containsicalendar' + random + '">';
+        if (block.hasOwnProperty('icon') && block['icon']!=='') {
+            html+='<div class="col-xs-2 col-icon">';
+            html+='<em class="fa ' + block['icon'] + '"></em>';
+            html+='</div>';
+            html+='<div class="col-xs-10 items">' + language.misc.loading + '</div>';
+        }
+        else if(block.hasOwnProperty('image') && block['image'] !== '') {
+            html += '<div class="col-xs-2 col-icon">';
+            html += '<img src="img/' + block['image'] + '" class="icon calendar_icon" />';
+            html += '</div>';
+            html += '<div class="col-xs-10 items">' + language.misc.loading + '</div>';
+        } else {
+            html += '<div class="col-xs-12 items">' + language.misc.loading + '</div>';
+        }
+
+        html+='</div>';
+        $(columndiv).append(html);
+
+        if(typeof(addCalendar)!=='function') $.ajax({url: 'js/calendar.js', async: false, dataType: "script"});
+        addCalendar($('.containsicalendar' + random), block);
+    } else {
+        $(columndiv).append(loadButton(index, block));
+    }
 }
 
 function getStateBlock(id,icon,title,value,device){

@@ -793,7 +793,66 @@ function getMoonInfo(image){
    });
 }
 
-function addStreamPlayer(streamelement){
+function appendHorizon(columndiv) {
+    var html ='<div data-id="horizon" class="containshorizon">';
+    html+='<div class="col-xs-4 transbg hover text-center" onclick="ziggoRemote(\'E0x07\')">';
+    html+='<em class="fa fa-chevron-left fa-small"></em>';
+    html+='</div>';
+    html+='<div class="col-xs-4 transbg hover text-center" onclick="ziggoRemote(\'E4x00\')">';
+    html+='<em class="fa fa-pause fa-small"></em>';
+    html+='</div>';
+    html+='<div class="col-xs-4 transbg hover text-center" onclick="ziggoRemote(\'E0x06\')">';
+    html+='<em class="fa fa-chevron-right fa-small"></em>';
+    html+='</div>';
+    html+='</div>';
+    $(columndiv).append(html);
+}
+
+function appendStationClock(columndiv, col, width) {
+    $(columndiv).append(
+    	'<div data-id="clock" class="transbg block_' + col + ' col-xs-' + width + ' text-center">' +
+		'<canvas id="clock" width="150" height="150">Your browser is unfortunately not supported.</canvas>' +
+		'</div>'
+	);
+    if(typeof(StationClock)!=='function') $.ajax({url: 'vendor/stationclock.js', async: false,dataType: "script"});
+
+    var clock = new StationClock("clock");
+    clock.body = StationClock.RoundBody;
+    clock.dial = StationClock.GermanStrokeDial;
+    clock.hourHand = StationClock.PointedHourHand;
+    clock.minuteHand = StationClock.PointedMinuteHand;
+    if(settings['hide_seconds_stationclock']==true)  clock.secondHand = false;
+    else {
+        clock.secondHand = StationClock.HoleShapedSecondHand;
+        if(typeof(settings['boss_stationclock'])=='undefined') clock.boss = StationClock.NoBoss;
+        else if(settings['boss_stationclock']=='RedBoss') clock.boss = StationClock.RedBoss;
+    }
+
+    clock.minuteHandBehavoir = StationClock.BouncingMinuteHand;
+    clock.secondHandBehavoir = StationClock.OverhastySecondHand;
+
+    window.setInterval(function() { clock.draw() }, 50);
+}
+
+function appendStreamPlayer(columndiv) {
+    this.random = getRandomInt(1, 100000);
+    this.html = '<div data-id="streamplayer" class="transbg containsstreamplayer' + this.random + '">'
+        + '<div class="col-xs-12 transbg smalltitle"><h3></h3></div>'
+        + '<audio class="audio1" preload="none"></audio>'
+        + '<div class="col-xs-4 transbg hover text-center btnPrev">'
+        + '<em class="fa fa-chevron-left fa-small"></em>'
+        + '</div>'
+        + '<div class="col-xs-4 transbg hover text-center playStream">'
+        + '<em class="fa fa-play fa-small stateicon"></em>'
+        + '</div>'
+        + '<div class="col-xs-4 transbg hover text-center btnNext">'
+        + '<em class="fa fa-chevron-right fa-small"></em>'
+        + '</div>'
+        + '</div>';
+    $(columndiv).append(this.html);
+
+    var streamelement = '.containsstreamplayer' + random;
+
 	var supportsAudio = !!document.createElement('audio').canPlayType;
 	if(supportsAudio) {
 	  var index = 0,
