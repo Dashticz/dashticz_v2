@@ -3,21 +3,19 @@ function getFullScreenIcon() {
         '<em class="fa fa-expand" id="fullScreenToggleIcon" />' +
         '</span>';
 
-    $(document).on('click', '#fullScreenToggleIcon', function() {
+    $(document).on('click', '#fullScreenToggleIcon', function () {
         toggleFullScreen(document.documentElement);
     });
     return content;
 }
 
-function isFullScreen()
-{
+function isFullScreen() {
     return (document.fullScreenElement && document.fullScreenElement !== null)
         || document.mozFullScreen
         || document.webkitIsFullScreen;
 }
 
-function requestFullScreen(element)
-{
+function requestFullScreen(element) {
     fullScreenFunction = element.requestFullscreen
         || element.webkitRequestFullScreen
         || element.mozRequestFullScreen
@@ -35,8 +33,7 @@ function exitFullScreen() {
     exitFullScreenFunction.call(document);
 }
 
-function toggleFullScreen(element)
-{
+function toggleFullScreen(element) {
     if (isFullScreen()) {
         exitFullScreen();
         $('#fullScreenToggleIcon').addClass('fa-expand').removeClass('fa-compress');
