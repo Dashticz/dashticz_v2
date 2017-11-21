@@ -319,7 +319,7 @@ function handleObjectBlock(block, index, columndiv, width) {
         getBlockClick('tvguide');
     } else if (block.hasOwnProperty('icalurl')
         ||  block.hasOwnProperty('calendars')) {
-        var html ='';
+        var html = '';
         if (block.hasOwnProperty('title')) {
             html += '<div class="col-xs-' + width + ' mh titlegroups transbg"><h3>' + block['title'] + '</h3></div>';
         }
@@ -340,19 +340,18 @@ function handleObjectBlock(block, index, columndiv, width) {
             html += '<div class="col-xs-12 items">' + language.misc.loading + '</div>';
         }
 
-        html+='</div>';
+        html += '</div>';
         $(columndiv).append(html);
 
-        if(typeof(addCalendar)!=='function') $.ajax({url: 'js/calendar.js', async: false, dataType: "script"});
+        if (typeof(addCalendar) !== 'function') $.ajax({url: 'js/calendar.js', async: false, dataType: "script"});
         addCalendar($('.containsicalendar' + random), block);
     } else {
         $(columndiv).append(loadButton(index, block));
     }
 }
 
-function getStateBlock(id,icon,title,value,device){
-	
-	if(typeof(blocks[id])!=='undefined' && typeof(blocks[id]['unit'])!=='undefined'){
+function getStateBlock(id, icon, title, value, device) {
+	if(typeof(blocks[id]) !== 'undefined' && typeof(blocks[id]['unit']) !== 'undefined') {
 		var unitArray = blocks[id]['unit'].split(";");
 		value = value.replace(unitArray[0], unitArray[1]);
 	}
@@ -361,30 +360,25 @@ function getStateBlock(id,icon,title,value,device){
 	
 	var stateBlock ='<div class="col-xs-4 col-icon">';
 		stateBlock += '<em class="fa ' + icon + '"></em>';
-	stateBlock+='</div>';
-	stateBlock+='<div class="col-xs-8 col-data">';
+	stateBlock += '</div>';
+	stateBlock += '<div class="col-xs-8 col-data">';
 		
-		if(typeof(blocks[id])!=='undefined' && typeof(blocks[id]['switch'])!=='undefined' && blocks[id]['switch']==true){
-			stateBlock+='<strong class="title">'+title+'</strong><br />';
-			stateBlock+='<span>'+value+'</span>';
-		}
-		else {
-			stateBlock+='<strong class="title">'+value+'</strong><br />';
-			stateBlock+='<span>'+title+'</span>';
-
-		}
-		if((settings['last_update']==1 && (typeof(blocks[id])=='undefined' || typeof(blocks[id]['hide_lastupdate'])=='undefined' || blocks[id]['hide_lastupdate']===false)) || 
-		  (settings['last_update']==0 && (typeof(blocks[id])!=='undefined' && typeof(blocks[id]['show_lastupdate'])!=='undefined' && blocks[id]['show_lastupdate']==true)) 
-		  ){
-			stateBlock+='<br /><span class="lastupdate">'+moment(device['LastUpdate']).format(settings['timeformat'])+'</span>';
-		}
+    if (titleAndValueSwitch(id)) {
+        stateBlock += '<strong class="title">' + title + '</strong><br />';
+        stateBlock += '<span>' + value + '</span>';
+    } else {
+        stateBlock += '<strong class="title">' + value + '</strong><br />';
+        stateBlock += '<span>' + title + '</span>';
+    }
+    if(showUpdateInformation(id)){
+        stateBlock += '<br /><span class="lastupdate">'+moment(device['LastUpdate']).format(settings['timeformat'])+'</span>';
+    }
 	
 	stateBlock+='</div>';
 	return stateBlock;
 }
 
-
-function getStatusBlock(idx,device,block,c){
+function getStatusBlock(idx, device, block, c) {
 	var value = block.value;
 	var title = block.title;
 	var elements = [];
@@ -418,48 +412,36 @@ function getStatusBlock(idx,device,block,c){
 	getBlockClick(idx,device);
 	
 	var attr='';
-	if(typeof(device['Direction'])!=='undefined' && typeof(device['DirectionStr'])!=='undefined'){
+	if(typeof(device['Direction']) !== 'undefined' && typeof(device['DirectionStr']) !== 'undefined') {
 		attr+=' style="-webkit-transform: rotate('+(device['Direction']+180)+'deg);-moz-transform: rotate('+(device['Direction']+180)+'deg);-ms-transform: rotate('+(device['Direction']+180)+'deg);-o-transform: rotate('+(device['Direction']+180)+'deg); transform: rotate('+(device['Direction']+180)+'deg);"';
 		if (settings['use_beaufort'] == 1){
 			value = Beaufort(device['Speed'])+', '; 
 		} else {
-			value = device['Speed']+' m/s, '; 
+			value = device['Speed'] + ' m/s, ';
 		}
-		value+=device['Direction']+'&deg ';
-		if (settings['translate_windspeed']==true){
-			value+=TranslateDirection(device['DirectionStr'])
+		value += device['Direction'] + '&deg ';
+		if (settings['translate_windspeed'] == true) {
+			value += TranslateDirection(device['DirectionStr'])
 		} else {
-			value+=device['DirectionStr'];
+			value += device['DirectionStr'];
 		}
 	}
-	
-	var stateBlock ='<div class="col-xs-4 col-icon">';
-		if(typeof(blocks[idx])!=='undefined' && typeof(blocks[idx]['icon'])!=='undefined'){
-			stateBlock+='<em class="fa '+blocks[idx]['icon']+'"'+attr+'></em>';
-		}
-		else if(typeof(blocks[idx])!=='undefined' && typeof(blocks[idx]['image'])!=='undefined'){
-			stateBlock+='<img src="img/'+blocks[idx]['image']+'"'+attr+' class="icon" />';
-		}
-		else {
-			if(typeof(block.image)!=='undefined') stateBlock+='<img src="img/'+block.image+'"'+attr+' class="icon" />';
-			else stateBlock+='<em class="'+block.icon+'"'+attr+'></em>';
-		}
-	stateBlock+='</div>';
-	stateBlock+='<div class="col-xs-8 col-data">';
-		if(typeof(blocks[idx])!=='undefined' && typeof(blocks[idx]['switch'])!=='undefined' && blocks[idx]['switch']==true){
-			stateBlock+='<strong class="title">'+title+'</strong><br />';
-			stateBlock+='<span>'+value+'</span>';
-		}
-		else {
-			stateBlock+='<strong class="title">'+value+'</strong><br />';
-			stateBlock+='<span>'+title+'</span>';
-		}
 
-		if((settings['last_update']==1 && (typeof(blocks[idx])=='undefined' || typeof(blocks[idx]['hide_lastupdate'])=='undefined' || blocks[idx]['hide_lastupdate']===false)) || 
-		  (settings['last_update']==0 && (typeof(blocks[idx])!=='undefined' && typeof(blocks[idx]['show_lastupdate'])!=='undefined' && blocks[idx]['show_lastupdate']==true)) 
-		  ){
-			stateBlock+='<br /><span class="lastupdate">'+moment(device['LastUpdate']).format(settings['timeformat'])+'</span>';
-		}
+    if (typeof(block.image) !== 'undefined') stateBlock = iconORimage(idx, '', block.image, '', attr, 4, '');
+    else stateBlock = iconORimage(idx, block.icon, '', '', attr, 4, '');
+
+    stateBlock += '<div class="col-xs-8 col-data">';
+    if (titleAndValueSwitch(idx)) {
+        stateBlock += '<strong class="title">' + title + '</strong><br />';
+        stateBlock += '<span>' + value + '</span>';
+    } else {
+        stateBlock += '<strong class="title">' + value + '</strong><br />';
+        stateBlock += '<span>' + title + '</span>';
+    }
+
+    if (showUpdateInformation(idx)) {
+        stateBlock += '<br /><span class="lastupdate">' + moment(device['LastUpdate']).format(settings['timeformat']) + '</span>';
+    }
 	stateBlock+='</div>';
 	return stateBlock;
 }
@@ -517,49 +499,71 @@ function addBlockClickFrame(idx){
 	$('body').append(html);
 	$('#button_'+idx).modal('show');
 }
-function iconORimage(idx,defaulticon,defaultimage,classnames,attr,colwidth,attrcol){
-	if(typeof(colwidth)=='undefined') colwidth=4;
-	if(typeof(attrcol)=='undefined') attrcol='';
-	var icon = '<div class="col-xs-'+colwidth+' col-icon" '+attrcol+'>';
-	if(typeof(blocks[idx])!=='undefined' && typeof(blocks[idx]['icon'])!=='undefined'){
-		icon+='<em class="fa '+blocks[idx]['icon']+' '+classnames+'" '+attr+'></em>';
+
+function iconORimage(idx, defaulticon, defaultimage, classnames, attr, colwidth, attrcol) {
+	if (typeof(colwidth) === 'undefined') colwidth=4;
+	if (typeof(attrcol) === 'undefined') attrcol='';
+	var icon = '<div class="col-xs-' + colwidth + ' col-icon" ' + attrcol + '>';
+	if (typeof(blocks[idx]) !== 'undefined' && typeof(blocks[idx]['icon']) !== 'undefined') {
+		icon += '<em class="fa ' + blocks[idx]['icon'] + ' ' + classnames + '" ' + attr + '></em>';
 	}
-	else if(typeof(blocks[idx])!=='undefined' && typeof(blocks[idx]['image'])!=='undefined'){
-		icon+='<img src="img/'+blocks[idx]['image']+'" class="'+classnames+'" '+attr+' />';
+	else if (typeof(blocks[idx])!=='undefined' && typeof(blocks[idx]['image']) !== 'undefined') {
+		icon += '<img src="img/' + blocks[idx]['image'] + '" class="' + classnames + '" ' + attr + ' />';
 	}
-	else if(defaulticon!=='') icon+='<em class="fa '+defaulticon+' '+classnames+'" '+attr+'></em>';
-	else if(defaultimage!=='') icon+='<img src="img/'+defaultimage+'" class="'+classnames+'" '+attr+' />';
+	else if (defaulticon!=='') icon += '<em class="fa ' + defaulticon + ' ' + classnames + '" ' + attr + '></em>';
+	else if (defaultimage!=='') icon += '<img src="img/' + defaultimage + '" class="' + classnames + '" ' + attr + ' />';
 	
-	icon+='</div>';
+	icon += '</div>';
 	return icon;
 }
 
-function getBlockData(device,idx,ontxt,offtxt){
-	
-	var data='<div class="col-xs-8 col-data">';
-	if(typeof(blocks[idx])!=='undefined' && typeof(blocks[idx]['hide_data'])!=='undefined' && blocks[idx]['hide_data']==true){
-		data+='<strong class="title">'+device['Name']+'</strong>';
+function getBlockData(device, idx, ontxt, offtxt) {
+	this.title = device['Name'];
+
+	this.opendiv = '<div class="col-xs-8 col-data">';
+	this.closediv = '</div>';
+
+	if (typeof(blocks[idx])!=='undefined' && typeof(blocks[idx]['hide_data']) !== 'undefined' && blocks[idx]['hide_data'] == true) {
+		return this.opendiv + '<strong class="title">' + this.title + '</strong>' + this.closediv;
 	}
-	else if(typeof(blocks[idx])!=='undefined' && typeof(blocks[idx]['switch'])!=='undefined' && blocks[idx]['switch']==true){
-		if(device['Status']=='Off' || device['Status']=='Closed' || device['Status']=='Normal') data+='<strong class="title">'+offtxt+'</strong><br />';
-		else data+='<strong class="title">'+ontxt+'</strong><br />';
-		data+='<span class="state">'+device['Name']+'</span>';
+
+	this.value = ontxt;
+    if (device['Status'] == 'Off' || device['Status'] == 'Closed' || device['Status'] == 'Normal') {
+	    this.value = offtxt;
+    }
+
+	if (titleAndValueSwitch(idx)) {
+        this.title = this.value;
+        this.value = device['Name'];
+    }
+
+    this.data = '<strong class="title">' + this.title + '</strong><br />';
+    this.data += '<span class="state">' + this.value + '</span>';
+
+	if (showUpdateInformation(idx)) {
+		this.data += '<br /><span class="lastupdate">' + moment(device['LastUpdate']).format(settings['timeformat']) + '</span>';
 	}
-	else {
-		data+='<strong class="title">'+device['Name']+'</strong><br />';
-		if(device['Status']=='Off' || device['Status']=='Closed' || device['Status']=='Normal') data+='<span class="state">'+offtxt+'</span>';
-		else data+='<span class="state">'+ontxt+'</span>';
-	}
-	if((settings['last_update']==1 && (typeof(blocks[idx])=='undefined' || typeof(blocks[idx]['hide_lastupdate'])=='undefined' || blocks[idx]['hide_lastupdate']===false)) || 
-	  (settings['last_update']==0 && (typeof(blocks[idx])!=='undefined' && typeof(blocks[idx]['show_lastupdate'])!=='undefined' && blocks[idx]['show_lastupdate']==true)) 
-	  ){
-		data+='<br /><span class="lastupdate">'+moment(device['LastUpdate']).format(settings['timeformat'])+'</span>';
-	}
-	data+='</div>';
-	return data;
+
+	return this.opendiv + this.data + this.closediv;
 }
-function TranslateDirection(directionstr){
-   directionstr='direction_'+directionstr;
+
+function titleAndValueSwitch(idx) {
+    return typeof(blocks[idx])!=='undefined' && typeof(blocks[idx]['switch'])!=='undefined' && blocks[idx]['switch'] == true;
+}
+
+function showUpdateInformation(idx) {
+    return (settings['last_update']==1
+            && (typeof(blocks[idx])=='undefined'
+                || typeof(blocks[idx]['hide_lastupdate']) == 'undefined'
+                || blocks[idx]['hide_lastupdate'] === false))
+        || (settings['last_update'] == 0
+            && (typeof(blocks[idx])!=='undefined'
+                && typeof(blocks[idx]['show_lastupdate']) !== 'undefined'
+                && blocks[idx]['show_lastupdate'] == true));
+}
+
+function TranslateDirection(directionstr) {
+   directionstr = 'direction_' + directionstr;
    return language['wind'][directionstr];
 }
 
