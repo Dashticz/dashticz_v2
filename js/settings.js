@@ -479,7 +479,6 @@ function loadSettings(){
 							html+='</div>';
 					  	}
 					}
-					//html+='<p>Proin elit arcu, rutrum commodo, vehicula tempus, commodo a, risus. Curabitur nec arcu. Donec sollicitudin mi sit amet mauris. Nam elementum quam ullamcorper ante. Etiam aliquet massa et lorem. Mauris dapibus lacus auctor risus. Aenean tempor ullamcorper leo. Vivamus sed magna quis ligula eleifend adipiscing. Duis orci. Aliquam sodales tortor vitae ipsum. Aliquam nulla. Duis aliquam molestie erat. Ut et mauris vel pede varius sollicitudin. Sed ut dolor nec orci tincidunt interdum. Phasellus ipsum. Nunc tristique tempus lectus.</p>';
 				  html+='</div>';
 			  }
 			html+='</div>';
@@ -490,8 +489,8 @@ function loadSettings(){
 	setTimeout(function(){
 		$('body').append(html);
 		
-		if(typeof(settings['domoticz_ip'])=='undefined' || settings['domoticz_ip']=='http://192.168.1.10:1407'){
-			if($('.settingsicon').length==0) $('body').prepend('<div data-id="settings" class="settings settingsicon col-xs-12 text-right" data-toggle="modal" data-target="#settingspopup"><em class="fa fa-cog" /><div>');
+		if (typeof(settings['domoticz_ip']) === 'undefined') {
+			if ($('.settingsicon').length==0) $('body').prepend('<div data-id="settings" class="settings settingsicon col-xs-12 text-right" data-toggle="modal" data-target="#settingspopup"><em class="fa fa-cog" /><div>');
 			$('.settingsicon').trigger('click');
 		}
 	},2000);
