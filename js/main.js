@@ -31,14 +31,12 @@ var _STREAMPLAYER_TRACKS = {"track":1,"name":"Music FM","file":"http://stream.mu
 var _THOUSAND_SEPARATOR = '.';
 var _DECIMAL_POINT = ',';
 
-function loadFiles(){
-	
+function loadFiles() {
 	$.ajax({url: customfolder+'/CONFIG.js', async: false,dataType: "script"}).done(function() {
 		if(objectlength(columns)==0) defaultcolumns = true;
 
 		_GRAPHREFRESH = 5;
-		if(typeof(screens)=='undefined' || objectlength(screens)==0){
-
+		if (typeof(screens)=='undefined' || objectlength(screens)==0) {
 			screens = {}
 			screens[1] = {}
 			screens[1]['background'] = _BACKGROUND_IMAGE;
@@ -50,7 +48,7 @@ function loadFiles(){
 			}
 		}
 		//Check language before loading settings and fallback to English when not set
-		if(typeof(localStorage.dashticz_language)!=='undefined'){setLang = localStorage.dashticz_language}
+		if (typeof(localStorage.dashticz_language)!=='undefined') { setLang = localStorage.dashticz_language }
 		else if(typeof(config)!=='undefined' && typeof(config.language)!=='undefined'){ setLang = config.language}
 		else {setLang = 'en_US'}
 		$.ajax({url: 'lang/'+setLang+'.json?v='+cache, async: false, dataType: 'json', success: function(data) {
