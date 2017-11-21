@@ -1098,8 +1098,8 @@ function getAutoAppendSelector(device) {
 
 function handleDevice(device, idx) {
     var buttonimg = '';
-    if(device['Image'] === 'Fan') buttonimg = 'fan';
-    if(device['Image'] === 'Heating') buttonimg = 'heating';
+    if(device['Image'] === 'Fan') buttonimg = 'fan.png';
+    if(device['Image'] === 'Heating') buttonimg = 'heating.png';
     var html = '';
     var addHTML = true;
     if (device.hasOwnProperty('SubType') && device['SubType'] in blocktypes['SubType']) {
@@ -1170,14 +1170,7 @@ function handleDevice(device, idx) {
             if (device['Type'] == 'Group') $('.block_' + idx).attr('onclick','switchDevice(this)');
             if (device['Type'] == 'Scene') $('.block_' + idx).attr('onclick','switchGroup(this)');
 
-            if (buttonimg == '') {
-                if (device['Status'] == 'Off') html += iconORimage(idx, 'fa-lightbulb-o', '', 'off icon');
-                else html += iconORimage(idx, 'fa-lightbulb-o', '', 'on icon');
-            } else {
-                if (device['Status'] == 'Off') html += iconORimage(idx, '', buttonimg + '.png', 'off icon');
-                else html += iconORimage(idx, '', buttonimg + '.png', 'on icon');
-            }
-
+            html += iconORimage(idx, 'fa-lightbulb-o', buttonimg, getIconStatusClass(device['Status']) + ' icon');
             html += getBlockData(device, idx, language.switches.state_on, language.switches.state_off);
             return [html, addHTML];
 	}
@@ -1207,9 +1200,7 @@ function handleDevice(device, idx) {
 		case 'Door Contact':
 		case 'Door Lock':
 		case 'Contact':
-            if(device['Status']=='Closed') html += iconORimage(idx,'','door_closed.png','off icon','',2);
-            else html += iconORimage(idx,'','door_open.png','on icon','',2);
-
+            html += iconORimage(idx, '', 'door_closed.png', getIconStatusClass(device['Status']) + ' icon', '', 2);
             html += getBlockData(device,idx,language.switches.state_open,language.switches.state_closed);
 			return [html, addHTML];
 		case 'Venetian Blinds EU':
@@ -1237,15 +1228,8 @@ function handleDevice(device, idx) {
             html+=getBlockData(device,idx,language.switches.state_smoke,language.switches.state_nosmoke);
             return [html, addHTML];
 		case 'Doorbell':
-            if(buttonimg==''){
-                if(device['Status']=='Off') html+=iconORimage(idx,'fa-bell-o','','off icon');
-                else html+=iconORimage(idx,'fa-bell-o','','on icon');
-            }
-            else {
-                if(device['Status']=='Off') html+=iconORimage(idx,'',buttonimg+'.png','off icon');
-                else html+=iconORimage(idx,'',buttonimg+'.png','on icon');
-            }
-            html+=getBlockData(device,idx,'','');
+            html += iconORimage(idx, 'fa-bell-o', buttonimg, getIconStatusClass(device['Status']) +' icon');
+            html += getBlockData(device, idx, '', '');
             return [html, addHTML];
 		case 'Media Player':
             if (device['HardwareType']=='Kodi Media Server') html += iconORimage(idx,'','kodi.png','on icon','',2);
@@ -1265,15 +1249,7 @@ function handleDevice(device, idx) {
 	if (typeof(device['LevelActions'])!=='undefined' && device['LevelNames']!==""){
         var names = device['LevelNames'].split('|');
 
-        var onoff='on';
-        if(device['Status']=='Off') var onoff='off';
-
-        if(buttonimg==''){
-            html+=iconORimage(idx,'fa-lightbulb-o','',onoff+' icon');
-        }
-        else {
-            html+=iconORimage(idx,'',buttonimg+'.png',onoff+' icon');
-        }
+		html+=iconORimage(idx,'fa-lightbulb-o', buttonimg, getIconStatusClass(device['Status']) + ' icon');
 
         if((typeof(device['SelectorStyle'])!=='undefined' && device['SelectorStyle']==1)){
             html+='<div class="col-xs-8 col-data">';
@@ -1357,15 +1333,21 @@ function handleDevice(device, idx) {
             else if (device['SwitchType'] == 'Push Off Button') $('.block_' + idx).attr('onclick', 'switchOnOff(this,\'off\')');
             else $('.block_' + idx).attr('onclick', 'switchDevice(this)');
         }
-        if (buttonimg === '') {
-            html += iconORimage(idx, 'fa-lightbulb-o', '', device['Status'].toLowerCase() + ' icon');
-        } else {
-            html += iconORimage(idx, '', buttonimg + '.png', device['Status'].toLowerCase() + ' icon');
-        }
+		html += iconORimage(idx, 'fa-lightbulb-o', buttonimg, getIconStatusClass(device['Status']) + ' icon');
         html += getBlockData(device, idx, language.switches.state_on, language.switches.state_off);
     }
 
     return [html, addHTML];
+}
+
+function getIconStatusClass(deviceStatus) {
+	switch (deviceStatus.toLowerCase()) {
+		case 'off':
+		case 'closed':
+		case 'normal':
+			return 'off';
+	}
+	return 'on';
 }
 
 function getLogitechControls(device) {
@@ -1769,13 +1751,7 @@ function getDimmerBlock(device, idx, buttonimg) {
 	this.html = '';
 	this.addHTML = true;
 
-    if (buttonimg == '') {
-        if(device['Status']=='Off') this.html+=iconORimage(idx,'fa-lightbulb-o','','off icon iconslider','',2,'data-light="'+device['idx']+'" onclick="switchDevice(this);"');
-        else this.html+=iconORimage(idx,'fa-lightbulb-o','','on icon iconslider','',2,'data-light="'+device['idx']+'" onclick="switchDevice(this);"');
-    } else {
-        if(device['Status']=='Off') this.html+=iconORimage(idx,'',buttonimg+'.png','off icon iconslider','',2,'data-light="'+device['idx']+'" onclick="switchDevice(this);"');
-        else this.html+=iconORimage(idx,'',buttonimg+'.png','on icon iconslider','',2,'data-light="'+device['idx']+'" onclick="switchDevice(this);"');
-    }
+    this.html += iconORimage(idx,'fa-lightbulb-o', buttonimg, getIconStatusClass(device['Status']) + ' icon iconslider','',2,'data-light="'+device['idx']+'" onclick="switchDevice(this);"');
     html+='<div class="col-xs-10 swiper-no-swiping col-data">';
     html+='<strong class="title">'+device['Name'];
     if(typeof(blocks[idx])=='undefined' || typeof(blocks[idx]['hide_data'])=='undefined' || blocks[idx]['hide_data']==false){

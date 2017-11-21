@@ -500,6 +500,17 @@ function addBlockClickFrame(idx){
 	$('#button_'+idx).modal('show');
 }
 
+/**
+ * If defaultimage is given, default icon is ignored
+ * @param idx
+ * @param defaulticon
+ * @param defaultimage
+ * @param classnames
+ * @param attr
+ * @param colwidth
+ * @param attrcol
+ * @returns {string}
+ */
 function iconORimage(idx, defaulticon, defaultimage, classnames, attr, colwidth, attrcol) {
 	if (typeof(colwidth) === 'undefined') colwidth=4;
 	if (typeof(attrcol) === 'undefined') attrcol='';
@@ -510,9 +521,9 @@ function iconORimage(idx, defaulticon, defaultimage, classnames, attr, colwidth,
 	else if (typeof(blocks[idx])!=='undefined' && typeof(blocks[idx]['image']) !== 'undefined') {
 		icon += '<img src="img/' + blocks[idx]['image'] + '" class="' + classnames + '" ' + attr + ' />';
 	}
-	else if (defaulticon!=='') icon += '<em class="fa ' + defaulticon + ' ' + classnames + '" ' + attr + '></em>';
 	else if (defaultimage!=='') icon += '<img src="img/' + defaultimage + '" class="' + classnames + '" ' + attr + ' />';
-	
+    else if (defaulticon!=='') icon += '<em class="fa ' + defaulticon + ' ' + classnames + '" ' + attr + '></em>';
+
 	icon += '</div>';
 	return icon;
 }
