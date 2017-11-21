@@ -3,30 +3,27 @@ function loadWeather(location,country) {
 	if(typeof(settings['wu_api'])!=='undefined' && settings['wu_api']!=='' && settings['wu_api']!==0){
 		$.getJSON('https://api.wunderground.com/api/'+settings['wu_api']+'/conditions/q/'+country+'/'+location+'.json',function(weather){
 
-			$('.containsweather').each(function(){
+			$('.containsweather').each(function() {
 				var curfull = $(this);
-				if(typeof(weather.current_observation)=='undefined'){
+				if (typeof(weather.current_observation) == 'undefined') {
 					curfull.remove();
 					currentweather=false;
 					curfull.find(".weather").html('<p style="font-size:10px; width:100px;">Location ERROR</p>');
-				}
-				else {
+				} else {
 					currentweather = weather.current_observation;
 					var wiclass= getIcon(currentweather.icon);
 					var temp = currentweather.temp_c;
-					if(settings['use_fahrenheit']==1) temp = currentweather.temp_f;
+					if (settings['use_fahrenheit'] == 1) temp = currentweather.temp_f;
 
-					if(settings['static_weathericons']==1){
-						html += '<h2><span>'+Math.round(temp)+_TEMP_SYMBOL+'</span> <i class="wi '+wiclass+'"></i></h2>';
-						curfull.find(".weather").html('<i class="wi '+wiclass+'"></i>');
+					weatherIcon = '<i class="wi ' + wiclass + '"></i>';
+					if (settings['static_weathericons'] == 0) {
+						weatherIcon = getSkycon(currentweather.icon,'skyconsmall');
 					}
-					else{
-						html += '<h2><span>'+Math.round(temp)+_TEMP_SYMBOL+'</span> '+getSkycon(currentweather.icon,'skyconsmall')+'</h2>';
-						curfull.find(".weather").html(getSkycon(currentweather.icon,'skyconsmall'));
-					}
+                    html += '<h2><span>' + Math.round(temp) + _TEMP_SYMBOL + '</span> ' + weatherIcon + '</h2>';
+                    curfull.find(".weather").html(weatherIcon);
 					curfull.find(".weatherdegrees").html('<strong>'+Math.round(temp)+_TEMP_SYMBOL+'</strong><span class="rainrate"></span>');
 
-					if(settings['wu_name']!=='' && settings['wu_name']!==0) curfull.find(".weatherloc").html(settings['wu_name']);
+					if (settings['wu_name'] !== '' && settings['wu_name'] !== 0) curfull.find(".weatherloc").html(settings['wu_name']);
 					else curfull.find(".weatherloc").html(location);
 				}
 			});
@@ -52,7 +49,7 @@ function loadWeatherFull(location,country) {
 					if(parseFloat(moment().locale('nl').format('H'))>15){
 						start=1;
 					}
-					for(var i=start;i<(start+4);i++) {
+					for(var i = start; i < (start + 4); i++) {
 						curfor = currentforecast.forecast.simpleforecast.forecastday[i];
 						var date = moment.unix(curfor.date.epoch).locale(settings['calendarlanguage']);
 
@@ -65,7 +62,7 @@ function loadWeatherFull(location,country) {
 						} 
 
 						html = '<div class="day">' + date.format(settings['weekday']) + '<br />' + date.format(settings['shortdate']) + '</div>';
-						if(settings['static_weathericons']==1) html += '<div class="icon"><i class="wi '+wiclass+'"></i></div>';
+						if (settings['static_weathericons'] == 1) html += '<div class="icon"><i class="wi '+wiclass+'"></i></div>';
 						else html += getSkycon(curfor.icon,'skycon');
 						html += '<div class="temp"><span class="dayT">'+hightemp+_TEMP_SYMBOL+'</span><span class="nightT">'+lowtemp+_TEMP_SYMBOL+'</span></div>';
 
