@@ -994,41 +994,8 @@ function getDevices(override) {
 							if(device['SwitchType']=='Dimmer') width=12;
 							if(typeof(blocks)!=='undefined' && typeof(blocks[idx])!=='undefined' && typeof(blocks[idx]['width'])!=='undefined') width=blocks[idx]['width'];
 							
-							if($('.block_'+idx).length<=0){
-								if(
-									device['Type']=='Thermostat' || 
-									device['Type']=='Temp + Humidity' || 
-									device['Type']=='Temp + Humidity + Baro' || 
-									device['Type']=='Usage' || 
-									device['Type']=='Temp' || 
-									device['Type']=='Humidity' || 
-									device['Type']=='Heating' || 
-									device['Type']=='General' || 
-									device['Type']=='Wind' || 
-									device['Type']=='Rain' || 
-									device['Type']=='RFXMeter' || 
-									device['Type']=='Security' || 
-									device['Type']=='P1 Smart Meter' || 
-									device['Type']=='P1 Smart Meter USB' || 
-									device['Type']=='Group' || 
-									device['Type']=='Scene' || 
-									device['SwitchType']=='Motion Sensor' || 
-									device['SwitchType']=='Smoke Detector' || 
-									device['SwitchType']=='Contact'
-								){
-									$('.col2 .auto_states').append('<div class="mh transbg block_'+idx+'"></div>');
-								}
-								else if(
-									device['SwitchType']=='Dimmer'
-								){
-									$('.col1 .auto_dimmers').append('<div class="mh transbg block_'+idx+'"></div>');
-								}
-								else if(
-									device['SwitchType']=='Media Player'
-								){
-									$('.col2 .auto_media').append('<div class="mh transbg block_'+idx+'"></div>');
-								}
-								else $('.col1 .auto_switches').append('<div class="mh transbg block_'+idx+'"></div>');
+							if ($('.block_' + idx).length <= 0) {
+                                $(getAutoAppendSelector(device)).append('<div class="mh transbg block_' + idx + '"></div>');
 							}
 							
 							$('div.block_'+idx).data('light',idx);
@@ -1094,6 +1061,39 @@ function getDevices(override) {
 			setTimeout(function(){ getDevices(); }, (settings['domoticz_refresh'] * 1000));
 		}
 	}
+}
+
+function getAutoAppendSelector(device) {
+	switch (device['Type']) {
+		case 'Thermostat':
+		case 'Temp + Humidity':
+		case 'Temp + Humidity + Baro':
+		case 'Usage':
+		case 'Temp':
+		case 'Humidity':
+		case 'Heating':
+		case 'General':
+		case 'Wind':
+		case 'Rain':
+		case 'RFXMeter':
+		case 'Security':
+		case 'P1 Smart Meter':
+		case 'P1 Smart Meter USB':
+		case 'Group':
+		case 'Scene':
+			return '.col2 .auto_states';
+	}
+	switch (device['SwitchType']) {
+		case 'Motion Sensor':
+		case 'Smoke Detector':
+		case 'Contact':
+			return '.col2 .auto_states';
+		case 'Dimmer':
+			return '.col1 .auto_dimmers';
+		case 'Media Player':
+			return '.col2 .auto_media';
+	}
+	return '.col1 .auto_switches';
 }
 
 function handleDevice(device, idx) {
@@ -1216,12 +1216,12 @@ function handleDevice(device, idx) {
 		case 'Blinds':
 		case 'Venetian Blinds EU Inverted':
 		case 'Blinds Inverted':
-			return getBlindsBlock(device, idx);
+			return getBlindsBlock(device, idx, false);
 		case 'Venetian Blinds EU Percentage':
 		case 'Blinds Percentage':
 		case 'Venetian Blinds EU Inverted Percentage':
 		case 'Blinds Inverted Percentage':
-			return getBlindsPercentageBlock(device, idx);
+			return getBlindsBlock(device, idx, true);
 		case 'Motion Sensor':
             html+='<div class="col-xs-4 col-icon">';
 
@@ -1906,106 +1906,51 @@ function getDimmerBlock(device, idx, buttonimg) {
 	return [this.html, this.addHTML];
 }
 
-function getBlindsBlock(device, idx) {
+function getBlindsBlock(device, idx, withPercentage) {
+	if (typeof(withPercentage) === 'undefined') withPercentage = false;
 	this.html = '';
-	this.addHTML = true;
     this.html+='<div class="col-xs-4 col-icon">';
     if(device['Status']=='Closed') this.html+='<img src="img/blinds_closed.png" class="off icon" />';
     else this.html+='<img src="img/blinds_open.png" class="on icon" />';
     this.html+='</div>';
     this.html+='<div class="col-xs-8 col-data">';
-    this.html+='<strong class="title">'+device['Name']+'</strong><br />';
-
-    if(device['Status']=='Closed') this.html+='<span class="state">'+language.switches.state_closed+'</span>';
-    else this.html+='<span class="state">'+language.switches.state_open+'</span>';
-
+    this.title = device['Name'];
+    if (withPercentage) {
+        if(typeof(blocks[idx])=='undefined' || typeof(blocks[idx]['hide_data'])=='undefined' || blocks[idx]['hide_data']==false){
+            this.title += ' ' + device['Level'] + '%';
+        }
+        this.value = '<div class="slider slider' + device['idx'] + '" data-light="' + device['idx'] + '"></div>';
+	} else {
+        if (device['Status'] === 'Closed') this.value = '<span class="state">' + language.switches.state_closed + '</span>';
+        else this.value = '<span class="state">' + language.switches.state_open + '</span>';
+	}
+    this.html += '<strong class="title">' + this.title + '</strong><br />';
+    this.html += this.value;
     this.html+='</div>';
 
-    if(typeof(blocks[idx])=='undefined' || typeof(blocks[idx]['hide_stop'])=='undefined' || blocks[idx]['hide_stop']===false){
+    if(typeof(blocks[idx])=='undefined' || typeof(blocks[idx]['hide_stop']) == 'undefined' || blocks[idx]['hide_stop'] === false) {
         var hidestop = false;
         this.html+='<ul class="input-groupBtn input-chevron">';
-    }
-    else {
+    } else {
         var hidestop = true;
         this.html+='<ul class="input-groupBtn input-chevron hidestop">';
     }
 
-    if(device['SwitchType']=='Venetian Blinds EU Inverted' || device['SwitchType']=='Blinds Inverted'){
-        this.html+='<li class="up"><a href="javascript:void(0)" class="btn btn-number plus" onclick="switchBlinds('+device['idx']+',\'On\');">';
-        this.html+='<em class="fa fa-chevron-up fa-small"></em>';
-        this.html+='</a></li>';
-
-        this.html+='<li class="down"><a href="javascript:void(0)" class="btn btn-number min" onclick="switchBlinds('+device['idx']+',\'Off\');">';
-        this.html+='<em class="fa fa-chevron-down fa-small"></em>';
-        this.html+='</a></li>';
+    this.upAction = 'Off';
+    this.downAction = 'On';
+    if (device['SwitchType'].toLowerCase().indexOf('inverted') >= 0) {
+        this.upAction = 'On';
+        this.downAction = 'Off';
     }
-    else {
-        this.html+='<li><a href="javascript:void(0)" class="btn btn-number plus" onclick="switchBlinds('+device['idx']+',\'Off\');">';
-        this.html+='<em class="fa fa-chevron-up fa-small"></em>';
-        this.html+='</a></li>';
+	this.html+='<li class="up"><a href="javascript:void(0)" class="btn btn-number plus" onclick="switchBlinds('+device['idx']+',\'' + this.upAction + '\');">';
+	this.html+='<em class="fa fa-chevron-up fa-small"></em>';
+	this.html+='</a></li>';
 
-        this.html+='<li><a href="javascript:void(0)" class="btn btn-number min" onclick="switchBlinds('+device['idx']+',\'On\');">';
-        this.html+='<em class="fa fa-chevron-down fa-small"></em>';
-        this.html+='</a></li>';
-    }
+	this.html+='<li class="down"><a href="javascript:void(0)" class="btn btn-number min" onclick="switchBlinds('+device['idx']+',\'' + this.downAction + '\');">';
+	this.html+='<em class="fa fa-chevron-down fa-small"></em>';
+	this.html+='</a></li>';
 
-    if(!hidestop){
-        this.html+='<li class="stop"><a href="javascript:void(0)" class="btn btn-number stop" onclick="switchBlinds('+device['idx']+',\'Stop\');">';
-        this.html+='STOP';
-        this.html+='</a></li>';
-    }
-
-    this.html+='</ul>';
-	return [this.html, this.addHTML];
-}
-
-function getBlindsPercentageBlock(device, idx) {
-	this.html = '';
-	this.addHTML = true;
-    this.html+='<div class="col-xs-2 col-icon">';
-    if(device['Status']=='Closed') this.html+='<img src="img/blinds_closed.png" class="off icon" />';
-    else this.html+='<img src="img/blinds_open.png" class="on icon" />';
-    this.html+='</div>';
-    this.html+='<div class="col-xs-9 col-data">';
-    this.html+='<strong class="title">'+device['Name'];
-    if(typeof(blocks[idx])=='undefined' || typeof(blocks[idx]['hide_data'])=='undefined' || blocks[idx]['hide_data']==false){
-        this.html+=' '+device['Level']+'%';
-    }
-    this.html+='</strong><br />';
-
-    this.html+='<div class="slider slider'+device['idx']+'" data-light="'+device['idx']+'"></div>';
-
-    this.html+='</div>';
-
-    if(typeof(blocks[idx])=='undefined' || typeof(blocks[idx]['hide_stop'])=='undefined' || blocks[idx]['hide_stop']===false){
-        var hidestop = false;
-        this.html+='<ul class="input-groupBtn input-chevron">';
-    }
-    else {
-        var hidestop = true;
-        this.html+='<ul class="input-groupBtn input-chevron hidestop">';
-    }
-
-    if(device['SwitchType']=='Blinds Percentage Inverted'){
-        this.html+='<li class="up"><a href="javascript:void(0)" class="btn btn-number plus" onclick="switchBlinds('+device['idx']+',\'On\');">';
-        this.html+='<em class="fa fa-chevron-up fa-small"></em>';
-        this.html+='</a></li>';
-
-        this.html+='<li class="down"><a href="javascript:void(0)" class="btn btn-number min" onclick="switchBlinds('+device['idx']+',\'Off\');">';
-        this.html+='<em class="fa fa-chevron-down fa-small"></em>';
-        this.html+='</a></li>';
-    }
-    else {
-        this.html+='<li class="up"><a href="javascript:void(0)" class="btn btn-number plus" onclick="switchBlinds('+device['idx']+',\'Off\');">';
-        this.html+='<em class="fa fa-chevron-up fa-small"></em>';
-        this.html+='</a></li>';
-
-        this.html+='<li class="down"><a href="javascript:void(0)" class="btn btn-number min" onclick="switchBlinds('+device['idx']+',\'On\');">';
-        this.html+='<em class="fa fa-chevron-down fa-small"></em>';
-        this.html+='</a></li>';
-    }
-
-    if(!hidestop){
+    if (!hidestop) {
         this.html+='<li class="stop"><a href="javascript:void(0)" class="btn btn-number stop" onclick="switchBlinds('+device['idx']+',\'Stop\');">';
         this.html+='STOP';
         this.html+='</a></li>';
@@ -2014,24 +1959,25 @@ function getBlindsPercentageBlock(device, idx) {
     this.html+='</ul>';
 
     $('div.block_'+idx).html(this.html);
-    this.addHTML=false;
 
-    $( ".slider"+idx ).slider({
-        value:device['Level'],
-        step: 1,
-        min:1,
-        max:100,
-        slide: function( event, ui ) {
-            sliding = true;
-            slideDevice($(this).data('light'),ui.value);
-        },
-        change:function( event, ui ) {
-            sliding = true;
-            slideDevice($(this).data('light'),ui.value);
-        },
-        stop: function( event, ui ) {
-            sliding = false;
-        }
-    });
-	return [this.html, this.addHTML];
+    if (withPercentage) {
+        $(".slider" + idx).slider({
+            value: device['Level'],
+            step: 1,
+            min: 1,
+            max: 100,
+            slide: function (event, ui) {
+                sliding = true;
+                slideDevice($(this).data('light'), ui.value);
+            },
+            change: function (event, ui) {
+                sliding = true;
+                slideDevice($(this).data('light'), ui.value);
+            },
+            stop: function (event, ui) {
+                sliding = false;
+            }
+        });
+    }
+	return [this.html, false];
 }
