@@ -1556,44 +1556,58 @@ function getYouLessBlock(device, idx) {
     if ($('div.block_' + idx).length > 0) {
         allblocks[idx] = true;
     }
-    device['CounterToday'] = device['CounterToday'].split(' ')[0];
-    var rfxicon = 'fa-fire';
-    if (typeof(blocks[idx + '_1']) !== 'undefined' && typeof(blocks[idx + '_1']['icon']) !== 'undefined') rfxicon = blocks[idx + '_1']['icon'];
-
-    triggerStatus(idx + '_1', device['LastUpdate'], device);
-    triggerChange(idx + '_1', device['LastUpdate'], device);
-
-    var title = device['Name'];
-    if (typeof(blocks[idx + '_1']) !== 'undefined' && typeof(blocks[idx + '_1']['title']) !== 'undefined') title = blocks[idx + '_1']['title'];
-    this.html += getStateBlock(device['idx'] + '_1', rfxicon, title, number_format(device['CounterToday'], settings['units'].decimals.kwh) + ' ' + settings['units'].names.kwh, device);
-    if (!$('div.block_' + idx).hasClass('block_' + idx + '_1')) $('div.block_' + idx).addClass('block_' + idx + '_1');
-    $('div.block_' + idx + '_1').html(this.html);
-
-    triggerStatus(idx + '_2', device['LastUpdate'], device);
-    triggerChange(idx + '_2', device['LastUpdate'], device);
-
-    var title = language.energy.energy_totals + ' ' + device['Name'];
-    var rfxicon = 'fa-fire';
-    if (typeof(blocks[idx + '_2']) !== 'undefined' && typeof(blocks[idx + '_2']['icon']) !== 'undefined') rfxicon = blocks[idx + '_2']['icon'];
-    if (typeof(blocks[idx + '_2']) !== 'undefined' && typeof(blocks[idx + '_2']['title']) !== 'undefined') title = blocks[idx + '_2']['title'];
-    this.html = getStateBlock(device['idx'] + '_2', rfxicon, title, number_format(device['Counter'], settings['units'].decimals.kwh) + ' ' + settings['units'].names.kwh, device);
-    if (typeof(allblocks[idx]) !== 'undefined' && $('div.block_' + idx + '_2').length == 0) var duplicate = $('div.block_' + idx + '_1').last().clone().removeClass('block_' + idx + '_1').addClass('block_' + idx + '_2').insertAfter($('div.block_' + idx + '_1'));
-    $('div.block_' + idx + '_2').html(this.html);
-
+    var blockValues = [
+        {
+            icon: 'fa-fire',
+            idx: idx + '_1',
+            title: device['Name'],
+            value: number_format(device['CounterToday'].split(' ')[0], settings['units'].decimals.kwh),
+            unit: settings['units'].names.kwh
+        },
+        {
+            icon: 'fa-fire',
+            idx: idx + '_2',
+            title: language.energy.energy_totals + ' ' + device['Name'],
+            value: number_format(device['Counter'], settings['units'].decimals.kwh),
+            unit: settings['units'].names.kwh
+        }
+    ];
     if (typeof(device['Usage']) !== 'undefined') {
-        triggerStatus(idx + '_3', device['LastUpdate'], device);
-        triggerChange(idx + '_3', device['LastUpdate'], device);
-
-        var rfxicon = 'fa-fire';
-        if (typeof(blocks[idx + '_3']) !== 'undefined' && typeof(blocks[idx + '_3']['icon']) !== 'undefined') rfxicon = blocks[idx + '_3']['icon'];
-        var title = device['Name'];
-        if (typeof(blocks[idx + '_3']) !== 'undefined' && typeof(blocks[idx + '_3']['title']) !== 'undefined') title = blocks[idx + '_3']['title'];
-        device['Usage'] = device['Usage'].split(' ')[0];
-        this.html = getStateBlock(device['idx'] + '_3', rfxicon, title, number_format(device['Usage'], settings['units'].decimals.watt) + ' ' + settings['units'].names.watt, device);
-        if (typeof(allblocks[idx]) !== 'undefined' && $('div.block_' + idx + '_3').length == 0) var duplicate = $('div.block_' + idx + '_2').last().clone().removeClass('block_' + idx + '_2').addClass('block_' + idx + '_3').insertAfter($('div.block_' + idx + '_2'));
-        $('div.block_' + idx + '_3').html(this.html);
+        blockValues.push({
+            icon: 'fa-fire',
+            idx: idx + '_3',
+            title: device['Name'],
+            value: number_format(device['Usage'], settings['units'].decimals.watt),
+            unit: settings['units'].names.watt
+        })
     }
-    return [this.html, false];
+    createBlocks(blockValues, device);
+    return ['', false];
+}
+
+function createBlocks(blockValues, device) {
+    log(blockValues);
+    blockValues.forEach(function(blockValue, index, arr) {
+        if (typeof(blocks[blockValue.idx]) !== 'undefined' && typeof(blocks[blockValue.idx]['icon']) !== 'undefined') blockValue.icon = blocks[blockValue.idx]['icon'];
+
+        triggerStatus(blockValue.idx, device['LastUpdate'], device);
+        triggerChange(blockValue.idx, device['LastUpdate'], device);
+
+        if (typeof(blocks[blockValue.idx]) !== 'undefined' && typeof(blocks[blockValue.idx]['title']) !== 'undefined') blockValue.title = blocks[blockValue.idx]['title'];
+        this.html = getStateBlock(blockValue.idx, blockValue.icon, blockValue.title, blockValue.value + ' ' + blockValue.unit, device);
+        if (!index) {
+            if (!$('div.block_' + device['idx']).hasClass('block_' + blockValue.idx)) $('div.block_' + device['idx']).addClass('block_' + blockValue.idx);
+        } else {
+            if (typeof(allblocks[device['idx']]) !== 'undefined'
+                && $('div.block_' + blockValue.idx).length == 0
+            ) {
+                $('div.block_' + device['idx'] + '_' + index).last().clone()
+                    .removeClass('block_' + device['idx'] + '_' + index)
+                    .addClass('block_' + blockValue.idx).insertAfter($('div.block_' + device['idx'] + '_' + index));
+            }
+        }
+        $('div.block_' + blockValue.idx).html(this.html);
+    });
 }
 
 function getGeneralKwhBlock(device, idx) {
@@ -1601,41 +1615,31 @@ function getGeneralKwhBlock(device, idx) {
     if ($('div.block_' + idx).length > 0) {
         allblocks[idx] = true;
     }
-
-    triggerStatus(idx + '_1', device['LastUpdate'], device);
-    triggerChange(idx + '_1', device['LastUpdate'], device);
-
-    var title = device['Name'] + ' ' + language.energy.energy_now;
-    if (typeof(blocks[idx + '_1']) !== 'undefined' && typeof(blocks[idx + '_1']['title']) !== 'undefined') title = blocks[idx + '_1']['title'];
-    var icon = 'fa-fire';
-    if (typeof(blocks[idx + '_1']) !== 'undefined' && typeof(blocks[idx + '_1']['icon']) !== 'undefined') icon = blocks[idx + '_1']['icon'];
-    this.html += getStateBlock(device['idx'] + '_1', icon, title, number_format(device['Usage'], settings['units'].decimals.watt) + ' ' + settings['units'].names.watt, device);
-    if (!$('div.block_' + idx).hasClass('block_' + idx + '_1')) $('div.block_' + idx).addClass('block_' + idx + '_1');
-    $('div.block_' + idx + '_1').html(this.html);
-
-    triggerStatus(idx + '_2', device['LastUpdate'], device);
-    triggerChange(idx + '_2', device['LastUpdate'], device);
-
-    var title = device['Name'] + ' ' + language.energy.energy_today;
-    if (typeof(blocks[idx + '_2']) !== 'undefined' && typeof(blocks[idx + '_2']['title']) !== 'undefined') title = blocks[idx + '_2']['title'];
-    var icon = 'fa-fire';
-    if (typeof(blocks[idx + '_2']) !== 'undefined' && typeof(blocks[idx + '_2']['icon']) !== 'undefined') icon = blocks[idx + '_2']['icon'];
-    this.html = getStateBlock(device['idx'] + '_2', icon, title, number_format(device['CounterToday'], settings['units'].decimals.kwh) + ' ' + settings['units'].names.kwh, device);
-    if (typeof(allblocks[idx]) !== 'undefined' && $('div.block_' + idx + '_2').length == 0) var duplicate = $('div.block_' + idx + '_1').last().clone().removeClass('block_' + idx + '_1').addClass('block_' + idx + '_2').insertAfter($('div.block_' + idx + '_1'));
-    $('div.block_' + idx + '_2').html(this.html);
-
-    triggerStatus(idx + '_3', device['LastUpdate'], device);
-    triggerChange(idx + '_3', device['LastUpdate'], device);
-
-    var title = device['Name'] + ' ' + language.energy.energy_total;
-    if (typeof(blocks[idx + '_3']) !== 'undefined' && typeof(blocks[idx + '_3']['title']) !== 'undefined') title = blocks[idx + '_3']['title'];
-    var icon = 'fa-fire';
-    if (typeof(blocks[idx + '_3']) !== 'undefined' && typeof(blocks[idx + '_3']['icon']) !== 'undefined') icon = blocks[idx + '_3']['icon'];
-    this.html = getStateBlock(device['idx'] + '_3', icon, title, number_format(device['Data'], 2) + ' ' + settings['units'].names.kwh, device);
-    if (typeof(allblocks[idx]) !== 'undefined' && $('div.block_' + idx + '_3').length == 0) var duplicate = $('div.block_' + idx + '_2').last().clone().removeClass('block_' + idx + '_2').addClass('block_' + idx + '_3').insertAfter($('div.block_' + idx + '_2'));
-    $('div.block_' + idx + '_3').html(this.html);
-
-    return [this.html, false];
+    var blockValues = [
+        {
+            icon: 'fa-fire',
+            idx: idx + '_1',
+            title: device['Name'] + ' ' + language.energy.energy_now,
+            value: number_format(device['Usage'], settings['units'].decimals.watt),
+            unit: settings['units'].names.watt
+        },
+        {
+            icon: 'fa-fire',
+            idx: idx + '_2',
+            title: device['Name'] + ' ' + language.energy.energy_today,
+            value: number_format(device['CounterToday'], settings['units'].decimals.kwh),
+            unit: settings['units'].names.kwh
+        },
+        {
+            icon: 'fa-fire',
+            idx: idx + '_3',
+            title: device['Name'] + ' ' + language.energy.energy_total,
+            value: number_format(device['Data'], 2),
+            unit: settings['units'].names.kwh
+        }
+    ];
+    createBlocks(blockValues, device);
+    return ['', false];
 }
 
 function getTempHumBarBlock(device, idx) {
