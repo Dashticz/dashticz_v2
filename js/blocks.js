@@ -320,60 +320,48 @@ function handleObjectBlock(block, index, columndiv, width) {
     } else if (block.hasOwnProperty('channels')) {
         if (typeof(addTVGuide) !== 'function') $.ajax({url: 'js/tvguide.js', async: false, dataType: "script"});
 
-        var html = '';
-        if (block.hasOwnProperty('title')) html += '<div class="col-xs-' + width + ' mh titlegroups transbg"><h3>' + block['title'] + '</h3></div>';
-
-        html += '<div data-id="tvguide.' + key + '" class="col-xs-' + width + ' block_tvguide transbg containstvguide containstvguide' + random + '">';
-        if (block.hasOwnProperty('icon') && block['icon'] !== '') {
-            html += '<div class="col-xs-2 col-icon">';
-            html += '<em class="fa ' + block['icon'] + '"></em>';
-            html += '</div>';
-            html += '<div class="col-xs-10 items">' + language.misc.loading + '</div>';
-        }
-        else if (block.hasOwnProperty('image') && block['image'] !== '') {
-            html += '<div class="col-xs-2 col-icon">';
-            html += '<img src="img/' + block['image'] + '" class="icon calendar_icon" />';
-            html += '</div>';
-            html += '<div class="col-xs-10 items">' + language.misc.loading + '</div>';
-        } else {
-            html += '<div class="col-xs-12 items">' + language.misc.loading + '</div>';
-        }
-
-        html += '</div>';
-        $(columndiv).append(html);
+        dataId = 'tvguide.' + key;
+        classes = 'block_tvguide transbg containstvguide containstvguide' + random;
+        appendTvOrCalendarBlock(dataId, classes, width, block, columndiv);
         addTVGuide($('.containstvguide' + random), block);
         getBlockClick('tvguide');
     } else if (block.hasOwnProperty('icalurl')
-        || block.hasOwnProperty('calendars')) {
-        var html = '';
-        if (block.hasOwnProperty('title')) {
-            html += '<div class="col-xs-' + width + ' mh titlegroups transbg"><h3>' + block['title'] + '</h3></div>';
-        }
-
-        html += '<div data-id="calendars.' + key + '" class="col-xs-' + width + ' transbg containsicalendar containsicalendar' + random + '">';
-        if (block.hasOwnProperty('icon') && block['icon'] !== '') {
-            html += '<div class="col-xs-2 col-icon">';
-            html += '<em class="fa ' + block['icon'] + '"></em>';
-            html += '</div>';
-            html += '<div class="col-xs-10 items">' + language.misc.loading + '</div>';
-        }
-        else if (block.hasOwnProperty('image') && block['image'] !== '') {
-            html += '<div class="col-xs-2 col-icon">';
-            html += '<img src="img/' + block['image'] + '" class="icon calendar_icon" />';
-            html += '</div>';
-            html += '<div class="col-xs-10 items">' + language.misc.loading + '</div>';
-        } else {
-            html += '<div class="col-xs-12 items">' + language.misc.loading + '</div>';
-        }
-
-        html += '</div>';
-        $(columndiv).append(html);
-
+        || block.hasOwnProperty('calendars')
+    ) {
+        dataId = 'calendars.' + key;
+        classes = 'transbg containsicalendar containsicalendar' + random;
+        appendTvOrCalendarBlock(dataId, classes, width, block, columndiv);
         if (typeof(addCalendar) !== 'function') $.ajax({url: 'js/calendar.js', async: false, dataType: "script"});
         addCalendar($('.containsicalendar' + random), block);
     } else {
         $(columndiv).append(loadButton(index, block));
     }
+}
+
+function appendTvOrCalendarBlock(dataId, classes, width, block, columndiv) {
+    var html = '';
+    if (block.hasOwnProperty('title')) {
+        html += '<div class="col-xs-' + width + ' mh titlegroups transbg"><h3>' + block['title'] + '</h3></div>';
+    }
+
+    html += '<div data-id="' + dataId + '" class="col-xs-' + width + ' ' + classes + '">';
+    if (block.hasOwnProperty('icon') && block['icon'] !== '') {
+        html += '<div class="col-xs-2 col-icon">';
+        html += '<em class="fa ' + block['icon'] + '"></em>';
+        html += '</div>';
+        html += '<div class="col-xs-10 items">' + language.misc.loading + '</div>';
+    }
+    else if (block.hasOwnProperty('image') && block['image'] !== '') {
+        html += '<div class="col-xs-2 col-icon">';
+        html += '<img src="img/' + block['image'] + '" class="icon calendar_icon" />';
+        html += '</div>';
+        html += '<div class="col-xs-10 items">' + language.misc.loading + '</div>';
+    } else {
+        html += '<div class="col-xs-12 items">' + language.misc.loading + '</div>';
+    }
+
+    html += '</div>';
+    $(columndiv).append(html);
 }
 
 function getStateBlock(id, icon, title, value, device) {
