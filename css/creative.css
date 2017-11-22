@@ -290,10 +290,7 @@
 }
 
 .colbar.transbg {
-    padding-left: 5px !important;
-    padding-right: 5px !important;
-	padding-top:6px !important;
-	padding-bottom:6px !important;
+	padding: 6px 5px !important;
 }
 .colbar.transbg .logo {
     font-size: 20px;
