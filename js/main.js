@@ -1704,17 +1704,7 @@ function getDimmerBlock(device, idx, buttonimg) {
         this.html += ' / <span class="lastupdate">' + moment(device['LastUpdate']).format(settings['timeformat']) + '</span>';
     }
     this.html += '<br />';
-    if (
-        (
-            typeof(settings['no_rgb']) == 'undefined' ||
-            (typeof(settings['no_rgb']) !== 'undefined' && parseFloat(settings['no_rgb']) == 0)
-        )
-        &&
-        (
-            device['SubType'] == 'RGBW' ||
-            device['SubType'] == 'RGBWW'
-        )
-    ) {
+    if (isRGBDeviceAndEnabled(device)) {
         this.html += '<input type="text" class="rgbw" data-light="' + device['idx'] + '" />';
         this.html += '<div class="slider slider' + device['idx'] + '" style="margin-left:55px;" data-light="' + device['idx'] + '"></div>';
     }
@@ -1726,17 +1716,7 @@ function getDimmerBlock(device, idx, buttonimg) {
 
     $('div.block_' + idx).html(this.html);
 
-    if (
-        (
-            typeof(settings['no_rgb']) == 'undefined' ||
-            (typeof(settings['no_rgb']) !== 'undefined' && parseFloat(settings['no_rgb']) == 0)
-        )
-        &&
-        (
-            device['SubType'] == 'RGBW' ||
-            device['SubType'] == 'RGBWW'
-        )
-    ) {
+    if (isRGBDeviceAndEnabled(device)) {
         $(".rgbw").spectrum({
             color: Cookies.get('rgbw_' + idx)
         });
@@ -1767,6 +1747,7 @@ function getDimmerBlock(device, idx, buttonimg) {
         case 100:
             slider = {
                 value: device['Level'],
+                step: 1,
                 min: 1,
                 max: 100,
             };
@@ -1774,6 +1755,7 @@ function getDimmerBlock(device, idx, buttonimg) {
         case 32:
             slider = {
                 value: Math.ceil((device['Level'] / 100) * 32),
+                step: 1,
                 min: 2,
                 max: 32,
             };
@@ -1781,28 +1763,13 @@ function getDimmerBlock(device, idx, buttonimg) {
         default:
             slider = {
                 value: Math.ceil((device['Level'] / 100) * 16),
+                step: 1,
                 min: 2,
                 max: 15,
             };
             break;
     }
-    $(".slider" + device['idx']).slider({
-        value: slider.value,
-        step: 1,
-        min: slider.min,
-        max: slider.max,
-        slide: function (event, ui) {
-            sliding = true;
-            slideDevice($(this).data('light'), ui.value);
-        },
-        change: function (event, ui) {
-            sliding = true;
-            slideDevice($(this).data('light'), ui.value);
-        },
-        stop: function (event, ui) {
-            sliding = false;
-        }
-    });
+    addSlider(device['idx'], slider);
 
     return [this.html, false];
 }
@@ -1862,23 +1829,39 @@ function getBlindsBlock(device, idx, withPercentage) {
     $('div.block_' + idx).html(this.html);
 
     if (withPercentage) {
-        $(".slider" + idx).slider({
+        addSlider(idx, {
             value: device['Level'],
             step: 1,
             min: 1,
-            max: 100,
-            slide: function (event, ui) {
-                sliding = true;
-                slideDevice($(this).data('light'), ui.value);
-            },
-            change: function (event, ui) {
-                sliding = true;
-                slideDevice($(this).data('light'), ui.value);
-            },
-            stop: function (event, ui) {
-                sliding = false;
-            }
+            max: 100
         });
     }
     return [this.html, false];
+}
+
+function addSlider(idx, sliderValues) {
+    $(".slider" + idx).slider({
+        value: sliderValues.value,
+        step: sliderValues.step,
+        min: sliderValues.min,
+        max: sliderValues.max,
+        slide: function (event, ui) {
+            sliding = true;
+            slideDevice($(this).data('light'), ui.value);
+        },
+        change: function (event, ui) {
+            sliding = true;
+            slideDevice($(this).data('light'), ui.value);
+        },
+        stop: function (event, ui) {
+            sliding = false;
+        }
+    });
+}
+
+function isRGBDeviceAndEnabled(device) {
+    return (typeof(settings['no_rgb']) === 'undefined'
+            || (typeof(settings['no_rgb']) !== 'undefined'
+                && parseFloat(settings['no_rgb']) === 0))
+        && (device['SubType'] === 'RGBW' || device['SubType'] === 'RGBWW');
 }
