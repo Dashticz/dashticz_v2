@@ -178,45 +178,28 @@ function showGraph(idx, title, label, range, current, forced, sensor, popup) {
                     alert('Could not load graph!');
                     return;
                 }
-                var orgtitle = title;
+                var buttons = createButtons(idx, title, label, range, current, sensor, popup);
+
                 title = '<h4>' + title;
                 if (typeof(current) !== 'undefined' && current !== 'undefined') title += ': <B class="graphcurrent' + idx + '">' + current + ' ' + label + '</B>';
                 title += '</h4>';
 
-                var buttons = '<div class="btn-group" role="group" aria-label="Basic example">';
-                buttons += '<button type="button" class="btn btn-default ';
-                if (range == 'last') buttons += 'active';
-                buttons += '" onclick="showGraph(' + idx + ',\'' + orgtitle + '\',\'' + label + '\',\'last\',\'' + current + '\',true,\'' + sensor + '\',' + popup + ');">' + language.graph.last_hours + '</button> ';
-
-                buttons += '<button type="button" class="btn btn-default ';
-                if (range == 'day') buttons += 'active';
-                buttons += '" onclick="showGraph(' + idx + ',\'' + orgtitle + '\',\'' + label + '\',\'day\',\'' + current + '\',true,\'' + sensor + '\',' + popup + ');">' + language.graph.today + '</button> ';
-
-                buttons += '<button type="button" class="btn btn-default ';
-                if (range == 'month') buttons += 'active';
-                buttons += '" onclick="showGraph(' + idx + ',\'' + orgtitle + '\',\'' + label + '\',\'month\',\'' + current + '\',true,\'' + sensor + '\',' + popup + ');">' + language.graph.last_month + '</button>';
-                buttons += '</div>';
-
-                if (popup == true) var html = '<div class="graphpopup" id="graph' + idx + '">';
-                else var html = '<div class="graph" id="graph' + idx + '">';
+                var html = '<div class="graph' + (popup ? 'popup' : '')  + '" id="graph' + idx + '">';
                 html += '<div class="transbg col-xs-12">';
-                html += '' + title + '<br /><div style="margin-left:15px;">' + buttons + '</div><br /><div id="graphoutput' + idx + '"></div>';
-
+                html += title + '<br /><div style="margin-left:15px;">' + buttons + '</div><br /><div id="graphoutput' + idx + '"></div>';
                 html += '</div>';
                 html += '</div>';
 
                 if ($('#graph' + idx + '.graph').length > 0) {
                     $('#graph' + idx + '.graph').replaceWith(html);
                 }
-                else if (popup) $('.block_graphpopup_' + idx).html(html);
-                else $('.block_graph_' + idx).html(html);
-
-                var dateFormat = settings['shorttime'];
-                if (range === 'month' || range === 'year') {
-                    dateFormat = settings['shortdate'];
-                }
+                $('.block_graph' + (popup ? 'popup' : '') + '_' + idx).html(html);
 
                 var graphProperties = getGraphProperties(data.result[0], label);
+                graphProperties.dateFormat = settings['shorttime'];
+                if (range === 'month' || range === 'year') {
+                    graphProperties.dateFormat = settings['shortdate'];
+                }
 
                 if (range === 'last') {
                     var fourHoursAgo = moment().subtract(4, 'hours').format('YYYY-MM-DD HH:mm');
@@ -224,40 +207,62 @@ function showGraph(idx, title, label, range, current, forced, sensor, popup) {
                         return element.d > fourHoursAgo;
                     });
                 }
-                data.result = data.result.filter(function (element) {
+                graphProperties.data = data.result.filter(function (element) {
                     return element.hasOwnProperty(graphProperties.keys[0]);
                 });
 
                 if ($('#graphoutput' + idx).length > 0) {
-                    Morris.Line({
-                        parseTime: false,
-                        element: 'graphoutput' + idx,
-                        data: data.result,
-                        fillOpacity: 0.2,
-                        gridTextColor: '#fff',
-                        lineWidth: 2,
-                        xkey: ['d'],
-                        ykeys: graphProperties.keys,
-                        labels: graphProperties.labels,
-                        xLabelFormat: function (x) { return moment(x.src.d, 'YYYY-MM-DD HH:mm').locale(settings['calendarlanguage']).format(dateFormat); },
-                        lineColors: settings['lineColors'],
-                        pointFillColors: ['none'],
-                        pointSize: 3,
-                        hideHover: 'auto',
-                        resize: true,
-                        hoverCallback: function (index, options, content, row) {
-                            var datePoint = moment(row.d, 'YYYY-MM-DD HH:mm').locale(settings['calendarlanguage']).format(dateFormat);
-                            var text = datePoint + ": ";
-                            graphProperties.keys.forEach(function (element, index) {
-                                text += (index > 0 ? ' / ' : '') + number_format(row[element], 2) + ' ' + graphProperties.labels[index];
-                            });
-                            return text;
-                        }
-                    });
+                    makeMorrisGraph(idx, graphProperties);
                 }
             }
         });
     }
+}
+
+function makeMorrisGraph(idx, graphProperties) {
+    Morris.Line({
+        parseTime: false,
+        element: 'graphoutput' + idx,
+        data: graphProperties.data,
+        fillOpacity: 0.2,
+        gridTextColor: '#fff',
+        lineWidth: 2,
+        xkey: ['d'],
+        ykeys: graphProperties.keys,
+        labels: graphProperties.labels,
+        xLabelFormat: function (x) { return moment(x.src.d, 'YYYY-MM-DD HH:mm').locale(settings['calendarlanguage']).format(graphProperties.dateFormat); },
+        lineColors: settings['lineColors'],
+        pointFillColors: ['none'],
+        pointSize: 3,
+        hideHover: 'auto',
+        resize: true,
+        hoverCallback: function (index, options, content, row) {
+            var datePoint = moment(row.d, 'YYYY-MM-DD HH:mm').locale(settings['calendarlanguage']).format(graphProperties.dateFormat);
+            var text = datePoint + ": ";
+            graphProperties.keys.forEach(function (element, index) {
+                text += (index > 0 ? ' / ' : '') + number_format(row[element], 2) + ' ' + graphProperties.labels[index];
+            });
+            return text;
+        }
+    });
+}
+
+function createButtons(idx, title, label, range, current, sensor, popup) {
+    var buttons = '<div class="btn-group" role="group" aria-label="Basic example">';
+    buttons += '<button type="button" class="btn btn-default ';
+    if (range == 'last') buttons += 'active';
+    buttons += '" onclick="showGraph(' + idx + ',\'' + title + '\',\'' + label + '\',\'last\',\'' + current + '\',true,\'' + sensor + '\',' + popup + ');">' + language.graph.last_hours + '</button> ';
+
+    buttons += '<button type="button" class="btn btn-default ';
+    if (range == 'day') buttons += 'active';
+    buttons += '" onclick="showGraph(' + idx + ',\'' + title + '\',\'' + label + '\',\'day\',\'' + current + '\',true,\'' + sensor + '\',' + popup + ');">' + language.graph.today + '</button> ';
+
+    buttons += '<button type="button" class="btn btn-default ';
+    if (range == 'month') buttons += 'active';
+    buttons += '" onclick="showGraph(' + idx + ',\'' + title + '\',\'' + label + '\',\'month\',\'' + current + '\',true,\'' + sensor + '\',' + popup + ');">' + language.graph.last_month + '</button>';
+    buttons += '</div>';
+
+    return buttons;
 }
 
 function getGraphProperties(result, label) {
