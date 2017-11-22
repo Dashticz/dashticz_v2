@@ -154,7 +154,7 @@ function showGraph(idx, title, label, range, current, forced, sensor, popup) {
     if (forced || popup) {
         _GRAPHS_LOADED[idx] = time();
         //Check settings for standard graph
-        if (range == 'initial') {
+        if (range === 'initial') {
             switch (settings['standard_graph']) {
                 case 'hours':
                     range = 'last';
@@ -168,7 +168,7 @@ function showGraph(idx, title, label, range, current, forced, sensor, popup) {
             }
         }
         realrange = range;
-        if (range == 'last') realrange = 'day';
+        if (range === 'last') realrange = 'day';
 
         $.ajax({
             url: settings['domoticz_ip'] + '/json.htm?type=graph&sensor=' + sensor + '&idx=' + idx + '&range=' + realrange + '&time=' + new Date().getTime() + '&jsoncallback=?',
@@ -211,103 +211,12 @@ function showGraph(idx, title, label, range, current, forced, sensor, popup) {
                 else if (popup) $('.block_graphpopup_' + idx).html(html);
                 else $('.block_graph_' + idx).html(html);
 
-                var labels = [label];
                 var dateFormat = settings['shorttime'];
                 if (range === 'month' || range === 'year') {
                     dateFormat = settings['shortdate'];
                 }
 
-                // Take first item to pick the right property
-                var graphProperties = {};
-                if (data.result[0].hasOwnProperty('uvi')) {
-                    graphProperties = {
-                        keys: ['uvi'],
-                        labels: labels,
-                    };
-                } else if (data.result[0].hasOwnProperty('lux')) {
-                    graphProperties = {
-                        keys: ['lux'],
-                        labels: ['Lux'],
-                    };
-                } else if (data.result[0].hasOwnProperty('lux_avg')) {
-                    graphProperties = {
-                        keys: ['lux_avg', 'lux_min', 'lux_max'],
-                        labels: ['Lux average', 'Minimum', 'Maximum'],
-                    };
-                } else if (data.result[0].hasOwnProperty('gu') && data.result[0].hasOwnProperty('sp')) {
-                    graphProperties = {
-                        keys: ['gu', 'sp'],
-                        labels: ['m/s', 'm/s'],
-                    };
-                } else if (data.result[0].hasOwnProperty('ba') && data.result[0].hasOwnProperty('hu') && data.result[0].hasOwnProperty('te')) {
-                    graphProperties = {
-                        keys: ['ba', 'hu', 'te'],
-                        labels: ['hPa', '%', _TEMP_SYMBOL],
-                    };
-                } else if (data.result[0].hasOwnProperty('hu') && data.result[0].hasOwnProperty('te')) {
-                    graphProperties = {
-                        keys: ['hu', 'te'],
-                        labels: ['%', _TEMP_SYMBOL],
-                    };
-                } else if (data.result[0].hasOwnProperty('te')) {
-                    graphProperties = {
-                        keys: ['te'],
-                        labels: [_TEMP_SYMBOL],
-                    };
-                } else if (data.result[0].hasOwnProperty('hu')) {
-                    graphProperties = {
-                        keys: ['hu'],
-                        labels: ['%'],
-                    };
-                } else if (data.result[0].hasOwnProperty('mm')) {
-                    graphProperties = {
-                        keys: ['mm'],
-                        labels: ['mm'],
-                    };
-                } else if (data.result[0].hasOwnProperty('v_max')) {
-                    graphProperties = {
-                        keys: ['v_max'],
-                        labels: labels,
-                    };
-                } else if (data.result[0].hasOwnProperty('v2')) {
-                    graphProperties = {
-                        keys: ['v2', 'v'],
-                        labels: [label, label],
-                    };
-                    if (label === 'kWh' && realrange === 'day') {
-                        graphProperties.labels = ['Watt', 'Watt'];
-                    }
-                } else if (data.result[0].hasOwnProperty('v')) {
-                    if (label === 'kWh' && realrange === 'day') {
-                        labels = ['Wh'];
-                    }
-                    if (data.method === 1) {
-                        graphProperties = {
-                            keys: ['eu'],
-                            labels: labels,
-                        };
-                    } else {
-                        graphProperties = {
-                            keys: ['v'],
-                            labels: labels,
-                        };
-                    }
-                } else if (data.result[0].hasOwnProperty('eu')) {
-                    graphProperties = {
-                        keys: ['eu'],
-                        labels: labels,
-                    };
-                } else if (data.result[0].hasOwnProperty('u')) {
-                    graphProperties = {
-                        keys: ['u'],
-                        labels: labels,
-                    };
-                } else if (data.result[0].hasOwnProperty('u_max')) {
-                    graphProperties = {
-                        keys: ['u_max', 'u_min'],
-                        labels: ['?', '?'],
-                    };
-                }
+                var graphProperties = getGraphProperties(data.result[0], label);
 
                 if (range === 'last') {
                     var fourHoursAgo = moment().subtract(4, 'hours').format('YYYY-MM-DD HH:mm');
@@ -349,4 +258,98 @@ function showGraph(idx, title, label, range, current, forced, sensor, popup) {
             }
         });
     }
+}
+
+function getGraphProperties(result, label) {
+    var graphProperties = {};
+    if (result.hasOwnProperty('uvi')) {
+        graphProperties = {
+            keys: ['uvi'],
+            labels: [label],
+        };
+    } else if (result.hasOwnProperty('lux')) {
+        graphProperties = {
+            keys: ['lux'],
+            labels: ['Lux'],
+        };
+    } else if (result.hasOwnProperty('lux_avg')) {
+        graphProperties = {
+            keys: ['lux_avg', 'lux_min', 'lux_max'],
+            labels: ['Lux average', 'Minimum', 'Maximum'],
+        };
+    } else if (result.hasOwnProperty('gu') && result.hasOwnProperty('sp')) {
+        graphProperties = {
+            keys: ['gu', 'sp'],
+            labels: ['m/s', 'm/s'],
+        };
+    } else if (result.hasOwnProperty('ba') && result.hasOwnProperty('hu') && result.hasOwnProperty('te')) {
+        graphProperties = {
+            keys: ['ba', 'hu', 'te'],
+            labels: ['hPa', '%', _TEMP_SYMBOL],
+        };
+    } else if (result.hasOwnProperty('hu') && result.hasOwnProperty('te')) {
+        graphProperties = {
+            keys: ['hu', 'te'],
+            labels: ['%', _TEMP_SYMBOL],
+        };
+    } else if (result.hasOwnProperty('te')) {
+        graphProperties = {
+            keys: ['te'],
+            labels: [_TEMP_SYMBOL],
+        };
+    } else if (result.hasOwnProperty('hu')) {
+        graphProperties = {
+            keys: ['hu'],
+            labels: ['%'],
+        };
+    } else if (result.hasOwnProperty('mm')) {
+        graphProperties = {
+            keys: ['mm'],
+            labels: ['mm'],
+        };
+    } else if (result.hasOwnProperty('v_max')) {
+        graphProperties = {
+            keys: ['v_max'],
+            labels: [label],
+        };
+    } else if (result.hasOwnProperty('v2')) {
+        graphProperties = {
+            keys: ['v2', 'v'],
+            labels: [label, label],
+        };
+        if (label === 'kWh' && realrange === 'day') {
+            graphProperties.labels = ['Watt', 'Watt'];
+        }
+    } else if (result.hasOwnProperty('v')) {
+        if (label === 'kWh' && realrange === 'day') {
+            label = 'Wh';
+        }
+        if (data.method === 1) {
+            graphProperties = {
+                keys: ['eu'],
+                labels: [label],
+            };
+        } else {
+            graphProperties = {
+                keys: ['v'],
+                labels: [label],
+            };
+        }
+    } else if (result.hasOwnProperty('eu')) {
+        graphProperties = {
+            keys: ['eu'],
+            labels: [label],
+        };
+    } else if (result.hasOwnProperty('u')) {
+        graphProperties = {
+            keys: ['u'],
+            labels: [label],
+        };
+    } else if (result.hasOwnProperty('u_max')) {
+        graphProperties = {
+            keys: ['u_max', 'u_min'],
+            labels: ['?', '?'],
+        };
+    }
+    return graphProperties;
 }
