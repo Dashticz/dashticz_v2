@@ -1220,7 +1220,8 @@ function handleDevice(device, idx) {
         case 'Door Contact':
         case 'Door Lock':
         case 'Contact':
-            html += iconORimage(idx, '', 'door_closed.png', getIconStatusClass(device['Status']) + ' icon', '', 2);
+            if(device['Status'] === 'Closed') html += iconORimage(idx, '', 'door_closed.png', 'off icon', '', 2);
+            else html += iconORimage(idx, '', 'door_open.png', 'on icon', '', 2);
             html += getBlockData(device, idx, language.switches.state_open, language.switches.state_closed);
             return [html, addHTML];
         case 'Venetian Blinds EU':
@@ -1235,10 +1236,7 @@ function handleDevice(device, idx) {
             return getBlindsBlock(device, idx, true);
         case 'Motion Sensor':
             html += '<div class="col-xs-4 col-icon">';
-
-            if (device['Status'] == 'Off' || device['Status'] == 'Normal') html += '<img src="img/motion_off.png" class="off icon" style="max-height:35px;" />';
-            else html += '<img src="img/motion_on.png" class="on icon" style="max-height:35px;" />';
-
+            html += '<img src="img/motion_' + getIconStatusClass(device['Status']) + '.png" class="' + getIconStatusClass(device['Status']) + ' icon" style="max-height:35px;" />';
             html += '</div>';
             html += getBlockData(device, idx, language.switches.state_movement, language.switches.state_nomovement);
             return [html, addHTML];
@@ -1328,13 +1326,10 @@ function handleDevice(device, idx) {
         html += '</div>';
     }
     else if (device['HardwareName'] == 'Dummy') {
-        if ((typeof(blocks[idx]) == 'undefined' || typeof(blocks[idx]['protected']) == 'undefined' || blocks[idx]['protected'] == false) && device['Protected'] == false) {
+        if (!isProtected(device, idx)) {
             $('.block_' + idx).attr('onclick', 'switchDevice(this)');
         }
-
-        if (device['Status'] == 'Off') html += iconORimage(idx, 'fa-toggle-off', '', 'off icon');
-        else html += iconORimage(idx, 'fa-toggle-on', '', 'on icon');
-
+        html += iconORimage(idx, 'fa-toggle-' + getIconStatusClass(device['Status']), '', getIconStatusClass(device['Status']) + ' icon');
         html += getBlockData(device, idx, language.switches.state_on, language.switches.state_off);
     }
     else if (device['Image'] == 'Alarm') {
@@ -1342,12 +1337,8 @@ function handleDevice(device, idx) {
         else html += iconORimage(idx, 'fa-warning', '', 'on icon', 'style="color:#F05F40;"');
 
         html += getBlockData(device, idx, language.switches.state_on, language.switches.state_off);
-    }
-    else {
-        if ((typeof(blocks[idx]) == 'undefined'
-                || typeof(blocks[idx]['protected']) == 'undefined'
-                || blocks[idx]['protected'] == false)
-            && device['Protected'] == false) {
+    } else {
+        if (!isProtected(device, idx)) {
             if (device['SwitchType'] == 'Push On Button') $('.block_' + idx).attr('onclick', 'switchOnOff(this,\'on\')');
             else if (device['SwitchType'] == 'Push Off Button') $('.block_' + idx).attr('onclick', 'switchOnOff(this,\'off\')');
             else $('.block_' + idx).attr('onclick', 'switchDevice(this)');
@@ -1357,6 +1348,11 @@ function handleDevice(device, idx) {
     }
 
     return [html, addHTML];
+}
+
+function isProtected(device, idx) {
+    return ((typeof(blocks[idx]) !== 'undefined' && typeof(blocks[idx]['protected']) !== 'undefined' && blocks[idx]['protected'] === true)
+        || device['Protected'] === true);
 }
 
 function getIconStatusClass(deviceStatus) {
