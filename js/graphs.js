@@ -211,175 +211,137 @@ function showGraph(idx, title, label, range, current, forced, sensor, popup) {
                 else if (popup) $('.block_graphpopup_' + idx).html(html);
                 else $('.block_graph_' + idx).html(html);
 
-                var data_com = new Array();
                 var labels = [label];
-                var ykeys = ['ykey'];
-                var count = 0;
-                for (r in data.result) {
-                    var currentdate = moment(data.result[r].d, 'YYYY-MM-DD HH:mm').locale(settings['calendarlanguage']);
-                    var isLater = currentdate.isAfter(moment().subtract(4, 'hours'));
-
-                    if (range === 'month' || range === 'year') {
-                        currentdate = currentdate.format(settings['shortdate']);
-                    } else {
-                        currentdate = currentdate.format(settings['shorttime']);
-                    }
-
-                    if (range !== 'last' || (range == 'last' && isLater)) {
-                        if (typeof(data.result[r]['uvi']) !== 'undefined') {
-                            data_com[count] = {
-                                xkey: currentdate,
-                                ykey: data.result[r]['uvi']
-                            };
-                        }
-                        else if (typeof(data.result[r]['lux']) !== 'undefined') {
-                            data_com[count] = {
-                                xkey: currentdate,
-                                ykey: data.result[r]['lux']
-                            };
-                            labels = ['Lux'];
-                        }
-                        else if (typeof(data.result[r]['lux_avg']) !== 'undefined') {
-                            data_com[count] = {
-                                xkey: currentdate,
-                                ykey: data.result[r]['lux_avg'],
-                                ykey2: data.result[r]['lux_min'],
-                                ykey3: data.result[r]['lux_max'],
-                            };
-                            labels = ['Lux average', 'Minimum', 'Maximum'];
-                            ykeys = ['ykey', 'ykey2', 'ykey3'];
-                        }
-                        else if (typeof(data.result[r]['gu']) !== 'undefined' && typeof(data.result[r]['sp']) !== 'undefined') {
-                            data_com[count] = {
-                                xkey: currentdate,
-                                ykey: data.result[r]['gu'],
-                                ykey2: data.result[r]['sp']
-                            };
-                            labels = ['m/s', 'm/s'];
-                            ykeys = ['ykey', 'ykey2'];
-                        }
-                        else if (typeof(data.result[r]['ba']) !== 'undefined' && typeof(data.result[r]['hu']) !== 'undefined' && typeof(data.result[r]['te']) !== 'undefined') {
-                            data_com[count] = {
-                                xkey: currentdate,
-                                ykey: data.result[r]['ba'],
-                                ykey2: data.result[r]['hu'],
-                                ykey3: data.result[r]['te']
-                            };
-                            labels = ['hPa', '%', _TEMP_SYMBOL];
-                            ykeys = ['ykey', 'ykey2', 'ykey3'];
-                        }
-                        else if (typeof(data.result[r]['hu']) !== 'undefined' && typeof(data.result[r]['te']) !== 'undefined') {
-                            data_com[count] = {
-                                xkey: currentdate,
-                                ykey: data.result[r]['hu'],
-                                ykey2: data.result[r]['te'],
-                            };
-                            labels = ['%', _TEMP_SYMBOL];
-                            ykeys = ['ykey', 'ykey2'];
-                        }
-                        else if (typeof(data.result[r]['hu']) !== 'undefined') {
-                            data_com[count] = {
-                                xkey: currentdate,
-                                ykey: data.result[r]['hu']
-                            };
-                            labels = ['%'];
-                        }
-                        else if (typeof(data.result[r]['mm']) !== 'undefined') {
-                            data_com[count] = {
-                                xkey: currentdate,
-                                ykey: data.result[r]['mm']
-                            };
-                            labels = ['mm'];
-                        }
-                        else if (typeof(data.result[r]['te']) !== 'undefined') {
-                            data_com[count] = {
-                                xkey: currentdate,
-                                ykey: data.result[r]['te']
-                            };
-                            labels = [_TEMP_SYMBOL];
-                        }
-                        else if (typeof(data.result[r]['v_max']) !== 'undefined') {
-                            data_com[count] = {
-                                xkey: currentdate,
-                                ykey: data.result[r]['v_max']
-                            };
-                        }
-                        else if (typeof(data.result[r]['v2']) !== 'undefined') {
-                            data_com[count] = {
-                                xkey: currentdate,
-                                ykey: parseFloat(data.result[r]['v2']) + parseFloat(data.result[r]['v'])
-                            };
-                            if (label === 'kWh' && realrange === 'day') {
-                                labels = ['Watt'];
-                            }
-                        }
-                        else if (typeof(data.result[r]['v']) !== 'undefined') {
-                            if (data.method === 1) {
-                                continue;
-                            }
-                            data_com[count] = {
-                                xkey: currentdate,
-                                ykey: data.result[r]['v']
-                            };
-                            if (label === 'kWh' && realrange === 'day') {
-                                labels = ['Watt'];
-                            }
-                        }
-                        else if (typeof(data.result[r]['eu']) !== 'undefined') {
-                            if (data.method !== 1) {
-                                continue;
-                            }
-                            data_com[count] = {
-                                xkey: currentdate,
-                                ykey: data.result[r]['eu']
-                            };
-                        }
-                        else if (typeof(data.result[r]['u']) !== 'undefined') {
-                            data_com[count] = {
-                                xkey: currentdate,
-                                ykey: data.result[r]['u']
-                            };
-                        }
-                        else if (typeof(data.result[r]['u_max']) !== 'undefined') {
-                            data_com[count] = {
-                                xkey: currentdate,
-                                ykey: data.result[r]['u_max'],
-                                ykey2: data.result[r]['u_min']
-                            };
-                            labels = ['?', '?']; // TODO Unit
-                            ykeys = ['ykey', 'ykey2'];
-                        } else {
-                            continue;
-                        }
-
-                        count++;
-                    }
+                var dateFormat = settings['shorttime'];
+                if (range === 'month' || range === 'year') {
+                    dateFormat = settings['shortdate'];
                 }
 
-                if ($('#graphoutput' + idx).length > 0 && typeof(data_com[0]) !== 'undefined') {
+                // Take first item to pick the right property
+                var graphProperties = {};
+                if (data.result[0].hasOwnProperty('uvi')) {
+                    graphProperties = {
+                        keys: ['uvi'],
+                        labels: labels,
+                    };
+                } else if (data.result[0].hasOwnProperty('lux')) {
+                    graphProperties = {
+                        keys: ['lux'],
+                        labels: ['Lux'],
+                    };
+                } else if (data.result[0].hasOwnProperty('lux_avg')) {
+                    graphProperties = {
+                        keys: ['lux_avg', 'lux_min', 'lux_max'],
+                        labels: ['Lux average', 'Minimum', 'Maximum'],
+                    };
+                } else if (data.result[0].hasOwnProperty('gu') && data.result[0].hasOwnProperty('sp')) {
+                    graphProperties = {
+                        keys: ['gu', 'sp'],
+                        labels: ['m/s', 'm/s'],
+                    };
+                } else if (data.result[0].hasOwnProperty('ba') && data.result[0].hasOwnProperty('hu') && data.result[0].hasOwnProperty('te')) {
+                    graphProperties = {
+                        keys: ['ba', 'hu', 'te'],
+                        labels: ['hPa', '%', _TEMP_SYMBOL],
+                    };
+                } else if (data.result[0].hasOwnProperty('hu') && data.result[0].hasOwnProperty('te')) {
+                    graphProperties = {
+                        keys: ['hu', 'te'],
+                        labels: ['%', _TEMP_SYMBOL],
+                    };
+                } else if (data.result[0].hasOwnProperty('te')) {
+                    graphProperties = {
+                        keys: ['te'],
+                        labels: [_TEMP_SYMBOL],
+                    };
+                } else if (data.result[0].hasOwnProperty('hu')) {
+                    graphProperties = {
+                        keys: ['hu'],
+                        labels: ['%'],
+                    };
+                } else if (data.result[0].hasOwnProperty('mm')) {
+                    graphProperties = {
+                        keys: ['mm'],
+                        labels: ['mm'],
+                    };
+                } else if (data.result[0].hasOwnProperty('v_max')) {
+                    graphProperties = {
+                        keys: ['v_max'],
+                        labels: labels,
+                    };
+                } else if (data.result[0].hasOwnProperty('v2')) {
+                    graphProperties = {
+                        keys: ['v2', 'v'],
+                        labels: [label, label],
+                    };
+                    if (label === 'kWh' && realrange === 'day') {
+                        graphProperties.labels = ['Watt', 'Watt'];
+                    }
+                } else if (data.result[0].hasOwnProperty('v')) {
+                    if (label === 'kWh' && realrange === 'day') {
+                        labels = ['Wh'];
+                    }
+                    if (data.method === 1) {
+                        graphProperties = {
+                            keys: ['eu'],
+                            labels: labels,
+                        };
+                    } else {
+                        graphProperties = {
+                            keys: ['v'],
+                            labels: labels,
+                        };
+                    }
+                } else if (data.result[0].hasOwnProperty('eu')) {
+                    graphProperties = {
+                        keys: ['eu'],
+                        labels: labels,
+                    };
+                } else if (data.result[0].hasOwnProperty('u')) {
+                    graphProperties = {
+                        keys: ['u'],
+                        labels: labels,
+                    };
+                } else if (data.result[0].hasOwnProperty('u_max')) {
+                    graphProperties = {
+                        keys: ['u_max', 'u_min'],
+                        labels: ['?', '?'],
+                    };
+                }
+
+                if (range === 'last') {
+                    var fourHoursAgo = moment().subtract(4, 'hours').format('YYYY-MM-DD HH:mm');
+                    data.result = data.result.filter(function (element) {
+                        return element.d > fourHoursAgo;
+                    });
+                }
+                data.result = data.result.filter(function (element) {
+                    return element.hasOwnProperty(graphProperties.keys[0]);
+                });
+
+                if ($('#graphoutput' + idx).length > 0) {
                     Morris.Line({
                         parseTime: false,
                         element: 'graphoutput' + idx,
-                        data: data_com,
+                        data: data.result,
                         fillOpacity: 0.2,
                         gridTextColor: '#fff',
                         lineWidth: 2,
-                        xkey: ['xkey'],
-                        ykeys: ykeys,
-                        labels: labels,
+                        xkey: ['d'],
+                        ykeys: graphProperties.keys,
+                        labels: graphProperties.labels,
+                        xLabelFormat: function (x) { return moment(x.src.d, 'YYYY-MM-DD HH:mm').locale(settings['calendarlanguage']).format(dateFormat); },
                         lineColors: settings['lineColors'],
                         pointFillColors: ['none'],
                         pointSize: 3,
                         hideHover: 'auto',
                         resize: true,
                         hoverCallback: function (index, options, content, row) {
-                            var text = row.xkey + ": " + number_format(parseFloat(row.ykey), 2) + " " + labels[0];
-                            if (row.hasOwnProperty('ykey2')) {
-                                text += " / " + number_format(row.ykey2, 2) + " " + labels[1];
-                            }
-                            if (row.hasOwnProperty('ykey3')) {
-                                text += " / " + number_format(row.ykey3, 2) + " " + labels[2];
-                            }
+                            var datePoint = moment(row.d, 'YYYY-MM-DD HH:mm').locale(settings['calendarlanguage']).format(dateFormat);
+                            var text = datePoint + ": ";
+                            graphProperties.keys.forEach(function (element, index) {
+                                text += (index > 0 ? ' / ' : '') + number_format(row[element], 2) + ' ' + graphProperties.labels[index];
+                            });
                             return text;
                         }
                     });
