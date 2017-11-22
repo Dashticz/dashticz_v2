@@ -24,7 +24,7 @@ function getGraphs(device, popup) {
             } else {
                 currentValue = device['Speed'];
                 decimals = 1;
-                txtUnit = 'm/s'
+                txtUnit = 'm/s';
             }
             break;
         case 'Temp':
@@ -119,7 +119,7 @@ function getGraphByIDX(idx) {
 }
 
 function getButtonGraphs(device) {
-    if ($('#opengraph' + device['idx']).length == 0) {
+    if ($('#opengraph' + device['idx']).length === 0) {
         var html = '<div class="modal fade opengraph' + device['idx'] + '" data-idx="' + device['idx'] + '" id="opengraph' + device['idx'] + '" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
         html += '<div class="modal-dialog">';
         html += '<div class="modal-content">';
@@ -140,10 +140,10 @@ function getButtonGraphs(device) {
 }
 
 function showGraph(idx, title, label, range, current, forced, sensor, popup) {
-    if (typeof(popup) == 'undefined') forced = false;
-    if (typeof(forced) == 'undefined') forced = false;
+    if (typeof(popup) === 'undefined') forced = false;
+    if (typeof(forced) === 'undefined') forced = false;
 
-    if (typeof(_GRAPHS_LOADED[idx]) == 'undefined' || _GRAPHS_LOADED[idx] < (time() - (parseFloat(_GRAPHREFRESH) * 60))) {
+    if (typeof(_GRAPHS_LOADED[idx]) === 'undefined' || _GRAPHS_LOADED[idx] < (time() - (parseFloat(_GRAPHREFRESH) * 60))) {
         forced = true;
     }
 
@@ -174,7 +174,7 @@ function showGraph(idx, title, label, range, current, forced, sensor, popup) {
             url: settings['domoticz_ip'] + '/json.htm?type=graph&sensor=' + sensor + '&idx=' + idx + '&range=' + realrange + '&time=' + new Date().getTime() + '&jsoncallback=?',
             type: 'GET', async: true, contentType: "application/json", dataType: 'jsonp',
             success: function (data) {
-                if (data.status == "ERR") {
+                if (data.status === "ERR") {
                     alert('Could not load graph!');
                     return;
                 }
@@ -250,15 +250,15 @@ function makeMorrisGraph(idx, graphProperties) {
 function createButtons(idx, title, label, range, current, sensor, popup) {
     var buttons = '<div class="btn-group" role="group" aria-label="Basic example">';
     buttons += '<button type="button" class="btn btn-default ';
-    if (range == 'last') buttons += 'active';
+    if (range === 'last') buttons += 'active';
     buttons += '" onclick="showGraph(' + idx + ',\'' + title + '\',\'' + label + '\',\'last\',\'' + current + '\',true,\'' + sensor + '\',' + popup + ');">' + language.graph.last_hours + '</button> ';
 
     buttons += '<button type="button" class="btn btn-default ';
-    if (range == 'day') buttons += 'active';
+    if (range === 'day') buttons += 'active';
     buttons += '" onclick="showGraph(' + idx + ',\'' + title + '\',\'' + label + '\',\'day\',\'' + current + '\',true,\'' + sensor + '\',' + popup + ');">' + language.graph.today + '</button> ';
 
     buttons += '<button type="button" class="btn btn-default ';
-    if (range == 'month') buttons += 'active';
+    if (range === 'month') buttons += 'active';
     buttons += '" onclick="showGraph(' + idx + ',\'' + title + '\',\'' + label + '\',\'month\',\'' + current + '\',true,\'' + sensor + '\',' + popup + ');">' + language.graph.last_month + '</button>';
     buttons += '</div>';
 

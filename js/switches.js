@@ -1,12 +1,15 @@
 function switchDevice(cur) {
     var idx = $(cur).data('light');
+    var doStatus = '';
     if ($(cur).find('.icon').hasClass('on') || $(cur).find('.fa-toggle-on').length > 0) {
-        var doStatus = toggleItem(cur, 'on');
+        doStatus = toggleItem(cur, 'on');
     } else {
-        var doStatus = toggleItem(cur, 'off');
+        doStatus = toggleItem(cur, 'off');
     }
     triggerChange(idx, doStatus);
-    if (typeof(req) !== 'undefined') req.abort();
+    if (typeof(req) !== 'undefined') {
+        req.abort();
+    }
     if (typeof(idx) == 'string' && idx.substr(0, 1) == 's') {
         idx = idx.replace('s', '');
     }
@@ -24,7 +27,9 @@ function switchOnOff(cur, onOrOff) {
     var doStatus = toggleItem(cur, onOrOff === 'off' ? 'on' : 'off');
 
     triggerChange(idx, doStatus);
-    if (typeof(req) !== 'undefined') req.abort();
+    if (typeof(req) !== 'undefined') {
+        req.abort();
+    }
 
     $.ajax({
         url: settings['domoticz_ip'] + '/json.htm?type=command&param=switchlight&idx=' + idx + '&switchcmd=' + doStatus + '&level=0&passcode=&jsoncallback=?',
@@ -70,11 +75,11 @@ function switchThermostat(setpoint, cur) {
 }
 
 function switchBlinds(idx, action) {
-    if (action == 'off') {
+    if (action === 'off') {
         $('.block' + idx).find('.icon').removeClass('on').addClass('off');
         $('.block' + idx).find('.icon').attr('src', $('.block' + idx).find('.icon').attr('src').replace('open', 'closed'));
     }
-    else if (action == 'on') {
+    else if (action === 'on') {
         $('.block' + idx).find('.icon').removeClass('off').addClass('on');
         $('.block' + idx).find('.icon').attr('src', $('.block' + idx).find('.icon').attr('src').replace('closed', 'open'));
     }

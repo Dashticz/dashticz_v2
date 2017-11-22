@@ -32,14 +32,14 @@ var _DECIMAL_POINT = ',';
 
 function loadFiles() {
     $.ajax({url: customfolder + '/CONFIG.js', async: false, dataType: "script"}).done(function () {
-        if (objectlength(columns) == 0) defaultcolumns = true;
+        if (objectlength(columns) === 0) defaultcolumns = true;
 
         _GRAPHREFRESH = 5;
-        if (typeof(screens) == 'undefined' || objectlength(screens) == 0) {
-            screens = {}
-            screens[1] = {}
+        if (typeof(screens) === 'undefined' || objectlength(screens) === 0) {
+            screens = {};
+            screens[1] = {};
             screens[1]['background'] = _BACKGROUND_IMAGE;
-            screens[1]['columns'] = []
+            screens[1]['columns'] = [];
             if (defaultcolumns === false) {
                 for (c in columns) {
                     if (c !== 'bar') screens[1]['columns'].push(c);
