@@ -1307,23 +1307,22 @@ function handleDevice(device, idx) {
 
     }
     else if (device['SubType'] == 'Custom Sensor') {
+        this.icon = 'fa-question';
+        if (device['Image'] === 'Water') this.icon = 'fa-tint';
+        else if (device['Image'] === 'Heating') this.icon = 'fa-cutlery';
 
-        if (device['Image'] == 'Water') html += iconORimage(idx, 'fa-tint', '', 'on icon');
-        else if (device['Image'] == 'Heating') html += iconORimage(idx, 'fa-cutlery', '', 'on icon');
-        else html += iconORimage(idx, 'fa-question', '', 'on icon');
-
+        html += iconORimage(idx, this.icon, '', 'on icon');
         html += '<div class="col-xs-8 col-data">';
-        if (typeof(blocks[idx]) !== 'undefined' && typeof(blocks[idx]['switch']) !== 'undefined' && blocks[idx]['switch'] == true) {
-            html += '<strong class="title">' + device['Data'] + '</strong><br />';
-            html += '<span class="state">' + device['Name'] + '</span>';
+        this.title = device['Name'];
+        this.value = device['Data'];
+        if (titleAndValueSwitch(idx)) {
+            this.title = device['Data'];
+            this.value = device['Name'];
         }
-        else {
-            html += '<strong class="title">' + device['Name'] + '</strong><br />';
-            html += '<span class="state">' + device['Data'] + '</span>';
-        }
-        if ((settings['last_update'] == 1 && (typeof(blocks[idx]) == 'undefined' || typeof(blocks[idx]['hide_lastupdate']) == 'undefined' || blocks[idx]['hide_lastupdate'] === false)) ||
-            (settings['last_update'] == 0 && (typeof(blocks[idx]) !== 'undefined' && typeof(blocks[idx]['show_lastupdate']) !== 'undefined' && blocks[idx]['show_lastupdate'] == true))
-        ) {
+        html += '<strong class="title">' + this.title + '</strong><br />';
+        html += '<span class="state">' + this.value + '</span>';
+
+        if (showUpdateInformation(idx)) {
             html += '<br /><span class="lastupdate">' + moment(device['LastUpdate']).format(settings['timeformat']) + '</span>';
         }
         html += '</div>';
