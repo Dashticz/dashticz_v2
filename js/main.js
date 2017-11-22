@@ -734,7 +734,6 @@ function loadImage(i, image) {
         html += '<div class="moon">';
         img = getMoonInfo(image);
         html += '</div>';
-
     } else {
         html += '<img src="' + img + '" style="max-width:100%;" />';
     }
@@ -1024,7 +1023,7 @@ function getDevices(override) {
                             else if (parseFloat(settings['default_columns']) == 1) $('div.block_' + idx).addClass('col-xs-3');
                             else if (parseFloat(settings['default_columns']) == 2) $('div.block_' + idx).addClass('col-xs-4');
 
-                            for ($i = 1; $i <= 5; $i++) {
+                            for (var i = 1; i <= 5; i++) {
                                 if ($('div.block_' + idx + '_' + i).length > 0) {
                                     $('div.block_' + idx + '_' + i).data('light', idx);
                                     $('div.block_' + idx + '_' + i).addClass('col-xs-' + width);
