@@ -1,72 +1,27 @@
 function switchDevice(cur) {
     var idx = $(cur).data('light');
     if ($(cur).find('.icon').hasClass('on') || $(cur).find('.fa-toggle-on').length > 0) {
-        var doStatus = 'Off';
-        if ($(cur).find('.fa-toggle-on').length > 0) {
-            $(cur).find('.fa-toggle-on').addClass('fa-toggle-off').removeClass('fa-toggle-on');
-        }
-
-        $(cur).find('.icon').removeClass('on');
-        $(cur).find('.icon').addClass('off');
-        $(cur).find('.state').html(language.switches.state_off);
-    }
-    else {
-        var doStatus = 'On';
-        $(cur).find('.icon').removeClass('off');
-        $(cur).find('.icon').addClass('on');
-
-        if ($(cur).find('.fa-toggle-off').length > 0) {
-            $(cur).find('.fa-toggle-off').addClass('fa-toggle-on').removeClass('fa-toggle-off');
-        }
-
-        $(cur).find('.state').html(language.switches.state_on);
+        var doStatus = toggleItem(cur, 'on');
+    } else {
+        var doStatus = toggleItem(cur, 'off');
     }
     triggerChange(idx, doStatus);
     if (typeof(req) !== 'undefined') req.abort();
-
     if (typeof(idx) == 'string' && idx.substr(0, 1) == 's') {
-        $.ajax({
-            url: settings['domoticz_ip'] + '/json.htm?type=command&param=switchscene&idx=' + idx.replace('s', '') + '&switchcmd=' + doStatus + '&level=0&passcode=&jsoncallback=?',
-            type: 'GET', async: false, contentType: "application/json", dataType: 'jsonp',
-            success: function (data) {
-                getDevices(true);
-            }
-        });
+        idx = idx.replace('s', '');
     }
-    else {
-        $.ajax({
-            url: settings['domoticz_ip'] + '/json.htm?type=command&param=switchlight&idx=' + idx + '&switchcmd=' + doStatus + '&level=0&passcode=&jsoncallback=?',
-            type: 'GET', async: false, contentType: "application/json", dataType: 'jsonp',
-            success: function (data) {
-                getDevices(true);
-            }
-        });
-    }
+    $.ajax({
+        url: settings['domoticz_ip'] + '/json.htm?type=command&param=switchlight&idx=' + idx + '&switchcmd=' + doStatus + '&level=0&passcode=&jsoncallback=?',
+        type: 'GET', async: false, contentType: "application/json", dataType: 'jsonp',
+        success: function (data) {
+            getDevices(true);
+        }
+    });
 }
 
 function switchOnOff(cur, onOrOff) {
     var idx = $(cur).data('light');
-    if (onOrOff == 'off') {
-        var doStatus = 'Off';
-        if ($(cur).find('.fa-toggle-on').length > 0) {
-            $(cur).find('.fa-toggle-on').addClass('fa-toggle-off').removeClass('fa-toggle-on');
-        }
-
-        $(cur).find('.icon').removeClass('on');
-        $(cur).find('.icon').addClass('off');
-        $(cur).find('.state').html(language.switches.state_off);
-    }
-    else {
-        var doStatus = 'On';
-        $(cur).find('.icon').removeClass('off');
-        $(cur).find('.icon').addClass('on');
-
-        if ($(cur).find('.fa-toggle-off').length > 0) {
-            $(cur).find('.fa-toggle-off').addClass('fa-toggle-on').removeClass('fa-toggle-off');
-        }
-
-        $(cur).find('.state').html(language.switches.state_on);
-    }
+    var doStatus = toggleItem(cur, onOrOff === 'off' ? 'on' : 'off');
 
     triggerChange(idx, doStatus);
     if (typeof(req) !== 'undefined') req.abort();
@@ -78,6 +33,25 @@ function switchOnOff(cur, onOrOff) {
             getDevices(true);
         }
     });
+}
+
+function toggleItem(cur, currentState) {
+    if (currentState.toLowerCase() === 'off') {
+        currentState = 'off';
+        this.newState = 'on';
+    } else {
+        currentState = 'on';
+        this.newState = 'off';
+    }
+    if ($(cur).find('.fa-toggle-' + currentState).length > 0) {
+        $(cur).find('.fa-toggle-' + currentState).addClass('fa-toggle-' + this.newState).removeClass('fa-toggle-' + currentState);
+    }
+
+    $(cur).find('.icon').removeClass(currentState);
+    $(cur).find('.icon').addClass(this.newState);
+    $(cur).find('.state').html(language.switches['state_' + this.newState]);
+
+    return this.newState.charAt(0).toUpperCase() + this.newState.slice(1);;
 }
 
 function switchThermostat(setpoint, cur) {
