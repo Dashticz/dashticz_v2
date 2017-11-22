@@ -107,18 +107,7 @@ function switchDeviceBtn(cur, url) {
 
 function switchGroup(cur) {
     var idx = $(cur).data('light');
-    if ($(cur).find('img.icon').hasClass('on')) {
-        var doStatus = 'Off';
-        $(cur).find('.icon').removeClass('on');
-        $(cur).find('.icon').addClass('off');
-        $(cur).find('.state').html(language.switches.state_off);
-    }
-    else {
-        var doStatus = 'On';
-        $(cur).find('.icon').removeClass('off');
-        $(cur).find('.icon').addClass('on');
-        $(cur).find('.state').html(language.switches.state_on);
-    }
+    var doStatus = toggleItem(cur, $(cur).find('img.icon').hasClass('on') ? 'on' : 'off');
     triggerChange(idx, doStatus);
     if (typeof(req) !== 'undefined') req.abort();
     $.ajax({
