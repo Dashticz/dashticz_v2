@@ -1372,7 +1372,7 @@ function getIconStatusClass(deviceStatus) {
 
 function getLogitechControls(device) {
     this.html = '';
-    this.html += iconORimage(idx, 'fa-music', '', 'on icon', '', 2);
+    this.html += iconORimage(device['idx'], 'fa-music', '', 'on icon', '', 2);
     this.html += '<div class="col-xs-10 col-data">';
     this.html += '<strong class="title">' + device['Name'] + '</strong><br />';
     this.html += '<span class="h4">' + device['Data'] + '</span>';
@@ -1396,159 +1396,115 @@ function getLogitechControls(device) {
 }
 
 function getSmartMeterBlock(device, idx) {
-    this.html = '';
-    this.addHTML = true;
     if (device['SubType'] === 'Energy') {
         if ($('div.block_' + idx).length > 0) {
             allblocks[idx] = true;
         }
-
-        triggerStatus(idx + '_1', device['LastUpdate'], device);
-        triggerChange(idx + '_1', device['LastUpdate'], device);
-
-        var title = language.energy.energy_usage;
-        if (typeof(blocks[idx + '_1']) !== 'undefined' && typeof(blocks[idx + '_1']['title']) !== 'undefined') title = blocks[idx + '_1']['title'];
-        var icon = 'fa-plug';
-        if (typeof(blocks[idx + '_1']) !== 'undefined' && typeof(blocks[idx + '_1']['icon']) !== 'undefined') icon = blocks[idx + '_1']['icon'];
+        this.usage = device['Usage'];
         if (typeof(device['UsageDeliv']) !== 'undefined' && (parseFloat(device['UsageDeliv']) > 0 || parseFloat(device['UsageDeliv']) < 0)) {
-            this.html += getStateBlock(idx + '_1', icon, title, device['UsageDeliv'], device);
+            this.usage = device['UsageDeliv'];
         }
-        else {
-            this.html += getStateBlock(idx + '_1', icon, title, device['Usage'], device);
-        }
-        if (!$('div.block_' + idx).hasClass('block_' + idx + '_1')) $('div.block_' + idx).addClass('block_' + idx + '_1');
-        $('div.block_' + idx + '_1').html(this.html);
-        this.addHTML = false;
 
-        triggerStatus(idx + '_2', device['LastUpdate'], device);
-        triggerChange(idx + '_2', device['LastUpdate'], device);
-
-        var title = language.energy.energy_usagetoday;
-        if (typeof(blocks[idx + '_2']) !== 'undefined' && typeof(blocks[idx + '_2']['title']) !== 'undefined') title = blocks[idx + '_2']['title'];
-        var icon = 'fa-plug';
-        if (typeof(blocks[idx + '_2']) !== 'undefined' && typeof(blocks[idx + '_2']['icon']) !== 'undefined') icon = blocks[idx + '_2']['icon'];
-        device['CounterToday'] = device['CounterToday'].split(' ')[0];
-        this.html = getStateBlock(idx + '_2', icon, title, number_format(device['CounterToday'], settings['units'].decimals.kwh) + ' ' + settings['units'].names.kwh, device);
-        if (typeof(allblocks[idx]) !== 'undefined' && $('div.block_' + idx + '_2').length == 0) var duplicate = $('div.block_' + idx + '_1').last().clone().removeClass('block_' + idx + '_1').addClass('block_' + idx + '_2').insertAfter($('div.block_' + idx + '_1'));
-        $('div.block_' + idx + '_2').html(this.html);
-        this.addHTML = false;
-
-        triggerStatus(idx + '_3', device['LastUpdate'], device);
-        triggerChange(idx + '_3', device['LastUpdate'], device);
-
-        var title = language.energy.energy_totals;
-        if (typeof(blocks[idx + '_3']) !== 'undefined' && typeof(blocks[idx + '_3']['title']) !== 'undefined') title = blocks[idx + '_3']['title'];
-        var icon = 'fa-plug';
-        if (typeof(blocks[idx + '_3']) !== 'undefined' && typeof(blocks[idx + '_3']['icon']) !== 'undefined') icon = blocks[idx + '_3']['icon'];
-        this.html = getStateBlock(idx + '_3', icon, title, number_format(device['Counter'], 0) + ' ' + settings['units'].names.kwh, device);
-        if (typeof(allblocks[idx]) !== 'undefined' && $('div.block_' + idx + '_3').length == 0) var duplicate = $('div.block_' + idx + '_2').last().clone().removeClass('block_' + idx + '_2').addClass('block_' + idx + '_3').insertAfter($('div.block_' + idx + '_2'));
-        $('div.block_' + idx + '_3').html(this.html);
-        this.addHTML = false;
-
+        var blockValues = [
+            {
+                icon: 'fa-plug',
+                idx: idx + '_1',
+                title: language.energy.energy_usage,
+                value: this.usage,
+                unit: ''
+            },
+            {
+                icon: 'fa-plug',
+                idx: idx + '_2',
+                title: language.energy.energy_usagetoday,
+                value: number_format(device['CounterToday'], settings['units'].decimals.kwh),
+                unit: settings['units'].names.kwh
+            },
+            {
+                icon: 'fa-plug',
+                idx: idx + '_3',
+                title: language.energy.energy_totals,
+                value: number_format(device['Counter'], 0),
+                unit: settings['units'].names.kwh
+            }
+        ];
         if (parseFloat(device['CounterDeliv']) > 0) {
-            triggerStatus(idx + '_4', device['LastUpdate'], device);
-            triggerChange(idx + '_4', device['LastUpdate'], device);
-
-            var title = language.energy.energy_delivered;
-            if (typeof(blocks[idx + '_4']) !== 'undefined' && typeof(blocks[idx + '_4']['title']) !== 'undefined') title = blocks[idx + '_4']['title'];
-            var icon = 'fa-plug';
-            if (typeof(blocks[idx + '_4']) !== 'undefined' && typeof(blocks[idx + '_4']['icon']) !== 'undefined') icon = blocks[idx + '_4']['icon'];
-            this.html = getStateBlock(idx + '_4', icon, title, number_format(device['CounterDeliv'], 0) + ' ' + settings['units'].names.kwh, device);
-            if (typeof(allblocks[idx]) !== 'undefined' && $('div.block_' + idx + '_4').length == 0) var duplicate = $('div.block_' + idx + '_3').last().clone().removeClass('block_' + idx + '_3').addClass('block_' + idx + '_4').insertAfter($('div.block_' + idx + '_3'));
-            $('div.block_' + idx + '_4').html(this.html);
-            this.addHTML = false;
-
-            triggerStatus(idx + '_5', device['LastUpdate'], device);
-            triggerChange(idx + '_5', device['LastUpdate'], device);
-
-            var title = language.energy.energy_deliveredtoday;
-            if (typeof(blocks[idx + '_5']) !== 'undefined' && typeof(blocks[idx + '_5']['title']) !== 'undefined') title = blocks[idx + '_5']['title'];
-            var icon = 'fa-plug';
-            if (typeof(blocks[idx + '_5']) !== 'undefined' && typeof(blocks[idx + '_5']['icon']) !== 'undefined') icon = blocks[idx + '_5']['icon'];
-            device['CounterDelivToday'] = device['CounterDelivToday'].split(' ')[0];
-            this.html = getStateBlock(idx + '_5', icon, title, number_format(device['CounterDelivToday'], settings['units'].decimals.kwh) + ' ' + settings['units'].names.kwh, device);
-            if (typeof(allblocks[idx]) !== 'undefined' && $('div.block_' + idx + '_5').length == 0) var duplicate = $('div.block_' + idx + '_4').last().clone().removeClass('block_' + idx + '_4').addClass('block_' + idx + '_5').insertAfter($('div.block_' + idx + '_4'));
-            $('div.block_' + idx + '_5').html(this.html);
-            this.addHTML = false;
+            blockValues.push({
+                icon: 'fa-plug',
+                idx: idx + '_4',
+                title: language.energy.energy_delivered,
+                value: number_format(device['CounterDeliv'], 0),
+                unit: settings['units'].names.kwh
+            });
+            blockValues.push({
+                icon: 'fa-plug',
+                idx: idx + '_5',
+                title: language.energy.energy_deliveredtoday,
+                value: number_format(device['CounterDelivToday'], settings['units'].decimals.kwh),
+                unit: settings['units'].names.kwh
+            });
         }
+        createBlocks(blockValues, device);
+        return ['', false];
     }
     if (device['SubType'] === 'Gas') {
         if ($('div.block_' + idx).length > 0) {
             allblocks[idx] = true;
         }
-
-        triggerStatus(idx + '_1', device['LastUpdate'], device);
-        triggerChange(idx + '_1', device['LastUpdate'], device);
-
-        var title = language.energy.gas_usagetoday;
-        if (typeof(blocks[idx + '_1']) !== 'undefined' && typeof(blocks[idx + '_1']['title']) !== 'undefined') title = blocks[idx + '_1']['title'];
-        var icon = 'fa-fire';
-        if (typeof(blocks[idx + '_1']) !== 'undefined' && typeof(blocks[idx + '_1']['icon']) !== 'undefined') icon = blocks[idx + '_1']['icon'];
-        this.html += getStateBlock(idx + '_1', icon, title, device['CounterToday'], device);
-        if (!$('div.block_' + idx).hasClass('block_' + idx + '_1')) $('div.block_' + idx).addClass('block_' + idx + '_1');
-        $('div.block_' + idx + '_1').html(this.html);
-        this.addHTML = false;
-
-        triggerStatus(idx + '_2', device['LastUpdate'], device);
-        triggerChange(idx + '_2', device['LastUpdate'], device);
-
-        var title = language.energy.energy_totals;
-        if (typeof(blocks[idx + '_2']) !== 'undefined' && typeof(blocks[idx + '_2']['title']) !== 'undefined') title = blocks[idx + '_2']['title'];
-        var icon = 'fa-fire';
-        if (typeof(blocks[idx + '_2']) !== 'undefined' && typeof(blocks[idx + '_2']['icon']) !== 'undefined') icon = blocks[idx + '_2']['icon'];
-        this.html = getStateBlock(idx + '_2', icon, title, device['Counter'] + ' m3', device);
-        if (typeof(allblocks[idx]) !== 'undefined' && $('div.block_' + idx + '_2').length == 0) var duplicate = $('div.block_' + idx + '_1').last().clone().removeClass('block_' + idx + '_1').addClass('block_' + idx + '_2').insertAfter($('div.block_' + idx + '_1'));
-        $('div.block_' + idx + '_2').html(this.html);
-        this.addHTML = false;
+        var blockValues = [
+            {
+                icon: 'fa-fire',
+                idx: idx + '_1',
+                title: language.energy.gas_usagetoday,
+                value: device['CounterToday'],
+                unit: ''
+            },
+            {
+                icon: 'fa-fire',
+                idx: idx + '_2',
+                title: language.energy.energy_totals + ' ' + device['Name'],
+                value: device['Counter'],
+                unit: 'm3'
+            }
+        ];
+        createBlocks(blockValues, device);
+        return ['', false];
     }
-    return [this.html, this.addHTML];
+    return ['', false];
 }
 
 function getRFXMeterCounterBlock(device, idx) {
-    this.html = '';
-
     if ($('div.block_' + idx).length > 0) {
         allblocks[idx] = true;
     }
-    var rfxicon = 'fa-fire';
-    if (device['Name'] == 'Water') {
-        rfxicon = 'fa-tint';
-    }
-    if (typeof(blocks[idx + '_1']) !== 'undefined' && typeof(blocks[idx + '_1']['icon']) !== 'undefined') rfxicon = blocks[idx + '_1']['icon'];
 
-    triggerStatus(idx + '_1', device['LastUpdate'], device);
-    triggerChange(idx + '_1', device['LastUpdate'], device);
-
-    var title = device['Name'];
-    if (typeof(blocks[idx + '_1']) !== 'undefined' && typeof(blocks[idx + '_1']['title']) !== 'undefined') title = blocks[idx + '_1']['title'];
-    this.html += getStateBlock(device['idx'] + '_1', rfxicon, title, device['CounterToday'], device);
-    if (!$('div.block_' + idx).hasClass('block_' + idx + '_1')) $('div.block_' + idx).addClass('block_' + idx + '_1');
-    $('div.block_' + idx + '_1').html(this.html);
-
-    triggerStatus(idx + '_2', device['LastUpdate'], device);
-    triggerChange(idx + '_2', device['LastUpdate'], device);
-
-    var title = language.energy.energy_totals + ' ' + device['Name'];
-    if (typeof(blocks[idx + '_2']) !== 'undefined' && typeof(blocks[idx + '_2']['title']) !== 'undefined') title = blocks[idx + '_2']['title'];
-    this.html = getStateBlock(device['idx'] + '_2', rfxicon, title, device['Counter'], device);
-    if (typeof(allblocks[idx]) !== 'undefined' && $('div.block_' + idx + '_2').length === 0) {
-        $('div.block_' + idx + '_1').last().clone().removeClass('block_' + idx + '_1').addClass('block_' + idx + '_2').insertAfter($('div.block_' + idx + '_1'));
-    }
-    $('div.block_' + idx + '_2').html(this.html);
-
-    if (typeof(device['Usage']) !== 'undefined') {
-        triggerStatus(idx + '_3', device['LastUpdate'], device);
-        triggerChange(idx + '_3', device['LastUpdate'], device);
-
-        var title = device['Name'];
-        if (typeof(blocks[idx + '_3']) !== 'undefined' && typeof(blocks[idx + '_3']['title']) !== 'undefined') title = blocks[idx + '_3']['title'];
-        this.html = getStateBlock(device['idx'] + '_3', rfxicon, title, device['Usage'], device);
-        if (typeof(allblocks[idx]) !== 'undefined' && $('div.block_' + idx + '_3').length === 0) {
-            $('div.block_' + idx + '_2').last().clone().removeClass('block_' + idx + '_2').addClass('block_' + idx + '_3').insertAfter($('div.block_' + idx + '_2'));
+    var blockValues = [
+        {
+            icon: device['Name'] === 'Water' ? 'fa-tint' : 'fa-fire',
+            idx: idx + '_1',
+            title: device['Name'],
+            value: device['CounterToday'],
+            unit: ''
+        },
+        {
+            icon: device['Name'] === 'Water' ? 'fa-tint' : 'fa-fire',
+            idx: idx + '_2',
+            title: language.energy.energy_totals + ' ' + device['Name'],
+            value: device['Counter'],
+            unit: settings['units'].names.kwh
         }
-        $('div.block_' + idx + '_3').html(this.html);
+    ];
+    if (typeof(device['Usage']) !== 'undefined') {
+        blockValues.push({
+            icon: device['Name'] === 'Water' ? 'fa-tint' : 'fa-fire',
+            idx: idx + '_3',
+            title: device['Name'],
+            value: device['Usage'],
+            unit: ''
+        })
     }
-    return [this.html, false];
+    createBlocks(blockValues, device);
+    return ['', false];
 }
 
 function getYouLessBlock(device, idx) {
@@ -1586,7 +1542,6 @@ function getYouLessBlock(device, idx) {
 }
 
 function createBlocks(blockValues, device) {
-    log(blockValues);
     blockValues.forEach(function(blockValue, index, arr) {
         if (typeof(blocks[blockValue.idx]) !== 'undefined' && typeof(blocks[blockValue.idx]['icon']) !== 'undefined') blockValue.icon = blocks[blockValue.idx]['icon'];
 
@@ -1648,51 +1603,35 @@ function getTempHumBarBlock(device, idx) {
         allblocks[idx] = true;
     }
 
-    triggerStatus(idx + '_1', device['LastUpdate'], device);
-    triggerChange(idx + '_1', device['LastUpdate'], device);
-
-    var title = device['Name'];
-    var value = device['Data'];
-    if (typeof(device['Temp']) !== 'undefined') value = device['Temp'];
-    if (typeof(blocks[idx + '_1']) !== 'undefined' && typeof(blocks[idx + '_1']['title']) !== 'undefined') title = blocks[idx + '_1']['title'];
-    var icon = 'fa-thermometer-half';
-    if (typeof(blocks[idx + '_1']) !== 'undefined' && typeof(blocks[idx + '_1']['icon']) !== 'undefined') icon = blocks[idx + '_1']['icon'];
-
-    this.html += getStateBlock(device['idx'] + '_1', icon, title, number_format(value, 1) + _TEMP_SYMBOL, device);
-
-    if (!$('div.block_' + idx).hasClass('block_' + idx + '_1')) $('div.block_' + idx).addClass('block_' + idx + '_1');
-    $('div.block_' + idx + '_1').html(this.html);
-
+    var blockValues = [
+        {
+            icon: 'fa-thermometer-half',
+            idx: idx + '_1',
+            title: device['Name'],
+            value: number_format((typeof(device['Temp']) !== 'undefined') ? device['Temp'] : device['Data'], 1),
+            unit: _TEMP_SYMBOL
+        },
+    ];
     if (typeof(device['Humidity']) !== 'undefined') {
-        triggerStatus(idx + '_2', device['LastUpdate'], device);
-        triggerChange(idx + '_2', device['LastUpdate'], device);
-
-        var title = device['Name'];
-        if (typeof(blocks[idx + '_2']) !== 'undefined' && typeof(blocks[idx + '_2']['title']) !== 'undefined') title = blocks[idx + '_2']['title'];
-        var icon = 'wi wi-humidity';
-        if (typeof(blocks[idx + '_2']) !== 'undefined' && typeof(blocks[idx + '_2']['icon']) !== 'undefined') icon = blocks[idx + '_2']['icon'];
-        this.html = getStateBlock(device['idx'] + '_2', icon, title, number_format(device['Humidity'], 2) + '%', device);
-        if (typeof(allblocks[idx]) !== 'undefined' && $('div.block_' + idx + '_2').length === 0) {
-            $('div.block_' + idx + '_1').last().clone().removeClass('block_' + idx + '_1').addClass('block_' + idx + '_2').insertAfter($('div.block_' + idx + '_1'));
-        }
-        $('div.block_' + idx + '_2').html(this.html);
+        blockValues.push({
+            icon: 'wi wi-humidity',
+            idx: idx + '_2',
+            title: device['Name'],
+            value: number_format(device['Humidity'], 0),
+            unit: '%'
+        });
     }
-
     if (typeof(device['Barometer']) !== 'undefined') {
-        triggerStatus(idx + '_3', device['LastUpdate'], device);
-        triggerChange(idx + '_3', device['LastUpdate'], device);
-
-        var title = device['Name'];
-        if (typeof(blocks[idx + '_3']) !== 'undefined' && typeof(blocks[idx + '_3']['title']) !== 'undefined') title = blocks[idx + '_3']['title'];
-        var icon = 'wi wi-barometer';
-        if (typeof(blocks[idx + '_3']) !== 'undefined' && typeof(blocks[idx + '_3']['icon']) !== 'undefined') icon = blocks[idx + '_3']['icon'];
-        this.html = getStateBlock(device['idx'] + '_3', icon, title, device['Barometer'] + ' hPa', device);
-        if (typeof(allblocks[idx]) !== 'undefined' && $('div.block_' + idx + '_3').length === 0) {
-            $('div.block_' + idx + '_2').last().clone().removeClass('block_' + idx + '_2').addClass('block_' + idx + '_3').insertAfter($('div.block_' + idx + '_2'));
-        }
-        $('div.block_' + idx + '_3').html(this.html);
+        blockValues.push({
+            icon: 'wi wi-barometer',
+            idx: idx + '_3',
+            title: device['Name'],
+            value: device['Barometer'],
+            unit: 'hPa'
+        });
     }
-    return [this.html, false];
+    createBlocks(blockValues, device);
+    return ['', false];
 }
 
 function getThermostatBlock(device, idx) {
