@@ -34,7 +34,6 @@ function appendLiteBit(coin) {
 
 function appendCoinMarketCap(coin) {
     $.getJSON('https://api.coinmarketcap.com/v1/ticker/' + coin['key'] + '/?convert=' + coin['currency'], function (data) {
-        log(data);
         var symbol = '$';
         var varname = 'price_usd';
         switch (coin['currency']) {

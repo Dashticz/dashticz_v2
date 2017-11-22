@@ -1,71 +1,70 @@
-blocktypes = {}
-blocktypes.SubType = {}
-blocktypes.SubType['Visibility'] = {icon: 'fa fa-eye', title: '<Name>', value: '<Data>'}
-blocktypes.SubType['Electric'] = {icon: 'fa fa-plug', title: '<Name>', value: '<Data>'}
-blocktypes.SubType['Lux'] = {icon: 'fa fa-sun-o', title: '<Name>', value: '<Data>'}
-blocktypes.SubType['Barometer'] = {icon: 'wi wi-barometer', title: '<Name>', value: '<Data>'}
-blocktypes.SubType['Sound Level'] = {icon: 'fa fa-volume-up', title: '<Name>', value: '<Data>'}
-blocktypes.SubType['Distance'] = {icon: 'fa fa-eye', title: '<Name>', value: '<Data>'}
-blocktypes.SubType['Alert'] = {icon: 'fa fa-warning', title: '<Data>', value: '<Name>'}
-blocktypes.SubType['Percentage'] = {icon: 'fa fa-percent', title: '<Name>', value: '<Data>'}
-blocktypes.SubType['Text'] = {icon: 'fa fa-file', title: '<Name>', value: '<Data>'}
+blocktypes = {};
+blocktypes.SubType = {};
+blocktypes.SubType['Visibility'] = {icon: 'fa fa-eye', title: '<Name>', value: '<Data>'};
+blocktypes.SubType['Electric'] = {icon: 'fa fa-plug', title: '<Name>', value: '<Data>'};
+blocktypes.SubType['Lux'] = {icon: 'fa fa-sun-o', title: '<Name>', value: '<Data>'};
+blocktypes.SubType['Barometer'] = {icon: 'wi wi-barometer', title: '<Name>', value: '<Data>'};
+blocktypes.SubType['Sound Level'] = {icon: 'fa fa-volume-up', title: '<Name>', value: '<Data>'};
+blocktypes.SubType['Distance'] = {icon: 'fa fa-eye', title: '<Name>', value: '<Data>'};
+blocktypes.SubType['Alert'] = {icon: 'fa fa-warning', title: '<Data>', value: '<Name>'};
+blocktypes.SubType['Percentage'] = {icon: 'fa fa-percent', title: '<Name>', value: '<Data>'};
+blocktypes.SubType['Text'] = {icon: 'fa fa-file', title: '<Name>', value: '<Data>'};
 blocktypes.SubType['Counter Incremental'] = {
     icon: 'fa fa-bolt',
     title: '<Name>',
     value: '<Data>',
     format: true,
     decimals: 2
-}
-blocktypes.SubType['Voltage'] = {icon: 'fa fa-bolt', title: '<Name>', value: '<Data>'}
+};
+blocktypes.SubType['Voltage'] = {icon: 'fa fa-bolt', title: '<Name>', value: '<Data>'};
 blocktypes.SubType['Solar Radiation'] = {
     icon: 'fa fa-sun-o',
     title: '<Name>',
     value: '<Data>',
     format: true,
     decimals: 0
-}
-blocktypes.SubType['Thermostat Mode'] = {icon: 'fa fa-thermometer-half', title: '<Name>', value: '<Data>'}
+};
+blocktypes.SubType['Thermostat Mode'] = {icon: 'fa fa-thermometer-half', title: '<Name>', value: '<Data>'};
 
-blocktypes.SensorUnit = {}
-blocktypes.SensorUnit['Fertility'] = {icon: 'fa fa-flask', title: '<Name>', value: '<Data>'}
+blocktypes.SensorUnit = {};
+blocktypes.SensorUnit['Fertility'] = {icon: 'fa fa-flask', title: '<Name>', value: '<Data>'};
 
-blocktypes.Type = {}
-blocktypes.Type['Rain'] = {icon: 'fa fa-tint', title: '<Name>', value: '<Rain>mm', format: true, decimals: 1}
-blocktypes.Type['Wind'] = {icon: 'wi wi-wind-direction', title: language.wind.wind, value: ''}
+blocktypes.Type = {};
+blocktypes.Type['Rain'] = {icon: 'fa fa-tint', title: '<Name>', value: '<Rain>mm', format: true, decimals: 1};
+blocktypes.Type['Wind'] = {icon: 'wi wi-wind-direction', title: language.wind.wind, value: ''};
 blocktypes.Type['Temp'] = {
     icon: 'fa fa-thermometer-half',
     title: '<Name>',
     value: '<Temp>' + _TEMP_SYMBOL,
     format: true,
     decimals: 1
-}
-blocktypes.Type['Air Quality'] = {image: 'air.png', title: '<Name>', value: '<Data>'}
-blocktypes.Type['UV'] = {icon: 'fa fa-sun-o', title: '<Name>', value: '<Data>'}
+};
+blocktypes.Type['Air Quality'] = {image: 'air.png', title: '<Name>', value: '<Data>'};
+blocktypes.Type['UV'] = {icon: 'fa fa-sun-o', title: '<Name>', value: '<Data>'};
 
-blocktypes.HardwareType = {}
-blocktypes.HardwareType['Motherboard sensors'] = {icon: 'fa fa-desktop', title: '<Name>', value: '<Data>'}
-blocktypes.HardwareType['PVOutput (Input)'] = {}
-blocktypes.HardwareType['PVOutput (Input)']['total'] = {icon: 'fa fa-sun-o', title: '<Name>', value: '<CounterToday>'}
-blocktypes.HardwareType['PVOutput (Input)']['usage'] = {icon: 'fa fa-sun-o', title: '<Name>', value: '<Usage>'}
+blocktypes.HardwareType = {};
+blocktypes.HardwareType['Motherboard sensors'] = {icon: 'fa fa-desktop', title: '<Name>', value: '<Data>'};
+blocktypes.HardwareType['PVOutput (Input)'] = {};
+blocktypes.HardwareType['PVOutput (Input)']['total'] = {icon: 'fa fa-sun-o', title: '<Name>', value: '<CounterToday>'};
+blocktypes.HardwareType['PVOutput (Input)']['usage'] = {icon: 'fa fa-sun-o', title: '<Name>', value: '<Usage>'};
 
-blocktypes.HardwareName = {}
-blocktypes.HardwareName['Rain expected'] = {icon: 'fa fa-tint', title: '<Data>', value: '<Name>'}
+blocktypes.HardwareName = {};
+blocktypes.HardwareName['Rain expected'] = {icon: 'fa fa-tint', title: '<Data>', value: '<Name>'};
 
-blocktypes.Name = {}
-blocktypes.Name['Rain Expected'] = {icon: 'fa fa-tint', title: '<Data>', value: '<Name>'}
-blocktypes.Name['Rain expected'] = {icon: 'fa fa-tint', title: '<Data>', value: '<Name>'}
-blocktypes.Name['Regen mm/uur'] = {icon: 'fa fa-tint', title: '<Data>', value: '<Name>'}
-blocktypes.Name['Regen verwacht'] = {icon: 'fa fa-tint', title: '<Data>', value: '<Name>'}
-blocktypes.Name['Regen Verwacht'] = {icon: 'fa fa-tint', title: '<Data>', value: '<Name>'}
+blocktypes.Name = {};
+blocktypes.Name['Rain Expected'] = {icon: 'fa fa-tint', title: '<Data>', value: '<Name>'};
+blocktypes.Name['Rain expected'] = {icon: 'fa fa-tint', title: '<Data>', value: '<Name>'};
+blocktypes.Name['Regen mm/uur'] = {icon: 'fa fa-tint', title: '<Data>', value: '<Name>'};
+blocktypes.Name['Regen verwacht'] = {icon: 'fa fa-tint', title: '<Data>', value: '<Name>'};
+blocktypes.Name['Regen Verwacht'] = {icon: 'fa fa-tint', title: '<Data>', value: '<Name>'};
 
-blocktypes.Name['Ping'] = {icon: 'fa fa-arrows-v', title: '<Name>', value: '<Data>'}
-blocktypes.Name['Upload'] = {icon: 'fa fa-upload', title: '<Name>', value: '<Data>', format: true, decimals: 3}
-blocktypes.Name['Download'] = {icon: 'fa fa-download', title: '<Name>', value: '<Data>', format: true, decimals: 3}
+blocktypes.Name['Ping'] = {icon: 'fa fa-arrows-v', title: '<Name>', value: '<Data>'};
+blocktypes.Name['Upload'] = {icon: 'fa fa-upload', title: '<Name>', value: '<Data>', format: true, decimals: 3};
+blocktypes.Name['Download'] = {icon: 'fa fa-download', title: '<Name>', value: '<Data>', format: true, decimals: 3};
 
-blocktypes.Name['Maanfase'] = {icon: 'fa fa-moon-o', title: '<Data>', value: '<Name>'}
-blocktypes.Name['Moon phase'] = {icon: 'fa fa-moon-o', title: '<Data>', value: '<Name>'}
-blocktypes.Name['Mondphase'] = {icon: 'fa fa-moon-o', title: '<Data>', value: '<Name>'}
-
+blocktypes.Name['Maanfase'] = {icon: 'fa fa-moon-o', title: '<Data>', value: '<Name>'};
+blocktypes.Name['Moon phase'] = {icon: 'fa fa-moon-o', title: '<Data>', value: '<Name>'};
+blocktypes.Name['Mondphase'] = {icon: 'fa fa-moon-o', title: '<Data>', value: '<Name>'};
 
 blocktypes = getExtendedBlockTypes(blocktypes);
 

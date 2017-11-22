@@ -7,16 +7,16 @@ var standbyActive = false;
 var standbyTime = 0;
 var swipebackTime = 0;
 var audio = {};
-var screens = {}
-var columns = {}
-var columns_standby = {}
-var blocks = {}
+var screens = {};
+var columns = {};
+var columns_standby = {};
+var blocks = {};
 var req;
 var slide;
 var sliding = false;
 var defaultcolumns = false;
-var allblocks = {}
-var alldevices = {}
+var allblocks = {};
+var alldevices = {};
 var myswiper;
 var addedThermostat = [];
 var oldstates = [];
@@ -51,14 +51,14 @@ function loadFiles() {
             setLang = localStorage.dashticz_language
         }
         else if (typeof(config) !== 'undefined' && typeof(config.language) !== 'undefined') {
-            setLang = config.language
+            setLang = config.language;
         }
         else {
-            setLang = 'en_US'
+            setLang = 'en_US';
         }
         $.ajax({
             url: 'lang/' + setLang + '.json?v=' + cache, async: false, dataType: 'json', success: function (data) {
-                language = data
+                language = data;
             }
         });
 
@@ -876,8 +876,8 @@ function appendStreamPlayer(columndiv) {
     var supportsAudio = !!document.createElement('audio').canPlayType;
     if (supportsAudio) {
         var index = 0,
-            playing = false;
-        tracks = _STREAMPLAYER_TRACKS,
+            playing = false,
+            tracks = _STREAMPLAYER_TRACKS,
             trackCount = tracks.length,
             npTitle = $(streamelement + ' h3'),
             audio = $(streamelement + ' .audio1').bind('play', function () {
