@@ -56,7 +56,7 @@ function toggleItem(cur, currentState) {
     $(cur).find('.icon').addClass(this.newState);
     $(cur).find('.state').html(language.switches['state_' + this.newState]);
 
-    return this.newState.charAt(0).toUpperCase() + this.newState.slice(1);;
+    return this.newState.charAt(0).toUpperCase() + this.newState.slice(1);
 }
 
 function switchThermostat(setpoint, cur) {
