@@ -1,22 +1,22 @@
 function number_format (number, decimals, decPoint, thousandsSep) { // eslint-disable-line camelcase
-  number = (number + '').replace(/[^0-9+\-Ee.]/g, '')
-  var n = !isFinite(+number) ? 0 : +number
-  var prec = !isFinite(+decimals) ? 0 : Math.abs(decimals)
+  number = (number + '').replace(/[^0-9+\-Ee.]/g, '');
+  var n = !isFinite(+number) ? 0 : +number;
+  var prec = !isFinite(+decimals) ? 0 : Math.abs(decimals);
   var sep = (typeof thousandsSep === 'undefined') ? _THOUSAND_SEPARATOR : thousandsSep;
   var dec = (typeof decPoint === 'undefined') ? _DECIMAL_POINT : decPoint;
-  var s = ''
+  var s = '';
   var toFixedFix = function (n, prec) {
-    var k = Math.pow(10, prec)
+    var k = Math.pow(10, prec);
     return '' + (Math.round(n * k) / k)
       .toFixed(prec)
-  }
+  };
   // @todo: for IE parseFloat(0.55).toFixed(0) = 0;
-  s = (prec ? toFixedFix(n, prec) : '' + Math.round(n)).split('.')
+  s = (prec ? toFixedFix(n, prec) : '' + Math.round(n)).split('.');
   if (s[0].length > 3) {
     s[0] = s[0].replace(/\B(?=(?:\d{3})+(?!\d))/g, sep)
   }
   if ((s[1] || '').length < prec) {
-    s[1] = s[1] || ''
+    s[1] = s[1] || '';
     s[1] += new Array(prec - s[1].length + 1).join('0')
   }
   return s.join(dec)
@@ -31,6 +31,7 @@ function log(message) {
         console.log(message);
     }
 }
+
 function setSrc(cur){
 	$($(cur).data('target')).on('hidden.bs.modal', function () {
 		$($(cur).data('target')).find('iframe').removeAttr('src');
@@ -44,10 +45,12 @@ function setSrc(cur){
 function hexToRgb(hex) {
 	hex = parseInt(((hex.indexOf('#') > -1) ? hex.substring(1) : hex), 16);
 	return {r: hex >> 16, g: (hex & 0x00FF00) >> 8, b: (hex & 0x0000FF)};
-};
+}
+
 function hexToHsb(hex) {
 	return rgbToHsb(hexToRgb(hex));
-};
+}
+
 function rgbToHsb(rgb) {
 	var hsb = {h: 0, s: 0, b: 0};
 	var min = Math.min(rgb.r, rgb.g, rgb.b);
@@ -65,8 +68,8 @@ function rgbToHsb(rgb) {
 	hsb.s *= 100/255;
 	hsb.b *= 100/255;
 	return hsb;
-};
-	
+}
+
 function ksort (inputArr, sort_flags) {
     // http://jsphp.co/jsphp/fn/view/ksort
     // +   original by: GeekFG (http://geekfg.blogspot.com)
@@ -170,9 +173,11 @@ function ksort (inputArr, sort_flags) {
 
     return strictForIn || populateArr;
 }
+
 function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
+
 $.getJSONP = function(s) {
 	s.dataType = 'jsonp';
 	$.ajax(s);
@@ -212,6 +217,7 @@ $.getJSONP = function(s) {
 		($.ajax.handleError || $.handleError)(s, o, msg, e);
 	}
 };
+
 $.handleError = function(s, xhr, status, e) {
     // If a local callback was specified, fire it
     if ( s.error ) {
@@ -223,6 +229,7 @@ $.handleError = function(s, xhr, status, e) {
         (s.context ? jQuery(s.context) : jQuery.event).trigger( "ajaxError", [xhr, s, e] );
     }
 };
+
 function objectlength(a){
 	var count = 0;
 	var i;
@@ -248,6 +255,7 @@ function time() {
 function str_replace(find, replace, str) {
   return str.replace(new RegExp(find, 'g'), replace);
 }
+
 function strtotime(text, now) {
 
   var parsed, match, today, year, date, days, ranges, len, times, regex, i, fail = false;

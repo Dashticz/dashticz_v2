@@ -28,7 +28,7 @@ function loadChromecast(columndiv) {
     html += '</div>';
     $(columndiv).append(html);
 
-    window['__onGCastApiAvailable'] = function(isAvailable) {
+    window['__onGCastApiAvailable'] = function (isAvailable) {
         if (isAvailable) {
             cast.framework.CastContext.getInstance().setOptions({
                 receiverApplicationId: chrome.cast.media.DEFAULT_MEDIA_RECEIVER_APP_ID,
@@ -38,7 +38,7 @@ function loadChromecast(columndiv) {
             var context = cast.framework.CastContext.getInstance();
             context.addEventListener(
                 cast.framework.CastContextEventType.SESSION_STATE_CHANGED,
-                function(event) {
+                function (event) {
                     switch (event.sessionState) {
                         case cast.framework.SessionState.SESSION_STARTED:
                             log('CastContext: CastSession started');
@@ -92,14 +92,14 @@ function changeVolume(action) {
 function selectStream(streamelement) {
     var trackCount = _STREAMPLAYER_TRACKS.length,
         titleElement = $(streamelement + ' h3');
-    $(streamelement + ' .btnPrev').click(function() {
+    $(streamelement + ' .btnPrev').click(function () {
         selectedStreamIndex--;
         if (selectedStreamIndex < 0) {
             selectedStreamIndex = trackCount - 1;
         }
         loadTrack(selectedStreamIndex);
     });
-    $(streamelement + ' .btnNext').click(function() {
+    $(streamelement + ' .btnNext').click(function () {
         selectedStreamIndex++;
         if (selectedStreamIndex === trackCount) {
             selectedStreamIndex = 0;
@@ -107,13 +107,13 @@ function selectStream(streamelement) {
 
         loadTrack(selectedStreamIndex);
     });
-    $(streamelement + ' .btnVolDown').click(function() {
+    $(streamelement + ' .btnVolDown').click(function () {
         changeVolume('down');
     });
-    $(streamelement + ' .btnVolUp').click(function() {
+    $(streamelement + ' .btnVolUp').click(function () {
         changeVolume('up');
     });
-    var loadTrack = function(id) {
+    var loadTrack = function (id) {
         titleElement.text(_STREAMPLAYER_TRACKS[id].name);
         loadStream(_STREAMPLAYER_TRACKS[id].file);
     };
