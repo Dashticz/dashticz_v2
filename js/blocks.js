@@ -440,8 +440,8 @@ function getStatusBlock(idx, device, block, c) {
         }
     }
 
-    if (typeof(block.image) !== 'undefined') stateBlock = iconORimage(idx, '', block.image, '', attr, 4, '');
-    else stateBlock = iconORimage(idx, block.icon, '', '', attr, 4, '');
+    if (typeof(block.image) !== 'undefined') stateBlock = iconORimage(idx, '', block.image, 'icon', attr, 4, '');
+    else stateBlock = iconORimage(idx, block.icon, '', 'icon', attr, 4, '');
 
     stateBlock += '<div class="col-xs-8 col-data">';
     if (titleAndValueSwitch(idx)) {
