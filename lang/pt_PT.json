@@ -48,6 +48,7 @@
             "garbage_company": "Empresa \/ Serviço",
             "garbage_hideicon": "Hide icon in block",
             "garbage_housenumber": "House number",
+            "garbage_housenumberaddition": "Housenumber addition",
             "garbage_icalurl": "iCal URL",
             "garbage_maxitems": "Amount of pickups to show",
             "garbage_street": "Street",

@@ -48,6 +48,7 @@
             "garbage_company": "Yritys \/ Palvelu",
             "garbage_hideicon": "Piilota kuvake lohkossa",
             "garbage_housenumber": "Talonnumero",
+            "garbage_housenumberaddition": "Housenumber addition",
             "garbage_icalurl": "iCal osoite",
             "garbage_maxitems": "Näytettävien pickupien määrä",
             "garbage_street": "Katu",

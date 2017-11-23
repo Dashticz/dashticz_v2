@@ -48,6 +48,7 @@
             "garbage_company": "Company \/ Service",
             "garbage_hideicon": "Hide icon in block",
             "garbage_housenumber": "Číslo domu",
+            "garbage_housenumberaddition": "Housenumber addition",
             "garbage_icalurl": "iCal URL",
             "garbage_maxitems": "Amount of pickups to show",
             "garbage_street": "Ulica",
