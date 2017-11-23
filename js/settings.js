@@ -326,6 +326,10 @@ settingList['garbage']['garbage_housenumber'] = {};
 settingList['garbage']['garbage_housenumber']['title'] = language.settings.garbage.garbage_housenumber;
 settingList['garbage']['garbage_housenumber']['type'] = 'text';
 
+settingList['garbage']['garbage_housenumberadd'] = {};
+settingList['garbage']['garbage_housenumberadd']['title'] = language.settings.garbage.garbage_housenumberaddition;
+settingList['garbage']['garbage_housenumberadd']['type'] = 'text';
+
 settingList['garbage']['garbage_maxitems'] = {};
 settingList['garbage']['garbage_maxitems']['title'] = language.settings.garbage.garbage_maxitems;
 settingList['garbage']['garbage_maxitems']['type'] = 'text';

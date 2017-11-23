@@ -7,6 +7,7 @@ function loadGarbage () {
 	var service = settings['garbage_company'];
 	var postcode = settings['garbage_zipcode'];
 	var homenumber = settings['garbage_housenumber'];
+	var homenumberadd = settings['garbage_housenumberadd'];
 	var street = settings['garbage_street'];
 	
 	var key = 'garbage';	
@@ -76,7 +77,7 @@ function loadGarbage () {
 	}
 	
 	if(service=='deafvalapp'){
-		$.get('https://cors-anywhere.herokuapp.com/http://dataservice.deafvalapp.nl/dataservice/DataServiceServlet?type=ANDROID&service=OPHAALSCHEMA&land=NL&postcode=' + postcode + '&straatId=0&huisnr=' + homenumber + '&huisnrtoev=',function(data){
+		$.get('https://cors-anywhere.herokuapp.com/http://dataservice.deafvalapp.nl/dataservice/DataServiceServlet?type=ANDROID&service=OPHAALSCHEMA&land=NL&postcode=' + postcode + '&straatId=0&huisnr=' + homenumber + '&huisnrtoev=' + homenumberadd,function(data){
 			var respArray = data.toString().split('\n').join('').split(";");
 			respArray.pop();
 			for (var i in respArray) {
@@ -120,7 +121,7 @@ function loadGarbage () {
 			'postCode': postcode,
 			'houseNumber':homenumber,
 			'houseLetter':'',
-			'houseNumberAddition':''
+			'houseNumberAddition':homenumberadd
 
 		},function(data){
 			$.post('https://wasteapi.2go-mobile.com/api/GetCalendar',{
@@ -217,7 +218,7 @@ function loadGarbage () {
 		$('.trash'+random+' .state').html('');
 	
 		var baseURL = 'http://www.afvalwijzer-arnhem.nl';
-		$.get('https://cors-anywhere.herokuapp.com/'+baseURL + '/applicatie?ZipCode='+postcode+'&HouseNumber='+homenumber+'&HouseNumberAddition=',function(data){
+		$.get('https://cors-anywhere.herokuapp.com/'+baseURL + '/applicatie?ZipCode='+postcode+'&HouseNumber='+homenumber+'&HouseNumberAddition='+homenumberadd,function(data){
 			$(data).find('ul.ulPickupDates li').each(function(){
 				var row = $(this).html().split('</div>');
 				var curr = row[0].replace('<div>','').trim();
@@ -235,7 +236,7 @@ function loadGarbage () {
 		});
 	}
 	if(service=='mijnafvalwijzer'){
-		$.getJSON('https://cors-anywhere.herokuapp.com/http://json.mijnafvalwijzer.nl/?method=postcodecheck&postcode=' + postcode + '&street=&huisnummer=' + homenumber + '&toevoeging=',function(data){
+		$.getJSON('https://cors-anywhere.herokuapp.com/http://json.mijnafvalwijzer.nl/?method=postcodecheck&postcode=' + postcode + '&street=&huisnummer=' + homenumber + '&toevoeging='+homenumberadd,function(data){
 			data = data.data.ophaaldagen.data;
 			for(d in data){
 				var curr = data[d]['nameType'];
