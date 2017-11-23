@@ -4,13 +4,13 @@ FROM nginx
 USER root
 
 RUN apt-get update
-RUN apt-get install -y nginx
+RUN apt-get install -y nginx --no-install-recommends
 
 # Remove the default Nginx configuration file
 RUN rm -v /etc/nginx/nginx.conf
 
 # Copy a configuration file from the current directory
-ADD nginx.conf /etc/nginx/
+COPY nginx.conf /etc/nginx/
 
 RUN rm -rf /usr/share/nginx/html/
 
