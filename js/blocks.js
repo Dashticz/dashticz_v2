@@ -101,11 +101,11 @@ function getBlock(cols, c, columndiv, standby) {
 
             switch (typeof(cols['blocks'][b])) {
                 case 'object':
-                    handleObjectBlock(cols['blocks'][b], b, columndiv, width);
+                    handleObjectBlock(cols['blocks'][b], b, columndiv, width, c);
                     continue;
 
                 case 'string':
-                    handleStringBlock(cols['blocks'][b], columndiv, width);
+                    handleStringBlock(cols['blocks'][b], columndiv, width, c);
                     continue;
 
                 default:
@@ -116,7 +116,7 @@ function getBlock(cols, c, columndiv, standby) {
     }
 }
 
-function handleStringBlock(block, columndiv, width) {
+function handleStringBlock(block, columndiv, width, c) {
     switch (block) {
         case 'logo':
             $(columndiv).append('<div data-id="logo" class="logo col-xs-' + width + '">' + settings['app_title'] + '</div>');
@@ -285,7 +285,7 @@ function handleStringBlock(block, columndiv, width) {
     }
 }
 
-function handleObjectBlock(block, index, columndiv, width) {
+function handleObjectBlock(block, index, columndiv, width, c) {
     var random = getRandomInt(1, 100000);
     if (block.hasOwnProperty('latitude')) {
         $(columndiv).append(loadMaps(random, block));
