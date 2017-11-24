@@ -7,23 +7,20 @@ function loadGarbage() {
     var html = '<div class="trash trash' + random + ' block_garbage col-xs-' + width + ' transbg" data-id="garbage">';
     if (typeof(settings['garbage_hideicon']) !== 'undefined' && parseFloat(settings['garbage_hideicon']) === 1) {
         html += '<div class="col-xs-12 col-data">';
-        html += '<span class="state">' + language.misc.loading + '</span>';
-        html += '</div>';
     } else {
         html += '<div class="col-xs-4 col-icon">';
         html += '<img class="trashcan" src="img/kliko.png" style="opacity:0.1" />';
         html += '</div>';
         html += '<div class="col-xs-8 col-data">';
-        html += '<span class="state">' + language.misc.loading + '</span>';
-        html += '</div>';
     }
+    html += '<span class="state">' + language.misc.loading + '</span>';
+    html += '</div>';
     html += '</div>';
 
     loadDataForService(settings['garbage_company'], random);
 
     setTimeout(function () {
-        var html = loadTrash(random, trashobject);
-        $('.trash' + random).replaceWith(html);
+        loadGarbage();
     }, (60000 * 15));
 
     return html;
@@ -42,9 +39,9 @@ function getIcalData(address, date, random, url) {
             var testDate = moment(respArray[i].startt);
             if (testDate.isBetween(date.start, date.end, 'days', true)) {
                 if (typeof(this.returnDates[curr]) === 'undefined') {
-                    this.returnDates[curr] = {}
+                    this.returnDates[curr] = {};
                 }
-                this.returnDates[curr][testDate.format("YYYY-MM-DD") + this.counter] = getTrashRow(curr, testDate, respArray[i]['title']);
+                this.returnDates[curr][testDate.format('YYYY-MM-DD') + this.counter] = getTrashRow(curr, testDate, respArray[i]['title']);
                 this.counter++;
             }
         }
@@ -54,7 +51,7 @@ function getIcalData(address, date, random, url) {
 
 function getDeAfvalAppData(address, date, random) {
     $.get('https://cors-anywhere.herokuapp.com/http://dataservice.deafvalapp.nl/dataservice/DataServiceServlet?type=ANDROID&service=OPHAALSCHEMA&land=NL&postcode=' + address.postcode + '&straatId=0&huisnr=' + address.housenumber + '&huisnrtoev=' + address.housenumberSuffix, function (data) {
-        var respArray = data.toString().split('\n').join('').split(";");
+        var respArray = data.toString().split('\n').join('').split(';');
         respArray.pop();
         this.returnDates = {};
         this.counter = 0;
@@ -65,16 +62,13 @@ function getDeAfvalAppData(address, date, random) {
                 dates[respArray[i]] = [];
                 curr = respArray[i];
                 curr = capitalizeFirstLetter(curr.toLowerCase());
-
-            }
-            else {
-
-                var testDate = moment(respArray[i], "DD-MM-YYYY");
+            } else {
+                var testDate = moment(respArray[i], 'DD-MM-YYYY');
                 if (testDate.isBetween(date.start, date.end, 'days', true)) {
                     if (typeof(this.returnDates[curr]) === 'undefined') {
                         this.returnDates[curr] = {}
                     }
-                    this.returnDates[curr][testDate.format("YYYY-MM-DD") + this.counter] = getTrashRow(curr, testDate);
+                    this.returnDates[curr][testDate.format('YYYY-MM-DD') + this.counter] = getTrashRow(curr, testDate);
                     this.counter++;
                 }
             }
@@ -90,14 +84,12 @@ function getTwenteMilieuData(address, date, random) {
         'houseNumber': address.housenumber,
         'houseLetter': '',
         'houseNumberAddition': address.housenumberSuffix
-
     }, function (data) {
         $.post('https://wasteapi.2go-mobile.com/api/GetCalendar', {
             'companyCode': '8d97bb56-5afd-4cbc-a651-b4f7314264b4',
             'uniqueAddressID': data['dataList'][0]['UniqueId'],
-            'startDate': date.start.format("YYYY-MM-DD"),
-            'endDate': date.end.format("YYYY-MM-DD")
-
+            'startDate': date.start.format('YYYY-MM-DD'),
+            'endDate': date.end.format('YYYY-MM-DD')
         }, function (data) {
             this.returnDates = {};
             data = data.dataList;
@@ -111,7 +103,7 @@ function getTwenteMilieuData(address, date, random) {
                 for (dt in data[d].pickupDates) {
                     var testDate = moment(data[d].pickupDates[dt]);
                     if (testDate.isBetween(date.start, date.end, 'days', true)) {
-                        this.returnDates[curr][testDate.format("YYYY-MM-DD") + '_' + curr] = getTrashRow(curr, testDate);
+                        this.returnDates[curr][testDate.format('YYYY-MM-DD') + '_' + curr] = getTrashRow(curr, testDate);
                     }
                 }
             }
@@ -135,7 +127,7 @@ function getAfvalstromenData(address, date, random, baseUrl) {
                         this.returnDates[curr] = {}
                     }
                     var testDate = moment(moment(data[d]['ophaaldatum']));
-                    this.returnDates[curr][testDate.format("YYYY-MM-DD") + '_' + this.counter] = getTrashRow(curr, testDate);
+                    this.returnDates[curr][testDate.format('YYYY-MM-DD') + '_' + this.counter] = getTrashRow(curr, testDate);
                     this.counter++;
                 }
             }
@@ -163,7 +155,7 @@ function getOphaalkalenderData(address, date, random) {
                 }
                 var testDate = moment(moment(data[d]['start']));
                 if (testDate.isBetween(date.start, date.end, 'days', true)) {
-                    this.returnDates[curr][testDate.format("YYYY-MM-DD") + '_' + this.counter] = getTrashRow(curr, testDate, data[d]['color']);
+                    this.returnDates[curr][testDate.format('YYYY-MM-DD') + '_' + this.counter] = getTrashRow(curr, testDate, data[d]['color']);
                     this.counter++;
                 }
             }
@@ -186,7 +178,7 @@ function getAfvalwijzerArnhemData(address, date, random) {
                 if (typeof(this.returnDates[curr]) === 'undefined') {
                     returnDates[curr] = {}
                 }
-                returnDates[curr][testDate.format("YYYY-MM-DD") + '_' + curr] = getTrashRow(curr, testDate);
+                returnDates[curr][testDate.format('YYYY-MM-DD') + '_' + curr] = getTrashRow(curr, testDate);
             }
         });
         addToContainer(random, this.returnDates);
@@ -206,7 +198,7 @@ function getMijnAfvalwijzerData(address, date, random) {
                 if (typeof(this.returnDates[curr]) === 'undefined') {
                     this.returnDates[curr] = {}
                 }
-                this.returnDates[curr][testDate.format("YYYY-MM-DD") + '_' + curr] = getTrashRow(curr, testDate);
+                this.returnDates[curr][testDate.format('YYYY-MM-DD') + '_' + curr] = getTrashRow(curr, testDate);
             }
         }
         addToContainer(random, this.returnDates);
@@ -226,7 +218,7 @@ function getHvcData(address, date, random) {
             for (dt in data[d].dateTime) {
                 var testDate = moment(data[d].dateTime[dt].date);
                 if (testDate.isBetween(date.start, date.end, 'days', true)) {
-                    this.returnDates[curr][testDate.format("YYYY-MM-DD") + '_' + curr] = getTrashRow(curr, testDate);
+                    this.returnDates[curr][testDate.format('YYYY-MM-DD') + '_' + curr] = getTrashRow(curr, testDate);
                 }
             }
         }
@@ -247,7 +239,7 @@ function getRovaData(address, date, random) {
 
             var testDate = moment(data[d].Date);
             if (testDate.isBetween(date.start, date.end, 'days', true)) {
-                this.returnDates[curr][testDate.format("YYYY-MM-DD") + '_' + this.counter] = getTrashRow(curr, testDate);
+                this.returnDates[curr][testDate.format('YYYY-MM-DD') + '_' + this.counter] = getTrashRow(curr, testDate);
                 this.counter++;
             }
         }
@@ -269,7 +261,7 @@ function getRecycleManagerData(address, date, random) {
 
                 var testDate = moment(data.data[d].occurrences[o].from.date);
                 if (testDate.isBetween(date.start, date.end, 'days', true)) {
-                    this.returnDates[curr][testDate.format("YYYY-MM-DD") + '_' + this.counter] = getTrashRow(curr, testDate);
+                    this.returnDates[curr][testDate.format('YYYY-MM-DD') + '_' + this.counter] = getTrashRow(curr, testDate);
                     this.counter++;
                 }
             }
@@ -293,7 +285,7 @@ function getEdgData(address, date, random) {
             var testDate = moment(data[d]['date']);
             if (testDate.isBetween(date.start, date.end, 'days', true)) {
                 for (e in data[d].fraktion) {
-                    this.returnDates[curr][moment(data[d]['date']).format("YYYY-MM-DD")] = getTrashRow(data[d].fraktion[e], testDate);
+                    this.returnDates[curr][moment(data[d]['date']).format('YYYY-MM-DD')] = getTrashRow(data[d].fraktion[e], testDate);
                     this.counter++;
                 }
             }
@@ -307,7 +299,7 @@ function getTrashRow(c, d, orgcolor) {
     if (typeof(trashcolors) !== 'undefined' && typeof(trashcolors[c]) !== 'undefined') color = ' style="color:' + trashcolors[c] + '"';
     if (typeof(trashnames) !== 'undefined' && typeof(trashnames[c]) !== 'undefined') c = trashnames[c];
 
-    if (c.length == 0) return '';
+    if (c.length === 0) return '';
     if (c.substr(0, 7) == 'Bo zl12') {
         if (c.toLowerCase().indexOf("gft") > 0) c = 'GFT';
         else if (c.toLowerCase().indexOf("rest") > 0) c = 'Restafval';
@@ -316,7 +308,7 @@ function getTrashRow(c, d, orgcolor) {
     orgcolor_attr = ' data-color="' + color + '";';
     if (typeof(orgcolor) !== 'undefined') orgcolor_attr = ' data-color="' + orgcolor + '"';
 
-    return '<div class="trashrow"' + color + orgcolor_attr + '>' + c + ': ' + d.format("DD-MM-YYYY") + '</div>';
+    return '<div class="trashrow"' + color + orgcolor_attr + '>' + c + ': ' + d.format('DD-MM-YYYY') + '</div>';
 }
 
 function addToContainer(random, returnDates) {
@@ -341,7 +333,7 @@ function addToContainer(random, returnDates) {
     Object.keys(returnDatesSimple).sort().slice(0, getMaxItems()).forEach(function (key, index) {
         var skey = key.split('_');
         skey = skey[0];
-        var date = moment(skey).format("DD-MM-YYYY");
+        var date = moment(skey).format('DD-MM-YYYY');
         var currentdate = moment();
         var tomorrow = moment().add(1, 'days');
         var nextweek = moment().add(6, 'days');
@@ -350,16 +342,16 @@ function addToContainer(random, returnDates) {
             $('.trash' + random).find('img.trashcan').attr('src', getKlikoImage(returnDatesSimple[key].toLowerCase()));
         }
 
-        if (date === currentdate.format("DD-MM-YYYY")) {
+        if (date === currentdate.format('DD-MM-YYYY')) {
             returnDatesSimple[key] = returnDatesSimple[key].replace(date, language.weekdays.today);
             returnDatesSimple[key] = returnDatesSimple[key].replace('trashrow', 'trashtoday');
         }
-        else if (date === tomorrow.format("DD-MM-YYYY")) {
+        else if (date === tomorrow.format('DD-MM-YYYY')) {
             returnDatesSimple[key] = returnDatesSimple[key].replace(date, language.weekdays.tomorrow);
             returnDatesSimple[key] = returnDatesSimple[key].replace('trashrow', 'trashtomorrow');
         }
         else if (moment(skey).isBetween(currentdate, nextweek, 'days', true)) {
-            var datename = moment(date, "DD-MM-YYYY").locale(settings['calendarlanguage']).format("dddd");
+            var datename = moment(date, 'DD-MM-YYYY').locale(settings['calendarlanguage']).format('dddd');
             datename = datename.charAt(0).toUpperCase() + datename.slice(1);
             returnDatesSimple[key] = returnDatesSimple[key].replace(date, datename);
         }
@@ -369,29 +361,29 @@ function addToContainer(random, returnDates) {
 }
 
 function getKlikoImage(element) {
-    if (element.indexOf("gft") >= 0 ||
-        element.indexOf("tuin") >= 0 ||
-        element.indexOf("refuse bin") >= 0
+    if (element.indexOf('gft') >= 0 ||
+        element.indexOf('tuin') >= 0 ||
+        element.indexOf('refuse bin') >= 0
     ) {
         return 'img/kliko_green.png';
     }
-    else if (element.indexOf("plastic") >= 0 ||
-        element.indexOf("pmd") >= 0
+    else if (element.indexOf('plastic') >= 0 ||
+        element.indexOf('pmd') >= 0
     ) {
         return 'img/kliko_orange.png';
     }
-    else if (element.indexOf("rest") >= 0 ||
-        element.indexOf("grof") >= 0
+    else if (element.indexOf('rest') >= 0 ||
+        element.indexOf('grof') >= 0
     ) {
         return 'img/kliko_grey.png';
     }
-    else if (element.indexOf("papier") >= 0 ||
-        element.indexOf("blauw") >= 0 ||
-        element.indexOf("recycling bin collection") >= 0
+    else if (element.indexOf('papier') >= 0 ||
+        element.indexOf('blauw') >= 0 ||
+        element.indexOf('recycling bin collection') >= 0
     ) {
         return 'img/kliko_blue.png';
     }
-    else if (element.indexOf("chemisch") >= 0) {
+    else if (element.indexOf('chemisch') >= 0) {
         return 'img/kliko_red.png';
     }
     return 'img/kliko.png';
@@ -404,6 +396,18 @@ function getMaxItems() {
         return settings['garbage_maxitems'];
     }
     return 5;
+}
+
+function getOmriData(address, date, random) {
+    // $.post('http://www.omrin.nl/bij-mij-thuis/services/afvalkalender/',{
+    //     'zipcode': address.postcode.substr(0,4),
+    //     'zipcodeend':address.postcode.substr(4,6),
+    //     'housenumber':address.housenumber,
+    //     'addition':'',
+    //     'send':'Mijn overzicht'
+    // }, function(data) {
+    //     console.log(data);
+    // });
 }
 
 function loadDataForService(service, random) {
@@ -509,7 +513,7 @@ function loadDataForService(service, random) {
             getHvcData(address, date, random);
             break;
         case 'rova':
-            //https://wedevise.nl/dashticz/rova.php?zipcode=7731ZT&number=84
+            /* https://wedevise.nl/dashticz/rova.php?zipcode=7731ZT&number=84 */
             getRovaData(address, date, random);
             break;
         case 'recyclemanager':
@@ -518,18 +522,8 @@ function loadDataForService(service, random) {
         case 'edg':
             getEdgData(address, date, random);
             break;
+        case 'omri':
+            getOmriData(address, date, random);
+            break;
     }
-
-    /*if(service=='omri'){
-        $.post('http://www.omrin.nl/bij-mij-thuis/services/afvalkalender/',{
-            'zipcode': postcode.substr(0,4),
-            'zipcodeend':postcode.substr(4,6),
-            'housenumber':homenumber,
-            'addition':'',
-            'send':'Mijn overzicht'
-
-        },function(data){
-            console.log(data);
-        });
-    }*/
 }
