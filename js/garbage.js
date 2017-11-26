@@ -31,7 +31,7 @@ function getGoogleCalendarData(address, date, random, calendarId) {
     $.ajax({
         url: this.url,
         data: {
-            key: config['api_key'],
+            key: config['google_api_key'],
             singleEvents: true,
             timeMin: date.start.format('YYYY-MM-DDT00:00:00+00:00'),
             timeMax: date.end.format('YYYY-MM-DDT00:00:00+00:00'),
@@ -121,23 +121,25 @@ function getTwenteMilieuData(address, date, random) {
             'startDate': date.start.format('YYYY-MM-DD'),
             'endDate': date.end.format('YYYY-MM-DD')
         }, function (data) {
-            this.returnDates = {};
-            data = data.dataList;
-            for (d in data) {
-                var curr = data[d].description;
-                curr = capitalizeFirstLetter(curr.toLowerCase());
-                if (typeof(this.returnDates[curr]) == 'undefined') {
-                    this.returnDates[curr] = {}
-                }
+            var dataFiltered = [];
+            data.dataList.forEach(function (element) {
+                element.pickupDates.forEach(function (dateElement) {
+                    var pickupTypes = {
+                        0: 'Restafval',
+                        1: 'GFT',
+                        2: 'Papier',
+                        10: 'Verpakkingen',
+                    };
+                    dataFiltered.push({
+                        trashRow: getSimpleTrashRow(moment(dateElement, 'YYYY-MM-DDTHH:mm:ss'), pickupTypes[element.pickupType]),
+                        date: dateElement,
+                        summary: element._pickupTypeText
+                    });
+                });
+            });
+            dataFiltered = dataFiltered.sort(function(a,b) {return (a.date > b.date) ? 1 : ((b.date > a.date) ? -1 : 0);} );
 
-                for (dt in data[d].pickupDates) {
-                    var testDate = moment(data[d].pickupDates[dt]);
-                    if (testDate.isBetween(date.start, date.end, 'days', true)) {
-                        this.returnDates[curr][testDate.format('YYYY-MM-DD') + '_' + curr] = getTrashRow(curr, testDate);
-                    }
-                }
-            }
-            addToContainer(random, this.returnDates);
+            addToContainerNew(random, dataFiltered.slice(0, getMaxItems()));
         });
     });
 
@@ -217,21 +219,20 @@ function getAfvalwijzerArnhemData(address, date, random) {
 
 function getMijnAfvalwijzerData(address, date, random) {
     $.getJSON('https://cors-anywhere.herokuapp.com/http://json.mijnafvalwijzer.nl/?method=postcodecheck&postcode=' + address.postcode + '&street=&huisnummer=' + address.housenumber + '&toevoeging=' + address.housenumberSuffix, function (data) {
-        data = data.data.ophaaldagen.data;
-        this.returnDates = {};
-        for (d in data) {
-            var curr = data[d]['nameType'];
-            curr = capitalizeFirstLetter(curr.toLowerCase());
-
-            var testDate = moment(data[d]['date']);
-            if (testDate.isBetween(date.start, date.end, 'days', true)) {
-                if (typeof(this.returnDates[curr]) === 'undefined') {
-                    this.returnDates[curr] = {}
+        data = data.data.ophaaldagen.data
+            .filter(function (element) {
+                return element.date >= date.start.format('YYYY-MM-DD')
+                    && element.date <= date.end.format('YYYY-MM-DD');
+            })
+            .slice(0, getMaxItems())
+            .map(function (element) {
+                return {
+                    trashRow: getSimpleTrashRow(moment(element.date, 'YYYY-MM-DD'), element.nameType),
+                    date: element.date,
+                    summary: element.nameType
                 }
-                this.returnDates[curr][testDate.format('YYYY-MM-DD') + '_' + curr] = getTrashRow(curr, testDate);
-            }
-        }
-        addToContainer(random, this.returnDates);
+            });
+        addToContainerNew(random, data);
     });
 }
 
@@ -330,7 +331,7 @@ function getTrashRow(c, d, orgcolor) {
     if (typeof(trashnames) !== 'undefined' && typeof(trashnames[c]) !== 'undefined') c = trashnames[c];
 
     if (c.length === 0) return '';
-    if (c.substr(0, 7) == 'Bo zl12') {
+    if (c.match(/[A-Z][a-z] [a-z]{2}[0-9]{2}/)) {
         if (c.toLowerCase().indexOf("gft") > 0) c = 'GFT';
         else if (c.toLowerCase().indexOf("rest") > 0) c = 'Restafval';
         else if (c.toLowerCase().indexOf("vec") > 0) c = 'Verpakkingen';
@@ -338,12 +339,12 @@ function getTrashRow(c, d, orgcolor) {
     orgcolor_attr = ' data-color="' + color + '";';
     if (typeof(orgcolor) !== 'undefined') orgcolor_attr = ' data-color="' + orgcolor + '"';
 
-    return '<div class="trashrow"' + color + orgcolor_attr + '>' + c + ': ' + d.format('DD-MM-YYYY') + '</div>';
+    return '<div class="trashrow"' + color + orgcolor_attr + '>' + c + ': ' + d.locale(settings['calendarlanguage']).format('l') + '</div>';
 }
 
 function getSimpleTrashRow(date, summary) {
     date.locale(settings['calendarlanguage']);
-    this.displayDate = date.format('DD-MM-YYYY');
+    this.displayDate = date.locale(settings['calendarlanguage']).format('l');
     if (date.isSame(moment(), 'day')) {
         this.displayDate = language.weekdays.today;
     } else if (date.isSame(moment().add(1, 'days'), 'day')) {
@@ -351,11 +352,11 @@ function getSimpleTrashRow(date, summary) {
     } else if (date.isBefore(moment().add(1, 'week'))) {
         this.displayDate = date.format('dddd');
     }
-    return '<div class="trashrow">' + summary + ': ' + this.displayDate + '</div>';
+    return '<div class="trashrow">' + (summary.charAt(0).toUpperCase() + summary.slice(1)) + ': ' + this.displayDate + '</div>';
 }
 
 function addToContainer(random, returnDates) {
-    var returnDatesSimple = {}
+    var returnDatesSimple = {};
     var done = {};
     for (c in returnDates) {
         for (cr in returnDates[c]) {
@@ -472,10 +473,10 @@ function getOmriData(address, date, random) {
 
 function loadDataForService(service, random) {
     var address = {
-        street: settings['garbage_street'],
-        housenumber: settings['garbage_housenumber'],
-        housenumberSuffix: settings['garbage_housenumberadd'],
-        postcode: settings['garbage_zipcode'],
+        street: settings['garbage_street'] || '',
+        housenumber: settings['garbage_housenumber'] || '',
+        housenumberSuffix: settings['garbage_housenumberadd'] || '',
+        postcode: settings['garbage_zipcode'] || '',
     };
     var date = {
         start: moment(),
