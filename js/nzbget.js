@@ -106,7 +106,7 @@ var NZBGET = (new function($)
 							if (result.error == null)
 							{
 								res = result.result;
-								eval(completed_callback+'(res)');;
+								eval(completed_callback+'(res)');
 								return;
 							}
 							else

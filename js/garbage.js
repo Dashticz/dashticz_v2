@@ -1,453 +1,592 @@
-function loadGarbage () {
-	var startDate = moment();
-	var endDate = moment(Date.now() + 32 * 24 * 3600 * 1000);
+function loadGarbage() {
+    var random = getRandomInt(1, 100000);
 
-	var random = getRandomInt(1,100000);
-	
-	var service = settings['garbage_company'];
-	var postcode = settings['garbage_zipcode'];
-	var homenumber = settings['garbage_housenumber'];
-	var homenumberadd = settings['garbage_housenumberadd'];
-	var street = settings['garbage_street'];
-	
-	var key = 'garbage';	
-	
-	var dates = {};
-    var curr = '';
-    var data = '';
-	var teller=0;
+    var width = 12;
+    if (typeof(settings['garbage_width']) !== 'undefined' && parseFloat(settings['garbage_width']) > 0) width = settings['garbage_width'];
 
-	var width = 12;
-	if(typeof(settings['garbage_width'])!=='undefined' && parseFloat(settings['garbage_width'])>0) width=settings['garbage_width'];
+    var html = '<div class="trash trash' + random + ' block_garbage col-xs-' + width + ' transbg" data-id="garbage">';
+    if (typeof(settings['garbage_hideicon']) !== 'undefined' && parseFloat(settings['garbage_hideicon']) === 1) {
+        html += '<div class="col-xs-12 col-data">';
+    } else {
+        html += '<div class="col-xs-4 col-icon">';
+        html += '<img class="trashcan" src="img/kliko.png" style="opacity:0.1" />';
+        html += '</div>';
+        html += '<div class="col-xs-8 col-data">';
+    }
+    html += '<span class="state">' + language.misc.loading + '</span>';
+    html += '</div>';
+    html += '</div>';
 
-	var maxitems = 5;
-	if(typeof(settings['garbage_maxitems'])!=='undefined' && parseFloat(settings['garbage_maxitems'])>0) maxitems=settings['garbage_maxitems'];
-	
-	var hide_icon = false;
-	if(typeof(settings['garbage_hideicon'])!=='undefined' && parseFloat(settings['garbage_hideicon'])==1) hide_icon=true;
-	
-	var html='<div class="trash trash'+random+' block_garbage col-xs-'+width+' transbg" data-id="garbage">';
-		if(!hide_icon){
-			html+='<div class="col-xs-4 col-icon">';
-				html+='<img class="trashcan" src="img/kliko.png" style="opacity:0.1" />';
-			html+='</div>';
-			html+='<div class="col-xs-8 col-data">';
-				html+='<span class="state">'+language.misc.loading+'</span>';
-			html+='</div>';
-		}
-		else {
-			html+='<div class="col-xs-12 col-data">';
-				html+='<span class="state">'+language.misc.loading+'</span>';
-			html+='</div>';
-		}
-	html+='</div>';
-	
-	var returnDates={};
-	
-	if(service=='ical' || service=='vianen' || service=='heezeleende' || service=='goes' || service=='uden' || service=='deurne' || service=='best' || service=='veldhoven' || service=='gemertbakelmaandag' || service=='gemertbakeldinsdag' || service=='gemertbakelwoensdag'){
-		if(service=='ical') var url = 'https://wedevise.nl/dashticz/ical/demo/?url='+settings['garbage_icalurl'];
-		if(service=='gemertbakelmaandag') var url = 'https://wedevise.nl/dashticz/ical/demo/?url=https://calendar.google.com/calendar/ical/o44qrtdhls8saftmesm5rqb85o%40group.calendar.google.com/public/basic.ics';
-		if(service=='gemertbakeldinsdag') var url = 'https://wedevise.nl/dashticz/ical/demo/?url=https://calendar.google.com/calendar/ical/6p8549rssv114ddevingime95o%40group.calendar.google.com/public/basic.ics';
-		if(service=='gemertbakelwoensdag') var url = 'https://wedevise.nl/dashticz/ical/demo/?url=https://calendar.google.com/calendar/ical/cv40f4vaie10v54f72go6ipb78%40group.calendar.google.com/public/basic.ics';
-		if(service=='veldhoven') var url = 'https://wedevise.nl/dashticz/ical/demo/?url=https://www.veldhoven.nl/afvalkalender/2017/' + postcode + '-' + homenumber + '.ics';
-		if(service=='best') var url = 'https://wedevise.nl/dashticz/ical/demo/?url=https://www.gemeentebest.nl/afvalkalender/2017/' + postcode + '-' + homenumber + '.ics';
-		if(service=='uden') var url = 'https://wedevise.nl/dashticz/ical/demo/?url=https://www.uden.nl/inwoners/afval/ophaaldagen-afval/2017/' + postcode + '-' + homenumber + '.ics';
-		if(service=='vianen') var url = 'https://wedevise.nl/dashticz/ical/demo/?url=https://www.vianen.nl/afval/afvalkalender/2017/' + postcode + '-' + homenumber + '.ics';
-		if(service=='goes') var url = 'https://wedevise.nl/dashticz/ical/demo/?url=http://afvalkalender.goes.nl/2017/' + postcode + '-' + homenumber + '.ics';
-		if(service=='deurne') var url = 'https://wedevise.nl/dashticz/ical/demo/?url=http://afvalkalender.deurne.nl/Afvalkalender/download_ical.php?p=' + postcode + '&h=' + homenumber + '&t=&jaar=2017';
-		if(service=='heezeleende') var url = 'https://wedevise.nl/dashticz/ical/demo/?url=http://afvalkalender.heeze-leende.nl/Afvalkalender/download_ical.php?p=' + postcode + '&h=' + homenumber + '&t=&jaar=2017';
-		$.getJSON(url,function(data,textstatus,jqXHR){
-			respArray = data;
-			for (var i in respArray) {
-				var curr = respArray[i]['title'];
-				curr = capitalizeFirstLetter(curr.toLowerCase());
-				
-				var testDate = moment(respArray[i].startt);
-				if(testDate.isBetween(startDate, endDate, 'days', true)){
-					if(typeof(returnDates[curr])=='undefined'){
-						returnDates[curr] = {}
-					}
-					returnDates[curr][testDate.format("YYYY-MM-DD")+teller]=getTrashRow(curr,testDate,respArray[i]['title']);
-					teller++;
-				}
-			}
-			addToContainer(random,returnDates,maxitems);
-			
-		});
-	}
-	
-	if(service=='deafvalapp'){
-		$.get('https://cors-anywhere.herokuapp.com/http://dataservice.deafvalapp.nl/dataservice/DataServiceServlet?type=ANDROID&service=OPHAALSCHEMA&land=NL&postcode=' + postcode + '&straatId=0&huisnr=' + homenumber + '&huisnrtoev=' + homenumberadd,function(data){
-			var respArray = data.toString().split('\n').join('').split(";");
-			respArray.pop();
-			for (var i in respArray) {
-				if (isNaN(parseInt(respArray[i]))) {
-					dates[respArray[i]] = [];
-					curr = respArray[i];
-					curr = capitalizeFirstLetter(curr.toLowerCase());
-						
-				}
-				else {
-					
-					var testDate = moment(respArray[i],"DD-MM-YYYY");
-					if(testDate.isBetween(startDate, endDate, 'days', true)){
-						if(typeof(returnDates[curr])=='undefined'){
-							returnDates[curr] = {}
-						}
-						returnDates[curr][testDate.format("YYYY-MM-DD")+teller]=getTrashRow(curr,testDate);
-						teller++;
-					}
-				}
-			}
-			addToContainer(random,returnDates,maxitems);
-		});
-	}
-	
-	/*if(service=='omri'){
-		$.post('http://www.omrin.nl/bij-mij-thuis/services/afvalkalender/',{
-			'zipcode': postcode.substr(0,4),
-			'zipcodeend':postcode.substr(4,6),
-			'housenumber':homenumber,
-			'addition':'',
-			'send':'Mijn overzicht'
+    loadDataForService(settings['garbage_company'], random);
 
-		},function(data){
-			console.log(data);
-		});
-	}*/
-	if(service=='twentemilieu'){
-		$.post('https://wasteapi.2go-mobile.com/api/FetchAdress',{
-			'companyCode':'8d97bb56-5afd-4cbc-a651-b4f7314264b4',
-			'postCode': postcode,
-			'houseNumber':homenumber,
-			'houseLetter':'',
-			'houseNumberAddition':homenumberadd
+    setTimeout(function () {
+        loadGarbage();
+    }, (60000 * 15));
 
-		},function(data){
-			$.post('https://wasteapi.2go-mobile.com/api/GetCalendar',{
-				'companyCode':'8d97bb56-5afd-4cbc-a651-b4f7314264b4',
-				'uniqueAddressID':data['dataList'][0]['UniqueId'],
-				'startDate':startDate.format("YYYY-MM-DD"),
-				'endDate':endDate.format("YYYY-MM-DD")
+    return html;
+}
 
-			},function(data){
-				data = data.dataList;
-				for(d in data){
-					var curr = data[d].description;
-					curr = capitalizeFirstLetter(curr.toLowerCase());
-					if(typeof(returnDates[curr])=='undefined'){
-						returnDates[curr] = {}
-					}
-
-					for(dt in data[d].pickupDates){
-						var testDate = moment(data[d].pickupDates[dt]);
-						if(testDate.isBetween(startDate, endDate, 'days', true)){
-							returnDates[curr][testDate.format("YYYY-MM-DD")+'_'+curr]=getTrashRow(curr,testDate);
-						}
-					}
-				}
-				addToContainer(random,returnDates,maxitems);
-			});
-		});
-		
-	}
-	if(service=='cure' || service=='dar' || service=='avalex' || service=='waalre' || service=='cyclusnv' || service=='sudwestfryslan' || service=='alphenaandenrijn' || service=='rmn' || service=='circulusberkel' || service=='gemeenteberkelland' || service=='meerlanden' || service=='venray'){
-		$('.trash'+random+' .state').html('');
-	
-		var baseURL = '';
-		if(service=='cure') baseURL = 'https://afvalkalender.cure-afvalbeheer.nl';
-		if(service=='cyclusnv') baseURL = 'https://afvalkalender.cyclusnv.nl';
-		if(service=='gemeenteberkelland') baseURL = 'https://afvalkalender.gemeenteberkelland.nl';
-		if(service=='meerlanden') baseURL = 'https://afvalkalender.meerlanden.nl';
-		if(service=='venray') baseURL = 'https://afvalkalender.venray.nl';
-		if(service=='circulusberkel') baseURL = 'https://afvalkalender.circulus-berkel.nl';
-		if(service=='rmn') baseURL = 'https://inzamelschema.rmn.nl';
-		if(service=='alphenaandenrijn') baseURL = 'http://afvalkalender.alphenaandenrijn.nl';
-		if(service=='sudwestfryslan') baseURL = 'http://afvalkalender.sudwestfryslan.nl';
-		if(service=='dar') baseURL = 'https://afvalkalender.dar.nl';
-		if(service=='waalre') baseURL = 'https://afvalkalender.waalre.nl';
-		if(service=='avalex') baseURL = 'https://www.avalex.nl';
-		
-		$.getJSON('https://cors-anywhere.herokuapp.com/'+baseURL + '/rest/adressen/' + postcode + '-' + homenumber,function(data){
-			$.getJSON('https://cors-anywhere.herokuapp.com/'+baseURL + '/rest/adressen/'+data[0].bagId+'/afvalstromen',function(data){
-				
-				for(d in data){
-					if(data[d]['ophaaldatum']!==null){
-						var curr = data[d]['menu_title'];
-						curr = capitalizeFirstLetter(curr.toLowerCase());
-						if(typeof(returnDates[curr])=='undefined'){
-							returnDates[curr] = {}
-						}
-						var testDate = moment(moment(data[d]['ophaaldatum']));
-						returnDates[curr][testDate.format("YYYY-MM-DD")+'_'+teller]=getTrashRow(curr,testDate);
-						teller++;
-					}
-				}
-				
-				addToContainer(random,returnDates,maxitems);
-			});
-		});
-	}
-	if(service=='ophaalkalender'){
-		$('.trash'+random+' .state').html('');
-	
-		var baseURL = 'http://www.ophaalkalender.be';
-		
-		$.getJSON('https://cors-anywhere.herokuapp.com/'+baseURL + '/calendar/findstreets/?query=' + street + '&zipcode=' + postcode,function(data){
-			$.getJSON('https://cors-anywhere.herokuapp.com/'+baseURL + '/api/rides?id='+data[0].Id+'&housenumber=0&zipcode='+postcode,function(data){
-				
-				for(d in data){
-					
-					var curr = data[d]['title'];
-					curr = capitalizeFirstLetter(curr.toLowerCase());
-					if(typeof(returnDates[curr])=='undefined'){
-						returnDates[curr] = {}
-					}
-					var testDate = moment(moment(data[d]['start']));
-					if(testDate.isBetween(startDate, endDate, 'days', true)){
-						returnDates[curr][testDate.format("YYYY-MM-DD")+'_'+teller]=getTrashRow(curr,testDate,data[d]['color']);
-						teller++;
-					}
-				}
-				
-				addToContainer(random,returnDates,maxitems);
-			});
-		});
-	}
-	if(service=='afvalwijzerarnhem'){
-		$('.trash'+random+' .state').html('');
-	
-		var baseURL = 'http://www.afvalwijzer-arnhem.nl';
-		$.get('https://cors-anywhere.herokuapp.com/'+baseURL + '/applicatie?ZipCode='+postcode+'&HouseNumber='+homenumber+'&HouseNumberAddition='+homenumberadd,function(data){
-			$(data).find('ul.ulPickupDates li').each(function(){
-				var row = $(this).html().split('</div>');
-				var curr = row[0].replace('<div>','').trim();
-	 			var testDate = moment(row[1].trim(),'DD-MM-YYYY');
-				if(testDate.isBetween(startDate, endDate, 'days', true)){
-
-					if(typeof(returnDates[curr])=='undefined'){
-						returnDates[curr] = {}
-					}
-					returnDates[curr][testDate.format("YYYY-MM-DD")+'_'+curr]=getTrashRow(curr,testDate);
-				}
-	 
+function getGoogleCalendarData(address, date, random, calendarId) {
+    this.url = 'https://www.googleapis.com/calendar/v3/calendars/' + calendarId + '/events';
+    $.ajax({
+        url: this.url,
+        data: {
+            key: config['api_key'],
+            singleEvents: true,
+            timeMin: date.start.format('YYYY-MM-DDT00:00:00+00:00'),
+            timeMax: date.end.format('YYYY-MM-DDT00:00:00+00:00'),
+            orderBy: 'startTime',
+            maxResults: getMaxItems()
+        },
+        success: function (data) {
+            this.returnDates = data.items.map(function(element) {
+                if (element.start.hasOwnProperty('date')) {
+                    this.startDate = moment(element.start.date);
+                } else if (element.start.hasOwnProperty('datetime')) {
+                    this.startDate = moment(element.start.datetime);
+                }
+                return {
+                    trashRow: getSimpleTrashRow(this.startDate, element.summary),
+                    date: this.startDate,
+                    summary: element.summary
+                }
             });
-			addToContainer(random,returnDates,maxitems);
-		});
-	}
-	if(service=='mijnafvalwijzer'){
-		$.getJSON('https://cors-anywhere.herokuapp.com/http://json.mijnafvalwijzer.nl/?method=postcodecheck&postcode=' + postcode + '&street=&huisnummer=' + homenumber + '&toevoeging='+homenumberadd,function(data){
-			data = data.data.ophaaldagen.data;
-			for(d in data){
-				var curr = data[d]['nameType'];
-				curr = capitalizeFirstLetter(curr.toLowerCase());
-				
-				var testDate = moment(data[d]['date']);
-				if(testDate.isBetween(startDate, endDate, 'days', true)){
-					if(typeof(returnDates[curr])=='undefined'){
-						returnDates[curr] = {}
-					}
-					returnDates[curr][testDate.format("YYYY-MM-DD")+'_'+curr]=getTrashRow(curr,testDate);
-				}
-			}
-			
-			addToContainer(random,returnDates,maxitems);
-
-		});
-	}
-	
-	if(service=='hvc'){
-		$.getJSON('https://cors-anywhere.herokuapp.com/http://inzamelkalender.hvcgroep.nl/push/calendar?postcode=' + postcode + '&huisnummer=' + homenumber,function(data){
-			for(d in data){
-				var curr = data[d].naam;
-				curr = capitalizeFirstLetter(curr.toLowerCase());
-				if(typeof(returnDates[curr])=='undefined'){
-					returnDates[curr] = {}
-				}
-
-				for(dt in data[d].dateTime){
-					
-					var testDate = moment(data[d].dateTime[dt].date);
-					if(testDate.isBetween(startDate, endDate, 'days', true)){
-						returnDates[curr][testDate.format("YYYY-MM-DD")+'_'+curr]=getTrashRow(curr,testDate);
-					}
-				}
-			}
-			addToContainer(random,returnDates,maxitems);
-		});
-	}
-	//https://wedevise.nl/dashticz/rova.php?zipcode=7731ZT&number=84
-	if(service=='rova'){
-		$.getJSON('https://wedevise.nl/dashticz/rova.php?zipcode=' + postcode + '&number=' + homenumber,function(data){
-			for(d in data){
-				var curr = data[d].GarbageType;
-				curr = capitalizeFirstLetter(curr.toLowerCase());
-				if(typeof(returnDates[curr])=='undefined'){
-					returnDates[curr] = {}
-				}
-
-				var testDate = moment(data[d].Date);
-				if(testDate.isBetween(startDate, endDate, 'days', true)){
-					returnDates[curr][testDate.format("YYYY-MM-DD")+'_'+teller]=getTrashRow(curr,testDate);
-					teller++;
-				}
-			}
-			
-			addToContainer(random,returnDates,maxitems);
-
-		});
-	}
-	if(service=='recyclemanager'){
-		$.getJSON('https://vpn-wec-api.recyclemanager.nl/v2/calendars?postalcode=' + postcode + '&number=' + homenumber,function(data){
-			for(d in data.data){
-				for(o in data.data[d].occurrences){
-					var curr = data.data[d].occurrences[o].title;
-					curr = capitalizeFirstLetter(curr.toLowerCase());
-					if(typeof(returnDates[curr])=='undefined'){
-						returnDates[curr] = {}
-					}
-
-					var testDate = moment(data.data[d].occurrences[o].from.date);
-					if(testDate.isBetween(startDate, endDate, 'days', true)){
-						returnDates[curr][testDate.format("YYYY-MM-DD")+'_'+teller]=getTrashRow(curr,testDate);
-						teller++;
-					}
-				}
-			}
-			
-			addToContainer(random,returnDates,maxitems);
-
-		});
-	}
-	if (service=='edg'){
- 		$.getJSON('https://cors-anywhere.herokuapp.com/https://www.edg.de/JsonHandler.ashx?dates=1&street=' + street + '&nr=' + homenumber + '&cmd=findtrash&tbio=0&tpapier=1&trest=1&twert=1&feiertag=0',function(data){
- 			data = data.data;
- 
- 			for(d in data){
- 				if(typeof(returnDates[curr])=='undefined'){
- 					returnDates[curr] = {}
- 				}
- 				
- 				var testDate = moment(data[d]['date']);
- 				if(testDate.isBetween(startDate, endDate, 'days', true)){
- 					for (e in data[d].fraktion){
- 						returnDates[curr][moment(data[d]['date']).format("YYYY-MM-DD")]=getTrashRow(data[d].fraktion[e],testDate);
-						teller++;
- 					}
- 				
- 				}
- 			}
- 			addToContainer(random,returnDates,maxitems);
- 
- 		});		
- 	}
-	
-	setTimeout(function(){
-		var html = loadTrash(random,trashobject);
-		$('.trash'+random).replaceWith(html);
-	},(60000*15));
-	
-	return html;
-			
+        addToContainerNew(random, this.returnDates);
+        }
+    });
 }
 
-function getTrashRow(c,d,orgcolor){
-	color='';
-	if(typeof(trashcolors)!=='undefined' && typeof(trashcolors[c])!=='undefined') color=' style="color:'+trashcolors[c]+'"';
-	if(typeof(trashnames)!=='undefined' && typeof(trashnames[c])!=='undefined') c = trashnames[c];
-	
-	if(c.length == 0) return '';
-	if(c.substr(0,7)=='Bo zl12'){
-		if(c.toLowerCase().indexOf("gft")>0) c='GFT';
-		else if(c.toLowerCase().indexOf("rest")>0) c='Restafval';
-		else if(c.toLowerCase().indexOf("vec")>0) c='Verpakkingen';
-	}
-	orgcolor_attr=' data-color="'+color+'";';
-	if(typeof(orgcolor)!=='undefined') orgcolor_attr=' data-color="'+orgcolor+'"';
-	
-	return '<div class="trashrow"'+color+orgcolor_attr+'>'+c+': '+d.format("DD-MM-YYYY")+'</div>';
+function getIcalData(address, date, random, url) {
+    var baseIcalUrl = 'https://wedevise.nl/dashticz/ical/demo/?url=';
+    $.getJSON(baseIcalUrl + url, function (data, textstatus, jqXHR) {
+        respArray = data;
+        this.counter = 0;
+        this.returnDates = {};
+        for (var i in respArray) {
+            var curr = respArray[i]['title'];
+            curr = capitalizeFirstLetter(curr.toLowerCase());
+
+            var testDate = moment(respArray[i].startt);
+            if (testDate.isBetween(date.start, date.end, 'days', true)) {
+                if (typeof(this.returnDates[curr]) === 'undefined') {
+                    this.returnDates[curr] = {};
+                }
+                this.returnDates[curr][testDate.format('YYYY-MM-DD') + this.counter] = getTrashRow(curr, testDate, respArray[i]['title']);
+                this.counter++;
+            }
+        }
+        addToContainer(random, this.returnDates);
+    });
 }
 
-function addToContainer(random,returnDates,maxitems){
-	var returnDatesSimple={}
-	var done = {};
-	for(c in returnDates){
-		for(cr in returnDates[c]){
-			if (returnDates[c][cr] == '') continue;
-			returnDatesSimple[cr] = returnDates[c][cr];
-			done[c]=true;
-		}
-	}
+function getDeAfvalAppData(address, date, random) {
+    $.get('https://cors-anywhere.herokuapp.com/http://dataservice.deafvalapp.nl/dataservice/DataServiceServlet?type=ANDROID&service=OPHAALSCHEMA&land=NL&postcode=' + address.postcode + '&straatId=0&huisnr=' + address.housenumber + '&huisnrtoev=' + address.housenumberSuffix, function (data) {
+        var respArray = data.toString().split('\n').join('').split(';');
+        respArray.pop();
+        this.returnDates = {};
+        this.counter = 0;
+        var curr;
+        var dates;
+        for (var i in respArray) {
+            if (isNaN(parseInt(respArray[i]))) {
+                dates[respArray[i]] = [];
+                curr = respArray[i];
+                curr = capitalizeFirstLetter(curr.toLowerCase());
+            } else {
+                var testDate = moment(respArray[i], 'DD-MM-YYYY');
+                if (testDate.isBetween(date.start, date.end, 'days', true)) {
+                    if (typeof(this.returnDates[curr]) === 'undefined') {
+                        this.returnDates[curr] = {}
+                    }
+                    this.returnDates[curr][testDate.format('YYYY-MM-DD') + this.counter] = getTrashRow(curr, testDate);
+                    this.counter++;
+                }
+            }
+        }
+        addToContainer(random, this.returnDates);
+    });
+}
 
-	$('.trash'+random+' .state').html('');
-	var c=1;
-	
-	if(typeof(_DO_NOT_USE_COLORED_TRASHCAN)=='undefined' || _DO_NOT_USE_COLORED_TRASHCAN===false){	
-		$('.trash'+random).find('img.trashcan').css('opacity','0.7');
-	}
-	else {
-		$('.trash'+random).find('img.trashcan').css('opacity','1');
-	}
-	Object.keys(returnDatesSimple).sort().forEach(function(key) {
+function getTwenteMilieuData(address, date, random) {
+    $.post('https://wasteapi.2go-mobile.com/api/FetchAdress', {
+        'companyCode': '8d97bb56-5afd-4cbc-a651-b4f7314264b4',
+        'postCode': address.postcode,
+        'houseNumber': address.housenumber,
+        'houseLetter': '',
+        'houseNumberAddition': address.housenumberSuffix
+    }, function (data) {
+        $.post('https://wasteapi.2go-mobile.com/api/GetCalendar', {
+            'companyCode': '8d97bb56-5afd-4cbc-a651-b4f7314264b4',
+            'uniqueAddressID': data['dataList'][0]['UniqueId'],
+            'startDate': date.start.format('YYYY-MM-DD'),
+            'endDate': date.end.format('YYYY-MM-DD')
+        }, function (data) {
+            this.returnDates = {};
+            data = data.dataList;
+            for (d in data) {
+                var curr = data[d].description;
+                curr = capitalizeFirstLetter(curr.toLowerCase());
+                if (typeof(this.returnDates[curr]) == 'undefined') {
+                    this.returnDates[curr] = {}
+                }
 
-		var skey = key.split('_');
-		skey = skey[0];
-		var date = moment(skey).format("DD-MM-YYYY");
-		var currentdate = moment();
-		var tomorrow = moment().add(1,'days');
-		var nextweek = moment().add(6,'days');
-	
-		if(typeof(_DO_NOT_USE_COLORED_TRASHCAN)=='undefined' || _DO_NOT_USE_COLORED_TRASHCAN===false){
-			if (c==1 && (
-				returnDatesSimple[key].toLowerCase().indexOf("gft") >= 0 || 
-				returnDatesSimple[key].toLowerCase().indexOf("tuin") >= 0 || 
-				returnDatesSimple[key].toLowerCase().indexOf("refuse bin") >= 0
-			)
-			   ){
-				$('.trash'+random).find('img.trashcan').attr('src','img/kliko_green.png');
-			}
-			else if (c==1 && (
-				returnDatesSimple[key].toLowerCase().indexOf("plastic") >= 0 || 
-				returnDatesSimple[key].toLowerCase().indexOf("pmd") >= 0
-			)
-			){
-				$('.trash'+random).find('img.trashcan').attr('src','img/kliko_orange.png');
-			}
-			else if (c==1 && (
-				returnDatesSimple[key].toLowerCase().indexOf("rest") >= 0 || 
-				returnDatesSimple[key].toLowerCase().indexOf("grof") >= 0
-			)
-			){
-				$('.trash'+random).find('img.trashcan').attr('src','img/kliko_grey.png');
-			}
-			else if (c==1 && (
-				returnDatesSimple[key].toLowerCase().indexOf("papier") >= 0 || 
-				returnDatesSimple[key].toLowerCase().indexOf("blauw") >= 0 || 
-				returnDatesSimple[key].toLowerCase().indexOf("recycling bin collection") >= 0
-			)){
-				$('.trash'+random).find('img.trashcan').attr('src','img/kliko_blue.png');
-			}
-			else if (c==1 && returnDatesSimple[key].toLowerCase().indexOf("chemisch") >= 0){
-				$('.trash'+random).find('img.trashcan').attr('src','img/kliko_red.png');
-			}
-		}
-		
-		if(date == currentdate.format("DD-MM-YYYY")){
-			returnDatesSimple[key] = returnDatesSimple[key].replace(date, language.weekdays.today);
-			returnDatesSimple[key] = returnDatesSimple[key].replace('trashrow', 'trashtoday');
-		}   
-		else if(date == tomorrow.format("DD-MM-YYYY")){
-			returnDatesSimple[key] = returnDatesSimple[key].replace(date, language.weekdays.tomorrow);
-			returnDatesSimple[key] = returnDatesSimple[key].replace('trashrow', 'trashtomorrow');
-		}
-		else if(moment(skey).isBetween(currentdate, nextweek, 'days', true)){
-			var datename = moment(date,"DD-MM-YYYY").locale(settings['calendarlanguage']).format("dddd");
-			datename = datename.charAt(0).toUpperCase() + datename.slice(1);
-			returnDatesSimple[key] = returnDatesSimple[key].replace(date, datename);
-		}  
+                for (dt in data[d].pickupDates) {
+                    var testDate = moment(data[d].pickupDates[dt]);
+                    if (testDate.isBetween(date.start, date.end, 'days', true)) {
+                        this.returnDates[curr][testDate.format('YYYY-MM-DD') + '_' + curr] = getTrashRow(curr, testDate);
+                    }
+                }
+            }
+            addToContainer(random, this.returnDates);
+        });
+    });
 
-		if(c<=maxitems) $('.trash'+random+' .state').append(returnDatesSimple[key]);
-		c++;
-		
-	});
+}
+
+function getAfvalstromenData(address, date, random, baseUrl) {
+    $('.trash' + random + ' .state').html('');
+    $.getJSON('https://cors-anywhere.herokuapp.com/' + baseUrl + '/rest/adressen/' + address.postcode + '-' + address.housenumber, function (data) {
+        $.getJSON('https://cors-anywhere.herokuapp.com/' + baseUrl + '/rest/adressen/' + data[0].bagId + '/afvalstromen', function (data) {
+            this.counter = 0;
+            this.returnDates = {};
+            for (d in data) {
+                if (data[d]['ophaaldatum'] !== null) {
+                    var curr = data[d]['menu_title'];
+                    curr = capitalizeFirstLetter(curr.toLowerCase());
+                    if (typeof(this.returnDates[curr]) === 'undefined') {
+                        this.returnDates[curr] = {}
+                    }
+                    var testDate = moment(moment(data[d]['ophaaldatum']));
+                    this.returnDates[curr][testDate.format('YYYY-MM-DD') + '_' + this.counter] = getTrashRow(curr, testDate);
+                    this.counter++;
+                }
+            }
+
+            addToContainer(random, this.returnDates);
+        });
+    });
+}
+
+function getOphaalkalenderData(address, date, random) {
+    $('.trash' + random + ' .state').html('');
+
+    this.baseURL = 'http://www.ophaalkalender.be';
+    this.counter = 0;
+    this.returnDates = {};
+
+    $.getJSON('https://cors-anywhere.herokuapp.com/' + this.baseURL + '/calendar/findstreets/?query=' + address.street + '&zipcode=' + address.postcode, function (data) {
+        $.getJSON('https://cors-anywhere.herokuapp.com/' + this.baseURL + '/api/rides?id=' + data[0].Id + '&housenumber=0&zipcode=' + address.postcode, function (data) {
+
+            for (d in data) {
+                var curr = data[d]['title'];
+                curr = capitalizeFirstLetter(curr.toLowerCase());
+                if (typeof(this.returnDates[curr]) === 'undefined') {
+                    this.returnDates[curr] = {}
+                }
+                var testDate = moment(moment(data[d]['start']));
+                if (testDate.isBetween(date.start, date.end, 'days', true)) {
+                    this.returnDates[curr][testDate.format('YYYY-MM-DD') + '_' + this.counter] = getTrashRow(curr, testDate, data[d]['color']);
+                    this.counter++;
+                }
+            }
+
+            addToContainer(random, returnDates);
+        });
+    });
+}
+
+function getAfvalwijzerArnhemData(address, date, random) {
+    $('.trash' + random + ' .state').html('');
+    this.returnDates = {};
+    var baseURL = 'http://www.afvalwijzer-arnhem.nl';
+    $.get('https://cors-anywhere.herokuapp.com/' + baseURL + '/applicatie?ZipCode=' + address.postcode + '&HouseNumber=' + address.housenumber + '&HouseNumberAddition=' + address.housenumberSuffix, function (data) {
+        $(data).find('ul.ulPickupDates li').each(function () {
+            var row = $(this).html().split('</div>');
+            var curr = row[0].replace('<div>', '').trim();
+            var testDate = moment(row[1].trim(), 'DD-MM-YYYY');
+            if (testDate.isBetween(date.start, date.end, 'days', true)) {
+                if (typeof(this.returnDates[curr]) === 'undefined') {
+                    returnDates[curr] = {}
+                }
+                returnDates[curr][testDate.format('YYYY-MM-DD') + '_' + curr] = getTrashRow(curr, testDate);
+            }
+        });
+        addToContainer(random, this.returnDates);
+    });
+}
+
+function getMijnAfvalwijzerData(address, date, random) {
+    $.getJSON('https://cors-anywhere.herokuapp.com/http://json.mijnafvalwijzer.nl/?method=postcodecheck&postcode=' + address.postcode + '&street=&huisnummer=' + address.housenumber + '&toevoeging=' + address.housenumberSuffix, function (data) {
+        data = data.data.ophaaldagen.data;
+        this.returnDates = {};
+        for (d in data) {
+            var curr = data[d]['nameType'];
+            curr = capitalizeFirstLetter(curr.toLowerCase());
+
+            var testDate = moment(data[d]['date']);
+            if (testDate.isBetween(date.start, date.end, 'days', true)) {
+                if (typeof(this.returnDates[curr]) === 'undefined') {
+                    this.returnDates[curr] = {}
+                }
+                this.returnDates[curr][testDate.format('YYYY-MM-DD') + '_' + curr] = getTrashRow(curr, testDate);
+            }
+        }
+        addToContainer(random, this.returnDates);
+    });
+}
+
+function getHvcData(address, date, random) {
+    $.getJSON('https://cors-anywhere.herokuapp.com/http://inzamelkalender.hvcgroep.nl/push/calendar?postcode=' + address.postcode + '&huisnummer=' + address.housenumber, function (data) {
+        this.returnDates = {};
+        for (d in data) {
+            var curr = data[d].naam;
+            curr = capitalizeFirstLetter(curr.toLowerCase());
+            if (typeof(this.returnDates[curr]) === 'undefined') {
+                this.returnDates[curr] = {}
+            }
+
+            for (dt in data[d].dateTime) {
+                var testDate = moment(data[d].dateTime[dt].date);
+                if (testDate.isBetween(date.start, date.end, 'days', true)) {
+                    this.returnDates[curr][testDate.format('YYYY-MM-DD') + '_' + curr] = getTrashRow(curr, testDate);
+                }
+            }
+        }
+        addToContainer(random, this.returnDates);
+    });
+}
+
+function getRovaData(address, date, random) {
+    $.getJSON('https://wedevise.nl/dashticz/rova.php?zipcode=' + address.postcode + '&number=' + address.housenumber, function (data) {
+        this.returnDates = {};
+        this.counter = 0;
+        for (d in data) {
+            var curr = data[d].GarbageType;
+            curr = capitalizeFirstLetter(curr.toLowerCase());
+            if (typeof(this.returnDates[curr]) === 'undefined') {
+                this.returnDates[curr] = {}
+            }
+
+            var testDate = moment(data[d].Date);
+            if (testDate.isBetween(date.start, date.end, 'days', true)) {
+                this.returnDates[curr][testDate.format('YYYY-MM-DD') + '_' + this.counter] = getTrashRow(curr, testDate);
+                this.counter++;
+            }
+        }
+        addToContainer(random, this.returnDates);
+    });
+}
+
+function getRecycleManagerData(address, date, random) {
+    $.getJSON('https://vpn-wec-api.recyclemanager.nl/v2/calendars?postalcode=' + address.postcode + '&number=' + address.housenumber, function (data) {
+        this.returnDates = {};
+        this.counter = 0;
+        for (d in data.data) {
+            for (o in data.data[d].occurrences) {
+                var curr = data.data[d].occurrences[o].title;
+                curr = capitalizeFirstLetter(curr.toLowerCase());
+                if (typeof(this.returnDates[curr]) === 'undefined') {
+                    this.returnDates[curr] = {}
+                }
+
+                var testDate = moment(data.data[d].occurrences[o].from.date);
+                if (testDate.isBetween(date.start, date.end, 'days', true)) {
+                    this.returnDates[curr][testDate.format('YYYY-MM-DD') + '_' + this.counter] = getTrashRow(curr, testDate);
+                    this.counter++;
+                }
+            }
+        }
+        addToContainer(random, this.returnDates);
+    });
+}
+
+function getEdgData(address, date, random) {
+    $.getJSON('https://cors-anywhere.herokuapp.com/https://www.edg.de/JsonHandler.ashx?dates=1&street=' + address.street + '&nr=' + address.housenumber + '&cmd=findtrash&tbio=0&tpapier=1&trest=1&twert=1&feiertag=0', function (data) {
+        data = data.data;
+        this.returnDates = {};
+        this.counter = 0;
+        var curr = '';
+
+        for (d in data) {
+            if (typeof(returnDates[curr]) === 'undefined') {
+                this.returnDates[curr] = {}
+            }
+
+            var testDate = moment(data[d]['date']);
+            if (testDate.isBetween(date.start, date.end, 'days', true)) {
+                for (e in data[d].fraktion) {
+                    this.returnDates[curr][moment(data[d]['date']).format('YYYY-MM-DD')] = getTrashRow(data[d].fraktion[e], testDate);
+                    this.counter++;
+                }
+            }
+        }
+        addToContainer(random, this.returnDates);
+    });
+}
+
+function getTrashRow(c, d, orgcolor) {
+    color = '';
+    if (typeof(trashcolors) !== 'undefined' && typeof(trashcolors[c]) !== 'undefined') color = ' style="color:' + trashcolors[c] + '"';
+    if (typeof(trashnames) !== 'undefined' && typeof(trashnames[c]) !== 'undefined') c = trashnames[c];
+
+    if (c.length === 0) return '';
+    if (c.substr(0, 7) == 'Bo zl12') {
+        if (c.toLowerCase().indexOf("gft") > 0) c = 'GFT';
+        else if (c.toLowerCase().indexOf("rest") > 0) c = 'Restafval';
+        else if (c.toLowerCase().indexOf("vec") > 0) c = 'Verpakkingen';
+    }
+    orgcolor_attr = ' data-color="' + color + '";';
+    if (typeof(orgcolor) !== 'undefined') orgcolor_attr = ' data-color="' + orgcolor + '"';
+
+    return '<div class="trashrow"' + color + orgcolor_attr + '>' + c + ': ' + d.format('DD-MM-YYYY') + '</div>';
+}
+
+function getSimpleTrashRow(date, summary) {
+    date.locale(settings['calendarlanguage']);
+    this.displayDate = date.format('DD-MM-YYYY');
+    if (date.isSame(moment(), 'day')) {
+        this.displayDate = language.weekdays.today;
+    } else if (date.isSame(moment().add(1, 'days'), 'day')) {
+        this.displayDate = language.weekdays.tomorrow;
+    } else if (date.isBefore(moment().add(1, 'week'))) {
+        this.displayDate = date.format('dddd');
+    }
+    return '<div class="trashrow">' + summary + ': ' + this.displayDate + '</div>';
+}
+
+function addToContainer(random, returnDates) {
+    var returnDatesSimple = {}
+    var done = {};
+    for (c in returnDates) {
+        for (cr in returnDates[c]) {
+            if (returnDates[c][cr] == '') continue;
+            returnDatesSimple[cr] = returnDates[c][cr];
+            done[c] = true;
+        }
+    }
+
+    $('.trash' + random + ' .state').html('');
+
+    if (typeof(_DO_NOT_USE_COLORED_TRASHCAN) === 'undefined' || _DO_NOT_USE_COLORED_TRASHCAN === false) {
+        $('.trash' + random).find('img.trashcan').css('opacity', '0.7');
+    }
+    else {
+        $('.trash' + random).find('img.trashcan').css('opacity', '1');
+    }
+    Object.keys(returnDatesSimple).sort().slice(0, getMaxItems()).forEach(function (key, index) {
+        var skey = key.split('_');
+        skey = skey[0];
+        var date = moment(skey).format('DD-MM-YYYY');
+        var currentdate = moment();
+        var tomorrow = moment().add(1, 'days');
+        var nextweek = moment().add(6, 'days');
+
+        if (index === 0 && (typeof(_DO_NOT_USE_COLORED_TRASHCAN) === 'undefined' || _DO_NOT_USE_COLORED_TRASHCAN === false)) {
+            $('.trash' + random).find('img.trashcan').attr('src', getKlikoImage(returnDatesSimple[key].toLowerCase()));
+        }
+
+        if (date === currentdate.format('DD-MM-YYYY')) {
+            returnDatesSimple[key] = returnDatesSimple[key].replace(date, language.weekdays.today);
+            returnDatesSimple[key] = returnDatesSimple[key].replace('trashrow', 'trashtoday');
+        }
+        else if (date === tomorrow.format('DD-MM-YYYY')) {
+            returnDatesSimple[key] = returnDatesSimple[key].replace(date, language.weekdays.tomorrow);
+            returnDatesSimple[key] = returnDatesSimple[key].replace('trashrow', 'trashtomorrow');
+        }
+        else if (moment(skey).isBetween(currentdate, nextweek, 'days', true)) {
+            var datename = moment(date, 'DD-MM-YYYY').locale(settings['calendarlanguage']).format('dddd');
+            datename = datename.charAt(0).toUpperCase() + datename.slice(1);
+            returnDatesSimple[key] = returnDatesSimple[key].replace(date, datename);
+        }
+
+        $('.trash' + random + ' .state').append(returnDatesSimple[key]);
+    });
+}
+
+function addToContainerNew(random, returnDates) {
+    $('.trash' + random + ' .state').html('');
+
+    if (typeof(_DO_NOT_USE_COLORED_TRASHCAN) === 'undefined' || _DO_NOT_USE_COLORED_TRASHCAN === false) {
+        $('.trash' + random).find('img.trashcan').css('opacity', '0.7');
+    } else {
+        $('.trash' + random).find('img.trashcan').css('opacity', '1');
+    }
+    returnDates.forEach(function (element, index) {
+        if (index === 0 && (typeof(_DO_NOT_USE_COLORED_TRASHCAN) === 'undefined' || _DO_NOT_USE_COLORED_TRASHCAN === false)) {
+            $('.trash' + random).find('img.trashcan').attr('src', getKlikoImage(element.summary.toLowerCase()));
+        }
+
+        $('.trash' + random + ' .state').append(element.trashRow);
+    });
+}
+
+function getKlikoImage(element) {
+    if (element.indexOf('gft') >= 0 ||
+        element.indexOf('tuin') >= 0 ||
+        element.indexOf('refuse bin') >= 0
+    ) {
+        return 'img/kliko_green.png';
+    }
+    else if (element.indexOf('plastic') >= 0 ||
+        element.indexOf('pmd') >= 0
+    ) {
+        return 'img/kliko_orange.png';
+    }
+    else if (element.indexOf('rest') >= 0 ||
+        element.indexOf('grof') >= 0
+    ) {
+        return 'img/kliko_grey.png';
+    }
+    else if (element.indexOf('papier') >= 0 ||
+        element.indexOf('blauw') >= 0 ||
+        element.indexOf('recycling bin collection') >= 0
+    ) {
+        return 'img/kliko_blue.png';
+    }
+    else if (element.indexOf('chemisch') >= 0) {
+        return 'img/kliko_red.png';
+    }
+    return 'img/kliko.png';
+}
+
+function getMaxItems() {
+    if (typeof(settings['garbage_maxitems']) !== 'undefined'
+        && parseFloat(settings['garbage_maxitems']) > 0
+    ) {
+        return settings['garbage_maxitems'];
+    }
+    return 5;
+}
+
+function getOmriData(address, date, random) {
+    // $.post('http://www.omrin.nl/bij-mij-thuis/services/afvalkalender/',{
+    //     'zipcode': address.postcode.substr(0,4),
+    //     'zipcodeend':address.postcode.substr(4,6),
+    //     'housenumber':address.housenumber,
+    //     'addition':'',
+    //     'send':'Mijn overzicht'
+    // }, function(data) {
+    //     console.log(data);
+    // });
+}
+
+function loadDataForService(service, random) {
+    var address = {
+        street: settings['garbage_street'],
+        housenumber: settings['garbage_housenumber'],
+        housenumberSuffix: settings['garbage_housenumberadd'],
+        postcode: settings['garbage_zipcode'],
+    };
+    var date = {
+        start: moment(),
+        end: moment().add(32, 'days'),
+    };
+
+    switch (service) {
+        case 'googlecalendar':
+            getGoogleCalendarData(address, date, random, settings['garbage_calendar_id']);
+            break;
+        case 'ical':
+            getIcalData(address, date, random, settings['garbage_icalurl']);
+            break;
+        case 'gemertbakelmaandag':
+            getIcalData(address, date, random, 'https://calendar.google.com/calendar/ical/o44qrtdhls8saftmesm5rqb85o%40group.calendar.google.com/public/basic.ics');
+            break;
+        case 'gemertbakeldinsdag':
+            getIcalData(address, date, random, 'https://calendar.google.com/calendar/ical/6p8549rssv114ddevingime95o%40group.calendar.google.com/public/basic.ics');
+            break;
+        case 'gemertbakelwoensdag':
+            getIcalData(address, date, random, 'https://calendar.google.com/calendar/ical/cv40f4vaie10v54f72go6ipb78%40group.calendar.google.com/public/basic.ics');
+            break;
+        case 'veldhoven':
+            getIcalData(address, date, random, 'https://www.veldhoven.nl/afvalkalender/2017/' + address.postcode + '-' + address.housenumber + '.ics');
+            break;
+        case 'best':
+            getIcalData(address, date, random, 'https://www.gemeentebest.nl/afvalkalender/2017/' + address.postcode + '-' + address.housenumber + '.ics');
+            break;
+        case 'uden':
+            getIcalData(address, date, random, 'https://www.uden.nl/inwoners/afval/ophaaldagen-afval/2017/' + address.postcode + '-' + address.housenumber + '.ics');
+            break;
+        case 'vianen':
+            getIcalData(address, date, random, 'https://www.vianen.nl/afval/afvalkalender/2017/' + address.postcode + '-' + address.housenumber + '.ics');
+            break;
+        case 'goes':
+            getIcalData(address, date, random, 'http://afvalkalender.goes.nl/2017/' + address.postcode + '-' + address.housenumber + '.ics');
+            break;
+        case 'deurne':
+            getIcalData(address, date, random, 'http://afvalkalender.deurne.nl/Afvalkalender/download_ical.php?p=' + address.postcode + '&h=' + address.housenumber + '&t=&jaar=2017');
+            break;
+        case 'heezeleende':
+            getIcalData(address, date, random, 'http://afvalkalender.heeze-leende.nl/Afvalkalender/download_ical.php?p=' + address.postcode + '&h=' + address.housenumber + '&t=&jaar=2017');
+            break;
+        case 'deafvalapp':
+            getDeAfvalAppData(address, date, random);
+            break;
+        case 'twentemilieu':
+            getTwenteMilieuData(address, date, random);
+            break;
+
+        case 'cure':
+            getAfvalstromenData(address, date, random, 'https://afvalkalender.cure-afvalbeheer.nl');
+            break;
+        case 'cyclusnv':
+            getAfvalstromenData(address, date, random, 'https://afvalkalender.cyclusnv.nl');
+            break;
+        case 'gemeenteberkelland':
+            getAfvalstromenData(address, date, random, 'https://afvalkalender.gemeenteberkelland.nl');
+            break;
+        case 'meerlanden':
+            getAfvalstromenData(address, date, random, 'https://afvalkalender.meerlanden.nl');
+            break;
+        case 'venray':
+            getAfvalstromenData(address, date, random, 'https://afvalkalender.venray.nl');
+            break;
+        case 'circulusberkel':
+            getAfvalstromenData(address, date, random, 'https://afvalkalender.circulus-berkel.nl');
+            break;
+        case 'rmn':
+            getAfvalstromenData(address, date, random, 'https://inzamelschema.rmn.nl');
+            break;
+        case 'alphenaandenrijn':
+            getAfvalstromenData(address, date, random, 'http://afvalkalender.alphenaandenrijn.nl');
+            break;
+        case 'sudwestfryslan':
+            getAfvalstromenData(address, date, random, 'http://afvalkalender.sudwestfryslan.nl');
+            break;
+        case 'dar':
+            getAfvalstromenData(address, date, random, 'https://afvalkalender.dar.nl');
+            break;
+        case 'waalre':
+            getAfvalstromenData(address, date, random, 'https://afvalkalender.waalre.nl');
+            break;
+        case 'avalex':
+            getAfvalstromenData(address, date, random, 'https://www.avalex.nl');
+            break;
+
+        case 'ophaalkalender':
+            getOphaalkalenderData(address, date, random);
+            break;
+        case 'afvalwijzerarnhem':
+            getAfvalwijzerArnhemData(address, date, random);
+            break;
+        case 'mijnafvalwijzer':
+            getMijnAfvalwijzerData(address, date, random);
+            break;
+        case 'hvc':
+            getHvcData(address, date, random);
+            break;
+        case 'rova':
+            /* https://wedevise.nl/dashticz/rova.php?zipcode=7731ZT&number=84 */
+            getRovaData(address, date, random);
+            break;
+        case 'recyclemanager':
+            getRecycleManagerData(address, date, random);
+            break;
+        case 'edg':
+            getEdgData(address, date, random);
+            break;
+        case 'omri':
+            getOmriData(address, date, random);
+            break;
+    }
 }

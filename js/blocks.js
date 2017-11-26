@@ -3,6 +3,7 @@ blocktypes.SubType = {};
 blocktypes.SubType['Visibility'] = {icon: 'fa fa-eye', title: '<Name>', value: '<Data>'};
 blocktypes.SubType['Electric'] = {icon: 'fa fa-plug', title: '<Name>', value: '<Data>'};
 blocktypes.SubType['Lux'] = {icon: 'fa fa-sun-o', title: '<Name>', value: '<Data>'};
+blocktypes.SubType['Pressure'] = {icon: 'wi wi-barometer', title: '<Name>', value: '<Data>', format: true, decimals: 1};
 blocktypes.SubType['Barometer'] = {icon: 'wi wi-barometer', title: '<Name>', value: '<Data>'};
 blocktypes.SubType['Sound Level'] = {icon: 'fa fa-volume-up', title: '<Name>', value: '<Data>'};
 blocktypes.SubType['Distance'] = {icon: 'fa fa-eye', title: '<Name>', value: '<Data>'};
