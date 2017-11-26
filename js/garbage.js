@@ -86,7 +86,7 @@ function getDeAfvalAppData(address, date, random) {
         this.returnDates = {};
         this.counter = 0;
         var curr;
-        var dates;
+        var dates={};
         for (var i in respArray) {
             if (isNaN(parseInt(respArray[i]))) {
                 dates[respArray[i]] = [];
