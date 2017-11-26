@@ -26,6 +26,36 @@ function loadGarbage() {
     return html;
 }
 
+function getGoogleCalendarData(address, date, random, calendarId) {
+    this.url = 'https://www.googleapis.com/calendar/v3/calendars/' + calendarId + '/events';
+    $.ajax({
+        url: this.url,
+        data: {
+            key: config['api_key'],
+            singleEvents: true,
+            timeMin: date.start.format('YYYY-MM-DDT00:00:00+00:00'),
+            timeMax: date.end.format('YYYY-MM-DDT00:00:00+00:00'),
+            orderBy: 'startTime',
+            maxResults: getMaxItems()
+        },
+        success: function (data) {
+            this.returnDates = data.items.map(function(element) {
+                if (element.start.hasOwnProperty('date')) {
+                    this.startDate = moment(element.start.date);
+                } else if (element.start.hasOwnProperty('datetime')) {
+                    this.startDate = moment(element.start.datetime);
+                }
+                return {
+                    trashRow: getSimpleTrashRow(this.startDate, element.summary),
+                    date: this.startDate,
+                    summary: element.summary
+                }
+            });
+        addToContainerNew(random, this.returnDates);
+        }
+    });
+}
+
 function getIcalData(address, date, random, url) {
     var baseIcalUrl = 'https://wedevise.nl/dashticz/ical/demo/?url=';
     $.getJSON(baseIcalUrl + url, function (data, textstatus, jqXHR) {
@@ -311,6 +341,19 @@ function getTrashRow(c, d, orgcolor) {
     return '<div class="trashrow"' + color + orgcolor_attr + '>' + c + ': ' + d.format('DD-MM-YYYY') + '</div>';
 }
 
+function getSimpleTrashRow(date, summary) {
+    date.locale(settings['calendarlanguage']);
+    this.displayDate = date.format('DD-MM-YYYY');
+    if (date.isSame(moment(), 'day')) {
+        this.displayDate = language.weekdays.today;
+    } else if (date.isSame(moment().add(1, 'days'), 'day')) {
+        this.displayDate = language.weekdays.tomorrow;
+    } else if (date.isBefore(moment().add(1, 'week'))) {
+        this.displayDate = date.format('dddd');
+    }
+    return '<div class="trashrow">' + summary + ': ' + this.displayDate + '</div>';
+}
+
 function addToContainer(random, returnDates) {
     var returnDatesSimple = {}
     var done = {};
@@ -357,6 +400,23 @@ function addToContainer(random, returnDates) {
         }
 
         $('.trash' + random + ' .state').append(returnDatesSimple[key]);
+    });
+}
+
+function addToContainerNew(random, returnDates) {
+    $('.trash' + random + ' .state').html('');
+
+    if (typeof(_DO_NOT_USE_COLORED_TRASHCAN) === 'undefined' || _DO_NOT_USE_COLORED_TRASHCAN === false) {
+        $('.trash' + random).find('img.trashcan').css('opacity', '0.7');
+    } else {
+        $('.trash' + random).find('img.trashcan').css('opacity', '1');
+    }
+    returnDates.forEach(function (element, index) {
+        if (index === 0 && (typeof(_DO_NOT_USE_COLORED_TRASHCAN) === 'undefined' || _DO_NOT_USE_COLORED_TRASHCAN === false)) {
+            $('.trash' + random).find('img.trashcan').attr('src', getKlikoImage(element.summary.toLowerCase()));
+        }
+
+        $('.trash' + random + ' .state').append(element.trashRow);
     });
 }
 
@@ -423,6 +483,9 @@ function loadDataForService(service, random) {
     };
 
     switch (service) {
+        case 'googlecalendar':
+            getGoogleCalendarData(address, date, random, settings['garbage_calendar_id']);
+            break;
         case 'ical':
             getIcalData(address, date, random, settings['garbage_icalurl']);
             break;
