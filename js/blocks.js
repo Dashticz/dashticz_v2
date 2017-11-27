@@ -258,16 +258,16 @@ function handleStringBlock(block, columndiv, width, c) {
             appendStreamPlayer(columndiv);
             return;
         case 'chromecast':
-            $.ajax({url: 'js/chromecast.js', async: false, dataType: "script"});
+            $.ajax({url: 'js/chromecast.js', async: false, dataType: 'script'});
             loadChromecast(columndiv);
             return;
         case 'garbage':
-            if (typeof(loadGarbage) !== 'function') $.ajax({url: 'js/garbage.js', async: false, dataType: "script"});
+            if (typeof(loadGarbage) !== 'function') $.ajax({url: 'js/garbage.js', async: false, dataType: 'script'});
             $(columndiv).append(loadGarbage());
             getBlockClick('garbage');
             return;
         case 'sonarr':
-            if (typeof(loadSonarr) !== 'function') $.ajax({url: 'js/sonarr.js', async: false, dataType: "script"});
+            if (typeof(loadSonarr) !== 'function') $.ajax({url: 'js/sonarr.js', async: false, dataType: 'script'});
             $(columndiv).append(loadSonarr());
             getBlockClick('sonarr');
             return;
@@ -276,7 +276,7 @@ function handleStringBlock(block, columndiv, width, c) {
             return;
         default:
             if (block.substring(0, 5) === 'news_') {
-                if (typeof(getNews) !== 'function') $.ajax({url: 'js/news.js', async: false, dataType: "script"});
+                if (typeof(getNews) !== 'function') $.ajax({url: 'js/news.js', async: false, dataType: 'script'});
                 $(columndiv).append('<div class="' + block + '"></div>');
                 getNews(block, blocks[block]['feed']);
                 return;
@@ -308,17 +308,17 @@ function handleObjectBlock(block, index, columndiv, width, c) {
         if (typeof(loadPublicTransport) !== 'function') $.ajax({
             url: 'js/publictransport.js',
             async: false,
-            dataType: "script"
+            dataType: 'script'
         });
         $(columndiv).append(loadPublicTransport(random, block, key));
     } else if (block.hasOwnProperty('currency')) {
-        if (typeof(getCoin) !== 'function') $.ajax({url: 'js/coins.js', async: false, dataType: "script"});
+        if (typeof(getCoin) !== 'function') $.ajax({url: 'js/coins.js', async: false, dataType: 'script'});
         var html = '<div class="col-xs-' + width + ' transbg coins-' + block['key'] + '" data-id="coins.' + block['key'] + '"></div>';
         $(columndiv).append(html);
         getCoin(block);
 
     } else if (block.hasOwnProperty('channels')) {
-        if (typeof(addTVGuide) !== 'function') $.ajax({url: 'js/tvguide.js', async: false, dataType: "script"});
+        if (typeof(addTVGuide) !== 'function') $.ajax({url: 'js/tvguide.js', async: false, dataType: 'script'});
 
         dataId = 'tvguide.' + key;
         classes = 'block_tvguide transbg containstvguide containstvguide' + random;
@@ -331,7 +331,7 @@ function handleObjectBlock(block, index, columndiv, width, c) {
         dataId = 'calendars.' + key;
         classes = 'transbg containsicalendar containsicalendar' + random;
         appendTvOrCalendarBlock(dataId, classes, width, block, columndiv);
-        if (typeof(addCalendar) !== 'function') $.ajax({url: 'js/calendar.js', async: false, dataType: "script"});
+        if (typeof(addCalendar) !== 'function') $.ajax({url: 'js/calendar.js', async: false, dataType: 'script'});
         addCalendar($('.containsicalendar' + random), block);
     } else {
         $(columndiv).append(loadButton(index, block));

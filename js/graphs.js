@@ -1,6 +1,6 @@
 function getGraphs(device, popup) {
     var sensor = 'counter';
-    var txtUnit = "?";
+    var txtUnit = '?';
     var currentValue = device['Data'];
     var decimals = 2;
 
@@ -174,7 +174,7 @@ function showGraph(idx, title, label, range, current, forced, sensor, popup) {
             url: settings['domoticz_ip'] + '/json.htm?type=graph&sensor=' + sensor + '&idx=' + idx + '&range=' + realrange + '&time=' + new Date().getTime() + '&jsoncallback=?',
             type: 'GET', async: true, contentType: "application/json", dataType: 'jsonp',
             success: function (data) {
-                if (data.status === "ERR") {
+                if (data.status === 'ERR') {
                     alert('Could not load graph!');
                     return;
                 }
