@@ -42,8 +42,8 @@ function getGoogleCalendarData(address, date, random, calendarId) {
             this.returnDates = data.items.map(function(element) {
                 if (element.start.hasOwnProperty('date')) {
                     this.startDate = moment(element.start.date);
-                } else if (element.start.hasOwnProperty('datetime')) {
-                    this.startDate = moment(element.start.datetime);
+                } else if (element.start.hasOwnProperty('dateTime')) {
+                    this.startDate = moment(element.start.dateTime);
                 }
                 return {
                     date: this.startDate,
@@ -149,7 +149,7 @@ function getAfvalstromenData(address, date, random, baseUrl) {
     $.getJSON('https://cors-anywhere.herokuapp.com/' + baseUrl + '/rest/adressen/' + address.postcode + '-' + address.housenumber, function (data) {
         $.getJSON('https://cors-anywhere.herokuapp.com/' + baseUrl + '/rest/adressen/' + data[0].bagId + '/afvalstromen', function (data) {
             data = data
-                .filter(function (element) { return element.ophaaldatum !== null})
+                .filter(function (element) { return element.ophaaldatum !== null; })
                 .sort(function(a,b) {return (a.ophaaldatum > b.ophaaldatum) ? 1 : ((b.ophaaldatum > a.ophaaldatum) ? -1 : 0);})
                 .slice(0, getMaxItems())
                 .map(function (element) {
@@ -166,28 +166,23 @@ function getAfvalstromenData(address, date, random, baseUrl) {
 
 function getOphaalkalenderData(address, date, random) {
     $('.trash' + random + ' .state').html('');
+    var baseURL = 'http://www.ophaalkalender.be';
 
-    this.baseURL = 'http://www.ophaalkalender.be';
-    this.counter = 0;
-    this.returnDates = {};
-
-    $.getJSON('https://cors-anywhere.herokuapp.com/' + this.baseURL + '/calendar/findstreets/?query=' + address.street + '&zipcode=' + address.postcode, function (data) {
-        $.getJSON('https://cors-anywhere.herokuapp.com/' + this.baseURL + '/api/rides?id=' + data[0].Id + '&housenumber=0&zipcode=' + address.postcode, function (data) {
-
-            for (d in data) {
-                var curr = data[d]['title'];
-                curr = capitalizeFirstLetter(curr.toLowerCase());
-                if (typeof(this.returnDates[curr]) === 'undefined') {
-                    this.returnDates[curr] = {}
-                }
-                var testDate = moment(moment(data[d]['start']));
-                if (testDate.isBetween(date.start, date.end, 'days', true)) {
-                    this.returnDates[curr][testDate.format('YYYY-MM-DD') + '_' + this.counter] = getTrashRow(curr, testDate, data[d]['color']);
-                    this.counter++;
-                }
-            }
-
-            addToContainer(random, returnDates);
+    $.getJSON('https://cors-anywhere.herokuapp.com/' + baseURL + '/calendar/findstreets/?query=' + address.street + '&zipcode=' + address.postcode, function (data) {
+        $.getJSON('https://cors-anywhere.herokuapp.com/' + baseURL + '/api/rides?id=' + data[0].Id + '&housenumber=0&zipcode=' + address.postcode, function (data) {
+            data = data.filter(function (element) {
+                    return moment(element.start, 'YYYY-MM-DDTHH:mm:ss+-HH:mm').isBetween(date.start, date.end, null, '[]');
+                })
+                .sort(function(a,b) {return (a.start > b.start) ? 1 : ((b.start > a.start) ? -1 : 0);})
+                .map(function (element) {
+                    return {
+                        date: moment(element.start, 'YYYY-MM-DDTHH:mm:ss+-HH:mm'),
+                        summary: element.title,
+                        garbageType: element.color,
+                    }
+                })
+                .slice(0, getMaxItems());
+            addToContainerNew(random, data);
         });
     });
 }
@@ -216,8 +211,7 @@ function getMijnAfvalwijzerData(address, date, random) {
     $.getJSON('https://cors-anywhere.herokuapp.com/http://json.mijnafvalwijzer.nl/?method=postcodecheck&postcode=' + address.postcode + '&street=&huisnummer=' + address.housenumber + '&toevoeging=' + address.housenumberSuffix, function (data) {
         data = data.data.ophaaldagen.data
             .filter(function (element) {
-                return element.date >= date.start.format('YYYY-MM-DD')
-                    && element.date <= date.end.format('YYYY-MM-DD');
+                return moment(element.date).isBetween(date.start, date.end, null, '[]');
             })
             .slice(0, getMaxItems())
             .map(function (element) {
@@ -233,22 +227,27 @@ function getMijnAfvalwijzerData(address, date, random) {
 
 function getHvcData(address, date, random) {
     $.getJSON('https://cors-anywhere.herokuapp.com/http://inzamelkalender.hvcgroep.nl/push/calendar?postcode=' + address.postcode + '&huisnummer=' + address.housenumber, function (data) {
-        this.returnDates = {};
-        for (d in data) {
-            var curr = data[d].naam;
-            curr = capitalizeFirstLetter(curr.toLowerCase());
-            if (typeof(this.returnDates[curr]) === 'undefined') {
-                this.returnDates[curr] = {}
-            }
+        var dataFiltered = [];
+        data.forEach(function (element) {
+            var seen = {};
+            element.dateTime.forEach(function (dateElement) {
+                this.date = moment(dateElement.date, 'YYYY-MM-DD HH:mm:ss');
 
-            for (dt in data[d].dateTime) {
-                var testDate = moment(data[d].dateTime[dt].date);
-                if (testDate.isBetween(date.start, date.end, 'days', true)) {
-                    this.returnDates[curr][testDate.format('YYYY-MM-DD') + '_' + curr] = getTrashRow(curr, testDate);
+                if (!seen.hasOwnProperty(this.date.format('YYYY-MM_DD'))) {
+                    dataFiltered.push({
+                        date: this.date,
+                        summary: element.naam,
+                        garbageType: element.code,
+                    });
+                    seen[this.date.format('YYYY-MM_DD')] = true;
                 }
-            }
-        }
-        addToContainer(random, this.returnDates);
+            });
+        });
+        dataFiltered = dataFiltered
+            .sort(function(a,b) {return (a.date > b.date) ? 1 : ((b.date > a.date) ? -1 : 0);} )
+            .slice(0, getMaxItems());
+
+        addToContainerNew(random, dataFiltered);
     });
 }
 
@@ -273,6 +272,9 @@ function getRovaData(address, date, random) {
     });
 }
 
+/**
+ * Will be discontinued from 2018
+ */
 function getRecycleManagerData(address, date, random) {
     $.getJSON('https://vpn-wec-api.recyclemanager.nl/v2/calendars?postalcode=' + address.postcode + '&number=' + address.housenumber, function (data) {
         this.returnDates = {};
@@ -403,43 +405,36 @@ function addToContainerNew(random, returnDates) {
     $('.trash' + random + ' .state').html('');
 
     if (typeof(_DO_NOT_USE_COLORED_TRASHCAN) === 'undefined' || _DO_NOT_USE_COLORED_TRASHCAN === false) {
+        $('.trash' + random).find('img.trashcan').attr('src', getKlikoImage(returnDates[0].garbageType.toLowerCase()));
         $('.trash' + random).find('img.trashcan').css('opacity', '0.7');
     } else {
         $('.trash' + random).find('img.trashcan').css('opacity', '1');
     }
-    returnDates.forEach(function (element, index) {
-        if (index === 0 && (typeof(_DO_NOT_USE_COLORED_TRASHCAN) === 'undefined' || _DO_NOT_USE_COLORED_TRASHCAN === false)) {
-            $('.trash' + random).find('img.trashcan').attr('src', getKlikoImage(element.summary.toLowerCase()));
-        }
-
+    returnDates.forEach(function (element) {
         $('.trash' + random + ' .state').append(getSimpleTrashRow(element.date, element.summary));
     });
 }
 
 function getKlikoImage(element) {
-    if (element.indexOf('gft') >= 0 ||
-        element.indexOf('tuin') >= 0 ||
-        element.indexOf('refuse bin') >= 0
-    ) {
+    if (element.match(/(gft)|(tuin)|(refuse bin)|(green)/i)) {
         return 'img/kliko_green.png';
     }
-    else if (element.indexOf('plastic') >= 0 ||
-        element.indexOf('pmd') >= 0
-    ) {
+    else if (element.match(/(black)|(zwart)/i)) {
+        return 'img/kliko_black.png';
+    }
+    else if (element.match(/(plastic)|(pmd)|(verpakking)/i)) {
         return 'img/kliko_orange.png';
     }
-    else if (element.indexOf('rest') >= 0 ||
-        element.indexOf('grof') >= 0
-    ) {
+    else if (element.match(/(brown)/i)) {
+        return 'img/kliko_brown.png';
+    }
+    else if (element.match(/(grof)|(grey)/i)) {
         return 'img/kliko_grey.png';
     }
-    else if (element.indexOf('papier') >= 0 ||
-        element.indexOf('blauw') >= 0 ||
-        element.indexOf('recycling bin collection') >= 0
-    ) {
+    else if (element.match(/(papier)|(blauw)|(blue)|(recycling bin collection)/i)) {
         return 'img/kliko_blue.png';
     }
-    else if (element.indexOf('chemisch') >= 0) {
+    else if (element.match(/(chemisch)|(kca)|(kga)/i)) {
         return 'img/kliko_red.png';
     }
     return 'img/kliko.png';
