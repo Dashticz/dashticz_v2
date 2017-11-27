@@ -278,48 +278,36 @@ function getRovaData(address, date, random) {
  */
 function getRecycleManagerData(address, date, random) {
     $.getJSON('https://vpn-wec-api.recyclemanager.nl/v2/calendars?postalcode=' + address.postcode + '&number=' + address.housenumber, function (data) {
-        this.returnDates = {};
-        this.counter = 0;
-        for (d in data.data) {
-            for (o in data.data[d].occurrences) {
-                var curr = data.data[d].occurrences[o].title;
-                curr = capitalizeFirstLetter(curr.toLowerCase());
-                if (typeof(this.returnDates[curr]) === 'undefined') {
-                    this.returnDates[curr] = {}
-                }
+        var dataFiltered = [];
+        data.data.forEach(function (element) {
+            element.occurrences.forEach(function (occurrence) {
+                dataFiltered.push({
+                    date: moment(occurrence.from.date, 'YYYY-MM-DDTHH:mm:ss.SSS'),
+                    summary: occurrence.title,
+                    garbageType: occurrence.title,
+                });
+            });
+        });
 
-                var testDate = moment(data.data[d].occurrences[o].from.date);
-                if (testDate.isBetween(date.start, date.end, 'days', true)) {
-                    this.returnDates[curr][testDate.format('YYYY-MM-DD') + '_' + this.counter] = getTrashRow(curr, testDate);
-                    this.counter++;
-                }
-            }
-        }
-        addToContainer(random, this.returnDates);
+        dataFiltered = dataFiltered
+            .sort(function(a,b) {return (a.date > b.date) ? 1 : ((b.date > a.date) ? -1 : 0);} )
+            .slice(0, getMaxItems());
+        addToContainerNew(random, dataFiltered);
     });
 }
 
 function getEdgData(address, date, random) {
     $.getJSON('https://cors-anywhere.herokuapp.com/https://www.edg.de/JsonHandler.ashx?dates=1&street=' + address.street + '&nr=' + address.housenumber + '&cmd=findtrash&tbio=0&tpapier=1&trest=1&twert=1&feiertag=0', function (data) {
-        data = data.data;
-        this.returnDates = {};
-        this.counter = 0;
-        var curr = '';
-
-        for (d in data) {
-            if (typeof(returnDates[curr]) === 'undefined') {
-                this.returnDates[curr] = {}
-            }
-
-            var testDate = moment(data[d]['date']);
-            if (testDate.isBetween(date.start, date.end, 'days', true)) {
-                for (e in data[d].fraktion) {
-                    this.returnDates[curr][moment(data[d]['date']).format('YYYY-MM-DD')] = getTrashRow(data[d].fraktion[e], testDate);
-                    this.counter++;
+        data = data.data
+            .map(function (element) {
+                return {
+                    date: moment(element.date, 'DD.MM.YYYY'),
+                    summary: element.fraktion[0],
+                    garbageType: element.fraktion[0],
                 }
-            }
-        }
-        addToContainer(random, this.returnDates);
+            })
+            .slice(0, getMaxItems());
+        addToContainerNew(random, data);
     });
 }
 
