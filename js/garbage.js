@@ -482,111 +482,41 @@ function loadDataForService(service, random) {
         end: moment().add(32, 'days'),
     };
 
-    switch (service) {
-        case 'googlecalendar':
-            getGoogleCalendarData(address, date, random, settings['garbage_calendar_id']);
-            break;
-        case 'ical':
-            getIcalData(address, date, random, settings['garbage_icalurl']);
-            break;
-        case 'gemertbakelmaandag':
-            getIcalData(address, date, random, 'https://calendar.google.com/calendar/ical/o44qrtdhls8saftmesm5rqb85o%40group.calendar.google.com/public/basic.ics');
-            break;
-        case 'gemertbakeldinsdag':
-            getIcalData(address, date, random, 'https://calendar.google.com/calendar/ical/6p8549rssv114ddevingime95o%40group.calendar.google.com/public/basic.ics');
-            break;
-        case 'gemertbakelwoensdag':
-            getIcalData(address, date, random, 'https://calendar.google.com/calendar/ical/cv40f4vaie10v54f72go6ipb78%40group.calendar.google.com/public/basic.ics');
-            break;
-        case 'veldhoven':
-            getIcalData(address, date, random, 'https://www.veldhoven.nl/afvalkalender/2017/' + address.postcode + '-' + address.housenumber + '.ics');
-            break;
-        case 'best':
-            getIcalData(address, date, random, 'https://www.gemeentebest.nl/afvalkalender/2017/' + address.postcode + '-' + address.housenumber + '.ics');
-            break;
-        case 'uden':
-            getIcalData(address, date, random, 'https://www.uden.nl/inwoners/afval/ophaaldagen-afval/2017/' + address.postcode + '-' + address.housenumber + '.ics');
-            break;
-        case 'vianen':
-            getIcalData(address, date, random, 'https://www.vianen.nl/afval/afvalkalender/2017/' + address.postcode + '-' + address.housenumber + '.ics');
-            break;
-        case 'goes':
-            getIcalData(address, date, random, 'http://afvalkalender.goes.nl/2017/' + address.postcode + '-' + address.housenumber + '.ics');
-            break;
-        case 'deurne':
-            getIcalData(address, date, random, 'http://afvalkalender.deurne.nl/Afvalkalender/download_ical.php?p=' + address.postcode + '&h=' + address.housenumber + '&t=&jaar=2017');
-            break;
-        case 'heezeleende':
-            getIcalData(address, date, random, 'http://afvalkalender.heeze-leende.nl/Afvalkalender/download_ical.php?p=' + address.postcode + '&h=' + address.housenumber + '&t=&jaar=2017');
-            break;
-        case 'deafvalapp':
-            getDeAfvalAppData(address, date, random);
-            break;
-        case 'twentemilieu':
-            getTwenteMilieuData(address, date, random);
-            break;
-
-        case 'cure':
-            getAfvalstromenData(address, date, random, 'https://afvalkalender.cure-afvalbeheer.nl');
-            break;
-        case 'cyclusnv':
-            getAfvalstromenData(address, date, random, 'https://afvalkalender.cyclusnv.nl');
-            break;
-        case 'gemeenteberkelland':
-            getAfvalstromenData(address, date, random, 'https://afvalkalender.gemeenteberkelland.nl');
-            break;
-        case 'meerlanden':
-            getAfvalstromenData(address, date, random, 'https://afvalkalender.meerlanden.nl');
-            break;
-        case 'venray':
-            getAfvalstromenData(address, date, random, 'https://afvalkalender.venray.nl');
-            break;
-        case 'circulusberkel':
-            getAfvalstromenData(address, date, random, 'https://afvalkalender.circulus-berkel.nl');
-            break;
-        case 'rmn':
-            getAfvalstromenData(address, date, random, 'https://inzamelschema.rmn.nl');
-            break;
-        case 'alphenaandenrijn':
-            getAfvalstromenData(address, date, random, 'http://afvalkalender.alphenaandenrijn.nl');
-            break;
-        case 'sudwestfryslan':
-            getAfvalstromenData(address, date, random, 'http://afvalkalender.sudwestfryslan.nl');
-            break;
-        case 'dar':
-            getAfvalstromenData(address, date, random, 'https://afvalkalender.dar.nl');
-            break;
-        case 'waalre':
-            getAfvalstromenData(address, date, random, 'https://afvalkalender.waalre.nl');
-            break;
-        case 'avalex':
-            getAfvalstromenData(address, date, random, 'https://www.avalex.nl');
-            break;
-
-        case 'ophaalkalender':
-            getOphaalkalenderData(address, date, random);
-            break;
-        case 'afvalwijzerarnhem':
-            getAfvalwijzerArnhemData(address, date, random);
-            break;
-        case 'mijnafvalwijzer':
-            getMijnAfvalwijzerData(address, date, random);
-            break;
-        case 'hvc':
-            getHvcData(address, date, random);
-            break;
-        case 'rova':
-            /* https://wedevise.nl/dashticz/rova.php?zipcode=7731ZT&number=84 */
-            getRovaData(address, date, random);
-            break;
-        case 'recyclemanager':
-            getRecycleManagerData(address, date, random);
-            break;
-        case 'edg':
-            getEdgData(address, date, random);
-            break;
-        case 'omri':
-            getOmriData(address, date, random);
-            break;
-    }
+    var serviceProperties = {
+        googlecalendar: {dataHandler: 'getGoogleCalendarData', identifier: settings['garbage_calendar_id']},
+        ical: {dataHandler: 'getIcalData', identifier: settings['garbage_icalurl']},
+        gemertbakelmaandag: {dataHandler: 'getIcalData', identifier: 'https://calendar.google.com/calendar/ical/o44qrtdhls8saftmesm5rqb85o%40group.calendar.google.com/public/basic.ics'},
+        gemertbakeldinsdag: {dataHandler: 'getIcalData', identifier: 'https://calendar.google.com/calendar/ical/6p8549rssv114ddevingime95o%40group.calendar.google.com/public/basic.ics'},
+        gemertbakelwoensdag: {dataHandler: 'getIcalData', identifier: 'https://calendar.google.com/calendar/ical/cv40f4vaie10v54f72go6ipb78%40group.calendar.google.com/public/basic.ics'},
+        veldhoven: {dataHandler: 'getIcalData', identifier: 'https://www.veldhoven.nl/afvalkalender/' + moment().format('YYYY') + '/' + address.postcode + '-' + address.housenumber + '.ics'},
+        best: {dataHandler: 'getIcalData', identifier: 'https://www.gemeentebest.nl/afvalkalender/' + moment().format('YYYY') + '/' + address.postcode + '-' + address.housenumber + '.ics'},
+        uden: {dataHandler: 'getIcalData', identifier: 'https://www.uden.nl/inwoners/afval/ophaaldagen-afval/' + moment().format('YYYY') + address.postcode + '-' + address.housenumber + '.ics'},
+        vianen: {dataHandler: 'getIcalData', identifier: 'https://www.vianen.nl/afval/afvalkalender/' + moment().format('YYYY') + address.postcode + '-' + address.housenumber + '.ics'},
+        goes: {dataHandler: 'getIcalData', identifier: 'http://afvalkalender.goes.nl/' + moment().format('YYYY') + address.postcode + '-' + address.housenumber + '.ics'},
+        deurne: {dataHandler: 'getIcalData', identifier: 'http://afvalkalender.deurne.nl/Afvalkalender/download_ical.php?p=' + address.postcode + '&h=' + address.housenumber + '&t=&jaar=' + moment().format('YYYY')},
+        heezeleende: {dataHandler: 'getIcalData', identifier: 'http://afvalkalender.heeze-leende.nl/Afvalkalender/download_ical.php?p=' + address.postcode + '&h=' + address.housenumber + '&t=&jaar=' + moment().format('YYYY')},
+        deafvalapp: {dataHandler: 'getDeAfvalAppData', identifier: ''},
+        twentemilieu: {dataHandler: 'getTwenteMilieuData', identifier: ''},
+        cure: {dataHandler: 'getAfvalstromenData', identifier: 'https://afvalkalender.cure-afvalbeheer.nl'},
+        cyclusnv: {dataHandler: 'getAfvalstromenData', identifier: 'https://afvalkalender.cyclusnv.nl'},
+        gemeenteberkelland: {dataHandler: 'getAfvalstromenData', identifier: 'https://afvalkalender.gemeenteberkelland.nl'},
+        meerlanden: {dataHandler: 'getAfvalstromenData', identifier: 'https://afvalkalender.meerlanden.nl'},
+        venray: {dataHandler: 'getAfvalstromenData', identifier: 'https://afvalkalender.venray.nl'},
+        circulusberkel: {dataHandler: 'getAfvalstromenData', identifier: 'https://afvalkalender.circulus-berkel.nl'},
+        rmn: {dataHandler: 'getAfvalstromenData', identifier: 'https://inzamelschema.rmn.nl'},
+        alphenaandenrijn: {dataHandler: 'getAfvalstromenData', identifier: 'http://afvalkalender.alphenaandenrijn.nl'},
+        sudwestfryslan: {dataHandler: 'getAfvalstromenData', identifier: 'http://afvalkalender.sudwestfryslan.nl'},
+        dar: {dataHandler: 'getAfvalstromenData', identifier: 'https://afvalkalender.dar.nl'},
+        waalre: {dataHandler: 'getAfvalstromenData', identifier: 'https://afvalkalender.waalre.nl'},
+        avalex: {dataHandler: 'getAfvalstromenData', identifier: 'https://www.avalex.nl'},
+        ophaalkalender: {dataHandler: 'getOphaalkalenderData', identifier: ''},
+        afvalwijzerarnhem: {dataHandler: 'getAfvalwijzerArnhemData', identifier: ''},
+        mijnafvalwijzer: {dataHandler: 'getMijnAfvalwijzerData', identifier: ''},
+        hvc: {dataHandler: 'getHvcData', identifier: ''},
+        rova: {dataHandler: 'getRovaData', identifier: ''},
+        recyclemanager: {dataHandler: 'getRecycleManagerData', identifier: ''},
+        edg: {dataHandler: 'getEdgData', identifier: ''},
+        omri: {dataHandler: 'getOmriData', identifier: ''},
+    };
+    window[serviceProperties[service].dataHandler](address, date, random, serviceProperties[service].identifier);
 }
