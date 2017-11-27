@@ -229,7 +229,7 @@ function getMijnAfvalwijzerData(address, date, random) {
                     trashRow: getSimpleTrashRow(moment(element.date, 'YYYY-MM-DD'), element.nameType),
                     date: element.date,
                     summary: element.nameType
-                }
+                };
             });
         addToContainerNew(random, data);
     });

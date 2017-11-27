@@ -1,5 +1,5 @@
-var recurring = {}
-var allchannels = []
+var recurring = {};
+var allchannels = [];
 
 function addTVGuide(tvobject, tvObjorg) {
     if (typeof(allchannels[1]) === 'undefined') {
@@ -43,7 +43,7 @@ function addTVGuide(tvobject, tvObjorg) {
                     event.starttime = moment(event.datum_start).format('HH:mm');
                     event.channel = allchannels[channel];
                     if (parseFloat(enddateStamp) > moment().format('X')) {
-                        if (typeof(tvitems[enddateStamp]) === 'undefined') tvitems[enddateStamp] = []
+                        if (typeof(tvitems[enddateStamp]) === 'undefined') tvitems[enddateStamp] = [];
                         tvitems[enddateStamp].push(event);
                     }
                 }

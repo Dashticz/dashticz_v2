@@ -600,40 +600,40 @@ function TranslateDirection(directionstr) {
 function Beaufort(windSpeed) {
     windSpeed = Math.abs(windSpeed);
     if (windSpeed <= 0.2) {
-        return "0 Bft";
+        return '0 Bft';
     }
     if (windSpeed <= 1.5) {
-        return "1 Bft";
+        return '1 Bft';
     }
     if (windSpeed <= 3.3) {
-        return "2 Bft";
+        return '2 Bft';
     }
     if (windSpeed <= 5.4) {
-        return "3 Bft";
+        return '3 Bft';
     }
     if (windSpeed <= 7.9) {
-        return "4 Bft";
+        return '4 Bft';
     }
     if (windSpeed <= 10.7) {
-        return "5 Bft";
+        return '5 Bft';
     }
     if (windSpeed <= 13.8) {
-        return "6 Bft";
+        return '6 Bft';
     }
     if (windSpeed <= 17.1) {
-        return "7 Bft";
+        return '7 Bft';
     }
     if (windSpeed <= 20.7) {
-        return "8 Bft";
+        return '8 Bft';
     }
     if (windSpeed <= 24.4) {
-        return "9 Bft";
+        return '9 Bft';
     }
     if (windSpeed <= 28.4) {
-        return "10 Bft";
+        return '10 Bft';
     }
     if (windSpeed <= 32.6) {
-        return "11 Bft";
+        return '11 Bft';
     }
-    return "12 Bft";
+    return '12 Bft';
 }
