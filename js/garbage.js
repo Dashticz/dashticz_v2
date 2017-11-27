@@ -86,19 +86,20 @@ function getDeAfvalAppData(address, date, random) {
         data.toString().split('\n').forEach(function (element) {
             element = element.split(';');
             var garbageType = element[0];
-            element.slice(1).forEach(function (dateElement) {
-                if (dateElement.length) {
+            element
+                .filter(function (element) { return element.length})
+                .slice(1)
+                .forEach(function (dateElement) {
                     dataFiltered.push({
                         date: moment(dateElement, 'DD-MM-YYYY'),
                         summary: garbageType.slice(0, 1).toUpperCase() + garbageType.slice(1).toLowerCase(),
                         garbageType: garbageType,
                     });
-                }
             });
         });
         dataFiltered = dataFiltered
             .filter(function (element) {
-                return element.date.isSameOrAfter(date.start) && element.date.isBefore(date.end);
+                return element.date.isBetween(date.start, date.end, null, '[]');
             })
             .sort(function(a,b) {return (a.date > b.date) ? 1 : ((b.date > a.date) ? -1 : 0);})
             .slice(0, getMaxItems());
