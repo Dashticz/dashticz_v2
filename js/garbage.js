@@ -46,9 +46,9 @@ function getGoogleCalendarData(address, date, random, calendarId) {
                     this.startDate = moment(element.start.datetime);
                 }
                 return {
-                    trashRow: getSimpleTrashRow(this.startDate, element.summary),
                     date: this.startDate,
-                    summary: element.summary
+                    summary: element.summary,
+                    garbageType: element.summary
                 };
             });
         addToContainerNew(random, this.returnDates);
@@ -81,29 +81,29 @@ function getIcalData(address, date, random, url) {
 
 function getDeAfvalAppData(address, date, random) {
     $.get('https://cors-anywhere.herokuapp.com/http://dataservice.deafvalapp.nl/dataservice/DataServiceServlet?type=ANDROID&service=OPHAALSCHEMA&land=NL&postcode=' + address.postcode + '&straatId=0&huisnr=' + address.housenumber + '&huisnrtoev=' + address.housenumberSuffix, function (data) {
-        var respArray = data.toString().split('\n').join('').split(';');
-        respArray.pop();
-        this.returnDates = {};
-        this.counter = 0;
-        var curr;
-        var dates={};
-        for (var i in respArray) {
-            if (isNaN(parseInt(respArray[i]))) {
-                dates[respArray[i]] = [];
-                curr = respArray[i];
-                curr = capitalizeFirstLetter(curr.toLowerCase());
-            } else {
-                var testDate = moment(respArray[i], 'DD-MM-YYYY');
-                if (testDate.isBetween(date.start, date.end, 'days', true)) {
-                    if (typeof(this.returnDates[curr]) === 'undefined') {
-                        this.returnDates[curr] = {}
-                    }
-                    this.returnDates[curr][testDate.format('YYYY-MM-DD') + this.counter] = getTrashRow(curr, testDate);
-                    this.counter++;
+        var dataFiltered = [];
+
+        data.toString().split('\n').forEach(function (element) {
+            element = element.split(';');
+            var garbageType = element[0];
+            element.slice(1).forEach(function (dateElement) {
+                if (dateElement.length) {
+                    dataFiltered.push({
+                        date: moment(dateElement, 'DD-MM-YYYY'),
+                        summary: garbageType.slice(0, 1).toUpperCase() + garbageType.slice(1).toLowerCase(),
+                        garbageType: garbageType,
+                    });
                 }
-            }
-        }
-        addToContainer(random, this.returnDates);
+            });
+        });
+        dataFiltered = dataFiltered
+            .filter(function (element) {
+                return element.date.isSameOrAfter(date.start) && element.date.isBefore(date.end);
+            })
+            .sort(function(a,b) {return (a.date > b.date) ? 1 : ((b.date > a.date) ? -1 : 0);})
+            .slice(0, getMaxItems());
+
+        addToContainerNew(random, dataFiltered);
     });
 }
 
@@ -131,9 +131,9 @@ function getTwenteMilieuData(address, date, random) {
                         10: 'Verpakkingen',
                     };
                     dataFiltered.push({
-                        trashRow: getSimpleTrashRow(moment(dateElement, 'YYYY-MM-DDTHH:mm:ss'), pickupTypes[element.pickupType]),
-                        date: dateElement,
-                        summary: pickupTypes[element.pickupType]
+                        date: moment(dateElement),
+                        summary: pickupTypes[element.pickupType],
+                        garbageType: pickupTypes[element.pickupType],
                     });
                 });
             });
@@ -148,22 +148,18 @@ function getAfvalstromenData(address, date, random, baseUrl) {
     $('.trash' + random + ' .state').html('');
     $.getJSON('https://cors-anywhere.herokuapp.com/' + baseUrl + '/rest/adressen/' + address.postcode + '-' + address.housenumber, function (data) {
         $.getJSON('https://cors-anywhere.herokuapp.com/' + baseUrl + '/rest/adressen/' + data[0].bagId + '/afvalstromen', function (data) {
-            this.counter = 0;
-            this.returnDates = {};
-            for (d in data) {
-                if (data[d]['ophaaldatum'] !== null) {
-                    var curr = data[d]['menu_title'];
-                    curr = capitalizeFirstLetter(curr.toLowerCase());
-                    if (typeof(this.returnDates[curr]) === 'undefined') {
-                        this.returnDates[curr] = {}
-                    }
-                    var testDate = moment(moment(data[d]['ophaaldatum']));
-                    this.returnDates[curr][testDate.format('YYYY-MM-DD') + '_' + this.counter] = getTrashRow(curr, testDate);
-                    this.counter++;
-                }
-            }
-
-            addToContainer(random, this.returnDates);
+            data = data
+                .filter(function (element) { return element.ophaaldatum !== null})
+                .sort(function(a,b) {return (a.ophaaldatum > b.ophaaldatum) ? 1 : ((b.ophaaldatum > a.ophaaldatum) ? -1 : 0);})
+                .slice(0, getMaxItems())
+                .map(function (element) {
+                    return {
+                        date: moment(element.ophaaldatum, 'YYYY-MM-DD'),
+                        summary: element.title,
+                        garbageType: element.title,
+                    };
+                });
+            addToContainerNew(random, data);
         });
     });
 }
@@ -226,9 +222,9 @@ function getMijnAfvalwijzerData(address, date, random) {
             .slice(0, getMaxItems())
             .map(function (element) {
                 return {
-                    trashRow: getSimpleTrashRow(moment(element.date, 'YYYY-MM-DD'), element.nameType),
-                    date: element.date,
-                    summary: element.nameType
+                    date: moment(element.date),
+                    summary: element.nameType,
+                    garbageType: element.type,
                 };
             });
         addToContainerNew(random, data);
@@ -416,7 +412,7 @@ function addToContainerNew(random, returnDates) {
             $('.trash' + random).find('img.trashcan').attr('src', getKlikoImage(element.summary.toLowerCase()));
         }
 
-        $('.trash' + random + ' .state').append(element.trashRow);
+        $('.trash' + random + ' .state').append(getSimpleTrashRow(element.date, element.summary));
     });
 }
 
