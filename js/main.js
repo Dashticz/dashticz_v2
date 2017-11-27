@@ -31,7 +31,7 @@ var _THOUSAND_SEPARATOR = '.';
 var _DECIMAL_POINT = ',';
 
 function loadFiles() {
-    $.ajax({url: customfolder + '/CONFIG.js', async: false, dataType: "script"}).done(function () {
+    $.ajax({url: customfolder + '/CONFIG.js', async: false, dataType: 'script'}).done(function () {
         if (objectlength(columns) === 0) defaultcolumns = true;
 
         _GRAPHREFRESH = 5;
@@ -62,20 +62,20 @@ function loadFiles() {
             }
         });
 
-        $.ajax({url: 'js/settings.js', async: false, dataType: "script"}).done(function () {
+        $.ajax({url: 'js/settings.js', async: false, dataType: 'script'}).done(function () {
             loadSettings();
 
-            $('<link href="css/creative.css?v=' + cache + '" rel="stylesheet">').appendTo("head");
-            $('<link href="vendor/weather/css/weather-icons.min.css?v=' + cache + '" rel="stylesheet">').appendTo("head");
+            $('<link href="css/creative.css?v=' + cache + '" rel="stylesheet">').appendTo('head');
+            $('<link href="vendor/weather/css/weather-icons.min.css?v=' + cache + '" rel="stylesheet">').appendTo('head');
 
             if (_THEME !== 'default') {
-                $('<link rel="stylesheet" type="text/css" href="themes/' + _THEME + '/' + _THEME + '.css?v=' + cache + '" />').appendTo("head");
+                $('<link rel="stylesheet" type="text/css" href="themes/' + _THEME + '/' + _THEME + '.css?v=' + cache + '" />').appendTo('head');
             }
-            $('<link href="' + customfolder + '/custom.css?v=' + cache + '" rel="stylesheet">').appendTo("head");
+            $('<link href="' + customfolder + '/custom.css?v=' + cache + '" rel="stylesheet">').appendTo('head');
 
             if (typeof(settings['edit_mode']) !== 'undefined' && settings['edit_mode'] == 1) {
-                $('<link href="css/sortable.css?v=' + cache + '" rel="stylesheet">').appendTo("head");
-                $.ajax({url: 'js/sortable.js', async: false, dataType: "script"});
+                $('<link href="css/sortable.css?v=' + cache + '" rel="stylesheet">').appendTo('head');
+                $.ajax({url: 'js/sortable.js', async: false, dataType: 'script'});
 
                 var html = '<div class="newblocksHolder" style="display:none;">';
                 html += '<div class="title">' + language.editmode.add_plugin + '</div>';
@@ -87,21 +87,21 @@ function loadFiles() {
                 $('body').prepend(html);
             }
 
-            $.ajax({url: 'js/switches.js', async: false, dataType: "script"});
-            $.ajax({url: 'js/thermostat.js', async: false, dataType: "script"});
+            $.ajax({url: 'js/switches.js', async: false, dataType: 'script'});
+            $.ajax({url: 'js/thermostat.js', async: false, dataType: 'script'});
 
-            $.ajax({url: customfolder + '/custom.js?v=' + cache, async: false, dataType: "script"});
-            $.ajax({url: 'js/blocks.js', async: false, dataType: "script"});
-            $.ajax({url: 'js/graphs.js', async: false, dataType: "script"});
+            $.ajax({url: customfolder + '/custom.js?v=' + cache, async: false, dataType: 'script'});
+            $.ajax({url: 'js/blocks.js', async: false, dataType: 'script'});
+            $.ajax({url: 'js/graphs.js', async: false, dataType: 'script'});
 
-            $.ajax({url: 'js/switches.js', async: false, dataType: "script"});
-            $.ajax({url: 'js/blocks.js', async: false, dataType: "script"});
-            $.ajax({url: 'js/graphs.js', async: false, dataType: "script"});
+            $.ajax({url: 'js/switches.js', async: false, dataType: 'script'});
+            $.ajax({url: 'js/blocks.js', async: false, dataType: 'script'});
+            $.ajax({url: 'js/graphs.js', async: false, dataType: 'script'});
             if (typeof(settings['gm_api']) !== 'undefined' && settings['gm_api'] !== "" && settings['gm_api'] !== 0) {
                 $.ajax({
                     url: 'https://maps.googleapis.com/maps/api/js?key=' + settings['gm_api'],
                     async: false,
-                    dataType: "script"
+                    dataType: 'script'
                 }).done(function () {
                     setTimeout(function () {
                         initMap();
@@ -303,7 +303,7 @@ function buildScreens() {
                                 if (typeof(loadWeatherFull) !== 'function') $.ajax({
                                     url: 'js/weather.js',
                                     async: false,
-                                    dataType: "script"
+                                    dataType: 'script'
                                 });
 
                                 loadWeatherFull(settings['wu_city'], settings['wu_country'], $('#weatherfull'));
@@ -352,7 +352,7 @@ function buildScreens() {
 function startSwiper() {
     if (md.mobile() == null || md.tablet() !== null) {
         if ($('.swiper-container .screen').length > 1) {
-            $.ajax({url: 'vendor/swiper/js/swiper.min.js', async: false, dataType: "script"}).done(function () {
+            $.ajax({url: 'vendor/swiper/js/swiper.min.js', async: false, dataType: 'script'}).done(function () {
                 $('<link href="vendor/swiper/css/swiper.min.css" rel="stylesheet">').appendTo("head");
                 setTimeout(function () {
                     myswiper = new Swiper('.swiper-container', {
@@ -616,7 +616,7 @@ function loadButton(b, button) {
         $('body').append(html);
 
         if (button.log == true) {
-            if (typeof(getLog) !== 'function') $.ajax({url: 'js/log.js', async: false, dataType: "script"});
+            if (typeof(getLog) !== 'function') $.ajax({url: 'js/log.js', async: false, dataType: 'script'});
             $('#button_' + b + '_' + random + ' .modal-body').html('');
             getLog($('#button_' + b + '_' + random + ' .modal-body'), button.level, true);
         }
@@ -829,7 +829,7 @@ function appendStationClock(columndiv, col, width) {
         '<canvas id="clock" width="150" height="150">Your browser is unfortunately not supported.</canvas>' +
         '</div>'
     );
-    if (typeof(StationClock) !== 'function') $.ajax({url: 'vendor/stationclock.js', async: false, dataType: "script"});
+    if (typeof(StationClock) !== 'function') $.ajax({url: 'vendor/stationclock.js', async: false, dataType: 'script'});
 
     var clock = new StationClock("clock");
     clock.body = StationClock.RoundBody;

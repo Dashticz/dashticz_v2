@@ -49,7 +49,7 @@ function getGoogleCalendarData(address, date, random, calendarId) {
                     trashRow: getSimpleTrashRow(this.startDate, element.summary),
                     date: this.startDate,
                     summary: element.summary
-                }
+                };
             });
         addToContainerNew(random, this.returnDates);
         }
@@ -133,7 +133,7 @@ function getTwenteMilieuData(address, date, random) {
                     dataFiltered.push({
                         trashRow: getSimpleTrashRow(moment(dateElement, 'YYYY-MM-DDTHH:mm:ss'), pickupTypes[element.pickupType]),
                         date: dateElement,
-                        summary: element._pickupTypeText
+                        summary: pickupTypes[element.pickupType]
                     });
                 });
             });
@@ -142,7 +142,6 @@ function getTwenteMilieuData(address, date, random) {
             addToContainerNew(random, dataFiltered.slice(0, getMaxItems()));
         });
     });
-
 }
 
 function getAfvalstromenData(address, date, random, baseUrl) {

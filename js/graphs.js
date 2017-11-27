@@ -54,55 +54,55 @@ function getGraphs(device, popup) {
             decimals = 1;
             break;
         case 'Gas':
-            txtUnit = "m3";
+            txtUnit = 'm3';
             break;
         case 'Energy':
         case 'kWh':
         case 'YouLess counter':
-            txtUnit = "kWh";
+            txtUnit = 'kWh';
             currentValue = device['CounterToday'];
             break;
         case 'Visibility':
-            txtUnit = "km";
+            txtUnit = 'km';
             break;
         case 'Radiation':
         case 'Solar Radiation':
-            txtUnit = "Watt/m2";
+            txtUnit = 'Watt/m2';
             decimals = 0;
             break;
         case 'Pressure':
-            txtUnit = "Bar";
+            txtUnit = 'Bar';
             break;
         case 'Soil Moisture':
-            txtUnit = "cb";
+            txtUnit = 'cb';
             break;
         case 'Leaf Wetness':
-            txtUnit = "Range";
+            txtUnit = 'Range';
             break;
         case 'Voltage':
         case 'A/D':
-            txtUnit = "mV";
+            txtUnit = 'mV';
             break;
         case 'VoltageGeneral':
-            txtUnit = "V";
+            txtUnit = 'V';
             break;
         case 'DistanceGeneral':
         case 'Distance':
-            txtUnit = "cm";
+            txtUnit = 'cm';
             break;
         case 'Sound Level':
-            txtUnit = "dB";
+            txtUnit = 'dB';
             break;
         case 'CurrentGeneral':
         case 'Current':
-            txtUnit = "A";
+            txtUnit = 'A';
             break;
         case 'Weight':
-            txtUnit = "kg";
+            txtUnit = 'kg';
             break;
         case 'Waterflow':
-            sensor = "Percentage";
-            txtUnit = "l/min";
+            sensor = 'Percentage';
+            txtUnit = 'l/min';
             break;
         case 'Counter Incremental':
             txtUnit = device['CounterToday'].split(' ')[1];
