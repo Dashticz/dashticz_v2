@@ -190,7 +190,7 @@ function getOphaalkalenderData(address, date, random) {
 
 function getAfvalwijzerArnhemData(address, date, random) {
     $('.trash' + random + ' .state').html('');
-    this.returnDates = {};
+    var returnDates = {};
     var baseURL = 'http://www.afvalwijzer-arnhem.nl';
     $.get('https://cors-anywhere.herokuapp.com/' + baseURL + '/applicatie?ZipCode=' + address.postcode + '&HouseNumber=' + address.housenumber + '&HouseNumberAddition=' + address.housenumberSuffix, function (data) {
         $(data).find('ul.ulPickupDates li').each(function () {
@@ -198,13 +198,13 @@ function getAfvalwijzerArnhemData(address, date, random) {
             var curr = row[0].replace('<div>', '').trim();
             var testDate = moment(row[1].trim(), 'DD-MM-YYYY');
             if (testDate.isBetween(date.start, date.end, 'days', true)) {
-                if (typeof(this.returnDates[curr]) === 'undefined') {
+                if (typeof(returnDates[curr]) === 'undefined') {
                     returnDates[curr] = {}
                 }
                 returnDates[curr][testDate.format('YYYY-MM-DD') + '_' + curr] = getTrashRow(curr, testDate);
             }
         });
-        addToContainer(random, this.returnDates);
+        addToContainer(random, returnDates);
     });
 }
 
@@ -328,17 +328,21 @@ function getTrashRow(c, d, orgcolor) {
     return '<div class="trashrow"' + color + orgcolor_attr + '>' + c + ': ' + d.locale(settings['calendarlanguage']).format('l') + '</div>';
 }
 
-function getSimpleTrashRow(date, summary) {
-    date.locale(settings['calendarlanguage']);
-    this.displayDate = date.locale(settings['calendarlanguage']).format('l');
-    if (date.isSame(moment(), 'day')) {
+function getSimpleTrashRow(garbage) {
+    this.displayDate = garbage.date.locale(settings['calendarlanguage']).format('l');
+    if (garbage.date.isSame(moment(), 'day')) {
         this.displayDate = language.weekdays.today;
-    } else if (date.isSame(moment().add(1, 'days'), 'day')) {
+    } else if (garbage.date.isSame(moment().add(1, 'days'), 'day')) {
         this.displayDate = language.weekdays.tomorrow;
-    } else if (date.isBefore(moment().add(1, 'week'))) {
-        this.displayDate = date.format('dddd');
+    } else if (garbage.date.isBefore(moment().add(1, 'week'))) {
+        this.displayDate = garbage.date.format('dddd');
     }
-    return '<div class="trashrow">' + (summary.charAt(0).toUpperCase() + summary.slice(1)) + ': ' + this.displayDate + '</div>';
+    var name = settings['garbage'][mapGarbageType(garbage.garbageType)].name;
+    var color = ' style="color:' + settings['garbage'][mapGarbageType(garbage.garbageType)].code + '"';
+    return '<div class="trashrow"' + (settings['garbage_use_colors'] ? color : '') + '>'
+        + (settings['garbage_use_names'] ? name : (garbage.summary.charAt(0).toUpperCase() + garbage.summary.slice(1)))
+        + ': ' + this.displayDate
+        + '</div>';
 }
 
 function addToContainer(random, returnDates) {
@@ -400,33 +404,38 @@ function addToContainerNew(random, returnDates) {
         $('.trash' + random).find('img.trashcan').css('opacity', '1');
     }
     returnDates.forEach(function (element) {
-        $('.trash' + random + ' .state').append(getSimpleTrashRow(element.date, element.summary));
+        $('.trash' + random + ' .state').append(getSimpleTrashRow(element));
     });
 }
 
-function getKlikoImage(element) {
-    if (element.match(/(gft)|(tuin)|(refuse bin)|(green)/i)) {
-        return 'img/kliko_green.png';
+function mapGarbageType(garbageType) {
+    if (garbageType.match(/(gft)|(tuin)|(refuse bin)|(green)/i)) {
+        return 'gft';
     }
-    else if (element.match(/(black)|(zwart)/i)) {
-        return 'img/kliko_black.png';
+    else if (garbageType.match(/(black)|(zwart)/i)) {
+        return 'black';
     }
-    else if (element.match(/(plastic)|(pmd)|(verpakking)/i)) {
-        return 'img/kliko_orange.png';
+    else if (garbageType.match(/(plastic)|(pmd)|(verpakking)/i)) {
+        return 'pmd';
     }
-    else if (element.match(/(brown)/i)) {
-        return 'img/kliko_brown.png';
+    else if (garbageType.match(/(brown)/i)) {
+        return 'brown';
     }
-    else if (element.match(/(grof)|(grey)/i)) {
-        return 'img/kliko_grey.png';
+    else if (garbageType.match(/(grof)|(grey)|(rest)/i)) {
+        return 'rest';
     }
-    else if (element.match(/(papier)|(blauw)|(blue)|(recycling bin collection)/i)) {
-        return 'img/kliko_blue.png';
+    else if (garbageType.match(/(papier)|(blauw)|(blue)|(recycling bin collection)/i)) {
+        return 'papier';
     }
-    else if (element.match(/(chemisch)|(kca)|(kga)/i)) {
-        return 'img/kliko_red.png';
+    else if (garbageType.match(/(chemisch)|(kca)|(kga)/i)) {
+        return 'kca';
     }
-    return 'img/kliko.png';
+    return 'black';
+}
+
+function getKlikoImage(garbageType) {
+    var color = settings['garbage'][mapGarbageType(garbageType)];
+    return 'img/kliko_' + color.kliko + '.png';
 }
 
 function getMaxItems() {
