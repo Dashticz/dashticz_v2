@@ -5,7 +5,7 @@
 var selectedStreamIndex = 0;
 
 function loadChromecast(columndiv) {
-    head.load("https://www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1");
+    head.load('https://www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1');
 
     var random = getRandomInt(1, 100000);
     var html = '<div data-id="chromecast" class="transbg containschromecast' + random + '">';

@@ -417,6 +417,19 @@ if (typeof(settings['units']) === 'undefined') {
         }
     };
 }
+if (typeof(settings['garbage']) === 'undefined') {
+    settings['garbage'] = {
+        gft: {kliko: 'green', code: '#375b23', name: 'GFT'},
+        pmd: {kliko: 'orange', code: '#db5518', name: 'PMD'},
+        rest: {kliko: 'grey', code: '#5e5d5c', name: 'Restafval'},
+        papier: {kliko: 'blue', code: '#153477', name: 'Papier'},
+        kca: {kliko: 'red', code: '#b21807', name: 'Chemisch afval'},
+        brown: {kliko: 'brown', code: '#7c3607', name: 'Bruin'},
+        black: {kliko: 'black', code: '#000000', name: 'Zwart'},
+    };
+}
+if (typeof(settings['garbage_use_names']) === 'undefined') settings['garbage_use_names'] = false;
+if (typeof(settings['garbage_use_names']) === 'undefined') settings['garbage_use_colors'] = false;
 if (typeof(settings['lineColors']) === 'undefined') settings['lineColors'] = ['#eee', '#eee', '#eee'];
 
 var _TEMP_SYMBOL = '°C';

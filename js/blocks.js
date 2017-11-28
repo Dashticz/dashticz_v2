@@ -258,16 +258,19 @@ function handleStringBlock(block, columndiv, width, c) {
             appendStreamPlayer(columndiv);
             return;
         case 'chromecast':
-            $.ajax({url: 'js/chromecast.js', async: false, dataType: "script"});
+            $.ajax({url: 'js/chromecast.js', async: false, dataType: 'script'});
             loadChromecast(columndiv);
             return;
         case 'garbage':
-            if (typeof(loadGarbage) !== 'function') $.ajax({url: 'js/garbage.js', async: false, dataType: "script"});
+            if (typeof(loadGarbage) !== 'function') {
+                $.ajax({url: 'js/garbage.js', async: false, dataType: 'script'});
+                $.ajax({url: 'vendor/ical/ical.min.js', async: false, dataType: 'script'});
+            }
             $(columndiv).append(loadGarbage());
             getBlockClick('garbage');
             return;
         case 'sonarr':
-            if (typeof(loadSonarr) !== 'function') $.ajax({url: 'js/sonarr.js', async: false, dataType: "script"});
+            if (typeof(loadSonarr) !== 'function') $.ajax({url: 'js/sonarr.js', async: false, dataType: 'script'});
             $(columndiv).append(loadSonarr());
             getBlockClick('sonarr');
             return;
@@ -276,7 +279,7 @@ function handleStringBlock(block, columndiv, width, c) {
             return;
         default:
             if (block.substring(0, 5) === 'news_') {
-                if (typeof(getNews) !== 'function') $.ajax({url: 'js/news.js', async: false, dataType: "script"});
+                if (typeof(getNews) !== 'function') $.ajax({url: 'js/news.js', async: false, dataType: 'script'});
                 $(columndiv).append('<div class="' + block + '"></div>');
                 getNews(block, blocks[block]['feed']);
                 return;
@@ -308,17 +311,17 @@ function handleObjectBlock(block, index, columndiv, width, c) {
         if (typeof(loadPublicTransport) !== 'function') $.ajax({
             url: 'js/publictransport.js',
             async: false,
-            dataType: "script"
+            dataType: 'script'
         });
         $(columndiv).append(loadPublicTransport(random, block, key));
     } else if (block.hasOwnProperty('currency')) {
-        if (typeof(getCoin) !== 'function') $.ajax({url: 'js/coins.js', async: false, dataType: "script"});
+        if (typeof(getCoin) !== 'function') $.ajax({url: 'js/coins.js', async: false, dataType: 'script'});
         var html = '<div class="col-xs-' + width + ' transbg coins-' + block['key'] + '" data-id="coins.' + block['key'] + '"></div>';
         $(columndiv).append(html);
         getCoin(block);
 
     } else if (block.hasOwnProperty('channels')) {
-        if (typeof(addTVGuide) !== 'function') $.ajax({url: 'js/tvguide.js', async: false, dataType: "script"});
+        if (typeof(addTVGuide) !== 'function') $.ajax({url: 'js/tvguide.js', async: false, dataType: 'script'});
 
         dataId = 'tvguide.' + key;
         classes = 'block_tvguide transbg containstvguide containstvguide' + random;
@@ -331,7 +334,7 @@ function handleObjectBlock(block, index, columndiv, width, c) {
         dataId = 'calendars.' + key;
         classes = 'transbg containsicalendar containsicalendar' + random;
         appendTvOrCalendarBlock(dataId, classes, width, block, columndiv);
-        if (typeof(addCalendar) !== 'function') $.ajax({url: 'js/calendar.js', async: false, dataType: "script"});
+        if (typeof(addCalendar) !== 'function') $.ajax({url: 'js/calendar.js', async: false, dataType: 'script'});
         addCalendar($('.containsicalendar' + random), block);
     } else {
         $(columndiv).append(loadButton(index, block));
@@ -600,40 +603,40 @@ function TranslateDirection(directionstr) {
 function Beaufort(windSpeed) {
     windSpeed = Math.abs(windSpeed);
     if (windSpeed <= 0.2) {
-        return "0 Bft";
+        return '0 Bft';
     }
     if (windSpeed <= 1.5) {
-        return "1 Bft";
+        return '1 Bft';
     }
     if (windSpeed <= 3.3) {
-        return "2 Bft";
+        return '2 Bft';
     }
     if (windSpeed <= 5.4) {
-        return "3 Bft";
+        return '3 Bft';
     }
     if (windSpeed <= 7.9) {
-        return "4 Bft";
+        return '4 Bft';
     }
     if (windSpeed <= 10.7) {
-        return "5 Bft";
+        return '5 Bft';
     }
     if (windSpeed <= 13.8) {
-        return "6 Bft";
+        return '6 Bft';
     }
     if (windSpeed <= 17.1) {
-        return "7 Bft";
+        return '7 Bft';
     }
     if (windSpeed <= 20.7) {
-        return "8 Bft";
+        return '8 Bft';
     }
     if (windSpeed <= 24.4) {
-        return "9 Bft";
+        return '9 Bft';
     }
     if (windSpeed <= 28.4) {
-        return "10 Bft";
+        return '10 Bft';
     }
     if (windSpeed <= 32.6) {
-        return "11 Bft";
+        return '11 Bft';
     }
-    return "12 Bft";
+    return '12 Bft';
 }

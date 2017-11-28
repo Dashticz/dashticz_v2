@@ -8,7 +8,7 @@ function loadWeather(location, country) {
                 if (typeof(weather.current_observation) == 'undefined') {
                     curfull.remove();
                     currentweather = false;
-                    curfull.find(".weather").html('<p style="font-size:10px; width:100px;">Location ERROR</p>');
+                    curfull.find('.weather').html('<p style="font-size:10px; width:100px;">Location ERROR</p>');
                 } else {
                     currentweather = weather.current_observation;
                     var wiclass = getIcon(currentweather.icon);
@@ -20,11 +20,11 @@ function loadWeather(location, country) {
                         weatherIcon = getSkycon(currentweather.icon, 'skyconsmall');
                     }
                     html += '<h2><span>' + Math.round(temp) + _TEMP_SYMBOL + '</span> ' + weatherIcon + '</h2>';
-                    curfull.find(".weather").html(weatherIcon);
-                    curfull.find(".weatherdegrees").html('<strong>' + Math.round(temp) + _TEMP_SYMBOL + '</strong><span class="rainrate"></span>');
+                    curfull.find('.weather').html(weatherIcon);
+                    curfull.find('.weatherdegrees').html('<strong>' + Math.round(temp) + _TEMP_SYMBOL + '</strong><span class="rainrate"></span>');
 
-                    if (settings['wu_name'] !== '' && settings['wu_name'] !== 0) curfull.find(".weatherloc").html(settings['wu_name']);
-                    else curfull.find(".weatherloc").html(location);
+                    if (settings['wu_name'] !== '' && settings['wu_name'] !== 0) curfull.find('.weatherloc').html(settings['wu_name']);
+                    else curfull.find('.weatherloc').html(location);
                 }
             });
         });
@@ -81,27 +81,27 @@ function loadWeatherFull(location, country) {
 function getSkycon(code, classname) {
     var random = getRandomInt(1, 100000);
 
-    var icon = "PARTLY_CLOUDY_DAY";
+    var icon = 'PARTLY_CLOUDY_DAY';
     var icons = {
-        chanceflurries: "WIND",
-        chancerain: "RAIN",
-        chancesleet: "SLEET",
-        chancesnow: "SNOW",
-        chancetstorms: "WIND",
-        clear: "CLEAR_DAY",
-        cloudy: "CLOUDY",
-        flurries: "WIND",
-        fog: "FOG",
-        hazy: "PARTLY_CLOUDY_DAY",
-        mostlycloudy: "CLOUDY",
-        mostlysunny: "CLEAR_DAY",
-        partlycloudy: "PARTLY_CLOUDY_DAY",
-        partlysunny: "PARTLY_CLOUDY_DAY",
-        sleet: "SLEET",
-        rain: "RAIN",
-        snow: "SNOW",
-        sunny: "CLEAR_DAY",
-        tstorms: "WIND",
+        chanceflurries: 'WIND',
+        chancerain: 'RAIN',
+        chancesleet: 'SLEET',
+        chancesnow: 'SNOW',
+        chancetstorms: 'WIND',
+        clear: 'CLEAR_DAY',
+        cloudy: 'CLOUDY',
+        flurries: 'WIND',
+        fog: 'FOG',
+        hazy: 'PARTLY_CLOUDY_DAY',
+        mostlycloudy: 'CLOUDY',
+        mostlysunny: 'CLEAR_DAY',
+        partlycloudy: 'PARTLY_CLOUDY_DAY',
+        partlysunny: 'PARTLY_CLOUDY_DAY',
+        sleet: 'SLEET',
+        rain: 'RAIN',
+        snow: 'SNOW',
+        sunny: 'CLEAR_DAY',
+        tstorms: 'WIND',
     };
     if (icons.hasOwnProperty(code)) {
         icon = icons[code];
@@ -120,13 +120,13 @@ function getIcon(code) {
     var wiclass = 'wi-cloudy';
 
     var icons = {
-        clear: "wi-day-sunny",
-        rain: "wi-rain",
-        chancerain: "wi-rain",
-        cloudy: "wi-cloudy",
-        partlycloudy: "wi-cloudy",
-        tstorms: "wi-thunderstorm",
-        snow: "wi-snow",
+        clear: 'wi-day-sunny',
+        rain: 'wi-rain',
+        chancerain: 'wi-rain',
+        cloudy: 'wi-cloudy',
+        partlycloudy: 'wi-cloudy',
+        tstorms: 'wi-thunderstorm',
+        snow: 'wi-snow',
 
     };
     if (icons.hasOwnProperty(code)) {

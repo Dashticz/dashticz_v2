@@ -44,7 +44,7 @@ function addCalendar(calobject, icsUrlorg) {
         }
 
         if (typeof(curUrl.icalurl) !== 'undefined') {
-            curUrl = curUrl.icalurl.replace(/webcal?\:\/\//i, "https://");
+            curUrl = curUrl.icalurl.replace(/webcal?\:\/\//i, 'https://');
         }
 
         var color = '';
