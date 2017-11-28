@@ -262,7 +262,10 @@ function handleStringBlock(block, columndiv, width, c) {
             loadChromecast(columndiv);
             return;
         case 'garbage':
-            if (typeof(loadGarbage) !== 'function') $.ajax({url: 'js/garbage.js', async: false, dataType: 'script'});
+            if (typeof(loadGarbage) !== 'function') {
+                $.ajax({url: 'js/garbage.js', async: false, dataType: 'script'});
+                $.ajax({url: 'vendor/ical/ical.min.js', async: false, dataType: 'script'});
+            }
             $(columndiv).append(loadGarbage());
             getBlockClick('garbage');
             return;

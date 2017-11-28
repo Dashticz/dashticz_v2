@@ -48,7 +48,7 @@ function getGoogleCalendarData(address, date, random, calendarId) {
                 return {
                     date: this.startDate,
                     summary: element.summary,
-                    garbageType: element.summary
+                    garbageType: mapGarbageType(element.summary)
                 };
             });
         addToContainerNew(random, this.returnDates);
@@ -57,27 +57,59 @@ function getGoogleCalendarData(address, date, random, calendarId) {
 }
 
 function getIcalData(address, date, random, url) {
-    var baseIcalUrl = 'https://wedevise.nl/dashticz/ical/demo/?url=';
-    $.getJSON(baseIcalUrl + url, function (data, textstatus, jqXHR) {
-        respArray = data;
-        this.counter = 0;
-        this.returnDates = {};
-        for (var i in respArray) {
-            var curr = respArray[i]['title'];
-            curr = capitalizeFirstLetter(curr.toLowerCase());
+    var baseIcalUrl = 'https://cors-anywhere.herokuapp.com/';
 
-            var testDate = moment(respArray[i].startt);
-            if (testDate.isBetween(date.start, date.end, 'days', true)) {
-                if (typeof(this.returnDates[curr]) === 'undefined') {
-                    this.returnDates[curr] = {};
-                }
-                this.returnDates[curr][testDate.format('YYYY-MM-DD') + this.counter] = getTrashRow(curr, testDate, respArray[i]['title']);
-                this.counter++;
-            }
-        }
-        addToContainer(random, this.returnDates);
+    $.get(baseIcalUrl + url, function (data, textstatus, jqXHR) {
+        var jcalData = ICAL.parse(data);
+        var vcalendar = new ICAL.Component(jcalData);
+        var vevents = vcalendar.getAllSubcomponents('vevent');
+        data = vevents
+            .filter(function (vevent) {
+                return moment(vevent.getFirstPropertyValue('dtstart').toString(), 'YYYY-MM-DD').isBetween(date.start, date.end, null, '[]');
+            })
+            .map(function (vevent) {
+                return {
+                    date: moment(vevent.getFirstPropertyValue('dtstart').toString(), 'YYYY-MM-DD'),
+                    summary: vevent.getFirstPropertyValue('summary'),
+                    garbageType: mapGarbageType(vevent.getFirstPropertyValue('summary')),
+                };
+            })
+            .sort(function(a,b) {return (a.date > b.date) ? 1 : ((b.date > a.date) ? -1 : 0);})
+            .slice(0, getMaxItems());
+
+        addToContainerNew(random, data);
     });
 }
+
+// function getIcalDataOld(address, date, random, url) {
+//     var baseIcalUrl = 'https://wedevise.nl/dashticz/ical/demo/?url=';
+//
+//     $.getJSON(baseIcalUrl + url, function (data, textstatus, jqXHR) {
+//         log(data);
+//         data = data.forEach().map(function (element) {return element;}).filter(function (element) {
+//             return moment(element.startt, 'YYYY-MM-DD HH:mm:ss').isBetween(date.start, date.end, null, '[]');
+//         });
+//         log(data);
+//
+//         respArray = data;
+//         this.counter = 0;
+//         this.returnDates = {};
+//         for (var i in respArray) {
+//             var curr = respArray[i]['title'];
+//             curr = capitalizeFirstLetter(curr.toLowerCase());
+//
+//             var testDate = moment(respArray[i].startt);
+//             if (testDate.isBetween(date.start, date.end, 'days', true)) {
+//                 if (typeof(this.returnDates[curr]) === 'undefined') {
+//                     this.returnDates[curr] = {};
+//                 }
+//                 this.returnDates[curr][testDate.format('YYYY-MM-DD') + this.counter] = getTrashRow(curr, testDate, respArray[i]['title']);
+//                 this.counter++;
+//             }
+//         }
+//         addToContainer(random, this.returnDates);
+//     });
+// }
 
 function getDeAfvalAppData(address, date, random) {
     $.get('https://cors-anywhere.herokuapp.com/http://dataservice.deafvalapp.nl/dataservice/DataServiceServlet?type=ANDROID&service=OPHAALSCHEMA&land=NL&postcode=' + address.postcode + '&straatId=0&huisnr=' + address.housenumber + '&huisnrtoev=' + address.housenumberSuffix, function (data) {
@@ -93,7 +125,7 @@ function getDeAfvalAppData(address, date, random) {
                     dataFiltered.push({
                         date: moment(dateElement, 'DD-MM-YYYY'),
                         summary: garbageType.slice(0, 1).toUpperCase() + garbageType.slice(1).toLowerCase(),
-                        garbageType: garbageType,
+                        garbageType: mapGarbageType(garbageType),
                     });
             });
         });
@@ -134,7 +166,7 @@ function getTwenteMilieuData(address, date, random) {
                     dataFiltered.push({
                         date: moment(dateElement),
                         summary: pickupTypes[element.pickupType],
-                        garbageType: pickupTypes[element.pickupType],
+                        garbageType: mapGarbageType(pickupTypes[element.pickupType]),
                     });
                 });
             });
@@ -157,7 +189,7 @@ function getAfvalstromenData(address, date, random, baseUrl) {
                     return {
                         date: moment(element.ophaaldatum, 'YYYY-MM-DD'),
                         summary: element.title,
-                        garbageType: element.title,
+                        garbageType: mapGarbageType(element.title),
                     };
                 });
             addToContainerNew(random, data);
@@ -179,7 +211,7 @@ function getOphaalkalenderData(address, date, random) {
                     return {
                         date: moment(element.start, 'YYYY-MM-DDTHH:mm:ss+-HH:mm'),
                         summary: element.title,
-                        garbageType: element.color,
+                        garbageType: mapGarbageType(element.color),
                     }
                 })
                 .slice(0, getMaxItems());
@@ -219,7 +251,7 @@ function getMijnAfvalwijzerData(address, date, random) {
                 return {
                     date: moment(element.date),
                     summary: element.nameType,
-                    garbageType: element.type,
+                    garbageType: mapGarbageType(element.type),
                 };
             });
         addToContainerNew(random, data);
@@ -238,7 +270,7 @@ function getHvcData(address, date, random) {
                     dataFiltered.push({
                         date: this.date,
                         summary: element.naam,
-                        garbageType: element.code,
+                        garbageType: mapGarbageType(element.code),
                     });
                     seen[this.date.format('YYYY-MM_DD')] = true;
                 }
@@ -254,22 +286,14 @@ function getHvcData(address, date, random) {
 
 function getRovaData(address, date, random) {
     $.getJSON('https://wedevise.nl/dashticz/rova.php?zipcode=' + address.postcode + '&number=' + address.housenumber, function (data) {
-        this.returnDates = {};
-        this.counter = 0;
-        for (d in data) {
-            var curr = data[d].GarbageType;
-            curr = capitalizeFirstLetter(curr.toLowerCase());
-            if (typeof(this.returnDates[curr]) === 'undefined') {
-                this.returnDates[curr] = {}
-            }
-
-            var testDate = moment(data[d].Date);
-            if (testDate.isBetween(date.start, date.end, 'days', true)) {
-                this.returnDates[curr][testDate.format('YYYY-MM-DD') + '_' + this.counter] = getTrashRow(curr, testDate);
-                this.counter++;
-            }
-        }
-        addToContainer(random, this.returnDates);
+        data = data.map(function (element) {
+            return {
+                date: moment(element.Date, 'YYYY-MM-DDTHH:mm:ss'),
+                summary: element.GarbageType,
+                garbageType: mapGarbageType(element.GarbageType),
+            };
+        });
+        addToContainerNew(random, data);
     });
 }
 
@@ -284,7 +308,7 @@ function getRecycleManagerData(address, date, random) {
                 dataFiltered.push({
                     date: moment(occurrence.from.date, 'YYYY-MM-DDTHH:mm:ss.SSS'),
                     summary: occurrence.title,
-                    garbageType: occurrence.title,
+                    garbageType: mapGarbageType(occurrence.title),
                 });
             });
         });
@@ -299,14 +323,14 @@ function getRecycleManagerData(address, date, random) {
 function getEdgData(address, date, random) {
     $.getJSON('https://cors-anywhere.herokuapp.com/https://www.edg.de/JsonHandler.ashx?dates=1&street=' + address.street + '&nr=' + address.housenumber + '&cmd=findtrash&tbio=0&tpapier=1&trest=1&twert=1&feiertag=0', function (data) {
         data = data.data
+            .slice(0, getMaxItems())
             .map(function (element) {
                 return {
                     date: moment(element.date, 'DD.MM.YYYY'),
                     summary: element.fraktion[0],
-                    garbageType: element.fraktion[0],
+                    garbageType: mapGarbageType(element.fraktion[0]),
                 }
-            })
-            .slice(0, getMaxItems());
+            });
         addToContainerNew(random, data);
     });
 }
@@ -337,8 +361,8 @@ function getSimpleTrashRow(garbage) {
     } else if (garbage.date.isBefore(moment().add(1, 'week'))) {
         this.displayDate = garbage.date.format('dddd');
     }
-    var name = settings['garbage'][mapGarbageType(garbage.garbageType)].name;
-    var color = ' style="color:' + settings['garbage'][mapGarbageType(garbage.garbageType)].code + '"';
+    var name = settings['garbage'][garbage.garbageType].name;
+    var color = ' style="color:' + settings['garbage'][garbage.garbageType].code + '"';
     return '<div class="trashrow"' + (settings['garbage_use_colors'] ? color : '') + '>'
         + (settings['garbage_use_names'] ? name : (garbage.summary.charAt(0).toUpperCase() + garbage.summary.slice(1)))
         + ': ' + this.displayDate
@@ -373,7 +397,7 @@ function addToContainer(random, returnDates) {
         var nextweek = moment().add(6, 'days');
 
         if (index === 0 && (typeof(_DO_NOT_USE_COLORED_TRASHCAN) === 'undefined' || _DO_NOT_USE_COLORED_TRASHCAN === false)) {
-            $('.trash' + random).find('img.trashcan').attr('src', getKlikoImage(returnDatesSimple[key].toLowerCase()));
+            $('.trash' + random).find('img.trashcan').attr('src', getKlikoImage(mapGarbageType(returnDatesSimple[key].toLowerCase())));
         }
 
         if (date === currentdate.format('DD-MM-YYYY')) {
@@ -434,7 +458,7 @@ function mapGarbageType(garbageType) {
 }
 
 function getKlikoImage(garbageType) {
-    var color = settings['garbage'][mapGarbageType(garbageType)];
+    var color = settings['garbage'][garbageType];
     return 'img/kliko_' + color.kliko + '.png';
 }
 
