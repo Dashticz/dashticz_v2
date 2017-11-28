@@ -429,7 +429,7 @@ if (typeof(settings['garbage']) === 'undefined') {
     };
 }
 if (typeof(settings['garbage_use_names']) === 'undefined') settings['garbage_use_names'] = false;
-if (typeof(settings['garbage_use_names']) === 'undefined') settings['garbage_use_colors'] = false;
+if (typeof(settings['garbage_use_colors']) === 'undefined') settings['garbage_use_colors'] = false;
 if (typeof(settings['lineColors']) === 'undefined') settings['lineColors'] = ['#eee', '#eee', '#eee'];
 
 var _TEMP_SYMBOL = '°C';
