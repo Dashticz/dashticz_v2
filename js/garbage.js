@@ -305,13 +305,12 @@ function filterReturnDates(returnDates) {
         .slice(0, getMaxItems())
 }
 
-
 function addToContainer(random, returnDates) {
     returnDates = filterReturnDates(returnDates);
     $('.trash' + random + ' .state').html('');
 
-    if (typeof(_DO_NOT_USE_COLORED_TRASHCAN) === 'undefined' || _DO_NOT_USE_COLORED_TRASHCAN === false) {
-        $('.trash' + random).find('img.trashcan').attr('src', getKlikoImage(returnDates[0].garbageType));
+    if (settings['garbage_icon_use_colors'] === true) {
+        $('.trash' + random).find('img.trashcan').attr('src', settings['garbage'][returnDates[0].garbageType]['icon']);
         $('.trash' + random).find('img.trashcan').css('opacity', '0.7');
     } else {
         $('.trash' + random).find('img.trashcan').css('opacity', '1');
@@ -322,7 +321,7 @@ function addToContainer(random, returnDates) {
 }
 
 function mapGarbageType(garbageType) {
-    if (garbageType.match(/(gft)|(tuin)|(refuse bin)|(green)/i)) {
+    if (garbageType.match(/(gft)|(tuin)|(refuse bin)|(green)|(groen)/i)) {
         return 'gft';
     }
     else if (garbageType.match(/(black)|(zwart)/i)) {
@@ -344,11 +343,6 @@ function mapGarbageType(garbageType) {
         return 'kca';
     }
     return 'black';
-}
-
-function getKlikoImage(garbageType) {
-    var color = settings['garbage'][garbageType];
-    return 'img/kliko_' + color.kliko + '.png';
 }
 
 function getMaxItems() {
