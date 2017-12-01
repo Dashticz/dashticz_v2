@@ -75,13 +75,15 @@ function switchThermostat(setpoint, cur) {
 }
 
 function switchBlinds(idx, action) {
-    if (action === 'off') {
-        $('.block' + idx).find('.icon').removeClass('on').addClass('off');
-        $('.block' + idx).find('.icon').attr('src', $('.block' + idx).find('.icon').attr('src').replace('open', 'closed'));
-    }
-    else if (action === 'on') {
-        $('.block' + idx).find('.icon').removeClass('off').addClass('on');
-        $('.block' + idx).find('.icon').attr('src', $('.block' + idx).find('.icon').attr('src').replace('closed', 'open'));
+    switch (action.toLowerCase()) {
+        case 'off':
+            $('.block' + idx).find('.icon').removeClass('on').addClass('off');
+            $('.block' + idx).find('.icon').attr('src', $('.block' + idx).find('.icon').attr('src').replace('open', 'closed'));
+            break;
+        case 'on':
+            $('.block' + idx).find('.icon').removeClass('off').addClass('on');
+            $('.block' + idx).find('.icon').attr('src', $('.block' + idx).find('.icon').attr('src').replace('closed', 'open'));
+            break;
     }
 
     if (typeof(req) !== 'undefined') req.abort();
