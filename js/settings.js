@@ -426,6 +426,7 @@ if (typeof(settings['garbage']) === 'undefined') {
         kca: {kliko: 'red', code: '#b21807', name: 'Chemisch afval', icon: 'img/kliko_red.png'},
         brown: {kliko: 'brown', code: '#7c3607', name: 'Bruin', icon: 'img/kliko_brown.png'},
         black: {kliko: 'black', code: '#000000', name: 'Zwart', icon: 'img/kliko_black.png'},
+        milieu: {kliko: 'yellow', code: '#f9e231', name: 'Geel', icon: 'img/kliko_yellow.png'},
     };
 }
 if (typeof(settings['garbage_use_names']) === 'undefined') settings['garbage_use_names'] = false;

@@ -333,7 +333,7 @@ function mapGarbageType(garbageType) {
     else if (garbageType.match(/(brown)/i)) {
         return 'brown';
     }
-    else if (garbageType.match(/(grof)|(grey)|(rest)/i)) {
+    else if (garbageType.match(/(grof)|(grey)|(rest)|(grijs)|(grijze)/i)) {
         return 'rest';
     }
     else if (garbageType.match(/(papier)|(blauw)|(blue)|(recycling bin collection)/i)) {
@@ -341,6 +341,9 @@ function mapGarbageType(garbageType) {
     }
     else if (garbageType.match(/(chemisch)|(kca)|(kga)/i)) {
         return 'kca';
+    }
+    else if (garbageType.match(/(milieu)/i)) {
+        return 'milieu';
     }
     return 'black';
 }
