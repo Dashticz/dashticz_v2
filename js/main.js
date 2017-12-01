@@ -477,6 +477,8 @@ function triggerStatus(idx, value, device) {
             }
             if (typeof(blocks[idx]) !== 'undefined' && typeof(blocks[idx]['gotoslideOn']) !== 'undefined') {
                 toSlide((blocks[idx]['gotoslideOn'] - 1));
+                standbyTime=0;
+			    disableStandby();
             }
         }
         if (device['Status'] == 'Off' || device['Status'] == 'Closed') {
@@ -488,6 +490,8 @@ function triggerStatus(idx, value, device) {
             }
             if (typeof(blocks[idx]) !== 'undefined' && typeof(blocks[idx]['gotoslideOff']) !== 'undefined') {
                 toSlide((blocks[idx]['gotoslideOff'] - 1));
+                standbyTime=0;
+			    disableStandby();
             }
         }
     }
