@@ -945,7 +945,7 @@ function getDevices(override) {
         gettingDevices = true;
 
         req = $.getJSONP({
-            url: settings['domoticz_ip'] + '/json.htm?type=devices&filter=all&used=true&order=Name&jsoncallback=?',
+            url: settings['domoticz_ip'] + '/json.htm?type=devices&plan=' + settings['room_plan'] + '&filter=all&used=true&order=Name&jsoncallback=?',
             type: 'GET', async: true, contentType: "application/json", dataType: 'jsonp',
             error: function (jqXHR, textStatus) {
                 console.error("Domoticz error!\nPlease, double check the path to Domoticz in Settings!");

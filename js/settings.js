@@ -433,6 +433,7 @@ if (typeof(settings['garbage_use_names']) === 'undefined') settings['garbage_use
 if (typeof(settings['garbage_use_colors']) === 'undefined') settings['garbage_use_colors'] = false;
 if (typeof(settings['garbage_icon_use_colors']) === 'undefined') settings['garbage_icon_use_colors'] = true;
 if (typeof(settings['lineColors']) === 'undefined') settings['lineColors'] = ['#eee', '#eee', '#eee'];
+if (typeof(settings['room_plan']) === 'undefined') settings['room_plan'] = 0;
 
 var _TEMP_SYMBOL = '°C';
 if (settings['use_fahrenheit'] === 1) _TEMP_SYMBOL = '°F';
