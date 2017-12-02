@@ -1047,7 +1047,9 @@ function getDevices(override) {
                                 html += eval('getBlock_' + idx + '(device,idx,data.result)');
                             }
                             catch (err) {
-                                [html, addHTML] = handleDevice(device, idx);
+                                var response = handleDevice(device, idx);
+                                html = response[0];
+                                addHTML = response[1];
                             }
 
                             if (typeof($('.block_' + idx).attr('onclick')) !== 'undefined') {
@@ -1203,8 +1205,7 @@ function handleDevice(device, idx) {
             if (device['SubType'] !== 'SetPoint'
                 && device['SubType'] !== 'AC'
             ) {
-                [html, addHTML] = getSmartMeterBlock(device, idx);
-                return [html, addHTML];
+                return getSmartMeterBlock(device, idx);
             }
             if (device['SubType'] === 'SetPoint') {
                 return getThermostatBlock(device, idx);
