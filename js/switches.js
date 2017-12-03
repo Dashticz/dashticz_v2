@@ -1,6 +1,7 @@
 function switchDevice(cur) {
     var idx = $(cur).data('light');
     var doStatus = '';
+    var param = 'switchlight';
     if ($(cur).find('.icon').hasClass('on') || $(cur).find('.fa-toggle-on').length > 0) {
         doStatus = toggleItem(cur, 'on');
     } else {
@@ -10,11 +11,12 @@ function switchDevice(cur) {
     if (typeof(req) !== 'undefined') {
         req.abort();
     }
-    if (typeof(idx) == 'string' && idx.substr(0, 1) == 's') {
+    if (typeof(idx) === 'string' && idx.substr(0, 1) === 's') {
         idx = idx.replace('s', '');
+        param = 'switchscene';
     }
     $.ajax({
-        url: settings['domoticz_ip'] + '/json.htm?type=command&param=switchlight&idx=' + idx + '&switchcmd=' + doStatus + '&level=0&passcode=&jsoncallback=?',
+        url: settings['domoticz_ip'] + '/json.htm?type=command&param=' + param + '&idx=' + idx + '&switchcmd=' + doStatus + '&level=0&passcode=&jsoncallback=?',
         type: 'GET', async: false, contentType: 'application/json', dataType: 'jsonp',
         success: function (data) {
             getDevices(true);
