@@ -282,6 +282,37 @@ function getEdgData(address, date, random) {
     });
 }
 
+function getZuidhornData(address, date, random, fetchType) {
+    var corsprefix = 'https://cors-anywhere.herokuapp.com/';
+    var prefix = 'https://afvalkalender.zuidhorn.nl/';
+
+    $.post(corsprefix + prefix + 'afvalkalender-zoeken/zoek-postcode/Zipcode/search.html', {
+        'tx_windwastecalendar_pi1[zipcode]': address.postcode,
+        'tx_windwastecalendar_pi1[housenumber]': address.housenumber,
+    }, function (data) {
+        switch (fetchType) {
+            case 'scrape':
+                var dataFiltered = [];
+                $(data).find('.waste-calendar').each(function (index, element) {
+                    var summary = $(element).find('.type a')[0].innerText;
+                    $(element).find('.dates .date').each(function (dateIndex, dateElement) {
+                        dataFiltered.push({
+                            date: moment(dateElement.innerText.trim(), 'dddd DD MMMM', 'nl'),
+                            summary: summary,
+                            garbageType: mapGarbageType(summary),
+                        });
+                    });
+                });
+                addToContainer(random, dataFiltered);
+            break;
+            case 'ical':
+                var elementHref = $(data).find('.ical .link a').attr('href');
+                return getIcalData(address, date, random, prefix + elementHref)
+            break;
+        }
+    });
+}
+
 function getTrashRow(garbage) {
     this.displayDate = garbage.date.locale(settings['calendarlanguage']).format('l');
     if (garbage.date.isSame(moment(), 'day')) {
@@ -416,6 +447,8 @@ function loadDataForService(service, random) {
         recyclemanager: {dataHandler: 'getRecycleManagerData', identifier: ''},
         edg: {dataHandler: 'getEdgData', identifier: ''},
         omri: {dataHandler: 'getOmriData', identifier: ''},
+        zuidhornical: {dataHandler: 'getZuidhornData', identifier: 'ical'},
+        zuidhorn: {dataHandler: 'getZuidhornData', identifier: 'scrape'},
     };
     window[serviceProperties[service].dataHandler](address, date, random, serviceProperties[service].identifier);
 }
