@@ -477,6 +477,8 @@ function triggerStatus(idx, value, device) {
             }
             if (typeof(blocks[idx]) !== 'undefined' && typeof(blocks[idx]['gotoslideOn']) !== 'undefined') {
                 toSlide((blocks[idx]['gotoslideOn'] - 1));
+                standbyTime=0;
+			    disableStandby();
             }
         }
         if (device['Status'] == 'Off' || device['Status'] == 'Closed') {
@@ -488,6 +490,8 @@ function triggerStatus(idx, value, device) {
             }
             if (typeof(blocks[idx]) !== 'undefined' && typeof(blocks[idx]['gotoslideOff']) !== 'undefined') {
                 toSlide((blocks[idx]['gotoslideOff'] - 1));
+                standbyTime=0;
+			    disableStandby();
             }
         }
     }
@@ -941,7 +945,7 @@ function getDevices(override) {
         gettingDevices = true;
 
         req = $.getJSONP({
-            url: settings['domoticz_ip'] + '/json.htm?type=devices&filter=all&used=true&order=Name&jsoncallback=?',
+            url: settings['domoticz_ip'] + '/json.htm?type=devices&plan=' + settings['room_plan'] + '&filter=all&used=true&order=Name&jsoncallback=?',
             type: 'GET', async: true, contentType: "application/json", dataType: 'jsonp',
             error: function (jqXHR, textStatus) {
                 console.error("Domoticz error!\nPlease, double check the path to Domoticz in Settings!");
@@ -1043,7 +1047,9 @@ function getDevices(override) {
                                 html += eval('getBlock_' + idx + '(device,idx,data.result)');
                             }
                             catch (err) {
-                                [html, addHTML] = handleDevice(device, idx);
+                                var response = handleDevice(device, idx);
+                                html = response[0];
+                                addHTML = response[1];
                             }
 
                             if (typeof($('.block_' + idx).attr('onclick')) !== 'undefined') {
@@ -1199,8 +1205,7 @@ function handleDevice(device, idx) {
             if (device['SubType'] !== 'SetPoint'
                 && device['SubType'] !== 'AC'
             ) {
-                [html, addHTML] = getSmartMeterBlock(device, idx);
-                return [html, addHTML];
+                return getSmartMeterBlock(device, idx);
             }
             if (device['SubType'] === 'SetPoint') {
                 return getThermostatBlock(device, idx);
