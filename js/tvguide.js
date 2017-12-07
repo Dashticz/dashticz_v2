@@ -4,7 +4,7 @@ var allchannels = [];
 function addTVGuide(tvobject, tvObjorg) {
     if (typeof(allchannels[1]) === 'undefined') {
         var cache = new Date().getTime();
-        curUrl = 'https://wedevise.nl/dashticz/tv/?time=' + cache + '&url=http://www.tvgids.nl/json/lists/channels.php';
+        curUrl = 'http://dashticz.nl/tv/channels.php';
         $.getJSON(curUrl, function (channels, textstatus, jqXHR) {
             for (num in channels) {
                 allchannels[channels[num]['id']] = channels[num]['name'];
@@ -23,7 +23,7 @@ function addTVGuide(tvobject, tvObjorg) {
 
         var cache = new Date().getTime();
 
-        curUrl = 'https://wedevise.nl/dashticz/tv/?time=' + cache + '&url=http://www.tvgids.nl/json/lists/programs.php?channels=' + tvObj.channels.join(',') + '&day=0';
+        curUrl = 'http://dashticz.nl/tv/tv.php?channels=' + tvObj.channels.join(',') + '&time=' + cache;
         moment.locale(settings['calendarlanguage']);
         $.getJSON(curUrl, function (data, textstatus, jqXHR) {
 

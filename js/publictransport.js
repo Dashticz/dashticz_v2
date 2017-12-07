@@ -49,7 +49,7 @@ function getData(random,transportobject){
 		dataURL = 'https://cors-anywhere.herokuapp.com/http://travelplanner.mobiliteit.lu/restproxy/departureBoard?accessId=cdt&format=json&id=A=1@O='+transportobject.station;
 	}
 	else if(provider == '9292' || provider == '9292-train' || provider == '9292-bus' || provider == '9292-metro' || provider == '9292-tram-bus'){
-		dataURL = 'https://cors-anywhere.herokuapp.com/http://api.9292.nl/0.1/locations/'+transportobject.station+'/departure-times?lang=nl-NL&time='+$.now();
+		dataURL = 'http://dashticz.nl/ov/ov.php?station='+transportobject.station+'&time='+$.now();
 	}
 	
 	$.getJSON(dataURL,function(data){
@@ -64,6 +64,7 @@ function dataPublicTransport(random,data,transportobject){
 	for(d in data){
 		if(provider == '9292' || provider == '9292-train' || provider == '9292-bus' || provider =='9292-metro' || provider == '9292-tram-bus'){
 			for(t in data[d]){
+				console.log('ID: '+data[d][t]['id']);
 				if(provider == '9292' || 
 				   (data[d][t]['id']=='bus' && provider == '9292-bus') || 
 				   (data[d][t]['id']=='metro' && provider == '9292-metro') || 
