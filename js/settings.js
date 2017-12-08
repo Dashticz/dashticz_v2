@@ -24,6 +24,11 @@ settingList['general']['use_favorites']['title'] = language.settings.general.use
 settingList['general']['use_favorites']['type'] = 'checkbox';
 settingList['general']['use_favorites']['help'] = language.settings.general.use_favorites_help;
 
+settingList['general']['room_plan'] = {};
+settingList['general']['room_plan']['title'] = language.settings.general.room_plan;
+settingList['general']['room_plan']['type'] = 'text';
+settingList['general']['room_plan']['help'] = language.settings.general.room_plan_help;
+
 settingList['general']['domoticz_refresh'] = {};
 settingList['general']['domoticz_refresh']['title'] = language.settings.general.domoticz_refresh;
 settingList['general']['domoticz_refresh']['type'] = 'text';
@@ -281,6 +286,7 @@ settingList['garbage']['garbage_company']['title'] = language.settings.garbage.g
 settingList['garbage']['garbage_company']['type'] = 'select';
 settingList['garbage']['garbage_company']['options'] = {};
 settingList['garbage']['garbage_company']['options']['ical'] = 'iCal';
+settingList['garbage']['garbage_company']['options']['googlecalendar'] = 'Google Calender';
 settingList['garbage']['garbage_company']['options']['ophaalkalender'] = 'Ophaalkalender (BE)';
 settingList['garbage']['garbage_company']['options']['edg'] = 'EDG (DE)';
 settingList['garbage']['garbage_company']['options']['deafvalapp'] = 'Afval App (NL)';
@@ -313,6 +319,16 @@ settingList['garbage']['garbage_company']['options']['waalre'] = 'Waalre (NL)';
 settingList['garbage']['garbage_icalurl'] = {};
 settingList['garbage']['garbage_icalurl']['title'] = language.settings.garbage.garbage_icalurl;
 settingList['garbage']['garbage_icalurl']['type'] = 'text';
+
+settingList['garbage']['google_api_key'] = {};
+settingList['garbage']['google_api_key']['title'] = language.settings.garbage.google_api_key;
+settingList['garbage']['google_api_key']['type'] = 'text';
+settingList['garbage']['google_api_key' ]['help'] = language.settings.garbage.google_api_key_help;
+
+settingList['garbage']['garbage_calendar_id'] = {};
+settingList['garbage']['garbage_calendar_id']['title'] = language.settings.garbage.garbage_calendar_id;
+settingList['garbage']['garbage_calendar_id']['type'] = 'text';
+settingList['garbage']['garbage_calendar_id' ]['help'] = language.settings.garbage.garbage_calendar_id_help;
 
 settingList['garbage']['garbage_zipcode'] = {};
 settingList['garbage']['garbage_zipcode']['title'] = language.settings.garbage.garbage_zipcode;
@@ -353,6 +369,9 @@ settingList['about']['about_text2']['title'] = 'Years after developing the old a
 
 settingList['about']['about_text3'] = {};
 settingList['about']['about_text3']['title'] = 'Do you appreciate my work and want to buy me a beer? You can send me Bitcoins (17Qy4bsLM9J238fCZt5kaRc2bD5S1Aw6og) or donate via PayPal: <a href="https://www.paypal.me/robgeerts" target="_blank">https://www.paypal.me/robgeerts</a>'
+
+settingList['about']['about_text4'] = {};
+settingList['about']['about_text4']['title'] = 'If you have any issues you can report them in our community thread <a href="https://www.domoticz.com/forum/viewtopic.php?f=67&t=17427" target="_blank">Bug report</a>.'
 
 var settings = {};
 doneSettings = false;
