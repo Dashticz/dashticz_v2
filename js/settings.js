@@ -451,6 +451,7 @@ if (typeof(settings['garbage']) === 'undefined') {
 if (typeof(settings['garbage_use_names']) === 'undefined') settings['garbage_use_names'] = false;
 if (typeof(settings['garbage_use_colors']) === 'undefined') settings['garbage_use_colors'] = false;
 if (typeof(settings['garbage_icon_use_colors']) === 'undefined') settings['garbage_icon_use_colors'] = true;
+if (typeof(settings['garbage_use_cors_prefix']) === 'undefined') settings['garbage_use_cors_prefix'] = true;
 if (typeof(settings['lineColors']) === 'undefined') settings['lineColors'] = ['#eee', '#eee', '#eee'];
 if (typeof(settings['room_plan']) === 'undefined') settings['room_plan'] = 0;
 
