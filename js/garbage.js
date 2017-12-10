@@ -26,6 +26,13 @@ function loadGarbage() {
     return html;
 }
 
+function getPrefixUrl() {
+    if (settings['garbage_use_cors_prefix']) {
+        return 'https://cors-anywhere.herokuapp.com/';
+    }
+    return '';
+}
+
 function getGoogleCalendarData(address, date, random, calendarId) {
     this.url = 'https://www.googleapis.com/calendar/v3/calendars/' + calendarId + '/events';
     $.ajax({
@@ -57,9 +64,7 @@ function getGoogleCalendarData(address, date, random, calendarId) {
 }
 
 function getIcalData(address, date, random, url) {
-    var baseIcalUrl = 'https://cors-anywhere.herokuapp.com/';
-
-    $.get(baseIcalUrl + url, function (data, textstatus, jqXHR) {
+    $.get(getPrefixUrl() + url, function (data, textstatus, jqXHR) {
         var jcalData = ICAL.parse(data);
         var vcalendar = new ICAL.Component(jcalData);
         var vevents = vcalendar.getAllSubcomponents('vevent');
@@ -80,7 +85,7 @@ function getIcalData(address, date, random, url) {
 }
 
 function getDeAfvalAppData(address, date, random) {
-    $.get('https://cors-anywhere.herokuapp.com/http://dataservice.deafvalapp.nl/dataservice/DataServiceServlet?type=ANDROID&service=OPHAALSCHEMA&land=NL&postcode=' + address.postcode + '&straatId=0&huisnr=' + address.housenumber + '&huisnrtoev=' + address.housenumberSuffix, function (data) {
+    $.get(getPrefixUrl() + 'http://dataservice.deafvalapp.nl/dataservice/DataServiceServlet?type=ANDROID&service=OPHAALSCHEMA&land=NL&postcode=' + address.postcode + '&straatId=0&huisnr=' + address.housenumber + '&huisnrtoev=' + address.housenumberSuffix, function (data) {
         var dataFiltered = [];
 
         data.toString().split('\n').forEach(function (element) {
@@ -144,8 +149,8 @@ function getTwenteMilieuData(address, date, random) {
 
 function getAfvalstromenData(address, date, random, baseUrl) {
     $('.trash' + random + ' .state').html('');
-    $.getJSON('https://cors-anywhere.herokuapp.com/' + baseUrl + '/rest/adressen/' + address.postcode + '-' + address.housenumber, function (data) {
-        $.getJSON('https://cors-anywhere.herokuapp.com/' + baseUrl + '/rest/adressen/' + data[0].bagId + '/afvalstromen', function (data) {
+    $.getJSON(getPrefixUrl() + baseUrl + '/rest/adressen/' + address.postcode + '-' + address.housenumber, function (data) {
+        $.getJSON(getPrefixUrl() + baseUrl + '/rest/adressen/' + data[0].bagId + '/afvalstromen', function (data) {
             data = data
                 .filter(function (element) { return element.ophaaldatum !== null; })
                 .map(function (element) {
@@ -164,8 +169,8 @@ function getOphaalkalenderData(address, date, random) {
     $('.trash' + random + ' .state').html('');
     var baseURL = 'http://www.ophaalkalender.be';
 
-    $.getJSON('https://cors-anywhere.herokuapp.com/' + baseURL + '/calendar/findstreets/?query=' + address.street + '&zipcode=' + address.postcode, function (data) {
-        $.getJSON('https://cors-anywhere.herokuapp.com/' + baseURL + '/api/rides?id=' + data[0].Id + '&housenumber=0&zipcode=' + address.postcode, function (data) {
+    $.getJSON(getPrefixUrl() + baseURL + '/calendar/findstreets/?query=' + address.street + '&zipcode=' + address.postcode, function (data) {
+        $.getJSON(getPrefixUrl() + baseURL + '/api/rides?id=' + data[0].Id + '&housenumber=0&zipcode=' + address.postcode, function (data) {
             data = data.filter(function (element) {
                     return moment(element.start, 'YYYY-MM-DDTHH:mm:ss+-HH:mm').isBetween(date.start, date.end, null, '[]');
                 })
@@ -184,7 +189,7 @@ function getOphaalkalenderData(address, date, random) {
 function getAfvalwijzerArnhemData(address, date, random) {
     $('.trash' + random + ' .state').html('');
     var baseURL = 'http://www.afvalwijzer-arnhem.nl';
-    $.get('https://cors-anywhere.herokuapp.com/' + baseURL + '/applicatie?ZipCode=' + address.postcode + '&HouseNumber=' + address.housenumber + '&HouseNumberAddition=' + address.housenumberSuffix, function (data) {
+    $.get(getPrefixUrl() + baseURL + '/applicatie?ZipCode=' + address.postcode + '&HouseNumber=' + address.housenumber + '&HouseNumberAddition=' + address.housenumberSuffix, function (data) {
         var returnDates = [];
         $(data).find('ul.ulPickupDates li').each(function (index, element) {
             returnDates.push({
@@ -198,7 +203,7 @@ function getAfvalwijzerArnhemData(address, date, random) {
 }
 
 function getMijnAfvalwijzerData(address, date, random) {
-    $.getJSON('https://cors-anywhere.herokuapp.com/http://json.mijnafvalwijzer.nl/?method=postcodecheck&postcode=' + address.postcode + '&street=&huisnummer=' + address.housenumber + '&toevoeging=' + address.housenumberSuffix, function (data) {
+    $.getJSON(getPrefixUrl() + 'http://json.mijnafvalwijzer.nl/?method=postcodecheck&postcode=' + address.postcode + '&street=&huisnummer=' + address.housenumber + '&toevoeging=' + address.housenumberSuffix, function (data) {
         data = data.data.ophaaldagen.data
             .filter(function (element) {
                 return moment(element.date).isBetween(date.start, date.end, null, '[]');
@@ -215,7 +220,7 @@ function getMijnAfvalwijzerData(address, date, random) {
 }
 
 function getHvcData(address, date, random) {
-    $.getJSON('https://cors-anywhere.herokuapp.com/http://inzamelkalender.hvcgroep.nl/push/calendar?postcode=' + address.postcode + '&huisnummer=' + address.housenumber, function (data) {
+    $.getJSON(getPrefixUrl() + 'http://inzamelkalender.hvcgroep.nl/push/calendar?postcode=' + address.postcode + '&huisnummer=' + address.housenumber, function (data) {
         var dataFiltered = [];
         data.forEach(function (element) {
             var seen = {};
@@ -269,7 +274,7 @@ function getRecycleManagerData(address, date, random) {
 }
 
 function getEdgData(address, date, random) {
-    $.getJSON('https://cors-anywhere.herokuapp.com/https://www.edg.de/JsonHandler.ashx?dates=1&street=' + address.street + '&nr=' + address.housenumber + '&cmd=findtrash&tbio=0&tpapier=1&trest=1&twert=1&feiertag=0', function (data) {
+    $.getJSON(getPrefixUrl() + 'https://www.edg.de/JsonHandler.ashx?dates=1&street=' + address.street + '&nr=' + address.housenumber + '&cmd=findtrash&tbio=0&tpapier=1&trest=1&twert=1&feiertag=0', function (data) {
         data = data.data
             .map(function (element) {
                 return {
@@ -283,10 +288,9 @@ function getEdgData(address, date, random) {
 }
 
 function getZuidhornData(address, date, random, fetchType) {
-    var corsprefix = 'https://cors-anywhere.herokuapp.com/';
     var prefix = 'https://afvalkalender.zuidhorn.nl/';
 
-    $.post(corsprefix + prefix + 'afvalkalender-zoeken/zoek-postcode/Zipcode/search.html', {
+    $.post(getPrefixUrl() + prefix + 'afvalkalender-zoeken/zoek-postcode/Zipcode/search.html', {
         'tx_windwastecalendar_pi1[zipcode]': address.postcode,
         'tx_windwastecalendar_pi1[housenumber]': address.housenumber,
     }, function (data) {
@@ -408,8 +412,8 @@ function loadDataForService(service, random) {
         postcode: settings['garbage_zipcode'] || '',
     };
     var date = {
-        start: moment(),
-        end: moment().add(32, 'days'),
+        start: moment().startOf('day'),
+        end: moment().add(32, 'days').endOf('day'),
     };
 
     var serviceProperties = {
