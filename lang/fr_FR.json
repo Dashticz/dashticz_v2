@@ -45,6 +45,8 @@
         "close": "Fermer",
         "close_reload": "Fermer et recharger!",
         "garbage": {
+            "garbage_calendar_id": "Google Calender ID",
+            "garbage_calendar_id_help": "Your calendar id is found in calendar settings",
             "garbage_company": "Entreprise \/ Service",
             "garbage_hideicon": "Masquer l'icône dans le bloc",
             "garbage_housenumber": "Numéro de la maison",
@@ -54,6 +56,8 @@
             "garbage_street": "Rue",
             "garbage_width": "Largeur du bloc (1-12)",
             "garbage_zipcode": "Code postal",
+            "google_api_key": "Google APi Key",
+            "google_api_key_help": "Google API key is needed for Google Garbage Calender",
             "title": "Poubelle"
         },
         "general": {
@@ -68,6 +72,8 @@
             "last_update": "Afficher la dernière heure \/ date de mise à jour",
             "news_scroll_after": "Faire défiler les nouvelles après (secondes)",
             "no_rgb": "Do not use colorpicker for RGB devices.",
+            "room_plan": "Use room plan id (0 = all)",
+            "room_plan_help": "Change to the id of the room plan you created in Domoticz, do not use with favorites",
             "selector_instead_of_buttons": "Sélecteur au lieu des boutons",
             "title": "Général",
             "use_favorites": "Utilisez uniquement des périphériques favoris",

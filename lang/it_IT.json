@@ -45,6 +45,8 @@
         "close": "Chiudi",
         "close_reload": "Chiudi e ricarica!",
         "garbage": {
+            "garbage_calendar_id": "Google Calender ID",
+            "garbage_calendar_id_help": "Your calendar id is found in calendar settings",
             "garbage_company": "Azienda \/ Servizio",
             "garbage_hideicon": "Nascondi l'incona nel blocco",
             "garbage_housenumber": "Numero di casa",
@@ -54,6 +56,8 @@
             "garbage_street": "Via",
             "garbage_width": "Larghezza del blocco (1-12)",
             "garbage_zipcode": "CAP",
+            "google_api_key": "Google APi Key",
+            "google_api_key_help": "Google API key is needed for Google Garbage Calender",
             "title": "Spazzatura"
         },
         "general": {
@@ -68,6 +72,8 @@
             "last_update": "Mostra ultimo agiornamento (ora e data)",
             "news_scroll_after": "Scorri notizie dopo (secondi)",
             "no_rgb": "Do not use colorpicker for RGB devices.",
+            "room_plan": "Use room plan id (0 = all)",
+            "room_plan_help": "Change to the id of the room plan you created in Domoticz, do not use with favorites",
             "selector_instead_of_buttons": "Utilizza selettore al posto del pulsante",
             "title": "Generale",
             "use_favorites": "Usa solo con i dispositivi preferiti",

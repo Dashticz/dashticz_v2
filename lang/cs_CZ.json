@@ -45,6 +45,8 @@
         "close": "Zavřít",
         "close_reload": "Zavřít a uložit!",
         "garbage": {
+            "garbage_calendar_id": "Google Calender ID",
+            "garbage_calendar_id_help": "Your calendar id is found in calendar settings",
             "garbage_company": "Společnost \/ Služba",
             "garbage_hideicon": "Skrýt ikonu v bloku",
             "garbage_housenumber": "Číslo popisné",
@@ -54,6 +56,8 @@
             "garbage_street": "Ulice",
             "garbage_width": "Šířka bloku (1-12)",
             "garbage_zipcode": "PSČ",
+            "google_api_key": "Google APi Key",
+            "google_api_key_help": "Google API key is needed for Google Garbage Calender",
             "title": "Odpad"
         },
         "general": {
@@ -68,6 +72,8 @@
             "last_update": "Zobrazovat poslední čas aktualizace",
             "news_scroll_after": "Posunovat zprávy po čase (sekund)",
             "no_rgb": "Do not use colorpicker for RGB devices.",
+            "room_plan": "Use room plan id (0 = all)",
+            "room_plan_help": "Change to the id of the room plan you created in Domoticz, do not use with favorites",
             "selector_instead_of_buttons": "Zobrazovat výběrový box namísto tlačítek",
             "title": "Obecné",
             "use_favorites": "Používat pouze oblíbené položky",

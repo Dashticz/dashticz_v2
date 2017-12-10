@@ -45,6 +45,8 @@
         "close": "Cerca",
         "close_reload": "¡Cierre y recargue!",
         "garbage": {
+            "garbage_calendar_id": "Google Calender ID",
+            "garbage_calendar_id_help": "Your calendar id is found in calendar settings",
             "garbage_company": "Empresa \/ Servicio",
             "garbage_hideicon": "Ocultar icono en bloque",
             "garbage_housenumber": "El número de la casa",
@@ -54,6 +56,8 @@
             "garbage_street": "Calle",
             "garbage_width": "Ancho del bloque (1-12)",
             "garbage_zipcode": "Código postal",
+            "google_api_key": "Google APi Key",
+            "google_api_key_help": "Google API key is needed for Google Garbage Calender",
             "title": "Basura"
         },
         "general": {
@@ -68,6 +72,8 @@
             "last_update": "Mostrar fecha \/ hora de la última actualización",
             "news_scroll_after": "Scroll de noticias después de (segundos)",
             "no_rgb": "Do not use colorpicker for RGB devices.",
+            "room_plan": "Use room plan id (0 = all)",
+            "room_plan_help": "Change to the id of the room plan you created in Domoticz, do not use with favorites",
             "selector_instead_of_buttons": "Selector en lugar de botones",
             "title": "General",
             "use_favorites": "Sólo utilice dispositivos favoritos",

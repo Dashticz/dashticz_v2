@@ -45,6 +45,8 @@
         "close": "Sluiten",
         "close_reload": "Sluit venster en herlaad Dashticz",
         "garbage": {
+            "garbage_calendar_id": "Google Agenda-ID",
+            "garbage_calendar_id_help": "Je agenda-id bevindt zich in de agenda-instellingen",
             "garbage_company": "Bedrijf \/ Dienst",
             "garbage_hideicon": "Verberg icoon in blok",
             "garbage_housenumber": "Huisnummer",
@@ -54,6 +56,8 @@
             "garbage_street": "Straat",
             "garbage_width": "Breedte van het blok (1-12)",
             "garbage_zipcode": "Postcode",
+            "google_api_key": "Google APi Key",
+            "google_api_key_help": "Google API-key is nodig voor afvalkalender via Google Calendar",
             "title": "Afval"
         },
         "general": {
@@ -68,6 +72,8 @@
             "last_update": "Geef laatste update datum weer",
             "news_scroll_after": "Volgende nieuwsbericht na (seconden)",
             "no_rgb": "Gebruik geen colorpicker voor RGB-apparaten.",
+            "room_plan": "Gebruik kamer plan id (0 = all)",
+            "room_plan_help": "Wijzig naar het ID van het kamerplan dat u hebt gemaakt in Domoticz, niet gebruiken in combinatie met de favorieten-optie",
             "selector_instead_of_buttons": "Dropdown i.p.v. buttons",
             "title": "Algemeen",
             "use_favorites": "Gebruik alleen favoriete schakelaars",

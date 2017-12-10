@@ -45,6 +45,8 @@
         "close": "Kapat",
         "close_reload": "Kapat ve tekrar yükle!",
         "garbage": {
+            "garbage_calendar_id": "Google Calender ID",
+            "garbage_calendar_id_help": "Your calendar id is found in calendar settings",
             "garbage_company": "Şirket \/ Hizmet",
             "garbage_hideicon": "Blok içinde simgeyi gizle",
             "garbage_housenumber": "Ev No",
@@ -54,6 +56,8 @@
             "garbage_street": "Sokak",
             "garbage_width": "Blok Genişliği (1-12)",
             "garbage_zipcode": "Posta Kodu",
+            "google_api_key": "Google APi Key",
+            "google_api_key_help": "Google API key is needed for Google Garbage Calender",
             "title": "Çöp"
         },
         "general": {
@@ -68,6 +72,8 @@
             "last_update": "Son güncelleme saat\/tarih göster",
             "news_scroll_after": "Haber geçiş süresi (saniye)",
             "no_rgb": "Do not use colorpicker for RGB devices.",
+            "room_plan": "Use room plan id (0 = all)",
+            "room_plan_help": "Change to the id of the room plan you created in Domoticz, do not use with favorites",
             "selector_instead_of_buttons": "Düğme yerine seçme anahtarı kullan",
             "title": "Genel",
             "use_favorites": "Sadece favori cihazları kullan",

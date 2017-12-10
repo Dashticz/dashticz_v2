@@ -45,6 +45,8 @@
         "close": "Закрыть",
         "close_reload": "Закрыть и перезагрузить!",
         "garbage": {
+            "garbage_calendar_id": "Google Calender ID",
+            "garbage_calendar_id_help": "Your calendar id is found in calendar settings",
             "garbage_company": "Компания \/ Служба",
             "garbage_hideicon": "Скрыть значок в блоке",
             "garbage_housenumber": "Номер дома",
@@ -54,6 +56,8 @@
             "garbage_street": "Улица",
             "garbage_width": "Ширина блока (1-12)",
             "garbage_zipcode": "Индекс",
+            "google_api_key": "Google APi Key",
+            "google_api_key_help": "Google API key is needed for Google Garbage Calender",
             "title": "Вывоз мусора"
         },
         "general": {
@@ -68,6 +72,8 @@
             "last_update": "Показать время\/дату последнего обновления",
             "news_scroll_after": "Прокручивать новости через (секунд)",
             "no_rgb": "Do not use colorpicker for RGB devices.",
+            "room_plan": "Use room plan id (0 = all)",
+            "room_plan_help": "Change to the id of the room plan you created in Domoticz, do not use with favorites",
             "selector_instead_of_buttons": "Выпадающий список вместо кнопок",
             "title": "Общие",
             "use_favorites": "Использовать только избранные устройства",

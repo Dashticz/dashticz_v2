@@ -45,6 +45,8 @@
         "close": "Close",
         "close_reload": "Close and reload!",
         "garbage": {
+            "garbage_calendar_id": "Google Calender ID",
+            "garbage_calendar_id_help": "Your calendar id is found in calendar settings",
             "garbage_company": "Company \/ Service",
             "garbage_hideicon": "Hide icon in block",
             "garbage_housenumber": "Číslo domu",
@@ -54,6 +56,8 @@
             "garbage_street": "Ulica",
             "garbage_width": "Width of block (1-12)",
             "garbage_zipcode": "Zipcode",
+            "google_api_key": "Google APi Key",
+            "google_api_key_help": "Google API key is needed for Google Garbage Calender",
             "title": "Garbage"
         },
         "general": {
@@ -68,6 +72,8 @@
             "last_update": "Show last update time\/date",
             "news_scroll_after": "Scroll news after (seconds)",
             "no_rgb": "Do not use colorpicker for RGB devices.",
+            "room_plan": "Use room plan id (0 = all)",
+            "room_plan_help": "Change to the id of the room plan you created in Domoticz, do not use with favorites",
             "selector_instead_of_buttons": "Selector instead of buttons",
             "title": "General",
             "use_favorites": "Only use favorite devices",

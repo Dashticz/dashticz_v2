@@ -45,6 +45,8 @@
         "close": "Zamknij",
         "close_reload": "Zamknij i przeładuj!",
         "garbage": {
+            "garbage_calendar_id": "Google Calender ID",
+            "garbage_calendar_id_help": "Your calendar id is found in calendar settings",
             "garbage_company": "Firma \/ Serwis",
             "garbage_hideicon": "Ukryj ikonę w bloku",
             "garbage_housenumber": "Numer domu",
@@ -54,6 +56,8 @@
             "garbage_street": "Ulica",
             "garbage_width": "Szerokość bloku (1-12)",
             "garbage_zipcode": "Kod pocztowy",
+            "google_api_key": "Google APi Key",
+            "google_api_key_help": "Google API key is needed for Google Garbage Calender",
             "title": "Wywóz śmieci"
         },
         "general": {
@@ -68,6 +72,8 @@
             "last_update": "Pokaż godzinę\/datę ostatniej aktualizacji",
             "news_scroll_after": "Przewiń wiadomości po (sekund)",
             "no_rgb": "Do not use colorpicker for RGB devices.",
+            "room_plan": "Use room plan id (0 = all)",
+            "room_plan_help": "Change to the id of the room plan you created in Domoticz, do not use with favorites",
             "selector_instead_of_buttons": "Lista wyboru zamiast przycisków",
             "title": "Ogólne",
             "use_favorites": "Tylko Ulubione urządzenia",
