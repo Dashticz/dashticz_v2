@@ -408,8 +408,8 @@ function loadDataForService(service, random) {
         postcode: settings['garbage_zipcode'] || '',
     };
     var date = {
-        start: moment(),
-        end: moment().add(32, 'days'),
+        start: moment().startOf('day'),
+        end: moment().add(32, 'days').endOf('day'),
     };
 
     var serviceProperties = {
