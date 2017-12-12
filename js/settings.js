@@ -5,6 +5,7 @@ settingList['general']['title'] = language.settings.general.title;
 settingList['general']['domoticz_ip'] = {};
 settingList['general']['domoticz_ip']['title'] = language.settings.general.domoticz_ip;
 settingList['general']['domoticz_ip']['type'] = 'text';
+settingList['general']['domoticz_ip']['help'] = language.settings.general.domoticz_ip_help;
 
 settingList['general']['app_title'] = {};
 settingList['general']['app_title']['title'] = language.settings.general.app_title;
