@@ -467,9 +467,6 @@ a.playlist {
 	height:200px !important;
 }
 
-.stateheating {
-	margin-top:-6px;
-}
 .iconheating {
 	margin-top: 2px;
 }
@@ -520,9 +517,6 @@ a.playlist {
 	}
 	.iconheating {
 		margin-top: 14px;
-	}
-	.stateheating {
-		font-size:9px;
 	}
 }
 /************************/
