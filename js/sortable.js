@@ -58,7 +58,7 @@ function saveBlocks() {
                 if (typeof(curdiv) === 'number' || (parseFloat(curdiv) && curdiv.toLowerCase().indexOf("s") <= 0 && curdiv.toLowerCase().indexOf("_") <= 0)) {
                     cols += curdiv + ', ';
                 }
-                else if (curdiv.indexOf(".") > 0) {
+                else if (typeof(curdiv)!=='undefined' && curdiv.indexOf(".") > 0) {
                     cols += curdiv + ', ';
                 }
                 else {
