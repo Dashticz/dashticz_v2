@@ -1667,7 +1667,7 @@ function getThermostatBlock(device, idx) {
 
     this.title = number_format(device['Data'], 1) + _TEMP_SYMBOL;
     this.value = device['Name'];
-    if (titleAndValueSwitch(idx + '_2')) {
+    if (titleAndValueSwitch(idx) || titleAndValueSwitch(idx + '_2')) {
         this.title = device['Name'];
         this.value = number_format(device['Data'], 1) + _TEMP_SYMBOL;
     }
