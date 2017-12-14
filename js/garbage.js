@@ -204,6 +204,25 @@ function getZuidhornData(address, date, random, fetchType) {
     });
 }
 
+function getRd4Data(address, date, random) {
+    $.get(getPrefixUrl() + 'https://www.rd4info.nl/NSI/Burger/Aspx/afvalkalender_general_text.aspx?pc=' + address.zipcode + '&nr=' + address.housenumber + '&t=' + address.housenumberSuffix, function (data) {
+        var returnDates = [];
+        $(data).find('table.plaintextMonth tr').each(function (index, element) {
+            if (element.innerText.length) {
+                returnDates.push({
+                    date: moment($(element).find('td')[0].innerText.trim(), 'dddd DD MMMM YYYY', 'nl'),
+                    summary: $(element).find('td')[1].innerText,
+                    garbageType: mapGarbageType($(element).find('td')[1].innerText),
+                });
+            }
+        });
+        returnDates = returnDates.filter(function (element) {
+            return element.date.isBetween(date.start, date.end, null, '[]');
+        });
+        addToContainer(random, returnDates);
+    });
+}
+
 ///http://dashticz.nl/afval/?service=afvalstromen&sub=alphenaandenrijn&zipcode=2401AR&nr=261&t=
 function getAfvalstromenData(address, date, random, service) {
     getGeneralData('afvalstromen',address, date, random, service);
@@ -361,6 +380,7 @@ function loadDataForService(service, random) {
         mijnafvalwijzer: {dataHandler: 'getMijnAfvalwijzerData', identifier: ''},
         recyclemanager: {dataHandler: 'getRecycleManagerData', identifier: ''},
         edg: {dataHandler: 'getEdgData', identifier: ''},
+        rd4: {dataHandler: 'getRd4Data', identifier: ''},
     };
     window[serviceProperties[service].dataHandler](address, date, random, serviceProperties[service].identifier);
 }
