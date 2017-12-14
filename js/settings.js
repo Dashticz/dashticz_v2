@@ -307,6 +307,7 @@ settingList['garbage']['garbage_company']['options']['hvc'] = 'HVC Groep (NL)';
 settingList['garbage']['garbage_company']['options']['meerlanden'] = 'Meerlanden (NL)';
 settingList['garbage']['garbage_company']['options']['mijnafvalwijzer'] = 'Mijn Afval Wijzer (NL)';
 settingList['garbage']['garbage_company']['options']['recyclemanager'] = 'Recycle Manager';
+settingList['garbage']['garbage_company']['options']['rd4'] = 'Rd4';
 settingList['garbage']['garbage_company']['options']['rmn'] = 'RMN (NL)';
 settingList['garbage']['garbage_company']['options']['rova'] = 'Rova (NL)';
 settingList['garbage']['garbage_company']['options']['sudwestfryslan'] = 'Sudwest Fryslan (NL)';
