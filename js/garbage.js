@@ -291,6 +291,10 @@ function filterReturnDates(returnDates) {
 
 function addToContainer(random, returnDates) {
     returnDates = filterReturnDates(returnDates);
+    if (!returnDates.length) {
+        $('.trash' + random + ' .state').html('Geen gegevens gevonden');
+        return;
+    }
     $('.trash' + random + ' .state').html('');
 
     if (settings['garbage_icon_use_colors']) {
