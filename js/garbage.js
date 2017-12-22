@@ -207,7 +207,16 @@ function getZuidhornData(address, date, random, fetchType) {
 function getRd4Data(address, date, random) {
     $.get(getPrefixUrl() + 'https://www.rd4info.nl/NSI/Burger/Aspx/afvalkalender_general_text.aspx?pc=' + address.zipcode + '&nr=' + address.housenumber + '&t=' + address.housenumberSuffix, function (data) {
         var returnDates = [];
-        $(data).find('table.plaintextMonth tr').each(function (index, element) {
+        data = data
+            .replace(/<img .*?>/g, "")
+            .replace(/<head>(?:.|\n|\r)+?<\/head>/g, "")
+            .replace(/<script (?:.|\n|\r)+?<\/script>/g, "")
+            .replace(/<table class="contentTable" (?:.|\n|\r)+?<\/table>/g, "")
+            .replace(/<input (?:.|\n|\r)+?\/>/g, "")
+            .replace(/<div id="Afvalkalender1_pnlSearch"(?:.|\n|\r)+?<\/div>/g, "")
+            .replace(/<a (?:.|\n|\r)+?<\/a>/g, "")
+        ;
+        $(data).find('#Afvalkalender1_pnlAfvalKalender table.plaintextMonth tr').each(function (index, element) {
             if (element.innerText.length) {
                 returnDates.push({
                     date: moment($(element).find('td')[0].innerText.trim(), 'dddd DD MMMM YYYY', 'nl'),
