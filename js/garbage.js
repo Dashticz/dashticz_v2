@@ -232,6 +232,29 @@ function getRd4Data(address, date, random) {
     });
 }
 
+function getVenloData(address, date, random) {
+    $.get(getPrefixUrl() + 'https://www.venlo.nl/trash-removal-calendar/' + address.zipcode + '/' + address.housenumber, function (data) {
+        var returnDates = [];
+        data = data
+            .replace(/<img .*?>/g, "")
+            .replace(/<head>(?:.|\n|\r)+?<\/head>/g, "")
+            .replace(/<script (?:.|\n|\r)+?<\/script>/g, "")
+        ;
+        $(data).find('div#block-system-main div.trash-removal-calendar tbody tr').each(function (index, element) {
+            var year = $(element).parents('table').find('thead')[0].innerText.substr(-5);
+                returnDates.push({
+                    date: moment($(element).find('td')[0].innerText.trim() + ' ' + year, 'dddd DD MMMM YYYY', 'nl'),
+                    summary: $(element).find('span')[0].innerText,
+                    garbageType: mapGarbageType($(element).find('span')[0].innerText),
+                });
+        });
+        returnDates = returnDates.filter(function (element) {
+            return element.date.isBetween(date.start, date.end, null, '[]');
+        });
+        addToContainer(random, returnDates);
+    });
+}
+
 ///http://dashticz.nl/afval/?service=afvalstromen&sub=alphenaandenrijn&zipcode=2401AR&nr=261&t=
 function getAfvalstromenData(address, date, random, service) {
     getGeneralData('afvalstromen',address, date, random, service);
@@ -394,6 +417,7 @@ function loadDataForService(service, random) {
         recyclemanager: {dataHandler: 'getRecycleManagerData', identifier: ''},
         edg: {dataHandler: 'getEdgData', identifier: ''},
         rd4: {dataHandler: 'getRd4Data', identifier: ''},
+        venlo: {dataHandler: 'getVenloData', identifier: ''},
     };
     window[serviceProperties[service].dataHandler](address, date, random, serviceProperties[service].identifier);
 }
