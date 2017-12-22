@@ -284,7 +284,7 @@ function addToContainer(random, returnDates) {
     returnDates = filterReturnDates(returnDates);
     $('.trash' + random + ' .state').html('');
 
-    if (settings['garbage_icon_use_colors'] === true) {
+    if (settings['garbage_icon_use_colors']) {
         $('.trash' + random).find('img.trashcan').attr('src', settings['garbage'][returnDates[0].garbageType]['icon']);
         $('.trash' + random).find('img.trashcan').css('opacity', '0.7');
     } else {
