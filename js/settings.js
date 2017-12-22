@@ -315,6 +315,7 @@ settingList['garbage']['garbage_company']['options']['sudwestfryslan'] = 'Sudwes
 settingList['garbage']['garbage_company']['options']['twentemilieu'] = 'Twente Milieu (NL)';
 settingList['garbage']['garbage_company']['options']['uden'] = 'Uden (NL)';
 settingList['garbage']['garbage_company']['options']['veldhoven'] = 'Veldhoven (NL)';
+settingList['garbage']['garbage_company']['options']['venlo'] = 'Venlo (NL)';
 settingList['garbage']['garbage_company']['options']['vianen'] = 'Vianen (NL)';
 settingList['garbage']['garbage_company']['options']['waalre'] = 'Waalre (NL)';
 
