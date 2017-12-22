@@ -207,7 +207,16 @@ function getZuidhornData(address, date, random, fetchType) {
 function getRd4Data(address, date, random) {
     $.get(getPrefixUrl() + 'https://www.rd4info.nl/NSI/Burger/Aspx/afvalkalender_general_text.aspx?pc=' + address.zipcode + '&nr=' + address.housenumber + '&t=' + address.housenumberSuffix, function (data) {
         var returnDates = [];
-        $(data).find('table.plaintextMonth tr').each(function (index, element) {
+        data = data
+            .replace(/<img .*?>/g, "")
+            .replace(/<head>(?:.|\n|\r)+?<\/head>/g, "")
+            .replace(/<script (?:.|\n|\r)+?<\/script>/g, "")
+            .replace(/<table class="contentTable" (?:.|\n|\r)+?<\/table>/g, "")
+            .replace(/<input (?:.|\n|\r)+?\/>/g, "")
+            .replace(/<div id="Afvalkalender1_pnlSearch"(?:.|\n|\r)+?<\/div>/g, "")
+            .replace(/<a (?:.|\n|\r)+?<\/a>/g, "")
+        ;
+        $(data).find('#Afvalkalender1_pnlAfvalKalender table.plaintextMonth tr').each(function (index, element) {
             if (element.innerText.length) {
                 returnDates.push({
                     date: moment($(element).find('td')[0].innerText.trim(), 'dddd DD MMMM YYYY', 'nl'),
@@ -215,6 +224,29 @@ function getRd4Data(address, date, random) {
                     garbageType: mapGarbageType($(element).find('td')[1].innerText),
                 });
             }
+        });
+        returnDates = returnDates.filter(function (element) {
+            return element.date.isBetween(date.start, date.end, null, '[]');
+        });
+        addToContainer(random, returnDates);
+    });
+}
+
+function getVenloData(address, date, random) {
+    $.get(getPrefixUrl() + 'https://www.venlo.nl/trash-removal-calendar/' + address.zipcode + '/' + address.housenumber, function (data) {
+        var returnDates = [];
+        data = data
+            .replace(/<img .*?>/g, "")
+            .replace(/<head>(?:.|\n|\r)+?<\/head>/g, "")
+            .replace(/<script (?:.|\n|\r)+?<\/script>/g, "")
+        ;
+        $(data).find('div#block-system-main div.trash-removal-calendar tbody tr').each(function (index, element) {
+            var year = $(element).parents('table').find('thead')[0].innerText.substr(-5);
+                returnDates.push({
+                    date: moment($(element).find('td')[0].innerText.trim() + ' ' + year, 'dddd DD MMMM YYYY', 'nl'),
+                    summary: $(element).find('span')[0].innerText,
+                    garbageType: mapGarbageType($(element).find('span')[0].innerText),
+                });
         });
         returnDates = returnDates.filter(function (element) {
             return element.date.isBetween(date.start, date.end, null, '[]');
@@ -282,9 +314,13 @@ function filterReturnDates(returnDates) {
 
 function addToContainer(random, returnDates) {
     returnDates = filterReturnDates(returnDates);
+    if (!returnDates.length) {
+        $('.trash' + random + ' .state').html('Geen gegevens gevonden');
+        return;
+    }
     $('.trash' + random + ' .state').html('');
 
-    if (settings['garbage_icon_use_colors'] === true) {
+    if (settings['garbage_icon_use_colors']) {
         $('.trash' + random).find('img.trashcan').attr('src', settings['garbage'][returnDates[0].garbageType]['icon']);
         $('.trash' + random).find('img.trashcan').css('opacity', '0.7');
     } else {
@@ -381,6 +417,7 @@ function loadDataForService(service, random) {
         recyclemanager: {dataHandler: 'getRecycleManagerData', identifier: ''},
         edg: {dataHandler: 'getEdgData', identifier: ''},
         rd4: {dataHandler: 'getRd4Data', identifier: ''},
+        venlo: {dataHandler: 'getVenloData', identifier: ''},
     };
     window[serviceProperties[service].dataHandler](address, date, random, serviceProperties[service].identifier);
 }

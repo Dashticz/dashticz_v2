@@ -5,6 +5,7 @@ settingList['general']['title'] = language.settings.general.title;
 settingList['general']['domoticz_ip'] = {};
 settingList['general']['domoticz_ip']['title'] = language.settings.general.domoticz_ip;
 settingList['general']['domoticz_ip']['type'] = 'text';
+settingList['general']['domoticz_ip']['help'] = language.settings.general.domoticz_ip_help;
 
 settingList['general']['app_title'] = {};
 settingList['general']['app_title']['title'] = language.settings.general.app_title;
@@ -359,6 +360,23 @@ settingList['garbage']['garbage_hideicon'] = {};
 settingList['garbage']['garbage_hideicon']['title'] = language.settings.garbage.garbage_hideicon;
 settingList['garbage']['garbage_hideicon']['type'] = 'checkbox';
 
+settingList['garbage']['garbage_icon_use_colors'] = {};
+settingList['garbage']['garbage_icon_use_colors']['title'] = language.settings.garbage.garbage_icon_use_colors;
+settingList['garbage']['garbage_icon_use_colors']['type'] = 'checkbox';
+
+settingList['garbage']['garbage_use_colors'] = {};
+settingList['garbage']['garbage_use_colors']['title'] = language.settings.garbage.garbage_use_colors;
+settingList['garbage']['garbage_use_colors']['type'] = 'checkbox';
+
+settingList['garbage']['garbage_use_names'] = {};
+settingList['garbage']['garbage_use_names']['title'] = language.settings.garbage.garbage_use_names;
+settingList['garbage']['garbage_use_names']['type'] = 'checkbox';
+
+settingList['garbage']['garbage_use_cors_prefix'] = {};
+settingList['garbage']['garbage_use_cors_prefix']['title'] = language.settings.garbage.garbage_use_cors_prefix;
+settingList['garbage']['garbage_use_cors_prefix']['type'] = 'checkbox';
+settingList['garbage']['garbage_use_cors_prefix']['help'] = language.settings.garbage.garbage_use_prefix_help;
+
 settingList['about'] = {};
 settingList['about']['title'] = language.settings.about.title;
 
@@ -449,12 +467,13 @@ if (typeof(settings['garbage']) === 'undefined') {
         milieu: {kliko: 'yellow', code: '#f9e231', name: 'Geel', icon: 'img/kliko_yellow.png'},
     };
 }
-if (typeof(settings['garbage_use_names']) === 'undefined') settings['garbage_use_names'] = false;
-if (typeof(settings['garbage_use_colors']) === 'undefined') settings['garbage_use_colors'] = false;
-if (typeof(settings['garbage_icon_use_colors']) === 'undefined') settings['garbage_icon_use_colors'] = true;
-if (typeof(settings['garbage_use_cors_prefix']) === 'undefined') settings['garbage_use_cors_prefix'] = true;
+if (typeof(settings['garbage_use_names']) === 'undefined') settings['garbage_use_names'] = 0;
+if (typeof(settings['garbage_use_colors']) === 'undefined') settings['garbage_use_colors'] = 0;
+if (typeof(settings['garbage_icon_use_colors']) === 'undefined') settings['garbage_icon_use_colors'] = 1;
+if (typeof(settings['garbage_use_cors_prefix']) === 'undefined') settings['garbage_use_cors_prefix'] = 1;
 if (typeof(settings['lineColors']) === 'undefined') settings['lineColors'] = ['#eee', '#eee', '#eee'];
 if (typeof(settings['room_plan']) === 'undefined') settings['room_plan'] = 0;
+if (typeof(settings['garbage_use_cors_prefix']) === 'undefined') settings['garbage_use_cors_prefix'] = 1;
 
 var _TEMP_SYMBOL = '°C';
 if (settings['use_fahrenheit'] === 1) _TEMP_SYMBOL = '°F';
