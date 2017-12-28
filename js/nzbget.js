@@ -65,7 +65,7 @@ var NZBGET = (new function($)
 	
 	// Properties
 	this.rpcUrl;
-	this.defaultFailureCallback;
+	//this.defaultFailureCallback;
 	this.connectErrorMessage = 'Cannot establish connection';
 
 	this.call = function(request, completed_callback, failure_callback, timeout)
@@ -135,7 +135,7 @@ var NZBGET = (new function($)
 				}
 				else
 				{
-					_this.defaultFailureCallback(res, result);
+					//_this.defaultFailureCallback(res, result);
 				}
 			}
 		};

@@ -34,6 +34,11 @@ settingList['general']['domoticz_refresh'] = {};
 settingList['general']['domoticz_refresh']['title'] = language.settings.general.domoticz_refresh;
 settingList['general']['domoticz_refresh']['type'] = 'text';
 
+settingList['general']['disable_googleanalytics'] = {};
+settingList['general']['disable_googleanalytics']['title'] = language.settings.general.disable_googleanalytics;
+settingList['general']['disable_googleanalytics']['help'] = language.settings.general.disable_googleanalytics_help;
+settingList['general']['disable_googleanalytics']['type'] = 'checkbox';
+
 settingList['general']['dashticz_refresh'] = {};
 settingList['general']['dashticz_refresh']['title'] = language.settings.general.dashticz_refresh;
 settingList['general']['dashticz_refresh']['type'] = 'text';

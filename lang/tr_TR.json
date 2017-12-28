@@ -71,6 +71,8 @@
             "auto_positioning_help": "CONFIG.JS'deki konumları yapılandırmak istemiyorsanız, bu seçeneği seçin",
             "dashticz_refresh": "Dashticz'i yenile (dakika)",
             "default_news_url": "Varsayılan haber URL'si",
+            "disable_googleanalytics": "Disable Google Analytics",
+            "disable_googleanalytics_help": "Only used for developer to track the amount of users and wich device you are using for finetuning Dashticz.",
             "domoticz_ip": "Domoticz URL Adresi",
             "domoticz_ip_help": "Enter Domoticz url, for example: http:\/\/192.168.1.1:8080. You can also enter users and password, for example: http:\/\/user:password@192.168.1.1:8080",
             "domoticz_refresh": "Domoticz'i yenile (saniye)",

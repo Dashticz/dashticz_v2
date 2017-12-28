@@ -71,6 +71,8 @@
             "auto_positioning_help": "Выберите эту опцию, если не хотите настраивать позиции в CONFIG.JS",
             "dashticz_refresh": "Обновление Dashticz (в минутах)",
             "default_news_url": "URL-адрес новостей по умолчанию",
+            "disable_googleanalytics": "Disable Google Analytics",
+            "disable_googleanalytics_help": "Only used for developer to track the amount of users and wich device you are using for finetuning Dashticz.",
             "domoticz_ip": "URL-адрес Domoticz",
             "domoticz_ip_help": "Enter Domoticz url, for example: http:\/\/192.168.1.1:8080. You can also enter users and password, for example: http:\/\/user:password@192.168.1.1:8080",
             "domoticz_refresh": "Обновление Domoticz (в секундах)",

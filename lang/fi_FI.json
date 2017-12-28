@@ -71,6 +71,8 @@
             "auto_positioning_help": "Valitse tämä, mikäli et halua määrittää sijainteja CONFIG.JS tiedostossa",
             "dashticz_refresh": "Päivitä Dashticz (minuutit)",
             "default_news_url": "Oletusarvoinen uutisosoite",
+            "disable_googleanalytics": "Disable Google Analytics",
+            "disable_googleanalytics_help": "Only used for developer to track the amount of users and wich device you are using for finetuning Dashticz.",
             "domoticz_ip": "Domoticz:n osoite",
             "domoticz_ip_help": "Enter Domoticz url, for example: http:\/\/192.168.1.1:8080. You can also enter users and password, for example: http:\/\/user:password@192.168.1.1:8080",
             "domoticz_refresh": "Päivitä Domoticz (sekuntia)",

@@ -165,7 +165,22 @@ function onLoad() {
 
         }
     }
+	
+	if(typeof(settings['disable_googleanalytics'])=='undefined' || parseFloat(settings['disable_googleanalytics'])==0){
+		
+		var googleAnalytics="<script>";
+		  googleAnalytics+="(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){";
+		  googleAnalytics+="(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),";
+		  googleAnalytics+="m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)";
+		  googleAnalytics+="})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');";
 
+		  googleAnalytics+="ga('create', 'UA-102837285-1', 'auto');";
+		  googleAnalytics+="ga('send', 'pageview');";
+
+		googleAnalytics+="</script>";
+        $('body').prepend(googleAnalytics);
+	}
+	
     if ((settings['auto_swipe_back_after'] == 0 || typeof(settings['auto_swipe_back_after']) == 'undefined') && parseFloat(settings['auto_slide_pages']) > 0) {
         var nextSlide = 1;
         setInterval(function () {
@@ -1402,7 +1417,8 @@ function getSmartMeterBlock(device, idx) {
         if (typeof(device['UsageDeliv']) !== 'undefined' && (parseFloat(device['UsageDeliv']) > 0 || parseFloat(device['UsageDeliv']) < 0)) {
             this.usage = device['UsageDeliv'];
         }
-
+		
+		var data = device['Data'].split(':');
         var blockValues = [
             {
                 icon: 'fa-plug',
@@ -1442,6 +1458,15 @@ function getSmartMeterBlock(device, idx) {
                 unit: settings['units'].names.kwh
             });
         }
+			
+		blockValues.push({
+			icon: 'fa-plug',
+			idx: idx + '_6',
+			title: language.energy.energy_totals,
+			value: 'P1: '+number_format(data[0], 0)+', P2: '+number_format(data[1], 0),
+			unit: settings['units'].names.kwh
+		});
+		
         createBlocks(blockValues, device);
         return ['', false];
     }
