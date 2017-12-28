@@ -966,6 +966,69 @@ function getDevices(override) {
                 console.error("Domoticz error!\nPlease, double check the path to Domoticz in Settings!");
             },
             success: function (data) {
+				
+				var data = `
+{
+"ActTime" : 1514320158,
+"AstrTwilightEnd" : "18:42",
+"AstrTwilightStart" : "06:44",
+"CivTwilightEnd" : "17:17",
+"CivTwilightStart" : "08:09",
+"DayLength" : "07:48",
+"NautTwilightEnd" : "18:01",
+"NautTwilightStart" : "07:25",
+"ServerTime" : "2017-12-26 21:29:18",
+"SunAtSouth" : "12:43",
+"Sunrise" : "08:49",
+"Sunset" : "16:37",
+"result" : [
+{
+"AddjMulti" : 1.0,
+"AddjMulti2" : 1.0,
+"AddjValue" : 0.0,
+"AddjValue2" : 0.0,
+"BatteryLevel" : 255,
+"Counter" : "2816.307",
+"CounterDeliv" : "0.000",
+"CounterDelivToday" : "0 kWh",
+"CounterToday" : "10.557 kWh",
+"CustomImage" : 0,
+"Data" : "1391038;1425269;0;0;595;0",
+"Description" : "",
+"Favorite" : 0,
+"HardwareID" : 35,
+"HardwareName" : "Toon",
+"HardwareType" : "Toon Thermostat",
+"HardwareTypeVal" : 34,
+"HaveTimeout" : false,
+"ID" : "1",
+"LastUpdate" : "2017-12-26 21:25:00",
+"Name" : "Electra",
+"Notifications" : "false",
+"PlanID" : "0",
+"PlanIDs" : [ 0 ],
+"Protected" : false,
+"ShowNotifications" : true,
+"SignalLevel" : "-",
+"SubType" : "Energy",
+"SwitchTypeVal" : 0,
+"Timers" : "false",
+"Type" : "P1 Smart Meter",
+"TypeImg" : "counter",
+"Unit" : 1,
+"Usage" : "595 Watt",
+"UsageDeliv" : "0 Watt",
+"Used" : 1,
+"XOffset" : "0",
+"YOffset" : "0",
+"idx" : "199"
+}
+],
+"status" : "OK",
+"title" : "Devices"
+}`
+				data = $.parseJSON(data);
+				
                 gettingDevices = false;
                 if (!sliding || override) {
                     $('.solar').remove();
@@ -1418,7 +1481,7 @@ function getSmartMeterBlock(device, idx) {
             this.usage = device['UsageDeliv'];
         }
 		
-		var data = device['Data'].split(':');
+		var data = device['Data'].split(';');
         var blockValues = [
             {
                 icon: 'fa-plug',
@@ -1442,6 +1505,7 @@ function getSmartMeterBlock(device, idx) {
                 unit: settings['units'].names.kwh
             }
         ];
+		
         if (parseFloat(device['CounterDeliv']) > 0) {
             blockValues.push({
                 icon: 'fa-plug',
@@ -1459,14 +1523,34 @@ function getSmartMeterBlock(device, idx) {
             });
         }
 			
-		blockValues.push({
-			icon: 'fa-plug',
-			idx: idx + '_6',
-			title: language.energy.energy_totals,
-			value: 'P1: '+number_format(data[0], 0)+', P2: '+number_format(data[1], 0),
-			unit: settings['units'].names.kwh
-		});
-		
+		if(typeof(data[1])!=='undefined'){
+			data[0] = data[0]/1000;
+			data[1] = data[1]/1000;
+			blockValues.push({
+				icon: 'fa-plug',
+				idx: idx + '_6',
+				title: language.energy.energy_totals,
+				value: 'P1: '+number_format(data[0], 3,'.','')+' '+settings['units'].names.kwh+'<br />P2: '+number_format(data[1], 3,'.','')+' '+settings['units'].names.kwh,
+				unit: ''
+			});
+
+			blockValues.push({
+				icon: 'fa-plug',
+				idx: idx + '_7',
+				title: language.energy.energy_totals+' P1',
+				value: number_format(data[0], 3,'.',''),
+				unit: settings['units'].names.kwh
+			});
+
+			blockValues.push({
+				icon: 'fa-plug',
+				idx: idx + '_8',
+				title: language.energy.energy_totals+' P2',
+				value: number_format(data[1], 3,'.',''),
+				unit: settings['units'].names.kwh
+			});
+		console.log(blockValues);
+		}
         createBlocks(blockValues, device);
         return ['', false];
     }
@@ -1566,6 +1650,7 @@ function getYouLessBlock(device, idx) {
 
 function createBlocks(blockValues, device) {
     blockValues.forEach(function(blockValue, index, arr) {
+
         if (typeof(blocks[blockValue.idx]) !== 'undefined' && typeof(blocks[blockValue.idx]['icon']) !== 'undefined') blockValue.icon = blocks[blockValue.idx]['icon'];
 
         triggerStatus(blockValue.idx, device['LastUpdate'], device);
@@ -1576,12 +1661,17 @@ function createBlocks(blockValues, device) {
         if (!index) {
             if (!$('div.block_' + device['idx']).hasClass('block_' + blockValue.idx)) $('div.block_' + device['idx']).addClass('block_' + blockValue.idx);
         } else {
-            if (typeof(allblocks[device['idx']]) !== 'undefined'
+			if (typeof(allblocks[device['idx']]) !== 'undefined'
                 && $('div.block_' + blockValue.idx).length == 0
             ) {
-                $('div.block_' + device['idx'] + '_' + index).last().clone()
-                    .removeClass('block_' + device['idx'] + '_' + index)
-                    .addClass('block_' + blockValue.idx).insertAfter($('div.block_' + device['idx'] + '_' + index));
+				
+				//sometimes there is a block_IDX_3 and block_IDX_6, but no block_IDX_4, therefor, loop to remove classes
+				//(e.g. with smart P1 meters, when theres no CounterDeliv value)
+				var newblock = $('div.block_' + device['idx']).last().clone();
+				for(i=1;i<=10;i++){
+					newblock.removeClass('block_' + device['idx'] + '_' + i);
+				}
+				newblock.addClass('block_' + blockValue.idx).insertAfter($('div.block_' + device['idx']).last());
             }
         }
         $('div.block_' + blockValue.idx).html(this.html);
