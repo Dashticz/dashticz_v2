@@ -966,69 +966,6 @@ function getDevices(override) {
                 console.error("Domoticz error!\nPlease, double check the path to Domoticz in Settings!");
             },
             success: function (data) {
-				
-				var data = `
-{
-"ActTime" : 1514320158,
-"AstrTwilightEnd" : "18:42",
-"AstrTwilightStart" : "06:44",
-"CivTwilightEnd" : "17:17",
-"CivTwilightStart" : "08:09",
-"DayLength" : "07:48",
-"NautTwilightEnd" : "18:01",
-"NautTwilightStart" : "07:25",
-"ServerTime" : "2017-12-26 21:29:18",
-"SunAtSouth" : "12:43",
-"Sunrise" : "08:49",
-"Sunset" : "16:37",
-"result" : [
-{
-"AddjMulti" : 1.0,
-"AddjMulti2" : 1.0,
-"AddjValue" : 0.0,
-"AddjValue2" : 0.0,
-"BatteryLevel" : 255,
-"Counter" : "2816.307",
-"CounterDeliv" : "0.000",
-"CounterDelivToday" : "0 kWh",
-"CounterToday" : "10.557 kWh",
-"CustomImage" : 0,
-"Data" : "1391038;1425269;0;0;595;0",
-"Description" : "",
-"Favorite" : 0,
-"HardwareID" : 35,
-"HardwareName" : "Toon",
-"HardwareType" : "Toon Thermostat",
-"HardwareTypeVal" : 34,
-"HaveTimeout" : false,
-"ID" : "1",
-"LastUpdate" : "2017-12-26 21:25:00",
-"Name" : "Electra",
-"Notifications" : "false",
-"PlanID" : "0",
-"PlanIDs" : [ 0 ],
-"Protected" : false,
-"ShowNotifications" : true,
-"SignalLevel" : "-",
-"SubType" : "Energy",
-"SwitchTypeVal" : 0,
-"Timers" : "false",
-"Type" : "P1 Smart Meter",
-"TypeImg" : "counter",
-"Unit" : 1,
-"Usage" : "595 Watt",
-"UsageDeliv" : "0 Watt",
-"Used" : 1,
-"XOffset" : "0",
-"YOffset" : "0",
-"idx" : "199"
-}
-],
-"status" : "OK",
-"title" : "Devices"
-}`
-				data = $.parseJSON(data);
-				
                 gettingDevices = false;
                 if (!sliding || override) {
                     $('.solar').remove();
