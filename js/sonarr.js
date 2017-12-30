@@ -13,7 +13,7 @@ function loadSonarr(){
 	}
 	
 	if(typeof(blocks['sonarr'])!=='undefined' && typeof(blocks['sonarr']['title_position'])!=='undefined'){
-		sonarrTitlePosition = blocks['sonarr']['title_position'];
+		sonarrTitlePosition = (blocks['sonarr']['title_position']).toLowerCase();
 	}
 
 	if(typeof(blocks['sonarr'])!=='undefined' && typeof(blocks['sonarr']['title'])!=='undefined'){
@@ -46,7 +46,7 @@ function getSonarrCalendar() {
 
 	var view = 'Poster';
 	if(typeof(blocks['sonarr'])!=='undefined' && typeof(blocks['sonarr']['view'])!=='undefined'){
-		view = blocks['sonarr']['view'];
+		view = (blocks['sonarr']['view']).toLowerCase();
 	}
 
 	// generate Url
@@ -137,3 +137,4 @@ function getSonarrCalendar() {
 	});
 
 }
+
