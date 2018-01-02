@@ -290,17 +290,20 @@ function getEdgData(address, date, random) {
 }
 
 function getTrashRow(garbage) {
+    this.rowClass = 'trashrow';
     this.displayDate = garbage.date.locale(settings['calendarlanguage']).format('l');
     if (garbage.date.isSame(moment(), 'day')) {
         this.displayDate = language.weekdays.today;
+        this.rowClass = 'trashtoday';
     } else if (garbage.date.isSame(moment().add(1, 'days'), 'day')) {
         this.displayDate = language.weekdays.tomorrow;
+        this.rowClass = 'trashtomorrow';
     } else if (garbage.date.isBefore(moment().add(1, 'week'))) {
         this.displayDate = garbage.date.format('dddd');
     }
     var name = settings['garbage'][garbage.garbageType].name;
     var color = ' style="color:' + settings['garbage'][garbage.garbageType].code + '"';
-    return '<div class="trashrow"' + (settings['garbage_use_colors'] ? color : '') + '>'
+    return '<div class="' + this.rowClass + '"' + (settings['garbage_use_colors'] ? color : '') + '>'
         + (settings['garbage_use_names'] ? name : (garbage.summary.charAt(0).toUpperCase() + garbage.summary.slice(1)))
         + ': ' + this.displayDate
         + '</div>';
