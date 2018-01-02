@@ -255,6 +255,52 @@ function getVenloData(address, date, random) {
     });
 }
 
+// https://gemeente.groningen.nl/afvalwijzer/groningen/9746AG/18/2018/
+function getGroningenData(address, date, random) {
+    $.get(getPrefixUrl() + 'https://gemeente.groningen.nl/afvalwijzer/groningen/' + address.zipcode + '/' + address.housenumber + '/' + moment().format('YYYY'), function (data) {
+        var returnDates = [];
+        data = data
+            .replace(/<img .*?>/g, "")
+            .replace(/<head>(?:.|\n|\r)+?<\/head>/g, "")
+            .replace(/<script (?:.|\n|\r)+?<\/script>/g, "")
+        ;
+        $(data).find('table.afvalwijzerData tbody tr.blockWrapper').each(function (index, element) {
+            //console.log(element);
+            //console.log($(element).find('h2')[0].innerText);
+            var summary = $(element).find('h2')[0].innerText;
+            var garbageType = mapGarbageType($(element).find('h2')[0].innerText);
+            $(element).find('td').each(function (dateindex, dateelement) {
+                var month = dateelement.className.substr(-2);
+                $(element).find('li').each(function (dayindex, dayelement) {
+                    var day = dayelement.innerText.replace('*', '');
+                    if (!isNaN(day)) {
+                        console.log(moment().format('YYYY') + '-' + month + '-' + day);
+                        console.log(moment(moment().format('YYYY') + '-' + month + '-' + day, 'YYYY-M-D', 'nl').format('YYYY-MM-DD'));
+                        console.log(summary);
+                        console.log(garbageType);
+                        returnDates.push({
+                            date: moment(moment().format('YYYY') + '-' + month + '-' + day, 'YYYY-M-D', 'nl'),
+                            summary: summary,
+                            garbageType: garbageType
+                        });
+                    }
+                    //console.log(dayelement.innerText);
+                });
+            });
+            // var year = $(element).parents('table').find('thead')[0].innerText.substr(-5);
+            // returnDates.push({
+            //     date: moment($(element).find('td')[0].innerText.trim() + ' ' + year, 'dddd DD MMMM YYYY', 'nl'),
+            //     summary: $(element).find('span')[0].innerText,
+            //     garbageType: mapGarbageType($(element).find('span')[0].innerText),
+            // });
+        });
+        returnDates = returnDates.filter(function (element) {
+            return element.date.isBetween(date.start, date.end, null, '[]');
+        });
+        addToContainer(random, returnDates);
+    });
+}
+
 ///http://dashticz.nl/afval/?service=afvalstromen&sub=alphenaandenrijn&zipcode=2401AR&nr=261&t=
 function getAfvalstromenData(address, date, random, service) {
     getGeneralData('afvalstromen',address, date, random, service);
@@ -427,6 +473,7 @@ function loadDataForService(service, random) {
         edg: {dataHandler: 'getEdgData', identifier: ''},
         rd4: {dataHandler: 'getRd4Data', identifier: ''},
         venlo: {dataHandler: 'getVenloData', identifier: ''},
+        groningen: {dataHandler: 'getGroningenData', identifier: ''},
     };
     window[serviceProperties[service].dataHandler](address, date, random, serviceProperties[service].identifier);
 }
