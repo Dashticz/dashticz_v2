@@ -335,16 +335,16 @@ function addToContainer(random, returnDates) {
 }
 
 function mapGarbageType(garbageType) {
-    if (garbageType.match(/(gft)|(tuin)|(refuse bin)|(green)|(groen)/i)) {
+    if (garbageType.match(/(gft)|(tuin)|(refuse bin)|(green)|(groen)|(Biodégradables)/i)) {
         return 'gft';
     }
     else if (garbageType.match(/(black)|(zwart)/i)) {
         return 'black';
     }
-    else if (garbageType.match(/(plastic)|(pmd)|(verpakking)|(kunststof)/i)) {
+    else if (garbageType.match(/(plastic)|(pmd)|(verpakking)|(kunststof)|(valorlux)/i)) {
         return 'pmd';
     }
-    else if (garbageType.match(/(brown)/i)) {
+    else if (garbageType.match(/(brown)|(verre)/i)) {
         return 'brown';
     }
     else if (garbageType.match(/(grof)|(grey)|(rest)|(grijs)|(grijze)/i)) {
