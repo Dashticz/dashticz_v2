@@ -312,6 +312,9 @@ function getTrashRow(garbage) {
 function filterReturnDates(returnDates) {
     return returnDates
         .sort(function(a,b) {return (a.date > b.date) ? 1 : ((b.date > a.date) ? -1 : 0);} )
+        .filter(function (element) {
+            return settings['garbage'].hasOwnProperty(element.garbageType);
+        })
         .slice(0, getMaxItems())
 }
 
@@ -335,7 +338,7 @@ function addToContainer(random, returnDates) {
 }
 
 function mapGarbageType(garbageType) {
-    if (garbageType.match(/(gft)|(tuin)|(refuse bin)|(green)|(groen)|(Biodégradables)/i)) {
+    if (garbageType.match(/(gft)|(tuin)|(refuse bin)|(green)|(groen)|(Biodégradables)|(snoei)/i)) {
         return 'gft';
     }
     else if (garbageType.match(/(black)|(zwart)/i)) {
@@ -358,6 +361,9 @@ function mapGarbageType(garbageType) {
     }
     else if (garbageType.match(/(milieu)/i)) {
         return 'milieu';
+    }
+    else if (garbageType.match(/(kerst)/i)) {
+        return 'kerstboom';
     }
     return 'black';
 }

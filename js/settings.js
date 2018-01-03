@@ -463,14 +463,15 @@ if (typeof(settings['units']) === 'undefined') {
 }
 if (typeof(settings['garbage']) === 'undefined') {
     settings['garbage'] = {
-        gft: {kliko: 'green', code: '#375b23', name: 'GFT', icon: 'img/kliko_green.png'},
-        pmd: {kliko: 'orange', code: '#db5518', name: 'PMD', icon: 'img/kliko_orange.png'},
-        rest: {kliko: 'grey', code: '#5e5d5c', name: 'Restafval', icon: 'img/kliko_grey.png'},
-        papier: {kliko: 'blue', code: '#153477', name: 'Papier', icon: 'img/kliko_blue.png'},
-        kca: {kliko: 'red', code: '#b21807', name: 'Chemisch afval', icon: 'img/kliko_red.png'},
-        brown: {kliko: 'brown', code: '#7c3607', name: 'Bruin', icon: 'img/kliko_brown.png'},
-        black: {kliko: 'black', code: '#000000', name: 'Zwart', icon: 'img/kliko_black.png'},
-        milieu: {kliko: 'yellow', code: '#f9e231', name: 'Geel', icon: 'img/kliko_yellow.png'},
+        gft: {kliko: 'green', code: '#375b23', name: 'GFT', icon: 'img/garbage/kliko_green.png'},
+        pmd: {kliko: 'orange', code: '#db5518', name: 'PMD', icon: 'img/garbage/kliko_orange.png'},
+        rest: {kliko: 'grey', code: '#5e5d5c', name: 'Restafval', icon: 'img/garbage/kliko_grey.png'},
+        papier: {kliko: 'blue', code: '#153477', name: 'Papier', icon: 'img/garbage/kliko_blue.png'},
+        kca: {kliko: 'red', code: '#b21807', name: 'Chemisch afval', icon: 'img/garbage/kliko_red.png'},
+        brown: {kliko: 'brown', code: '#7c3607', name: 'Bruin', icon: 'img/garbage/kliko_brown.png'},
+        black: {kliko: 'black', code: '#000000', name: 'Zwart', icon: 'img/garbage/kliko_black.png'},
+        milieu: {kliko: 'yellow', code: '#f9e231', name: 'Geel', icon: 'img/garbage/kliko_yellow.png'},
+        kerstboom: {kliko: 'green', code: '#375b23', name: 'Kerstboom', icon: 'img/garbage/tree.png'},
     };
 }
 if (typeof(settings['garbage_use_names']) === 'undefined') settings['garbage_use_names'] = 0;
