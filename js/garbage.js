@@ -255,6 +255,42 @@ function getVenloData(address, date, random) {
     });
 }
 
+// https://gemeente.groningen.nl/afvalwijzer/groningen/9746AG/18/2018/
+function getGroningenData(address, date, random) {
+    $.get(getPrefixUrl() + 'https://gemeente.groningen.nl/afvalwijzer/groningen/' + address.zipcode + '/' + address.housenumber + '/' + moment().format('YYYY'), function (data) {
+        var returnDates = [];
+        data = data
+            .replace(/<img .*?>/g, "")
+            .replace(/<head>(?:.|\n|\r)+?<\/head>/g, "")
+            .replace(/<script (?:.|\n|\r)+?<\/script>/g, "")
+            .replace(/<header (?:.|\n|\r)+?<\/header>/g, "")
+        ;
+        $(data).find('table.afvalwijzerData tbody tr.blockWrapper').each(function (index, element) {
+            if ($(element).find('h2').length) {
+                var summary = $(element).find('h2')[0].innerText;
+                var garbageType = mapGarbageType($(element).find('h2')[0].innerText);
+                $(element).find('td').each(function (dateindex, dateelement) {
+                    var month = dateelement.className.substr(-2);
+                    $(dateelement).find('li').each(function (dayindex, dayelement) {
+                        var day = dayelement.innerText.replace('*', '');
+                        if (!isNaN(day)) {
+                            returnDates.push({
+                                date: moment(moment().format('YYYY') + '-' + month + '-' + day, 'YYYY-M-D', 'nl'),
+                                summary: summary,
+                                garbageType: garbageType
+                            });
+                        }
+                    });
+                });
+            }
+        });
+        returnDates = returnDates.filter(function (element) {
+            return element.date.isBetween(date.start, date.end, null, '[]');
+        });
+        addToContainer(random, returnDates);
+    });
+}
+
 ///http://dashticz.nl/afval/?service=afvalstromen&sub=alphenaandenrijn&zipcode=2401AR&nr=261&t=
 function getAfvalstromenData(address, date, random, service) {
     getGeneralData('afvalstromen',address, date, random, service);
@@ -407,7 +443,7 @@ function loadDataForService(service, random) {
         afvalwijzerarnhem: {dataHandler: 'getAfvalwijzerArnhemData', identifier: ''},
         zuidhornical: {dataHandler: 'getZuidhornData', identifier: 'ical'},
         zuidhorn: {dataHandler: 'getZuidhornData', identifier: 'scrape'},
-		deafvalapp: {dataHandler: 'getDeAfvalAppData', identifier: ''},
+        deafvalapp: {dataHandler: 'getDeAfvalAppData', identifier: ''},
         cure: {dataHandler: 'getAfvalstromenData', identifier: 'cure'},
         cyclusnv: {dataHandler: 'getAfvalstromenData', identifier: 'cyclusnv'},
         gemeenteberkelland: {dataHandler: 'getAfvalstromenData', identifier: 'gemeenteberkelland'},
@@ -427,6 +463,7 @@ function loadDataForService(service, random) {
         edg: {dataHandler: 'getEdgData', identifier: ''},
         rd4: {dataHandler: 'getRd4Data', identifier: ''},
         venlo: {dataHandler: 'getVenloData', identifier: ''},
+        groningen: {dataHandler: 'getGroningenData', identifier: ''},
     };
     window[serviceProperties[service].dataHandler](address, date, random, serviceProperties[service].identifier);
 }
