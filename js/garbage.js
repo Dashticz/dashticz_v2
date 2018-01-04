@@ -263,36 +263,26 @@ function getGroningenData(address, date, random) {
             .replace(/<img .*?>/g, "")
             .replace(/<head>(?:.|\n|\r)+?<\/head>/g, "")
             .replace(/<script (?:.|\n|\r)+?<\/script>/g, "")
+            .replace(/<header (?:.|\n|\r)+?<\/header>/g, "")
         ;
         $(data).find('table.afvalwijzerData tbody tr.blockWrapper').each(function (index, element) {
-            //console.log(element);
-            //console.log($(element).find('h2')[0].innerText);
-            var summary = $(element).find('h2')[0].innerText;
-            var garbageType = mapGarbageType($(element).find('h2')[0].innerText);
-            $(element).find('td').each(function (dateindex, dateelement) {
-                var month = dateelement.className.substr(-2);
-                $(element).find('li').each(function (dayindex, dayelement) {
-                    var day = dayelement.innerText.replace('*', '');
-                    if (!isNaN(day)) {
-                        console.log(moment().format('YYYY') + '-' + month + '-' + day);
-                        console.log(moment(moment().format('YYYY') + '-' + month + '-' + day, 'YYYY-M-D', 'nl').format('YYYY-MM-DD'));
-                        console.log(summary);
-                        console.log(garbageType);
-                        returnDates.push({
-                            date: moment(moment().format('YYYY') + '-' + month + '-' + day, 'YYYY-M-D', 'nl'),
-                            summary: summary,
-                            garbageType: garbageType
-                        });
-                    }
-                    //console.log(dayelement.innerText);
+            if ($(element).find('h2').length) {
+                var summary = $(element).find('h2')[0].innerText;
+                var garbageType = mapGarbageType($(element).find('h2')[0].innerText);
+                $(element).find('td').each(function (dateindex, dateelement) {
+                    var month = dateelement.className.substr(-2);
+                    $(dateelement).find('li').each(function (dayindex, dayelement) {
+                        var day = dayelement.innerText.replace('*', '');
+                        if (!isNaN(day)) {
+                            returnDates.push({
+                                date: moment(moment().format('YYYY') + '-' + month + '-' + day, 'YYYY-M-D', 'nl'),
+                                summary: summary,
+                                garbageType: garbageType
+                            });
+                        }
+                    });
                 });
-            });
-            // var year = $(element).parents('table').find('thead')[0].innerText.substr(-5);
-            // returnDates.push({
-            //     date: moment($(element).find('td')[0].innerText.trim() + ' ' + year, 'dddd DD MMMM YYYY', 'nl'),
-            //     summary: $(element).find('span')[0].innerText,
-            //     garbageType: mapGarbageType($(element).find('span')[0].innerText),
-            // });
+            }
         });
         returnDates = returnDates.filter(function (element) {
             return element.date.isBetween(date.start, date.end, null, '[]');
@@ -453,7 +443,7 @@ function loadDataForService(service, random) {
         afvalwijzerarnhem: {dataHandler: 'getAfvalwijzerArnhemData', identifier: ''},
         zuidhornical: {dataHandler: 'getZuidhornData', identifier: 'ical'},
         zuidhorn: {dataHandler: 'getZuidhornData', identifier: 'scrape'},
-		deafvalapp: {dataHandler: 'getDeAfvalAppData', identifier: ''},
+        deafvalapp: {dataHandler: 'getDeAfvalAppData', identifier: ''},
         cure: {dataHandler: 'getAfvalstromenData', identifier: 'cure'},
         cyclusnv: {dataHandler: 'getAfvalstromenData', identifier: 'cyclusnv'},
         gemeenteberkelland: {dataHandler: 'getAfvalstromenData', identifier: 'gemeenteberkelland'},
