@@ -23,7 +23,7 @@ function loadWeather(location, country) {
                     curfull.find('.weather').html(weatherIcon);
                     curfull.find('.weatherdegrees').html('<strong>' + Math.round(temp) + _TEMP_SYMBOL + '</strong><span class="rainrate"></span>');
 
-                    if (settings['wu_name'] !== '' && settings['wu_name'] !== 0) curfull.find('.weatherloc').html(settings['wu_name']);
+                    if (settings['wu_name'] !== '' && settings['wu_name'] !== 0 && settings.hasOwnProperty(['wu_name'])) curfull.find('.weatherloc').html(settings['wu_name']);
                     else curfull.find('.weatherloc').html(location);
                 }
             });
