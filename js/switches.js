@@ -79,12 +79,12 @@ function switchThermostat(setpoint, cur) {
 function switchBlinds(idx, action) {
     switch (action.toLowerCase()) {
         case 'off':
-            $('.block' + idx).find('.icon').removeClass('on').addClass('off');
-            $('.block' + idx).find('.icon').attr('src', $('.block_' + idx).find('.icon').attr('src').replace('open', 'closed'));
+            $('.block_' + idx).find('.icon').removeClass('on').addClass('off');
+            $('.block_' + idx).find('.icon').attr('src').replace('open', 'closed');
             break;
         case 'on':
-            $('.block' + idx).find('.icon').removeClass('off').addClass('on');
-            $('.block' + idx).find('.icon').attr('src', $('.block_' + idx).find('.icon').attr('src').replace('closed', 'open'));
+            $('.block_' + idx).find('.icon').removeClass('off').addClass('on');
+            $('.block_' + idx).find('.icon').attr('src').replace('closed', 'open');
             break;
     }
 

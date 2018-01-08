@@ -1254,7 +1254,8 @@ function handleDevice(device, idx) {
         case 'Venetian Blinds EU Percentage':
         case 'Blinds Percentage':
         case 'Venetian Blinds EU Inverted Percentage':
-        case 'Blinds Inverted Percentage':
+        case 'Venetian Blinds EU Percentage Inverted':
+        case 'Blinds Percentage Inverted':
             return getBlindsBlock(device, idx, true);
         case 'Motion Sensor':
             html += '<div class="col-xs-4 col-icon">';
