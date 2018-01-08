@@ -54,7 +54,7 @@ function addCalendar(calobject, icsUrlorg) {
 
         colors[$.md5(curUrl)] = color;
         var cache = new Date().getTime();
-        curUrl = 'https://wedevise.nl/dashticz/ical/?time=' + cache + '&url=' + curUrl;
+        curUrl = 'http://dashticz.nl/ical/?time=' + cache + '&url=' + curUrl;
         moment.locale(settings['calendarlanguage']);
         $.getJSON(curUrl, function (data, textstatus, jqXHR) {
 

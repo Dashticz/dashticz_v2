@@ -135,8 +135,10 @@ function onLoad() {
     });
 
     buildScreens();
-    $('.loader').hide();
-    $('.loaderHeader').hide();
+    setTimeout(function(){
+		$('#loaderHolder').fadeOut();
+		$('body').css('overflow','auto');
+	},2000);
 
     setInterval(function () {
         $('.clock').html(moment().locale(settings['language']).format(settings['hide_seconds'] ? settings['shorttime'] : settings['longtime']));
