@@ -135,6 +135,8 @@ function onLoad() {
     });
 
     buildScreens();
+    $('.loader').hide();
+    $('.loaderHeader').hide();
 
     setInterval(function () {
         $('.clock').html(moment().locale(settings['language']).format(settings['hide_seconds'] ? settings['shorttime'] : settings['longtime']));
