@@ -36,11 +36,54 @@
 		<link href="vendor/jquery/jquery-ui.css" rel="stylesheet">
 		
 		<script src="vendor/head.js"></script>
+		
+		<style>
+		body {
+		background-color: #000;
+		}
+		.loader {
+			position: absolute;
+			left: 45%;
+			top: 50%;
+			z-index: 1;
+			width: 350px;
+			height: 350px;
+			margin: -75px 0 0 -75px;
+			border: 10px solid #f3f3f3;
+			border-top: 10px transparent;
+			border-bottom: 10px transparent;
+			border-radius: 50%;
+			width: 320px;
+			height: 320px;
+			animation: pulsate 2s ease-out;
+			animation-iteration-count: infinite;
+		}
+		@keyframes pulsate {
+		0% {transform: scale(.1); opacity: 0.0;}
+		50% {opacity: 1;}
+		100% {transform: scale(1.2); opacity: 0;}
+		}
+		.loaderHeader {
+			position: absolute;
+			left: 43%;
+			top: 30%;
+		}
+		.loaderHeader:after{
+			visibility: visible;
+			color: #FFF;
+			content: "Dashticz v2 is loading..."; /* Changes the header text */
+			font-size: 1.5em;
+		}
+		</style>
+		
 		<title>Dashticz</title>
 
 	</head>
 
 	<body id="page-top">
+		
+		<div class="loader"></div>
+		<div class="loaderHeader"></div>
 		
 		<div class="swiper-container">
 			<div class="contents swiper-wrapper"> </div>
