@@ -968,7 +968,7 @@ function getDevices(override) {
             },
             success: function (data) {
                 
-				
+				/*
 				data = `{
    "ActTime" : 1515443638,
    "ServerTime" : "2018-01-08 21:33:58",
@@ -1049,7 +1049,7 @@ function getDevices(override) {
    "status" : "OK",
    "title" : "Devices"
 }`
-				data=$.parseJSON(data);
+				data=$.parseJSON(data);*/
 				gettingDevices = false;
                 if (!sliding || override) {
                     $('.solar').remove();
