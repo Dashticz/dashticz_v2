@@ -91,9 +91,6 @@ function loadFiles() {
             $.ajax({url: 'js/thermostat.js', async: false, dataType: 'script'});
 
             $.ajax({url: customfolder + '/custom.js?v=' + cache, async: false, dataType: 'script'});
-            $.ajax({url: 'js/blocks.js', async: false, dataType: 'script'});
-            $.ajax({url: 'js/graphs.js', async: false, dataType: 'script'});
-
             $.ajax({url: 'js/switches.js', async: false, dataType: 'script'});
             $.ajax({url: 'js/blocks.js', async: false, dataType: 'script'});
             $.ajax({url: 'js/graphs.js', async: false, dataType: 'script'});
@@ -970,7 +967,90 @@ function getDevices(override) {
                 console.error("Domoticz error!\nPlease, double check the path to Domoticz in Settings!");
             },
             success: function (data) {
-                gettingDevices = false;
+                
+				
+				data = `{
+   "ActTime" : 1515443638,
+   "ServerTime" : "2018-01-08 21:33:58",
+   "Sunrise" : "08:42",
+   "Sunset" : "16:46",
+   "result" : [
+      {
+         "AddjMulti" : 1.0,
+         "AddjMulti2" : 1.0,
+         "AddjValue" : 0.0,
+         "AddjValue2" : 0.0,
+         "BatteryLevel" : 255,
+         "CustomImage" : 0,
+         "Data" : "20.9 C",
+         "Description" : "",
+         "Favorite" : 1,
+         "HardwareID" : 68,
+         "HardwareName" : "ToonDummy",
+         "HardwareType" : "Dummy (Does nothing, use for virtual switches only)",
+         "HardwareTypeVal" : 15,
+         "HaveTimeout" : false,
+         "ID" : "141CB",
+         "LastUpdate" : "2018-01-08 21:32:14",
+         "Name" : "Woonkamer",
+         "Notifications" : "false",
+         "PlanID" : "0",
+         "PlanIDs" : [ 0 ],
+         "Protected" : false,
+         "ShowNotifications" : true,
+         "SignalLevel" : "-",
+         "SubType" : "LaCrosse TX3",
+         "Temp" : 20.949999999999999,
+         "Timers" : "false",
+         "Type" : "Temp",
+         "TypeImg" : "temperature",
+         "Unit" : 1,
+         "Used" : 1,
+         "XOffset" : "0",
+         "YOffset" : "0",
+         "idx" : "379"
+      },{
+         "AddjMulti" : 1.0,
+		"AddjMulti2" : 1.0,
+		"AddjValue" : 0.0,
+		"AddjValue2" : 0.0,
+		"BatteryLevel" : 255,
+		"CustomImage" : 0,
+		"Data" : "Humidity 64 %",
+		"Description" : "",
+		"Favorite" : 1,
+		"HardwareID" : 7,
+		"HardwareName" : "Xiaomi Gateway",
+		"HardwareType" : "Xiaomi Gateway",
+		"HardwareTypeVal" : 95,
+		"HaveTimeout" : false,
+		"Humidity" : 64,
+		"HumidityStatus" : "Wet",
+		"ID" : "2AFE",
+		"LastUpdate" : "2018-01-04 12:29:42",
+		"Name" : "Badkamer Vochtigheid",
+		"Notifications" : "false",
+		"PlanID" : "0",
+		"PlanIDs" : [ 0 ],
+		"Protected" : false,
+		"ShowNotifications" : true,
+		"SignalLevel" : "-",
+		"SubType" : "LaCrosse TX3",
+		"Timers" : "false",
+		"Type" : "Humidity",
+		"TypeImg" : "temperature",
+		"Unit" : 1,
+		"Used" : 1,
+		"XOffset" : "0",
+		"YOffset" : "0",
+		"idx" : "51"
+      }
+   ],
+   "status" : "OK",
+   "title" : "Devices"
+}`
+				data=$.parseJSON(data);
+				gettingDevices = false;
                 if (!sliding || override) {
                     $('.solar').remove();
                     if ($('.sunrise').length > 0) $('.sunrise').html(data.Sunrise);

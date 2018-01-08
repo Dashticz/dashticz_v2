@@ -481,7 +481,7 @@ function getBlockClick(idx, device) {
     }
     else if (typeof(device) !== 'undefined') {
         if (device['SubType'] == 'Percentage' || device['SubType'] == 'Custom Sensor' || device['TypeImg'] == 'counter'
-            || device['Type'] == 'Temp' || device['Type'] == 'Wind' || device['Type'] == 'Rain'
+            || device['Type'] == 'Temp' || device['Type'] == 'Humidity' || device['Type'] == 'Wind' || device['Type'] == 'Rain'
             || device['Type'] == 'Temp + Humidity' || device['Type'] == 'Temp + Humidity + Baro'
             || device['SubType'] == 'kWh' || device['SubType'] === 'Lux' || device['SubType'] === 'Solar Radiation'
         ) {
