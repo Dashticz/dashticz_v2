@@ -32,6 +32,12 @@ function log(message) {
     }
 }
 
+/* Timeout if index.html is not loading correct */
+function showIt() {  
+	document.getElementById("hide").style.visibility = "visible";  
+	}  
+	setTimeout("showIt()", 3000); // after 3 sec 
+
 function setSrc(cur){
 	$($(cur).data('target')).on('hidden.bs.modal', function () {
 		$($(cur).data('target')).find('iframe').removeAttr('src');
