@@ -1327,15 +1327,17 @@ function handleDevice(device, idx) {
             html += getBlockData(device, idx, language.switches.state_open, language.switches.state_closed);
             return [html, addHTML];
         case 'Venetian Blinds EU':
-        case 'Blinds':
+        case 'Venetian Blinds US':
         case 'Venetian Blinds EU Inverted':
+        case 'Venetian Blinds US Inverted':
+        case 'Blinds':
         case 'Blinds Inverted':
             return getBlindsBlock(device, idx, false);
-        case 'Venetian Blinds EU Percentage':
         case 'Blinds Percentage':
+        case 'Blinds Percentage Inverted':
+        case 'Venetian Blinds EU Percentage':
         case 'Venetian Blinds EU Inverted Percentage':
         case 'Venetian Blinds EU Percentage Inverted':
-        case 'Blinds Percentage Inverted':
             return getBlindsBlock(device, idx, true);
         case 'Motion Sensor':
             html += '<div class="col-xs-4 col-icon">';
