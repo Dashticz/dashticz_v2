@@ -67,7 +67,7 @@ function loadFiles() {
             $('<link href="vendor/weather/css/weather-icons.min.css?v=' + cache + '" rel="stylesheet">').appendTo('head');
 
             if (typeof(settings['theme']) !== 'default') {
-		screens[1]['background'] = 'themes/' + settings['theme'] + '/img/background.jpg';
+		screens[1]['background'] = 'themes/' + settings['theme'] + '/background.jpg';
                 $('<link rel="stylesheet" type="text/css" href="themes/' + settings['theme'] + '/' + settings['theme'] + '.css?v=' + cache + '" />').appendTo('head');
 	    }
 		
