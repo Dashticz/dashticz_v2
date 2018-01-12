@@ -24,8 +24,6 @@ var onOffstates = [];
 var gettingDevices = false;
 var md;
 var _GRAPHS_LOADED = {};
-var _BACKGROUND_IMAGE = 'img/bg2.jpg';
-var _THEME = 'default';
 var _STREAMPLAYER_TRACKS = {"track": 1, "name": "Music FM", "file": "http://stream.musicfm.hu:8000/musicfm.mp3"};
 var _THOUSAND_SEPARATOR = '.';
 var _DECIMAL_POINT = ',';
@@ -38,7 +36,7 @@ function loadFiles() {
         if (typeof(screens) === 'undefined' || objectlength(screens) === 0) {
             screens = {};
             screens[1] = {};
-            screens[1]['background'] = _BACKGROUND_IMAGE;
+            screens[1]['background'] = '';
             screens[1]['columns'] = [];
             if (defaultcolumns === false) {
                 for (c in columns) {
@@ -68,9 +66,11 @@ function loadFiles() {
             $('<link href="css/creative.css?v=' + cache + '" rel="stylesheet">').appendTo('head');
             $('<link href="vendor/weather/css/weather-icons.min.css?v=' + cache + '" rel="stylesheet">').appendTo('head');
 
-            if (_THEME !== 'default') {
-                $('<link rel="stylesheet" type="text/css" href="themes/' + _THEME + '/' + _THEME + '.css?v=' + cache + '" />').appendTo('head');
-            }
+            if (typeof(settings['theme']) !== 'default') {
+		screens[1]['background'] = 'themes/' + settings['theme'] + '/img/background.jpg';
+                $('<link rel="stylesheet" type="text/css" href="themes/' + settings['theme'] + '/' + settings['theme'] + '.css?v=' + cache + '" />').appendTo('head');
+	    }
+		
             $('<link href="' + customfolder + '/custom.css?v=' + cache + '" rel="stylesheet">').appendTo('head');
 
             if (typeof(settings['edit_mode']) !== 'undefined' && settings['edit_mode'] == 1) {
