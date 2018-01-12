@@ -34,6 +34,11 @@ settingList['general']['domoticz_refresh'] = {};
 settingList['general']['domoticz_refresh']['title'] = language.settings.general.domoticz_refresh;
 settingList['general']['domoticz_refresh']['type'] = 'text';
 
+settingList['general']['theme'] = {};
+settingList['general']['theme']['title'] = language.settings.general.dashticz_themes';
+settingList['general']['theme']['type'] = 'text';
+settingList['general']['theme']['help'] = language.settings.general.dashticz_themes_help;
+
 settingList['general']['disable_googleanalytics'] = {};
 settingList['general']['disable_googleanalytics']['title'] = language.settings.general.disable_googleanalytics;
 settingList['general']['disable_googleanalytics']['help'] = language.settings.general.disable_googleanalytics_help;
@@ -480,6 +485,7 @@ if (typeof(settings['garbage_icon_use_colors']) === 'undefined') settings['garba
 if (typeof(settings['garbage_use_cors_prefix']) === 'undefined') settings['garbage_use_cors_prefix'] = 1;
 if (typeof(settings['lineColors']) === 'undefined') settings['lineColors'] = ['#eee', '#eee', '#eee'];
 if (typeof(settings['room_plan']) === 'undefined') settings['room_plan'] = 0;
+if (typeof(settings['theme']) === 'undefined') settings['theme'] = 'default';
 if (typeof(settings['garbage_use_cors_prefix']) === 'undefined') settings['garbage_use_cors_prefix'] = 1;
 
 var _TEMP_SYMBOL = '°C';
