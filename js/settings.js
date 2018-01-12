@@ -35,7 +35,7 @@ settingList['general']['domoticz_refresh']['title'] = language.settings.general.
 settingList['general']['domoticz_refresh']['type'] = 'text';
 
 settingList['general']['theme'] = {};
-settingList['general']['theme']['title'] = language.settings.general.dashticz_themes';
+settingList['general']['theme']['title'] = language.settings.general.dashticz_themes;
 settingList['general']['theme']['type'] = 'text';
 settingList['general']['theme']['help'] = language.settings.general.dashticz_themes_help;
 
