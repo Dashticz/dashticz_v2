@@ -24,6 +24,7 @@ var onOffstates = [];
 var gettingDevices = false;
 var md;
 var _GRAPHS_LOADED = {};
+var _BACKGROUND_IMAGE = 'img/bg2.jpg';
 var _STREAMPLAYER_TRACKS = {"track": 1, "name": "Music FM", "file": "http://stream.musicfm.hu:8000/musicfm.mp3"};
 var _THOUSAND_SEPARATOR = '.';
 var _DECIMAL_POINT = ',';
@@ -36,7 +37,7 @@ function loadFiles() {
         if (typeof(screens) === 'undefined' || objectlength(screens) === 0) {
             screens = {};
             screens[1] = {};
-            screens[1]['background'] = '';
+            screens[1]['background'] = _BACKGROUND_IMAGE;
             screens[1]['columns'] = [];
             if (defaultcolumns === false) {
                 for (c in columns) {
