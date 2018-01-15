@@ -9,7 +9,7 @@ function loadGarbage() {
         html += '<div class="col-xs-12 col-data">';
     } else {
         html += '<div class="col-xs-4 col-icon">';
-        html += '<img class="trashcan" src="img/kliko.png" style="opacity:0.1" />';
+        html += '<img class="trashcan" src="img/garbage/kliko.png" style="opacity:0.1" />';
         html += '</div>';
         html += '<div class="col-xs-8 col-data">';
     }
