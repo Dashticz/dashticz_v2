@@ -277,6 +277,9 @@ function buildScreens() {
             for (s in screens[t]) {
                 if (s !== 'maxwidth' && s !== 'maxheight') {
                     var screenhtml = '<div class="screen screen' + s + ' swiper-slide slide' + s + '"';
+		    if (typeof(screens[t][s]['background']) === 'undefined') {
+			screens[t][s]['background'] = settings['background_image'];
+		    }
                     if (typeof(screens[t][s]['background']) !== 'undefined') {
                         if (screens[t][s]['background'].indexOf("/") > 0) screenhtml += 'style="background-image:url(\'' + screens[t][s]['background'] + '\');"';
                         else screenhtml += 'style="background-image:url(\'img/' + screens[t][s]['background'] + '\');"';
