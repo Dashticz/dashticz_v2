@@ -24,8 +24,6 @@ var onOffstates = [];
 var gettingDevices = false;
 var md;
 var _GRAPHS_LOADED = {};
-var _BACKGROUND_IMAGE = 'img/bg2.jpg';
-var _THEME = 'default';
 var _STREAMPLAYER_TRACKS = {"track": 1, "name": "Music FM", "file": "http://stream.musicfm.hu:8000/musicfm.mp3"};
 var _THOUSAND_SEPARATOR = '.';
 var _DECIMAL_POINT = ',';
@@ -35,17 +33,7 @@ function loadFiles() {
         if (objectlength(columns) === 0) defaultcolumns = true;
 
         _GRAPHREFRESH = 5;
-        if (typeof(screens) === 'undefined' || objectlength(screens) === 0) {
-            screens = {};
-            screens[1] = {};
-            screens[1]['background'] = _BACKGROUND_IMAGE;
-            screens[1]['columns'] = [];
-            if (defaultcolumns === false) {
-                for (c in columns) {
-                    if (c !== 'bar') screens[1]['columns'].push(c);
-                }
-            }
-        }
+        
         //Check language before loading settings and fallback to English when not set
         if (typeof(localStorage.dashticz_language) !== 'undefined') {
             setLang = localStorage.dashticz_language
@@ -64,12 +52,22 @@ function loadFiles() {
 
         $.ajax({url: 'js/settings.js', async: false, dataType: 'script'}).done(function () {
             loadSettings();
-
+	    if (typeof(screens) === 'undefined' || objectlength(screens) === 0) {
+		screens = {};
+		screens[1] = {};
+		screens[1]['background'] = settings['background_image'];
+		screens[1]['columns'] = [];
+		if (defaultcolumns === false) {
+			for (c in columns) {
+			if (c !== 'bar') screens[1]['columns'].push(c);
+			}
+		}
+	    }
             $('<link href="css/creative.css?v=' + cache + '" rel="stylesheet">').appendTo('head');
             $('<link href="vendor/weather/css/weather-icons.min.css?v=' + cache + '" rel="stylesheet">').appendTo('head');
 
-            if (_THEME !== 'default') {
-                $('<link rel="stylesheet" type="text/css" href="themes/' + _THEME + '/' + _THEME + '.css?v=' + cache + '" />').appendTo('head');
+            if (settings['theme'] !== 'default') {
+              $('<link rel="stylesheet" type="text/css" href="themes/' + settings['theme'] + '/' + settings['theme'] + '.css?v=' + cache + '" />').appendTo('head');
             }
             $('<link href="' + customfolder + '/custom.css?v=' + cache + '" rel="stylesheet">').appendTo('head');
 
