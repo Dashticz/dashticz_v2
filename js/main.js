@@ -61,7 +61,7 @@ function loadFiles() {
 		if (typeof(screens) === 'undefined' || objectlength(screens) === 0) {
 			screens = {};
 			screens[1] = {};
-			screens[1]['background'] = 'img/bg2.jpg';
+			screens[1]['background'] = _BACKGROUND_IMAGE;
 			screens[1]['columns'] = [];
 			if (defaultcolumns === false) {
 				for (c in columns) {
