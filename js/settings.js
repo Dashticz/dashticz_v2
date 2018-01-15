@@ -68,6 +68,11 @@ settingList['screen']['hide_topbar'] = {};
 settingList['screen']['hide_topbar']['title'] = language.settings.screen.hide_topbar;
 settingList['screen']['hide_topbar']['type'] = 'checkbox';
 
+settingList['screen']['theme'] = {};
+settingList['screen']['theme']['title'] = language.settings.screen.dashticz_themes;
+settingList['screen']['theme']['type'] = 'text';
+settingList['screen']['theme']['help'] = language.settings.screen.dashticz_themes_help;
+
 settingList['screen']['standby_after'] = {};
 settingList['screen']['standby_after']['title'] = language.settings.screen.standby_after;
 settingList['screen']['standby_after']['type'] = 'text';
@@ -480,6 +485,7 @@ if (typeof(settings['garbage_icon_use_colors']) === 'undefined') settings['garba
 if (typeof(settings['garbage_use_cors_prefix']) === 'undefined') settings['garbage_use_cors_prefix'] = 1;
 if (typeof(settings['lineColors']) === 'undefined') settings['lineColors'] = ['#eee', '#eee', '#eee'];
 if (typeof(settings['room_plan']) === 'undefined') settings['room_plan'] = 0;
+if (typeof(settings['theme']) === 'undefined') settings['theme'] = 'default';
 if (typeof(settings['garbage_use_cors_prefix']) === 'undefined') settings['garbage_use_cors_prefix'] = 1;
 
 var _TEMP_SYMBOL = '°C';
