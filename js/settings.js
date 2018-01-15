@@ -34,11 +34,6 @@ settingList['general']['domoticz_refresh'] = {};
 settingList['general']['domoticz_refresh']['title'] = language.settings.general.domoticz_refresh;
 settingList['general']['domoticz_refresh']['type'] = 'text';
 
-settingList['general']['theme'] = {};
-settingList['general']['theme']['title'] = language.settings.general.dashticz_themes;
-settingList['general']['theme']['type'] = 'text';
-settingList['general']['theme']['help'] = language.settings.general.dashticz_themes_help;
-
 settingList['general']['disable_googleanalytics'] = {};
 settingList['general']['disable_googleanalytics']['title'] = language.settings.general.disable_googleanalytics;
 settingList['general']['disable_googleanalytics']['help'] = language.settings.general.disable_googleanalytics_help;
@@ -72,6 +67,11 @@ settingList['screen']['title'] = language.settings.screen.title;
 settingList['screen']['hide_topbar'] = {};
 settingList['screen']['hide_topbar']['title'] = language.settings.screen.hide_topbar;
 settingList['screen']['hide_topbar']['type'] = 'checkbox';
+
+settingList['screen']['theme'] = {};
+settingList['screen']['theme']['title'] = language.settings.screen.dashticz_themes;
+settingList['screen']['theme']['type'] = 'text';
+settingList['screen']['theme']['help'] = language.settings.screen.dashticz_themes_help;
 
 settingList['screen']['standby_after'] = {};
 settingList['screen']['standby_after']['title'] = language.settings.screen.standby_after;
