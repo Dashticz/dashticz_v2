@@ -84,16 +84,16 @@ function getIcalData(address, date, random, url) {
     });
 }
 
-function getTwenteMilieuData(address, date, random) {
+function getWasteApiData(address, date, random, companyCode) {
     $.post('https://wasteapi.2go-mobile.com/api/FetchAdress', {
-        'companyCode': '8d97bb56-5afd-4cbc-a651-b4f7314264b4',
+        'companyCode': companyCode,
         'postCode': address.zipcode,
         'houseNumber': address.housenumber,
         'houseLetter': '',
         'houseNumberAddition': address.housenumberSuffix
     }, function (data) {
         $.post('https://wasteapi.2go-mobile.com/api/GetCalendar', {
-            'companyCode': '8d97bb56-5afd-4cbc-a651-b4f7314264b4',
+            'companyCode': companyCode,
             'uniqueAddressID': data['dataList'][0]['UniqueId'],
             'startDate': date.start.format('YYYY-MM-DD'),
             'endDate': date.end.format('YYYY-MM-DD')
@@ -105,12 +105,46 @@ function getTwenteMilieuData(address, date, random) {
                         0: 'Restafval',
                         1: 'GFT',
                         2: 'Papier',
+                        3: 'Plastic',
                         10: 'Verpakkingen',
                     };
                     dataFiltered.push({
                         date: moment(dateElement),
                         summary: pickupTypes[element.pickupType],
                         garbageType: mapGarbageType(pickupTypes[element.pickupType]),
+                    });
+                });
+            });
+
+            addToContainer(random, dataFiltered);
+        });
+    });
+}
+
+function getWasteApi2Data(address, date, random, companyCode) {
+    $.post('http://wasteapi2.2go-mobile.com/api/FetchAdress', {
+        'companyCode': companyCode,
+        'postCode': address.zipcode,
+        'houseNumber': address.housenumber,
+    }, function (data) {
+        $.post('http://wasteapi2.2go-mobile.com/api/GetCalendar', {
+            'companyCode': companyCode,
+            'uniqueAddressID': data['dataList'][0]['UniqueId'],
+            'startDate': date.start.format('YYYY-MM-DD'),
+            'endDate': date.end.format('YYYY-MM-DD')
+        }, function (data) {
+            var dataFiltered = [];
+            data.dataList.forEach(function (element) {
+                element.pickupDates.forEach(function (dateElement) {
+                    var pickupTypes = {
+                        PACKAGES: 'Verpakkingen',
+                        PAPER: 'Papier',
+                        GREENGREY: 'GFT & Rest',
+                    };
+                    dataFiltered.push({
+                        date: moment(dateElement),
+                        summary: pickupTypes[element.description],
+                        garbageType: mapGarbageType(pickupTypes[element.description]),
                     });
                 });
             });
@@ -438,7 +472,7 @@ function loadDataForService(service, random) {
         goes: {dataHandler: 'getIcalData', identifier: 'http://afvalkalender.goes.nl/' + moment().format('YYYY') + address.zipcode + '-' + address.housenumber + '.ics'},
         deurne: {dataHandler: 'getIcalData', identifier: 'http://afvalkalender.deurne.nl/Afvalkalender/download_ical.php?p=' + address.zipcode + '&h=' + address.housenumber + '&t=&jaar=' + moment().format('YYYY')},
         heezeleende: {dataHandler: 'getIcalData', identifier: 'http://afvalkalender.heeze-leende.nl/Afvalkalender/download_ical.php?p=' + address.zipcode + '&h=' + address.housenumber + '&t=&jaar=' + moment().format('YYYY')},
-        twentemilieu: {dataHandler: 'getTwenteMilieuData', identifier: ''},
+        twentemilieu: {dataHandler: 'getWasteApiData', identifier: '8d97bb56-5afd-4cbc-a651-b4f7314264b4'},
         ophaalkalender: {dataHandler: 'getOphaalkalenderData', identifier: ''},
         afvalwijzerarnhem: {dataHandler: 'getAfvalwijzerArnhemData', identifier: ''},
         zuidhornical: {dataHandler: 'getZuidhornData', identifier: 'ical'},
@@ -464,6 +498,8 @@ function loadDataForService(service, random) {
         rd4: {dataHandler: 'getRd4Data', identifier: ''},
         venlo: {dataHandler: 'getVenloData', identifier: ''},
         groningen: {dataHandler: 'getGroningenData', identifier: ''},
+        area: {dataHandler: 'getWasteApiData', identifier: 'adc418da-d19b-11e5-ab30-625662870761'},
+        almere: {dataHandler: 'getWasteApi2Data', identifier: '53d8db94-7945-42fd-9742-9bbc71dbe4c1'},
     };
     window[serviceProperties[service].dataHandler](address, date, random, serviceProperties[service].identifier);
 }
