@@ -301,6 +301,7 @@ settingList['garbage']['garbage_company'] = {};
 settingList['garbage']['garbage_company']['title'] = language.settings.garbage.garbage_company;
 settingList['garbage']['garbage_company']['type'] = 'select';
 settingList['garbage']['garbage_company']['options'] = {};
+settingList['garbage']['garbage_company']['options']['afvalalert'] = 'Afval Alert (NL)';
 settingList['garbage']['garbage_company']['options']['almere'] = 'Almere';
 settingList['garbage']['garbage_company']['options']['area'] = 'Area';
 settingList['garbage']['garbage_company']['options']['ical'] = 'iCal';
