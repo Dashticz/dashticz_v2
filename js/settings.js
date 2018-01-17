@@ -487,6 +487,19 @@ if (typeof(settings['garbage']) === 'undefined') {
         kerstboom: {kliko: 'green', code: '#375b23', name: 'Kerstboom', icon: 'img/garbage/tree.png'},
     };
 }
+if (typeof(settings['garbage_mapping']) === 'undefined') {
+    settings['garbage_mapping'] = {
+        gft: ['gft', 'tuin', 'refuse bin', 'green', 'groen', 'Biodégradables', 'snoei'],
+        pmd: ['plastic', 'pmd', 'verpakking', 'kunststof', 'valorlux'],
+        rest: ['grof', 'grey', 'rest', 'grijs','grijze'],
+        papier: ['papier', 'blauw', 'blue', 'recycling bin collection'],
+        kca: ['chemisch', 'kca','kga'],
+        brown: ['brown', 'verre'],
+        black: ['black', 'zwart'],
+        milieu: ['milieu'],
+        kerstboom: ['kerst'],
+    };
+}
 if (typeof(settings['garbage_use_names']) === 'undefined') settings['garbage_use_names'] = 0;
 if (typeof(settings['garbage_use_colors']) === 'undefined') settings['garbage_use_colors'] = 0;
 if (typeof(settings['garbage_icon_use_colors']) === 'undefined') settings['garbage_icon_use_colors'] = 1;

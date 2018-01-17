@@ -106,6 +106,8 @@ function getWasteApiData(address, date, random, companyCode) {
                         1: 'GFT',
                         2: 'Papier',
                         3: 'Plastic',
+                        6: 'Kerstbomen',
+                        7: 'Restgoed',
                         10: 'Verpakkingen',
                     };
                     dataFiltered.push({
@@ -426,34 +428,18 @@ function addToContainer(random, returnDates) {
 }
 
 function mapGarbageType(garbageType) {
-    if (garbageType.match(/(gft)|(tuin)|(refuse bin)|(green)|(groen)|(Biodégradables)|(snoei)/i)) {
-        return 'gft';
+    var mappedType = 'black';
+    if (garbageType) {
+        $.each(settings['garbage_mapping'], function (index, element) {
+            $.each(element, function (index2, element2) {
+                var regex = new RegExp(element2, 'i');
+                if (garbageType.match(regex)) {
+                    mappedType = index;
+                }
+            });
+        });
     }
-    else if (garbageType.match(/(black)|(zwart)/i)) {
-        return 'black';
-    }
-    else if (garbageType.match(/(plastic)|(pmd)|(verpakking)|(kunststof)|(valorlux)/i)) {
-        return 'pmd';
-    }
-    else if (garbageType.match(/(brown)|(verre)/i)) {
-        return 'brown';
-    }
-    else if (garbageType.match(/(grof)|(grey)|(rest)|(grijs)|(grijze)/i)) {
-        return 'rest';
-    }
-    else if (garbageType.match(/(papier)|(blauw)|(blue)|(recycling bin collection)/i)) {
-        return 'papier';
-    }
-    else if (garbageType.match(/(chemisch)|(kca)|(kga)/i)) {
-        return 'kca';
-    }
-    else if (garbageType.match(/(milieu)/i)) {
-        return 'milieu';
-    }
-    else if (garbageType.match(/(kerst)/i)) {
-        return 'kerstboom';
-    }
-    return 'black';
+    return mappedType;
 }
 
 function getMaxItems() {
