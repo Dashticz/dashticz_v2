@@ -175,6 +175,24 @@ function getOphaalkalenderData(address, date, random) {
     });
 }
 
+function getAfvalAlertData(address, date, random) {
+    var baseURL = 'https://www.afvalalert.nl/kalender';
+    $.get(getPrefixUrl() + baseURL + '/' + address.zipcode + '/' + address.housenumber + address.housenumberSuffix, function (data) {
+        console.log(data);
+        data = data.items.filter(function (element) {
+            return moment(element.date, 'YYYY-MM-DD').isBetween(date.start, date.end, null, '[]');
+        })
+            .map(function (element) {
+                return {
+                    date: moment(element.date, 'YYYY-MM-DD'),
+                    summary: element.type,
+                    garbageType: mapGarbageType(element.type),
+                }
+            });
+        addToContainer(random, data);
+    });
+}
+
 function getAfvalwijzerArnhemData(address, date, random) {
     $('.trash' + random + ' .state').html('');
     var baseURL = 'http://www.afvalwijzer-arnhem.nl';
@@ -500,6 +518,7 @@ function loadDataForService(service, random) {
         groningen: {dataHandler: 'getGroningenData', identifier: ''},
         area: {dataHandler: 'getWasteApiData', identifier: 'adc418da-d19b-11e5-ab30-625662870761'},
         almere: {dataHandler: 'getWasteApi2Data', identifier: '53d8db94-7945-42fd-9742-9bbc71dbe4c1'},
+        afvalalert: {dataHandler: 'getAfvalAlertData', identifier: ''},
     };
     window[serviceProperties[service].dataHandler](address, date, random, serviceProperties[service].identifier);
 }
