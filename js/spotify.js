@@ -1,8 +1,11 @@
 var CUR_URI = document.location.href.split('#');
 REDIRECT_URI = CUR_URI[0];
+
 var userdata;
 var accessToken;
 var currentPlaying=false;
+var random = getRandomInt(1,100000);
+
 function getSpotify(columndiv){
 	if(typeof(Cookies.get('spotifyToken'))!=='undefined' || typeof(CUR_URI[1])!=='undefined'){
 		if(typeof(CUR_URI[1])!=='undefined'){
@@ -12,33 +15,26 @@ function getSpotify(columndiv){
 		}
 		accessToken = Cookies.get('spotifyToken');
 	
-		var random = getRandomInt(1,100000);
 		var html ='<div data-id="spotify" class="col-xs-12 transbg containsspotify containsspotify'+random+'" style="padding:0px !important;">';
 			html+='<div id="current"></div><a href="javascript:void(0);" class="change">'+language.misc.spotify_select_playlist+' &raquo;</a><select class="devices" onchange="changeDevice();"></select>';
 		html+='</div>';
 		$(columndiv).append(html);
-		
-		setInterval(function(){ getSpotifyData(); },5000);
+
+		setInterval(function(){ getSpotifyData(columndiv); }, 5000);
 	}
 	else if(!settings['spot_clientid']){
 		console.log('Enter your Spotify ClientID in CONFIG.JS');
 	}
 	else {
-		var url = getLoginURL([
-			'user-read-email',
-			'user-read-currently-playing',
-			'user-read-playback-state',
-			'user-read-recently-played',
-			'playlist-read-private'
-		]);
+		var url = getLoginURL();
 
 		document.location.href=url;
 	}
 
 }
 
-function getSpotifyData(){
-	$('select.devices').html('<option>'+language.misc.spotify_select_device+'</option>');
+function getSpotifyData(columndiv){
+	if($('select.devices option').length === 0) $('select.devices').html('<option>'+language.misc.spotify_select_device+'</option>');
 	
 	currentPlaying=false;
 	getUserData()
@@ -54,14 +50,18 @@ function getSpotifyData(){
 					if(devices[d]['is_active']){ 
 						sel='selected';
 					}
-					if(!devices[d]['is_restricted']) $('select.devices').append('<option value="'+devices[d]['id']+'" '+sel+'>'+devices[d]['name']+'</option>');					
+					if(!devices[d]['is_restricted']) {
+						if($('select.devices option[value="' + devices[d]['id'] + '"]').length === 0) {
+                            $('select.devices').append('<option value="'+devices[d]['id']+'" '+sel+'>'+devices[d]['name']+'</option>');
+                        }
+                    }
 				}
 			}
 
 			getCurrentlyPlaying().then(function(currently) {
 
 				if(currently.item!==null && typeof(currently.item)!=='undefined'){
-					getCurrentHTML(currently.item);
+					getCurrentHTML(currently.item, 'currentlyPlaying');
 					currentPlaying=currently.item;
 				}
 
@@ -107,19 +107,34 @@ function getSpotifyData(){
 	});
 }
 function changeDevice(){
-	getCurrentHTML(currentPlaying);
+	getCurrentHTML(currentPlaying, 'changdevice');
 }
-function getCurrentHTML(item){
-						
-	$.ajax({
-		type: 'PUT',
-		data: '{"uris":["'+item.uri+'"]}',
-		url: 'https://api.spotify.com/v1/me/player/play?device_id='+$('select.devices').find('option:selected').val(),
-		headers: {
-		   'Authorization': 'Bearer ' + accessToken
-		}
-	});
-	
+function getCurrentHTML(item, typeAction){
+	if(typeof typeAction === 'undefined') typeAction = false;
+
+	if(typeAction !== 'changedevice' && typeof item.uri !== 'undefined') {
+		if(item.type === 'track') {
+            data = '{"uris":["'+item.uri+'"]}';
+        }
+		else {
+            data = '{"context_uri":"'+item.uri+'"}';
+        }
+	}
+	else { // when changing device, don't fill in data, just device_id so Spotify will continue there
+		data = '';
+	}
+
+	if(typeAction !== 'currentlyPlaying') {
+        $.ajax({
+            type: 'PUT',
+            data: data,
+            url: 'https://api.spotify.com/v1/me/player/play?device_id='+$('select.devices').find('option:selected').val(),
+            headers: {
+                'Authorization': 'Bearer ' + accessToken
+            }
+        });
+    }
+
 	var html= '';
 	
 	if(typeof(item.album)!=='undefined'){
@@ -171,13 +186,23 @@ function getPlayList(url){
 		   'Authorization': 'Bearer ' + accessToken
 		},
 		success:function(item){
-			getCurrentHTML(item);
+			getCurrentHTML(item, 'playlist');
 			$('.modal.fade.in .close').trigger('click');
 		}
 	});
 }
 
 function getLoginURL(scopes) {
+	if(typeof scopes === 'undefined') {
+		scopes = [
+            'user-read-email',
+            'user-read-currently-playing',
+            'user-read-playback-state',
+            'user-read-recently-played',
+            'user-modify-playback-state',
+            'playlist-read-private'
+        ];
+	}
 
 	return 'https://accounts.spotify.com/authorize?client_id=' + settings['spot_clientid'] +
 	  '&redirect_uri=' + encodeURIComponent(REDIRECT_URI) +
@@ -240,14 +265,7 @@ function getUserData() {
 		   'Authorization': 'Bearer ' + accessToken
 		},
 		 error: function(xhr, error){
-			var url = getLoginURL([
-				'user-read-email',
-				'user-read-currently-playing',
-				'user-read-playback-state',
-				'user-read-recently-played',
-				'user-modify-playback-state',
-				'playlist-read-private'
-			]);
+			var url = getLoginURL();
 			
 			document.location.href=url;
 		 },
