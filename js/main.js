@@ -23,6 +23,8 @@ var oldstates = [];
 var onOffstates = [];
 var gettingDevices = false;
 var md;
+var usrEnc;
+var pwdEnc;
 var _GRAPHS_LOADED = {};
 var _STREAMPLAYER_TRACKS = {"track": 1, "name": "Music FM", "file": "http://stream.musicfm.hu:8000/musicfm.mp3"};
 var _THOUSAND_SEPARATOR = '.';
@@ -52,6 +54,9 @@ function loadFiles() {
 
         $.ajax({url: 'js/settings.js', async: false, dataType: 'script'}).done(function () {
             loadSettings();
+	    usrEnc = window.btoa(settings['user_name']);
+	    pwdEnc = window.btoa(settings['pass_word']);
+
 	    if (typeof(screens) === 'undefined' || objectlength(screens) === 0) {
 		screens = {};
 		screens[1] = {};
