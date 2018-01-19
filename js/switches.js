@@ -16,7 +16,7 @@ function switchDevice(cur) {
         param = 'switchscene';
     }
     $.ajax({
-        url: settings['domoticz_ip'] + '/json.htm?type=command&param=' + param + '&idx=' + idx + '&switchcmd=' + doStatus + '&level=0&passcode=&jsoncallback=?',
+        url: settings['domoticz_ip'] + '/json.htm?username=' + usrEnc + '&password=' + pwdEnc + '&type=command&param=' + param + '&idx=' + idx + '&switchcmd=' + doStatus + '&level=0&passcode=&jsoncallback=?',
         type: 'GET', async: false, contentType: 'application/json', dataType: 'jsonp',
         success: function (data) {
             getDevices(true);
@@ -34,7 +34,7 @@ function switchOnOff(cur, onOrOff) {
     }
 
     $.ajax({
-        url: settings['domoticz_ip'] + '/json.htm?type=command&param=switchlight&idx=' + idx + '&switchcmd=' + doStatus + '&level=0&passcode=&jsoncallback=?',
+        url: settings['domoticz_ip'] + '/json.htm?username=' + usrEnc + '&password=' + pwdEnc + '&type=command&param=switchlight&idx=' + idx + '&switchcmd=' + doStatus + '&level=0&passcode=&jsoncallback=?',
         type: 'GET', async: false, contentType: 'application/json', dataType: 'jsonp',
         success: function (data) {
             getDevices(true);
@@ -66,7 +66,7 @@ function switchThermostat(setpoint, cur) {
     var idx = $(cur).data('light');
     if (typeof(req) !== 'undefined') req.abort();
     req = $.ajax({
-        url: settings['domoticz_ip'] + '/json.htm?type=command&param=setsetpoint&idx=' + idx + '&setpoint=' + setpoint + '&jsoncallback=?',
+        url: settings['domoticz_ip'] + '/json.htm?username=' + usrEnc + '&password=' + pwdEnc + '&type=command&param=setsetpoint&idx=' + idx + '&setpoint=' + setpoint + '&jsoncallback=?',
         type: 'GET', async: false, contentType: 'application/json', dataType: 'jsonp',
         success: function (data) {
 
@@ -90,7 +90,7 @@ function switchBlinds(idx, action) {
 
     if (typeof(req) !== 'undefined') req.abort();
     $.ajax({
-        url: settings['domoticz_ip'] + '/json.htm?type=command&param=switchlight&idx=' + idx + '&switchcmd=' + action + '&level=0&passcode=&jsoncallback=?',
+        url: settings['domoticz_ip'] + '/json.htm?username=' + usrEnc + '&password=' + pwdEnc + '&type=command&param=switchlight&idx=' + idx + '&switchcmd=' + action + '&level=0&passcode=&jsoncallback=?',
         type: 'GET', async: false, contentType: 'application/json', dataType: 'jsonp',
         success: function (data) {
             getDevices(true);
@@ -120,7 +120,7 @@ function switchGroup(cur) {
     triggerChange(idx, doStatus);
     if (typeof(req) !== 'undefined') req.abort();
     $.ajax({
-        url: settings['domoticz_ip'] + '/json.htm?type=command&param=switchscene&idx=' + idx.replace('s', '') + '&switchcmd=' + doStatus + '&level=0&passcode=&jsoncallback=?',
+        url: settings['domoticz_ip'] + '/json.htm?username=' + usrEnc + '&password=' + pwdEnc + '&type=command&param=switchscene&idx=' + idx.replace('s', '') + '&switchcmd=' + doStatus + '&level=0&passcode=&jsoncallback=?',
         type: 'GET', async: false, contentType: 'application/json', dataType: 'jsonp',
         success: function (data) {
             getDevices(true);
@@ -142,7 +142,7 @@ function slideDevice(idx, status) {
     $('.block_' + idx).find('.state').html(language.switches.state_on);
 
     slide = $.ajax({
-        url: settings['domoticz_ip'] + '/json.htm?type=command&param=switchlight&idx=' + idx + '&switchcmd=Set%20Level&level=' + status + '&jsoncallback=?',
+        url: settings['domoticz_ip'] + '/json.htm?username=' + usrEnc + '&password=' + pwdEnc + '&type=command&param=switchlight&idx=' + idx + '&switchcmd=Set%20Level&level=' + status + '&jsoncallback=?',
         type: 'GET', async: false, contentType: 'application/json', dataType: 'jsonp',
         success: function (data) {
             getDevices(true);
@@ -156,7 +156,7 @@ function ziggoRemote(key) {
 
 function controlLogitech(idx, action) {
     $.ajax({
-        url: settings['domoticz_ip'] + '/json.htm?type=command&param=lmsmediacommand&idx=' + idx + '&action=' + action + '&jsoncallback=?',
+        url: settings['domoticz_ip'] + '/json.htm?username=' + usrEnc + '&password=' + pwdEnc + '&type=command&param=lmsmediacommand&idx=' + idx + '&action=' + action + '&jsoncallback=?',
         type: 'GET', async: true, contentType: 'application/json', dataType: 'jsonp',
         success: function (data) {
             getDevices(true);
