@@ -7,6 +7,15 @@ settingList['general']['domoticz_ip']['title'] = language.settings.general.domot
 settingList['general']['domoticz_ip']['type'] = 'text';
 settingList['general']['domoticz_ip']['help'] = language.settings.general.domoticz_ip_help;
 
+settingList['general']['user_name'] = {};
+settingList['general']['user_name']['title'] = language.settings.general.user_name;
+settingList['general']['user_name']['type'] = 'text';
+settingList['general']['user_name']['help'] = language.settings.general.user_name;
+
+settingList['general']['pass_word'] = {};
+settingList['general']['pass_word']['title'] = language.settings.general.pass_word;
+settingList['general']['pass_word']['type'] = 'text';
+
 settingList['general']['app_title'] = {};
 settingList['general']['app_title']['title'] = language.settings.general.app_title;
 settingList['general']['app_title']['type'] = 'text';
@@ -437,6 +446,8 @@ if (typeof(settings['longtime']) === 'undefined') settings['longtime'] = 'HH:mm:
 if (typeof(settings['weekday']) === 'undefined') settings['weekday'] = 'dddd';
 if (typeof(settings['calendarlanguage']) === 'undefined') settings['calendarlanguage'] = 'en_US';
 if (typeof(settings['domoticz_ip']) === 'undefined') settings['domoticz_ip'] = 'http://192.168.1.10:1407';
+if (typeof(settings['user_name']) === 'undefined') settings['user_name'] = '';
+if (typeof(settings['pass_word']) === 'undefined') settings['pass_word'] = '';
 if (typeof(settings['app_title']) === 'undefined') settings['app_title'] = 'Dashticz';
 if (typeof(settings['domoticz_refresh']) === 'undefined') settings['domoticz_refresh'] = 5;
 if (typeof(settings['dashticz_refresh']) === 'undefined') settings['dashticz_refresh'] = 60;
