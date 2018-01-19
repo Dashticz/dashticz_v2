@@ -10,7 +10,7 @@ settingList['general']['domoticz_ip']['help'] = language.settings.general.domoti
 settingList['general']['user_name'] = {};
 settingList['general']['user_name']['title'] = language.settings.general.user_name;
 settingList['general']['user_name']['type'] = 'text';
-settingList['general']['user_name']['help'] = language.settings.general.user_name;
+settingList['general']['user_name']['help'] = language.settings.general.user_name_help;
 
 settingList['general']['pass_word'] = {};
 settingList['general']['pass_word']['title'] = language.settings.general.pass_word;
