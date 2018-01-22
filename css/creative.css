@@ -44,7 +44,10 @@
 }
 .swiper-slide {
 	background: #000;
-	height: 100%;
+}
+.swiper-slide {
+	height: auto !important;
+	min-height: 100% !important;
 }
 .swiper-pagination-bullet-active {
 	background-color:#fff !important;
@@ -1244,6 +1247,13 @@ fieldset[disabled] .btn-primary.active {
 	padding:2px 6px;
 	margin-right: 2px;
 }
+
+@media (max-width: 975px) {
+	.btn-group .btn {
+		font-size: 12px !important;
+	}
+}
+
 .btn-group .btn.active {
 	font-weight:700;
 }

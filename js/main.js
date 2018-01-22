@@ -262,24 +262,22 @@ function buildScreens() {
     screens = allscreens;
     keys = Object.keys(screens);
     len = keys.length;
-    keys.sort();
+    keys.sort(function(a, b){return a-b});
     for (i = 0; i < len; i++) {
         t = keys[i];
         if (
             typeof(screens[t]['maxwidth']) == 'undefined' ||
             (
-                typeof(screens[t]['maxwidth']) !== 'undefined' &&
                 parseFloat(screens[t]['maxwidth']) >= $(window).width() &&
                 parseFloat(screens[t]['maxheight']) >= $(window).height()
             )
         ) {
-
             for (s in screens[t]) {
                 if (s !== 'maxwidth' && s !== 'maxheight') {
                     var screenhtml = '<div class="screen screen' + s + ' swiper-slide slide' + s + '"';
-		    if (typeof(screens[t][s]['background']) === 'undefined') {
-			screens[t][s]['background'] = settings['background_image'];
-		    }
+					if (typeof(screens[t][s]['background']) === 'undefined') {
+						screens[t][s]['background'] = settings['background_image'];
+					}
                     if (typeof(screens[t][s]['background']) !== 'undefined') {
                         if (screens[t][s]['background'].indexOf("/") > 0) screenhtml += 'style="background-image:url(\'' + screens[t][s]['background'] + '\');"';
                         else screenhtml += 'style="background-image:url(\'img/' + screens[t][s]['background'] + '\');"';
@@ -305,7 +303,6 @@ function buildScreens() {
                             c = screens[t][s]['columns'][cs];
                             getBlock(columns[c], c, 'div.screen' + s + ' .row .col' + c, false);
                         }
-
                     }
                     else {
 						
@@ -379,6 +376,7 @@ function startSwiper() {
                         effect: settings['slide_effect'],
                         keyboardControl: true
                     });
+					
                 }, 2000);
             });
         }
@@ -1114,7 +1112,15 @@ function getDevices(override) {
                                 case 'Dimmer':
                                     width = 12;
                             }
-                            if (typeof(blocks) !== 'undefined' && typeof(blocks[idx]) !== 'undefined' && typeof(blocks[idx]['width']) !== 'undefined') width = blocks[idx]['width'];
+							
+                            if (typeof(blocks) !== 'undefined' && typeof(blocks[idx]) !== 'undefined'){
+								if ($(window).width()<768 && typeof(blocks[idx]['width_smartphone']) !== 'undefined'){
+									width = blocks[idx]['width_smartphone'];
+								}
+								else if (typeof(blocks[idx]['width']) !== 'undefined'){
+									width = blocks[idx]['width'];
+								}
+							}
 
                             if ($('.block_' + idx).length <= 0) {
                                 $(getAutoAppendSelector(device)).append('<div class="mh transbg block_' + idx + '"></div>');
