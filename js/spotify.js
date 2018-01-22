@@ -4,9 +4,9 @@ REDIRECT_URI = CUR_URI[0];
 var userdata;
 var accessToken;
 var currentPlaying=false;
-var random = getRandomInt(1,100000);
 
 function getSpotify(columndiv){
+	var random = getRandomInt(1,100000);
 	if(typeof(Cookies.get('spotifyToken'))!=='undefined' || typeof(CUR_URI[1])!=='undefined'){
 		if(typeof(CUR_URI[1])!=='undefined'){
 			var hash = URLToArray(CUR_URI[1]);
@@ -16,11 +16,13 @@ function getSpotify(columndiv){
 		accessToken = Cookies.get('spotifyToken');
 	
 		var html ='<div data-id="spotify" class="col-xs-12 transbg containsspotify containsspotify'+random+'" style="padding:0px !important;">';
-			html+='<div id="current"></div><a href="javascript:void(0);" class="change">'+language.misc.spotify_select_playlist+' &raquo;</a><select class="devices" onchange="changeDevice();"></select>';
+			html+='<div id="current"></div>';
+			html+='<a href="javascript:void(0);" class="change">'+language.misc.spotify_select_playlist+' &raquo;</a>';
+			html+='<select class="devices" onchange="changeDevice();"></select>';
 		html+='</div>';
 		$(columndiv).append(html);
 
-		setInterval(function(){ getSpotifyData(columndiv); }, 5000);
+		getSpotifyData(columndiv,random);
 	}
 	else if(!settings['spot_clientid']){
 		console.log('Enter your Spotify ClientID in CONFIG.JS');
@@ -33,7 +35,7 @@ function getSpotify(columndiv){
 
 }
 
-function getSpotifyData(columndiv){
+function getSpotifyData(columndiv,rand){
 	if($('select.devices option').length === 0) $('select.devices').html('<option>'+language.misc.spotify_select_device+'</option>');
 	
 	currentPlaying=false;
@@ -41,7 +43,6 @@ function getSpotifyData(columndiv){
 	.then(function(userdata) {
 		getDevices()
 		.then(function(devices) {
-			//console.log(devices);
 			if(typeof(devices['devices'])!=='undefined'){
 				devices = devices['devices'];
 				var sel='';
@@ -67,7 +68,7 @@ function getSpotifyData(columndiv){
 
 				getPlaylists()
 				.then(function(playlists) {
-					var html = '<div class="modal fade" id="spotify_'+random+'" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
+					var html = '<div class="modal fade" id="spotify_'+rand+'" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
 					html+='<div class="modal-dialog">';
 						html+='<div class="modal-content">';
 						 html+='<div class="modal-header">';
@@ -97,10 +98,10 @@ function getSpotifyData(columndiv){
 					$('body').append(html);
 				});
 
-				var calobject = $('.containsspotify'+random+' a.change');
+				var calobject = $('.containsspotify'+rand+' a.change');
 				calobject.attr('data-toggle','modal');
 				calobject.attr('data-id','');
-				calobject.attr('data-target','#spotify_'+random);
+				calobject.attr('data-target','#spotify_'+rand);
 				calobject.attr('onclick','setSrc(this);');
 			});
 		});
