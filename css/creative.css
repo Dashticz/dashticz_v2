@@ -1247,6 +1247,76 @@ fieldset[disabled] .btn-primary.active {
 .btn-group .btn.active {
 	font-weight:700;
 }
+.modal-login {
+	min-width: 25% !important;
+    margin: 0 auto;
+    padding: 60px;
+    margin-top: 200px;
+}
+.content-login {
+    display: block;
+    font-family: Verdana;
+    font-size: 22px;
+    line-height: 22px;
+    padding: 10px 0 0;
+    color: #000;
+}
+.login{
+	text-align: center;
+	padding: 20px;
+}
+.login input[type=text]{
+	width: 250px;
+	height: 30px;
+	border: 1px solid rgba(0,0,0,0.6);
+	border-radius: 2px;
+	color: #000;
+	font-family: 'Exo', sans-serif;
+	font-size: 14px;
+	font-weight: 400;
+	padding: 4px;
+}
+.login input[type=password]{
+	width: 250px;
+	height: 30px;
+	border: 1px solid rgba(0,0,0,0.6);
+	border-radius: 2px;
+	color: #000;
+	font-family: 'Exo', sans-serif;
+	font-size: 14px;
+	font-weight: 400;
+	padding: 4px;
+	margin-top: 10px;
+}
+.login input[type=button]{
+	width: 250px;
+	height: 35px;
+	padding: 6px;
+	margin-top: 10px;
+}
+.login input[type=button]:hover{
+	opacity: 0.8;
+}
+.login input[type=button]:active{
+	opacity: 0.6;
+}
+.login input[type=text]:focus{
+	outline: none;
+	border: 1px solid rgba(0,0,0,0.9);
+}
+.login input[type=password]:focus{
+	outline: none;
+	border: 1px solid rgba(0,0,0,0.9);
+}
+.login input[type=button]:focus{
+	outline: none;
+}
+::-webkit-input-placeholder{
+   color: rgba(0,0,0,0.6);
+}
+::-moz-input-placeholder{
+   color: rgba(0,0,0,0.6);
+}
 ::-moz-selection {
   color: white;
   text-shadow: none;
