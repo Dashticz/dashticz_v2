@@ -16,6 +16,10 @@ settingList['general']['pass_word'] = {};
 settingList['general']['pass_word']['title'] = language.settings.general.pass_word;
 settingList['general']['pass_word']['type'] = 'text';
 
+settingList['general']['loginEnabled'] = {};
+settingList['general']['loginEnabled']['title'] = language.settings.general.loginEnabled;
+settingList['general']['loginEnabled']['type'] = 'checkbox';
+
 settingList['general']['app_title'] = {};
 settingList['general']['app_title']['title'] = language.settings.general.app_title;
 settingList['general']['app_title']['type'] = 'text';
@@ -520,6 +524,7 @@ if (typeof(settings['room_plan']) === 'undefined') settings['room_plan'] = 0;
 if (typeof(settings['garbage_use_cors_prefix']) === 'undefined') settings['garbage_use_cors_prefix'] = 1;
 if (typeof(settings['theme']) === 'undefined') settings['theme'] = 'default';
 if (typeof(settings['background_image']) === 'undefined') settings['background_image'] = 'img/bg2.jpg';
+if (typeof(settings['loginEnabled']) === 'undefined') settings['loginEnabled'] = 0;
 
 var _TEMP_SYMBOL = '°C';
 if (settings['use_fahrenheit'] === 1) _TEMP_SYMBOL = '°F';
@@ -587,7 +592,7 @@ function loadSettings() {
         html += '</div>';
     }
     html += '</div>';
-    html += '</div><div class="modal-footer"><button type="button" class="btn btn-secondary" data-dismiss="modal">' + language.settings.close + '</button> <button onClick="saveSettings();" type="button" class="btn btn-primary" data-dismiss="modal">' + language.settings.save + '</button></div>';
+    html += '</div><div class="modal-footer"><button type="button" class="btn btn-secondary" data-dismiss="modal">' + language.settings.close + '</button> <button onClick="logout()" type="button" class="btn btn-primary" data-dismiss="modal">' + language.settings.logout + '</button> <button onClick="saveSettings();" type="button" class="btn btn-primary" data-dismiss="modal">' + language.settings.save + '</button></div>';
     html += '</div>';
     html += '</div>';
     html += '</div>';
