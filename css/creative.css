@@ -1248,7 +1248,9 @@ fieldset[disabled] .btn-primary.active {
 	font-weight:700;
 }
 .modal-login {
-	min-width: 25% !important;
+    max-height: 90%;
+    max-width:90%;
+    min-width: 25% !important;
     margin: 0 auto;
     padding: 60px;
     margin-top: 200px;
@@ -1266,7 +1268,6 @@ fieldset[disabled] .btn-primary.active {
 	padding: 20px;
 }
 .login input[type=text]{
-	width: 250px;
 	height: 30px;
 	border: 1px solid rgba(0,0,0,0.6);
 	border-radius: 2px;
@@ -1277,7 +1278,6 @@ fieldset[disabled] .btn-primary.active {
 	padding: 4px;
 }
 .login input[type=password]{
-	width: 250px;
 	height: 30px;
 	border: 1px solid rgba(0,0,0,0.6);
 	border-radius: 2px;
@@ -1289,7 +1289,6 @@ fieldset[disabled] .btn-primary.active {
 	margin-top: 10px;
 }
 .login input[type=button]{
-	width: 250px;
 	height: 35px;
 	padding: 6px;
 	margin-top: 10px;
