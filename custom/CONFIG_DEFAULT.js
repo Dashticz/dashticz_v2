@@ -6,10 +6,6 @@ config['domoticz_refresh'] = '5';
 config['dashticz_refresh'] = '60';
 
 /*  REMOVE THIS LINE, INCLUDING THIS TEXT IF YOU WANT TO USE THE CODE BELOW, ALS REMOVE THE LAST LINE OF THIS FILE ( the asterisk * with the slash)
-var trashnames = {}
-trashnames['Gft'] = 'GFT';
-trashnames['Pmd'] = 'Plastic';
-trashnames['Rest'] = ''; //LEAVE EMPTY IF YOU WANT TO HIDE IT
 
 var publictransport = {}
 publictransport.ovinfobus = { show_via: false, station: 'son-en-breugel/bushalte-penseelkever', provider: '9292-bus', icon: 'bus', width:5, results: 6 }
