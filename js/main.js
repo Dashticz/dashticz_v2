@@ -23,6 +23,8 @@ var oldstates = [];
 var onOffstates = [];
 var gettingDevices = false;
 var md;
+var usrEnc;
+var pwdEnc;
 var _GRAPHS_LOADED = {};
 var _STREAMPLAYER_TRACKS = {"track": 1, "name": "Music FM", "file": "http://stream.musicfm.hu:8000/musicfm.mp3"};
 var _THOUSAND_SEPARATOR = '.';
@@ -52,6 +54,9 @@ function loadFiles() {
 
         $.ajax({url: 'js/settings.js', async: false, dataType: 'script'}).done(function () {
             loadSettings();
+	    usrEnc = window.btoa(settings['user_name']);
+	    pwdEnc = window.btoa(settings['pass_word']);
+
 	    if (typeof(screens) === 'undefined' || objectlength(screens) === 0) {
 		screens = {};
 		screens[1] = {};
@@ -92,6 +97,10 @@ function loadFiles() {
             $.ajax({url: 'js/switches.js', async: false, dataType: 'script'});
             $.ajax({url: 'js/blocks.js', async: false, dataType: 'script'});
             $.ajax({url: 'js/graphs.js', async: false, dataType: 'script'});
+	    $.ajax({url: 'js/login.js', async: false, dataType: 'script'});
+		
+	    sessionValid();
+		
             if (typeof(settings['gm_api']) !== 'undefined' && settings['gm_api'] !== '' && settings['gm_api'] !== 0) {
                 $.ajax({
                     url: 'https://maps.googleapis.com/maps/api/js?key=' + settings['gm_api'],
@@ -811,7 +820,7 @@ function reloadIframe(i, image) {
 
 function getMoonInfo(image) {
     req = $.getJSONP({
-        url: settings['domoticz_ip'] + "/json.htm?type=command&param=getuservariable&idx=" + settings['idx_moonpicture'] + "&jsoncallback=?",
+        url: settings['domoticz_ip'] + "/json.htm?username=" + usrEnc + "&password=" + pwdEnc + "&type=command&param=getuservariable&idx=" + settings['idx_moonpicture'] + "&jsoncallback=?",
         type: 'GET', async: true, contentType: "application/json", dataType: 'jsonp',
         format: "json",
         success: function (data) {
@@ -960,7 +969,7 @@ function getDevices(override) {
         gettingDevices = true;
 
         req = $.getJSONP({
-            url: settings['domoticz_ip'] + '/json.htm?type=devices&plan=' + settings['room_plan'] + '&filter=all&used=true&order=Name&jsoncallback=?',
+            url: settings['domoticz_ip'] + '/json.htm?username=' + usrEnc + '&password=' + pwdEnc + '&type=devices&plan=' + settings['room_plan'] + '&filter=all&used=true&order=Name&jsoncallback=?',
             type: 'GET', async: true, contentType: "application/json", dataType: 'jsonp',
             error: function (jqXHR, textStatus) {
                 console.error("Domoticz error!\nPlease, double check the path to Domoticz in Settings!");
@@ -1874,7 +1883,7 @@ function getDimmerBlock(device, idx, buttonimg) {
             var bIsWhite = (hue.s < 20);
 
             sliding = true;
-            var url = settings['domoticz_ip'] + '/json.htm?type=command&param=setcolbrightnessvalue&idx=' + curidx + '&hue=' + hue.h + '&brightness=' + hue.b + '&iswhite=' + bIsWhite;
+            var url = settings['domoticz_ip'] + '/json.htm?username=' + usrEnc + '&password=' + pwdEnc + '&type=command&param=setcolbrightnessvalue&idx=' + curidx + '&hue=' + hue.h + '&brightness=' + hue.b + '&iswhite=' + bIsWhite;
             $.ajax({
                 url: url + '&jsoncallback=?',
                 type: 'GET', async: false, contentType: "application/json", dataType: 'jsonp'
