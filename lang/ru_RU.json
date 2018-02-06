@@ -78,14 +78,21 @@
             "domoticz_refresh": "Обновление Domoticz (в секундах)",
             "hide_off_button": "Скрыть кнопку выключения в выпадающем списке",
             "last_update": "Показать время\/дату последнего обновления",
+            "login": "Log in",
+            "login_to_dashticz": "Dashticz Login",
+            "loginEnabled": "Login enabled",
+            "logout": "Log out",
             "news_scroll_after": "Прокручивать новости через (секунд)",
             "no_rgb": "Do not use colorpicker for RGB devices.",
+            "pass_word": "Password",
             "room_plan": "Use room plan id (0 = all)",
             "room_plan_help": "Change to the id of the room plan you created in Domoticz, do not use with favorites",
             "selector_instead_of_buttons": "Выпадающий список вместо кнопок",
             "title": "Общие",
             "use_favorites": "Использовать только избранные устройства",
-            "use_favorites_help": "Используется только при авто-позиционировании"
+            "use_favorites_help": "Используется только при авто-позиционировании",
+            "user_name": "Username",
+            "user_name_help": "Set domoticz user and password"
         },
         "infosave": "По умолчанию настройки хранятся в Вашем браузере. Недостатком этого метода является то, что он будет работать только в текущем браузере. Если это не проблема, Вы можете продолжить. В противном случае скопируйте код ниже в CONFIG.JS для сохранения настроек во всех браузерах и устройствах.",
         "localize": {

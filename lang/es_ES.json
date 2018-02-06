@@ -78,14 +78,21 @@
             "domoticz_refresh": "Actualizar Domoticz (segundos)",
             "hide_off_button": "Ocultar botón de apagado en Interruptores de selección",
             "last_update": "Mostrar fecha \/ hora de la última actualización",
+            "login": "Log in",
+            "login_to_dashticz": "Dashticz Login",
+            "loginEnabled": "Login enabled",
+            "logout": "Log out",
             "news_scroll_after": "Scroll de noticias después de (segundos)",
             "no_rgb": "Do not use colorpicker for RGB devices.",
+            "pass_word": "Password",
             "room_plan": "Use room plan id (0 = all)",
             "room_plan_help": "Change to the id of the room plan you created in Domoticz, do not use with favorites",
             "selector_instead_of_buttons": "Selector en lugar de botones",
             "title": "General",
             "use_favorites": "Sólo utilice dispositivos favoritos",
-            "use_favorites_help": "Sólo se utiliza cuando se utiliza el posicionamiento automático"
+            "use_favorites_help": "Sólo se utiliza cuando se utiliza el posicionamiento automático",
+            "user_name": "Username",
+            "user_name_help": "Set domoticz user and password"
         },
         "infosave": "De forma predeterminada, la configuración se almacena en su navegador. Lo malo de este método es que sólo funcionará en su navegador actual. Si eso no es un problema, puede continuar. De lo contrario, copie el código a continuación en su CONFIG.JS para mantener la configuración en todos los navegadores y dispositivos.",
         "localize": {

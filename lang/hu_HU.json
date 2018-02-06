@@ -78,14 +78,21 @@
             "domoticz_refresh": "Domoticz frissítése (másodperc)",
             "hide_off_button": "Elrejteni off gombot a Választó Kapcsolók",
             "last_update": "Az utolsó frissítési idő és dátum megjelenítése",
+            "login": "Log in",
+            "login_to_dashticz": "Dashticz Login",
+            "loginEnabled": "Login enabled",
+            "logout": "Log out",
             "news_scroll_after": "Hírek görgetése ennyi idő után (másodperc)",
             "no_rgb": "Do not use colorpicker for RGB devices.",
+            "pass_word": "Password",
             "room_plan": "Use room plan id (0 = all)",
             "room_plan_help": "Change to the id of the room plan you created in Domoticz, do not use with favorites",
             "selector_instead_of_buttons": "Gomb helyett a választó (Selector)",
             "title": "Általános",
             "use_favorites": "Csak a kedvenc eszközök használata",
-            "use_favorites_help": "Csak akkor használatos, ha az automatikus pozícionálást használja"
+            "use_favorites_help": "Csak akkor használatos, ha az automatikus pozícionálást használja",
+            "user_name": "Username",
+            "user_name_help": "Set domoticz user and password"
         },
         "infosave": "Alapértelmezés szerint a beállítások a böngészőben tárolódnak. E módszer hátránya, hogy csak a jelenlegi böngészőben fog működni. Ha ez nem jelent problémát, továbbléphet. Ellenkező esetben másolja a kódot a CONFIG.JS fájlba, hogy megőrizze a beállításokat az összes böngészőben és eszközön.",
         "localize": {

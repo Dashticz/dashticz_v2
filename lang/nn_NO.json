@@ -78,14 +78,21 @@
             "domoticz_refresh": "Oppdater Domoticz (sekunder)",
             "hide_off_button": "Hide off button at Selector Switches",
             "last_update": "Vis siste oppdatering tid\/dato",
+            "login": "Log in",
+            "login_to_dashticz": "Dashticz Login",
+            "loginEnabled": "Login enabled",
+            "logout": "Log out",
             "news_scroll_after": "Scroll news after (seconds)",
             "no_rgb": "Do not use colorpicker for RGB devices.",
+            "pass_word": "Password",
             "room_plan": "Use room plan id (0 = all)",
             "room_plan_help": "Change to the id of the room plan you created in Domoticz, do not use with favorites",
             "selector_instead_of_buttons": "Selector instead of buttons",
             "title": "Generelt",
             "use_favorites": "Only use favorite devices",
-            "use_favorites_help": "Only used when using auto positioning"
+            "use_favorites_help": "Only used when using auto positioning",
+            "user_name": "Username",
+            "user_name_help": "Set domoticz user and password"
         },
         "infosave": "Som standard lagres innstillingene i nettleseren din. Ulempen med denne metoden er at den bare vil fungere i din nåværende nettleser. Hvis det ikke er et problem, kan du fortsette. Ellers kopier koden nedenfor til CONFIG.JS for å holde innstillingene over alle nettlesere og enheter.",
         "localize": {

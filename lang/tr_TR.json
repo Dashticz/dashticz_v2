@@ -78,14 +78,21 @@
             "domoticz_refresh": "Domoticz'i yenile (saniye)",
             "hide_off_button": "Seçme Anahtarlarında Kapalı Düğmesini Gizle",
             "last_update": "Son güncelleme saat\/tarih göster",
+            "login": "Log in",
+            "login_to_dashticz": "Dashticz Login",
+            "loginEnabled": "Login enabled",
+            "logout": "Log out",
             "news_scroll_after": "Haber geçiş süresi (saniye)",
             "no_rgb": "Do not use colorpicker for RGB devices.",
+            "pass_word": "Password",
             "room_plan": "Use room plan id (0 = all)",
             "room_plan_help": "Change to the id of the room plan you created in Domoticz, do not use with favorites",
             "selector_instead_of_buttons": "Düğme yerine seçme anahtarı kullan",
             "title": "Genel",
             "use_favorites": "Sadece favori cihazları kullan",
-            "use_favorites_help": "Sadece otomatik konumlandırma açıkken kullan"
+            "use_favorites_help": "Sadece otomatik konumlandırma açıkken kullan",
+            "user_name": "Username",
+            "user_name_help": "Set domoticz user and password"
         },
         "infosave": "Varsayılan olarak, ayarlar tarayıcınızda saklanır. Bu yöntemin dezavantajı yalnızca geçerli tarayıcınızda çalışacak olmasıdır. Bu bir sorun değilse, devam edebilirsiniz. Aksi takdirde, ayarları tüm tarayıcılarda ve aygıtlarda kullanmak için CONFIG.JS dosyasına aşağıdaki kodu kopyalayın.",
         "localize": {

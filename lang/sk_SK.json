@@ -78,14 +78,21 @@
             "domoticz_refresh": "Refresh Domoticz (seconds)",
             "hide_off_button": "Hide off button at Selector Switches",
             "last_update": "Show last update time\/date",
+            "login": "Log in",
+            "login_to_dashticz": "Dashticz Login",
+            "loginEnabled": "Login enabled",
+            "logout": "Log out",
             "news_scroll_after": "Scroll news after (seconds)",
             "no_rgb": "Do not use colorpicker for RGB devices.",
+            "pass_word": "Password",
             "room_plan": "Use room plan id (0 = all)",
             "room_plan_help": "Change to the id of the room plan you created in Domoticz, do not use with favorites",
             "selector_instead_of_buttons": "Selector instead of buttons",
             "title": "General",
             "use_favorites": "Only use favorite devices",
-            "use_favorites_help": "Only used when using auto positioning"
+            "use_favorites_help": "Only used when using auto positioning",
+            "user_name": "Username",
+            "user_name_help": "Set domoticz user and password"
         },
         "infosave": "By default, settings are stored in your browser. Downside of this method is it will only work in your current browser. If that's not a problem, you can proceed. Otherwise, copy code below to your CONFIG.JS to keep settings across all browsers and devices.",
         "localize": {

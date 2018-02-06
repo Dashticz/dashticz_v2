@@ -78,14 +78,21 @@
             "domoticz_refresh": "Actualiser Domoticz (secondes)",
             "hide_off_button": "Masquer le bouton off sur les Commutateurs de sélection",
             "last_update": "Afficher la dernière heure \/ date de mise à jour",
+            "login": "Log in",
+            "login_to_dashticz": "Dashticz Login",
+            "loginEnabled": "Login enabled",
+            "logout": "Log out",
             "news_scroll_after": "Faire défiler les nouvelles après (secondes)",
             "no_rgb": "Do not use colorpicker for RGB devices.",
+            "pass_word": "Password",
             "room_plan": "Use room plan id (0 = all)",
             "room_plan_help": "Change to the id of the room plan you created in Domoticz, do not use with favorites",
             "selector_instead_of_buttons": "Sélecteur au lieu des boutons",
             "title": "Général",
             "use_favorites": "Utilisez uniquement des périphériques favoris",
-            "use_favorites_help": "Utilisé uniquement lors de l'utilisation du positionnement automatique"
+            "use_favorites_help": "Utilisé uniquement lors de l'utilisation du positionnement automatique",
+            "user_name": "Username",
+            "user_name_help": "Set domoticz user and password"
         },
         "infosave": "Par défaut, les paramètres sont stockés dans votre navigateur. L'inconvénient de cette méthode est que cela ne fonctionnera que dans votre navigateur actuel. Si ce n'est pas un problème, vous pouvez procéder. Sinon, copiez le code ci-dessous dans votre CONFIG.JS pour garder les paramètres sur tous les navigateurs et périphériques.",
         "localize": {
