@@ -80,7 +80,7 @@
             "last_update": "Zobrazovat poslední čas aktualizace",
             "login": "Log in",
             "login_to_dashticz": "Dashticz Login",
-            "loginEnabled": "Login enabled",
+            "loginEnabled": "Dashticz Login enabled",
             "logout": "Log out",
             "news_scroll_after": "Posunovat zprávy po čase (sekund)",
             "no_rgb": "Do not use colorpicker for RGB devices.",
@@ -92,7 +92,7 @@
             "use_favorites": "Používat pouze oblíbené položky",
             "use_favorites_help": "Funguje pouze pokud se používá Automatické přidávání všech zařízení",
             "user_name": "Username",
-            "user_name_help": "Set domoticz user and password"
+            "user_name_help": "Set Dashticz username and password"
         },
         "infosave": "Nastavení se ukládá pouze do právě používaného prohlížeče. Pokud si přejete toto nastavení používat na všech počítačích a prohlížečích, je důležité zkopírovat nastavení do souboru CONFIG.JS",
         "localize": {

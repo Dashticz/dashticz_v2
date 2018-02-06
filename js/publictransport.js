@@ -69,7 +69,8 @@ function dataPublicTransport(random,data,transportobject){
 				   (data[d][t]['id']=='bus' && provider == '9292-bus') || 
 				   (data[d][t]['id']=='metro' && provider == '9292-metro') || 
 				   (data[d][t]['id']=='tram-bus' && provider == '9292-tram-bus') || 
-				   (data[d][t]['id']=='trein' && provider == '9292-train')
+				   (data[d][t]['id']=='trein' && provider == '9292-train') || 
+				   (data[d][t]['id']=='veerboot' && provider == '9292-boat')
 				){
 					deps = data[d][t]['departures'];
 					for(de in deps){

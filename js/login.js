@@ -42,7 +42,7 @@ function loginPage() {
 			html+='<div class="modal-dialog modal-login">';
 				html+='<div class="modal-content content-login">';
 					html+='<div class="login">';
-						html+='<strong>'+ language.settings.general.Login_to_Dashticz + '</strong><br><br>';
+						html+='<strong>'+ language.settings.general.login_to_dashticz + '</strong><br><br>';
 						html+= '<input type="text" placeholder= "'+ language.settings.general.user_name + '" name="username" id="username"/><br>';
 						html+= '<input type="password" placeholder= "'+ language.settings.general.pass_word + '" name="password" id="password" onkeypress="if(event.keyCode==13) {javascript:validate();}"/><br>';
 						html+= '<input type="button" class="btn btn-secondary" value="'+ language.settings.general.login + '" id="submit" onclick="validate()"/>';

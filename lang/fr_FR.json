@@ -80,7 +80,7 @@
             "last_update": "Afficher la dernière heure \/ date de mise à jour",
             "login": "Log in",
             "login_to_dashticz": "Dashticz Login",
-            "loginEnabled": "Login enabled",
+            "loginEnabled": "Dashticz Login enabled",
             "logout": "Log out",
             "news_scroll_after": "Faire défiler les nouvelles après (secondes)",
             "no_rgb": "Do not use colorpicker for RGB devices.",
@@ -92,7 +92,7 @@
             "use_favorites": "Utilisez uniquement des périphériques favoris",
             "use_favorites_help": "Utilisé uniquement lors de l'utilisation du positionnement automatique",
             "user_name": "Username",
-            "user_name_help": "Set domoticz user and password"
+            "user_name_help": "Set Dashticz username and password"
         },
         "infosave": "Par défaut, les paramètres sont stockés dans votre navigateur. L'inconvénient de cette méthode est que cela ne fonctionnera que dans votre navigateur actuel. Si ce n'est pas un problème, vous pouvez procéder. Sinon, copiez le code ci-dessous dans votre CONFIG.JS pour garder les paramètres sur tous les navigateurs et périphériques.",
         "localize": {

@@ -80,7 +80,7 @@
             "last_update": "Показать время\/дату последнего обновления",
             "login": "Log in",
             "login_to_dashticz": "Dashticz Login",
-            "loginEnabled": "Login enabled",
+            "loginEnabled": "Dashticz Login enabled",
             "logout": "Log out",
             "news_scroll_after": "Прокручивать новости через (секунд)",
             "no_rgb": "Do not use colorpicker for RGB devices.",
@@ -92,7 +92,7 @@
             "use_favorites": "Использовать только избранные устройства",
             "use_favorites_help": "Используется только при авто-позиционировании",
             "user_name": "Username",
-            "user_name_help": "Set domoticz user and password"
+            "user_name_help": "Set Dashticz username and password"
         },
         "infosave": "По умолчанию настройки хранятся в Вашем браузере. Недостатком этого метода является то, что он будет работать только в текущем браузере. Если это не проблема, Вы можете продолжить. В противном случае скопируйте код ниже в CONFIG.JS для сохранения настроек во всех браузерах и устройствах.",
         "localize": {

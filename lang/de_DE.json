@@ -80,7 +80,7 @@
             "last_update": "Zeitpunkt der letzten Aktualisierung anzeigen",
             "login": "Log in",
             "login_to_dashticz": "Dashticz Login",
-            "loginEnabled": "Login enabled",
+            "loginEnabled": "Dashticz Login enabled",
             "logout": "Log out",
             "news_scroll_after": "News nach x Sekunden scrollen",
             "no_rgb": "Farbwähler für RGB Geräte NICHT nutzen.",
@@ -92,7 +92,7 @@
             "use_favorites": "Nur favorisierte Geräte anzeigen",
             "use_favorites_help": "Nur genutzt bei aktivierter Auto Positionierung",
             "user_name": "Username",
-            "user_name_help": "Set domoticz user and password"
+            "user_name_help": "Set Dashticz username and password"
         },
         "infosave": "Die Einstellungen werden standardmäßig im Browser selber gespeichert. Der Nachteil dieser Methode ist, sie gelten entsprechend nur für den aktuellen Browser. Wenn das kein Problem darstellt, kannst das Fenster schließen und musst nichts weiter unternehmen. Ansonsten kopiere den unten dargestellten Code in deine CONFIG.JS um die Einstellungen für alle Browser und Geräte zu aktivieren.",
         "localize": {

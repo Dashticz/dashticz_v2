@@ -80,7 +80,7 @@
             "last_update": "Mostra ultimo agiornamento (ora e data)",
             "login": "Log in",
             "login_to_dashticz": "Dashticz Login",
-            "loginEnabled": "Login enabled",
+            "loginEnabled": "Dashticz Login enabled",
             "logout": "Log out",
             "news_scroll_after": "Scorri notizie dopo (secondi)",
             "no_rgb": "Do not use colorpicker for RGB devices.",
@@ -92,7 +92,7 @@
             "use_favorites": "Usa solo con i dispositivi preferiti",
             "use_favorites_help": "Usa solo con l'auto posizionamento attivo",
             "user_name": "Username",
-            "user_name_help": "Set domoticz user and password"
+            "user_name_help": "Set Dashticz username and password"
         },
         "infosave": "Di dafault le impostazioni sono salvate nel browser.Se usi sempre e solo lo stesso browser e lo stesso dispositivo puoi continuare cosi.\nSe usi diversi browser puoi copiare il codice qua sotto all'interno del file CONFIG.JS per mantenere le impostazioni replicate in ogni browser e in ogni dispositivo.",
         "localize": {

@@ -78,9 +78,9 @@
             "domoticz_refresh": "Ververs Domoticz (seconden)",
             "hide_off_button": "Verberg UIT-knop bij Selector Switches",
             "last_update": "Geef laatste update datum weer",
-            "login": "Uitloggen",
+            "login": "Inloggen",
             "login_to_dashticz": "Dashticz Login",
-            "loginEnabled": "Login ingeschakeld",
+            "loginEnabled": "Dashticz Login ingeschakeld",
             "logout": "Uitloggen",
             "news_scroll_after": "Volgende nieuwsbericht na (seconden)",
             "no_rgb": "Gebruik geen colorpicker voor RGB-apparaten.",
@@ -92,7 +92,7 @@
             "use_favorites": "Gebruik alleen favoriete schakelaars",
             "use_favorites_help": "Wordt alleen gebruikt wanneer de schakelaars automatisch toegevoegd worden",
             "user_name": "Gebruikersnaam",
-            "user_name_help": "Stel domoticz-gebruiker en -wachtwoord in"
+            "user_name_help": "Stel Dashticz-gebruikersnaam en -wachtwoord in"
         },
         "infosave": "Standaard worden de instellingen opgeslagen in uw browser. Nadeel van deze methode is dat het alleen in uw huidige browser werkt. Als dat geen probleem is, kunt u verdergaan. Anders, kopieer onderstaande code naar uw CONFIG.JS om instellingen te gebruiken in alle browsers waarmee u Dashticz opent.",
         "localize": {
