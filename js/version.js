@@ -6,7 +6,7 @@
 	
 var dashticz_version = 'V2.0';
 var dashticz_branch = 'beta'; /* master or beta */
-var ref_commit = '077fc5c5861b7f66ac68a7a8ef18abb5502c84e2' /* Reference commit - add the latest commit BEFORE make a PR of this file */
+var ref_commit = '946ea83cf8da438e637290edfdfbfdb6d0a27394' /* Reference commit - add the latest commit BEFORE make a PR of this file */
 var newVersion = '';
 var moved = false;
 	
