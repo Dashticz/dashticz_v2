@@ -17,7 +17,7 @@ $.ajax({url: 'https://api.github.com/repos/Dashticz/dashticz_v2/branches/' + das
 	
 	if (ref_commit !== data['commit']['parents'][0]['sha']) {
 		moved = true;
-		newVersion = '<br><i>New Version is available! <a href="https://github.com/Dashticz/dashticz_v2/tree/' + dashticz_branch + '" target="_blank">Click here to download</a></i><br><i>' + message + '</i>';
+		newVersion = '<br><i>New version is available! <a href="https://github.com/Dashticz/dashticz_v2/tree/' + dashticz_branch + '" target="_blank">Click here to download</a></i><br><i>' + message + '</i>';
 	}
 	else if (ref_commit === data['commit']['parents'][0]['sha']) {
 		moved = false;
@@ -27,5 +27,5 @@ $.ajax({url: 'https://api.github.com/repos/Dashticz/dashticz_v2/branches/' + das
 });
 
 if (moved == true) {
-        $('body').append('<div class="update">New Version is available!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://github.com/Dashticz/dashticz_v2/tree/' + dashticz_branch + '" target="_blank">Click here to download</a>&nbsp;&nbsp;</div>');
+        $('body').append('<div class="update">New version is available!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://github.com/Dashticz/dashticz_v2/tree/' + dashticz_branch + '" target="_blank">Click here to download</a>&nbsp;&nbsp;</div>');
     }
