@@ -1,14 +1,11 @@
-/*
+
 var config = {}
 config['domoticz_ip'] = 'http://192.168.1.3:8084';
 config['app_title'] = 'Dashticz';
 config['domoticz_refresh'] = '5';
 config['dashticz_refresh'] = '60';
 
-var trashnames = {}
-trashnames['Gft'] = 'GFT';
-trashnames['Pmd'] = 'Plastic';
-trashnames['Rest'] = ''; //LEAVE EMPTY IF YOU WANT TO HIDE IT
+/*  REMOVE THIS LINE, INCLUDING THIS TEXT IF YOU WANT TO USE THE CODE BELOW, ALS REMOVE THE LAST LINE OF THIS FILE ( the asterisk * with the slash)
 
 var publictransport = {}
 publictransport.ovinfobus = { show_via: false, station: 'son-en-breugel/bushalte-penseelkever', provider: '9292-bus', icon: 'bus', width:5, results: 6 }

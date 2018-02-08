@@ -20,7 +20,7 @@ function getLog(columndiv,level,popup,random){
 		$(columndiv).append(html);
 	}
 
-	var LOG_URI = settings['domoticz_ip']+'/json.htm?type=command&param=getlog&loglevel='+level;
+	var LOG_URI = settings['domoticz_ip']+'/json.htm?username=' + usrEnc + '&password=' + pwdEnc + '&type=command&param=getlog&loglevel='+level;
 	$.ajax({
 		url: LOG_URI+'&jsoncallback=?',
 		type: 'GET',async: false,contentType: "application/json",dataType: 'jsonp',

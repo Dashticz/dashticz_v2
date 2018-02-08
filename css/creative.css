@@ -1,3 +1,35 @@
+
+#loaderHolder{
+	position:absolute;
+	width:100%;
+	height:100%;
+	background-color:#000;
+	z-index:9999;
+	text-align:center;
+}
+
+.loader {
+	margin:0 auto;
+	border: 10px solid #f3f3f3;
+	border-top: 10px transparent;
+	border-bottom: 10px transparent;
+	border-radius: 50%;
+	width: 320px;
+	height: 320px;
+	animation: pulsate 2s ease-out;
+	animation-iteration-count: infinite;
+}
+@keyframes pulsate {
+	0% {transform: scale(.1); opacity: 0.0;}
+	50% {opacity: 1;}
+	100% {transform: scale(.8); opacity: 0;}
+}
+.loaderHeader {
+	color: #FFF;
+	font-size: 1.5em;
+	margin-top:50px;
+}
+
 .swiper-container {
 	width: 100%;
 	height: 100%;
@@ -12,14 +44,32 @@
 }
 .swiper-slide {
 	background: #000;
-	height: 100%;
+}
+.swiper-slide {
+	height: auto !important;
+	min-height: 100% !important;
 }
 .swiper-pagination-bullet-active {
 	background-color:#fff !important;
 }
 
-.fa-tv:before  {font-size:26px;}
 
+
+.currencydown {
+	background: rgba(132,22,12,0.7) !important;
+	background-clip: padding-box;
+	border: 7px solid rgba(255,255,255,0);
+}
+
+
+.currencyup {
+	background: rgba(0, 128, 0, 0.7) !important;
+	background-clip: padding-box;
+	border: 7px solid rgba(255,255,255,0);
+}
+
+.fa-tv:before  {font-size:26px;}
+.col-currency {font-size: 18px;text-align:right;}
 .SonarrItem {
     clear: both; 
     width:100%;  
@@ -275,10 +325,7 @@
 }
 
 .colbar.transbg {
-    padding-left: 5px !important;
-    padding-right: 5px !important;
-	padding-top:6px !important;
-	padding-bottom:6px !important;
+	padding: 6px 5px !important;
 }
 .colbar.transbg .logo {
     font-size: 20px;
@@ -286,15 +333,17 @@
     margin-top: -4px;
     margin-bottom: -4px;
 }
-.colbar.transbg .fa.fa-cog {
+.colbar.transbg .fa {
     margin-top: 0px;
     font-size: 20px !important;
+	margin-left: 10px;
 }
 .colbar.transbg .miniclock span{
     font-size:15px !important;
 	font-weight:bold !important;
 }
-.colbar div.settings {
+.colbar span.settings,
+.colbar span.fullscreen {
 	cursor:pointer;
 }
 a.playlist {
@@ -371,6 +420,17 @@ a.playlist {
 }
 /* Thermostat CSS: */
 
+.update {
+	background: rgba(0,0,0,0.6);
+	border-radius: 0px;
+	color: #fff;
+	bottom:0;
+	font-weight:bold;
+	right:0;
+	padding:10px;
+	position:absolute;
+	z-index:9999;
+}
 .editmode {
 	color:white;
 	background-color:red;
@@ -453,9 +513,6 @@ a.playlist {
 	height:200px !important;
 }
 
-.stateheating {
-	margin-top:-6px;
-}
 .iconheating {
 	margin-top: 2px;
 }
@@ -507,9 +564,6 @@ a.playlist {
 	.iconheating {
 		margin-top: 14px;
 	}
-	.stateheating {
-		font-size:9px;
-	}
 }
 /************************/
   
@@ -528,6 +582,7 @@ body {
 	height: 100%;
 	width: 100%;
 	background-color:#000;
+	overflow:hidden;
 }
 body {
 	font-size:11px;
@@ -752,25 +807,54 @@ p {
 	padding-top: 6px !important;
 }
 
-.transbg.col-xs-1.hover:hover,
-.transbg.col-xs-2.hover:hover,
-.transbg.col-xs-3.hover:hover,
-.transbg.col-xs-4.hover:hover,
-.transbg.col-xs-5.hover:hover,
-.transbg.col-xs-6.hover:hover,
-.transbg.col-xs-7.hover:hover,
-.transbg.col-xs-8.hover:hover,
-.transbg.col-xs-9.hover:hover,
-.transbg.col-xs-10.hover:hover,
-.transbg.col-xs-11.hover:hover,
-.transbg.col-xs-12.hover:hover {
-    background: rgba(255,255,255,0.1);
-    background-clip: padding-box;
+/*
+Only add this hover on NON touch devices
+*/
+@media (hover: hover) {
+	
+	.transbg.col-xs-1.hover:hover,
+	.transbg.col-xs-2.hover:hover,
+	.transbg.col-xs-3.hover:hover,
+	.transbg.col-xs-4.hover:hover,
+	.transbg.col-xs-5.hover:hover,
+	.transbg.col-xs-6.hover:hover,
+	.transbg.col-xs-7.hover:hover,
+	.transbg.col-xs-8.hover:hover,
+	.transbg.col-xs-9.hover:hover,
+	.transbg.col-xs-10.hover:hover,
+	.transbg.col-xs-11.hover:hover,
+	.transbg.col-xs-12.hover:hover {
+		background: rgba(255,255,255,0.1);
+		background-clip: padding-box;
+		border: 7px solid rgba(255,255,255,0);
+	}
+}
+
+.transbg.hover {
+	cursor:pointer;
+}
+.transbg.hover.hovered {
+	background: rgba(255,255,255,0.1);
+	background-clip: padding-box;
 	border: 7px solid rgba(255,255,255,0);
 	cursor:pointer;
 }
+
 .iconslider {
 	cursor:pointer;
+}
+
+.cast-button-container {
+	padding: 13px !important;
+}
+.cast-button {
+	height: 25px;
+	width: 25px;
+	padding: 1px;
+	vertical-align: middle;
+	display: inline;
+	--disconnected-color: red;
+	--connected-color: green;
 }
 
 	.col-xs-1,
@@ -955,6 +1039,9 @@ img.icon {
 	#weather .wi {
 		font-size:24px !important;
 	}
+	.cast-button-container {
+		padding: 11px !important;
+	}
 }
 @media (max-width: 975px) {
 	div.mh {
@@ -966,6 +1053,9 @@ img.icon {
 	.transbg.col-xs-1, .transbg.col-xs-2, .transbg.col-xs-3, .transbg.col-xs-4, .transbg.col-xs-5, .transbg.col-xs-6, .transbg.col-xs-7, .transbg.col-xs-8, .transbg.col-xs-9, .transbg.col-xs-10, .transbg.col-xs-11, .transbg.col-xs-12 {
 		padding-top: 7px;
 		padding-bottom: 7px;
+	}
+	.cast-button-container {
+		padding: 3px !important;
 	}
 	h1,h4 {
 		margin-left:0px !important
@@ -1168,8 +1258,83 @@ fieldset[disabled] .btn-primary.active {
 	padding:2px 6px;
 	margin-right: 2px;
 }
+
+@media (max-width: 975px) {
+	.btn-group .btn {
+		font-size: 12px !important;
+	}
+}
+
 .btn-group .btn.active {
 	font-weight:700;
+}
+.modal-login {
+    max-height: 90%;
+    max-width:90%;
+    min-width: 25% !important;
+    margin: 0 auto;
+    margin-top: 200px;
+}
+.content-login {
+    display: block;
+    font-family: Verdana;
+    font-size: 22px;
+    line-height: 22px;
+    padding: 10px 0 0;
+    color: #000;
+}
+.login{
+	text-align: center;
+	padding: 20px;
+}
+.login input[type=text]{
+	height: 30px;
+	border: 1px solid rgba(0,0,0,0.6);
+	border-radius: 2px;
+	color: #000;
+	font-family: 'Exo', sans-serif;
+	font-size: 14px;
+	font-weight: 400;
+	padding: 4px;
+}
+.login input[type=password]{
+	height: 30px;
+	border: 1px solid rgba(0,0,0,0.6);
+	border-radius: 2px;
+	color: #000;
+	font-family: 'Exo', sans-serif;
+	font-size: 14px;
+	font-weight: 400;
+	padding: 4px;
+	margin-top: 10px;
+}
+.login input[type=button]{
+	height: 35px;
+	padding: 6px;
+	margin-top: 10px;
+}
+.login input[type=button]:hover{
+	opacity: 0.8;
+}
+.login input[type=button]:active{
+	opacity: 0.6;
+}
+.login input[type=text]:focus{
+	outline: none;
+	border: 1px solid rgba(0,0,0,0.9);
+}
+.login input[type=password]:focus{
+	outline: none;
+	border: 1px solid rgba(0,0,0,0.9);
+}
+.login input[type=button]:focus{
+	outline: none;
+}
+::-webkit-input-placeholder{
+   color: rgba(0,0,0,0.6);
+}
+::-moz-input-placeholder{
+   color: rgba(0,0,0,0.6);
 }
 ::-moz-selection {
   color: white;
