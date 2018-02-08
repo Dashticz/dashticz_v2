@@ -52,6 +52,7 @@ function loadFiles() {
             }
         });
 
+	$.ajax({url: 'js/version.js', async: false, dataType: 'script'});
         $.ajax({url: 'js/settings.js', async: false, dataType: 'script'}).done(function () {
             loadSettings();
 	    usrEnc = window.btoa(settings['user_name']);
