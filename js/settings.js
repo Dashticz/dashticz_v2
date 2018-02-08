@@ -413,7 +413,7 @@ settingList['about'] = {};
 settingList['about']['title'] = language.settings.about.title;
 
 settingList['about']['about_text'] = {};
-settingList['about']['about_text']['title'] = 'Dashticz V2.0 by Rob Geerts';
+settingList['about']['about_text']['title'] = 'Dashticz ' + dashticz_version + ' ' + dashticz_branch + ' by Rob Geerts<br>' + newVersion;
 
 settingList['about']['about_text2'] = {};
 settingList['about']['about_text2']['title'] = 'Years after developing the old and original Dashticz, I decided to start over.<br><br>For more help visit: <a href="http://www.domoticz.com/wiki/Dashticz_V2" target="_blank">http://www.domoticz.com/wiki/Dashticz_V2</a><br>You can also check out our helpful <a href="https://www.domoticz.com/forum/viewforum.php?f=67" target="_blank">community</a> in Dashticz topic on the Domoticz forum.';
