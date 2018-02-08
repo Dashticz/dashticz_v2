@@ -420,6 +420,17 @@ a.playlist {
 }
 /* Thermostat CSS: */
 
+.update {
+	background: rgba(0,0,0,0.6);
+	border-radius: 0px;
+	color: #fff;
+	bottom:0;
+	font-weight:bold;
+	right:0;
+	padding:10px;
+	position:absolute;
+	z-index:9999;
+}
 .editmode {
 	color:white;
 	background-color:red;
