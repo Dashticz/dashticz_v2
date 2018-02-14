@@ -382,10 +382,10 @@ function getStateBlock(id, icon, title, value, device) {
 
     if (titleAndValueSwitch(id)) {
         stateBlock += '<strong class="title">' + title + '</strong><br />';
-        stateBlock += '<span>' + value + '</span>';
+        stateBlock += '<span class="value">' + value + '</span>';
     } else {
         stateBlock += '<strong class="title">' + value + '</strong><br />';
-        stateBlock += '<span>' + title + '</span>';
+        stateBlock += '<span class="value">' + title + '</span>';
     }
     if (showUpdateInformation(id)) {
         stateBlock += '<br /><span class="lastupdate">' + moment(device['LastUpdate']).format(settings['timeformat']) + '</span>';
@@ -450,10 +450,10 @@ function getStatusBlock(idx, device, block, c) {
     stateBlock += '<div class="col-xs-8 col-data">';
     if (titleAndValueSwitch(idx)) {
         stateBlock += '<strong class="title">' + title + '</strong><br />';
-        stateBlock += '<span>' + value + '</span>';
+        stateBlock += '<span class="value">' + value + '</span>';
     } else {
         stateBlock += '<strong class="title">' + value + '</strong><br />';
-        stateBlock += '<span>' + title + '</span>';
+        stateBlock += '<span class="value">' + title + '</span>';
     }
 
     if (showUpdateInformation(idx)) {
