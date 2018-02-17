@@ -26,9 +26,11 @@
         "today": "ma"
     },
     "misc": {
+        "download": "Click here to download",
         "last_update": "Utolsó frissítés",
         "loading": "Betöltés...",
         "mediaplayer_nothing_playing": "Semmi sem játszódik most",
+        "new_version": "New version is available",
         "notifications_ns": "Az NS által tett bejelentések",
         "scheduled": "Tervezett",
         "select": "Kiválaszt",

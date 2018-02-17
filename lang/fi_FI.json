@@ -26,9 +26,11 @@
         "today": "Tänään"
     },
     "misc": {
+        "download": "Click here to download",
         "last_update": "Viimeisin päivitys",
         "loading": "Ladataan...",
         "mediaplayer_nothing_playing": "Mitään ei toisteta tällä hetkellä",
+        "new_version": "New version is available",
         "notifications_ns": "NS:n lisäämät ilmoitukset",
         "scheduled": "Suunniteltu",
         "select": "Valitse",

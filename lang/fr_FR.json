@@ -26,9 +26,11 @@
         "today": "aujourd'hui"
     },
     "misc": {
+        "download": "Click here to download",
         "last_update": "Dernière mise à jour",
         "loading": "Chargement...",
         "mediaplayer_nothing_playing": "Il n'y a pas de jeu",
+        "new_version": "New version is available",
         "notifications_ns": "messages postés par le NS",
         "scheduled": "Prévu",
         "select": "Sélectionnez",

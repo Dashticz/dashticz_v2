@@ -26,9 +26,11 @@
         "today": "oggi"
     },
     "misc": {
+        "download": "Click here to download",
         "last_update": "Ultimo aggiornamento",
         "loading": "Caricamento...",
         "mediaplayer_nothing_playing": "Non in riproduzione",
+        "new_version": "New version is available",
         "notifications_ns": "notifica aggiunta da NS",
         "scheduled": "Programma",
         "select": "Seleziona",

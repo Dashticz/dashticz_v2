@@ -26,9 +26,11 @@
         "today": "vandaag"
     },
     "misc": {
+        "download": "Klik hier om te downloaden",
         "last_update": "Laatste update",
         "loading": "Laden...",
         "mediaplayer_nothing_playing": "Er wordt momenteel niets afgespeeld",
+        "new_version": "Nieuwe versie is beschikbaar",
         "notifications_ns": "meldingen geplaatst door de NS",
         "scheduled": "Gepland",
         "select": "Selecteer",

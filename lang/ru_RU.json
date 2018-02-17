@@ -26,9 +26,11 @@
         "today": "сегодня"
     },
     "misc": {
+        "download": "Click here to download",
         "last_update": "Последнее обновление",
         "loading": "Загрузка...",
         "mediaplayer_nothing_playing": "Ничего не проигрывается в данный момент",
+        "new_version": "New version is available",
         "notifications_ns": "Уведомления, добавленные NS",
         "scheduled": "Запланированные",
         "select": "Выбрать",

@@ -26,9 +26,11 @@
         "today": "today"
     },
     "misc": {
+        "download": "Click here to download",
         "last_update": "Last update",
         "loading": "Loading...",
         "mediaplayer_nothing_playing": "Nothing is playing right now",
+        "new_version": "New version is available",
         "notifications_ns": "notifications added by NS",
         "scheduled": "Scheduled",
         "select": "Select",

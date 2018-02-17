@@ -26,9 +26,11 @@
         "today": "bugün"
     },
     "misc": {
+        "download": "Click here to download",
         "last_update": "Son Güncelleme",
         "loading": "Yüklüyor...",
         "mediaplayer_nothing_playing": "Şu anda hiçbirşey çalmıyor",
+        "new_version": "New version is available",
         "notifications_ns": "NS tarafından eklenen bildirimler",
         "scheduled": "Planlanmış",
         "select": "Seç",

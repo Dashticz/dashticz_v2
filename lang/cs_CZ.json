@@ -26,9 +26,11 @@
         "today": "dnešní"
     },
     "misc": {
+        "download": "Click here to download",
         "last_update": "Poslední změna",
         "loading": "Nahrávám...",
         "mediaplayer_nothing_playing": "Právě teď nic nehraje",
+        "new_version": "New version is available",
         "notifications_ns": "Upozornění od NS",
         "scheduled": "Naplánováno",
         "select": "Vybráno",

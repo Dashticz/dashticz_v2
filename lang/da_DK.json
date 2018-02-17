@@ -26,9 +26,11 @@
         "today": "i dag"
     },
     "misc": {
+        "download": "Click here to download",
         "last_update": "Sidste opdatering",
         "loading": "Indlæser...",
         "mediaplayer_nothing_playing": "Intet spiller lige nu",
+        "new_version": "New version is available",
         "notifications_ns": "notifikationer tilføjet af NS",
         "scheduled": "Planlagt",
         "select": "Vælg",
