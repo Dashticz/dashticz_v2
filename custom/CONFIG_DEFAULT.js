@@ -38,7 +38,7 @@ columns['bar'] = {}
 columns['bar']['blocks'] = ['logo','miniclock','settings']
 					
 columns[1] = {}
-columns[1]['blocks'] = ['currentweather_big','weather','garbage']
+columns[1]['blocks'] = ['currentweather_big','weather']
 columns[1]['width'] = 5;
 
 columns[2] = {}

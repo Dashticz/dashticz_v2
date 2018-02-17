@@ -27,5 +27,5 @@ $.ajax({url: 'https://api.github.com/repos/Dashticz/dashticz_v2/branches/' + das
 });
 
 if (moved == true) {
-        $('body').append('<div class="update">New version is available!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://github.com/Dashticz/dashticz_v2/tree/' + dashticz_branch + '" target="_blank">Click here to download</a>&nbsp;&nbsp;</div>');
+	        $('body').append('<div class="update">' + language.misc.new_version + '!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://github.com/Dashticz/dashticz_v2/tree/' + dashticz_branch + '" target="_blank">' + language.misc.download + '</a>&nbsp;&nbsp;</div>');
     }

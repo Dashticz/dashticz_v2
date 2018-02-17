@@ -1933,8 +1933,8 @@ function getBlindsBlock(device, idx, withPercentage) {
     if (typeof(withPercentage) === 'undefined') withPercentage = false;
     this.html = '';
     this.html += '<div class="col-xs-4 col-icon">';
-    if (device['Status'] == 'Closed') this.html += '<img src="img/blinds_closed.png" class="off icon" />';
-    else this.html += '<img src="img/blinds_open.png" class="on icon" />';
+    if(device['Status'] === 'Closed') this.html += iconORimage(idx, '', 'blinds_closed.png', 'off icon', '', 2);
+    else this.html += iconORimage(idx, '', 'blinds_open.png', 'on icon', '', 2);
     this.html += '</div>';
     this.html += '<div class="col-xs-8 col-data">';
     this.title = device['Name'];
@@ -1946,6 +1946,14 @@ function getBlindsBlock(device, idx, withPercentage) {
     } else {
         if (device['Status'] === 'Closed') this.value = '<span class="state">' + language.switches.state_closed + '</span>';
         else this.value = '<span class="state">' + language.switches.state_open + '</span>';
+    }
+    if (!withPercentage) {
+	if (typeof(blocks[idx]) == 'undefined' || typeof(blocks[idx]['hide_data']) == 'undefined' || blocks[idx]['hide_data'] == false) {
+	    if (device['Status'] === 'Closed') this.value = '<span class="state">' + language.switches.state_closed + '</span>';
+	    else this.value = '<span class="state">' + language.switches.state_open + '</span>';
+	} else {
+	   this.value = '<span class="state"></span>'
+	}
     }
     this.html += '<strong class="title">' + this.title + '</strong><br />';
     this.html += this.value;
