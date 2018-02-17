@@ -206,6 +206,7 @@ function buildStandby(){
 	if($('.screenstandby').length==0){
 		var screenhtml = '<div class="screen screenstandby swiper-slide slidestandby" style="height:'+$(window).height()+'px"><div class="row"></div></div>';
 		$('div.screen').hide();
+		$('#settingspopup').modal('hide');
 		$('div.swiper-container').before(screenhtml);	
 
 		for(c in columns_standby){
