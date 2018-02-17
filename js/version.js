@@ -6,7 +6,7 @@
 	
 var dashticz_version = 'V2.0';
 var dashticz_branch = 'beta'; /* master or beta */
-var ref_commit = '077fc5c5861b7f66ac68a7a8ef18abb5502c84e2' /* Reference commit - add the latest commit BEFORE make a PR of this file */
+var ref_commit = '946ea83cf8da438e637290edfdfbfdb6d0a27394' /* Reference commit - add the latest commit BEFORE make a PR of this file */
 var newVersion = '';
 var moved = false;
 	
@@ -27,5 +27,5 @@ $.ajax({url: 'https://api.github.com/repos/Dashticz/dashticz_v2/branches/' + das
 });
 
 if (moved == true) {
-        $('body').append('<div class="update">New version is available!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://github.com/Dashticz/dashticz_v2/tree/' + dashticz_branch + '" target="_blank">Click here to download</a>&nbsp;&nbsp;</div>');
+	        $('body').append('<div class="update">' + language.misc.new_version + '!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://github.com/Dashticz/dashticz_v2/tree/' + dashticz_branch + '" target="_blank">' + language.misc.download + '</a>&nbsp;&nbsp;</div>');
     }
