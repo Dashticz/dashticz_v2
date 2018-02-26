@@ -1478,13 +1478,20 @@ function isProtected(device, idx) {
 }
 
 function getIconStatusClass(deviceStatus) {
-    switch (deviceStatus.toLowerCase()) {
-        case 'off':
-        case 'closed':
-        case 'normal':
-            return 'off';
-    }
-    return 'on';
+	if (deviceStatus != undefined)
+	{
+		switch (deviceStatus.toLowerCase()) {
+			case 'off':
+			case 'closed':
+			case 'normal':
+			return 'off';
+		}
+		return 'on';
+	}
+	else
+	{
+		return "off";
+	}
 }
 
 function getLogitechControls(device) {
