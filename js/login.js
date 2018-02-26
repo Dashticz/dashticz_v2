@@ -3,11 +3,11 @@ function validate() {
 	var username = document.getElementById("username").value;
 	var password = document.getElementById("password").value;
 	if (username == settings['user_name'] && password == settings['pass_word']) {
-		var sessionTimeout = 1; //session timeout after x hours
+		var sessionTimeout = 1; //session timeout after x hour(s)
 		var loginDuration = new Date();
 		loginDuration.setTime(loginDuration.getTime() + (sessionTimeout * 60 * 60 * 1000));
-		document.cookie = "CrewCentreSession=Valid; " + loginDuration.toGMTString() + "; path=/";
-		/* speak("Welcome back " + settings['user_name'] + " to Dashticz version 2") */
+		var expires = "expires=" + loginDuration.toUTCString()
+		document.cookie = "CrewCentreSession=Valid; " + expires + "; path=/";
 		document.location.href = document.location.href;
 		return false;
 	} else {
