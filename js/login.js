@@ -12,7 +12,7 @@ function validate() {
 		return false;
 	} else {
 		attempt--;
-		alert("You have left " + attempt + " attempt;");
+		infoMessage('<font color="red">Alert!</font> Wrong username or password.','You have <font color="red">' + attempt + '</font> attempt left.', 10000);
 		// Disabling fields after 3 attempts.
 		if (attempt == 0) {
 			document.getElementById("username").disabled = true;
