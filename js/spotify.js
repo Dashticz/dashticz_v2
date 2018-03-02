@@ -26,6 +26,7 @@ function getSpotify(columndiv){
 	}
 	else if(!settings['spot_clientid']){
 		console.log('Enter your Spotify ClientID in CONFIG.JS');
+		infoMessage('Spotify:', 'Enter your Spotify ClientID in settings or delete spotify block in your CONFIG.js',10000);
 	}
 	else {
 		var url = getLoginURL();
