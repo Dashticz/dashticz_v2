@@ -470,7 +470,7 @@ function infoMessage(sub, msg, timeOut){
 	}
 }
 function infoDevicsSwitch(msg){
-	$('body').append('<div class="update">Message:&nbsp;&nbsp;' + msg + '&nbsp;&nbsp;</div>');
+	$('body').append('<div class="update">&nbsp;&nbsp;' + msg + '&nbsp;&nbsp;</div>');
 		setTimeout(function(){
 			$(".update").fadeOut();
 		}, 10000);
