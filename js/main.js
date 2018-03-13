@@ -969,9 +969,9 @@ function getDevices(override) {
         if (typeof(req) !== 'undefined') req.abort();
         gettingDevices = true;
 
-        req = $.getJSONP({
-            url: settings['domoticz_ip'] + '/json.htm?username=' + usrEnc + '&password=' + pwdEnc + '&type=devices&plan=' + settings['room_plan'] + '&filter=all&used=true&order=Name&jsoncallback=?',
-            type: 'GET', async: true, contentType: "application/json", dataType: 'jsonp',
+        req = $.get({
+            url: settings['domoticz_ip'] + '/json.htm?username=' + usrEnc + '&password=' + pwdEnc + '&type=devices&plan=' + settings['room_plan'] + '&filter=all&used=true&order=Name',
+            type: 'GET', async: true, contentType: "application/json",
             error: function (jqXHR, textStatus) {
                 console.error("Domoticz error!\nPlease, double check the path to Domoticz in Settings!");
             },
