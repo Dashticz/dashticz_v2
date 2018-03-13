@@ -55,20 +55,24 @@ function loadFiles() {
 	$.ajax({url: 'js/version.js', async: false, dataType: 'script'});
         $.ajax({url: 'js/settings.js', async: false, dataType: 'script'}).done(function () {
             loadSettings();
-	    usrEnc = window.btoa(settings['user_name']);
-	    pwdEnc = window.btoa(settings['pass_word']);
-
-	    if (typeof(screens) === 'undefined' || objectlength(screens) === 0) {
-		screens = {};
-		screens[1] = {};
-		screens[1]['background'] = settings['background_image'];
-		screens[1]['columns'] = [];
-		if (defaultcolumns === false) {
-			for (c in columns) {
-			if (c !== 'bar') screens[1]['columns'].push(c);
+			userEnc='';
+			pwdEnc='';
+			if(typeof(settings['user_name'])!=='undefined'){
+				usrEnc = window.btoa(settings['user_name']);
+				pwdEnc = window.btoa(settings['pass_word']);
 			}
-		}
-	    }
+			if (typeof(screens) === 'undefined' || objectlength(screens) === 0) {
+				screens = {};
+				screens[1] = {};
+				screens[1]['background'] = settings['background_image'];
+				screens[1]['columns'] = [];
+				if (defaultcolumns === false) {
+					for (c in columns) {
+						if (c !== 'bar') screens[1]['columns'].push(c);
+					}
+				}
+			}
+			
             $('<link href="css/creative.css?v=' + cache + '" rel="stylesheet">').appendTo('head');
             $('<link href="vendor/weather/css/weather-icons.min.css?v=' + cache + '" rel="stylesheet">').appendTo('head');
 
@@ -994,13 +998,15 @@ function getDevices(override) {
     if (!sliding || override) {
         if (typeof(req) !== 'undefined') req.abort();
         gettingDevices = true;
-
+		
+		var usrinfo ='';
+		if(typeof(usrEnc)!=='undefined' && usrEnc!=='') usrinfo = 'username=' + usrEnc + '&password=' + pwdEnc + '&';
         req = $.get({
-            url: settings['domoticz_ip'] + '/json.htm?username=' + usrEnc + '&password=' + pwdEnc + '&type=devices&plan=' + settings['room_plan'] + '&filter=all&used=true&order=Name',
+            url: settings['domoticz_ip'] + '/json.htm?'+usrinfo+'type=devices&plan=' + settings['room_plan'] + '&filter=all&used=true&order=Name',
             type: 'GET', async: true, contentType: "application/json",
             error: function (jqXHR, textStatus) {
                 console.error("Domoticz error!\nPlease, double check the path to Domoticz in Settings!");
-		infoMessage('<font color="red">Domoticz error!', 'double check the path to Domoticz in Settings!</font>', 0);
+				infoMessage('<font color="red">Domoticz error!', 'double check the path to Domoticz in Settings!</font>', 0);
             },
             success: function (data) {
                 
@@ -1932,7 +1938,11 @@ function getDimmerBlock(device, idx, buttonimg) {
             var bIsWhite = (hue.s < 20);
 
             sliding = true;
-            var url = settings['domoticz_ip'] + '/json.htm?username=' + usrEnc + '&password=' + pwdEnc + '&type=command&param=setcolbrightnessvalue&idx=' + curidx + '&hue=' + hue.h + '&brightness=' + hue.b + '&iswhite=' + bIsWhite;
+            
+			var usrinfo ='';
+			if(typeof(usrEnc)!=='undefined' && usrEnc!=='') usrinfo = 'username=' + usrEnc + '&password=' + pwdEnc + '&';
+        
+			var url = settings['domoticz_ip'] + '/json.htm?'+usrinfo+'type=command&param=setcolbrightnessvalue&idx=' + curidx + '&hue=' + hue.h + '&brightness=' + hue.b + '&iswhite=' + bIsWhite;
             $.ajax({
                 url: url + '&jsoncallback=?',
                 type: 'GET', async: false, contentType: "application/json", dataType: 'jsonp'
