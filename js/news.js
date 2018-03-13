@@ -68,7 +68,9 @@ function getNews(divToFill, newsfeed) {
                 });
 
                 $('#rss-styled_' + divToFill).parents('.transbg').height(maxHeight);
-            }
+            },error: function(data){
+		infoMessage('<font color="red">News Error!</font>','RSS feed ' + data.statusText +'. Check rss url.', 10000);
+		}
         });
 
         setTimeout(function () {

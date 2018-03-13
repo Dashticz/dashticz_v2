@@ -407,6 +407,7 @@ function showMap(mapid, map) {
         || settings['gm_api'] == ""
         || settings['gm_api'] == 0) {
         console.log('Please, set Google Maps API KEY!');
+	infoMessage('Info:', 'Please, set Google Maps API KEY!', 8000);
         return
     }
     if (typeof(map) !== 'undefined') {
@@ -454,11 +455,30 @@ function setClassByTime() {
     $('body').removeClass('morning noon afternoon night').addClass(newClass);
 }
 
+function infoMessage(sub, msg, timeOut){
+	if (timeOut == null){
+		timeOut = 8000;
+	}
+	if (timeOut == 0) {
+		$('body').append('<div class="update">' + sub + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + msg + '&nbsp;&nbsp;</div>');
+	}
+	else {
+	$('body').append('<div class="update">' + sub + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + msg + '&nbsp;&nbsp;</div>');
+		setTimeout(function(){
+			$(".update").fadeOut();
+		}, timeOut);
+	}
+}
+function infoDevicsSwitch(msg){
+	$('body').append('<div class="update">&nbsp;&nbsp;' + msg + '&nbsp;&nbsp;</div>');
+		setTimeout(function(){
+			$(".update").fadeOut();
+		}, 10000);
+}
+
 function speak(textToSpeak) {
     var newUtterance = new SpeechSynthesisUtterance();
-    /* var voices = window.speechSynthesis.getVoices(); */
     newUtterance.text = textToSpeak;
-    /* newUtterance.voice = voices.filter(function(voice) { return voice.name == 'Google UK English Male'; })[0]; */
     newUtterance.lang = settings['speak_lang'];
     window.speechSynthesis.speak(newUtterance);
 }
@@ -500,6 +520,9 @@ function triggerStatus(idx, value, device) {
             if (typeof(blocks[idx]) !== 'undefined' && typeof(blocks[idx]['speakOn']) !== 'undefined') {
                 speak(blocks[idx]['speakOn']);
             }
+	    if (typeof(blocks[idx]) !== 'undefined' && typeof(blocks[idx]['messageOn']) !== 'undefined') {
+                infoDevicsSwitch(blocks[idx]['messageOn']);
+	    }
             if (typeof(blocks[idx]) !== 'undefined' && typeof(blocks[idx]['gotoslideOn']) !== 'undefined') {
                 toSlide((blocks[idx]['gotoslideOn'] - 1));
                 standbyTime=0;
@@ -513,6 +536,9 @@ function triggerStatus(idx, value, device) {
             if (typeof(blocks[idx]) !== 'undefined' && typeof(blocks[idx]['speakOff']) !== 'undefined') {
                 speak(blocks[idx]['speakOff']);
             }
+	    if (typeof(blocks[idx]) !== 'undefined' && typeof(blocks[idx]['messageOff']) !== 'undefined') {
+                infoDevicsSwitch(blocks[idx]['messageOff']);
+	    }
             if (typeof(blocks[idx]) !== 'undefined' && typeof(blocks[idx]['gotoslideOff']) !== 'undefined') {
                 toSlide((blocks[idx]['gotoslideOff'] - 1));
                 standbyTime=0;
@@ -974,6 +1000,7 @@ function getDevices(override) {
             type: 'GET', async: true, contentType: "application/json",
             error: function (jqXHR, textStatus) {
                 console.error("Domoticz error!\nPlease, double check the path to Domoticz in Settings!");
+		infoMessage('<font color="red">Domoticz error!', 'double check the path to Domoticz in Settings!</font>', 0);
             },
             success: function (data) {
                 

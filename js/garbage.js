@@ -44,7 +44,10 @@ function getGoogleCalendarData(address, date, random, calendarId) {
             timeMax: date.end.format('YYYY-MM-DDT00:00:00+00:00'),
             orderBy: 'startTime',
             maxResults: getMaxItems()
-        },
+        },error: function(errorData){
+		var msg = errorData.responseJSON.error.message
+		infoMessage('<font color="red">Garbage Error!</font>','Google Calendar ' + msg, 10000);
+	},
         success: function (data) {
             this.returnDates = data.items.map(function(element) {
                 if (element.start.hasOwnProperty('date')) {
