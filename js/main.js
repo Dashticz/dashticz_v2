@@ -1714,7 +1714,7 @@ function createBlocks(blockValues, device) {
             ) {
 				
 				//sometimes there is a block_IDX_3 and block_IDX_6, but no block_IDX_4, therefor, loop to remove classes
-				//(e.g. with smart P1 meters, when theres no CounterDeliv value)
+				//(e.g. with smart P1 meters, when there's no CounterDeliv value)
 				var newblock = $('div.block_' + device['idx']).last().clone();
 				for(i=1;i<=10;i++){
 					newblock.removeClass('block_' + device['idx'] + '_' + i);
@@ -1763,6 +1763,10 @@ function getTempHumBarBlock(device, idx) {
     if ($('div.block_' + idx).length > 0) {
         allblocks[idx] = true;
     }
+    var single_block = (typeof(blocks[idx]) !== 'undefined'
+        && typeof(blocks[idx]['single_block']) !== 'undefined'
+        && blocks[idx]['single_block']
+    );
 
     var blockValues = [
         {
@@ -1774,23 +1778,33 @@ function getTempHumBarBlock(device, idx) {
         },
     ];
     if (typeof(device['Humidity']) !== 'undefined') {
-        blockValues.push({
-            icon: 'wi wi-humidity',
-            idx: idx + '_2',
-            title: device['Name'],
-            value: number_format(device['Humidity'], 0),
-            unit: '%'
-        });
+        if (single_block) {
+            blockValues[0].value += ' ' + blockValues[0].unit + ' / ' + number_format(device['Humidity'], 0) + ' %';
+            blockValues[0].unit = '';
+        } else {
+            blockValues.push({
+                icon: 'wi wi-humidity',
+                idx: idx + '_2',
+                title: device['Name'],
+                value: number_format(device['Humidity'], 0),
+                unit: '%'
+            });
+        }
     }
     if (typeof(device['Barometer']) !== 'undefined') {
-        blockValues.push({
-            icon: 'wi wi-barometer',
-            idx: idx + '_3',
-            title: device['Name'],
-            value: device['Barometer'],
-            unit: 'hPa'
-        });
+        if (single_block) {
+            blockValues[0].value += ' / ' + device['Barometer'] + ' hPa';
+        } else {
+            blockValues.push({
+                icon: 'wi wi-barometer',
+                idx: idx + '_3',
+                title: device['Name'],
+                value: device['Barometer'],
+                unit: 'hPa'
+            });
+        }
     }
+
     createBlocks(blockValues, device);
     return ['', false];
 }
