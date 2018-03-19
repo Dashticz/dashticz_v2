@@ -1370,11 +1370,15 @@ function handleDevice(device, idx) {
         case 'Dimmer':
             return getDimmerBlock(device, idx, buttonimg);
         case 'Door Contact':
-        case 'Door Lock':
         case 'Contact':
             if(device['Status'] === 'Closed') html += iconORimage(idx, '', 'door_closed.png', 'off icon', '', 2);
             else html += iconORimage(idx, '', 'door_open.png', 'on icon', '', 2);
             html += getBlockData(device, idx, language.switches.state_open, language.switches.state_closed);
+            return [html, addHTML];
+	case 'Door Lock':
+	    if(device['Status'] === 'Unlocked') html += iconORimage(idx, 'fa-unlock', buttonimg, 'on icon', '', 2);
+            else html += iconORimage(idx, 'fa-lock', buttonimg, 'off icon', '', 2);
+            html += getBlockData(device, idx, language.switches.state_unlocked, language.switches.state_locked);
             return [html, addHTML];
         case 'Venetian Blinds EU':
         case 'Venetian Blinds US':
