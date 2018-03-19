@@ -556,7 +556,7 @@ function getBlockData(device, idx, ontxt, offtxt) {
     }
 
     this.value = ontxt;
-    if (device['Status'] == 'Off' || device['Status'] == 'Closed' || device['Status'] == 'Normal' || (device['Status'] == '' && device['InternalState'] == 'Off')) {
+    if (device['Status'] == 'Off' || device['Status'] == 'Closed' || device['Status'] == 'Normal' || device['Status'] == 'Locked' || (device['Status'] == '' && device['InternalState'] == 'Off')) {
         this.value = offtxt;
     }
 
