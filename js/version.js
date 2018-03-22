@@ -4,9 +4,9 @@
 	Next this file is reading comments from the latest commit (update ref_commit) eg. "New function - Update checker"
 	*/
 	
-var dashticz_version = 'V2.3';
+var dashticz_version = 'V2.3.1';
 var dashticz_branch = 'beta'; /* master or beta */
-var ref_commit = '80ab63fbfdf375f427d6113387b41f18c64c11a3' /* Reference commit - add the latest commit BEFORE make a PR of this file */
+var ref_commit = '756e8f87cef8b432b146eef9673ce42dea6db221' /* Reference commit - add the latest commit BEFORE make a PR of this file */
 var newVersion = '';
 var moved = false;
 	
