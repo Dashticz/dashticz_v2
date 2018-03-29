@@ -46,8 +46,9 @@ blocktypes.Type['UV'] = {icon: 'fa fa-sun-o', title: '<Name>', value: '<Data>'};
 blocktypes.HardwareType = {};
 blocktypes.HardwareType['Motherboard sensors'] = {icon: 'fa fa-desktop', title: '<Name>', value: '<Data>'};
 blocktypes.HardwareType['PVOutput (Input)'] = {};
-blocktypes.HardwareType['PVOutput (Input)']['total'] = {icon: 'fa fa-sun-o', title: '<Name>', value: '<CounterToday>'};
-blocktypes.HardwareType['PVOutput (Input)']['usage'] = {icon: 'fa fa-sun-o', title: '<Name>', value: '<Usage>'};
+blocktypes.HardwareType['PVOutput (Input)']['today'] = {icon: 'fa fa-sun-o', title: '<Name>', value: '<CounterToday>', format: true, decimals: 1};
+blocktypes.HardwareType['PVOutput (Input)']['usage'] = {icon: 'fa fa-sun-o', title: '<Name>', value: '<Usage>', format: true, decimals: 1};
+blocktypes.HardwareType['PVOutput (Input)']['total'] = {icon: 'fa fa-sun-o', title: '<Name>', value: '<Data>', format: true, decimals: 0};
 
 blocktypes.HardwareName = {};
 blocktypes.HardwareName['Rain expected'] = {icon: 'fa fa-tint', title: '<Data>', value: '<Name>'};
