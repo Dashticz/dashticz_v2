@@ -577,18 +577,21 @@ function getBlockData(device, idx, ontxt, offtxt) {
 }
 
 function titleAndValueSwitch(idx) {
-    return typeof(blocks[idx]) !== 'undefined' && typeof(blocks[idx]['switch']) !== 'undefined' && blocks[idx]['switch'] == true;
+    return typeof(blocks[idx]) !== 'undefined'
+        && typeof(blocks[idx]['switch']) !== 'undefined'
+        && blocks[idx]['switch'];
 }
 
 function showUpdateInformation(idx) {
-    return (settings['last_update'] == 1
-        && (typeof(blocks[idx]) == 'undefined'
-            || typeof(blocks[idx]['hide_lastupdate']) == 'undefined'
-            || blocks[idx]['hide_lastupdate'] === false))
-        || (settings['last_update'] == 0
+    return (settings['last_update']
+            && (typeof(blocks[idx]) === 'undefined'
+                || typeof(blocks[idx]['last_update']) === 'undefined'
+                || blocks[idx]['last_update']))
+        || (!settings['last_update']
             && (typeof(blocks[idx]) !== 'undefined'
-                && typeof(blocks[idx]['show_lastupdate']) !== 'undefined'
-                && blocks[idx]['show_lastupdate'] == true));
+                && typeof(blocks[idx]['last_update']) !== 'undefined'
+                && blocks[idx]['last_update'])
+        );
 }
 
 function TranslateDirection(directionstr) {
