@@ -1635,7 +1635,6 @@ function getSmartMeterBlock(device, idx) {
 				value: number_format(data[1], 3,'.',''),
 				unit: settings['units'].names.kwh
 			});
-		console.log(blockValues);
 		}
         createBlocks(blockValues, device);
         return ['', false];
@@ -1670,30 +1669,69 @@ function getRFXMeterCounterBlock(device, idx) {
     if ($('div.block_' + idx).length > 0) {
         allblocks[idx] = true;
     }
+    var unit = '';
+    var decimals = 2;
+    var icon = 'fa-fire';
+
+    switch (device['SwitchTypeVal']) {
+        case 0:
+            unit = settings['units'].names.kwh;
+            decimals = settings['units'].decimals.kwh;
+            icon = 'fa-bolt';
+            break;
+
+        case 1:
+            unit = settings['units'].names.gas;
+            decimals = settings['units'].decimals.gas;
+            icon = 'fa-fire';
+            break;
+
+        case 2:
+            unit = settings['units'].names.water;
+            decimals = settings['units'].decimals.water;
+            icon = 'fa-tint';
+            break;
+
+        case 3:
+            unit = device['ValueUnits'];
+            break;
+
+        case 4:
+            unit = settings['units'].names.kwh;
+            decimals = settings['units'].decimals.kwh;
+            icon = 'fa-sun-o';
+            break;
+
+        case 5:
+            unit = settings['units'].names.time;
+            decimals = settings['units'].decimals.time;
+            icon = 'fa-clock-o';
+            break;
+    }
 
     var blockValues = [
         {
-            icon: device['Name'] === 'Water' ? 'fa-tint' : 'fa-fire',
+            icon: icon,
             idx: idx + '_1',
             title: device['Name'],
-            value: device['CounterToday'],
-            unit: ''
+            value: number_format(device['CounterToday'].split(' ')[0], decimals),
+            unit: unit
         },
         {
-            icon: device['Name'] === 'Water' ? 'fa-tint' : 'fa-fire',
+            icon: icon,
             idx: idx + '_2',
             title: language.energy.energy_totals + ' ' + device['Name'],
-            value: device['Counter'],
-            unit: settings['units'].names.kwh
+            value: number_format(device['Counter'].split(' ')[0], decimals),
+            unit: unit
         }
     ];
     if (typeof(device['Usage']) !== 'undefined') {
         blockValues.push({
-            icon: device['Name'] === 'Water' ? 'fa-tint' : 'fa-fire',
+            icon: icon,
             idx: idx + '_3',
             title: device['Name'],
-            value: device['Usage'],
-            unit: ''
+            value: number_format(device['Usage'].split(' ')[0], decimals),
+            unit: unit
         })
     }
     createBlocks(blockValues, device);
