@@ -481,11 +481,17 @@ if (typeof(settings['units']) === 'undefined') {
     settings['units'] = {
         names: {
             kwh: 'kWh',
-            watt: 'W'
+            watt: 'W',
+            gas: 'm3',
+            water: 'l',
+            time: ''
         },
         decimals: {
             kwh: 2,
-            watt: 2
+            watt: 2,
+            gas: 1,
+            water: 0,
+            time: 0
         }
     };
 }

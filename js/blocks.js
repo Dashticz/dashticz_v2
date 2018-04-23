@@ -46,8 +46,9 @@ blocktypes.Type['UV'] = {icon: 'fa fa-sun-o', title: '<Name>', value: '<Data>'};
 blocktypes.HardwareType = {};
 blocktypes.HardwareType['Motherboard sensors'] = {icon: 'fa fa-desktop', title: '<Name>', value: '<Data>'};
 blocktypes.HardwareType['PVOutput (Input)'] = {};
-blocktypes.HardwareType['PVOutput (Input)']['total'] = {icon: 'fa fa-sun-o', title: '<Name>', value: '<CounterToday>'};
-blocktypes.HardwareType['PVOutput (Input)']['usage'] = {icon: 'fa fa-sun-o', title: '<Name>', value: '<Usage>'};
+blocktypes.HardwareType['PVOutput (Input)']['today'] = {icon: 'fa fa-sun-o', title: '<Name>', value: '<CounterToday>', format: true, decimals: 1};
+blocktypes.HardwareType['PVOutput (Input)']['usage'] = {icon: 'fa fa-sun-o', title: '<Name>', value: '<Usage>', format: true, decimals: 1};
+blocktypes.HardwareType['PVOutput (Input)']['total'] = {icon: 'fa fa-sun-o', title: '<Name>', value: '<Data>', format: true, decimals: 0};
 
 blocktypes.HardwareName = {};
 blocktypes.HardwareName['Rain expected'] = {icon: 'fa fa-tint', title: '<Data>', value: '<Name>'};
@@ -556,7 +557,7 @@ function getBlockData(device, idx, ontxt, offtxt) {
     }
 
     this.value = ontxt;
-    if (device['Status'] == 'Off' || device['Status'] == 'Closed' || device['Status'] == 'Normal' || (device['Status'] == '' && device['InternalState'] == 'Off')) {
+    if (device['Status'] == 'Off' || device['Status'] == 'Closed' || device['Status'] == 'Normal' || device['Status'] == 'Locked' || (device['Status'] == '' && device['InternalState'] == 'Off')) {
         this.value = offtxt;
     }
 
@@ -576,18 +577,21 @@ function getBlockData(device, idx, ontxt, offtxt) {
 }
 
 function titleAndValueSwitch(idx) {
-    return typeof(blocks[idx]) !== 'undefined' && typeof(blocks[idx]['switch']) !== 'undefined' && blocks[idx]['switch'] == true;
+    return typeof(blocks[idx]) !== 'undefined'
+        && typeof(blocks[idx]['switch']) !== 'undefined'
+        && blocks[idx]['switch'];
 }
 
 function showUpdateInformation(idx) {
-    return (settings['last_update'] == 1
-        && (typeof(blocks[idx]) == 'undefined'
-            || typeof(blocks[idx]['hide_lastupdate']) == 'undefined'
-            || blocks[idx]['hide_lastupdate'] === false))
-        || (settings['last_update'] == 0
+    return (settings['last_update']
+            && (typeof(blocks[idx]) === 'undefined'
+                || typeof(blocks[idx]['last_update']) === 'undefined'
+                || blocks[idx]['last_update']))
+        || (!settings['last_update']
             && (typeof(blocks[idx]) !== 'undefined'
-                && typeof(blocks[idx]['show_lastupdate']) !== 'undefined'
-                && blocks[idx]['show_lastupdate'] == true));
+                && typeof(blocks[idx]['last_update']) !== 'undefined'
+                && blocks[idx]['last_update'])
+        );
 }
 
 function TranslateDirection(directionstr) {

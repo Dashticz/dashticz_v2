@@ -184,6 +184,8 @@
         "state_off": "OFF",
         "state_on": "ON",
         "state_open": "OPEN",
+        "state_locked": "LOCKED",
+	"state_unlocked": "UNLOCKED",
         "state_smoke": "SMOKE DETECTED",
         "state_switch": "Switch"
     },
