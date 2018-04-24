@@ -10,7 +10,7 @@ foreach($rows as $r => $row){
 
 $newconf="var config = {}\n";
 foreach($_POST as $n => $v){
-	if(strlen($v)==1) $newconf.= "config['".$n."'] = ".$v.";\n";
+	if(intval($v)==1) $newconf.= "config['".$n."'] = ".$v.";\n";
 	else $newconf.= "config['".$n."'] = '".$v."';\n";
 }
 $config=file_put_contents('../custom/CONFIG.js',$before.$newconf.implode("\n",$rows));

@@ -46,10 +46,10 @@ function getData(random,transportobject){
 		dataURL = 'https://efa-api.asw.io/api/v1/station/'+transportobject.station+'/departures/';
 	}
 	else if(provider == 'mobiliteit'){
-		dataURL = 'https://cors-anywhere.herokuapp.com/http://travelplanner.mobiliteit.lu/restproxy/departureBoard?accessId=cdt&format=json&id=A=1@O='+transportobject.station;
+		dataURL = 'https://cors-anywhere.herokuapp.com/http://travelplanner.mobiliteit.lu/restproxy/departureBoard?accessId=cdt&duration=1439&maxJourneys='+transportobject.results+'&format=json&id=A=1@O='+transportobject.station;
 	}
 	else if(provider == '9292' || provider == '9292-train' || provider == '9292-bus' || provider == '9292-metro' || provider == '9292-tram-bus'){
-		dataURL = 'https://cors-anywhere.herokuapp.com/http://api.9292.nl/0.1/locations/'+transportobject.station+'/departure-times?lang=nl-NL&time='+$.now();
+		dataURL = 'http://dashticz.nl/ov/ov.php?station='+transportobject.station+'&time='+$.now();
 	}
 	
 	$.getJSON(dataURL,function(data){
@@ -64,11 +64,13 @@ function dataPublicTransport(random,data,transportobject){
 	for(d in data){
 		if(provider == '9292' || provider == '9292-train' || provider == '9292-bus' || provider =='9292-metro' || provider == '9292-tram-bus'){
 			for(t in data[d]){
+				console.log('ID: '+data[d][t]['id']);
 				if(provider == '9292' || 
 				   (data[d][t]['id']=='bus' && provider == '9292-bus') || 
 				   (data[d][t]['id']=='metro' && provider == '9292-metro') || 
 				   (data[d][t]['id']=='tram-bus' && provider == '9292-tram-bus') || 
-				   (data[d][t]['id']=='trein' && provider == '9292-train')
+				   (data[d][t]['id']=='trein' && provider == '9292-train') || 
+				   (data[d][t]['id']=='veerboot' && provider == '9292-boat')
 				){
 					deps = data[d][t]['departures'];
 					for(de in deps){
@@ -97,7 +99,7 @@ function dataPublicTransport(random,data,transportobject){
 				if(data[d][t]['time']==null){
 					continue;
 				}
-				key = data[d][t]['time'];
+				key = data[d][t]['time'] + data[d][t]['trainNumber'];
 				if(typeof(dataPart[key])=='undefined') dataPart[key]=[];
 				var fullArrivalDate = data[d][t]['date'] + ' ' + data[d][t]['time'];
 				var arrivalTime =  moment(fullArrivalDate);
@@ -108,15 +110,15 @@ function dataPublicTransport(random,data,transportobject){
 					var delay = '+' + realArrivalTime.diff(arrivalTime, 'minutes');
 				}
 				dataPart[key][i]='';
-				dataPart[key][i]+='<div><span class="trainTime">'+ arrivalTime.format('HH:mm') +'</span>';
+				dataPart[key][i]+='<div><div class="trainTime">'+ arrivalTime.format('HH:mm');
 			
 				if (delay <= 0) {
-					dataPart[key][i]+='<span id="notlatetrain">'+delay+'</span>';
+					dataPart[key][i]+='<span id="notlatetrain"> '+delay+'</span>';
 				} 
 				else if (delay > 0) {
-					dataPart[key][i]+='<span id="latetrain">'+delay+'</span>';
+					dataPart[key][i]+='<span id="latetrain"> '+delay+'</span>';
 				}
-				dataPart[key][i]+='<span class="trainSeparator"> - </span>'
+				dataPart[key][i]+='</div><span class="trainSeparator"> - </span>'
 				dataPart[key][i]+='<span class="trainLine '+(data[d][t]['name']).replace(/ /g,'')+'">'+data[d][t]['name']+'</span>';
 				dataPart[key][i]+='<span class="trainSeparator"> - </span>'
 

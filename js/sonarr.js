@@ -11,22 +11,22 @@ function loadSonarr(){
 	if(typeof(blocks['sonarr'])!=='undefined' && typeof(blocks['sonarr']['width'])!=='undefined'){
 		width = blocks['sonarr']['width'];
 	}
-	
+
 	if(typeof(blocks['sonarr'])!=='undefined' && typeof(blocks['sonarr']['title_position'])!=='undefined'){
-		sonarrTitlePosition = blocks['sonarr']['title_position'];
+		sonarrTitlePosition = (blocks['sonarr']['title_position']).toLowerCase();
 	}
 
 	if(typeof(blocks['sonarr'])!=='undefined' && typeof(blocks['sonarr']['title'])!=='undefined'){
 		sonarrTitleObject = blocks['sonarr']['title'];
 		sonarrTitleObject = sonarrTitleObject .replace(/ /g, '&nbsp;');
 	}
-	
+
 	// create the static html part
 	if (sonarrTitlePosition == 'top'){
 		html +='<div class="col-xs-12 mh titlegroups transbg"><h3><em class="fa fa-tv"></em> '+sonarrTitleObject+'</h3></div>';
 	}
 	html += '<div class="sonarrMain block_sonarr col-xs-'+width+' transbg">';
-	
+
 	if (sonarrTitlePosition == 'left') {
 		html += '<div class="col-xs-2 col-icon"><em class="fa fa-tv"></em><div class="SonarrBigTitle">'+ sonarrTitleObject +'</div></div>';
 		var sonarrColSize = 10;
@@ -35,7 +35,7 @@ function loadSonarr(){
     html += '</div>';
 
 	getSonarrCalendar();
-		
+
     return html;
 
 }
@@ -46,11 +46,15 @@ function getSonarrCalendar() {
 
 	var view = 'Poster';
 	if(typeof(blocks['sonarr'])!=='undefined' && typeof(blocks['sonarr']['view'])!=='undefined'){
-		view = blocks['sonarr']['view'];
+		view = (blocks['sonarr']['view']).toLowerCase();
 	}
 
 	// generate Url
 	var url = settings['sonarr_url'];
+	// remove trailing slash if needed
+	if(url.substr(-1) === '/') {
+        var url = url.substr(0, url.length - 1);
+    }
 	var apiKey = settings['sonarr_apikey'];
 	var startDate = moment().format('YYYY-MM-DD'); 
 	var endDate = moment(Date.now() + 32 * 24 * 3600 * 1000).format('YYYY-MM-DD');
