@@ -31,7 +31,7 @@ var SpotifyModule = function() {
 			infoMessage('Spotify:', 'Enter your Spotify ClientID in settings or delete spotify block in your CONFIG.js',10000);
 		}
 		else {
-			var url = getLoginURL();
+			var url = _getLoginURL();
 			document.location.href=url;
 		}
 
@@ -259,7 +259,7 @@ var SpotifyModule = function() {
 			   'Authorization': 'Bearer ' + accessToken
 			},
 			error: function(xhr, error){
-				var url = getLoginURL();
+				var url = _getLoginURL();
 				document.location.href=url;
 			 }
 		});
