@@ -31,7 +31,7 @@ var SpotifyModule = function() {
 			infoMessage('Spotify:', 'Enter your Spotify ClientID in settings or delete spotify block in your CONFIG.js',10000);
 		}
 		else {
-			var url = getLoginURL();
+			var url = _getLoginURL();
 			document.location.href=url;
 		}
 
@@ -62,7 +62,7 @@ var SpotifyModule = function() {
 				}
 
 				_getCurrentlyPlaying().then(function(currently) {
-					if(currently.item!==null && typeof(currently.item)!=='undefined'){
+					if(currently !== undefined && currently.item!==null && typeof(currently.item)!=='undefined'){
 						_getCurrentHTML(currently.item, 'currentlyPlaying');
 						currentPlaying=currently.item;
 					}
@@ -220,13 +220,13 @@ var SpotifyModule = function() {
 	}
 
 	function _getTrackList(url,back){
-		getTracks(url).then(function(tracks) {
-			var html='<div class="col-md-12"><div class="spotback"><a onclick="showPlaylists();">&laquo; '+language.misc.spotify_back_to_playlist+'</a></div></div>';
+		_getTracks(url).then(function(tracks) {
+			var html='<div class="col-md-12"><div class="spotback"><a onclick="SpotifyModule.showPlaylists();">&laquo; '+language.misc.spotify_back_to_playlist+'</a></div></div>';
 			for(t in tracks.items){	
 				if(typeof(tracks.items[t]['track'])!=='undefined' && typeof(tracks.items[t]['track']['uri'])!=='undefined'){
 					html+='<div class="col-md-3 col-sm-6">';
 					html+='<div class="spottrack">';
-					html+='<div style="margin:10px;"><a onclick="getPlayList(\''+tracks.items[t]['track']['href']+'\');"><strong>'+tracks.items[t]['track']['artists'][0]['name']+'</strong><br />'+tracks.items[t]['track']['name']+'</a></div>';
+					html+='<div style="margin:10px;"><a onclick="SpotifyModule.getPlayList(\''+tracks.items[t]['track']['href']+'\');"><strong>'+tracks.items[t]['track']['artists'][0]['name']+'</strong><br />'+tracks.items[t]['track']['name']+'</a></div>';
 					html+='</div>';
 					html+='</div>';
 				}
@@ -259,7 +259,7 @@ var SpotifyModule = function() {
 			   'Authorization': 'Bearer ' + accessToken
 			},
 			error: function(xhr, error){
-				var url = getLoginURL();
+				var url = _getLoginURL();
 				document.location.href=url;
 			 }
 		});
@@ -277,10 +277,13 @@ var SpotifyModule = function() {
 	return {
 		getSpotify: _getSpotify,
 		changeDevice: _changeDevice,
+		getPlayList: _getPlayList,
+		getTrackList: _getTrackList,
+		showPlaylists: _showPlaylists,
 		getPlayList: _getPlayList
 	}
 
-}()
+}();
 
 //Wrapper function to stay compatible with current module system
 function getSpotify(columndiv)
