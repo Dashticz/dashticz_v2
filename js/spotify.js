@@ -109,7 +109,7 @@ function getSpotifyData(columndiv,rand){
 	});
 }
 function changeDevice(){
-	getCurrentHTML(currentPlaying, 'changdevice');
+	getCurrentHTML(currentPlaying, 'changedevice');
 }
 function getCurrentHTML(item, typeAction){
 	if(typeof typeAction === 'undefined') typeAction = false;
