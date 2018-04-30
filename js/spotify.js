@@ -42,7 +42,7 @@ function getSpotifyData(columndiv,rand){
 	currentPlaying=false;
 	getUserData()
 	.then(function(userdata) {
-		getDevices()
+		getSpotifyDevices()
 		.then(function(devices) {
 			if(typeof(devices['devices'])!=='undefined'){
 				devices = devices['devices'];
@@ -251,7 +251,7 @@ function getTracks(url) {
 		}
 	});
 }
-function getDevices() {
+function getSpotifyDevices() {
 	return $.ajax({
 		url: 'https://api.spotify.com/v1/me/player/devices',
 		headers: {
