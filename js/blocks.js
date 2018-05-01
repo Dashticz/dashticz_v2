@@ -212,6 +212,26 @@ function handleStringBlock(block, columndiv, width, c) {
             $(columndiv).append('<div data-id="train" class="train"></div>');
             getTrainInfo();
             return;
+		case 'longfonds':
+			$(columndiv).append('<div data-id="longfonds" class="mh transbg block_longfonds col-xs-'+width+'"></div>');
+			$.getJSON('https://cors-anywhere.herokuapp.com/https://www.longfonds.nl/gezondelucht/api/zipcode-check?zipcode='+settings['longfonds_zipcode']+'&houseNumber='+settings['longfonds_housenumber'],function(data){
+				var stateBlock = '<div class="col-xs-4 col-icon">';
+				stateBlock += '<em class="fa fa-cloud"></em>';
+				stateBlock += '</div>';
+				stateBlock += '<div class="col-xs-8 col-data">';
+
+				if (titleAndValueSwitch('longfonds')) {
+					stateBlock += '<strong class="title">Luchtkwaliteit</strong><br />';
+					stateBlock += '<span class="value">'+data.value+'</span>';
+				} else {
+					stateBlock += '<strong class="title">'+data.value+'</strong><br />';
+					stateBlock += '<span class="value">Luchtkwaliteit</span>';
+				}
+
+				stateBlock += '</div>';
+				$('div.block_longfonds').html(stateBlock);
+			});
+			return;
         case 'traffic':
             if (typeof(getTraffic) !== 'function') $.ajax({url: 'js/traffic.js', async: false, dataType: "script"});
             $(columndiv).append('<div data-id="traffic" class="traffic"></div>');

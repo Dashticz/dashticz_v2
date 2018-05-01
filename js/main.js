@@ -318,8 +318,11 @@ function buildScreens() {
                         }
 
                         for (cs in screens[t][s]['columns']) {
-                            c = screens[t][s]['columns'][cs];
+                           if(typeof(screens[t])!=='undefined'){
+							   
+						   	c = screens[t][s]['columns'][cs];
                             getBlock(columns[c], c, 'div.screen' + s + ' .row .col' + c, false);
+						   }
                         }
                     }
                     else {
