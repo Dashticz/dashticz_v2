@@ -379,6 +379,11 @@ a.playlist {
 	overflow: hidden;
     max-height: 33px;
 }
+
+.containsspotify #current .current_track {
+	overflow: hidden;
+    max-height: 33px;
+}
 .containsspotify .change {
 	background-color: #282828;
 	display: block;
@@ -388,6 +393,9 @@ a.playlist {
 	color: #fff;
 }
 
+.containsspotify .fa {
+	font-size:30px !important
+}
 .containsspotify select.devices{
 	width: 100%;
     max-width: 100%;
