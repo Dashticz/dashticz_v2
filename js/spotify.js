@@ -30,6 +30,9 @@ var SpotifyModule = function() {
 			$(columndiv).append(html);
 
 			_getData(columndiv,random);
+			setInterval(function(){
+				_getData(columndiv,random);
+			},2000);
 		}
 		else if(!settings['spot_clientid']){
 			console.log('Enter your Spotify ClientID in CONFIG.JS');
@@ -57,6 +60,10 @@ var SpotifyModule = function() {
 					devices = data.devices;
 					var sel='';
 					for(d in devices){
+						
+						$('select.devices').show();
+						$('a.change').show();
+						
 						sel='';
 						if(devices[d]['is_active']){ 
 							sel='selected';
@@ -69,9 +76,6 @@ var SpotifyModule = function() {
 					}
 
 					_getCurrentTrack();
-					setInterval(function(){
-						_getCurrentTrack();
-					},2000);
 					
 					spotifyApi.getUserPlaylists(function(err, playlists) {
 						var html = '<div class="modal fade" id="spotify_'+rand+'" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
@@ -122,14 +126,11 @@ var SpotifyModule = function() {
 	}
 	
 	function _changeDevice(deviceID){
-		spotifyApi.transferMyPlayback({
-			deviceIds: [ deviceID ]
-		},function(err, result) {
-			console.log(err.responseText);
+		spotifyApi.transferMyPlayback(deviceID,{},function(err, result) {
+			
 		});
 	}
 	function _getCurrentHTML(currently, typeAction){
-		//console.log(currently);
 		item = currently.item;
 		if(typeof typeAction === 'undefined') typeAction = false;
 
@@ -254,7 +255,8 @@ var SpotifyModule = function() {
 		            'user-read-recently-played',
 		            'user-modify-playback-state',
 		            'playlist-read-private',
-					'user-read-private'
+					'user-read-private',
+					'streaming'
 		        ];
 		}
 

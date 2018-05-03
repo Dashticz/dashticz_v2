@@ -126,6 +126,7 @@ var SpotifyWebApi = (function() {
         if (requestData.postData) {
           postData = requestData.contentType === 'image/jpeg' ? requestData.postData : JSON.stringify(requestData.postData);
         }
+		  
         req.send(postData);
       }
     };
@@ -1503,7 +1504,7 @@ var SpotifyWebApi = (function() {
    */
   Constr.prototype.transferMyPlayback = function(deviceIds, options, callback) {
     var postData = options || {};
-    postData.device_ids = deviceIds;
+    postData.device_ids = [deviceIds];
     var requestData = {
       type: 'PUT',
       url: _baseUri + '/me/player',
