@@ -154,6 +154,7 @@ settingList['localize']['language']['options']['pt_PT'] = language.settings.loca
 settingList['localize']['language']['options']['ru_RU'] = language.settings.localize.ru;
 settingList['localize']['language']['options']['sk_SK'] = language.settings.localize.sk;
 settingList['localize']['language']['options']['sl_SL'] = language.settings.localize.sl;
+settingList['localize']['language']['options']['sr_RS'] = language.settings.localize.sr;
 settingList['localize']['language']['options']['sv_SE'] = language.settings.localize.sv;
 settingList['localize']['language']['options']['uk_UA'] = language.settings.localize.uk;
 

@@ -26,7 +26,7 @@
         "today": "oggi"
     },
     "misc": {
-        "download": "Click here to download",
+        "download": "Clicca qui per scaricare",
         "last_update": "Ultimo aggiornamento",
         "loading": "Caricamento...",
         "mediaplayer_nothing_playing": "Non in riproduzione",
@@ -127,6 +127,7 @@
             "sk": "Slovacco",
             "sl": "Sloveno",
             "speak_language": "Text to speech language",
+            "sr": "Serbian",
             "sv": "Svedese",
             "timeformat": "Formato data e ora",
             "title": "Localizzare",

@@ -26,11 +26,11 @@
         "today": "dzisiaj"
     },
     "misc": {
-        "download": "Click here to download",
+        "download": "Kliknij tutaj, aby pobrać",
         "last_update": "Ostatnia aktualizacja",
         "loading": "Ładowanie...",
         "mediaplayer_nothing_playing": "Odtwarzanie wyłączone",
-        "new_version": "New version is available",
+        "new_version": "Dostępna jest nowa wersja",
         "notifications_ns": "Powiadomienia dodane przez NS",
         "scheduled": "Zaplanowane",
         "select": "Wybierz",
@@ -127,6 +127,7 @@
             "sk": "Słowacki",
             "sl": "Słoweński",
             "speak_language": "Język TTS",
+            "sr": "Serbian",
             "sv": "Szwedzki",
             "timeformat": "Format daty i czasu",
             "title": "Lokalizacja",
