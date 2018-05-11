@@ -57,6 +57,9 @@ function getData(random,transportobject){
 		var todayTime = moment(date).format('HHmm');
 		dataURL ='https://api.irail.be/liveboard/?station='+transportobject.station+'&date='+todayDate+'&time='+todayTime+'&arrdep=departure&lang=nl&format=json&fast=false&alerts=false';
 	}
+	else if(provider == 'delijnbe'){
+		dataURL ='https://www.delijn.be/rise-api-core/haltes/Multivertrekken/'+transportobject.station+'/'+transportobject.results;
+	}
 	
 	$.getJSON(dataURL,function(data){
 		dataPublicTransport(random,data,transportobject);
@@ -70,7 +73,6 @@ function dataPublicTransport(random,data,transportobject){
 	for(d in data){
 		if(provider == '9292' || provider == '9292-train' || provider == '9292-bus' || provider =='9292-metro' || provider == '9292-tram-bus'){
 			for(t in data[d]){
-				//console.log('ID: '+data[d][t]['id']);
 				if(provider == '9292' || 
 				   (data[d][t]['id']=='bus' && provider == '9292-bus') || 
 				   (data[d][t]['id']=='metro' && provider == '9292-metro') || 
@@ -186,6 +188,25 @@ function dataPublicTransport(random,data,transportobject){
 			i++;
 		}
 	}
+	else if(provider == 'delijnbe'){
+		for(var j=0;j<data.lijnen.length;j++) {
+			key = data.lijnen[j].vertrekCalendar + data.lijnen[j].voertuigNummer;
+			if(typeof(dataPart[key])=='undefined') dataPart[key]=[];
+			var fullDepartureDate = data.lijnen[j].vertrekCalendar;
+			var delay = data.lijnen[j].vertrekTijd;
+			dataPart[key][i]='';
+			dataPart[key][i]+='<div><div class="trainTime">'+ delay;
+			dataPart[key][i]+='</div>'
+			dataPart[key][i]+='<div><span class="trainLine" style="border-color:'+data.lijnen[j].kleurAchterGrondRand+'; background-color:'+data.lijnen[j].kleurAchterGrond+';color:'+data.lijnen[j].kleurVoorGrond+';">&nbsp;'+data.lijnen[j].lijnNummerPubliek+'&nbsp;</span>';
+			dataPart[key][i]+='<span class="trainSeparator">&nbsp;&nbsp;</span>'
+			dataPart[key][i]+='<span class="trainDestination">'+data.lijnen[j].omschrijving+'</span></div>';
+			dataPart[key][i]+='<div><span class="trainSeparator">Bestemming </span>'
+			dataPart[key][i]+='<span class="trainDestination">'+data.lijnen[j].bestemming+'</span></div>';
+			dataPart[key][i]+='</div>';
+			i++;
+		}
+	}
+	
 	
 	$('.publictransport'+random+' .state').html('');
 	var c = 1;
