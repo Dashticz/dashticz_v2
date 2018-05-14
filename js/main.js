@@ -243,17 +243,21 @@ function toSlide(num) {
     if (typeof(myswiper) !== 'undefined') myswiper.slideTo(num, 1000, false);
 }
 
-function buildStandby() {
-    if ($('.screenstandby').length == 0) {
-        var screenhtml = '<div class="screen screenstandby swiper-slide slidestandby" style="height:' + $(window).height() + 'px"><div class="row"></div></div>';
-        $('div.screen').hide();
-        $('div.swiper-container').before(screenhtml);
 
-        for (c in columns_standby) {
-            $('div.screenstandby .row').append('<div class="col-xs-' + columns_standby[c]['width'] + ' colstandby' + c + '"></div>');
-            getBlock(columns_standby[c], c, 'div.screenstandby .row .colstandby' + c, true);
-        }
-    }
+function buildStandby(){
+	
+	if($('.screenstandby').length==0){
+		var screenhtml = '<div class="screen screenstandby swiper-slide slidestandby" style="height:'+$(window).height()+'px"><div class="row"></div></div>';
+		$('div.screen').hide();
+		$('#settingspopup').modal('hide');
+		$('div.swiper-container').before(screenhtml);	
+
+		for(c in columns_standby){
+			$('div.screenstandby .row').append('<div class="col-xs-'+columns_standby[c]['width']+' colstandby'+c+'"></div>');
+			getBlock(columns_standby[c],c,'div.screenstandby .row .colstandby'+c,true);	
+		}
+	}
+  
 }
 
 function buildScreens() {
@@ -314,8 +318,11 @@ function buildScreens() {
                         }
 
                         for (cs in screens[t][s]['columns']) {
-                            c = screens[t][s]['columns'][cs];
+                           if(typeof(screens[t])!=='undefined'){
+							   
+						   	c = screens[t][s]['columns'][cs];
                             getBlock(columns[c], c, 'div.screen' + s + ' .row .col' + c, false);
+						   }
                         }
                     }
                     else {

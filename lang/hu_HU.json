@@ -26,7 +26,7 @@
         "today": "ma"
     },
     "misc": {
-        "download": "Click here to download",
+        "download": "Kattintson ide a letöltéshez",
         "last_update": "Utolsó frissítés",
         "loading": "Betöltés...",
         "mediaplayer_nothing_playing": "Semmi sem játszódik most",
@@ -127,6 +127,7 @@
             "sk": "Szlovák",
             "sl": "Szlovén",
             "speak_language": "Text to speech language",
+            "sr": "Serbian",
             "sv": "Svéd",
             "timeformat": "Datetime formátum",
             "title": "Lokalizálni",

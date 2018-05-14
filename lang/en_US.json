@@ -127,6 +127,7 @@
             "sk": "Slovak",
             "sl": "Slovenian",
             "speak_language": "Text to speech language",
+            "sr": "Serbian",
             "sv": "Swedish",
             "timeformat": "Datetime format",
             "title": "Localize",
@@ -184,8 +185,6 @@
         "state_off": "OFF",
         "state_on": "ON",
         "state_open": "OPEN",
-        "state_locked": "LOCKED",
-	"state_unlocked": "UNLOCKED",
         "state_smoke": "SMOKE DETECTED",
         "state_switch": "Switch"
     },

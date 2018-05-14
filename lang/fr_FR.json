@@ -26,11 +26,11 @@
         "today": "aujourd'hui"
     },
     "misc": {
-        "download": "Click here to download",
+        "download": "Cliquez ici pour télécharger",
         "last_update": "Dernière mise à jour",
         "loading": "Chargement...",
         "mediaplayer_nothing_playing": "Il n'y a pas de jeu",
-        "new_version": "New version is available",
+        "new_version": "Nouvelle version est disponible",
         "notifications_ns": "messages postés par le NS",
         "scheduled": "Prévu",
         "select": "Sélectionnez",
@@ -127,6 +127,7 @@
             "sk": "Slovaque",
             "sl": "Slovène",
             "speak_language": "Text to speech language",
+            "sr": "Serbian",
             "sv": "Suédois",
             "timeformat": "Format datetime",
             "title": "Localiser",

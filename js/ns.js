@@ -8,7 +8,7 @@ function getTrainInfo() {
         dataType: 'xml',
         success: function (data) {
             var count = 0;
-            $(data).find('item').each(function () { // or "item" or whatever suits your feed
+            $(data).find('title').each(function () { // or "item" or whatever suits your feed
                 var el = $(this);
                 if (el.find('title').text().substr(0, 8) !== 'Opgelost') {
                     count++;

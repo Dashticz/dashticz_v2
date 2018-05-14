@@ -49,7 +49,16 @@ function getData(random,transportobject){
 		dataURL = 'https://cors-anywhere.herokuapp.com/http://travelplanner.mobiliteit.lu/restproxy/departureBoard?accessId=cdt&duration=1439&maxJourneys='+transportobject.results+'&format=json&id=A=1@O='+transportobject.station;
 	}
 	else if(provider == '9292' || provider == '9292-train' || provider == '9292-bus' || provider == '9292-metro' || provider == '9292-tram-bus'){
-		dataURL = 'http://dashticz.nl/ov/ov.php?station='+transportobject.station+'&time='+$.now();
+		dataURL = 'https://cors-anywhere.herokuapp.com/http://dashticz.nl/ov/ov.php?station='+transportobject.station+'&time='+$.now();
+	}
+	else if(provider == 'irailbe'){
+		var date = new Date($.now());
+		var todayDate = moment(date).format('DDMMYY');
+		var todayTime = moment(date).format('HHmm');
+		dataURL ='https://api.irail.be/liveboard/?station='+transportobject.station+'&date='+todayDate+'&time='+todayTime+'&arrdep=departure&lang=nl&format=json&fast=false&alerts=false';
+	}
+	else if(provider == 'delijnbe'){
+		dataURL ='https://www.delijn.be/rise-api-core/haltes/Multivertrekken/'+transportobject.station+'/'+transportobject.results;
 	}
 	
 	$.getJSON(dataURL,function(data){
@@ -64,7 +73,6 @@ function dataPublicTransport(random,data,transportobject){
 	for(d in data){
 		if(provider == '9292' || provider == '9292-train' || provider == '9292-bus' || provider =='9292-metro' || provider == '9292-tram-bus'){
 			for(t in data[d]){
-				console.log('ID: '+data[d][t]['id']);
 				if(provider == '9292' || 
 				   (data[d][t]['id']=='bus' && provider == '9292-bus') || 
 				   (data[d][t]['id']=='metro' && provider == '9292-metro') || 
@@ -154,6 +162,51 @@ function dataPublicTransport(random,data,transportobject){
 			i++;
 		}
 	}
+	
+	if(provider == 'irailbe'){
+		for(var j=0;j<data.departures.departure.length;j++) {
+			key = data.departures.departure[j].time + data.departures.departure[j].vehicle;
+			if(typeof(dataPart[key])=='undefined') dataPart[key]=[];
+			var fullDepartureDate = data.departures.departure[j].time;
+			var delay = data.departures.departure[j].delay/60;
+			dataPart[key][i]='';
+			dataPart[key][i]+='<div><div class="trainTime">'+ moment.unix(fullDepartureDate).format('HH:mm');
+		
+			if (delay <= 0) {
+				dataPart[key][i]+='<span id="notlatetrain"> '+delay+' Min.</span>';
+			} 
+			else if (delay > 0) {
+				dataPart[key][i]+='<span id="latetrain"> '+delay+' Min.</span>';
+			}
+			dataPart[key][i]+='</div>'
+			dataPart[key][i]+='<span class="trainLine">Spoor '+data.departures.departure[j].platform+'</span>';
+			dataPart[key][i]+='<span class="trainSeparator"> - </span>'
+			dataPart[key][i]+='<span class="trainDestination">'+data.departures.departure[j].station+'</span>';
+			dataPart[key][i]+='<span class="trainSeparator"> - </span>'
+			dataPart[key][i]+='<span class="trainNumber">'+data.departures.departure[j].vehicle+'</span>';
+			dataPart[key][i]+='</div>';
+			i++;
+		}
+	}
+	else if(provider == 'delijnbe'){
+		for(var j=0;j<data.lijnen.length;j++) {
+			key = data.lijnen[j].vertrekCalendar + data.lijnen[j].voertuigNummer;
+			if(typeof(dataPart[key])=='undefined') dataPart[key]=[];
+			var fullDepartureDate = data.lijnen[j].vertrekCalendar;
+			var delay = data.lijnen[j].vertrekTijd;
+			dataPart[key][i]='';
+			dataPart[key][i]+='<div><div class="trainTime">'+ delay;
+			dataPart[key][i]+='</div>'
+			dataPart[key][i]+='<div><span class="trainLine" style="border-color:'+data.lijnen[j].kleurAchterGrondRand+'; background-color:'+data.lijnen[j].kleurAchterGrond+';color:'+data.lijnen[j].kleurVoorGrond+';">&nbsp;'+data.lijnen[j].lijnNummerPubliek+'&nbsp;</span>';
+			dataPart[key][i]+='<span class="trainSeparator">&nbsp;&nbsp;</span>'
+			dataPart[key][i]+='<span class="trainDestination">'+data.lijnen[j].omschrijving+'</span></div>';
+			dataPart[key][i]+='<div><span class="trainSeparator">Bestemming </span>'
+			dataPart[key][i]+='<span class="trainDestination">'+data.lijnen[j].bestemming+'</span></div>';
+			dataPart[key][i]+='</div>';
+			i++;
+		}
+	}
+	
 	
 	$('.publictransport'+random+' .state').html('');
 	var c = 1;

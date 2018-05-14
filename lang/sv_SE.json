@@ -26,11 +26,11 @@
         "today": "idag"
     },
     "misc": {
-        "download": "Click here to download",
+        "download": "Klicka här för att ladda ner",
         "last_update": "Senast uppdaterad",
         "loading": "Laddar...",
         "mediaplayer_nothing_playing": "Inget att spela upp just nu",
-        "new_version": "New version is available",
+        "new_version": "Ny version finns tillgänglig",
         "notifications_ns": "avviseringar från NS",
         "scheduled": "Planerad",
         "select": "Välj",
@@ -127,6 +127,7 @@
             "sk": "Slovakiska",
             "sl": "Slovenska",
             "speak_language": "Text till tal språk",
+            "sr": "Serbian",
             "sv": "Svenska",
             "timeformat": "Datum\/tids format",
             "title": "Plats",
