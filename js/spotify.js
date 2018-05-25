@@ -1,12 +1,15 @@
 var CUR_URI = document.location.href.split('#');
-REDIRECT_URI = CUR_URI[0];
-
+var REDIRECT_URI = CUR_URI[0];
 var userdata;
 var accessToken;
 var currentPlaying=false;
+var isPlaying = false;
+var myrandom;
+var tmpcolumndiv;
+var currentVolume=0;
 
 function getSpotify(columndiv){
-	var random = getRandomInt(1,100000);
+	tmpcolumndiv = columndiv;
 	if(typeof(Cookies.get('spotifyToken'))!=='undefined' || typeof(CUR_URI[1])!=='undefined'){
 		if(typeof(CUR_URI[1])!=='undefined'){
 			var hash = URLToArray(CUR_URI[1]);
@@ -14,62 +17,46 @@ function getSpotify(columndiv){
 			document.location.href=CUR_URI[0];
 		}
 		accessToken = Cookies.get('spotifyToken');
-	
-		var html ='<div data-id="spotify" class="col-xs-12 transbg containsspotify containsspotify'+random+'" style="padding:0px !important;">';
-			html+='<div id="current"></div>';
-			html+='<a href="javascript:void(0);" class="change">'+language.misc.spotify_select_playlist+' &raquo;</a>';
-			html+='<select class="devices" onchange="changeDevice();"></select>';
-		html+='</div>';
+		myrandom = getRandomInt(1,100000);
+		var html ='<div data-id="spotify" class="col-xs-12 transbg containsspotify containsspotify'+myrandom+'" style="padding:0px !important;">';
+			html+='<div id="current"></div><button type="button" class="select devices btn-playlist"  onclick="constructPlaylistModal();">'+language.misc.spotify_select_playlist+' &raquo;</button><select id="selectdevices" class="select devices" onclick="onSelectDevicesClick();" onchange="changeDevice();"></select>';
 		$(columndiv).append(html);
-
-		getSpotifyData(columndiv,random);
+		getUserData();
+		setInterval(function(){ getSpotifyData(); },5000);
+		setInterval(function(){ getUserData(); },60*60*1000); // to be sure the token gets refreshed within an hour (if needed)
 	}
 	else if(!settings['spot_clientid']){
 		console.log('Enter your Spotify ClientID in CONFIG.JS');
-		infoMessage('Spotify:', 'Enter your Spotify ClientID in settings or delete spotify block in your CONFIG.js',10000);
 	}
 	else {
-		var url = getLoginURL();
+		var url = getLoginURL([
+			'user-read-email',
+			'user-read-currently-playing',
+			'user-read-playback-state',
+			'user-read-recently-played',
+			'playlist-read-private',
+			'user-modify-playback-state'
+		]);
 
 		document.location.href=url;
 	}
 
 }
 
-function getSpotifyData(columndiv,rand){
-	if($('select.devices option').length === 0) $('select.devices').html('<option>'+language.misc.spotify_select_device+'</option>');
-	
-	currentPlaying=false;
-	getUserData()
-	.then(function(userdata) {
-		getDevices()
-		.then(function(devices) {
-			if(typeof(devices['devices'])!=='undefined'){
-				devices = devices['devices'];
-				var sel='';
-				for(d in devices){
-					sel='';
-					if(devices[d]['is_active']){ 
-						sel='selected';
-					}
-					if(!devices[d]['is_restricted']) {
-						if($('select.devices option[value="' + devices[d]['id'] + '"]').length === 0) {
-                            $('select.devices').append('<option value="'+devices[d]['id']+'" '+sel+'>'+devices[d]['name']+'</option>');
-                        }
-                    }
-				}
-			}
+function onSelectDevicesClick() {
+//	console.log("onSelectDevicesClick");
+//	createDeviceOptions();
+}
 
-			getCurrentlyPlaying().then(function(currently) {
+function onPlaylistClick() {
+//	console.log("OnPlaylistClick");
+	$("#spotify1").modal();	
+}
 
-				if(currently.item!==null && typeof(currently.item)!=='undefined'){
-					getCurrentHTML(currently.item, 'currentlyPlaying');
-					currentPlaying=currently.item;
-				}
-
+function constructPlaylistModal() {
 				getPlaylists()
 				.then(function(playlists) {
-					var html = '<div class="modal fade" id="spotify_'+rand+'" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
+					var html = '<div class="modal fade" id="spotify1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
 					html+='<div class="modal-dialog">';
 						html+='<div class="modal-content">';
 						 html+='<div class="modal-header">';
@@ -82,10 +69,10 @@ function getSpotifyData(columndiv,rand){
 									//console.log(playlists.items[p]);
 									html+='<div class="col-md-3 col-sm-6">';
 										html+='<div class="spotlist">';
-											html+='<div class="col-lg-4 col-md-5 col-sm-4" style="padding:0px;"><a href="javascript:void(0);" onclick="getPlayList(\''+playlists.items[p]['href']+'\');"><img style="height:75px;width:75px;" src="'+playlists.items[p]['images'][0]['url']+'" /></a></div>';
+											html+='<div class="col-lg-4 col-md-5 col-sm-4" style="padding:0px;"><a href="javascript:void(0);" onclick="getPlayList(\''+playlists.items[p]['uri']+'\');"><img style="height:75px;width:75px;" src="'+playlists.items[p]['images'][0]['url']+'" /></a></div>';
 											html+='<div class="col-lg-8 col-md-7 col-sm-8" style="padding:0px;padding-top:5px;padding-right:10px;">';
-											html+='<a href="javascript:void(0);" onclick="getPlayList(\''+playlists.items[p]['href']+'\');">'+playlists.items[p]['name']+'</a><br />';
-											html+='<a href="javascript:void(0);" onclick="getTrackList(\''+playlists.items[p]['tracks']['href']+'\',\''+columndiv+'\');"><em>Tracks: '+playlists.items[p]['tracks']['total']+'</em></a></div>';
+											html+='<a href="javascript:void(0);" onclick="getPlayList(\''+playlists.items[p]['uri']+'\');">'+playlists.items[p]['name']+'</a><br />';
+											html+='<a href="javascript:void(0);" onclick="getTrackList(\''+playlists.items[p]['tracks']['href']+'\',\''+tmpcolumndiv+'\');"><em>Tracks: '+playlists.items[p]['tracks']['total']+'</em></a></div>';
 										html+='</div>';
 									html+='</div>';
 								}
@@ -97,46 +84,74 @@ function getSpotifyData(columndiv,rand){
 					html+='</div>';
 
 					$('body').append(html);
-				});
+					$("#spotify1").on('hidden.bs.modal', function () {
+				    		$(this).data('bs.modal', null);
+						console.log("destroyed spotframe");
+					});
 
-				var calobject = $('.containsspotify'+rand+' a.change');
-				calobject.attr('data-toggle','modal');
-				calobject.attr('data-id','');
-				calobject.attr('data-target','#spotify_'+rand);
-				calobject.attr('onclick','setSrc(this);');
-			});
-		});
+					$("#spotify1").modal();
+
+				});
+}
+
+
+function getSpotifyData(){
+	currentPlaying=false;
+	createDeviceOptions();
+	getCurrentlyPlaying().then(function(currently) {
+
+		if(currently && currently.is_playing!==null && typeof(currently.is_playing)!=='undefined'){
+			isPlaying = currently.is_playing==false ? false: true;
+		}
+						
+		if(currently && currently.item!==null && typeof(currently.item)!=='undefined'){
+			getCurrentHTML(currently.item);
+			currentPlaying=currently.item;
+		}
+		if (currently.device!==null && typeof(currently.device)!=='undefined'){
+			currentVolume=Number(currently.device.volume_percent);
+		}
+				
 	});
 }
-function changeDevice(){
-	getCurrentHTML(currentPlaying, 'changedevice');
+
+function createDeviceOptions () {
+	var html='<option>'+language.misc.spotify_select_device+'</option>';
+		getSpotDevices()
+		.then(function(devices) {
+			//console.log(devices);
+			if(typeof(devices['devices'])!=='undefined'){
+				devices = devices['devices'];
+				var sel='';
+				for(d in devices){
+					sel='';
+					if(devices[d]['is_active']){ 
+						sel='selected';
+					}
+					if(!devices[d]['is_restricted'])
+						html+='<option value="'+devices[d]['id']+'" '+sel+'>'+devices[d]['name']+'</option>';
+				}
+			}
+			$('select.devices').html(html);
+	});
 }
-function getCurrentHTML(item, typeAction){
-	if(typeof typeAction === 'undefined') typeAction = false;
+	
+function changeDevice(){
+	var spotSelDev = $('select.devices').find('option:selected').val();
+	$.ajax({
+		type: 'PUT',
+		data: '{"device_ids":["'+spotSelDev+'"]}',
+		url: 'https://api.spotify.com/v1/me/player',		
+		headers: {
+		   'Authorization': 'Bearer ' + accessToken
+		}
+	});
 
-	if(typeAction !== 'changedevice' && typeof item.uri !== 'undefined') {
-		if(item.type === 'track') {
-            data = '{"uris":["'+item.uri+'"]}';
-        }
-		else {
-            data = '{"context_uri":"'+item.uri+'"}';
-        }
-	}
-	else { // when changing device, don't fill in data, just device_id so Spotify will continue there
-		data = '';
-	}
+	getCurrentHTML(currentPlaying);
+}
 
-	if(typeAction !== 'currentlyPlaying') {
-        $.ajax({
-            type: 'PUT',
-            data: data,
-            url: 'https://api.spotify.com/v1/me/player/play?device_id='+$('select.devices').find('option:selected').val(),
-            headers: {
-                'Authorization': 'Bearer ' + accessToken
-            }
-        });
-    }
-
+function getCurrentHTML(item){
+						
 	var html= '';
 	
 	if(typeof(item.album)!=='undefined'){
@@ -175,39 +190,40 @@ function getCurrentHTML(item, typeAction){
 		}
 	
 	html+='</div>';
+	html+='<div class="spot_player btn-group btn-group-lg">';
+	if(isPlaying) {
+		html += '<button id = "btnSpotPlay" type="button" class="btn btn-secondary" onclick="onPlayPauseClick();"><em class="fa fa-pause"></em></button>';
+	}
+	else {
+		html += '<button id = "btnSpotPlay" type="button" class="btn btn-secondary" onclick="onPlayPauseClick();"><em class="fa fa-play"></em></button>';
+	}
+	html += '<button id="btnSpotVolDown" type="button" class="btn btn-secondary" onclick="onVolumeDownClick();"><em class="fa fa-volume-down"></em></button>';
+	html += '<button type="button" class="btn btn-secondary" onclick="onVolumeUpClick();"><em class="fa fa-volume-up"></em></button>';
+	html += '<button type="button" class="btn btn-secondary" onclick="onNextClick();"><em class="fa fa-chevron-right"></em></button>';
+	html += '</div>';
 
 	$('.containsspotify #current').html(html);
-
-
 }
 
-function getPlayList(url){
-	$.ajax({
-		url: url,
-		headers: {
-		   'Authorization': 'Bearer ' + accessToken
-		},
-		success:function(item){
-			getCurrentHTML(item, 'playlist');
-			$('.modal.fade.in .close').trigger('click');
-		}
-	});
+function getPlayList(uri){
+	console.log(uri);
+	spotifyPlay(uri);
+	$('.modal.fade.in .close').trigger('click');
+
 }
 
 function getLoginURL(scopes) {
-	if(typeof scopes === 'undefined') {
-		scopes = [
-            'user-read-email',
-            'user-read-currently-playing',
-            'user-read-playback-state',
-            'user-read-recently-played',
-            'user-modify-playback-state',
-            'playlist-read-private'
-        ];
-	}
 
 	return 'https://accounts.spotify.com/authorize?client_id=' + settings['spot_clientid'] +
 	  '&redirect_uri=' + encodeURIComponent(REDIRECT_URI) +
+	  '&scope=' + encodeURIComponent(scopes.join(' ')) +
+	  '&response_type=token';
+}
+
+function getLoginURL2(scopes) {
+
+	return 'https://accounts.spotify.com/authorize?client_id=' + settings['spot_clientid'] +
+	  '&redirect_uri=' + encodeURIComponent(REDIRECT_URI) + 'callback' +
 	  '&scope=' + encodeURIComponent(scopes.join(' ')) +
 	  '&response_type=token';
 }
@@ -217,7 +233,22 @@ function getPlaylists() {
 		url: 'https://api.spotify.com/v1/me/playlists?offset=0&limit=50',
 		headers: {
 		   'Authorization': 'Bearer ' + accessToken
-		}
+		},
+		 error: function(xhr, error){
+			console.log("Error in getPlaylists");
+
+			var url = getLoginURL([
+				'user-read-email',
+				'user-read-currently-playing',
+				'user-read-playback-state',
+				'user-read-recently-played',
+				'user-modify-playback-state',
+				'playlist-read-private'
+			]);
+		
+			document.location.href=url;
+
+		 }
 	});
 }
 
@@ -251,7 +282,9 @@ function getTracks(url) {
 		}
 	});
 }
-function getDevices() {
+
+
+function getSpotDevices() {
 	return $.ajax({
 		url: 'https://api.spotify.com/v1/me/player/devices',
 		headers: {
@@ -267,17 +300,97 @@ function getUserData() {
 		   'Authorization': 'Bearer ' + accessToken
 		},
 		 error: function(xhr, error){
-			var url = getLoginURL();
-			
+			console.log("Error in getUserData");
+			var url = getLoginURL([
+				'user-read-email',
+				'user-read-currently-playing',
+				'user-read-playback-state',
+				'user-read-recently-played',
+				'user-modify-playback-state',
+				'playlist-read-private'
+			]);
+		
 			document.location.href=url;
+
 		 },
 	});
 }
+
+
 function getCurrentlyPlaying() {
 	return $.ajax({
-		url: 'https://api.spotify.com/v1/me/player/currently-playing',
+		url: 'https://api.spotify.com/v1/me/player',
+		headers: {
+		   'Authorization': 'Bearer ' + accessToken
+		}
+	});
+
+}
+
+function onPlayPauseClick() {
+	if (isPlaying) {
+		spotifyPause();
+		isPlaying = false;
+		$('.containsspotify #btnSpotPlay').html('<em class="fa fa-play"></em>');
+	}
+	else {
+		spotifyPlay();
+		isPlaying = true;
+		$('.containsspotify #btnSpotPlay').html('<em class="fa fa-pause"></em>');
+	}
+}
+
+function setVolume(newvolume) {
+	console.log("New volume: " + newvolume);
+	currentVolume = newvolume;
+	$.ajax({
+		type: 'PUT',
+		url: 'https://api.spotify.com/v1/me/player/volume?volume_percent='+newvolume,
 		headers: {
 		   'Authorization': 'Bearer ' + accessToken
 		}
 	});
 }
+
+function onVolumeDownClick() {
+	console.log("Vol Down");
+	setVolume(currentVolume <10 ? 0 : currentVolume-10);	
+}
+
+function onVolumeUpClick() {
+	setVolume(currentVolume >90 ? 100 : currentVolume+10);	
+}
+
+function onNextClick() {
+	$.ajax({
+		type: 'POST',
+		url: 'https://api.spotify.com/v1/me/player/next',
+		headers: {
+		   'Authorization': 'Bearer ' + accessToken
+		}
+	});
+
+}
+
+function spotifyPause() {
+	$.ajax({
+		type: 'PUT',
+		url: 'https://api.spotify.com/v1/me/player/pause',		
+		headers: {
+		   'Authorization': 'Bearer ' + accessToken
+		}
+	});
+}
+
+function spotifyPlay(uri) {
+	$.ajax({
+		type: 'PUT',
+		data: typeof(uri)!=='undefined' ? '{"context_uri":"'+uri+'"}':'',
+		url: 'https://api.spotify.com/v1/me/player/play',		
+		headers: {
+		   'Authorization': 'Bearer ' + accessToken
+		}
+	});
+}
+
+
