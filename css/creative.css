@@ -354,7 +354,7 @@ a.playlist {
 
 .containsspotify #current {
 	overflow: hidden;
-	background-color: #282828;
+//	background-color: #282828;
 }
 
 .containsspotify #current .current_image {
@@ -388,17 +388,24 @@ a.playlist {
 	color: #fff;
 }
 
+.containsspotify .btn-playlist {
+	background-color: #ffffff;
+	color: #000;
+	text-align: left;
+	width: 100%;
+}
+
 .containsspotify select.devices{
 	width: 100%;
     max-width: 100%;
-    color: #fff !important;
-    background-color: #282828;
+    color: #000 !important;
+//    background-color: #ffffff;
     border: 0px;
     padding-left: 0px;
 }
 
 .containsspotify select.devices option{
-    color: #fff !important;
+    color: #000 !important;
 }
 
 .spotback {

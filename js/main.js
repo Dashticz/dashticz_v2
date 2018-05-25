@@ -25,6 +25,7 @@ var gettingDevices = false;
 var md;
 var usrEnc;
 var pwdEnc;
+var lastGetDevicesTime = 0;
 var _GRAPHS_LOADED = {};
 var _STREAMPLAYER_TRACKS = {"track": 1, "name": "Music FM", "file": "http://stream.musicfm.hu:8000/musicfm.mp3"};
 var _THOUSAND_SEPARATOR = '.';
@@ -35,7 +36,7 @@ function loadFiles() {
         if (objectlength(columns) === 0) defaultcolumns = true;
 
         _GRAPHREFRESH = 5;
-        
+
         //Check language before loading settings and fallback to English when not set
         if (typeof(localStorage.dashticz_language) !== 'undefined') {
             setLang = localStorage.dashticz_language
@@ -72,7 +73,7 @@ function loadFiles() {
 					}
 				}
 			}
-			
+
             $('<link href="css/creative.css?v=' + cache + '" rel="stylesheet">').appendTo('head');
             $('<link href="vendor/weather/css/weather-icons.min.css?v=' + cache + '" rel="stylesheet">').appendTo('head');
 
@@ -103,9 +104,9 @@ function loadFiles() {
             $.ajax({url: 'js/blocks.js', async: false, dataType: 'script'});
             $.ajax({url: 'js/graphs.js', async: false, dataType: 'script'});
 	    $.ajax({url: 'js/login.js', async: false, dataType: 'script'});
-		
+
 	    sessionValid();
-		
+
             if (typeof(settings['gm_api']) !== 'undefined' && settings['gm_api'] !== '' && settings['gm_api'] !== 0) {
                 $.ajax({
                     url: 'https://maps.googleapis.com/maps/api/js?key=' + settings['gm_api'],
@@ -156,7 +157,7 @@ function onLoad() {
     }, 1000);
 
     getDevices();
-
+    enableRefresh();
     setClassByTime();
     setInterval(function () {
         setClassByTime();
@@ -178,9 +179,9 @@ function onLoad() {
 
         }
     }
-	
+
 	if(typeof(settings['disable_googleanalytics'])=='undefined' || parseFloat(settings['disable_googleanalytics'])==0){
-		
+
 		var googleAnalytics="<script>";
 		  googleAnalytics+="(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){";
 		  googleAnalytics+="(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),";
@@ -193,7 +194,7 @@ function onLoad() {
 		googleAnalytics+="</script>";
         $('body').prepend(googleAnalytics);
 	}
-	
+
     if ((settings['auto_swipe_back_after'] == 0 || typeof(settings['auto_swipe_back_after']) == 'undefined') && parseFloat(settings['auto_slide_pages']) > 0) {
         var nextSlide = 1;
         setInterval(function () {
@@ -245,19 +246,19 @@ function toSlide(num) {
 
 
 function buildStandby(){
-	
+
 	if($('.screenstandby').length==0){
 		var screenhtml = '<div class="screen screenstandby swiper-slide slidestandby" style="height:'+$(window).height()+'px"><div class="row"></div></div>';
 		$('div.screen').hide();
 		$('#settingspopup').modal('hide');
-		$('div.swiper-container').before(screenhtml);	
+		$('div.swiper-container').before(screenhtml);
 
 		for(c in columns_standby){
 			$('div.screenstandby .row').append('<div class="col-xs-'+columns_standby[c]['width']+' colstandby'+c+'"></div>');
-			getBlock(columns_standby[c],c,'div.screenstandby .row .colstandby'+c,true);	
+			getBlock(columns_standby[c],c,'div.screenstandby .row .colstandby'+c,true);
 		}
 	}
-  
+
 }
 
 function buildScreens() {
@@ -323,7 +324,7 @@ function buildScreens() {
                         }
                     }
                     else {
-						
+
                         if (parseFloat(settings['hide_topbar']) == 0) $('body .row').append('<div class="col-sm-undefined col-xs-12 sortable colbar transbg dark"><div data-id="logo" class="logo col-xs-2">' + settings['app_title'] + '<div></div></div><div data-id="miniclock" class="miniclock col-xs-8 text-center"><span class="weekday"></span> <span class="date"></span> <span>&nbsp;&nbsp;&nbsp;&nbsp;</span> <span class="clock"></span></div><div data-id="settings" class="settings settingsicon text-right" data-toggle="modal" data-target="#settingspopup"><em class="fa fa-cog" /></div></div></div>');
                         if (typeof(settings['default_columns']) == 'undefined' || parseFloat(settings['default_columns']) == 3) {
                             $('body .row').append('<div class="col-xs-5 sortable col1" data-colindex="1"><div class="auto_switches"></div><div class="auto_dimmers"></div></div>');
@@ -394,7 +395,7 @@ function startSwiper() {
                         effect: settings['slide_effect'],
                         keyboardControl: true
                     });
-					
+
                 }, 2000);
             });
         }
@@ -998,12 +999,15 @@ function appendStreamPlayer(columndiv) {
 }
 
 function getDevices(override) {
+    const now = new Date();
+    lastGetDevicesTime=now.getTime();
     if (typeof(override) == 'undefined') override = false;
     if (!sliding || override) {
         if (typeof(req) !== 'undefined') req.abort();
         gettingDevices = true;
-		
+
 		var usrinfo ='';
+
 		if(typeof(usrEnc)!=='undefined' && usrEnc!=='') usrinfo = 'username=' + usrEnc + '&password=' + pwdEnc + '&';
         req = $.get({
             url: settings['domoticz_ip'] + '/json.htm?'+usrinfo+'type=devices&plan=' + settings['room_plan'] + '&filter=all&used=true&order=Name',
@@ -1013,89 +1017,7 @@ function getDevices(override) {
 				infoMessage('<font color="red">Domoticz error!', 'double check the path to Domoticz in Settings!</font>', 0);
             },
             success: function (data) {
-                
-				/*
-				data = `{
-   "ActTime" : 1515443638,
-   "ServerTime" : "2018-01-08 21:33:58",
-   "Sunrise" : "08:42",
-   "Sunset" : "16:46",
-   "result" : [
-      {
-         "AddjMulti" : 1.0,
-         "AddjMulti2" : 1.0,
-         "AddjValue" : 0.0,
-         "AddjValue2" : 0.0,
-         "BatteryLevel" : 255,
-         "CustomImage" : 0,
-         "Data" : "20.9 C",
-         "Description" : "",
-         "Favorite" : 1,
-         "HardwareID" : 68,
-         "HardwareName" : "ToonDummy",
-         "HardwareType" : "Dummy (Does nothing, use for virtual switches only)",
-         "HardwareTypeVal" : 15,
-         "HaveTimeout" : false,
-         "ID" : "141CB",
-         "LastUpdate" : "2018-01-08 21:32:14",
-         "Name" : "Woonkamer",
-         "Notifications" : "false",
-         "PlanID" : "0",
-         "PlanIDs" : [ 0 ],
-         "Protected" : false,
-         "ShowNotifications" : true,
-         "SignalLevel" : "-",
-         "SubType" : "LaCrosse TX3",
-         "Temp" : 20.949999999999999,
-         "Timers" : "false",
-         "Type" : "Temp",
-         "TypeImg" : "temperature",
-         "Unit" : 1,
-         "Used" : 1,
-         "XOffset" : "0",
-         "YOffset" : "0",
-         "idx" : "379"
-      },{
-         "AddjMulti" : 1.0,
-		"AddjMulti2" : 1.0,
-		"AddjValue" : 0.0,
-		"AddjValue2" : 0.0,
-		"BatteryLevel" : 255,
-		"CustomImage" : 0,
-		"Data" : "Humidity 64 %",
-		"Description" : "",
-		"Favorite" : 1,
-		"HardwareID" : 7,
-		"HardwareName" : "Xiaomi Gateway",
-		"HardwareType" : "Xiaomi Gateway",
-		"HardwareTypeVal" : 95,
-		"HaveTimeout" : false,
-		"Humidity" : 64,
-		"HumidityStatus" : "Wet",
-		"ID" : "2AFE",
-		"LastUpdate" : "2018-01-04 12:29:42",
-		"Name" : "Badkamer Vochtigheid",
-		"Notifications" : "false",
-		"PlanID" : "0",
-		"PlanIDs" : [ 0 ],
-		"Protected" : false,
-		"ShowNotifications" : true,
-		"SignalLevel" : "-",
-		"SubType" : "LaCrosse TX3",
-		"Timers" : "false",
-		"Type" : "Humidity",
-		"TypeImg" : "temperature",
-		"Unit" : 1,
-		"Used" : 1,
-		"XOffset" : "0",
-		"YOffset" : "0",
-		"idx" : "51"
-      }
-   ],
-   "status" : "OK",
-   "title" : "Devices"
-}`
-				data=$.parseJSON(data);*/
+
 				gettingDevices = false;
                 if (!sliding || override) {
                     $('.solar').remove();
@@ -1159,7 +1081,7 @@ function getDevices(override) {
                                 case 'Dimmer':
                                     width = 12;
                             }
-							
+
                             if (typeof(blocks) !== 'undefined' && typeof(blocks[idx]) !== 'undefined'){
 								if ($(window).width()<768 && typeof(blocks[idx]['width_smartphone']) !== 'undefined'){
 									width = blocks[idx]['width_smartphone'];
@@ -1225,20 +1147,25 @@ function getDevices(override) {
                     if (typeof(afterGetDevices) === 'function') afterGetDevices();
                 }
 
-                enableRefresh();
             }
         });
-    } else {
-        enableRefresh();
     }
 }
 
+function getDevicesTmr() {
+	if ( settings['edit_mode']) return;
+	const now = new Date();
+	if (now.getTime()>=(lastGetDevicesTime + settings['domoticz_refresh'] * 1000)) {
+		getDevices();
+	}
+}
+
 function enableRefresh() {
-    if (!settings['edit_mode']) {
-        setTimeout(function () {
-            getDevices();
+//only call once
+        setInterval(function () {
+            getDevicesTmr();
         }, (settings['domoticz_refresh'] * 1000));
-    }
+
 }
 
 function getAutoAppendSelector(device) {
@@ -1570,7 +1497,7 @@ function getSmartMeterBlock(device, idx) {
         if (typeof(device['UsageDeliv']) !== 'undefined' && (parseFloat(device['UsageDeliv']) > 0 || parseFloat(device['UsageDeliv']) < 0)) {
             this.usage = device['UsageDeliv'];
         }
-		
+
 		var data = device['Data'].split(';');
         var blockValues = [
             {
@@ -1595,7 +1522,7 @@ function getSmartMeterBlock(device, idx) {
                 unit: settings['units'].names.kwh
             }
         ];
-		
+
         if (parseFloat(device['CounterDeliv']) > 0) {
             blockValues.push({
                 icon: 'fa-plug',
@@ -1612,7 +1539,7 @@ function getSmartMeterBlock(device, idx) {
                 unit: settings['units'].names.kwh
             });
         }
-			
+
 		if(typeof(data[1])!=='undefined'){
 			data[0] = data[0]/1000;
 			data[1] = data[1]/1000;
@@ -1792,7 +1719,7 @@ function createBlocks(blockValues, device) {
 			if (typeof(allblocks[device['idx']]) !== 'undefined'
                 && $('div.block_' + blockValue.idx).length == 0
             ) {
-				
+
 				//sometimes there is a block_IDX_3 and block_IDX_6, but no block_IDX_4, therefor, loop to remove classes
 				//(e.g. with smart P1 meters, when there's no CounterDeliv value)
 				var newblock = $('div.block_' + device['idx']).last().clone();
@@ -1985,10 +1912,10 @@ function getDimmerBlock(device, idx, buttonimg) {
             var bIsWhite = (hue.s < 20);
 
             sliding = true;
-            
+
 			var usrinfo ='';
 			if(typeof(usrEnc)!=='undefined' && usrEnc!=='') usrinfo = 'username=' + usrEnc + '&password=' + pwdEnc + '&';
-        
+
 			var url = settings['domoticz_ip'] + '/json.htm?'+usrinfo+'type=command&param=setcolbrightnessvalue&idx=' + curidx + '&hue=' + hue.h + '&brightness=' + hue.b + '&iswhite=' + bIsWhite;
             $.ajax({
                 url: url + '&jsoncallback=?',
