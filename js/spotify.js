@@ -8,6 +8,7 @@ var SpotifyModule = function() {
 	var spotifyApi = new SpotifyWebApi();
 	var random;
 	var columndiv;
+	var spotVolume;
 
 	function _getSpotify(columndiv){
 		var random = getRandomInt(1,100000);
@@ -123,7 +124,8 @@ var SpotifyModule = function() {
 	}
 
 	function _getCurrentTrack(){
-		spotifyApi.getMyCurrentPlayingTrack(function(err, currently) {
+//		spotifyApi.getMyCurrentPlayingTrack(function(err, currently) {
+		spotifyApi.getMyCurrentPlaybackState(function(err, currently) {
 			if(currently.item!==null && typeof(currently.item)!=='undefined'){
 				_getCurrentHTML(currently, 'currentlyPlaying');
 			}
@@ -137,6 +139,7 @@ var SpotifyModule = function() {
 	}
 	function _getCurrentHTML(currently, typeAction){
 		item = currently.item;
+		spotVolume = Number(currently.device.volume_percent);
 		if(typeof typeAction === 'undefined') typeAction = false;
 
 		var html= '';
@@ -192,12 +195,12 @@ var SpotifyModule = function() {
 				html += '<a class="spotplay" href="javascript:SpotifyModule.trackAction(\'Play\');"><em class="fa fa-play-circle fa-small"></em></a> ';
 			}
 			html += '<a href="javascript:SpotifyModule.trackAction(\'Forward\');"><em class="fa fa-arrow-circle-right fa-small"></em></a>';
-			/*
+
 			html += '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
 			html += '<a href="javascript:SpotifyModule.trackAction(\'VolumeDown\');"><em class="fa fa-minus-circle fa-small"></em></a>';
 			html += '&nbsp;';
 			html += '<a href="javascript:SpotifyModule.trackAction(\'VolumeUp\');"><em class="fa fa-plus-circle fa-small"></em></a>';
-			*/
+
 			html += '</div>';
 		}
 
@@ -232,6 +235,14 @@ var SpotifyModule = function() {
 			spotifyApi.skipToPrevious(function(err, result) {
 				_getCurrentTrack();
 			});
+		}
+		if(action=='VolumeDown'){
+			spotVolume = Math.max(0, spotVolume-10);
+			spotifyApi.setVolume(spotVolume,{});
+		}
+		if(action=='VolumeUp'){
+			spotVolume = Math.min(100, spotVolume+10);
+			spotifyApi.setVolume(spotVolume,{});
 		}
 	}
 
