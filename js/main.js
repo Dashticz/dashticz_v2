@@ -35,7 +35,7 @@ function loadFiles() {
         if (objectlength(columns) === 0) defaultcolumns = true;
 
         _GRAPHREFRESH = 5;
-        
+
         //Check language before loading settings and fallback to English when not set
         if (typeof(localStorage.dashticz_language) !== 'undefined') {
             setLang = localStorage.dashticz_language
@@ -72,7 +72,7 @@ function loadFiles() {
 					}
 				}
 			}
-			
+
             $('<link href="css/creative.css?v=' + cache + '" rel="stylesheet">').appendTo('head');
             $('<link href="vendor/weather/css/weather-icons.min.css?v=' + cache + '" rel="stylesheet">').appendTo('head');
 
@@ -103,9 +103,9 @@ function loadFiles() {
             $.ajax({url: 'js/blocks.js', async: false, dataType: 'script'});
             $.ajax({url: 'js/graphs.js', async: false, dataType: 'script'});
 	    $.ajax({url: 'js/login.js', async: false, dataType: 'script'});
-		
+
 	    sessionValid();
-		
+
             if (typeof(settings['gm_api']) !== 'undefined' && settings['gm_api'] !== '' && settings['gm_api'] !== 0) {
                 $.ajax({
                     url: 'https://maps.googleapis.com/maps/api/js?key=' + settings['gm_api'],
@@ -178,9 +178,9 @@ function onLoad() {
 
         }
     }
-	
+
 	if(typeof(settings['disable_googleanalytics'])=='undefined' || parseFloat(settings['disable_googleanalytics'])==0){
-		
+
 		var googleAnalytics="<script>";
 		  googleAnalytics+="(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){";
 		  googleAnalytics+="(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),";
@@ -193,7 +193,7 @@ function onLoad() {
 		googleAnalytics+="</script>";
         $('body').prepend(googleAnalytics);
 	}
-	
+
     if ((settings['auto_swipe_back_after'] == 0 || typeof(settings['auto_swipe_back_after']) == 'undefined') && parseFloat(settings['auto_slide_pages']) > 0) {
         var nextSlide = 1;
         setInterval(function () {
@@ -245,19 +245,19 @@ function toSlide(num) {
 
 
 function buildStandby(){
-	
+
 	if($('.screenstandby').length==0){
 		var screenhtml = '<div class="screen screenstandby swiper-slide slidestandby" style="height:'+$(window).height()+'px"><div class="row"></div></div>';
 		$('div.screen').hide();
 		$('#settingspopup').modal('hide');
-		$('div.swiper-container').before(screenhtml);	
+		$('div.swiper-container').before(screenhtml);
 
 		for(c in columns_standby){
 			$('div.screenstandby .row').append('<div class="col-xs-'+columns_standby[c]['width']+' colstandby'+c+'"></div>');
-			getBlock(columns_standby[c],c,'div.screenstandby .row .colstandby'+c,true);	
+			getBlock(columns_standby[c],c,'div.screenstandby .row .colstandby'+c,true);
 		}
 	}
-  
+
 }
 
 function buildScreens() {
@@ -319,14 +319,14 @@ function buildScreens() {
 
                         for (cs in screens[t][s]['columns']) {
                            if(typeof(screens[t])!=='undefined'){
-							   
+
 						   	c = screens[t][s]['columns'][cs];
                             getBlock(columns[c], c, 'div.screen' + s + ' .row .col' + c, false);
 						   }
                         }
                     }
                     else {
-						
+
                         if (parseFloat(settings['hide_topbar']) == 0) $('body .row').append('<div class="col-sm-undefined col-xs-12 sortable colbar transbg dark"><div data-id="logo" class="logo col-xs-2">' + settings['app_title'] + '<div></div></div><div data-id="miniclock" class="miniclock col-xs-8 text-center"><span class="weekday"></span> <span class="date"></span> <span>&nbsp;&nbsp;&nbsp;&nbsp;</span> <span class="clock"></span></div><div data-id="settings" class="settings settingsicon text-right" data-toggle="modal" data-target="#settingspopup"><em class="fa fa-cog" /></div></div></div>');
                         if (typeof(settings['default_columns']) == 'undefined' || parseFloat(settings['default_columns']) == 3) {
                             $('body .row').append('<div class="col-xs-5 sortable col1" data-colindex="1"><div class="auto_switches"></div><div class="auto_dimmers"></div></div>');
@@ -397,7 +397,7 @@ function startSwiper() {
                         effect: settings['slide_effect'],
                         keyboardControl: true
                     });
-					
+
                 }, 2000);
             });
         }
@@ -1005,7 +1005,7 @@ function getDevices(override) {
     if (!sliding || override) {
         if (typeof(req) !== 'undefined') req.abort();
         gettingDevices = true;
-		
+
 		var usrinfo ='';
 		if(typeof(usrEnc)!=='undefined' && usrEnc!=='') usrinfo = 'username=' + usrEnc + '&password=' + pwdEnc + '&';
         req = $.get({
@@ -1016,7 +1016,7 @@ function getDevices(override) {
 				infoMessage('<font color="red">Domoticz error!', 'double check the path to Domoticz in Settings!</font>', 0);
             },
             success: function (data) {
-                
+
 				/*
 				data = `{
 "ActTime" : 1525604220,
@@ -1138,7 +1138,7 @@ function getDevices(override) {
                                 case 'Dimmer':
                                     width = 12;
                             }
-							
+
                             if (typeof(blocks) !== 'undefined' && typeof(blocks[idx]) !== 'undefined'){
 								if ($(window).width()<768 && typeof(blocks[idx]['width_smartphone']) !== 'undefined'){
 									width = blocks[idx]['width_smartphone'];
@@ -1549,7 +1549,7 @@ function getSmartMeterBlock(device, idx) {
         if (typeof(device['UsageDeliv']) !== 'undefined' && (parseFloat(device['UsageDeliv']) > 0 || parseFloat(device['UsageDeliv']) < 0)) {
             this.usage = device['UsageDeliv'];
         }
-		
+
 		var data = device['Data'].split(';');
         var blockValues = [
             {
@@ -1574,7 +1574,7 @@ function getSmartMeterBlock(device, idx) {
                 unit: settings['units'].names.kwh
             }
         ];
-		
+
         if (parseFloat(device['CounterDeliv']) > 0) {
             blockValues.push({
                 icon: 'fa-plug',
@@ -1591,7 +1591,7 @@ function getSmartMeterBlock(device, idx) {
                 unit: settings['units'].names.kwh
             });
         }
-			
+
 		if(typeof(data[1])!=='undefined'){
 			data[0] = data[0]/1000;
 			data[1] = data[1]/1000;
@@ -1771,7 +1771,7 @@ function createBlocks(blockValues, device) {
 			if (typeof(allblocks[device['idx']]) !== 'undefined'
                 && $('div.block_' + blockValue.idx).length == 0
             ) {
-				
+
 				//sometimes there is a block_IDX_3 and block_IDX_6, but no block_IDX_4, therefor, loop to remove classes
 				//(e.g. with smart P1 meters, when there's no CounterDeliv value)
 				var newblock = $('div.block_' + device['idx']).last().clone();
@@ -1964,10 +1964,10 @@ function getDimmerBlock(device, idx, buttonimg) {
             var bIsWhite = (hue.s < 20);
 
             sliding = true;
-            
+
 			var usrinfo ='';
 			if(typeof(usrEnc)!=='undefined' && usrEnc!=='') usrinfo = 'username=' + usrEnc + '&password=' + pwdEnc + '&';
-        
+
 			var url = settings['domoticz_ip'] + '/json.htm?'+usrinfo+'type=command&param=setcolbrightnessvalue&idx=' + curidx + '&hue=' + hue.h + '&brightness=' + hue.b + '&iswhite=' + bIsWhite;
             $.ajax({
                 url: url + '&jsoncallback=?',
@@ -2107,6 +2107,7 @@ function addSlider(idx, sliderValues) {
 }
 
 function isRGBDeviceAndEnabled(device) {
+    return false; //temporarily disable RGB device functionality
     return (typeof(settings['no_rgb']) === 'undefined'
             || (typeof(settings['no_rgb']) !== 'undefined'
                 && parseFloat(settings['no_rgb']) === 0))
