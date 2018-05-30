@@ -29,6 +29,7 @@ var _GRAPHS_LOADED = {};
 var _STREAMPLAYER_TRACKS = {"track": 1, "name": "Music FM", "file": "http://stream.musicfm.hu:8000/musicfm.mp3"};
 var _THOUSAND_SEPARATOR = '.';
 var _DECIMAL_POINT = ',';
+var lastGetDevicesTime = 0;
 
 function loadFiles() {
     $.ajax({url: customfolder + '/CONFIG.js', async: false, dataType: 'script'}).done(function () {
@@ -154,6 +155,8 @@ function onLoad() {
         $('.date').html(moment().locale(settings['language']).format(settings['longdate']));
         $('.weekday').html(moment().locale(settings['language']).format(settings['weekday']));
     }, 1000);
+
+    enableRefresh();
 
     getDevices();
 
@@ -1006,6 +1009,9 @@ function getDevices(override) {
         if (typeof(req) !== 'undefined') req.abort();
         gettingDevices = true;
 
+        const now = new Date();
+        lastGetDevicesTime=now.getTime();
+
 		var usrinfo ='';
 		if(typeof(usrEnc)!=='undefined' && usrEnc!=='') usrinfo = 'username=' + usrEnc + '&password=' + pwdEnc + '&';
         req = $.get({
@@ -1204,20 +1210,26 @@ function getDevices(override) {
                     if (typeof(afterGetDevices) === 'function') afterGetDevices();
                 }
 
-                enableRefresh();
             }
         });
-    } else {
-        enableRefresh();
     }
 }
 
+
+function getDevicesTmr() {
+	if ( settings['edit_mode']) return;
+	const now = new Date();
+	if (now.getTime()>=lastGetDevicesTime + settings['domoticz_refresh'] * 1000-50) {
+		getDevices();
+	} 
+}
+
 function enableRefresh() {
-    if (!settings['edit_mode']) {
-        setTimeout(function () {
-            getDevices();
+//only call once
+        setInterval(function () {
+            getDevicesTmr();
         }, (settings['domoticz_refresh'] * 1000));
-    }
+
 }
 
 function getAutoAppendSelector(device) {
