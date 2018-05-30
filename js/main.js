@@ -1008,6 +1008,7 @@ function getDevices(override) {
     if (!sliding || override) {
         if (typeof(req) !== 'undefined') req.abort();
         gettingDevices = true;
+
         const now = new Date();
         lastGetDevicesTime=now.getTime();
 
@@ -2118,6 +2119,7 @@ function addSlider(idx, sliderValues) {
 }
 
 function isRGBDeviceAndEnabled(device) {
+    return false; //temporarily disable RGB device functionality
     return (typeof(settings['no_rgb']) === 'undefined'
             || (typeof(settings['no_rgb']) !== 'undefined'
                 && parseFloat(settings['no_rgb']) === 0))
