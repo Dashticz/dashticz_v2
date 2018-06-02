@@ -396,6 +396,11 @@ a.playlist {
 .containsspotify .fa {
 	font-size:30px !important
 }
+
+.containsspotify .shuffleoff {
+	color: #aaa;
+}
+
 .containsspotify select.devices{
 	width: 100%;
     max-width: 100%;
