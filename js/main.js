@@ -1952,7 +1952,7 @@ function getDimmerBlock(device, idx, buttonimg) {
     }
     this.html += '<br />';
     if (isRGBDeviceAndEnabled(device)) {
-        this.html += '<input type="text" class="rgbw" data-light="' + device['idx'] + '" />';
+        this.html += '<input type="text" class="rgbw rgbw' + idx+'" data-light="' + device['idx'] + '" />';
         this.html += '<div class="slider slider' + device['idx'] + '" style="margin-left:55px;" data-light="' + device['idx'] + '"></div>';
     }
     else {
@@ -1961,14 +1961,18 @@ function getDimmerBlock(device, idx, buttonimg) {
 
     this.html += '</div>';
 
+    if (isRGBDeviceAndEnabled(device)) {  //we have to manually destroy the previous spectrum color picker
+      $('.rgbw' + idx).spectrum("destroy");
+    }
+
     $('div.block_' + idx).html(this.html);
 
     if (isRGBDeviceAndEnabled(device)) {
-        $(".rgbw").spectrum({
+        $('.rgbw' + idx).spectrum({
             color: Cookies.get('rgbw_' + idx)
         });
 
-        $(".rgbw").on("dragstop.spectrum", function (e, color) {
+        $('.rgbw' + idx).on("dragstop.spectrum", function (e, color) {
             curidx = $(this).data('light');
             color = color.toHexString();
             Cookies.set('rgbw_' + curidx, color);
@@ -1977,19 +1981,23 @@ function getDimmerBlock(device, idx, buttonimg) {
 
             sliding = true;
 
-			var usrinfo ='';
-			if(typeof(usrEnc)!=='undefined' && usrEnc!=='') usrinfo = 'username=' + usrEnc + '&password=' + pwdEnc + '&';
+			      var usrinfo ='';
+      			if(typeof(usrEnc)!=='undefined' && usrEnc!=='') usrinfo = 'username=' + usrEnc + '&password=' + pwdEnc + '&';
 
-			var url = settings['domoticz_ip'] + '/json.htm?'+usrinfo+'type=command&param=setcolbrightnessvalue&idx=' + curidx + '&hue=' + hue.h + '&brightness=' + hue.b + '&iswhite=' + bIsWhite;
+      			var url = settings['domoticz_ip'] + '/json.htm?'+usrinfo+'type=command&param=setcolbrightnessvalue&idx=' + curidx + '&hue=' + hue.h + '&brightness=' + hue.b + '&iswhite=' + bIsWhite;
             $.ajax({
                 url: url + '&jsoncallback=?',
                 type: 'GET', async: false, contentType: "application/json", dataType: 'jsonp'
             });
         });
 
-        $(".rgbw").on('hide.spectrum', function (e, tinycolor) {
+        $('.rgbw' + idx).on('hide.spectrum', function (e, tinycolor) {
             sliding = false;
             getDevices(true);
+        });
+      
+        $('.rgbw' + idx).on('beforeShow.spectrum', function (e, tinycolor) {
+            sliding = true;
         });
     }
 
@@ -2119,7 +2127,6 @@ function addSlider(idx, sliderValues) {
 }
 
 function isRGBDeviceAndEnabled(device) {
-    return false; //temporarily disable RGB device functionality
     return (typeof(settings['no_rgb']) === 'undefined'
             || (typeof(settings['no_rgb']) !== 'undefined'
                 && parseFloat(settings['no_rgb']) === 0))
