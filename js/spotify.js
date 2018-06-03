@@ -196,7 +196,15 @@ var SpotifyModule = function() {
 			}
 			html += '<a href="javascript:SpotifyModule.trackAction(\'Forward\');"><em class="fa fa-arrow-circle-right fa-small"></em></a>';
 
-			html += '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+			html += '&nbsp;&nbsp;';
+
+			if(currently.shuffle_state) {
+				html += '<a id="shuffle" href="javascript:SpotifyModule.trackAction(\'ShuffleOff\');"><em class="fa fa-random fa-small"></em></a> ';			
+			}
+			else {
+				html += '<a id="shuffle" class="shuffleoff" href="javascript:SpotifyModule.trackAction(\'ShuffleOn\');"><em class="fa fa-random fa-small"></em></a> ';			
+			}
+			html += '&nbsp;&nbsp;';
 			html += '<a href="javascript:SpotifyModule.trackAction(\'VolumeDown\');"><em class="fa fa-minus-circle fa-small"></em></a>';
 			html += '&nbsp;';
 			html += '<a href="javascript:SpotifyModule.trackAction(\'VolumeUp\');"><em class="fa fa-plus-circle fa-small"></em></a>';
@@ -243,6 +251,14 @@ var SpotifyModule = function() {
 		if(action=='VolumeUp'){
 			spotVolume = Math.min(100, spotVolume+10);
 			spotifyApi.setVolume(spotVolume,{});
+		}
+		if(action=='ShuffleOn'){
+			spotifyApi.setShuffle(true,{});
+				$("#shuffle").removeClass("shuffleoff");
+		}
+		if(action=='ShuffleOff'){
+			spotifyApi.setShuffle(false,{});
+				$("#shuffle").addClass("shuffleoff");
 		}
 	}
 
