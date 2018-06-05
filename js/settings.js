@@ -440,6 +440,15 @@ if (typeof(config) !== 'undefined') {
     settings = config;
 }
 
+//The Config settings for all checkbox items will be converted to a number
+for (const s in settingList){
+  for (const t in settingList[s]) {
+    if(typeof(settingList[s][t].type)!=='undefined' && settingList[s][t].type==='checkbox') {
+      settings[t]=Number(settings[t]);
+    }
+  }
+}
+
 if (typeof(settings['language']) === 'undefined') settings['language'] = 'en_US';
 if (typeof(settings['speak_lang']) === 'undefined') settings['speak_lang'] = 'en-US';
 if (typeof(settings['timeformat']) === 'undefined') settings['timeformat'] = 'DD-MM-YY HH:mm';
