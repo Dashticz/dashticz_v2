@@ -1419,7 +1419,7 @@ function handleDevice(device, idx) {
     }
 
     if (typeof(device['LevelActions']) !== 'undefined' && device['LevelNames'] !== "") {
-        var names = atob(device['LevelNames']).split('|');
+        var names =  window.atob(device['LevelNames']).split('|');
 
         html += iconORimage(idx, 'fa-lightbulb-o', buttonimg, getIconStatusClass(device['Status']) + ' icon');
 
