@@ -533,6 +533,15 @@ if (typeof(settings['theme']) === 'undefined') settings['theme'] = 'default';
 if (typeof(settings['background_image']) === 'undefined') settings['background_image'] = 'img/bg2.jpg';
 if (typeof(settings['loginEnabled']) === 'undefined') settings['loginEnabled'] = 0;
 
+//The Config settings for all checkbox items will be converted to a number
+for (const s in settingList){
+  for (const t in settingList[s]) {
+    if(typeof(settingList[s][t].type)!=='undefined' && settingList[s][t].type==='checkbox') {
+      settings[t]=Number(settings[t]);
+    }
+  }
+}
+
 var _TEMP_SYMBOL = '°C';
 if (settings['use_fahrenheit'] === 1) _TEMP_SYMBOL = '°F';
 
