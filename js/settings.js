@@ -640,7 +640,7 @@ function saveSettings() {
         }
 
         else alertSettings += "config['" + $(this).attr('name') + "'] = '" + $(this).val() + "';\n";
-        saveSettings[$(this).attr('name')] = $(this).val();
+        saveSettings[$(this).attr('name')] = "'"+$(this).val()+"'";
     });
 
     $('div#settingspopup input[type="checkbox"]').each(function () {
