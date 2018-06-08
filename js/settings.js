@@ -425,6 +425,9 @@ settingList['about']['about_text3']['title'] = 'Do you appreciate my work and wa
 settingList['about']['about_text4'] = {};
 settingList['about']['about_text4']['title'] = 'If you have any issues you can report them in our community thread <a href="https://www.domoticz.com/forum/viewtopic.php?f=67&t=17427" target="_blank">Bug report</a>.'
 
+settingList['about']['about_text5'] = {};
+settingList['about']['about_text5']['title'] = domoversion + dzVents + python;
+
 var settings = {};
 doneSettings = false;
 if (typeof(Storage) !== "undefined") {
