@@ -15,7 +15,7 @@ var python = '';
 var levelNamesEncoded = false;
 var levelNamesEncodeVersion = '3.9476' /* Domoticz version above this, level names are encoded */
 
-$.ajax({url: 'js/version.txt' , async: false, dataType: 'json', success: function(localdata) {
+$.ajax({url: 'version.txt' , async: false, dataType: 'json', success: function(localdata) {
 
 	dashticz_version = localdata.version;
 	dashticz_branch = localdata.branch
