@@ -52,4 +52,3 @@ $.ajax({url: config['domoticz_ip'] + '/json.htm?' + loginCredentials + 'type=com
 	
 	}
 });
-© 2018 GitHub, Inc.
