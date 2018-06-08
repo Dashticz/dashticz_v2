@@ -9,10 +9,12 @@ var dashticz_branch = 'beta'; /* master or beta */
 var ref_commit = '2dc5f130afad00d852b8427cc8f3bbc7f6eefacb' /* Reference commit - add the latest commit BEFORE make a PR of this file */
 var newVersion = '';
 var moved = false;
+var loginCredentials ='';
 var domoversion = '';
 var dzVents = '';
 var python = '';
-var levelNamesEncodeVersion = '3.9476'
+var levelNamesEncoded = false;
+var levelNamesEncodeVersion = '3.9476' /* Domoticz version above this, level names are encoded */
 	
 $.ajax({url: 'https://api.github.com/repos/Dashticz/dashticz_v2/branches/' + dashticz_branch, async: false, dataType: 'json', success: function(data) {
 	
@@ -34,11 +36,13 @@ if (moved == true) {
 	infoMessage(language.misc.new_version + '!' , '<a href="https://github.com/Dashticz/dashticz_v2/tree/' + dashticz_branch + '" target="_blank">' + language.misc.download + '</a>');
 }
 
-$.ajax({url: config['domoticz_ip'] + '/json.htm?username=' + window.btoa(config['user_name']) + '&password=' + window.btoa(config['pass_word']) + '&type=command&param=getversion', async: false, dataType: 'json', success: function(data) {
+if(typeof(window.btoa(config['user_name']))!=='undefined' && window.btoa(config['pass_word'])!=='') loginCredentials = 'username=' + window.btoa(config['user_name']) + '&password=' + window.btoa(config['pass_word']) + '&';
+
+$.ajax({url: config['domoticz_ip'] + '/json.htm?' + loginCredentials + 'type=command&param=getversion', async: false, dataType: 'json', success: function(data) {
 	
 	domoversion = 'Domoticz version: ' + data.version;
 	dzVents = '<br>dzVents version: ' + data.dzvents_version;
 	python = '<br> Python version: ' + data.python_version;
-	console.log(data);
+	if (domoticzVersion >= levelNamesEncodeVersion) levelNamesEncoded = true; else levelNamesEncoded = false;
 }
 });
