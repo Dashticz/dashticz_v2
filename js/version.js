@@ -24,22 +24,21 @@ $.ajax({url: 'js/version.txt' , async: false, dataType: 'json', success: functio
 	
 $.ajax({url: 'https://raw.githubusercontent.com/Dashticz/dashticz_v2/'+ dashticz_branch +'/version.txt' , async: false, dataType: 'json', success: function(data) {
 	
-	var message = 'Last change made: ' + data.last_changes;
+	var message = 'Latest changes made: ' + data.last_changes;
 	
 	if (dashticz_version !== data.version) {
 		moved = true;
-		newVersion = '<br><i>New version is available! <a href="https://github.com/Dashticz/dashticz_v2/tree/' + dashticz_branch + '" target="_blank">Click here to download</a></i><br><i>' + message + '</i>';
+		newVersion = '<br><i>Version '+ data.version + ' is available! <a href="https://github.com/Dashticz/dashticz_v2/tree/' + dashticz_branch + '" target="_blank">Click here to download</a></i><br><i>' + message + '</i>';
 	}
 	else if (dashticz_version === data.version) {
 		moved = false;
 		newVersion = '<br><i>You are running latest version.</i>';
 	}
+	if (moved == true) {
+	infoMessage(language.misc.new_version + '! (V' + data.version +')' , '<a href="https://github.com/Dashticz/dashticz_v2/tree/' + dashticz_branch + '" target="_blank">' + language.misc.download + '</a>');
+	}
 }
 });
-
-if (moved == true) {
-	infoMessage(language.misc.new_version + '!' , '<a href="https://github.com/Dashticz/dashticz_v2/tree/' + dashticz_branch + '" target="_blank">' + language.misc.download + '</a>');
-}
 
 if(typeof(window.btoa(config['user_name']))!=='undefined' && window.btoa(config['pass_word'])!=='') loginCredentials = 'username=' + window.btoa(config['user_name']) + '&password=' + window.btoa(config['pass_word']) + '&';
 
