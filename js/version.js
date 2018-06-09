@@ -47,7 +47,7 @@ $.ajax({url: config['domoticz_ip'] + '/json.htm?' + loginCredentials + 'type=com
 	domoversion = 'Domoticz version: ' + data.version;
 	dzVents = '<br>dzVents version: ' + data.dzvents_version;
 	python = '<br> Python version: ' + data.python_version;
-	if (domoversion >= levelNamesEncodeVersion) levelNamesEncoded = true; else levelNamesEncoded = false;
+	if (Number(data.version) >= Number(levelNamesEncodeVersion)) levelNamesEncoded = true; else levelNamesEncoded = false;
 	
 	}
 });
