@@ -1326,9 +1326,10 @@ function handleDevice(device, idx) {
                 return getGeneralKwhBlock(device, idx);
             }
             break;
+        case 'Humidity':
+          return getHumBlock(device, idx);
         case 'Temp + Humidity + Baro':
         case 'Temp + Humidity':
-        case 'Humidity':
         case 'Heating':
         case 'Radiator 1':
             return getTempHumBarBlock(device, idx);
@@ -1826,6 +1827,21 @@ function getGeneralKwhBlock(device, idx) {
             value: number_format(device['Data'], 2),
             unit: settings['units'].names.kwh
         }
+    ];
+    createBlocks(blockValues, device);
+    return ['', false];
+}
+
+function getHumBlock(device, idx) {
+    this.html = '';
+       var blockValues = [
+        {
+            icon: 'wi wi-humidity',
+            idx: idx,
+            title: device['Name'],
+            value: number_format(device['Humidity'], 0),
+            unit: '%'
+        },
     ];
     createBlocks(blockValues, device);
     return ['', false];
