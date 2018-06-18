@@ -49,7 +49,7 @@ function getData(random,transportobject){
 		dataURL = 'https://cors-anywhere.herokuapp.com/http://travelplanner.mobiliteit.lu/restproxy/departureBoard?accessId=cdt&duration=1439&maxJourneys='+transportobject.results+'&format=json&id=A=1@O='+transportobject.station;
 	}
 	else if(provider == '9292' || provider == '9292-train' || provider == '9292-bus' || provider == '9292-metro' || provider == '9292-tram-bus'){
-		dataURL = 'https://cors-anywhere.herokuapp.com/http://dashticz.nl/ov/ov.php?station='+transportobject.station+'&time='+$.now();
+		dataURL = 'https://cors-anywhere.herokuapp.com/https://dashticz.nl/ov/ov.php?station='+transportobject.station+'&time='+$.now();
 	}
 	else if(provider == 'irailbe'){
 		var date = new Date($.now());

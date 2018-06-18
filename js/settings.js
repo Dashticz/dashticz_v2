@@ -414,7 +414,7 @@ settingList['about'] = {};
 settingList['about']['title'] = language.settings.about.title;
 
 settingList['about']['about_text'] = {};
-settingList['about']['about_text']['title'] = 'Dashticz ' + dashticz_version + ' ' + dashticz_branch + ' by Rob Geerts<br>' + newVersion;
+settingList['about']['about_text']['title'] = 'Dashticz V' + dashticz_version + ' ' + dashticz_branch + ' by Rob Geerts<br>' + newVersion;
 
 settingList['about']['about_text2'] = {};
 settingList['about']['about_text2']['title'] = 'Years after developing the old and original Dashticz, I decided to start over.<br><br>For more help visit: <a href="http://www.domoticz.com/wiki/Dashticz_V2" target="_blank">http://www.domoticz.com/wiki/Dashticz_V2</a><br>You can also check out our helpful <a href="https://www.domoticz.com/forum/viewforum.php?f=67" target="_blank">community</a> in Dashticz topic on the Domoticz forum.';
@@ -424,6 +424,9 @@ settingList['about']['about_text3']['title'] = 'Do you appreciate my work and wa
 
 settingList['about']['about_text4'] = {};
 settingList['about']['about_text4']['title'] = 'If you have any issues you can report them in our community thread <a href="https://www.domoticz.com/forum/viewtopic.php?f=67&t=17427" target="_blank">Bug report</a>.'
+
+settingList['about']['about_text5'] = {};
+settingList['about']['about_text5']['title'] = domoversion + dzVents + python;
 
 var settings = {};
 doneSettings = false;
@@ -533,6 +536,15 @@ if (typeof(settings['theme']) === 'undefined') settings['theme'] = 'default';
 if (typeof(settings['background_image']) === 'undefined') settings['background_image'] = 'img/bg2.jpg';
 if (typeof(settings['loginEnabled']) === 'undefined') settings['loginEnabled'] = 0;
 
+//The Config settings for all checkbox items will be converted to a number
+for (const s in settingList){
+  for (const t in settingList[s]) {
+    if(typeof(settingList[s][t].type)!=='undefined' && settingList[s][t].type==='checkbox') {
+      settings[t]=Number(settings[t]);
+    }
+  }
+}
+
 var _TEMP_SYMBOL = '°C';
 if (settings['use_fahrenheit'] === 1) _TEMP_SYMBOL = '°F';
 
@@ -631,7 +643,7 @@ function saveSettings() {
         }
 
         else alertSettings += "config['" + $(this).attr('name') + "'] = '" + $(this).val() + "';\n";
-        saveSettings[$(this).attr('name')] = $(this).val();
+        saveSettings[$(this).attr('name')] = "'"+$(this).val()+"'";
     });
 
     $('div#settingspopup input[type="checkbox"]').each(function () {
