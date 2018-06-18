@@ -671,7 +671,7 @@ function saveSettings() {
             html += alertSettings;
 
             html += '</textarea>';
-            html += '</div><div class="modal-footer"><button onClick="document.location.href=document.location.href;" type="button" class="btn btn-primary" data-dismiss="modal">' + language.settings.close_reload + '</button></div>';
+            html += '</div><div class="modal-footer"><button onClick="window.location.href=window.location.href;" type="button" class="btn btn-primary" data-dismiss="modal">' + language.settings.close_reload + '</button></div>';
             html += '</div>';
             html += '</div>';
             html += '</div><div class="settingsoutput" data-toggle="modal" data-target="#settingsoutput"><em class="fa fa-cog" /><div>';
@@ -682,7 +682,7 @@ function saveSettings() {
             }, 1000);
         }
         else {
-            document.location.href = document.location.href;
+            window.location.href = window.location.href;
         }
     });
 }

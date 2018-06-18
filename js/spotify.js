@@ -1,6 +1,6 @@
 var SpotifyModule = function() {
 
-	var CUR_URI = document.location.href.split('#');
+	var CUR_URI = window.location.href.split('#');
 	REDIRECT_URI = CUR_URI[0];
 
 	var accessToken;
@@ -16,7 +16,7 @@ var SpotifyModule = function() {
 			if(typeof(CUR_URI[1])!=='undefined'){
 				var hash = URLToArray(CUR_URI[1]);
 				Cookies.set('spotifyToken',hash.access_token);
-				document.location.href=CUR_URI[0];
+				window.location.href=CUR_URI[0];
 			}
 			accessToken = Cookies.get('spotifyToken');
 			spotifyApi.setAccessToken(accessToken);
@@ -41,7 +41,7 @@ var SpotifyModule = function() {
 		}
 		else {
 			var url = _getLoginURL();
-			document.location.href=url;
+			window.location.href=url;
 		}
 
 	}
@@ -54,7 +54,7 @@ var SpotifyModule = function() {
 			spotifyApi.getMyDevices(function(err, data) {
 				if (err){
 					var url = _getLoginURL();
-					document.location.href=url;
+					window.location.href=url;
 
 				}
 				else{

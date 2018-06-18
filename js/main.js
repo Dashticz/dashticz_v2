@@ -166,7 +166,7 @@ function onLoad() {
     }, (60000));
 
     setTimeout(function () {
-        document.location.href = document.location.href;
+        window.location.href = window.location.href;
     }, (settings['dashticz_refresh'] * 60 * 1000));
 
     if (typeof(settings['auto_swipe_back_to']) !== 'undefined' && typeof(settings['auto_swipe_back_after']) !== 'undefined') {

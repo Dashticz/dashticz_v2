@@ -8,7 +8,7 @@ function validate() {
 		loginDuration.setTime(loginDuration.getTime() + (sessionTimeout * 60 * 60 * 1000));
 		var expires = "expires=" + loginDuration.toUTCString()
 		document.cookie = "CrewCentreSession=Valid; " + expires + "; path=/";
-		document.location.href = document.location.href;
+		window.location.href = window.location.href;
 		return false;
 	} else {
 		attempt--;
@@ -33,7 +33,7 @@ function sessionValid() {
 }
 function logout() {
   document.cookie = 'CrewCentreSession=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-  document.location.href = document.location.href;
+  window.location.href = window.location.href;
 }
 
 function loginPage() {
