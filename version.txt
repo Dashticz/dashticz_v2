@@ -1,8 +1,9 @@
 {
-"version": "2.3.5",
+"version": "2.3.6",
 "branch": "beta",
-"last_changes": "Fix for Humidity-only block",
+"last_changes": "Added openpopupOn and openpopupOff",
 "changelog" : {
+            "2.3.5": ""Fix for Humidity-only block",
             "2.3.4": "Rewrite dashticz version checker. Added Domoticz version in info page. Fix for encoding levelnames in selector.",
             "2.3.3": "Save settings: Fix for writing text settings starting with a number.",
             "2.3.2": "Fix for checkbox settings. Fix for color picker of RGB devices.",
