@@ -1,9 +1,10 @@
 {
-"version": "2.3.6",
+"version": "2.3.7",
 "branch": "beta",
-"last_changes": "Added openpopupOn and openpopupOff",
+"last_changes": "Fix voor redirect in Kiosk Browser",
 "changelog" : {
-            "2.3.5": ""Fix for Humidity-only block",
+            "2.3.6": "Added openpopupOn and openpopupOff",
+            "2.3.5": "Fix for Humidity-only block",
             "2.3.4": "Rewrite dashticz version checker. Added Domoticz version in info page. Fix for encoding levelnames in selector.",
             "2.3.3": "Save settings: Fix for writing text settings starting with a number.",
             "2.3.2": "Fix for checkbox settings. Fix for color picker of RGB devices.",
