@@ -166,7 +166,7 @@ function onLoad() {
     }, (60000));
 
     setTimeout(function () {
-        document.location.href = document.location.href;
+        window.location.href = window.location.href;
     }, (settings['dashticz_refresh'] * 60 * 1000));
 
     if (typeof(settings['auto_swipe_back_to']) !== 'undefined' && typeof(settings['auto_swipe_back_after']) !== 'undefined') {
@@ -540,8 +540,33 @@ function triggerStatus(idx, value, device) {
             if (typeof(blocks[idx]) !== 'undefined' && typeof(blocks[idx]['gotoslideOn']) !== 'undefined') {
                 toSlide((blocks[idx]['gotoslideOn'] - 1));
                 standbyTime=0;
-			    disableStandby();
+		disableStandby();
             }
+	    if (typeof(blocks[idx]) !== 'undefined' && typeof(blocks[idx]['openpopupOn']) !== 'undefined') {
+		var random = getRandomInt(1, 100000);
+		$('.modal.openpopup,.modal-backdrop').remove();
+
+		var html = '<div class="modal fade openpopup" id="popup_' + random + '" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
+		html += '<div class="modal-dialog">';
+		html += '<div class="modal-content">';
+		html += '<div class="modal-header">';
+		html += '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
+		html += '</div>';
+		html += '<div class="modal-body">';
+		html += '<iframe src="' + blocks[idx]['openpopupOn']['url'] + '" width="100%" height="570" frameborder="0" allowtransparency="true"></iframe> ';
+		html += '</div>';
+		html += '</div>';
+		html += '</div>';
+		html += '</div>';
+		$('body').append(html);
+		$('#popup_' + random).modal('show');
+
+		if (typeof(blocks[idx]['openpopupOn']['auto_close']) !== 'undefined') {
+			setTimeout(function () {
+			$('.modal.openpopup,.modal-backdrop').remove();
+			}, (parseFloat(blocks[idx]['openpopupOn']['auto_close']) * 1000));
+		}
+	     }
         }
         if (device['Status'] == 'Off' || device['Status'] == 'Closed') {
             if (typeof(blocks[idx]) !== 'undefined' && typeof(blocks[idx]['playsoundOff']) !== 'undefined') {
@@ -556,8 +581,33 @@ function triggerStatus(idx, value, device) {
             if (typeof(blocks[idx]) !== 'undefined' && typeof(blocks[idx]['gotoslideOff']) !== 'undefined') {
                 toSlide((blocks[idx]['gotoslideOff'] - 1));
                 standbyTime=0;
-			    disableStandby();
+		disableStandby();
             }
+	    if (typeof(blocks[idx]) !== 'undefined' && typeof(blocks[idx]['openpopupOff']) !== 'undefined') {
+		var random = getRandomInt(1, 100000);
+		$('.modal.openpopup,.modal-backdrop').remove();
+
+		var html = '<div class="modal fade openpopup" id="popup_' + random + '" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
+		html += '<div class="modal-dialog">';
+		html += '<div class="modal-content">';
+		html += '<div class="modal-header">';
+		html += '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
+		html += '</div>';
+		html += '<div class="modal-body">';
+		html += '<iframe src="' + blocks[idx]['openpopupOff']['url'] + '" width="100%" height="570" frameborder="0" allowtransparency="true"></iframe> ';
+		html += '</div>';
+		html += '</div>';
+		html += '</div>';
+		html += '</div>';
+		$('body').append(html);
+		$('#popup_' + random).modal('show');
+
+		if (typeof(blocks[idx]['openpopupOff']['auto_close']) !== 'undefined') {
+			setTimeout(function () {
+			$('.modal.openpopup,.modal-backdrop').remove();
+			}, (parseFloat(blocks[idx]['openpopupOff']['auto_close']) * 1000));
+		}
+	     }
         }
     }
     onOffstates[idx] = value;
