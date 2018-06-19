@@ -53,7 +53,7 @@ function loadFiles() {
             }
         });
 
-	$.ajax({url: 'js/version.js', async: false, dataType: 'script'});
+        $.ajax({url: 'js/version.js', async: false, dataType: 'script'});
         $.ajax({url: 'js/settings.js', async: false, dataType: 'script'}).done(function () {
             loadSettings();
 			userEnc='';
@@ -103,9 +103,9 @@ function loadFiles() {
             $.ajax({url: 'js/switches.js', async: false, dataType: 'script'});
             $.ajax({url: 'js/blocks.js', async: false, dataType: 'script'});
             $.ajax({url: 'js/graphs.js', async: false, dataType: 'script'});
-	    $.ajax({url: 'js/login.js', async: false, dataType: 'script'});
+            $.ajax({url: 'js/login.js', async: false, dataType: 'script'});
 
-	    sessionValid();
+            sessionValid();
 
             if (typeof(settings['gm_api']) !== 'undefined' && settings['gm_api'] !== '' && settings['gm_api'] !== 0) {
                 $.ajax({
