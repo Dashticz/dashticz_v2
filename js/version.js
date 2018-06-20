@@ -15,7 +15,7 @@ var levelNamesEncoded = false;
 var levelNamesEncodeVersion = '3.9476'; /* Domoticz version above this, level names are encoded */
 
 if (typeof(config) === 'undefined'
-    || (typeof(config) !== 'undefined' && (typeof(config['disable_updates']) === 'undefined' || !config['disable_updates']))
+    || (typeof(config) !== 'undefined' && (typeof(config['disable_update_check']) === 'undefined' || !config['disable_update_check']))
 ) {
     $.ajax({
         url: 'version.txt',
