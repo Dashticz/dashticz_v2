@@ -116,7 +116,7 @@ function switchDeviceBtn(cur, url) {
 
 function switchScene(cur) {
     var idx = $(cur).data('light');
-    var doStatus = 'on'; // toggleItem(cur, $(cur).find('img.icon').hasClass('on') ? 'on' : 'off');
+    var doStatus = 'On'; // toggleItem(cur, $(cur).find('img.icon').hasClass('on') ? 'on' : 'off');
     triggerChange(idx, doStatus);
     if (typeof(req) !== 'undefined') req.abort();
     $.ajax({
