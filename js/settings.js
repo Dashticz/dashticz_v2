@@ -126,6 +126,10 @@ settingList['screen']['standard_graph']['options']['hours'] = language.graph.las
 settingList['screen']['standard_graph']['options']['month'] = language.graph.last_month;
 settingList['screen']['standard_graph']['options']['day'] = language.graph.today;
 
+settingList['screen']['security_button_icons'] = {};
+settingList['screen']['security_button_icons']['title'] = language.settings.screen.security_button_icons;
+settingList['screen']['security_button_icons']['type'] = 'checkbox';
+
 settingList['screen']['edit_mode'] = {};
 settingList['screen']['edit_mode']['title'] = language.settings.screen.edit_mode;
 settingList['screen']['edit_mode']['type'] = 'checkbox';
@@ -535,6 +539,7 @@ if (typeof(settings['garbage_use_cors_prefix']) === 'undefined') settings['garba
 if (typeof(settings['theme']) === 'undefined') settings['theme'] = 'default';
 if (typeof(settings['background_image']) === 'undefined') settings['background_image'] = 'img/bg2.jpg';
 if (typeof(settings['loginEnabled']) === 'undefined') settings['loginEnabled'] = 0;
+if (typeof(settings['security_button_icons']) === 'undefined') settings['security_button_icons'] = 0;
 
 //The Config settings for all checkbox items will be converted to a number
 for (var s in settingList){
