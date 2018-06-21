@@ -469,6 +469,12 @@ function setClassByTime() {
     $('body').removeClass('morning noon afternoon night').addClass(newClass);
 }
 
+function enterCode(armLevel) {
+	var code;
+	code = prompt(language.misc.enter_pincode);
+	if (code != null) switchSecurity(armlevel, code);
+}
+
 function infoMessage(sub, msg, timeOut){
 	if (timeOut == null){
 		timeOut = 8000;
@@ -1438,6 +1444,56 @@ function handleDevice(device, idx) {
         case 'Venetian Blinds EU Inverted Percentage':
         case 'Venetian Blinds EU Percentage Inverted':
             return getBlindsBlock(device, idx, true);
+	case 'Security':
+		if(device['Status'] === 'Normal') html += iconORimage(idx, 'fas fa-shield-alt', '', 'off icon', '', 2);
+		else html += iconORimage(idx, 'fas fa-shield-alt', '', 'on icon', '', 2);
+
+		if (settings['security_button_icons'] === true || settings['security_button_icons'] === 1 || settings['security_button_icons'] === '1') var secPanelicons = true;
+		else var secPanelicons = false;
+		var da = 'default';
+		var ah = 'default';
+		var aa = 'default';
+		var disarm = language.switches.state_disarm;
+		var armhome = language.switches.state_armhome;
+		var armaway = language.switches.state_armaway;
+				
+		if (secPanelicons === true){
+			disarm = '<i class="fa fa-unlock" title="' + language.switches.state_disarm + '"></i>';
+			armhome = '<i class="fa fa-home" title="' + language.switches.state_armhome + '"></i>';
+			armaway = '<i class="fa fa-home" title="' + language.switches.state_armaway + '"></i><i class="fa fa-walking"></i>';
+		}
+		if(device['Status'] === 'Normal') {
+			da = 'warning';
+			if (secPanelicons === false) disarm = language.switches.state_disarmed;
+			else disarm = '<i class="fa fa-unlock" title="' + language.switches.state_disarmed + '"></i>';
+		}
+		if(device['Status'] === 'Arm Home') {
+			ah = 'danger';
+			if (secPanelicons === false) armhome = language.switches.state_armedhome;
+			else armhome = '<i class="fa fa-home" title="' + language.switches.state_armedhome + '"></i>';
+		}
+		if(device['Status'] === 'Arm Away') {
+			aa = 'danger';
+			if (secPanelicons === false) armaway = language.switches.state_armedaway;
+			else armaway = '<i class="fa fa-home" title="' + language.switches.state_armaway + '"></i><i class="fa fa-walking"></i>';
+		}
+		if(device['Type'] === 'Security') {
+			html += '<div class="col-xs-8 col-data" style="width: calc(100% - 50px);">';
+			html += '<strong class="title">' + device['Name'] + '</strong><br />';
+			html += '<div class="btn-group" data-toggle="buttons">';
+			html += '<label class="btn btn-' + da + '" onclick="enterCode(0)">';
+			html += '<input type="radio" name="options" autocomplete="off" value="Normal" checked>' + disarm;
+			html += '</label>';
+			html += '<label class="btn btn-' + ah + '" onclick="enterCode(1)">';
+			html += '<input type="radio" name="options" autocomplete="off" value="Arm Home" checked>' + armhome;
+			html += '</label>';
+			html += '<label class="btn btn-' + aa + '" onclick="enterCode(2)">';
+			html += '<input type="radio" name="options" autocomplete="off" value="Arm Away" checked>' + armaway;
+			html += '</label>';
+			html += '</div>';
+			html += '</div>';
+		}	
+		return [html, addHTML];
         case 'Motion Sensor':
             html += '<div class="col-xs-4 col-icon">';
             html += '<img src="img/motion_' + getIconStatusClass(device['Status']) + '.png" class="' + getIconStatusClass(device['Status']) + ' icon" style="max-height:35px;" />';
