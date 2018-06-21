@@ -114,9 +114,9 @@ function switchDeviceBtn(cur, url) {
     }
 }
 
-function switchGroup(cur) {
+function switchScene(cur) {
     var idx = $(cur).data('light');
-    var doStatus = toggleItem(cur, $(cur).find('img.icon').hasClass('on') ? 'on' : 'off');
+    var doStatus = 'On'; // toggleItem(cur, $(cur).find('img.icon').hasClass('on') ? 'on' : 'off');
     triggerChange(idx, doStatus);
     if (typeof(req) !== 'undefined') req.abort();
     $.ajax({

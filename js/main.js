@@ -1387,8 +1387,8 @@ function handleDevice(device, idx) {
             return getThermostatBlock(device, idx);
         case 'Group':
         case 'Scene':
-            if (device['Type'] == 'Group') $('.block_' + idx).attr('onclick', 'switchDevice(this)');
-            if (device['Type'] == 'Scene') $('.block_' + idx).attr('onclick', 'switchGroup(this)');
+            if (device['Type'] === 'Group') $('.block_' + idx).attr('onclick', 'switchDevice(this)');
+            if (device['Type'] === 'Scene') $('.block_' + idx).attr('onclick', 'switchScene(this)');
 
             html += iconORimage(idx, 'fa-lightbulb-o', buttonimg, getIconStatusClass(device['Status']) + ' icon');
             html += getBlockData(device, idx, language.switches.state_on, language.switches.state_off);

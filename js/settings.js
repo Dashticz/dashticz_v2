@@ -537,10 +537,10 @@ if (typeof(settings['background_image']) === 'undefined') settings['background_i
 if (typeof(settings['loginEnabled']) === 'undefined') settings['loginEnabled'] = 0;
 
 //The Config settings for all checkbox items will be converted to a number
-for (const s in settingList){
-  for (const t in settingList[s]) {
-    if(typeof(settingList[s][t].type)!=='undefined' && settingList[s][t].type==='checkbox') {
-      settings[t]=Number(settings[t]);
+for (var s in settingList){
+  for (var t in settingList[s]) {
+    if (typeof(settingList[s][t].type) !== 'undefined' && settingList[s][t].type === 'checkbox') {
+      settings[t] = Number(settings[t]);
     }
   }
 }
