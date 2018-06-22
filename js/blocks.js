@@ -199,6 +199,39 @@ function handleStringBlock(block, columndiv, width, c) {
                 loadWeather(settings['wu_city'], settings['wu_country']);
             }
             return;
+		case 'weather_owm':
+            if (typeof(loadWeatherFull) !== 'function') {
+                $.ajax({url: 'js/weather_owm.js', async: false, dataType: "script"});
+            }
+            $(columndiv).append('<div data-id="weather" class="block_' + block + ' containsweatherfull"></div>');
+            if (settings['owm_api'] !== "" && settings['owm_city'] !== "") loadWeatherFull(settings['owm_city'], settings['owm_country'], $('.weatherfull'));
+            return;
+		case 'currentweather_owm':
+            if (settings['owm_api'] !== "" && settings['owm_city'] !== "") {
+                if (typeof(loadWeather) !== 'function') {
+                    $.ajax({url: 'js/weather_owm.js', async: false, dataType: "script"});
+                }
+				
+                $(columndiv).append('<div data-id="currentweather" class="mh transbg block_' + block + ' col-xs-' + width + ' containsweather">' +
+                    '<div class="col-xs-4"><div class="weather" id="weather"></div></div>' +
+                    '<div class="col-xs-8"><strong class="title weatherdegrees" id="weatherdegrees"></strong><br /><span class="weatherloc" id="weatherloc"></span></div>' +
+                    '</div>');
+                loadWeather(settings['owm_city'], settings['owm_country']);
+            }
+            return;
+		case 'currentweather_big_owm':
+            if (settings['owm_api'] !== "" && settings['owm_city'] !== "") {
+                if (typeof(loadWeather) !== 'function') {
+                    $.ajax({url: 'js/weather_owm.js', async: false, dataType: "script"});
+                }
+                $(columndiv).append('<div data-id="currentweather_big" class="mh transbg big block_' + block + ' col-xs-' + width + ' containsweather">' +
+                    '<div class="col-xs-1"><div class="weather" id="weather"></div></div>' +
+                    '<div class="col-xs-11"><span class="title weatherdegrees" id="weatherdegrees"></span> <span class="weatherloc" id="weatherloc"></span></div>' +
+                    '</div>');
+
+                loadWeather(settings['owm_city'], settings['owm_country']);
+            }
+            return;
         case 'spotify':
             if (typeof(getSpotify) !== 'function') $.ajax({url: 'js/spotify.js', async: false, dataType: "script"});
             getSpotify(columndiv);
