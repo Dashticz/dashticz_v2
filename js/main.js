@@ -1059,8 +1059,8 @@ function getDevices(override) {
         if (typeof(req) !== 'undefined') req.abort();
         gettingDevices = true;
 
-        const now = new Date();
-        lastGetDevicesTime=now.getTime();
+        var tmpnow = new Date();
+        lastGetDevicesTime=tmpnow.getTime();
 
 		var usrinfo ='';
 		if(typeof(usrEnc)!=='undefined' && usrEnc!=='') usrinfo = 'username=' + usrEnc + '&password=' + pwdEnc + '&';
@@ -1268,8 +1268,8 @@ function getDevices(override) {
 
 function getDevicesTmr() {
 	if ( settings['edit_mode']) return;
-	const now = new Date();
-	if (now.getTime()>=lastGetDevicesTime + settings['domoticz_refresh'] * 1000-50) {
+	var tmpnow = new Date();
+	if (tmpnow.getTime()>=lastGetDevicesTime + settings['domoticz_refresh'] * 1000-50) {
 		getDevices();
 	} 
 }
