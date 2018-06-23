@@ -352,6 +352,23 @@ function buildScreens() {
                                     loadWeather(settings['wu_city'], settings['wu_country']);
                                 }, (60000 * 30));
                             }
+							
+							if (typeof(settings['owm_api']) !== 'undefined' && settings['owm_api'] !== "" && settings['owm_api'] !== 0 && typeof(settings['owm_city']) !== 'undefined' && settings['owm_city'] !== "") {
+                                $('.col2').prepend('<div class="mh transbg big block_currentweather_big col-xs-12 containsweather"><div class="col-xs-1"><div class="weather" id="weather"></div></div><div class="col-xs-11"><span class="title weatherdegrees" id="weatherdegrees"></span> <span class="weatherloc" id="weatherloc"></span></div></div>');
+                                if (typeof(loadWeatherFull) !== 'function') $.ajax({
+                                    url: 'js/weather_owm.js',
+                                    async: false,
+                                    dataType: 'script'
+                                });
+
+                                loadWeatherFull(settings['owm_city'], settings['owm_country'], $('#weatherfull'));
+                                loadWeather(settings['owm_city'], settings['owm_country']);
+
+                                setInterval(function () {
+                                    loadWeatherFull(settings['owm_city'], settings['owm_country'], $('#weatherfull'));
+                                    loadWeather(settings['owm_city'], settings['owm_country']);
+                                }, (60000 * 30));
+                            }
 
                             $('.col3 .auto_clock').html('<div class="transbg block_clock col-xs-12 text-center"><h1 id="clock" class="clock"></h1><h4 id="weekday" class="weekday"></h4><h4 id="date" class="date"></h4></div>');
                             $('.col3 .auto_sunrise').html('<div class="block_sunrise col-xs-12 transbg text-center sunriseholder"><em class="wi wi-sunrise"></em><span id="sunrise" class="sunrise"></span><em class="wi wi-sunset"></em><span id="sunset" class="sunset"></span></div>');
