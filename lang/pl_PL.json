@@ -27,6 +27,7 @@
     },
     "misc": {
         "download": "Kliknij tutaj, aby pobrać",
+        "enter_pincode": "Enter pin code",
         "last_update": "Ostatnia aktualizacja",
         "loading": "Ładowanie...",
         "mediaplayer_nothing_playing": "Odtwarzanie wyłączone",
@@ -37,7 +38,8 @@
         "spotify_back_to_playlist": "Powrót do list odtwarzania",
         "spotify_select_device": "Wybierz urządzenie",
         "spotify_select_playlist": "Wybierz listę odtwarzania",
-        "value": "Wartość"
+        "value": "Wartość",
+        "wrong_code": "Wrong pin code"
     },
     "settings": {
         "about": {
@@ -127,7 +129,7 @@
             "sk": "Słowacki",
             "sl": "Słoweński",
             "speak_language": "Język TTS",
-            "sr": "Serbian",
+            "sr": "Serbski",
             "sv": "Szwedzki",
             "timeformat": "Format daty i czasu",
             "title": "Lokalizacja",
@@ -157,6 +159,7 @@
             "dashticz_themes_help": "Określ nazwę motywu (np. Biały), motyw zostanie zastąpiony przez custom.css",
             "edit_mode": "Przejść w tryb edycji",
             "hide_topbar": "Ukryj pasek górny",
+            "security_button_icons": "Icons instead of text on security switch",
             "slide_effect": "Efekt przewijania",
             "standard_graph": "Wykres standardowy",
             "standby_after": "Przejdź w tryb czuwania po (minuty, 0 = nigdy)",
@@ -178,7 +181,14 @@
         }
     },
     "switches": {
+        "state_armaway": "Arm Away",
+        "state_armedaway": "Armed Away",
+        "state_armedhome": "Armed Home",
+        "state_armhome": "Arm Home",
         "state_closed": "ZAMKNIĘTE",
+        "state_disarm": "Disarm",
+        "state_disarmed": "Disarmed",
+        "state_locked": "LOCKED",
         "state_movement": "WYKRYTO RUCH",
         "state_nomovement": "BRAK RUCHU",
         "state_nosmoke": "Brak zadymienia",
@@ -186,7 +196,8 @@
         "state_on": "Wł.",
         "state_open": "OTWARTE",
         "state_smoke": "WYKRYTO DYM",
-        "state_switch": "Przełącznik"
+        "state_switch": "Przełącznik",
+        "state_unlocked": "UNLOCKED"
     },
     "weekdays": {
         "entire_day": "cały dzień",

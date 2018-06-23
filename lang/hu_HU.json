@@ -27,6 +27,7 @@
     },
     "misc": {
         "download": "Kattintson ide a letöltéshez",
+        "enter_pincode": "Enter pin code",
         "last_update": "Utolsó frissítés",
         "loading": "Betöltés...",
         "mediaplayer_nothing_playing": "Semmi sem játszódik most",
@@ -37,7 +38,8 @@
         "spotify_back_to_playlist": "Vissza a lejátszási listákhoz",
         "spotify_select_device": "Eszköz kiválasztása",
         "spotify_select_playlist": "Válasszon lejátszási listát",
-        "value": "Érték"
+        "value": "Érték",
+        "wrong_code": "Wrong pin code"
     },
     "settings": {
         "about": {
@@ -157,6 +159,7 @@
             "dashticz_themes_help": "Set the name of the theme (eg. white) the theme will be overide by custom.css",
             "edit_mode": "Ugrás a szerkesztési módba",
             "hide_topbar": "A felső sáv elrejtése",
+            "security_button_icons": "Icons instead of text on security switch",
             "slide_effect": "Dia hatás",
             "standard_graph": "Standard grafikon",
             "standby_after": "Készenléti állapot (perc, 0 = soha)",
@@ -178,7 +181,14 @@
         }
     },
     "switches": {
+        "state_armaway": "Arm Away",
+        "state_armedaway": "Armed Away",
+        "state_armedhome": "Armed Home",
+        "state_armhome": "Arm Home",
         "state_closed": "ZÁRVA",
+        "state_disarm": "Disarm",
+        "state_disarmed": "Disarmed",
+        "state_locked": "LOCKED",
         "state_movement": "MOZGÁS",
         "state_nomovement": "NINCS MOZGÁS",
         "state_nosmoke": "Nincs füst",
@@ -186,7 +196,8 @@
         "state_on": "BE",
         "state_open": "NYITVA",
         "state_smoke": "FÜST ÉRZÉKELVE",
-        "state_switch": "Kapcsoló"
+        "state_switch": "Kapcsoló",
+        "state_unlocked": "UNLOCKED"
     },
     "weekdays": {
         "entire_day": "egész nap",

@@ -27,6 +27,7 @@
     },
     "misc": {
         "download": "Klicka här för att ladda ner",
+        "enter_pincode": "Enter pin code",
         "last_update": "Senast uppdaterad",
         "loading": "Laddar...",
         "mediaplayer_nothing_playing": "Inget att spela upp just nu",
@@ -37,7 +38,8 @@
         "spotify_back_to_playlist": "Tillbaka till spellistor",
         "spotify_select_device": "Välj enhet",
         "spotify_select_playlist": "Välj spellista",
-        "value": "Värde"
+        "value": "Värde",
+        "wrong_code": "Wrong pin code"
     },
     "settings": {
         "about": {
@@ -127,7 +129,7 @@
             "sk": "Slovakiska",
             "sl": "Slovenska",
             "speak_language": "Text till tal språk",
-            "sr": "Serbian",
+            "sr": "Serbiska",
             "sv": "Svenska",
             "timeformat": "Datum\/tids format",
             "title": "Plats",
@@ -157,6 +159,7 @@
             "dashticz_themes_help": "Ange namnet på temat (t.ex. vit). Temat ersätts av custom.css om den används ",
             "edit_mode": "Gå till redigeringsläget",
             "hide_topbar": "Dölj topbar",
+            "security_button_icons": "Icons instead of text on security switch",
             "slide_effect": "Slideffekt",
             "standard_graph": "Standard graf",
             "standby_after": "Standby efter (minuter, 0 = aldrig)",
@@ -178,7 +181,14 @@
         }
     },
     "switches": {
+        "state_armaway": "Arm Away",
+        "state_armedaway": "Armed Away",
+        "state_armedhome": "Armed Home",
+        "state_armhome": "Arm Home",
         "state_closed": "STÄNGD",
+        "state_disarm": "Disarm",
+        "state_disarmed": "Disarmed",
+        "state_locked": "LOCKED",
         "state_movement": "RÖRELSE",
         "state_nomovement": "INGEN RÖRELSE",
         "state_nosmoke": "Ingen rök",
@@ -186,7 +196,8 @@
         "state_on": "PÅ",
         "state_open": "ÖPPEN",
         "state_smoke": "RÖK DETEKTERAD",
-        "state_switch": "Brytare"
+        "state_switch": "Brytare",
+        "state_unlocked": "UNLOCKED"
     },
     "weekdays": {
         "entire_day": "Hela dagen",

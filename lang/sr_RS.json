@@ -27,6 +27,7 @@
     },
     "misc": {
         "download": "Kliknite ovde za preuzimanje",
+        "enter_pincode": "Enter pin code",
         "last_update": "Poslednje ažuriranje",
         "loading": "Učitavanje...",
         "mediaplayer_nothing_playing": "Trenutno se ništa ne reprodukuje",
@@ -37,7 +38,8 @@
         "spotify_back_to_playlist": "Nazad na spisak numera",
         "spotify_select_device": "Izaberi uređaj",
         "spotify_select_playlist": "Izaberite spisak numera",
-        "value": "Vrednost"
+        "value": "Vrednost",
+        "wrong_code": "Wrong pin code"
     },
     "settings": {
         "about": {
@@ -127,7 +129,7 @@
             "sk": "Slovački",
             "sl": "Slovenački",
             "speak_language": "Jezik teksta u govor",
-            "sr": "Serbian",
+            "sr": "Srpski",
             "sv": "Švedski",
             "timeformat": "Format datuma i vremena",
             "title": "Lokalizovati",
@@ -157,6 +159,7 @@
             "dashticz_themes_help": "Postavite ime teme (npr. belo), tema će biti nadlvadana od custom.css-a",
             "edit_mode": "Idi u režim za uređivanje",
             "hide_topbar": "Sakrij topbar",
+            "security_button_icons": "Icons instead of text on security switch",
             "slide_effect": "Efekat slajda",
             "standard_graph": "Standardni grafikon",
             "standby_after": "Idi u stanje pripravnosti nakon (minuta, 0 = nikada)",
@@ -178,7 +181,14 @@
         }
     },
     "switches": {
+        "state_armaway": "Arm Away",
+        "state_armedaway": "Armed Away",
+        "state_armedhome": "Armed Home",
+        "state_armhome": "Arm Home",
         "state_closed": "ZATVORENO",
+        "state_disarm": "Disarm",
+        "state_disarmed": "Disarmed",
+        "state_locked": "LOCKED",
         "state_movement": "POKRET",
         "state_nomovement": "NEMA POKRETA",
         "state_nosmoke": "Nema dima",
@@ -186,7 +196,8 @@
         "state_on": "UKLJUČENO",
         "state_open": "OTVORENO",
         "state_smoke": "DIM JE OTKRIVEN",
-        "state_switch": "Prekidač"
+        "state_switch": "Prekidač",
+        "state_unlocked": "UNLOCKED"
     },
     "weekdays": {
         "entire_day": "Čitav dan",
