@@ -163,3 +163,20 @@ function controlLogitech(idx, action) {
         }
     });
 }
+var statusmsg = '';
+function switchSecurity(level, pincode) {
+
+	pincode = $.md5(pincode)
+	$.ajax({
+        url: settings['domoticz_ip'] + '/json.htm?username=' + usrEnc + '&password=' + pwdEnc + '&type=command&param=setsecstatus&secstatus=' + level + '&seccode=' + pincode + '&jsoncallback=?',
+        type: 'GET', async: true, contentType: 'application/json', dataType: 'jsonp',
+        success: function (data) {
+			if (data.status != "OK" ) {
+			statusmsg = data.message;
+            if (statusmsg = 'WRONG CODE') statusmsg = language.misc.wrong_code;
+			infoMessage('<font color="red">Alert!</font>',statusmsg, 10000);
+			}
+            getDevices(true);
+        }
+    });
+}

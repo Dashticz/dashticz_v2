@@ -1,8 +1,9 @@
 {
-"version": "2.3.9",
+"version": "2.3.10",
 "branch": "beta",
-"last_changes": "Additional fix for older browsers breaking on const keyword",
+"last_changes": "Added security switch",
 "changelog" : {
+            "2.3.9": "Additional fix for older browsers breaking on const keyword",
             "2.3.8": "Fix scene switching, fix for older browsers breaking on const keyword",
             "2.3.7": "Fix voor redirect in Kiosk Browser",
             "2.3.6": "Added openpopupOn and openpopupOff",
