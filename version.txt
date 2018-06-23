@@ -1,8 +1,10 @@
 {
-"version": "2.3.7",
+"version": "2.3.9",
 "branch": "beta",
-"last_changes": "Fix voor redirect in Kiosk Browser",
+"last_changes": "Additional fix for older browsers breaking on const keyword",
 "changelog" : {
+            "2.3.8": "Fix scene switching, fix for older browsers breaking on const keyword",
+            "2.3.7": "Fix voor redirect in Kiosk Browser",
             "2.3.6": "Added openpopupOn and openpopupOff",
             "2.3.5": "Fix for Humidity-only block",
             "2.3.4": "Rewrite dashticz version checker. Added Domoticz version in info page. Fix for encoding levelnames in selector.",

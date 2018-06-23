@@ -53,7 +53,7 @@ function loadFiles() {
             }
         });
 
-	$.ajax({url: 'js/version.js', async: false, dataType: 'script'});
+        $.ajax({url: 'js/version.js', async: false, dataType: 'script'});
         $.ajax({url: 'js/settings.js', async: false, dataType: 'script'}).done(function () {
             loadSettings();
 			userEnc='';
@@ -103,9 +103,9 @@ function loadFiles() {
             $.ajax({url: 'js/switches.js', async: false, dataType: 'script'});
             $.ajax({url: 'js/blocks.js', async: false, dataType: 'script'});
             $.ajax({url: 'js/graphs.js', async: false, dataType: 'script'});
-	    $.ajax({url: 'js/login.js', async: false, dataType: 'script'});
+            $.ajax({url: 'js/login.js', async: false, dataType: 'script'});
 
-	    sessionValid();
+            sessionValid();
 
             if (typeof(settings['gm_api']) !== 'undefined' && settings['gm_api'] !== '' && settings['gm_api'] !== 0) {
                 $.ajax({
@@ -154,7 +154,7 @@ function onLoad() {
         $('.clock').html(moment().locale(settings['language']).format(settings['hide_seconds'] ? settings['shorttime'] : settings['longtime']));
         $('.date').html(moment().locale(settings['language']).format(settings['longdate']));
         $('.weekday').html(moment().locale(settings['language']).format(settings['weekday']));
-    }, 1000);
+    }, settings['hide_seconds'] ? 30000 : 1000);
 
     enableRefresh();
 
@@ -350,6 +350,23 @@ function buildScreens() {
                                 setInterval(function () {
                                     loadWeatherFull(settings['wu_city'], settings['wu_country'], $('#weatherfull'));
                                     loadWeather(settings['wu_city'], settings['wu_country']);
+                                }, (60000 * 30));
+                            }
+							
+							if (typeof(settings['owm_api']) !== 'undefined' && settings['owm_api'] !== "" && settings['owm_api'] !== 0 && typeof(settings['owm_city']) !== 'undefined' && settings['owm_city'] !== "") {
+                                $('.col2').prepend('<div class="mh transbg big block_currentweather_big col-xs-12 containsweather"><div class="col-xs-1"><div class="weather" id="weather"></div></div><div class="col-xs-11"><span class="title weatherdegrees" id="weatherdegrees"></span> <span class="weatherloc" id="weatherloc"></span></div></div>');
+                                if (typeof(loadWeatherFull) !== 'function') $.ajax({
+                                    url: 'js/weather_owm.js',
+                                    async: false,
+                                    dataType: 'script'
+                                });
+
+                                loadWeatherFull(settings['owm_city'], settings['owm_country'], $('#weatherfull'));
+                                loadWeather(settings['owm_city'], settings['owm_country']);
+
+                                setInterval(function () {
+                                    loadWeatherFull(settings['owm_city'], settings['owm_country'], $('#weatherfull'));
+                                    loadWeather(settings['owm_city'], settings['owm_country']);
                                 }, (60000 * 30));
                             }
 
@@ -1059,8 +1076,8 @@ function getDevices(override) {
         if (typeof(req) !== 'undefined') req.abort();
         gettingDevices = true;
 
-        const now = new Date();
-        lastGetDevicesTime=now.getTime();
+        var tmpnow = new Date();
+        lastGetDevicesTime=tmpnow.getTime();
 
 		var usrinfo ='';
 		if(typeof(usrEnc)!=='undefined' && usrEnc!=='') usrinfo = 'username=' + usrEnc + '&password=' + pwdEnc + '&';
@@ -1268,18 +1285,17 @@ function getDevices(override) {
 
 function getDevicesTmr() {
 	if ( settings['edit_mode']) return;
-	const now = new Date();
-	if (now.getTime()>=lastGetDevicesTime + settings['domoticz_refresh'] * 1000-50) {
+	var tmpnow = new Date();
+	if (tmpnow.getTime()>=lastGetDevicesTime + settings['domoticz_refresh'] * 1000-50) {
 		getDevices();
 	} 
 }
 
 function enableRefresh() {
-//only call once
-        setInterval(function () {
-            getDevicesTmr();
-        }, (settings['domoticz_refresh'] * 1000));
-
+    //only call once
+    setInterval(function () {
+        getDevicesTmr();
+    }, (settings['domoticz_refresh'] * 1000));
 }
 
 function getAutoAppendSelector(device) {
@@ -1387,8 +1403,8 @@ function handleDevice(device, idx) {
             return getThermostatBlock(device, idx);
         case 'Group':
         case 'Scene':
-            if (device['Type'] == 'Group') $('.block_' + idx).attr('onclick', 'switchDevice(this)');
-            if (device['Type'] == 'Scene') $('.block_' + idx).attr('onclick', 'switchGroup(this)');
+            if (device['Type'] === 'Group') $('.block_' + idx).attr('onclick', 'switchDevice(this)');
+            if (device['Type'] === 'Scene') $('.block_' + idx).attr('onclick', 'switchScene(this)');
 
             html += iconORimage(idx, 'fa-lightbulb-o', buttonimg, getIconStatusClass(device['Status']) + ' icon');
             html += getBlockData(device, idx, language.switches.state_on, language.switches.state_off);

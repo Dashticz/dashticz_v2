@@ -462,6 +462,9 @@ if (typeof(settings['dashticz_refresh']) === 'undefined') settings['dashticz_ref
 if (typeof(settings['wu_api']) === 'undefined') settings['wu_api'] = '';
 if (typeof(settings['wu_country']) === 'undefined') settings['wu_country'] = 'NL';
 if (typeof(settings['wu_city']) === 'undefined') settings['wu_city'] = 'Amsterdam';
+if (typeof(settings['owm_api']) === 'undefined') settings['wu_api'] = '';
+if (typeof(settings['owm_country']) === 'undefined') settings['wu_country'] = 'NL';
+if (typeof(settings['owm_city']) === 'undefined') settings['wu_city'] = 'Amsterdam';
 if (typeof(settings['boss_stationclock']) === 'undefined') settings['boss_stationclock'] = 'RedBoss';
 if (typeof(settings['use_fahrenheit']) === 'undefined') settings['use_fahrenheit'] = 0;
 if (typeof(settings['use_beaufort']) === 'undefined') settings['use_beaufort'] = 0;
@@ -537,10 +540,10 @@ if (typeof(settings['background_image']) === 'undefined') settings['background_i
 if (typeof(settings['loginEnabled']) === 'undefined') settings['loginEnabled'] = 0;
 
 //The Config settings for all checkbox items will be converted to a number
-for (const s in settingList){
-  for (const t in settingList[s]) {
-    if(typeof(settingList[s][t].type)!=='undefined' && settingList[s][t].type==='checkbox') {
-      settings[t]=Number(settings[t]);
+for (var s in settingList){
+  for (var t in settingList[s]) {
+    if (typeof(settingList[s][t].type) !== 'undefined' && settingList[s][t].type === 'checkbox') {
+      settings[t] = Number(settings[t]);
     }
   }
 }
