@@ -1,8 +1,9 @@
 {
-"version": "2.3.10",
+"version": "2.3.11",
 "branch": "beta",
-"last_changes": "Added security switch",
+"last_changes": "Improved column widths",
 "changelog" : {
+            "2.3.10": "Added security switch", 
             "2.3.9": "Additional fix for older browsers breaking on const keyword",
             "2.3.8": "Fix scene switching, fix for older browsers breaking on const keyword",
             "2.3.7": "Fix voor redirect in Kiosk Browser",
