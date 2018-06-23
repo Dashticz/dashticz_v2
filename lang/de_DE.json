@@ -27,6 +27,7 @@
     },
     "misc": {
         "download": "Klicken Sie hier zum Download",
+        "enter_pincode": "Enter pin code",
         "last_update": "Zuletzt aktualisiert",
         "loading": "Lädt...",
         "mediaplayer_nothing_playing": "Derzeit wird nichts abgespielt",
@@ -37,7 +38,8 @@
         "spotify_back_to_playlist": "Zurück zu Wiedergabelisten",
         "spotify_select_device": "Gerät auswählen",
         "spotify_select_playlist": "Playlist wählen",
-        "value": "Wert"
+        "value": "Wert",
+        "wrong_code": "Wrong pin code"
     },
     "settings": {
         "about": {
@@ -157,6 +159,7 @@
             "dashticz_themes_help": "Das genutzte Design festlegen (z.B. white). Das Design wird von der custom.css überschrieben.",
             "edit_mode": "Zum Bearbeitungsmodus gehen",
             "hide_topbar": "Topbar ausblenden",
+            "security_button_icons": "Icons instead of text on security switch",
             "slide_effect": "Slide-Effekt",
             "standard_graph": "Standardgraph",
             "standby_after": "Standby nach x Minuten (0 = niemals)",
@@ -178,7 +181,14 @@
         }
     },
     "switches": {
+        "state_armaway": "Arm Away",
+        "state_armedaway": "Armed Away",
+        "state_armedhome": "Armed Home",
+        "state_armhome": "Arm Home",
         "state_closed": "GESCHLOSSEN",
+        "state_disarm": "Disarm",
+        "state_disarmed": "Disarmed",
+        "state_locked": "LOCKED",
         "state_movement": "BEWEGUNG",
         "state_nomovement": "Keine Bewegung",
         "state_nosmoke": "Kein Rauch",
@@ -186,7 +196,8 @@
         "state_on": "AN",
         "state_open": "OFFEN",
         "state_smoke": "RAUCH ENTDECK",
-        "state_switch": "Schalter"
+        "state_switch": "Schalter",
+        "state_unlocked": "UNLOCKED"
     },
     "weekdays": {
         "entire_day": "ganzen Tag",

@@ -27,6 +27,7 @@
     },
     "misc": {
         "download": "Klik hier om te downloaden",
+        "enter_pincode": "Voer de pincode in",
         "last_update": "Laatste update",
         "loading": "Laden...",
         "mediaplayer_nothing_playing": "Er wordt momenteel niets afgespeeld",
@@ -37,7 +38,8 @@
         "spotify_back_to_playlist": "Terug naar afspeellijsten",
         "spotify_select_device": "Selecteer apparaat",
         "spotify_select_playlist": "Selecteer afspeellijst",
-        "value": "Waarde"
+        "value": "Waarde",
+        "wrong_code": "Verkeerde pincode"
     },
     "settings": {
         "about": {
@@ -127,7 +129,7 @@
             "sk": "Slowaaks",
             "sl": "Sloveens",
             "speak_language": "Tekst-naar-spraak-taal",
-            "sr": "Serbian",
+            "sr": "Servisch",
             "sv": "Zweeds",
             "timeformat": "Datum\/tijd weergave",
             "title": "Lokaliseren",
@@ -157,6 +159,7 @@
             "dashticz_themes_help": "Stel de naam van het thema in (bijvoorbeeld wit) het thema zal overschreven worden door custom.css",
             "edit_mode": "Ga naar de bewerkingsmodus",
             "hide_topbar": "Verberg titelbalk",
+            "security_button_icons": "Pictogrammen in plaats van tekst op beveiligingsschakelaar",
             "slide_effect": "Schuif effect",
             "standard_graph": "Standaard grafiek",
             "standby_after": "Standby na (minuteen, 0 = nooit)",
@@ -178,7 +181,14 @@
         }
     },
     "switches": {
+        "state_armaway": "Arm Away",
+        "state_armedaway": "Armed Away",
+        "state_armedhome": "Armed Home",
+        "state_armhome": "Arm Home",
         "state_closed": "DICHT",
+        "state_disarm": "Disarm",
+        "state_disarmed": "Disarmed",
+        "state_locked": "VERGRENDELD",
         "state_movement": "BEWEGING",
         "state_nomovement": "Geen beweging",
         "state_nosmoke": "Geen rook",
@@ -186,7 +196,8 @@
         "state_on": "AAN",
         "state_open": "OPEN",
         "state_smoke": "ROOK GEDETECTEERD",
-        "state_switch": "Schakelen"
+        "state_switch": "Schakelen",
+        "state_unlocked": "ONTGRENDELD"
     },
     "weekdays": {
         "entire_day": "Hele dag",

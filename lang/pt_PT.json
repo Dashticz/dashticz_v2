@@ -27,6 +27,7 @@
     },
     "misc": {
         "download": "Clique aqui para baixar",
+        "enter_pincode": "Enter pin code",
         "last_update": "Última atualização",
         "loading": "Carregando...",
         "mediaplayer_nothing_playing": "Agora nada está a tocar",
@@ -37,7 +38,8 @@
         "spotify_back_to_playlist": "Back to playlists",
         "spotify_select_device": "Select device",
         "spotify_select_playlist": "Selecionar lista",
-        "value": "Valor"
+        "value": "Valor",
+        "wrong_code": "Wrong pin code"
     },
     "settings": {
         "about": {
@@ -157,6 +159,7 @@
             "dashticz_themes_help": "Set the name of the theme (eg. white) the theme will be overide by custom.css",
             "edit_mode": "Go to edit mode",
             "hide_topbar": "Hide topbar",
+            "security_button_icons": "Icons instead of text on security switch",
             "slide_effect": "Slide effect",
             "standard_graph": "Standard graph",
             "standby_after": "Standby after (minutes, 0 = never)",
@@ -178,7 +181,14 @@
         }
     },
     "switches": {
+        "state_armaway": "Arm Away",
+        "state_armedaway": "Armed Away",
+        "state_armedhome": "Armed Home",
+        "state_armhome": "Arm Home",
         "state_closed": "FECHADO",
+        "state_disarm": "Disarm",
+        "state_disarmed": "Disarmed",
+        "state_locked": "LOCKED",
         "state_movement": "MOVIMENTO",
         "state_nomovement": "Sem movimento",
         "state_nosmoke": "Não fumo",
@@ -186,7 +196,8 @@
         "state_on": "COMUTADA",
         "state_open": "ABERTO",
         "state_smoke": "FUMO DETECTADO",
-        "state_switch": "Interruptor"
+        "state_switch": "Interruptor",
+        "state_unlocked": "UNLOCKED"
     },
     "weekdays": {
         "entire_day": "Durante todo o dia",

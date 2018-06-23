@@ -27,6 +27,7 @@
     },
     "misc": {
         "download": "Click here to download",
+        "enter_pincode": "Enter pin code",
         "last_update": "Sidste opdatering",
         "loading": "Indlæser...",
         "mediaplayer_nothing_playing": "Intet spiller lige nu",
@@ -37,7 +38,8 @@
         "spotify_back_to_playlist": "Tilbage til afspilningslister",
         "spotify_select_device": "Vælg enhed",
         "spotify_select_playlist": "Vælg afspilningsliste",
-        "value": "Værdi"
+        "value": "Værdi",
+        "wrong_code": "Wrong pin code"
     },
     "settings": {
         "about": {
@@ -157,6 +159,7 @@
             "dashticz_themes_help": "Indstil temaets navn (f.eks. Hvid) temaet vil være overskrevet af custom.css",
             "edit_mode": "Gå til redigeringstilstand",
             "hide_topbar": "Skjul topbar",
+            "security_button_icons": "Icons instead of text on security switch",
             "slide_effect": "Slide effekt",
             "standard_graph": "Standarddiagram",
             "standby_after": "Standby efter (minutter, 0 = aldrig)",
@@ -178,7 +181,14 @@
         }
     },
     "switches": {
+        "state_armaway": "Arm Away",
+        "state_armedaway": "Armed Away",
+        "state_armedhome": "Armed Home",
+        "state_armhome": "Arm Home",
         "state_closed": "LUKKET",
+        "state_disarm": "Disarm",
+        "state_disarmed": "Disarmed",
+        "state_locked": "LOCKED",
         "state_movement": "BEVÆGELSE",
         "state_nomovement": "INGEN BEVÆGELSE",
         "state_nosmoke": "Ingen Røg",
@@ -186,7 +196,8 @@
         "state_on": "TÆNDT",
         "state_open": "ÅBEN",
         "state_smoke": "RØG OPDAGET",
-        "state_switch": "Kontakt"
+        "state_switch": "Kontakt",
+        "state_unlocked": "UNLOCKED"
     },
     "weekdays": {
         "entire_day": "Hele dagen",

@@ -27,6 +27,7 @@
     },
     "misc": {
         "download": "Click here to download",
+        "enter_pincode": "Enter pin code",
         "last_update": "Son Güncelleme",
         "loading": "Yüklüyor...",
         "mediaplayer_nothing_playing": "Şu anda hiçbirşey çalmıyor",
@@ -37,7 +38,8 @@
         "spotify_back_to_playlist": "Çalma listelerine geri dön",
         "spotify_select_device": "Aygıt seç",
         "spotify_select_playlist": "Çalma Listesini Seç",
-        "value": "Değer"
+        "value": "Değer",
+        "wrong_code": "Wrong pin code"
     },
     "settings": {
         "about": {
@@ -157,6 +159,7 @@
             "dashticz_themes_help": "Set the name of the theme (eg. white) the theme will be overide by custom.css",
             "edit_mode": "Düzenleme moduna git",
             "hide_topbar": "Üst çubuğu gizle",
+            "security_button_icons": "Icons instead of text on security switch",
             "slide_effect": "Slayt efekti",
             "standard_graph": "Standart grafik",
             "standby_after": "Bekleme modu (dakika, 0= bekleme modu kapalı)",
@@ -178,7 +181,14 @@
         }
     },
     "switches": {
+        "state_armaway": "Arm Away",
+        "state_armedaway": "Armed Away",
+        "state_armedhome": "Armed Home",
+        "state_armhome": "Arm Home",
         "state_closed": "KAPALI",
+        "state_disarm": "Disarm",
+        "state_disarmed": "Disarmed",
+        "state_locked": "LOCKED",
         "state_movement": "HAREKET VAR",
         "state_nomovement": "HAREKET YOK",
         "state_nosmoke": "Duman Yok",
@@ -186,7 +196,8 @@
         "state_on": "AÇIK",
         "state_open": "AÇIK",
         "state_smoke": "DUMAN TESPİTİ",
-        "state_switch": "Anahtar"
+        "state_switch": "Anahtar",
+        "state_unlocked": "UNLOCKED"
     },
     "weekdays": {
         "entire_day": "Tüm Gün",
