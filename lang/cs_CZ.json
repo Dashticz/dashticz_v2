@@ -27,6 +27,7 @@
     },
     "misc": {
         "download": "Click here to download",
+        "enter_pincode": "Enter pin code",
         "last_update": "Poslední změna",
         "loading": "Nahrávám...",
         "mediaplayer_nothing_playing": "Právě teď nic nehraje",
@@ -37,7 +38,8 @@
         "spotify_back_to_playlist": "Back to playlists",
         "spotify_select_device": "Select device",
         "spotify_select_playlist": "Vyberte playlist",
-        "value": "Hodnota"
+        "value": "Hodnota",
+        "wrong_code": "Wrong pin code"
     },
     "settings": {
         "about": {
@@ -157,6 +159,7 @@
             "dashticz_themes_help": "Set the name of the theme (eg. white) the theme will be overide by custom.css",
             "edit_mode": "Go to edit mode",
             "hide_topbar": "Skrýt nadpis",
+            "security_button_icons": "Icons instead of text on security switch",
             "slide_effect": "Slide efekt",
             "standard_graph": "Standardní graf",
             "standby_after": "Přepnout do pohotovostního režimu po (minut, 0 = nikdy)",
@@ -178,7 +181,14 @@
         }
     },
     "switches": {
+        "state_armaway": "Arm Away",
+        "state_armedaway": "Armed Away",
+        "state_armedhome": "Armed Home",
+        "state_armhome": "Arm Home",
         "state_closed": "UZAVŘENO",
+        "state_disarm": "Disarm",
+        "state_disarmed": "Disarmed",
+        "state_locked": "LOCKED",
         "state_movement": "POHYB",
         "state_nomovement": "BEZ POHYBU",
         "state_nosmoke": "Žádný kouř",
@@ -186,7 +196,8 @@
         "state_on": "ZAPNUTO",
         "state_open": "OTEVŘENO",
         "state_smoke": "NALEZEN KOUŘ",
-        "state_switch": "Vypínač"
+        "state_switch": "Vypínač",
+        "state_unlocked": "UNLOCKED"
     },
     "weekdays": {
         "entire_day": "Celý den",

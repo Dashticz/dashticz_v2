@@ -27,6 +27,7 @@
     },
     "misc": {
         "download": "Cliquez ici pour télécharger",
+        "enter_pincode": "Enter pin code",
         "last_update": "Dernière mise à jour",
         "loading": "Chargement...",
         "mediaplayer_nothing_playing": "Il n'y a pas de jeu",
@@ -37,7 +38,8 @@
         "spotify_back_to_playlist": "Retour aux listes de lecture",
         "spotify_select_device": "Sélectionnez le périphérique",
         "spotify_select_playlist": "Sélectionnez playlist",
-        "value": "Valeur"
+        "value": "Valeur",
+        "wrong_code": "Wrong pin code"
     },
     "settings": {
         "about": {
@@ -157,6 +159,7 @@
             "dashticz_themes_help": "Set the name of the theme (eg. white) the theme will be overide by custom.css",
             "edit_mode": "Passez en mode edit",
             "hide_topbar": "Masquer la barre supérieure",
+            "security_button_icons": "Icons instead of text on security switch",
             "slide_effect": "Effet de glissement",
             "standard_graph": "Graphique standard",
             "standby_after": "Veille après (minutes, 0 = jamais)",
@@ -178,7 +181,14 @@
         }
     },
     "switches": {
+        "state_armaway": "Arm Away",
+        "state_armedaway": "Armed Away",
+        "state_armedhome": "Armed Home",
+        "state_armhome": "Arm Home",
         "state_closed": "FERMÉ",
+        "state_disarm": "Disarm",
+        "state_disarmed": "Disarmed",
+        "state_locked": "LOCKED",
         "state_movement": "MOUVEMENT",
         "state_nomovement": "Aucun mouvement",
         "state_nosmoke": "Pas de fumée",
@@ -186,7 +196,8 @@
         "state_on": "Allumé",
         "state_open": "OUVERT",
         "state_smoke": "FUMÉE DÉTECTÉE",
-        "state_switch": "Commuter"
+        "state_switch": "Commuter",
+        "state_unlocked": "UNLOCKED"
     },
     "weekdays": {
         "entire_day": "Toute la journée",

@@ -27,6 +27,7 @@
     },
     "misc": {
         "download": "Click here to download",
+        "enter_pincode": "Enter pin code",
         "last_update": "最后更新",
         "loading": "加载中...",
         "mediaplayer_nothing_playing": "未播放任何曲目",
@@ -37,7 +38,8 @@
         "spotify_back_to_playlist": "Back to playlists",
         "spotify_select_device": "Select device",
         "spotify_select_playlist": "选择播放列表",
-        "value": "值"
+        "value": "值",
+        "wrong_code": "Wrong pin code"
     },
     "settings": {
         "about": {
@@ -157,6 +159,7 @@
             "dashticz_themes_help": "Set the name of the theme (eg. white) the theme will be overide by custom.css",
             "edit_mode": "Go to edit mode",
             "hide_topbar": "Hide topbar",
+            "security_button_icons": "Icons instead of text on security switch",
             "slide_effect": "幻灯片效果",
             "standard_graph": "Standard graph",
             "standby_after": "Standby after (minutes, 0 = never)",
@@ -178,7 +181,14 @@
         }
     },
     "switches": {
+        "state_armaway": "Arm Away",
+        "state_armedaway": "Armed Away",
+        "state_armedhome": "Armed Home",
+        "state_armhome": "Arm Home",
         "state_closed": "关闭",
+        "state_disarm": "Disarm",
+        "state_disarmed": "Disarmed",
+        "state_locked": "LOCKED",
         "state_movement": "有人",
         "state_nomovement": "无人",
         "state_nosmoke": "无烟",
@@ -186,7 +196,8 @@
         "state_on": "开",
         "state_open": "开启",
         "state_smoke": "有烟雾",
-        "state_switch": "开关"
+        "state_switch": "开关",
+        "state_unlocked": "UNLOCKED"
     },
     "weekdays": {
         "entire_day": "整天",

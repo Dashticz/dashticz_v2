@@ -27,6 +27,7 @@
     },
     "misc": {
         "download": "Click here to download",
+        "enter_pincode": "Enter pin code",
         "last_update": "Last update",
         "loading": "Loading...",
         "mediaplayer_nothing_playing": "Nothing is playing right now",
@@ -37,7 +38,8 @@
         "spotify_back_to_playlist": "Back to playlists",
         "spotify_select_device": "Select device",
         "spotify_select_playlist": "Select playlist",
-        "value": "Vrednost"
+        "value": "Vrednost",
+        "wrong_code": "Wrong pin code"
     },
     "settings": {
         "about": {
@@ -157,6 +159,7 @@
             "dashticz_themes_help": "Set the name of the theme (eg. white) the theme will be overide by custom.css",
             "edit_mode": "Go to edit mode",
             "hide_topbar": "Hide topbar",
+            "security_button_icons": "Icons instead of text on security switch",
             "slide_effect": "Slide effect",
             "standard_graph": "Standard graph",
             "standby_after": "Standby after (minutes, 0 = never)",
@@ -178,7 +181,14 @@
         }
     },
     "switches": {
+        "state_armaway": "Arm Away",
+        "state_armedaway": "Armed Away",
+        "state_armedhome": "Armed Home",
+        "state_armhome": "Arm Home",
         "state_closed": "CLOSED",
+        "state_disarm": "Disarm",
+        "state_disarmed": "Disarmed",
+        "state_locked": "LOCKED",
         "state_movement": "MOVEMENT",
         "state_nomovement": "NO MOVEMENT",
         "state_nosmoke": "No Smoke",
@@ -186,7 +196,8 @@
         "state_on": "ON",
         "state_open": "OPEN",
         "state_smoke": "SMOKE DETECTED",
-        "state_switch": "Switch"
+        "state_switch": "Switch",
+        "state_unlocked": "UNLOCKED"
     },
     "weekdays": {
         "entire_day": "Entire day",

@@ -27,6 +27,7 @@
     },
     "misc": {
         "download": "Klikk her for å laste ned",
+        "enter_pincode": "Enter pin code",
         "last_update": "Siste oppdatering",
         "loading": "Laster...",
         "mediaplayer_nothing_playing": "Ingenting spilles akkurat nå",
@@ -37,7 +38,8 @@
         "spotify_back_to_playlist": "Tilbake til spillelister",
         "spotify_select_device": "Velg enhet",
         "spotify_select_playlist": "Velg spilleliste",
-        "value": "Verdi"
+        "value": "Verdi",
+        "wrong_code": "Wrong pin code"
     },
     "settings": {
         "about": {
@@ -157,6 +159,7 @@
             "dashticz_themes_help": "Angi navnet på temaet (f.eks. Hvitt) temaet vil være skrevet over av custom.css",
             "edit_mode": "Gå til redigeringsmodus",
             "hide_topbar": "Skjul toppbar",
+            "security_button_icons": "Icons instead of text on security switch",
             "slide_effect": "Skyve effekt",
             "standard_graph": "Standard graf",
             "standby_after": "Standby etter (minutter, 0 = aldri)",
@@ -178,7 +181,14 @@
         }
     },
     "switches": {
+        "state_armaway": "Arm Away",
+        "state_armedaway": "Armed Away",
+        "state_armedhome": "Armed Home",
+        "state_armhome": "Arm Home",
         "state_closed": "LUKKET",
+        "state_disarm": "Disarm",
+        "state_disarmed": "Disarmed",
+        "state_locked": "LOCKED",
         "state_movement": "BEVEGELSE",
         "state_nomovement": "Ingen bevegelse",
         "state_nosmoke": "Ingen Røyk",
@@ -186,7 +196,8 @@
         "state_on": "PÅ",
         "state_open": "ÅPEN",
         "state_smoke": "RØYK DETEKTERT",
-        "state_switch": "Bryter"
+        "state_switch": "Bryter",
+        "state_unlocked": "UNLOCKED"
     },
     "weekdays": {
         "entire_day": "Hele dagen",
