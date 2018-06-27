@@ -14,9 +14,6 @@ var python = '';
 var levelNamesEncoded = false;
 var levelNamesEncodeVersion = '3.9476'; /* Domoticz version above this, level names are encoded */
 
-if (typeof(config) === 'undefined'
-    || (typeof(config) !== 'undefined' && (typeof(config['disable_update_check']) === 'undefined' || !config['disable_update_check']))
-) {
     $.ajax({
         url: 'version.txt',
         async: false,
@@ -26,7 +23,9 @@ if (typeof(config) === 'undefined'
             dashticz_branch = localdata.branch
         }
     });
-
+if (typeof(config) === 'undefined'
+    || (typeof(config) !== 'undefined' && (typeof(config['disable_update_check']) === 'undefined' || !config['disable_update_check']))
+) {
     $.ajax({
         url: 'https://raw.githubusercontent.com/Dashticz/dashticz_v2/' + dashticz_branch + '/version.txt',
         async: false,
@@ -47,7 +46,7 @@ if (typeof(config) === 'undefined'
             }
         }
     });
-
+}
     if (typeof(window.btoa(config['user_name'])) !== 'undefined' && window.btoa(config['pass_word']) !== '') loginCredentials = 'username=' + window.btoa(config['user_name']) + '&password=' + window.btoa(config['pass_word']) + '&';
 
     $.ajax({
@@ -61,4 +60,4 @@ if (typeof(config) === 'undefined'
             levelNamesEncoded = (Number(data.version) >= Number(levelNamesEncodeVersion));
         }
     });
-}
+
