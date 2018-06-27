@@ -77,6 +77,7 @@
             "default_news_url": "Podrazumevani URL vesti",
             "disable_googleanalytics": "Onemogućite Google Analytics",
             "disable_googleanalytics_help": "Koristi samo developer za praćenje broja korisnika i vrstu uređaja koju koristite za fino podešavanje Dashticz-a.",
+            "disable_update_check": "Disable update check",
             "domoticz_ip": "URL adresa Domoticz-a",
             "domoticz_ip_help": "Unesite URL adresu Domoticz-a, na primer: http:\/\/192.168.1.1:8080. Možete uneti korisnika i lozinke, na primer: http:\/\/user:password@192.168.1.1:8080",
             "domoticz_refresh": "Osveži Domoticz (u sekundama)",
