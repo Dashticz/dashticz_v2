@@ -77,6 +77,7 @@
             "default_news_url": "Standard news URL",
             "disable_googleanalytics": "Deaktiver Google Analytics",
             "disable_googleanalytics_help": "Kun brugt til udvikleren til at spore antal brugere og hvilken enhed du bruger til finjustering af Dashticz.",
+            "disable_update_check": "Disable update check",
             "domoticz_ip": "Domoticz URL",
             "domoticz_ip_help": "Indtast Domoticz url, for eksempel: http:\/\/192.168.1.1:8080. Du kan også indtaste brugere og adgangskode, for eksempel: http: \/\/ bruger: password@192.168.1.1: 8080",
             "domoticz_refresh": "Opdater Domoticz (sekunder)",

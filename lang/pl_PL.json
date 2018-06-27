@@ -77,6 +77,7 @@
             "default_news_url": "Domyślny adres URL wiadomości",
             "disable_googleanalytics": "Wyłącz Google Analytics",
             "disable_googleanalytics_help": "Używane przez developera do śledzenia liczby użytkowników, używanych urządzeń oraz do ulepszania Dashticz",
+            "disable_update_check": "Disable update check",
             "domoticz_ip": "Adres URL Domoticz",
             "domoticz_ip_help": "Wprowadź URL Domoticz, na przykład http:\/\/192.168.1.1:8080. Możesz dodać użytkownika i hasło, np. http:\/\/user:password@192.168.1.1:8080",
             "domoticz_refresh": "Odświeżanie Domoticz (sekundy)",

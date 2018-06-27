@@ -114,8 +114,8 @@
 }
 
 .trashcan {
-    width: 100%;
 	margin-left:-4px;
+	height:30px;
 }
 .modal {
 	z-index:9999;
@@ -546,10 +546,6 @@ a.playlist {
 	}
 }
 @media only screen and (max-width: 1000px) {
-.trashcan {
-	margin-left:0px !important;
-}
-
 	.input-groupBtn .stop {
 		width: 60px;
 		margin-right: -23px;
@@ -588,6 +584,7 @@ a.playlist {
 .lastupdate {
 	font-size: 10px;
     color: #bbb;
+		white-space:nowrap
 }
 .graphpopup {overflow:hidden;}
 html,
@@ -916,10 +913,20 @@ Only add this hover on NON touch devices
 }
 
 .col-icon {
-	width:50px !important;
+	width:40px !important;
 }
+
+.col-data {
+	width: calc(100% - 45px);
+}
+
+.col-no-icon {
+	width: calc(100% - 15px);
+}
+
 .slider {
 	margin-top:7px;
+	margin-right: 7px;
 }
 .weekday {margin-bottom: 5px;}
 .ui-widget.ui-widget-content {
@@ -1040,15 +1047,6 @@ img.icon {
 
 @media (max-width: 1400px) {
 	
-	.col-icon {
-		width:30px !important;
-	}
-	img.icon {
-		max-width:20px !important;
-	}
-	.fa,.wi {
-		font-size:15px !important;
-	}
 	#weather .wi {
 		font-size:24px !important;
 	}
@@ -1090,6 +1088,14 @@ img.icon {
 	.col-icon {
 		max-width:26px !important;
 	}
+	.col-data {
+		width: calc(100% - 30px);
+	}
+
+	.trashcan {
+		height: 25px !important;
+	}
+
 }
 
 .modal-dialog {

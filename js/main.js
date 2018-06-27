@@ -807,7 +807,7 @@ function loadFrame(f, frame) {
     var width = 12;
     if (typeof(frame.width) !== 'undefined') width = frame.width;
     var html = '<div data-id="frames.' + key + '" class="col-xs-' + width + ' hover transbg swiper-no-swiping imgblock imgblock' + f + '" style="height:' + frame.height + 'px;padding:0px !important;">';
-    html += '<div class="col-xs-12 col-data" style="padding:0px !important;">';
+    html += '<div class="col-xs-12 col-no-icon" style="padding:0px !important;">';
     html += '<iframe src="' + frame.frameurl + '" style="width:100%;border:0px;height:' + (frame.height - 14) + 'px;"></iframe>';
     html += '</div>';
     html += '</div>';
@@ -1565,7 +1565,7 @@ function handleDevice(device, idx) {
             html += '</div>';
         }
         else {
-            html += '<div class="col-xs-8 col-data" style="width: calc(100% - 50px);">';
+            html += '<div class="col-xs-8 col-data">';
             html += '<strong class="title">' + device['Name'] + '</strong><br />';
             html += '<div class="btn-group" data-toggle="buttons">';
             for (a in names) {
@@ -2088,7 +2088,7 @@ function getDimmerBlock(device, idx, buttonimg) {
     }
     this.html += '</strong>';
     if (showUpdateInformation(idx)) {
-        this.html += ' / <span class="lastupdate">' + moment(device['LastUpdate']).format(settings['timeformat']) + '</span>';
+        this.html += ' &nbsp; <span class="lastupdate">' + moment(device['LastUpdate']).format(settings['timeformat']) + '</span>';
     }
     this.html += '<br />';
     if (isRGBDeviceAndEnabled(device)) {
