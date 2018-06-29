@@ -178,7 +178,11 @@
             "wu_api": "Wunderground API Kulcs",
             "wu_city": "Wunderállomás (város vagy kód)",
             "wu_country": "Wunderground Ország",
-            "wu_name": "Megjelenítendő név"
+            "wu_name": "Megjelenítendő név",
+            "owm_api": "OWM API Kulcs",
+            "owm_city": "OWM állomás (város vagy kód)",
+            "owm_country": "OWM Ország",
+            "owm_name": "OWM Megjelenítendő név"
         }
     },
     "switches": {

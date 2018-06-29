@@ -178,7 +178,11 @@
             "wu_api": "Ключ під ключ під ключ",
             "wu_city": "Станція підземелля (місто або код)",
             "wu_country": "Wunderground Country",
-            "wu_name": "Відображуване ім'я"
+            "wu_name": "Відображуване ім'я",
+            "owm_api": "OWM Ключ під ключ під ключ",
+            "owm_city": "OWM Станція підземелля (місто або код)",
+            "owm_country": "OWM Country",
+            "owm_name": "OWM Відображуване ім'я"
         }
     },
     "switches": {

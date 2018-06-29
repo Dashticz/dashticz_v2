@@ -178,7 +178,11 @@
             "wu_api": "Wunderground API Key",
             "wu_city": "Estação Wunderground (Cidade ou Código)",
             "wu_country": "Wunderground Country",
-            "wu_name": "Mostrar nome"
+            "wu_name": "Mostrar nome",
+            "owm_api": "OWM API Key",
+            "owm_city": "Estação OWM (Cidade ou Código)",
+            "owm_country": "OWM Country",
+            "owm_name": "OWM Mostrar nome"
         }
     },
     "switches": {

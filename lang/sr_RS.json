@@ -178,7 +178,11 @@
             "wu_api": "Wunderground API Ključ",
             "wu_city": "Wunderground stanica (Grad ili kod)",
             "wu_country": "Wunderground Država",
-            "wu_name": "Ime za prikaz"
+            "wu_name": "Ime za prikaz",
+            "owm_api": "OWM API Ključ",
+            "owm_city": "OWM stanica (Grad ili kod)",
+            "owm_country": "OWM Država",
+            "owm_name": "OWM Ime za prikaz"
         }
     },
     "switches": {

@@ -178,7 +178,11 @@
             "wu_api": "Wunderground API Kľúč",
             "wu_city": "Stanica Wunderground (mesto alebo kód)",
             "wu_country": "Wunderground Country",
-            "wu_name": "Zobraziť meno"
+            "wu_name": "Zobraziť meno",
+            "owm_api": "OWM API Kľúč",
+            "owm_city": "Stanica OWM (mesto alebo kód)",
+            "owm_country": "OWM Country",
+            "owm_name": "OWM Zobraziť meno"
         }
     },
     "switches": {

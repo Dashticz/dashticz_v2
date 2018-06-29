@@ -178,7 +178,11 @@
             "wu_api": "Wunderground API-Schlüssel",
             "wu_city": "Wunderground Messstation (Stadt oder Code)",
             "wu_country": "Wunderground Land",
-            "wu_name": "Anzeigename"
+            "wu_name": "Anzeigename",
+            "owm_api": "OWM API-Schlüssel",
+            "owm_city": "OWM Messstation (Stadt oder Code)",
+            "owm_country": "OWM Land",
+            "owm_name": "OWM Anzeigename"
         }
     },
     "switches": {

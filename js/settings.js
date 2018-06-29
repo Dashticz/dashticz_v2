@@ -261,6 +261,22 @@ settingList['weather']['wu_country'] = {};
 settingList['weather']['wu_country']['title'] = language.settings.weather.wu_country;
 settingList['weather']['wu_country']['type'] = 'text';
 
+settingList['weather']['owm_api'] = {};
+settingList['weather']['owm_api']['title'] = language.settings.weather.owm_api;
+settingList['weather']['owm_api']['type'] = 'text';
+
+settingList['weather']['owm_city'] = {};
+settingList['weather']['owm_city']['title'] = language.settings.weather.owm_city;
+settingList['weather']['owm_city']['type'] = 'text';
+
+settingList['weather']['owm_name'] = {};
+settingList['weather']['owm_name']['title'] = language.settings.weather.owm_name;
+settingList['weather']['owm_name']['type'] = 'text';
+
+settingList['weather']['owm_country'] = {};
+settingList['weather']['owm_country']['title'] = language.settings.weather.owm_country;
+settingList['weather']['owm_country']['type'] = 'text';
+
 settingList['weather']['idx_moonpicture'] = {};
 settingList['weather']['idx_moonpicture']['title'] = language.settings.weather.idx_moonpicture;
 settingList['weather']['idx_moonpicture']['type'] = 'text';

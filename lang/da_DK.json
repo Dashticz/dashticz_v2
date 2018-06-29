@@ -178,7 +178,11 @@
             "wu_api": "Wunderground API-Nøgle",
             "wu_city": "Wunderground Station (by eller kode)",
             "wu_country": "Wunderground land",
-            "wu_name": "Visningsnavn"
+            "wu_name": "Visningsnavn",
+            "owm_api": "OWM API-Nøgle",
+            "owm_city": "OWM Station (by eller kode)",
+            "owm_country": "OWM land",
+            "owm_name": "OWM Visningsnavn"
         }
     },
     "switches": {

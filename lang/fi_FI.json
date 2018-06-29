@@ -178,7 +178,11 @@
             "wu_api": "Wunderground API-Avain",
             "wu_city": "Wunderground asema (kaupunki tai koodi)",
             "wu_country": "Wunderground Maa",
-            "wu_name": "Näyttönimi"
+            "wu_name": "Näyttönimi",
+            "owm_api": "OWM API-Avain",
+            "owm_city": "OWM asema (kaupunki tai koodi)",
+            "owm_country": "OWM Maa",
+            "owm_name": "OWM Näyttönimi"
         }
     },
     "switches": {
