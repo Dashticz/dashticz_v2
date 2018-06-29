@@ -178,7 +178,11 @@
             "wu_api": "Wunderground API-Sleutel",
             "wu_city": "Wunderground Station (Stad of Code)",
             "wu_country": "Wunderground Land",
-            "wu_name": "Weergavenaam"
+            "wu_name": "Weergavenaam",
+            "owm_api": "OWM API-Sleutel",
+            "owm_city": "OWM Station (Stad of Code)",
+            "owm_country": "OWM Land",
+            "owm_name": "OWM Weergavenaam"
         }
     },
     "switches": {

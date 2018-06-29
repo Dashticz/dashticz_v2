@@ -178,7 +178,11 @@
             "wu_api": "Wunderground API Anahtarı",
             "wu_city": "Wunderground İstasyonu (Şehir veya Kod)",
             "wu_country": "Wunderground Ülke",
-            "wu_name": "Görüntü Adı"
+            "wu_name": "Görüntü Adı",
+            "owm_api": "OWM API Anahtarı",
+            "owm_city": "OWM İstasyonu (Şehir veya Kod)",
+            "owm_country": "OWM Ülke",
+            "owm_name": "OWM Görüntü Adı"
         }
     },
     "switches": {

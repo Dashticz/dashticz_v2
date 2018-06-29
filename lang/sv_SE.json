@@ -178,7 +178,11 @@
             "wu_api": "Wunderground API Nyckel",
             "wu_city": "Wunderground Station (Ort eller kod)",
             "wu_country": "Wunderground Land",
-            "wu_name": "Visningsnamn"
+            "wu_name": "Visningsnamn",
+            "owm_api": "OWM API Nyckel",
+            "owm_city": "OWM Station (Ort eller kod)",
+            "owm_country": "OWM Land",
+            "owm_name": "OWM Visningsnamn"
         }
     },
     "switches": {
