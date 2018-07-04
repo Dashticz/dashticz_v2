@@ -11,6 +11,10 @@ settingList['general']['loginEnabled'] = {};
 settingList['general']['loginEnabled']['title'] = language.settings.general.loginEnabled;
 settingList['general']['loginEnabled']['type'] = 'checkbox';
 
+settingList['general']['disable_update_check'] = {};
+settingList['general']['disable_update_check']['title'] = language.settings.general.disable_update_check;
+settingList['general']['disable_update_check']['type'] = 'checkbox';
+
 settingList['general']['user_name'] = {};
 settingList['general']['user_name']['title'] = language.settings.general.user_name;
 settingList['general']['user_name']['type'] = 'text';
@@ -543,6 +547,7 @@ if (typeof(settings['theme']) === 'undefined') settings['theme'] = 'default';
 if (typeof(settings['background_image']) === 'undefined') settings['background_image'] = 'img/bg2.jpg';
 if (typeof(settings['loginEnabled']) === 'undefined') settings['loginEnabled'] = 0;
 if (typeof(settings['security_button_icons']) === 'undefined') settings['security_button_icons'] = 0;
+if (typeof(settings['disable_update_check']) === 'undefined') settings['disable_update_check'] = 0;
 
 //The Config settings for all checkbox items will be converted to a number
 for (var s in settingList){

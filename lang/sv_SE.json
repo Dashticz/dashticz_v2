@@ -27,7 +27,7 @@
     },
     "misc": {
         "download": "Klicka här för att ladda ner",
-        "enter_pincode": "Enter pin code",
+        "enter_pincode": "Ange PIN-kod",
         "last_update": "Senast uppdaterad",
         "loading": "Laddar...",
         "mediaplayer_nothing_playing": "Inget att spela upp just nu",
@@ -39,7 +39,7 @@
         "spotify_select_device": "Välj enhet",
         "spotify_select_playlist": "Välj spellista",
         "value": "Värde",
-        "wrong_code": "Wrong pin code"
+        "wrong_code": "Fel PIN-kod"
     },
     "settings": {
         "about": {
@@ -77,6 +77,7 @@
             "default_news_url": "Standard nyhets\/rss URL",
             "disable_googleanalytics": "Inaktivera Google Analytics",
             "disable_googleanalytics_help": "Används endast för utvecklare för att spåra antalet användare och vilken enhet du använder för att finjustera Dashticz.",
+            "disable_update_check": "Disable update check",
             "domoticz_ip": "Domoticz URL",
             "domoticz_ip_help": "Ange Domoticz url, till exempel: http:\/\/192.168.1.1:8080. Du kan också ange användare och lösenord, till exempel: http:\/\/user:password@192.168.1.1:8080",
             "domoticz_refresh": "Uppdatera Domoticz (sekunder)",
@@ -159,7 +160,7 @@
             "dashticz_themes_help": "Ange namnet på temat (t.ex. vit). Temat ersätts av custom.css om den används ",
             "edit_mode": "Gå till redigeringsläget",
             "hide_topbar": "Dölj topbar",
-            "security_button_icons": "Icons instead of text on security switch",
+            "security_button_icons": "Ikoner istället för text på säkerhetsbrytare",
             "slide_effect": "Slideffekt",
             "standard_graph": "Standard graf",
             "standby_after": "Standby efter (minuter, 0 = aldrig)",
@@ -181,14 +182,14 @@
         }
     },
     "switches": {
-        "state_armaway": "Arm Away",
-        "state_armedaway": "Armed Away",
-        "state_armedhome": "Armed Home",
-        "state_armhome": "Arm Home",
+        "state_armaway": "Larma Borta",
+        "state_armedaway": "Larmad Borta",
+        "state_armedhome": "Larmad Hemma",
+        "state_armhome": "Larma Hemma",
         "state_closed": "STÄNGD",
-        "state_disarm": "Disarm",
-        "state_disarmed": "Disarmed",
-        "state_locked": "LOCKED",
+        "state_disarm": "Larma Av",
+        "state_disarmed": "Larm Av",
+        "state_locked": "LÅST",
         "state_movement": "RÖRELSE",
         "state_nomovement": "INGEN RÖRELSE",
         "state_nosmoke": "Ingen rök",
@@ -197,7 +198,7 @@
         "state_open": "ÖPPEN",
         "state_smoke": "RÖK DETEKTERAD",
         "state_switch": "Brytare",
-        "state_unlocked": "UNLOCKED"
+        "state_unlocked": "OLÅST"
     },
     "weekdays": {
         "entire_day": "Hela dagen",
