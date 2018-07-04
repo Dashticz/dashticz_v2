@@ -178,7 +178,11 @@
             "wu_api": "Wunderground API Key",
             "wu_city": "Wunderground Station (Ville ou Code)",
             "wu_country": "Wunderground Pays",
-            "wu_name": "Nom D'Affichage"
+            "wu_name": "Nom D'Affichage",
+            "owm_api": "Open Weather Map API Key",
+            "owm_city": "Open Weather Map Station (Ville ou Code)",
+            "owm_country": "Open Weather Map Pays",
+            "owm_name": "Nom D'Affichage Open Weather Map"
         }
     },
     "switches": {

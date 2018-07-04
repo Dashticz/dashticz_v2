@@ -178,7 +178,11 @@
             "wu_api": "Wunderground API Kulcs",
             "wu_city": "Wunderállomás (város vagy kód)",
             "wu_country": "Wunderground Ország",
-            "wu_name": "Megjelenítendő név"
+            "wu_name": "Megjelenítendő név",
+            "owm_api": "Open Weather Map API Kulcs",
+            "owm_city": "Open Weather Map (város vagy kód)",
+            "owm_country": "Open Weather Map Ország",
+            "owm_name": "Megjelenítendő név Open Weather Map"
         }
     },
     "switches": {

@@ -178,7 +178,11 @@
             "wu_api": "Wunderground Clave de API",
             "wu_city": "Wunderground de la Estación (Ciudad o Código)",
             "wu_country": "Wunderground País",
-            "wu_name": "Nombre para mostrar"
+            "wu_name": "Nombre para mostrar",
+            "owm_api": "Open Weather Map Clave de API",
+            "owm_city": "Open Weather Map de la Estación (Ciudad o Código)",
+            "owm_country": "Open Weather Map País",
+            "owm_name": "Nombre para mostrar Open Weather Map"
         }
     },
     "switches": {

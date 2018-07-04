@@ -178,7 +178,11 @@
             "wu_api": "Wunderground API Ključ",
             "wu_city": "Wunderground stanica (Grad ili kod)",
             "wu_country": "Wunderground Država",
-            "wu_name": "Ime za prikaz"
+            "wu_name": "Ime za prikaz",
+            "owm_api": "Open Weather Map API Ključ",
+            "owm_city": "Open Weather Map stanica (Grad ili kod)",
+            "owm_country": "Open Weather Map Država",
+            "owm_name": "Ime za prikaz Open Weather Map"
         }
     },
     "switches": {

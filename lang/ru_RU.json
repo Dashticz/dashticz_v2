@@ -178,7 +178,11 @@
             "wu_api": "Wunderground API-ключ",
             "wu_city": "Wunderground станция (город или код)",
             "wu_country": "Wunderground страна",
-            "wu_name": "Отображаемое имя"
+            "wu_name": "Отображаемое имя",
+            "owm_api": "Open Weather Map API-ключ",
+            "owm_city": "Open Weather Map станция (город или код)",
+            "owm_country": "Open Weather Map страна",
+            "owm_name": "Отображаемое имя Open Weather Map"
         }
     },
     "switches": {
