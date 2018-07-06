@@ -1482,17 +1482,17 @@ function handleDevice(device, idx) {
         if(device['Status'] === 'Normal') {
           da = 'warning';
           if (secPanelicons === false) disarm = language.switches.state_disarmed;
-          else disarm = '<i class="fa fa-unlock" title="' + language.switches.state_disarmed + '"></i>';
+          else disarm = '<i class="fas fa-unlock" title="' + language.switches.state_disarmed + '"></i>';
         }
         if(device['Status'] === 'Arm Home') {
           ah = 'danger';
           if (secPanelicons === false) armhome = language.switches.state_armedhome;
-          else armhome = '<i class="fa fa-home" title="' + language.switches.state_armedhome + '"></i>';
+          else armhome = '<i class="fas fa-home" title="' + language.switches.state_armedhome + '"></i>';
         }
         if(device['Status'] === 'Arm Away') {
           aa = 'danger';
           if (secPanelicons === false) armaway = language.switches.state_armedaway;
-          else armaway = '<i class="fa fa-home" title="' + language.switches.state_armaway + '"></i><i class="fa fa-walking"></i>';
+          else armaway = '<i class="fas fa-home" title="' + language.switches.state_armaway + '"></i><i class="fas fa-walking"></i>';
         }
         if(device['Type'] === 'Security') {
           html += '<div class="col-xs-8 col-data" style="width: calc(100% - 50px);">';
