@@ -1,5 +1,5 @@
 {
-"version": "2.3.11",
+"version": "2.3.12",
 "branch": "beta",
 "last_changes": "Fix to read version when update check is disabled, Added 'Disabled update check' to settings tab.",
 "changelog" : {
