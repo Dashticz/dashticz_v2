@@ -1,6 +1,6 @@
 function getFullScreenIcon() {
     content = '<span data-id="fullscreen" class="fullscreen fullscreenicon text-right">' +
-        '<em class="fa fa-expand" id="fullScreenToggleIcon" />' +
+        '<em class="fas fa-expand" id="fullScreenToggleIcon" />' +
         '</span>';
 
     $(document).on('click', '#fullScreenToggleIcon', function () {

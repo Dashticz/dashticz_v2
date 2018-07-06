@@ -6,9 +6,9 @@ function loadPublicTransport(random,transportobject,key){
 					
 	html+='<div class="publictransport publictransport'+random+' col-xs-12 transbg">';
 		if(typeof(transportobject.icon)!=='undefined' && transportobject.icon!==''){
-			if(transportobject.icon.substr(0,2)!=='fa') transportobject.icon = 'fa-'+transportobject.icon;
+			if(transportobject.icon.substr(0,2)!=='fas') transportobject.icon = 'fa-'+transportobject.icon;
 			html+='<div class="col-xs-2 col-icon">';
-				html+='<em class="fa '+transportobject.icon+'"></em>';
+				html+='<em class="fas '+transportobject.icon+'"></em>';
 			html+='</div>';
 			html+='<div class="col-xs-10 col-data">';
 				html+='<span class="state"></span>';

@@ -24,7 +24,7 @@ function getNews(divToFill, newsfeed) {
                 var maxcss = '';
                 if (maxheight > 0) maxcss = ' style="max-height:' + maxheight + 'px;overflow:hidden;"';
 
-                var html = '<div class="col-xs-' + width + ' hover transbg" ' + maxcss + '><div class="col-xs-2 col-icon"><em class="fa fa-newspaper-o"></em></div><div class="col-xs-10">';
+                var html = '<div class="col-xs-' + width + ' hover transbg" ' + maxcss + '><div class="col-xs-2 col-icon"><em class="fas fa-newspaper"></em></div><div class="col-xs-10">';
                 html += '<div id="rss-styled_' + divToFill + '"><ul id="newsTicker">';
 
                 $(data).find('item').each(function () { // or "item" or whatever suits your feed

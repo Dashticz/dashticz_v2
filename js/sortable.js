@@ -11,7 +11,7 @@ function startSortable() {
                 ui.helper.css('position', 'absolute').css('margin-top', $(window).scrollTop());
         },
         receive: function (event, ui) {
-            var html = '<div class="col-xs-4 col-icon"><em class="fa fa-question on icon"></em></div>';
+            var html = '<div class="col-xs-4 col-icon"><em class="fas fa-question on icon"></em></div>';
             html += '<div class="col-xs-8 col-data">';
             html += '<strong class="title">' + $(ui.item).find('.title').text() + '</strong><br>';
             html += '<span class="lastupdate">Save to see updates!</span>';
