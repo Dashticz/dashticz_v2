@@ -10,7 +10,7 @@ function getLog(columndiv,level,popup,random){
 		if(popup) var html ='<div data-id="log" class="containslog popup containslog'+random+'">';
 		else var html ='<div data-id="log" class="col-xs-12 transbg containslog containslog'+random+'">';
 		if(!popup){
-			html+='<div class="col-xs-2 col-icon"><em class="fa fa-microchip"></em></div>';
+			html+='<div class="col-xs-2 col-icon"><em class="fas fa-microchip"></em></div>';
 			html+='<div class="col-xs-10 items">';
 		}
 		else {

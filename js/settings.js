@@ -703,7 +703,7 @@ function saveSettings() {
             html += '</div><div class="modal-footer"><button onClick="window.location.href=window.location.href;" type="button" class="btn btn-primary" data-dismiss="modal">' + language.settings.close_reload + '</button></div>';
             html += '</div>';
             html += '</div>';
-            html += '</div><div class="settingsoutput" data-toggle="modal" data-target="#settingsoutput"><em class="fa fa-cog" /><div>';
+            html += '</div><div class="settingsoutput" data-toggle="modal" data-target="#settingsoutput"><em class="fas fa-cog" /><div>';
 
             $('body').append(html);
             setTimeout(function () {

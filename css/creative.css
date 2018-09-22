@@ -333,7 +333,9 @@
     margin-top: -4px;
     margin-bottom: -4px;
 }
-.colbar.transbg .fa {
+.colbar.transbg .fab,
+.colbar.transbg .fas,
+.colbar.transbg .far {
     margin-top: 0px;
     font-size: 20px !important;
 	margin-left: 10px;
@@ -393,7 +395,7 @@ a.playlist {
 	color: #fff;
 }
 
-.containsspotify .fa {
+.containsspotify .fas {
 	font-size:30px !important
 }
 
@@ -610,7 +612,7 @@ hr {
 	background-image:none !important;
 	background-color:#313131;
 }
-.standby .fa,.standby .fa.fa-small {
+.standby .far,.standby .far.fa-small,.standby .fas,.standby .fas.fa-small,.standby .fab,.standby .fab.fa-small, {
 	color:#fff !important;
 }
 
@@ -657,10 +659,12 @@ a:focus {
 		color:#fff;
 	}
 
-.fa.fa-newspaper-o {
+.fas.fa-newspaper,
+.far.fa-newspaper {
     margin-left: 1px;
 }
-.fa.fa-lightbulb-o {
+.fas.fa-lightbulb,
+.far.fa-lightbulb {
     margin-top: 1px;
     margin-left: 6px;
 }
@@ -698,35 +702,37 @@ select option {
 
 .wi {font-size:30px;}
 .wi.wi-rain {margin-top:0px;}
-.fa {font-size:30px;}
-.fa.fa-small {font-size:20px;}
-.fa.fa-thermometer-half {margin-left:8px;margin-top:2px;}
-.fa.fa-calendar {margin-left:4px;margin-top:1px;}
-.fa.fa-thermometer-half.fa-thermometer-half-switch {margin-left:4px;}
-.fa.fa-desktop {margin-top:5px;}
-.fa.fa-fire {margin-top:5px;}
-.fa.fa-plug {margin-top:5px;}
-.fa.fa-music{margin-top:5px;}
-.fa.fa-television,
-.fa.fa-microchip{margin-left: 3px;
+.fas {font-size:30px;}
+.far {font-size:30px;}
+.fab {font-size:30px;}
+.fas.fa-small {font-size:20px;}
+.fas.fa-thermometer-half {margin-left:8px;margin-top:2px;}
+.fas.fa-calendar {margin-left:4px;margin-top:1px;}
+.fas.fa-thermometer-half.fa-thermometer-half-switch {margin-left:4px;}
+.fas.fa-desktop {margin-top:5px;}
+.fas.fa-fire {margin-top:5px;}
+.fas.fa-plug {margin-top:5px;}
+.fas.fa-music{margin-top:5px;}
+.fas.fa-television,
+.fas.fa-microchip{margin-left: 3px;
     margin-top: 2px;}
-.containshorizon .fa { margin-top:8px; }
-.containsnzbget .fa { margin-top:8px; }
-.fa.fa-tint {
+.containshorizon .fas { margin-top:8px; }
+.containsnzbget .fas { margin-top:8px; }
+.fas.fa-tint {
     margin-left: 5px;
     margin-top: 4px;
 }
-.fa.fa-trash {
+.fas.fa-trash {
     margin-left: 8px;
 }
-.fa.fa-bolt {
+.fas.fa-bolt {
     margin-left: 8px;
 }
 .wi.wi-wind-direction {
     margin-left: 4px;
     margin-top: 2px;
 }
-.fa.fa-toggle-off {
+.fas.fa-toggle-off {
 	opacity: 0.5;
 	filter: alpha(opacity=50); /* For IE8 and earlier */
 }
@@ -897,7 +903,7 @@ Only add this hover on NON touch devices
 	margin:0px !important
 		
 }
-.fa.fa-train,.fa.fa-bus{
+.fas.fa-train,.fas.fa-bus{
 	margin-left:5px;
 	margin-top:3px;
 }
@@ -1040,13 +1046,22 @@ img.icon {
 }
 
 
-	.blinds .fa.fa-arrow-up,.blinds .fa.fa-arrow-down,.blinds .fa.fa-stop-circle {
+	.blinds .fas.fa-arrow-up,.blinds .fas.fa-arrow-down,.blinds .fas.fa-stop-circle {
 		font-size: 20px !important;
     	margin-right: 3px !important;
 	}
 
 @media (max-width: 1400px) {
 	
+	.col-icon {
+		width:30px !important;
+	}
+	img.icon {
+		max-width:20px !important;
+	}
+	.fas,.far,.fab,.wi {
+		font-size:15px !important;
+	}
 	#weather .wi {
 		font-size:24px !important;
 	}
@@ -1078,7 +1093,7 @@ img.icon {
 	img.icon {
 		max-width:15px !important;
 	}
-	.fa,.wi {
+	.fas,.far,.fab,.wi {
 		font-size:15px !important;
 	}
 	

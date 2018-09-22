@@ -23,12 +23,12 @@ function loadSonarr(){
 
 	// create the static html part
 	if (sonarrTitlePosition == 'top'){
-		html +='<div class="col-xs-12 mh titlegroups transbg"><h3><em class="fa fa-tv"></em> '+sonarrTitleObject+'</h3></div>';
+		html +='<div class="col-xs-12 mh titlegroups transbg"><h3><em class="fas fa-tv"></em> '+sonarrTitleObject+'</h3></div>';
 	}
 	html += '<div class="sonarrMain block_sonarr col-xs-'+width+' transbg">';
 
 	if (sonarrTitlePosition == 'left') {
-		html += '<div class="col-xs-2 col-icon"><em class="fa fa-tv"></em><div class="SonarrBigTitle">'+ sonarrTitleObject +'</div></div>';
+		html += '<div class="col-xs-2 col-icon"><em class="fas fa-tv"></em><div class="SonarrBigTitle">'+ sonarrTitleObject +'</div></div>';
 		var sonarrColSize = 10;
 	}
 	html += '<div class="col-xs-'+sonarrColSize+' col-data"><span class="state">' +language.misc.loading+ '</span></div>';
