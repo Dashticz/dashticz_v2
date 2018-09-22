@@ -29,6 +29,8 @@ var _GRAPHS_LOADED = {};
 var _STREAMPLAYER_TRACKS = {"track": 1, "name": "Music FM", "file": "http://stream.musicfm.hu:8000/musicfm.mp3"};
 var _THOUSAND_SEPARATOR = '.';
 var _DECIMAL_POINT = ',';
+var _STANDBY_CALL_URL = '';
+var _END_STANDBY_CALL_URL = '';
 var lastGetDevicesTime = 0;
 
 function loadFiles() {
@@ -224,6 +226,12 @@ function onLoad() {
     });
 
     if (parseFloat(settings['standby_after']) > 0) {
+        if(typeof(settings['standby_call_url'])!=='undefined') {
+            _STANDBY_CALL_URL = settings['standby_call_url'];
+        }
+        if(typeof(settings['standby_call_url_on_end'])!=='undefined') {
+            _END_STANDBY_CALL_URL = settings['standby_call_url_on_end'];
+        }
         setInterval(function () {
             standbyTime += 5000;
             if (standbyActive != true) {
