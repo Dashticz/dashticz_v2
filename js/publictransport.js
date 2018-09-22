@@ -110,7 +110,7 @@ function dataPublicTransport(random,data,transportobject){
 					var delay = '+' + realArrivalTime.diff(arrivalTime, 'minutes');
 				}
 				dataPart[key][i]='';
-				dataPart[key][i]+='<div><div class="trainTime">'+ arrivalTime.format('HH:mm');
+				dataPart[key][i]+='<div><b>'+ arrivalTime.format('HH:mm')+'</b>';
 			
 				if (delay <= 0) {
 					dataPart[key][i]+='<span id="notlatetrain"> '+delay+'</span>';
@@ -118,7 +118,7 @@ function dataPublicTransport(random,data,transportobject){
 				else if (delay > 0) {
 					dataPart[key][i]+='<span id="latetrain"> '+delay+'</span>';
 				}
-				dataPart[key][i]+='</div><span class="trainSeparator"> - </span>'
+				dataPart[key][i]+='<span class="trainSeparator"> - </span>'
 				dataPart[key][i]+='<span class="trainLine '+(data[d][t]['name']).replace(/ /g,'')+'">'+data[d][t]['name']+'</span>';
 				dataPart[key][i]+='<span class="trainSeparator"> - </span>'
 
