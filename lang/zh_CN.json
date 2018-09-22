@@ -178,7 +178,11 @@
             "wu_api": "Wunderground API密钥",
             "wu_city": "Wunderground站（城市或代码）",
             "wu_country": "Wunderground Country",
-            "wu_name": "显示名称"
+            "wu_name": "显示名称",
+            "owm_api": "Open Weather Map API密钥",
+            "owm_city": "Open Weather Map 站（城市或代码）",
+            "owm_country": "Open Weather Map Country",
+            "owm_name": "显示名称 Open Weather Map"
         }
     },
     "switches": {

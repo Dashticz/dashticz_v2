@@ -178,7 +178,11 @@
             "wu_api": "Wunderground API-Schlüssel",
             "wu_city": "Wunderground Messstation (Stadt oder Code)",
             "wu_country": "Wunderground Land",
-            "wu_name": "Anzeigename"
+            "wu_name": "Anzeigename",
+            "owm_api": "Open Weather Map API-Schlüssel",
+            "owm_city": "Open Weather Map Messstation (Stadt oder Code)",
+            "owm_country": "Open Weather Map Land",
+            "owm_name": "Anzeigename Open Weather Map"
         }
     },
     "switches": {

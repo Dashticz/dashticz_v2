@@ -178,7 +178,11 @@
             "wu_api": "Wunderground API Anahtarı",
             "wu_city": "Wunderground İstasyonu (Şehir veya Kod)",
             "wu_country": "Wunderground Ülke",
-            "wu_name": "Görüntü Adı"
+            "wu_name": "Görüntü Adı",
+            "owm_api": "Open Weather Map API Anahtarı",
+            "owm_city": "Open Weather Map İstasyonu (Şehir veya Kod)",
+            "owm_country": "Open Weather Map Ülke",
+            "owm_name": "Görüntü Adı Open Weather Map"
         }
     },
     "switches": {

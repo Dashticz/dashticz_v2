@@ -179,6 +179,10 @@
             "wu_city": "Wunderground Station (City or Code)",
             "wu_country": "Wunderground Country",
             "wu_name": "Zobrazované jméno"
+            "owm_api": "Open Weather Map API Key",
+            "owm_city": "Open Weather Map Station (City or Code)",
+            "owm_country": "Open Weather Map Country",
+            "owm_name": "Zobrazované jméno Open Weather Map"
         }
     },
     "switches": {

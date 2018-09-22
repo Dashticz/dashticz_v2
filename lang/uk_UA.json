@@ -178,7 +178,11 @@
             "wu_api": "Ключ під ключ під ключ",
             "wu_city": "Станція підземелля (місто або код)",
             "wu_country": "Wunderground Country",
-            "wu_name": "Відображуване ім'я"
+            "wu_name": "Відображуване ім'я",
+            "owm_api": "Open Weather Map Ключ під ключ під ключ",
+            "owm_city": "Open Weather Map Станція підземелля (місто або код)",
+            "owm_country": "Open Weather Map Country",
+            "owm_name": "Відображуване ім'я Open Weather Map"
         }
     },
     "switches": {

@@ -178,7 +178,11 @@
             "wu_api": "Wunderground API-Avain",
             "wu_city": "Wunderground asema (kaupunki tai koodi)",
             "wu_country": "Wunderground Maa",
-            "wu_name": "Näyttönimi"
+            "wu_name": "Näyttönimi",
+            "owm_api": "Open Weather Map API-Avain",
+            "owm_city": "Open Weather Map asema (kaupunki tai koodi)",
+            "owm_country": "Open Weather Map Maa",
+            "owm_name": "Näyttönimi Open Weather Map"
         }
     },
     "switches": {
