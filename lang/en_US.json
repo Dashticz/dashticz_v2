@@ -98,6 +98,7 @@
             "use_favorites_help": "Only used when using auto positioning",
             "user_name": "Username",
             "user_name_help": "Set Dashticz username and password"
+            "default_cors_url": "Set different default Cors URL"
         },
         "infosave": "By default, settings are stored in your browser. Downside of this method is it will only work in your current browser. If that's not a problem, you can proceed. Otherwise, copy code below to your CONFIG.JS to keep settings across all browsers and devices.",
         "localize": {
