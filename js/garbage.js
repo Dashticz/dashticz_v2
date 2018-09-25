@@ -28,7 +28,7 @@ function loadGarbage() {
 
 function getPrefixUrl() {
     if (settings['garbage_use_cors_prefix']) {
-        return 'https://cors-anywhere.herokuapp.com/';
+        return settings['default_cors_url'];
     }
     return '';
 }
