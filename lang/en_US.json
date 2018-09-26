@@ -106,6 +106,7 @@
             "calendarformat": "Calendar format",
             "calendarlanguage": "Calendar language",
             "calendarurl": "Calendar URL (ICS)",
+            "calendar_parse_localy": "Parse calendar localy (PHP needed)",
             "cn": "Chinese",
             "cs": "Čeština",
             "da": "Danish",

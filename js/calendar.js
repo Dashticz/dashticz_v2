@@ -54,8 +54,12 @@ function addCalendar(calobject, icsUrlorg) {
 
         colors[$.md5(curUrl)] = color;
         var cache = new Date().getTime();
-        curUrl = 'https://dashticz.nl/ical/?time=' + cache + '&url=' + curUrl;
-        moment.locale(settings['calendarlanguage']);
+	if (settings['calendar_parse_localy']){
+		curUrl = './vendor/dashticz/ical/?time=' + cache + '&url=' + curUrl;
+	} else {
+        	curUrl = 'https://dashticz.nl/ical/?time=' + cache + '&url=' + curUrl;
+        }
+	moment.locale(settings['calendarlanguage']);
         $.getJSON(curUrl, function (data, textstatus, jqXHR) {
 
             var url = this.url.replace('https://cors-anywhere.herokuapp.com/http://ical-to-json.herokuapp.com/convert.json?url=', '');
