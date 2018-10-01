@@ -1,5 +1,5 @@
 function getTrainInfo() {
-    var rssurl = 'https://cors-anywhere.herokuapp.com/https://www.rijdendetreinen.nl/rss/';
+    var rssurl = settings['default_cors_url'] + 'https://www.rijdendetreinen.nl/rss/';
 
     $.ajax(rssurl, {
         accepts: {
