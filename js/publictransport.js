@@ -46,10 +46,10 @@ function getData(random,transportobject){
 		dataURL = 'https://efa-api.asw.io/api/v1/station/'+transportobject.station+'/departures/';
 	}
 	else if(provider == 'mobiliteit'){
-		dataURL = 'https://cors-anywhere.herokuapp.com/http://travelplanner.mobiliteit.lu/restproxy/departureBoard?accessId=cdt&duration=1439&maxJourneys='+transportobject.results+'&format=json&id=A=1@O='+transportobject.station;
+		dataURL = settings['default_cors_url'] + 'http://travelplanner.mobiliteit.lu/restproxy/departureBoard?accessId=cdt&duration=1439&maxJourneys='+transportobject.results+'&format=json&id=A=1@O='+transportobject.station;
 	}
 	else if(provider == '9292' || provider == '9292-train' || provider == '9292-bus' || provider == '9292-metro' || provider == '9292-tram-bus'){
-		dataURL = 'https://cors-anywhere.herokuapp.com/https://dashticz.nl/ov/ov.php?station='+transportobject.station+'&time='+$.now();
+		dataURL = settings['default_cors_url'] + 'https://dashticz.nl/ov/ov.php?station='+transportobject.station+'&time='+$.now();
 	}
 	else if(provider == 'irailbe'){
 		var date = new Date($.now());

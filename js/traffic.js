@@ -1,6 +1,6 @@
 function getTraffic() {
 
-    var rssurl = 'https://cors-anywhere.herokuapp.com/http://www.vid.nl/VI/_rss';
+    var rssurl = settings['default_cors_url'] + 'http://www.vid.nl/VI/_rss';
 
     $.ajax(rssurl, {
         accepts: {
