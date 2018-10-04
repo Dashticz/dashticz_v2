@@ -496,7 +496,7 @@ function setClassByTime() {
 function enterCode(armLevel) {
 	var code;
 	code = prompt(language.misc.enter_pincode);
-	if (code != null) switchSecurity(armlevel, code);
+	if (code != null) switchSecurity(armLevel, code);
 }
 
 function infoMessage(sub, msg, timeOut){
