@@ -384,7 +384,7 @@ function getEdgData(address, date, random) {
 
 function getTrashRow(garbage) {
     this.rowClass = 'trashrow';
-    this.displayDate = garbage.date.locale(settings['calendarlanguage']).format(settings['calendarformat']);
+    this.displayDate = garbage.date.locale(settings['calendarlanguage']).format('l');
     if (garbage.date.isSame(moment(), 'day')) {
         this.displayDate = language.weekdays.today;
         this.rowClass = 'trashtoday';
