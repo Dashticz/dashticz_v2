@@ -1062,6 +1062,7 @@ img.icon {
 	.fas,.far,.fab,.wi {
 		font-size:15px !important;
 	}
+	.fa-tv:before  {font-size:12px;}
 	#weather .wi {
 		font-size:24px !important;
 	}
@@ -1096,6 +1097,7 @@ img.icon {
 	.fas,.far,.fab,.wi {
 		font-size:15px !important;
 	}
+	.fa-tv:before  {font-size:12px;}
 	
 	.big .wi {
 		font-size:30px !important;
