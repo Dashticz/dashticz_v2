@@ -1,8 +1,9 @@
 {
-"version": "2.4.1",
+"version": "2.4.2",
 "branch": "beta",
-"last_changes": "Merge PHP TV Module into Dashticz",
+"last_changes": "Merge PHP OV Module into Dashticz",
 "changelog" : {
+            "2.4.1": "Merge PHP TV Module into Dashticz",
             "2.4.0": "Upgrade to fontawesome 5.0.13"
             }
 }
