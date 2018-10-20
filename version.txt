@@ -1,18 +1,8 @@
 {
-"version": "2.4.0",
+"version": "2.4.1",
 "branch": "beta",
-"last_changes": "Upgrade to fontawesome 5.0.13",
+"last_changes": "Merge PHP TV Module into Dashticz",
 "changelog" : {
-            "2.3.11": "Fix to read version when update check is disabled, Added 'Disabled update check' to settings tab.",
-            "2.3.10": "Added security switch.", 
-            "2.3.9": "Additional fix for older browsers breaking on const keyword.",
-            "2.3.8": "Fix scene switching, fix for older browsers breaking on const keyword.",
-            "2.3.7": "Fix voor redirect in Kiosk Browser.",
-            "2.3.6": "Added openpopupOn and openpopupOff.",
-            "2.3.5": "Fix for Humidity-only block.",
-            "2.3.4": "Rewrite dashticz version checker. Added Domoticz version in info page. Fix for encoding levelnames in selector.",
-            "2.3.3": "Save settings: Fix for writing text settings starting with a number.",
-            "2.3.2": "Fix for checkbox settings. Fix for color picker of RGB devices.",
-            "2.3.1": "Spotify update. Spotify: Add shuffle button. Fix for frequent calling enableRefresh"
+            "2.4.0": "Upgrade to fontawesome 5.0.13"
             }
 }
