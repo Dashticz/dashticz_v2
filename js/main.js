@@ -29,6 +29,8 @@ var _GRAPHS_LOADED = {};
 var _STREAMPLAYER_TRACKS = {"track": 1, "name": "Music FM", "file": "http://stream.musicfm.hu:8000/musicfm.mp3"};
 var _THOUSAND_SEPARATOR = '.';
 var _DECIMAL_POINT = ',';
+var _STANDBY_CALL_URL = '';
+var _END_STANDBY_CALL_URL = '';
 var lastGetDevicesTime = 0;
 
 function loadFiles() {
@@ -128,7 +130,7 @@ function onLoad() {
     md = new MobileDetect(window.navigator.userAgent);
 
     if (settings['edit_mode'] == 1) {
-        $('body').append('<div class="editmode">' + language.editmode.edit + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:void(0);" onclick="saveBlocks();" style="color:#fff;"><em class="fa fa-save" /></a>&nbsp;&nbsp;</div>');
+        $('body').append('<div class="editmode">' + language.editmode.edit + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:void(0);" onclick="saveBlocks();" style="color:#fff;"><em class="fas fa-save" /></a>&nbsp;&nbsp;</div>');
     }
 
     $('body').attr('unselectable', 'on')
@@ -157,10 +159,9 @@ function onLoad() {
     }, settings['hide_seconds'] ? 30000 : 1000);
 
     enableRefresh();
-
     getDevices();
-
     setClassByTime();
+	
     setInterval(function () {
         setClassByTime();
     }, (60000));
@@ -225,6 +226,12 @@ function onLoad() {
     });
 
     if (parseFloat(settings['standby_after']) > 0) {
+        if(typeof(settings['standby_call_url'])!=='undefined') {
+            _STANDBY_CALL_URL = settings['standby_call_url'];
+        }
+        if(typeof(settings['standby_call_url_on_end'])!=='undefined') {
+            _END_STANDBY_CALL_URL = settings['standby_call_url_on_end'];
+        }
         setInterval(function () {
             standbyTime += 5000;
             if (standbyActive != true) {
@@ -330,7 +337,7 @@ function buildScreens() {
                     }
                     else {
 
-                        if (parseFloat(settings['hide_topbar']) == 0) $('body .row').append('<div class="col-sm-undefined col-xs-12 sortable colbar transbg dark"><div data-id="logo" class="logo col-xs-2">' + settings['app_title'] + '<div></div></div><div data-id="miniclock" class="miniclock col-xs-8 text-center"><span class="weekday"></span> <span class="date"></span> <span>&nbsp;&nbsp;&nbsp;&nbsp;</span> <span class="clock"></span></div><div data-id="settings" class="settings settingsicon text-right" data-toggle="modal" data-target="#settingspopup"><em class="fa fa-cog" /></div></div></div>');
+                        if (parseFloat(settings['hide_topbar']) == 0) $('body .row').append('<div class="col-sm-undefined col-xs-12 sortable colbar transbg dark"><div data-id="logo" class="logo col-xs-2">' + settings['app_title'] + '<div></div></div><div data-id="miniclock" class="miniclock col-xs-8 text-center"><span class="weekday"></span> <span class="date"></span> <span>&nbsp;&nbsp;&nbsp;&nbsp;</span> <span class="clock"></span></div><div data-id="settings" class="settings settingsicon text-right" data-toggle="modal" data-target="#settingspopup"><em class="fas fa-cog" /></div></div></div>');
                         if (typeof(settings['default_columns']) == 'undefined' || parseFloat(settings['default_columns']) == 3) {
                             $('body .row').append('<div class="col-xs-5 sortable col1" data-colindex="1"><div class="auto_switches"></div><div class="auto_dimmers"></div></div>');
                             $('body .row').append('<div class="col-xs-5 sortable col2" data-colindex="2"><div class="block_weather containsweatherfull"></div><div class="auto_media"></div><div class="auto_states"></div></div>');
@@ -489,7 +496,7 @@ function setClassByTime() {
 function enterCode(armLevel) {
 	var code;
 	code = prompt(language.misc.enter_pincode);
-	if (code != null) switchSecurity(armlevel, code);
+	if (code != null) switchSecurity(armLevel, code);
 }
 
 function infoMessage(sub, msg, timeOut){
@@ -787,7 +794,7 @@ function loadButton(b, button) {
         html += '<div class="col-xs-12 col-icon">';
     }
     if (typeof(button.image) !== 'undefined') html += '<img class="buttonimg" src="' + button.image + '" />';
-    else html += '<em class="fa ' + button.icon + ' fa-small"></em>';
+    else html += '<em class="' + button.icon + ' fa-small"></em>';
     html += '</div>';
     if (typeof(button.title) !== 'undefined') {
         html += '<div class="col-xs-8 col-data">';
@@ -953,13 +960,13 @@ function getMoonInfo(image) {
 function appendHorizon(columndiv) {
     var html = '<div data-id="horizon" class="containshorizon">';
     html += '<div class="col-xs-4 transbg hover text-center" onclick="ziggoRemote(\'E0x07\')">';
-    html += '<em class="fa fa-chevron-left fa-small"></em>';
+    html += '<em class="fas fa-chevron-left fa-small"></em>';
     html += '</div>';
     html += '<div class="col-xs-4 transbg hover text-center" onclick="ziggoRemote(\'E4x00\')">';
-    html += '<em class="fa fa-pause fa-small"></em>';
+    html += '<em class="fas fa-pause fa-small"></em>';
     html += '</div>';
     html += '<div class="col-xs-4 transbg hover text-center" onclick="ziggoRemote(\'E0x06\')">';
-    html += '<em class="fa fa-chevron-right fa-small"></em>';
+    html += '<em class="fas fa-chevron-right fa-small"></em>';
     html += '</div>';
     html += '</div>';
     $(columndiv).append(html);
@@ -1000,13 +1007,13 @@ function appendStreamPlayer(columndiv) {
         + '<div class="col-xs-12 transbg smalltitle"><h3></h3></div>'
         + '<audio class="audio1" preload="none"></audio>'
         + '<div class="col-xs-4 transbg hover text-center btnPrev">'
-        + '<em class="fa fa-chevron-left fa-small"></em>'
+        + '<em class="fas fa-chevron-left fa-small"></em>'
         + '</div>'
         + '<div class="col-xs-4 transbg hover text-center playStream">'
-        + '<em class="fa fa-play fa-small stateicon"></em>'
+        + '<em class="fas fa-play fa-small stateicon"></em>'
         + '</div>'
         + '<div class="col-xs-4 transbg hover text-center btnNext">'
-        + '<em class="fa fa-chevron-right fa-small"></em>'
+        + '<em class="fas fa-chevron-right fa-small"></em>'
         + '</div>'
         + '</div>';
     $(columndiv).append(this.html);
@@ -1021,13 +1028,13 @@ function appendStreamPlayer(columndiv) {
             trackCount = tracks.length,
             npTitle = $(streamelement + ' h3'),
             audio = $(streamelement + ' .audio1').bind('play', function () {
-                $(streamelement + ' .stateicon').removeClass('fa fa-play');
-                $(streamelement + ' .stateicon').addClass('fa fa-pause');
+                $(streamelement + ' .stateicon').removeClass('fas fa-play');
+                $(streamelement + ' .stateicon').addClass('fas fa-pause');
                 playing = true;
             }).bind('pause', function () {
 
-                $(streamelement + ' .stateicon').removeClass('fa fa-pause');
-                $(streamelement + ' .stateicon').addClass('fa fa-play');
+                $(streamelement + ' .stateicon').removeClass('fas fa-pause');
+                $(streamelement + ' .stateicon').addClass('fas fa-play');
                 playing = false;
             }).get(0),
             btnPrev = $(streamelement + ' .btnPrev').click(function () {
@@ -1065,12 +1072,12 @@ function appendStreamPlayer(columndiv) {
     $(streamelement + ' .playStream').click(function () {
         var myAudio = $(streamelement + ' .audio1').get(0);
         if (myAudio.paused) {
-            $(streamelement + ' .stateicon').removeClass('fa fa-play');
-            $(streamelement + ' .stateicon').addClass('fa fa-pause');
+            $(streamelement + ' .stateicon').removeClass('fas fa-play');
+            $(streamelement + ' .stateicon').addClass('fas fa-pause');
             myAudio.play();
         } else {
-            $(streamelement + ' .stateicon').removeClass('fa fa-pause');
-            $(streamelement + ' .stateicon').addClass('fa fa-play');
+            $(streamelement + ' .stateicon').removeClass('fas fa-pause');
+            $(streamelement + ' .stateicon').addClass('fas fa-play');
             myAudio.pause();
         }
     });
@@ -1412,7 +1419,8 @@ function handleDevice(device, idx) {
             if (device['Type'] === 'Group') $('.block_' + idx).attr('onclick', 'switchDevice(this)');
             if (device['Type'] === 'Scene') $('.block_' + idx).attr('onclick', 'switchScene(this)');
 
-            html += iconORimage(idx, 'fa-lightbulb-o', buttonimg, getIconStatusClass(device['Status']) + ' icon');
+            if(device['Status'] === 'Off') html += iconORimage(idx, 'far fa-lightbulb', buttonimg, getIconStatusClass(device['Status']) + ' icon');
+	    else html += iconORimage(idx, 'fas fa-lightbulb', buttonimg, getIconStatusClass(device['Status']) + ' icon');
             html += getBlockData(device, idx, language.switches.state_on, language.switches.state_off);
             return [html, addHTML];
     }
@@ -1439,13 +1447,13 @@ function handleDevice(device, idx) {
             return getDimmerBlock(device, idx, buttonimg);
         case 'Door Contact':
         case 'Contact':
-            if(device['Status'] === 'Closed') html += iconORimage(idx, '', 'door_closed.png', 'off icon', '', 2);
-            else html += iconORimage(idx, '', 'door_open.png', 'on icon', '', 2);
+            if(device['Status'] === 'Closed') html += iconORimage(idx, 'fas fa-door-closed', '', 'off icon', '', 2);
+            else html += iconORimage(idx, 'fas fa-door-open', '', 'on icon', '', 2);
             html += getBlockData(device, idx, language.switches.state_open, language.switches.state_closed);
             return [html, addHTML];
 	case 'Door Lock':
-	    if(device['Status'] === 'Unlocked') html += iconORimage(idx, 'fa-unlock', buttonimg, 'on icon', '', 2);
-            else html += iconORimage(idx, 'fa-lock', buttonimg, 'off icon', '', 2);
+	    if(device['Status'] === 'Unlocked') html += iconORimage(idx, 'fas fa-unlock', buttonimg, 'on icon', '', 2);
+            else html += iconORimage(idx, 'fas fa-lock', buttonimg, 'off icon', '', 2);
             html += getBlockData(device, idx, language.switches.state_unlocked, language.switches.state_locked);
             return [html, addHTML];
         case 'Venetian Blinds EU':
@@ -1461,56 +1469,56 @@ function handleDevice(device, idx) {
         case 'Venetian Blinds EU Inverted Percentage':
         case 'Venetian Blinds EU Percentage Inverted':
             return getBlindsBlock(device, idx, true);
-	case 'Security':
-		if(device['Status'] === 'Normal') html += iconORimage(idx, 'fas fa-shield-alt', '', 'off icon', '', 2);
-		else html += iconORimage(idx, 'fas fa-shield-alt', '', 'on icon', '', 2);
+	      case 'Security':
+        if(device['Status'] === 'Normal') html += iconORimage(idx, 'fas fa-shield-alt', '', 'off icon', '', 2);
+        else html += iconORimage(idx, 'fas fa-shield-alt', '', 'on icon', '', 2);
 
-		if (settings['security_button_icons'] === true || settings['security_button_icons'] === 1 || settings['security_button_icons'] === '1') var secPanelicons = true;
-		else var secPanelicons = false;
-		var da = 'default';
-		var ah = 'default';
-		var aa = 'default';
-		var disarm = language.switches.state_disarm;
-		var armhome = language.switches.state_armhome;
-		var armaway = language.switches.state_armaway;
-				
-		if (secPanelicons === true){
-			disarm = '<i class="fa fa-unlock" title="' + language.switches.state_disarm + '"></i>';
-			armhome = '<i class="fa fa-home" title="' + language.switches.state_armhome + '"></i>';
-			armaway = '<i class="fa fa-home" title="' + language.switches.state_armaway + '"></i><i class="fa fa-walking"></i>';
-		}
-		if(device['Status'] === 'Normal') {
-			da = 'warning';
-			if (secPanelicons === false) disarm = language.switches.state_disarmed;
-			else disarm = '<i class="fa fa-unlock" title="' + language.switches.state_disarmed + '"></i>';
-		}
-		if(device['Status'] === 'Arm Home') {
-			ah = 'danger';
-			if (secPanelicons === false) armhome = language.switches.state_armedhome;
-			else armhome = '<i class="fa fa-home" title="' + language.switches.state_armedhome + '"></i>';
-		}
-		if(device['Status'] === 'Arm Away') {
-			aa = 'danger';
-			if (secPanelicons === false) armaway = language.switches.state_armedaway;
-			else armaway = '<i class="fa fa-home" title="' + language.switches.state_armaway + '"></i><i class="fa fa-walking"></i>';
-		}
-		if(device['Type'] === 'Security') {
-			html += '<div class="col-xs-8 col-data" style="width: calc(100% - 50px);">';
-			html += '<strong class="title">' + device['Name'] + '</strong><br />';
-			html += '<div class="btn-group" data-toggle="buttons">';
-			html += '<label class="btn btn-' + da + '" onclick="enterCode(0)">';
-			html += '<input type="radio" name="options" autocomplete="off" value="Normal" checked>' + disarm;
-			html += '</label>';
-			html += '<label class="btn btn-' + ah + '" onclick="enterCode(1)">';
-			html += '<input type="radio" name="options" autocomplete="off" value="Arm Home" checked>' + armhome;
-			html += '</label>';
-			html += '<label class="btn btn-' + aa + '" onclick="enterCode(2)">';
-			html += '<input type="radio" name="options" autocomplete="off" value="Arm Away" checked>' + armaway;
-			html += '</label>';
-			html += '</div>';
-			html += '</div>';
-		}	
-		return [html, addHTML];
+        if (settings['security_button_icons'] === true || settings['security_button_icons'] === 1 || settings['security_button_icons'] === '1') var secPanelicons = true;
+        else var secPanelicons = false;
+        var da = 'default';
+        var ah = 'default';
+        var aa = 'default';
+        var disarm = language.switches.state_disarm;
+        var armhome = language.switches.state_armhome;
+        var armaway = language.switches.state_armaway;
+
+        if (secPanelicons === true){
+          disarm = '<i class="fa fa-unlock" title="' + language.switches.state_disarm + '"></i>';
+          armhome = '<i class="fa fa-home" title="' + language.switches.state_armhome + '"></i>';
+          armaway = '<i class="fa fa-home" title="' + language.switches.state_armaway + '"></i><i class="fa fa-walking"></i>';
+        }
+        if(device['Status'] === 'Normal') {
+          da = 'warning';
+          if (secPanelicons === false) disarm = language.switches.state_disarmed;
+          else disarm = '<i class="fas fa-unlock" title="' + language.switches.state_disarmed + '"></i>';
+        }
+        if(device['Status'] === 'Arm Home') {
+          ah = 'danger';
+          if (secPanelicons === false) armhome = language.switches.state_armedhome;
+          else armhome = '<i class="fas fa-home" title="' + language.switches.state_armedhome + '"></i>';
+        }
+        if(device['Status'] === 'Arm Away') {
+          aa = 'danger';
+          if (secPanelicons === false) armaway = language.switches.state_armedaway;
+          else armaway = '<i class="fas fa-home" title="' + language.switches.state_armaway + '"></i><i class="fas fa-walking"></i>';
+        }
+        if(device['Type'] === 'Security') {
+          html += '<div class="col-xs-8 col-data" style="width: calc(100% - 50px);">';
+          html += '<strong class="title">' + device['Name'] + '</strong><br />';
+          html += '<div class="btn-group" data-toggle="buttons">';
+          html += '<label class="btn btn-' + da + '" onclick="enterCode(0)">';
+          html += '<input type="radio" name="options" autocomplete="off" value="Normal" checked>' + disarm;
+          html += '</label>';
+          html += '<label class="btn btn-' + ah + '" onclick="enterCode(1)">';
+          html += '<input type="radio" name="options" autocomplete="off" value="Arm Home" checked>' + armhome;
+          html += '</label>';
+          html += '<label class="btn btn-' + aa + '" onclick="enterCode(2)">';
+          html += '<input type="radio" name="options" autocomplete="off" value="Arm Away" checked>' + armaway;
+          html += '</label>';
+          html += '</div>';
+          html += '</div>';
+        }	
+        return [html, addHTML];
         case 'Motion Sensor':
             html += '<div class="col-xs-4 col-icon">';
             html += '<img src="img/motion_' + getIconStatusClass(device['Status']) + '.png" class="' + getIconStatusClass(device['Status']) + ' icon" style="max-height:35px;" />';
@@ -1523,12 +1531,12 @@ function handleDevice(device, idx) {
             html += getBlockData(device, idx, language.switches.state_smoke, language.switches.state_nosmoke);
             return [html, addHTML];
         case 'Doorbell':
-            html += iconORimage(idx, 'fa-bell-o', buttonimg, getIconStatusClass(device['Status']) + ' icon');
+            html += iconORimage(idx, 'fas fa-bell', buttonimg, getIconStatusClass(device['Status']) + ' icon');
             html += getBlockData(device, idx, '', '');
             return [html, addHTML];
         case 'Media Player':
             if (device['HardwareType'] == 'Kodi Media Server') html += iconORimage(idx, '', 'kodi.png', 'on icon', '', 2);
-            else html += iconORimage(idx, 'fa-film', '', 'on icon', '', 2);
+            else html += iconORimage(idx, 'fas fa-film', '', 'on icon', '', 2);
             html += '<div class="col-xs-10 col-data">';
             html += '<strong class="title">' + device['Name'] + '</strong><br />';
             if (device['Data'] === '') {
@@ -1546,7 +1554,8 @@ function handleDevice(device, idx) {
         if (levelNamesEncoded === true) names =  window.atob(device['LevelNames']).split('|');
 	else names = device['LevelNames'].split('|');
 
-        html += iconORimage(idx, 'fa-lightbulb-o', buttonimg, getIconStatusClass(device['Status']) + ' icon');
+        if(device['Status'] === 'Off') html += iconORimage(idx, 'far fa-lightbulb', buttonimg, getIconStatusClass(device['Status']) + ' icon');
+	else html += iconORimage(idx, 'fas fa-lightbulb', buttonimg, getIconStatusClass(device['Status']) + ' icon');
 
         if ((typeof(device['SelectorStyle']) !== 'undefined' && device['SelectorStyle'] == 1)) {
             html += '<div class="col-xs-8 col-data">';
@@ -1584,9 +1593,9 @@ function handleDevice(device, idx) {
 
     }
     else if (device['SubType'] == 'Custom Sensor') {
-        this.icon = 'fa-question';
-        if (device['Image'] === 'Water') this.icon = 'fa-tint';
-        else if (device['Image'] === 'Heating') this.icon = 'fa-cutlery';
+        this.icon = 'fas fa-question';
+        if (device['Image'] === 'Water') this.icon = 'fas fa-tint';
+        else if (device['Image'] === 'Heating') this.icon = 'fas fa-utensils';
 
         html += iconORimage(idx, this.icon, '', 'on icon');
         html += '<div class="col-xs-8 col-data">';
@@ -1608,13 +1617,13 @@ function handleDevice(device, idx) {
         if (!isProtected(device, idx)) {
             $('.block_' + idx).attr('onclick', 'switchDevice(this)');
         }
-        html += iconORimage(idx, 'fa-toggle-' + getIconStatusClass(device['Status']), '', getIconStatusClass(device['Status']) + ' icon');
+        html += iconORimage(idx, 'fas fa-toggle-' + getIconStatusClass(device['Status']), '', getIconStatusClass(device['Status']) + ' icon');
         html += getBlockData(device, idx, language.switches.state_on, language.switches.state_off);
     }
     else if (device['Image'] == 'Alarm') {
-        if (device['Status'] == 'Off') html += iconORimage(idx, 'fa-warning', '', 'off icon');
-        else html += iconORimage(idx, 'fa-warning', '', 'on icon', 'style="color:#F05F40;"');
-
+        if (device['Status'] == 'Off') html += iconORimage(idx, 'fas fa-exclamation-triangle', '', 'off icon');
+        else html += iconORimage(idx, 'fas fa-exclamation-triangle', '', 'on icon', 'style="color:#F05F40;"');
+		
         html += getBlockData(device, idx, language.switches.state_on, language.switches.state_off);
     } else {
         if (!isProtected(device, idx)) {
@@ -1622,7 +1631,8 @@ function handleDevice(device, idx) {
             else if (device['SwitchType'] == 'Push Off Button') $('.block_' + idx).attr('onclick', 'switchOnOff(this,\'off\')');
             else $('.block_' + idx).attr('onclick', 'switchDevice(this)');
         }
-        html += iconORimage(idx, 'fa-lightbulb-o', buttonimg, getIconStatusClass(device['Status']) + ' icon');
+		if(device['Status'] === 'Off') html += iconORimage(idx, 'far fa-lightbulb', buttonimg, getIconStatusClass(device['Status']) + ' icon');
+		else html += iconORimage(idx, 'fas fa-lightbulb', buttonimg, getIconStatusClass(device['Status']) + ' icon');
         html += getBlockData(device, idx, language.switches.state_on, language.switches.state_off);
     }
 
@@ -1654,23 +1664,23 @@ function getIconStatusClass(deviceStatus) {
 
 function getLogitechControls(device) {
     this.html = '';
-    this.html += iconORimage(device['idx'], 'fa-music', '', 'on icon', '', 2);
+    this.html += iconORimage(device['idx'], 'fas fa-music', '', 'on icon', '', 2);
     this.html += '<div class="col-xs-10 col-data">';
     this.html += '<strong class="title">' + device['Name'] + '</strong><br />';
     this.html += '<span class="h4">' + device['Data'] + '</span>';
     this.html += '<div>';
-    this.html += '<a href="javascript:controlLogitech(' + device['idx'] + ',\'Rewind\');"><em class="fa fa-arrow-circle-left fa-small"></em></a> ';
-    this.html += '<a href="javascript:controlLogitech(' + device['idx'] + ',\'Stop\');"><em class="fa fa-stop-circle fa-small"></em></a> ';
+    this.html += '<a href="javascript:controlLogitech(' + device['idx'] + ',\'Rewind\');"><em class="fas fa-arrow-circle-left fa-small"></em></a> ';
+    this.html += '<a href="javascript:controlLogitech(' + device['idx'] + ',\'Stop\');"><em class="fas fa-stop-circle fa-small"></em></a> ';
     if (device['Status'] === 'Playing') {
-        this.html += '<a href="javascript:controlLogitech(' + device['idx'] + ',\'Pause\');"><em class="fa fa-pause-circle fa-small"></em></a> ';
+        this.html += '<a href="javascript:controlLogitech(' + device['idx'] + ',\'Pause\');"><em class="fas fa-pause-circle fa-small"></em></a> ';
     } else {
-        this.html += '<a href="javascript:controlLogitech(' + device['idx'] + ',\'Play\');"><em class="fa fa-play-circle fa-small"></em></a> ';
+        this.html += '<a href="javascript:controlLogitech(' + device['idx'] + ',\'Play\');"><em class="fas fa-play-circle fa-small"></em></a> ';
     }
-    this.html += '<a href="javascript:controlLogitech(' + device['idx'] + ',\'Forward\');"><em class="fa fa-arrow-circle-right fa-small"></em></a>';
+    this.html += '<a href="javascript:controlLogitech(' + device['idx'] + ',\'Forward\');"><em class="fas fa-arrow-circle-right fa-small"></em></a>';
     this.html += '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
-    this.html += '<a href="javascript:controlLogitech(' + device['idx'] + ',\'VolumeDown\');"><em class="fa fa-minus-circle fa-small"></em></a>';
+    this.html += '<a href="javascript:controlLogitech(' + device['idx'] + ',\'VolumeDown\');"><em class="fas fa-minus-circle fa-small"></em></a>';
     this.html += '&nbsp;';
-    this.html += '<a href="javascript:controlLogitech(' + device['idx'] + ',\'VolumeUp\');"><em class="fa fa-plus-circle fa-small"></em></a>';
+    this.html += '<a href="javascript:controlLogitech(' + device['idx'] + ',\'VolumeUp\');"><em class="fas fa-plus-circle fa-small"></em></a>';
     this.html += '</div>';
     this.html += '</div>';
 
@@ -1690,21 +1700,21 @@ function getSmartMeterBlock(device, idx) {
 		var data = device['Data'].split(';');
         var blockValues = [
             {
-                icon: 'fa-plug',
+                icon: 'fas fa-plug',
                 idx: idx + '_1',
                 title: language.energy.energy_usage,
                 value: this.usage,
                 unit: ''
             },
             {
-                icon: 'fa-plug',
+                icon: 'fas fa-plug',
                 idx: idx + '_2',
                 title: language.energy.energy_usagetoday,
                 value: number_format(device['CounterToday'], settings['units'].decimals.kwh),
                 unit: settings['units'].names.kwh
             },
             {
-                icon: 'fa-plug',
+                icon: 'fas fa-plug',
                 idx: idx + '_3',
                 title: language.energy.energy_totals,
                 value: number_format(device['Counter'], 0),
@@ -1714,14 +1724,14 @@ function getSmartMeterBlock(device, idx) {
 
         if (parseFloat(device['CounterDeliv']) > 0) {
             blockValues.push({
-                icon: 'fa-plug',
+                icon: 'fas fa-plug',
                 idx: idx + '_4',
                 title: language.energy.energy_delivered,
                 value: number_format(device['CounterDeliv'], 0),
                 unit: settings['units'].names.kwh
             });
             blockValues.push({
-                icon: 'fa-plug',
+                icon: 'fas fa-plug',
                 idx: idx + '_5',
                 title: language.energy.energy_deliveredtoday,
                 value: number_format(device['CounterDelivToday'], settings['units'].decimals.kwh),
@@ -1733,7 +1743,7 @@ function getSmartMeterBlock(device, idx) {
 			data[0] = data[0]/1000;
 			data[1] = data[1]/1000;
 			blockValues.push({
-				icon: 'fa-plug',
+				icon: 'fas fa-plug',
 				idx: idx + '_6',
 				title: language.energy.energy_totals,
 				value: 'P1: '+number_format(data[0], 3,'.','')+' '+settings['units'].names.kwh+'<br />P2: '+number_format(data[1], 3,'.','')+' '+settings['units'].names.kwh,
@@ -1741,7 +1751,7 @@ function getSmartMeterBlock(device, idx) {
 			});
 
 			blockValues.push({
-				icon: 'fa-plug',
+				icon: 'fas fa-plug',
 				idx: idx + '_7',
 				title: language.energy.energy_totals+' P1',
 				value: number_format(data[0], 3,'.',''),
@@ -1749,7 +1759,7 @@ function getSmartMeterBlock(device, idx) {
 			});
 
 			blockValues.push({
-				icon: 'fa-plug',
+				icon: 'fas fa-plug',
 				idx: idx + '_8',
 				title: language.energy.energy_totals+' P2',
 				value: number_format(data[1], 3,'.',''),
@@ -1765,14 +1775,14 @@ function getSmartMeterBlock(device, idx) {
         }
         var blockValues = [
             {
-                icon: 'fa-fire',
+                icon: 'fas fa-fire',
                 idx: idx + '_1',
                 title: language.energy.gas_usagetoday,
                 value: device['CounterToday'],
                 unit: ''
             },
             {
-                icon: 'fa-fire',
+                icon: 'fas fa-fire',
                 idx: idx + '_2',
                 title: language.energy.energy_totals + ' ' + device['Name'],
                 value: device['Counter'],
@@ -1791,25 +1801,25 @@ function getRFXMeterCounterBlock(device, idx) {
     }
     var unit = '';
     var decimals = 2;
-    var icon = 'fa-fire';
+    var icon = 'fas fa-fire';
 
     switch (device['SwitchTypeVal']) {
         case 0:
             unit = settings['units'].names.kwh;
             decimals = settings['units'].decimals.kwh;
-            icon = 'fa-bolt';
+            icon = 'fas fa-bolt';
             break;
 
         case 1:
             unit = settings['units'].names.gas;
             decimals = settings['units'].decimals.gas;
-            icon = 'fa-fire';
+            icon = 'fas fa-fire';
             break;
 
         case 2:
             unit = settings['units'].names.water;
             decimals = settings['units'].decimals.water;
-            icon = 'fa-tint';
+            icon = 'fas fa-tint';
             break;
 
         case 3:
@@ -1819,13 +1829,13 @@ function getRFXMeterCounterBlock(device, idx) {
         case 4:
             unit = settings['units'].names.kwh;
             decimals = settings['units'].decimals.kwh;
-            icon = 'fa-sun-o';
+            icon = 'fas fa-sun';
             break;
 
         case 5:
             unit = settings['units'].names.time;
             decimals = settings['units'].decimals.time;
-            icon = 'fa-clock-o';
+            icon = 'far fa-clock';
             break;
     }
 
@@ -1865,14 +1875,14 @@ function getYouLessBlock(device, idx) {
     }
     var blockValues = [
         {
-            icon: 'fa-fire',
+            icon: 'fas fa-fire',
             idx: idx + '_1',
             title: device['Name'],
             value: number_format(device['CounterToday'].split(' ')[0], settings['units'].decimals.kwh),
             unit: settings['units'].names.kwh
         },
         {
-            icon: 'fa-fire',
+            icon: 'fas fa-fire',
             idx: idx + '_2',
             title: language.energy.energy_totals + ' ' + device['Name'],
             value: number_format(device['Counter'], settings['units'].decimals.kwh),
@@ -1881,7 +1891,7 @@ function getYouLessBlock(device, idx) {
     ];
     if (typeof(device['Usage']) !== 'undefined') {
         blockValues.push({
-            icon: 'fa-fire',
+            icon: 'fas fa-fire',
             idx: idx + '_3',
             title: device['Name'],
             value: number_format(device['Usage'], settings['units'].decimals.watt),
@@ -1929,21 +1939,21 @@ function getGeneralKwhBlock(device, idx) {
     }
     var blockValues = [
         {
-            icon: 'fa-fire',
+            icon: 'fas fa-fire',
             idx: idx + '_1',
             title: device['Name'] + ' ' + language.energy.energy_now,
             value: number_format(device['Usage'], settings['units'].decimals.watt),
             unit: settings['units'].names.watt
         },
         {
-            icon: 'fa-fire',
+            icon: 'fas fa-fire',
             idx: idx + '_2',
             title: device['Name'] + ' ' + language.energy.energy_today,
             value: number_format(device['CounterToday'], settings['units'].decimals.kwh),
             unit: settings['units'].names.kwh
         },
         {
-            icon: 'fa-fire',
+            icon: 'fas fa-fire',
             idx: idx + '_3',
             title: device['Name'] + ' ' + language.energy.energy_total,
             value: number_format(device['Data'], 2),
@@ -1981,7 +1991,7 @@ function getTempHumBarBlock(device, idx) {
 
     var blockValues = [
         {
-            icon: 'fa-thermometer-half',
+            icon: 'fas fa-thermometer-half',
             idx: idx + '_1',
             title: device['Name'],
             value: number_format((typeof(device['Temp']) !== 'undefined') ? device['Temp'] : device['Data'], 1),
@@ -2043,10 +2053,10 @@ function getThermostatBlock(device, idx) {
     this.html = '';
     this.html += '<ul class="col-thermostat input-groupBtn">';
     this.html += '<li class="up"><a href="javascript:void(0)" class="btn btn-number plus" data-type="plus" data-field="quant[' + device['idx'] + ']" onclick="this.blur();">';
-    this.html += '<em class="fa fa-plus fa-small fa-thermostat"></em>';
+    this.html += '<em class="fas fa-plus fa-small fa-thermostat"></em>';
     this.html += '</a></li>';
     this.html += '<li class="down"><a href="javascript:void(0)" class="btn btn-number min" data-type="minus" data-field="quant[' + device['idx'] + ']" onclick="this.blur();">';
-    this.html += '<em class="fa fa-minus fa-small fa-thermostat"></em>';
+    this.html += '<em class="fas fa-minus fa-small fa-thermostat"></em>';
     this.html += '</a></li>';
     this.html += '</ul>';
 
@@ -2079,9 +2089,9 @@ function getThermostatBlock(device, idx) {
 
 function getDimmerBlock(device, idx, buttonimg) {
     this.html = '';
-
-    this.html += iconORimage(idx, 'fa-lightbulb-o', buttonimg, getIconStatusClass(device['Status']) + ' icon iconslider', '', 2, 'data-light="' + device['idx'] + '" onclick="switchDevice(this);"');
-    html += '<div class="col-xs-10 swiper-no-swiping col-data">';
+	if(device['Status'] === 'Off') this.html += iconORimage(idx, 'far fa-lightbulb', buttonimg, getIconStatusClass(device['Status']) + ' icon iconslider', '', 2, 'data-light="' + device['idx'] + '" onclick="switchDevice(this);"');
+    else this.html += iconORimage(idx, 'fas fa-lightbulb', buttonimg, getIconStatusClass(device['Status']) + ' icon iconslider', '', 2, 'data-light="' + device['idx'] + '" onclick="switchDevice(this);"');
+	html += '<div class="col-xs-10 swiper-no-swiping col-data">';
     html += '<strong class="title">' + device['Name'];
     if (typeof(blocks[idx]) == 'undefined' || typeof(blocks[idx]['hide_data']) == 'undefined' || blocks[idx]['hide_data'] == false) {
         this.html += ' ' + device['Level'] + '%';
@@ -2218,11 +2228,11 @@ function getBlindsBlock(device, idx, withPercentage) {
         this.downAction = 'Off';
     }
     this.html += '<li class="up"><a href="javascript:void(0)" class="btn btn-number plus" onclick="switchBlinds(' + device['idx'] + ',\'' + this.upAction + '\');">';
-    this.html += '<em class="fa fa-chevron-up fa-small"></em>';
+    this.html += '<em class="fas fa-chevron-up fa-small"></em>';
     this.html += '</a></li>';
 
     this.html += '<li class="down"><a href="javascript:void(0)" class="btn btn-number min" onclick="switchBlinds(' + device['idx'] + ',\'' + this.downAction + '\');">';
-    this.html += '<em class="fa fa-chevron-down fa-small"></em>';
+    this.html += '<em class="fas fa-chevron-down fa-small"></em>';
     this.html += '</a></li>';
 
     if (!hidestop) {

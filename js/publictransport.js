@@ -6,9 +6,9 @@ function loadPublicTransport(random,transportobject,key){
 					
 	html+='<div class="publictransport publictransport'+random+' col-xs-12 transbg">';
 		if(typeof(transportobject.icon)!=='undefined' && transportobject.icon!==''){
-			if(transportobject.icon.substr(0,2)!=='fa') transportobject.icon = 'fa-'+transportobject.icon;
+			if(transportobject.icon.substr(0,2)!=='fas') transportobject.icon = 'fa-'+transportobject.icon;
 			html+='<div class="col-xs-2 col-icon">';
-				html+='<em class="fa '+transportobject.icon+'"></em>';
+				html+='<em class="fas '+transportobject.icon+'"></em>';
 			html+='</div>';
 			html+='<div class="col-xs-10 col-data">';
 				html+='<span class="state"></span>';
@@ -46,10 +46,10 @@ function getData(random,transportobject){
 		dataURL = 'https://efa-api.asw.io/api/v1/station/'+transportobject.station+'/departures/';
 	}
 	else if(provider == 'mobiliteit'){
-		dataURL = 'https://cors-anywhere.herokuapp.com/http://travelplanner.mobiliteit.lu/restproxy/departureBoard?accessId=cdt&duration=1439&maxJourneys='+transportobject.results+'&format=json&id=A=1@O='+transportobject.station;
+		dataURL = settings['default_cors_url'] + 'http://travelplanner.mobiliteit.lu/restproxy/departureBoard?accessId=cdt&duration=1439&maxJourneys='+transportobject.results+'&format=json&id=A=1@O='+transportobject.station;
 	}
 	else if(provider == '9292' || provider == '9292-train' || provider == '9292-bus' || provider == '9292-metro' || provider == '9292-tram-bus'){
-		dataURL = 'https://cors-anywhere.herokuapp.com/https://dashticz.nl/ov/ov.php?station='+transportobject.station+'&time='+$.now();
+		dataURL = settings['default_cors_url'] + 'http://api.9292.nl/0.1/locations/'+transportobject.station+'/departure-times?lang=nl-NL';
 	}
 	else if(provider == 'irailbe'){
 		var date = new Date($.now());

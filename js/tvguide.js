@@ -4,18 +4,28 @@ var allchannels = [];
 function addTVGuide(tvobject, tvObjorg) {
     if (typeof(allchannels[1]) === 'undefined') {
         var cache = new Date().getTime();
-        curUrl = 'https://dashticz.nl/tv/channels.php';
+        curUrl=settings['default_cors_url']+'https://www.tvgids.nl/json/lists/channels.php';
         $.getJSON(curUrl, function (channels, textstatus, jqXHR) {
             for (num in channels) {
                 allchannels[channels[num]['id']] = channels[num]['name'];
             }
-        });
+            addTVGuide2(tvobject, tvObjorg);
+        })
+        .fail(function() {
+            console.log( "error getting channel info from tvgids. Retrying in 5 seconds." );
+            setTimeout(function () {
+                addTVGuide(tvobject, tvObjorg);
+            }, 5000);
+          });
 
-        setTimeout(function () {
-            addTVGuide(tvobject, tvObjorg);
-        }, 500);
+    
     }
     else {
+      addTVGuide2(tvobject, tvObjorg);
+    }
+}
+
+function addTVGuide2(tvobject, tvObjorg) {
         tvObj = tvObjorg;
         var tvitems = []
         var maxitems = 10;
@@ -23,7 +33,7 @@ function addTVGuide(tvobject, tvObjorg) {
 
         var cache = new Date().getTime();
 
-        curUrl = 'https://dashticz.nl/tv/tv.php?channels=' + tvObj.channels.join(',') + '&time=' + cache;
+        curUrl=settings['default_cors_url']+'http://www.tvgids.nl/json/lists/programs.php?day=0&channels=' + tvObj.channels.join(',') + '&time=' + cache;
         moment.locale(settings['calendarlanguage']);
         $.getJSON(curUrl, function (data, textstatus, jqXHR) {
 
@@ -70,4 +80,3 @@ function addTVGuide(tvobject, tvObjorg) {
             addTVGuide(tvobject, tvObjorg);
         }, (60000 * 5));
     }
-}

@@ -1,15 +1,15 @@
 blocktypes = {};
 blocktypes.SubType = {};
-blocktypes.SubType['Visibility'] = {icon: 'fa fa-eye', title: '<Name>', value: '<Data>'};
-blocktypes.SubType['Electric'] = {icon: 'fa fa-plug', title: '<Name>', value: '<Data>'};
-blocktypes.SubType['Lux'] = {icon: 'fa fa-sun-o', title: '<Name>', value: '<Data>'};
+blocktypes.SubType['Visibility'] = {icon: 'fas fa-eye', title: '<Name>', value: '<Data>'};
+blocktypes.SubType['Electric'] = {icon: 'fas fa-plug', title: '<Name>', value: '<Data>'};
+blocktypes.SubType['Lux'] = {icon: 'fas fa-sun-o', title: '<Name>', value: '<Data>'};
 blocktypes.SubType['Pressure'] = {icon: 'wi wi-barometer', title: '<Name>', value: '<Data>', format: true, decimals: 1};
 blocktypes.SubType['Barometer'] = {icon: 'wi wi-barometer', title: '<Name>', value: '<Data>'};
-blocktypes.SubType['Sound Level'] = {icon: 'fa fa-volume-up', title: '<Name>', value: '<Data>'};
-blocktypes.SubType['Distance'] = {icon: 'fa fa-eye', title: '<Name>', value: '<Data>'};
-blocktypes.SubType['Alert'] = {icon: 'fa fa-warning', title: '<Data>', value: '<Name>'};
-blocktypes.SubType['Percentage'] = {icon: 'fa fa-percent', title: '<Name>', value: '<Data>'};
-blocktypes.SubType['Text'] = {icon: 'fa fa-file', title: '<Name>', value: '<Data>'};
+blocktypes.SubType['Sound Level'] = {icon: 'fas fa-volume-up', title: '<Name>', value: '<Data>'};
+blocktypes.SubType['Distance'] = {icon: 'fas fa-eye', title: '<Name>', value: '<Data>'};
+blocktypes.SubType['Alert'] = {icon: 'fas fa-warning', title: '<Data>', value: '<Name>'};
+blocktypes.SubType['Percentage'] = {icon: 'fas fa-percent', title: '<Name>', value: '<Data>'};
+blocktypes.SubType['Text'] = {icon: 'fas fa-file', title: '<Name>', value: '<Data>'};
 blocktypes.SubType['Counter Incremental'] = {
     icon: 'fa fa-bolt',
     title: '<Name>',
@@ -17,7 +17,7 @@ blocktypes.SubType['Counter Incremental'] = {
     format: true,
     decimals: 2
 };
-blocktypes.SubType['Voltage'] = {icon: 'fa fa-bolt', title: '<Name>', value: '<Data>'};
+blocktypes.SubType['Voltage'] = {icon: 'fas fa-bolt', title: '<Name>', value: '<Data>'};
 blocktypes.SubType['Solar Radiation'] = {
     icon: 'fa fa-sun-o',
     title: '<Name>',
@@ -25,48 +25,48 @@ blocktypes.SubType['Solar Radiation'] = {
     format: true,
     decimals: 0
 };
-blocktypes.SubType['Thermostat Mode'] = {icon: 'fa fa-thermometer-half', title: '<Name>', value: '<Data>'};
+blocktypes.SubType['Thermostat Mode'] = {icon: 'fas fa-thermometer-half', title: '<Name>', value: '<Data>'};
 
 blocktypes.SensorUnit = {};
-blocktypes.SensorUnit['Fertility'] = {icon: 'fa fa-flask', title: '<Name>', value: '<Data>'};
+blocktypes.SensorUnit['Fertility'] = {icon: 'fas fa-flask', title: '<Name>', value: '<Data>'};
 
 blocktypes.Type = {};
-blocktypes.Type['Rain'] = {icon: 'fa fa-tint', title: '<Name>', value: '<Rain>mm', format: true, decimals: 1};
+blocktypes.Type['Rain'] = {icon: 'fas fa-tint', title: '<Name>', value: '<Rain>mm', format: true, decimals: 1};
 blocktypes.Type['Wind'] = {icon: 'wi wi-wind-direction', title: language.wind.wind, value: ''};
 blocktypes.Type['Temp'] = {
-    icon: 'fa fa-thermometer-half',
+    icon: 'fas fa-thermometer-half',
     title: '<Name>',
     value: '<Temp>' + _TEMP_SYMBOL,
     format: true,
     decimals: 1
 };
 blocktypes.Type['Air Quality'] = {image: 'air.png', title: '<Name>', value: '<Data>'};
-blocktypes.Type['UV'] = {icon: 'fa fa-sun-o', title: '<Name>', value: '<Data>'};
+blocktypes.Type['UV'] = {icon: 'fas fa-sun', title: '<Name>', value: '<Data>'};
 
 blocktypes.HardwareType = {};
-blocktypes.HardwareType['Motherboard sensors'] = {icon: 'fa fa-desktop', title: '<Name>', value: '<Data>'};
+blocktypes.HardwareType['Motherboard sensors'] = {icon: 'fas fa-desktop', title: '<Name>', value: '<Data>'};
 blocktypes.HardwareType['PVOutput (Input)'] = {};
-blocktypes.HardwareType['PVOutput (Input)']['today'] = {icon: 'fa fa-sun-o', title: '<Name>', value: '<CounterToday>', format: true, decimals: 1};
-blocktypes.HardwareType['PVOutput (Input)']['usage'] = {icon: 'fa fa-sun-o', title: '<Name>', value: '<Usage>', format: true, decimals: 1};
-blocktypes.HardwareType['PVOutput (Input)']['total'] = {icon: 'fa fa-sun-o', title: '<Name>', value: '<Data>', format: true, decimals: 0};
+blocktypes.HardwareType['PVOutput (Input)']['today'] = {icon: 'fas fa-sun', title: '<Name>', value: '<CounterToday>', format: true, decimals: 1};
+blocktypes.HardwareType['PVOutput (Input)']['usage'] = {icon: 'fas fa-sun', title: '<Name>', value: '<Usage>', format: true, decimals: 1};
+blocktypes.HardwareType['PVOutput (Input)']['total'] = {icon: 'fas fa-sun', title: '<Name>', value: '<Data>', format: true, decimals: 0};
 
 blocktypes.HardwareName = {};
-blocktypes.HardwareName['Rain expected'] = {icon: 'fa fa-tint', title: '<Data>', value: '<Name>'};
+blocktypes.HardwareName['Rain expected'] = {icon: 'fas fa-tint', title: '<Data>', value: '<Name>'};
 
 blocktypes.Name = {};
-blocktypes.Name['Rain Expected'] = {icon: 'fa fa-tint', title: '<Data>', value: '<Name>'};
-blocktypes.Name['Rain expected'] = {icon: 'fa fa-tint', title: '<Data>', value: '<Name>'};
-blocktypes.Name['Regen mm/uur'] = {icon: 'fa fa-tint', title: '<Data>', value: '<Name>'};
-blocktypes.Name['Regen verwacht'] = {icon: 'fa fa-tint', title: '<Data>', value: '<Name>'};
-blocktypes.Name['Regen Verwacht'] = {icon: 'fa fa-tint', title: '<Data>', value: '<Name>'};
+blocktypes.Name['Rain Expected'] = {icon: 'fas fa-tint', title: '<Data>', value: '<Name>'};
+blocktypes.Name['Rain expected'] = {icon: 'fas fa-tint', title: '<Data>', value: '<Name>'};
+blocktypes.Name['Regen mm/uur'] = {icon: 'fas fa-tint', title: '<Data>', value: '<Name>'};
+blocktypes.Name['Regen verwacht'] = {icon: 'fas fa-tint', title: '<Data>', value: '<Name>'};
+blocktypes.Name['Regen Verwacht'] = {icon: 'fas fa-tint', title: '<Data>', value: '<Name>'};
 
-blocktypes.Name['Ping'] = {icon: 'fa fa-arrows-v', title: '<Name>', value: '<Data>'};
-blocktypes.Name['Upload'] = {icon: 'fa fa-upload', title: '<Name>', value: '<Data>', format: true, decimals: 3};
-blocktypes.Name['Download'] = {icon: 'fa fa-download', title: '<Name>', value: '<Data>', format: true, decimals: 3};
+blocktypes.Name['Ping'] = {icon: 'fas fa-arrows-v', title: '<Name>', value: '<Data>'};
+blocktypes.Name['Upload'] = {icon: 'fas fa-upload', title: '<Name>', value: '<Data>', format: true, decimals: 3};
+blocktypes.Name['Download'] = {icon: 'fas fa-download', title: '<Name>', value: '<Data>', format: true, decimals: 3};
 
-blocktypes.Name['Maanfase'] = {icon: 'fa fa-moon-o', title: '<Data>', value: '<Name>'};
-blocktypes.Name['Moon phase'] = {icon: 'fa fa-moon-o', title: '<Data>', value: '<Name>'};
-blocktypes.Name['Mondphase'] = {icon: 'fa fa-moon-o', title: '<Data>', value: '<Name>'};
+blocktypes.Name['Maanfase'] = {icon: 'fas fa-moon', title: '<Data>', value: '<Name>'};
+blocktypes.Name['Moon phase'] = {icon: 'fas fa-moon', title: '<Data>', value: '<Name>'};
+blocktypes.Name['Mondphase'] = {icon: 'fas fa-moon', title: '<Data>', value: '<Name>'};
 
 blocktypes = getExtendedBlockTypes(blocktypes);
 
@@ -132,7 +132,7 @@ function handleStringBlock(block, columndiv, width, c) {
             for (i = 0; i < icons.length; i++) {
                 switch (icons[i]) {
                     case 'settings':
-                        content += '<span class="settings settingsicon" data-id="settings" data-target="#settingspopup" data-toggle="modal"><em class="fa fa-cog"/></span>';
+                        content += '<span class="settings settingsicon" data-id="settings" data-target="#settingspopup" data-toggle="modal"><em class="fas fa-cog"/> </span>';
                         break;
 
                     case 'fullscreen':
@@ -247,9 +247,9 @@ function handleStringBlock(block, columndiv, width, c) {
             return;
 		case 'longfonds':
 			$(columndiv).append('<div data-id="longfonds" class="mh transbg block_longfonds col-xs-'+width+'"></div>');
-			$.getJSON('https://cors-anywhere.herokuapp.com/https://www.longfonds.nl/gezondelucht/api/zipcode-check?zipcode='+settings['longfonds_zipcode']+'&houseNumber='+settings['longfonds_housenumber'],function(data){
+			$.getJSON(settings['default_cors_url'] + 'https://www.longfonds.nl/gezondelucht/api/zipcode-check?zipcode='+settings['longfonds_zipcode']+'&houseNumber='+settings['longfonds_housenumber'],function(data){
 				var stateBlock = '<div class="col-xs-4 col-icon">';
-				stateBlock += '<em class="fa fa-cloud"></em>';
+				stateBlock += '<em class="fas fa-cloud"></em>';
 				stateBlock += '</div>';
 				stateBlock += '<div class="col-xs-8 col-data">';
 
@@ -301,7 +301,7 @@ function handleStringBlock(block, columndiv, width, c) {
             var random = getRandomInt(1, 100000);
             var html = '<div class="col-xs-' + width + ' transbg containsicalendar containsicalendar' + random + '">';
             html += '<div class="col-xs-2 col-icon">';
-            html += '<em class="fa fa-calendar"></em>';
+            html += '<em class="fas fa-calendar"></em>';
             html += '</div>';
             html += '<div class="col-xs-10 items">' + language.misc.loading + '</div>';
             html += '</div>';
@@ -404,7 +404,7 @@ function appendTvOrCalendarBlock(dataId, classes, width, block, columndiv) {
     html += '<div data-id="' + dataId + '" class="col-xs-' + width + ' ' + classes + '">';
     if (block.hasOwnProperty('icon') && block['icon'] !== '') {
         html += '<div class="col-xs-2 col-icon">';
-        html += '<em class="fa ' + block['icon'] + '"></em>';
+        html += '<em class="' + block['icon'] + '"></em>';
         html += '</div>';
         html += '<div class="col-xs-10 items">' + language.misc.loading + '</div>';
     }
@@ -430,7 +430,7 @@ function getStateBlock(id, icon, title, value, device) {
     getBlockClick(id, device);
 
     var stateBlock = '<div class="col-xs-4 col-icon">';
-    stateBlock += '<em class="fa ' + icon + '"></em>';
+    stateBlock += '<em class="' + icon + '"></em>';
     stateBlock += '</div>';
     stateBlock += '<div class="col-xs-8 col-data">';
 
@@ -587,13 +587,13 @@ function iconORimage(idx, defaulticon, defaultimage, classnames, attr, colwidth,
     if (typeof(attrcol) === 'undefined') attrcol = '';
     var icon = '<div class="col-xs-' + colwidth + ' col-icon" ' + attrcol + '>';
     if (typeof(blocks[idx]) !== 'undefined' && typeof(blocks[idx]['icon']) !== 'undefined') {
-        icon += '<em class="fa ' + blocks[idx]['icon'] + ' ' + classnames + '" ' + attr + '></em>';
+        icon += '<em class="' + blocks[idx]['icon'] + ' ' + classnames + '" ' + attr + '></em>';
     }
     else if (typeof(blocks[idx]) !== 'undefined' && typeof(blocks[idx]['image']) !== 'undefined') {
         icon += '<img src="img/' + blocks[idx]['image'] + '" class="' + classnames + '" ' + attr + ' />';
     }
     else if (defaultimage !== '') icon += '<img src="img/' + defaultimage + '" class="' + classnames + '" ' + attr + ' />';
-    else if (defaulticon !== '') icon += '<em class="fa ' + defaulticon + ' ' + classnames + '" ' + attr + '></em>';
+    else if (defaulticon !== '') icon += '<em class="' + defaulticon + ' ' + classnames + '" ' + attr + '></em>';
 
     icon += '</div>';
     return icon;
