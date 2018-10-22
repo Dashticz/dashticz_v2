@@ -8,7 +8,7 @@ function loadGarbage() {
     if (typeof(settings['garbage_hideicon']) !== 'undefined' && parseFloat(settings['garbage_hideicon']) === 1) {
         html += '<div class="col-xs-12 col-data">';
     } else {
-        html += '<div class="col-xs-4 col-icon">';
+        html += '<div class="col-xs-4 col-icon-trash">';
         html += '<img class="trashcan" src="img/garbage/kliko.png" style="opacity:0.1" />';
         html += '</div>';
         html += '<div class="col-xs-8 col-data">';
@@ -384,7 +384,7 @@ function getEdgData(address, date, random) {
 
 function getTrashRow(garbage) {
     this.rowClass = 'trashrow';
-    this.displayDate = garbage.date.locale(settings['calendarlanguage']).format('l');
+    this.displayDate = garbage.date.locale(settings['calendarlanguage']).format(settings['calendarformat']);
     if (garbage.date.isSame(moment(), 'day')) {
         this.displayDate = language.weekdays.today;
         this.rowClass = 'trashtoday';
