@@ -76,6 +76,10 @@ settingList['general']['default_cors_url'] = {};
 settingList['general']['default_cors_url']['title'] = language.settings.general.default_cors_url;
 settingList['general']['default_cors_url']['type'] = 'text';
 
+settingList['general']['dashticz_php_path'] = {};
+settingList['general']['dashticz_php_path']['title'] = language.settings.general.dashticz_php_path;
+settingList['general']['dashticz_php_path']['type'] = 'text';
+
 /*
 settingList['general']['hide_off_button'] = {}
 settingList['general']['hide_off_button']['title'] = language.settings.general.hide_off_button;
@@ -205,9 +209,11 @@ settingList['localize']['calendarurl'] = {};
 settingList['localize']['calendarurl']['title'] = language.settings.localize.calendarurl;
 settingList['localize']['calendarurl']['type'] = 'text';
 
+/* Not used anymore
 settingList['localize']['calendar_parse_localy'] = {};
 settingList['localize']['calendar_parse_localy']['title'] = language.settings.localize.calendar_parse_localy;
 settingList['localize']['calendar_parse_localy']['type'] = 'checkbox';
+*/
 
 settingList['localize']['hide_seconds'] = {};
 settingList['localize']['hide_seconds']['title'] = language.settings.localize.hide_seconds;
@@ -485,7 +491,7 @@ if (typeof(settings['shorttime']) === 'undefined') settings['shorttime'] = 'HH:m
 if (typeof(settings['longtime']) === 'undefined') settings['longtime'] = 'HH:mm:ss';
 if (typeof(settings['weekday']) === 'undefined') settings['weekday'] = 'dddd';
 if (typeof(settings['calendarlanguage']) === 'undefined') settings['calendarlanguage'] = 'en_US';
-if (typeof(settings['calendar_parse_localy']) === 'undefined') settings['calendar_parse_localy'] = 0;
+//if (typeof(settings['calendar_parse_localy']) === 'undefined') settings['calendar_parse_localy'] = 0;
 if (typeof(settings['domoticz_ip']) === 'undefined') settings['domoticz_ip'] = 'http://192.168.1.10:1407';
 if (typeof(settings['user_name']) === 'undefined') settings['user_name'] = '';
 if (typeof(settings['pass_word']) === 'undefined') settings['pass_word'] = '';
@@ -493,6 +499,7 @@ if (typeof(settings['app_title']) === 'undefined') settings['app_title'] = 'Dash
 if (typeof(settings['domoticz_refresh']) === 'undefined') settings['domoticz_refresh'] = 5;
 if (typeof(settings['dashticz_refresh']) === 'undefined') settings['dashticz_refresh'] = 60;
 if (typeof(settings['default_cors_url']) === 'undefined') settings['default_cors_url'] = 'https://cors-anywhere.herokuapp.com/';
+if (typeof(settings['dashticz_php_path']) === 'undefined') settings['dashticz_php_path'] = './vendor/dashticz/';
 if (typeof(settings['wu_api']) === 'undefined') settings['wu_api'] = '';
 if (typeof(settings['wu_country']) === 'undefined') settings['wu_country'] = 'NL';
 if (typeof(settings['wu_city']) === 'undefined') settings['wu_city'] = 'Amsterdam';

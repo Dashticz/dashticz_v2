@@ -97,7 +97,9 @@
             "use_favorites": "Koristite samo omiljene uređaje",
             "use_favorites_help": "Koristi se samo kada koristite automatsko pozicioniranje",
             "user_name": "Korisničko ime",
-            "user_name_help": "Postavite Dashticz korisničko ime i lozinku"
+            "user_name_help": "Postavite Dashticz korisničko ime i lozinku",
+            "default_cors_url": "Default CORS URL",
+            "dashticz_php_path": "Dashticz PHP Path"
         },
         "infosave": "Po zadanom, postavke su pohranjene u vašem pretraživaču. Negativna strana ove metode je da će raditi samo u trenutnom pretraživaču. Ako to nije problem, možete nastaviti. Inače, kopirajte donji kod na svoj CONFIG.JS da biste zadržali postavke na svim pretraživačima i uređajima.",
         "localize": {

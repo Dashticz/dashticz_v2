@@ -215,7 +215,7 @@ function getAfvalwijzerArnhemData(address, date, random) {
 }
 
 function getGeneralData(service,address, date, random, subservice){
-  var cURI = './vendor/dashticz/garbage/?service='+service+'&sub='+subservice+'&zipcode=' + address.zipcode + '&nr=' + address.housenumber + '&t=' + address.housenumberSuffix;
+  var cURI = settings['dashticz_php_path']+'garbage/?service='+service+'&sub='+subservice+'&zipcode=' + address.zipcode + '&nr=' + address.housenumber + '&t=' + address.housenumberSuffix;
 	$.getJSON(cURI, function (data) {
 		 data = data
             .filter(function (element) {
