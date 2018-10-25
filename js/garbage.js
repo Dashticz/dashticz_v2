@@ -215,7 +215,8 @@ function getAfvalwijzerArnhemData(address, date, random) {
 }
 
 function getGeneralData(service,address, date, random, subservice){
-	$.getJSON(getPrefixUrl() + 'https://dashticz.nl/afval/?service='+service+'&sub='+subservice+'&zipcode=' + address.zipcode + '&nr=' + address.housenumber + '&t=' + address.housenumberSuffix, function (data) {
+  var cURI = './vendor/dashticz/garbage/?service='+service+'&sub='+subservice+'&zipcode=' + address.zipcode + '&nr=' + address.housenumber + '&t=' + address.housenumberSuffix;
+	$.getJSON(cURI, function (data) {
 		 data = data
             .filter(function (element) {
                 return moment(element.date).isBetween(date.start, date.end, null, '[]');
