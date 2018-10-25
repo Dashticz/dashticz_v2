@@ -1,8 +1,9 @@
 {
-"version": "2.4.3",
+"version": "2.4.4",
 "branch": "beta",
-"last_changes": "Use local garbage.php module",
+"last_changes": "Fix HVC garbage data",
 "changelog" : {
+            "2.4.3": "Use local garbage.php module",
             "2.4.2": "Merge PHP OV Module into Dashticz",
             "2.4.1": "Merge PHP TV Module into Dashticz",
             "2.4.0": "Upgrade to fontawesome 5.0.13"
