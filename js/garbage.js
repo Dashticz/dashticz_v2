@@ -364,11 +364,6 @@ function getMijnAfvalwijzerData(address, date, random) {
     getGeneralData('mijnafvalwijzer',address, date, random);
 }
 
-//http://dashticz.nl/afval/?service=hvc&zipcode=1671jv&nr=22&t=
-function getHvcData(address, date, random) {
-    getGeneralData('hvc',address, date, random);
-}
-
 //http://dashticz.nl/afval/?service=rova&zipcode=7731ZT&nr=84&t=
 function getRovaData(address, date, random) {
     getGeneralData('rova',address, date, random);
@@ -498,7 +493,7 @@ function loadDataForService(service, random) {
         dar: {dataHandler: 'getAfvalstromenData', identifier: 'dar'},
         waalre: {dataHandler: 'getAfvalstromenData', identifier: 'waalre'},
         avalex: {dataHandler: 'getAfvalstromenData', identifier: 'avalex'},
-        hvc: {dataHandler: 'getHvcData', identifier: ''},
+        hvc: {dataHandler: 'getAfvalstromenData', identifier: 'hvc'},
         rova: {dataHandler: 'getRovaData', identifier: ''},
         mijnafvalwijzer: {dataHandler: 'getMijnAfvalwijzerData', identifier: ''},
         recyclemanager: {dataHandler: 'getRecycleManagerData', identifier: ''},

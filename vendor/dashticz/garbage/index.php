@@ -93,6 +93,7 @@ switch($_GET['service']){
 				case 'dar'; $baseUrl = 'https://afvalkalender.dar.nl'; break;
 				case 'waalre'; $baseUrl = 'https://afvalkalender.waalre.nl'; break;
 				case 'avalex'; $baseUrl = 'https://www.avalex.nl'; break;
+				case 'hvc'; $baseUrl = 'https://apps.hvcgroep.nl'; break;
 			}
 		}
 		
