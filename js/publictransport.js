@@ -26,8 +26,10 @@ function loadPublicTransport(random,transportobject,key){
 	//Get data every interval and call function to create block
 	var interval = 60;
 	if(typeof(transportobject.interval)!=='undefined') interval = transportobject.interval;
-	getData(random,transportobject);
-	setTimeout(function(){$('.publictransport'+random+' .state').html(language.misc.loading);},100);
+	setTimeout(function(){
+		$('.publictransport'+random+' .state').html(language.misc.loading);
+		getData(random,transportobject);
+	},100);
 	
 	if(transportobject.provider.toLowerCase() == 'ns'){
 		if(parseFloat(interval)<60) interval=60; // limit request because of limitations in NS api for my private key ;)
