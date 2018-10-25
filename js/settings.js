@@ -76,6 +76,10 @@ settingList['general']['default_cors_url'] = {};
 settingList['general']['default_cors_url']['title'] = language.settings.general.default_cors_url;
 settingList['general']['default_cors_url']['type'] = 'text';
 
+settingList['general']['dashticz_php_path'] = {};
+settingList['general']['dashticz_php_path']['title'] = language.settings.general.dashticz_php_path;
+settingList['general']['dashticz_php_path']['type'] = 'text';
+
 /*
 settingList['general']['hide_off_button'] = {}
 settingList['general']['hide_off_button']['title'] = language.settings.general.hide_off_button;
@@ -493,6 +497,7 @@ if (typeof(settings['app_title']) === 'undefined') settings['app_title'] = 'Dash
 if (typeof(settings['domoticz_refresh']) === 'undefined') settings['domoticz_refresh'] = 5;
 if (typeof(settings['dashticz_refresh']) === 'undefined') settings['dashticz_refresh'] = 60;
 if (typeof(settings['default_cors_url']) === 'undefined') settings['default_cors_url'] = 'https://cors-anywhere.herokuapp.com/';
+if (typeof(settings['dashticz_php_path']) === 'undefined') settings['dashticz_php_path'] = './vendor/dashticz/';
 if (typeof(settings['wu_api']) === 'undefined') settings['wu_api'] = '';
 if (typeof(settings['wu_country']) === 'undefined') settings['wu_country'] = 'NL';
 if (typeof(settings['wu_city']) === 'undefined') settings['wu_city'] = 'Amsterdam';

@@ -97,7 +97,9 @@
             "use_favorites": "Nur favorisierte Geräte anzeigen",
             "use_favorites_help": "Nur genutzt bei aktivierter Auto Positionierung",
             "user_name": "Username",
-            "user_name_help": "Set Dashticz username and password"
+            "user_name_help": "Set Dashticz username and password",
+            "default_cors_url": "Default CORS URL",
+            "dashticz_php_path": "Dashticz PHP Path"
         },
         "infosave": "Die Einstellungen werden standardmäßig im Browser selber gespeichert. Der Nachteil dieser Methode ist, sie gelten entsprechend nur für den aktuellen Browser. Wenn das kein Problem darstellt, kannst das Fenster schließen und musst nichts weiter unternehmen. Ansonsten kopiere den unten dargestellten Code in deine CONFIG.JS um die Einstellungen für alle Browser und Geräte zu aktivieren.",
         "localize": {
