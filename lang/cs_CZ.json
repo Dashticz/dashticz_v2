@@ -97,7 +97,9 @@
             "use_favorites": "Používat pouze oblíbené položky",
             "use_favorites_help": "Funguje pouze pokud se používá Automatické přidávání všech zařízení",
             "user_name": "Username",
-            "user_name_help": "Set Dashticz username and password"
+            "user_name_help": "Set Dashticz username and password",
+            "default_cors_url": "Default CORS URL",
+            "dashticz_php_path": "Dashticz PHP Path"
         },
         "infosave": "Nastavení se ukládá pouze do právě používaného prohlížeče. Pokud si přejete toto nastavení používat na všech počítačích a prohlížečích, je důležité zkopírovat nastavení do souboru CONFIG.JS",
         "localize": {
