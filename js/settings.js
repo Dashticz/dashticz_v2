@@ -209,6 +209,14 @@ settingList['localize']['calendar_parse_localy'] = {};
 settingList['localize']['calendar_parse_localy']['title'] = language.settings.localize.calendar_parse_localy;
 settingList['localize']['calendar_parse_localy']['type'] = 'checkbox';
 
+settingList['localize']['calendar_parse_on_server'] = {};
+settingList['localize']['calendar_parse_on_server']['title'] = language.settings.localize.calendar_parse_on_server;
+settingList['localize']['calendar_parse_on_server']['type'] = 'checkbox';
+
+settingList['localize']['calendar_parse_on_server_url'] = {};
+settingList['localize']['calendar_parse_on_server_url']['title'] = language.settings.localize.calendar_parse_on_server_url;
+settingList['localize']['calendar_parse_on_server_url']['type'] = 'text';
+
 settingList['localize']['hide_seconds'] = {};
 settingList['localize']['hide_seconds']['title'] = language.settings.localize.hide_seconds;
 settingList['localize']['hide_seconds']['type'] = 'checkbox';
@@ -486,6 +494,8 @@ if (typeof(settings['longtime']) === 'undefined') settings['longtime'] = 'HH:mm:
 if (typeof(settings['weekday']) === 'undefined') settings['weekday'] = 'dddd';
 if (typeof(settings['calendarlanguage']) === 'undefined') settings['calendarlanguage'] = 'en_US';
 if (typeof(settings['calendar_parse_localy']) === 'undefined') settings['calendar_parse_localy'] = 0;
+if (typeof(settings['calendar_parse_on_server']) === 'undefined') settings['calendar_parse_on_server'] = 0;
+if (typeof(settings['calendar_parse_on_server_url']) === 'undefined') settings['calendar_parse_on_server_url'] = '';
 if (typeof(settings['domoticz_ip']) === 'undefined') settings['domoticz_ip'] = 'http://192.168.1.10:1407';
 if (typeof(settings['user_name']) === 'undefined') settings['user_name'] = '';
 if (typeof(settings['pass_word']) === 'undefined') settings['pass_word'] = '';

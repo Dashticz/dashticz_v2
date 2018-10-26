@@ -56,7 +56,11 @@ function addCalendar(calobject, icsUrlorg) {
         var cache = new Date().getTime();
 	if (settings['calendar_parse_localy']){
 		curUrl = './vendor/dashticz/ical/?time=' + cache + '&url=' + curUrl;
-	} else {
+	} 
+	else if (settings['calendar_parse_on_server']){
+		curUrl = settings['calendar_parse_on_server_url'] + '/?time=' + cache + '&url=' + curUrl;
+	}
+	else {
         	curUrl = 'https://dashticz.nl/ical/?time=' + cache + '&url=' + curUrl;
         }
 	moment.locale(settings['calendarlanguage']);

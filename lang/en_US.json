@@ -107,6 +107,8 @@
             "calendarlanguage": "Calendar language",
             "calendarurl": "Calendar URL (ICS)",
             "calendar_parse_localy": "Parse calendar localy (PHP needed)",
+			"calendar_parse_on_server": "Parse calendar on external server(PHP needed)",
+			"calendar_parse_on_server_url": "URL of external server",
             "cn": "Chinese",
             "cs": "Čeština",
             "da": "Danish",
