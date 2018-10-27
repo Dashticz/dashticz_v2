@@ -1,8 +1,9 @@
 {
-"version": "2.4.4",
+"version": "2.4.5",
 "branch": "beta",
-"last_changes": "Fix HVC garbage data",
+"last_changes": "Fix for cross origin issues with php",
 "changelog" : {
+            "2.4.4": "Fix HVC garbage data",
             "2.4.3": "Use local garbage.php module",
             "2.4.2": "Merge PHP OV Module into Dashticz",
             "2.4.1": "Merge PHP TV Module into Dashticz",

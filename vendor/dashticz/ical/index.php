@@ -1,4 +1,6 @@
 <?php
+header("Access-Control-Allow-Origin: *");
+header('Content-Type: application/json');
 require_once('SG_iCal.php');
 $ICS = $_GET['url'];
 $ICS = str_replace('#','%23',urldecode($ICS));

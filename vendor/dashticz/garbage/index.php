@@ -1,4 +1,6 @@
 <?php
+header("Access-Control-Allow-Origin: *");
+header('Content-Type: application/json');
 $allDates=array();
 switch($_GET['service']){
 	case 'rova':

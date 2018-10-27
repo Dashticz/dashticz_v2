@@ -463,9 +463,6 @@ settingList['about']['about_text3']['title'] = 'Do you appreciate my work and wa
 settingList['about']['about_text4'] = {};
 settingList['about']['about_text4']['title'] = 'If you have any issues you can report them in our community thread <a href="https://www.domoticz.com/forum/viewtopic.php?f=67&t=17427" target="_blank">Bug report</a>.'
 
-settingList['about']['about_text5'] = {};
-settingList['about']['about_text5']['title'] = domoversion + dzVents + python;
-
 var settings = {};
 doneSettings = false;
 if (typeof(Storage) !== "undefined") {
@@ -593,6 +590,22 @@ for (var s in settingList){
 
 var _TEMP_SYMBOL = '°C';
 if (settings['use_fahrenheit'] === 1) _TEMP_SYMBOL = '°F';
+
+var phpversion = '<br>PHP not installed!!';
+
+$.ajax({
+    url: settings['dashticz_php_path']+'info.php?get=phpversion',
+    async: false,
+    dataType: 'json',
+    success: function (data) {
+        phpversion = '<br> PHP version: ' + data;
+                }
+});
+
+settingList['about']['about_text5'] = {};
+settingList['about']['about_text5']['title'] = domoversion + dzVents + python + phpversion;
+
+
 
 function loadSettings() {
 
