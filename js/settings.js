@@ -555,9 +555,9 @@ if (typeof(settings['garbage']) === 'undefined') {
 }
 if (typeof(settings['garbage_mapping']) === 'undefined') {
     settings['garbage_mapping'] = {
+        rest: ['grof', 'grey', 'rest', 'grijs','grijze'],
         gft: ['gft', 'tuin', 'refuse bin', 'green', 'groen', 'Biodégradables', 'snoei'],
         pmd: ['plastic', 'pmd', 'verpakking', 'kunststof', 'valorlux'],
-        rest: ['grof', 'grey', 'rest', 'grijs','grijze'],
         papier: ['papier', 'blauw', 'blue', 'recycling bin collection'],
         kca: ['chemisch', 'kca','kga'],
         brown: ['brown', 'verre'],
