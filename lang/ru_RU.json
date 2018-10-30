@@ -183,6 +183,7 @@
             "wu_name": "Отображаемое имя",
             "owm_api": "Open Weather Map API-ключ",
             "owm_city": "Open Weather Map станция (город или код)",
+            "owm_cnt": "Open Weather Map количество прогнозов (4 - 40)",
             "owm_country": "Open Weather Map страна",
             "owm_name": "Отображаемое имя Open Weather Map"
         }

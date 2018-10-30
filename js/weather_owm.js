@@ -40,8 +40,9 @@ function loadWeather(location, country) {
 
 function loadWeatherFull(location, country) {
     if (typeof(settings['owm_api']) !== 'undefined' && settings['owm_api'] !== '' && settings['owm_api'] !== 0) {
-        $('div.containsweatherfull').html('<div class="weatherfull"><div class="col-xs-2 transbg"></div><div class="col-xs-2 transbg"></div><div class="col-xs-2 transbg"></div><div class="col-xs-2 transbg"></div><div class="col-xs-2 transbg"></div><div class="col-xs-2 transbg"></div></div>');
-		var site = 'http://api.openweathermap.org/data/2.5/forecast?q=' + settings['owm_city'] + ',' + settings['owm_country'] + '&appid=' + settings['owm_api'] + '&cnt=6';
+        var containsweatherfull = '<div class="col-xs-3 transbg"></div>'.repeat(settings['owm_cnt']);
+        $('div.containsweatherfull').html('<div class="weatherfull">' + containsweatherfull + '</div>');
+		var site = 'http://api.openweathermap.org/data/2.5/forecast?q=' + settings['owm_city'] + ',' + settings['owm_country'] + '&appid=' + settings['owm_api'] + '&cnt=' + settings['owm_cnt'];
 
         if (settings['use_fahrenheit'] === 1) {
             site += '&units=imperial';
@@ -58,10 +59,10 @@ function loadWeatherFull(location, country) {
                     curfull.remove();
                 }
                 else {
-                    curfull.find(".weatherfull .col-xs-2").html('');
+                    curfull.find(".weatherfull .col-xs-3").html('');
                     var start = 0;
 
-                    for (var i = start; i < (start + 6); i++) {
+                    for (var i = start; i < (start + settings['owm_cnt']); i++) {
                         curfor = currentforecast.list[i];
                         var date = moment.unix(curfor.dt).locale(settings['calendarlanguage']);
                         var wiclass = getIcon(curfor.weather[0].icon);
@@ -79,7 +80,7 @@ function loadWeatherFull(location, country) {
                         html += '<div class="temp"><span class="av_temp">' + Math.round(temp) + _TEMP_SYMBOL + '</span><span class="rain">' + (Math.round(rain*100)/100) + " mm" + '</span></div>';
 
                         curfull.find('.weatherfull').each(function () {
-                           $(this).find('.col-xs-2:eq(' + i + ')').html(html);
+                           $(this).find('.col-xs-3:eq(' + i + ')').html(html);
                         });
 
                     }

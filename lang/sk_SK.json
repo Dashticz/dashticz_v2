@@ -183,6 +183,7 @@
             "wu_name": "Zobraziť meno",
             "owm_api": "Open Weather Map API Kľúč",
             "owm_city": "Stanica Open Weather Map (mesto alebo kód)",
+            "owm_cnt": "Open Weather Map počet predpovedí (4 - 40)",
             "owm_country": "Open Weather Map Country",
             "owm_name": "Zobraziť meno Open Weather Map"
         }

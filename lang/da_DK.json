@@ -183,6 +183,7 @@
             "wu_name": "Visningsnavn",
             "owm_api": "Open Weather Map API-Nøgle",
             "owm_city": "Open Weather Map Station (by eller kode)",
+            "owm_cnt": "Open Weather Map prognose tæller (4 - 40)",
             "owm_country": "Open Weather Map land",
             "owm_name": "Visningsnavn Open Weather Map"
         }

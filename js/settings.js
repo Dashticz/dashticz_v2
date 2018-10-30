@@ -291,6 +291,10 @@ settingList['weather']['owm_country'] = {};
 settingList['weather']['owm_country']['title'] = language.settings.weather.owm_country;
 settingList['weather']['owm_country']['type'] = 'text';
 
+settingList['weather']['owm_cnt'] = {};
+settingList['weather']['owm_cnt']['title'] = language.settings.weather.owm_cnt;
+settingList['weather']['owm_cnt']['type'] = 'text';
+
 settingList['weather']['idx_moonpicture'] = {};
 settingList['weather']['idx_moonpicture']['title'] = language.settings.weather.idx_moonpicture;
 settingList['weather']['idx_moonpicture']['type'] = 'text';
@@ -503,6 +507,7 @@ if (typeof(settings['wu_city']) === 'undefined') settings['wu_city'] = 'Amsterda
 if (typeof(settings['owm_api']) === 'undefined') settings['owm_api'] = '';
 if (typeof(settings['owm_country']) === 'undefined') settings['owm_country'] = 'de';
 if (typeof(settings['owm_city']) === 'undefined') settings['owm_city'] = 'Mainaschaff';
+if (typeof(settings['owm_cnt']) === 'undefined') settings['owm_cnt'] = 4;
 if (typeof(settings['boss_stationclock']) === 'undefined') settings['boss_stationclock'] = 'RedBoss';
 if (typeof(settings['use_fahrenheit']) === 'undefined') settings['use_fahrenheit'] = 0;
 if (typeof(settings['use_beaufort']) === 'undefined') settings['use_beaufort'] = 0;

@@ -180,9 +180,10 @@
             "wu_api": "Wunderground API Key",
             "wu_city": "Wunderground Station (City or Code)",
             "wu_country": "Wunderground Country",
-            "wu_name": "Zobrazované jméno"
+            "wu_name": "Zobrazované jméno",
             "owm_api": "Open Weather Map API Key",
             "owm_city": "Open Weather Map Station (City or Code)",
+            "owm_cnt": "Open Weather Map počet předpovědí (4 - 40)",
             "owm_country": "Open Weather Map Country",
             "owm_name": "Zobrazované jméno Open Weather Map"
         }

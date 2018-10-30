@@ -183,6 +183,7 @@
             "wu_name": "Megjelenítendő név",
             "owm_api": "Open Weather Map API Kulcs",
             "owm_city": "Open Weather Map (város vagy kód)",
+            "owm_cnt": "Open Weather Map előrejelzés számít (4 - 40)",
             "owm_country": "Open Weather Map Ország",
             "owm_name": "Megjelenítendő név Open Weather Map"
         }
