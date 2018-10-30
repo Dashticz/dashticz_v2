@@ -5,7 +5,7 @@ function loadWeather(location, country) {
         $.getJSON(site, function (weather) {
             $('.containsweather').each(function () {
                 var curfull = $(this);
-                if (typeof(weather.main) == 'undefined') {
+                if (typeof(weather.main) === 'undefined') {
                     curfull.remove();
                     currentweather = false;
                     curfull.find('.weather').html('<p style="font-size:10px; width:100px;">Location ERROR</p>');
@@ -13,10 +13,10 @@ function loadWeather(location, country) {
                     currentweather = weather.weather[0];
                     var wiclass = getIcon(weather.weather[0].icon);
                     var temp = weather.main.temp-273.15;
-                    if (settings['use_fahrenheit'] == 1) temp = (weather.main.temp * 9/5) - 459.67;
+                    if (settings['use_fahrenheit'] === 1) temp = (weather.main.temp * 9/5) - 459.67;
 
                     weatherIcon = '<i class="wi ' + wiclass + '"></i>';
-                    if (settings['static_weathericons'] == 0) {
+                    if (settings['static_weathericons'] === 0) {
                         weatherIcon = getSkycon(weather.weather[0].icon, 'skycon');
                     }
                     html += '<h2><span>' + Math.round(temp) + _TEMP_SYMBOL + '</span> ' + weatherIcon + '</h2>';
@@ -39,7 +39,7 @@ function loadWeatherFull(location, country) {
         $.getJSON(site, function (currentforecast) {
             $('.containsweatherfull').each(function () {
                 var curfull = $(this);
-                if (typeof(currentforecast.list) == 'undefined') {
+                if (typeof(currentforecast.list) === 'undefined') {
                     curfull.remove();
                 }
                 else {
@@ -51,7 +51,7 @@ function loadWeatherFull(location, country) {
                         var date = moment.unix(curfor.dt).locale(settings['calendarlanguage']);
                         var wiclass = getIcon(curfor.weather[0].icon);
                         var temp = curfor.main.temp-273.15;
-                        if (settings['use_fahrenheit'] == 1) {
+                        if (settings['use_fahrenheit'] === 1) {
                             var temp = (curfor.main.temp * 9/5) - 459.67;
                         }
 						var rain = 0;
@@ -61,7 +61,7 @@ function loadWeatherFull(location, country) {
 							}
 						}
                         html = '<div class="day">' + date.format('HH')+':' +date.format('mm') + '<br />' + date.format(settings['weekday']) + '</div>';
-                        if (settings['static_weathericons'] == 1) html += '<div class="icon"><i class="wi ' + wiclass + '"></i></div>';
+                        if (settings['static_weathericons'] === 1) html += '<div class="icon"><i class="wi ' + wiclass + '"></i></div>';
                         else html += getSkycon(curfor.weather[0].icon, 'skycon');
                         html += '<div class="temp"><span class="av_temp">' + Math.round(temp) + _TEMP_SYMBOL + '</span><span class="rain">' + (Math.round(rain*100)/100) + " mm" + '</span></div>';
 
