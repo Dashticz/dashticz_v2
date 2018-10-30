@@ -183,6 +183,7 @@
             "wu_name": "Weergavenaam",
             "owm_api": "Open Weather Map API-Sleutel",
             "owm_city": "Open Weather Map Station (Stad of Code)",
+            "owm_cnt": "Open Weather Map voorspelling tellen (4 - 40)",
             "owm_country": "Open Weather Map Land",
             "owm_name": "Weergavenaam Open Weather Map"
         }

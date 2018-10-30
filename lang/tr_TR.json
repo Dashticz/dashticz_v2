@@ -183,6 +183,7 @@
             "wu_name": "Görüntü Adı",
             "owm_api": "Open Weather Map API Anahtarı",
             "owm_city": "Open Weather Map İstasyonu (Şehir veya Kod)",
+            "owm_cnt": "Open Weather Map tahmin sayısı (4 - 40)",
             "owm_country": "Open Weather Map Ülke",
             "owm_name": "Görüntü Adı Open Weather Map"
         }

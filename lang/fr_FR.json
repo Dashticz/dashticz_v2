@@ -183,6 +183,7 @@
             "wu_name": "Nom D'Affichage",
             "owm_api": "Open Weather Map API Key",
             "owm_city": "Open Weather Map Station (Ville ou Code)",
+            "owm_cnt": "Open Weather Map nombre de prévisions (4 - 40)",
             "owm_country": "Open Weather Map Pays",
             "owm_name": "Nom D'Affichage Open Weather Map"
         }

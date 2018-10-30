@@ -2,21 +2,28 @@ function loadWeather(location, country) {
     var html = '';
     if (typeof(settings['owm_api']) !== 'undefined' && settings['owm_api'] !== '' && settings['owm_api'] !== 0) {
 		var site = 'http://api.openweathermap.org/data/2.5/weather?q=' + settings['owm_city'] + ',' + settings['owm_country'] + '&appid=' + settings['owm_api'];
+
+        if (settings['use_fahrenheit'] === 1) {
+            site += '&units=imperial';
+        }
+        else {
+            site += '&units=metric';
+        }
+
         $.getJSON(site, function (weather) {
             $('.containsweather').each(function () {
                 var curfull = $(this);
-                if (typeof(weather.main) == 'undefined') {
+                if (typeof(weather.main) === 'undefined') {
                     curfull.remove();
                     currentweather = false;
                     curfull.find('.weather').html('<p style="font-size:10px; width:100px;">Location ERROR</p>');
                 } else {
                     currentweather = weather.weather[0];
                     var wiclass = getIcon(weather.weather[0].icon);
-                    var temp = weather.main.temp-273.15;
-                    if (settings['use_fahrenheit'] == 1) temp = (weather.main.temp * 9/5) - 459.67;
+                    var temp = weather.main.temp;
 
                     weatherIcon = '<i class="wi ' + wiclass + '"></i>';
-                    if (settings['static_weathericons'] == 0) {
+                    if (settings['static_weathericons'] === 0) {
                         weatherIcon = getSkycon(weather.weather[0].icon, 'skycon');
                     }
                     html += '<h2><span>' + Math.round(temp) + _TEMP_SYMBOL + '</span> ' + weatherIcon + '</h2>';
@@ -33,40 +40,47 @@ function loadWeather(location, country) {
 
 function loadWeatherFull(location, country) {
     if (typeof(settings['owm_api']) !== 'undefined' && settings['owm_api'] !== '' && settings['owm_api'] !== 0) {
-        $('div.containsweatherfull').html('<div class="weatherfull"><div class="col-xs-2 transbg"></div><div class="col-xs-2 transbg"></div><div class="col-xs-2 transbg"></div><div class="col-xs-2 transbg"></div><div class="col-xs-2 transbg"></div><div class="col-xs-2 transbg"></div></div>');
-		var site = 'http://api.openweathermap.org/data/2.5/forecast?q=' + settings['owm_city'] + ',' + settings['owm_country'] + '&appid=' + settings['owm_api'] + '&cnt=6';
+        var containsweatherfull = '<div class="col-xs-3 transbg"></div>'.repeat(settings['owm_cnt']);
+        $('div.containsweatherfull').html('<div class="weatherfull">' + containsweatherfull + '</div>');
+		var site = 'http://api.openweathermap.org/data/2.5/forecast?q=' + settings['owm_city'] + ',' + settings['owm_country'] + '&appid=' + settings['owm_api'] + '&cnt=' + settings['owm_cnt'];
+
+        if (settings['use_fahrenheit'] === 1) {
+            site += '&units=imperial';
+        }
+        else {
+            site += '&units=metric';
+        }
+
 		var html = '';
         $.getJSON(site, function (currentforecast) {
             $('.containsweatherfull').each(function () {
                 var curfull = $(this);
-                if (typeof(currentforecast.list) == 'undefined') {
+                if (typeof(currentforecast.list) === 'undefined') {
                     curfull.remove();
                 }
                 else {
-                    curfull.find(".weatherfull .col-xs-2").html('');
+                    curfull.find(".weatherfull .col-xs-3").html('');
                     var start = 0;
 
-                    for (var i = start; i < (start + 6); i++) {
+                    for (var i = start; i < (start + settings['owm_cnt']); i++) {
                         curfor = currentforecast.list[i];
                         var date = moment.unix(curfor.dt).locale(settings['calendarlanguage']);
                         var wiclass = getIcon(curfor.weather[0].icon);
-                        var temp = curfor.main.temp-273.15;
-                        if (settings['use_fahrenheit'] == 1) {
-                            var temp = (curfor.main.temp * 9/5) - 459.67;
-                        }
+                        var temp = curfor.main.temp;
+
 						var rain = 0;
 						if(typeof(curfor.rain) !== 'undefined'){
 							if(typeof(curfor.rain['3h']) !== 'undefined' ){
-								var rain = curfor.rain['3h'];
+								rain = curfor.rain['3h'];
 							}
 						}
                         html = '<div class="day">' + date.format('HH')+':' +date.format('mm') + '<br />' + date.format(settings['weekday']) + '</div>';
-                        if (settings['static_weathericons'] == 1) html += '<div class="icon"><i class="wi ' + wiclass + '"></i></div>';
+                        if (settings['static_weathericons'] === 1) html += '<div class="icon"><i class="wi ' + wiclass + '"></i></div>';
                         else html += getSkycon(curfor.weather[0].icon, 'skycon');
                         html += '<div class="temp"><span class="av_temp">' + Math.round(temp) + _TEMP_SYMBOL + '</span><span class="rain">' + (Math.round(rain*100)/100) + " mm" + '</span></div>';
 
                         curfull.find('.weatherfull').each(function () {
-                           $(this).find('.col-xs-2:eq(' + i + ')').html(html);
+                           $(this).find('.col-xs-3:eq(' + i + ')').html(html);
                         });
 
                     }

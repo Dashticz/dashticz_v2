@@ -183,6 +183,7 @@
             "wu_name": "Відображуване ім'я",
             "owm_api": "Open Weather Map Ключ під ключ під ключ",
             "owm_city": "Open Weather Map Станція підземелля (місто або код)",
+            "owm_cnt": "Open Weather Map прогнозний підрахунок (4 - 40)",
             "owm_country": "Open Weather Map Country",
             "owm_name": "Відображуване ім'я Open Weather Map"
         }

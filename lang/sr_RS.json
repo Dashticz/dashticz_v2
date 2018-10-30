@@ -183,6 +183,7 @@
             "wu_name": "Ime za prikaz",
             "owm_api": "Open Weather Map API Ključ",
             "owm_city": "Open Weather Map stanica (Grad ili kod)",
+            "owm_cnt": "Open Weather Map broj prognoze (4 - 40)",
             "owm_country": "Open Weather Map Država",
             "owm_name": "Ime za prikaz Open Weather Map"
         }

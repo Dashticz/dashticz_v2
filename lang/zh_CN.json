@@ -183,6 +183,7 @@
             "wu_name": "显示名称",
             "owm_api": "Open Weather Map API密钥",
             "owm_city": "Open Weather Map 站（城市或代码）",
+            "owm_cnt": "Open Weather Map 預測計數（4-40）",
             "owm_country": "Open Weather Map Country",
             "owm_name": "显示名称 Open Weather Map"
         }
