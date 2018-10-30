@@ -52,12 +52,12 @@ function loadWeatherFull(location, country) {
                         var wiclass = getIcon(curfor.weather[0].icon);
                         var temp = curfor.main.temp-273.15;
                         if (settings['use_fahrenheit'] === 1) {
-                            var temp = (curfor.main.temp * 9/5) - 459.67;
+                            temp = (curfor.main.temp * 9/5) - 459.67;
                         }
 						var rain = 0;
 						if(typeof(curfor.rain) !== 'undefined'){
 							if(typeof(curfor.rain['3h']) !== 'undefined' ){
-								var rain = curfor.rain['3h'];
+								rain = curfor.rain['3h'];
 							}
 						}
                         html = '<div class="day">' + date.format('HH')+':' +date.format('mm') + '<br />' + date.format(settings['weekday']) + '</div>';
