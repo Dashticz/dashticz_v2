@@ -2,6 +2,14 @@ function loadWeather(location, country) {
     var html = '';
     if (typeof(settings['owm_api']) !== 'undefined' && settings['owm_api'] !== '' && settings['owm_api'] !== 0) {
 		var site = 'http://api.openweathermap.org/data/2.5/weather?q=' + settings['owm_city'] + ',' + settings['owm_country'] + '&appid=' + settings['owm_api'];
+
+        if (settings['use_fahrenheit'] === 1) {
+            site += '&units=imperial';
+        }
+        else {
+            site += '&units=metric';
+        }
+
         $.getJSON(site, function (weather) {
             $('.containsweather').each(function () {
                 var curfull = $(this);
@@ -12,8 +20,7 @@ function loadWeather(location, country) {
                 } else {
                     currentweather = weather.weather[0];
                     var wiclass = getIcon(weather.weather[0].icon);
-                    var temp = weather.main.temp-273.15;
-                    if (settings['use_fahrenheit'] === 1) temp = (weather.main.temp * 9/5) - 459.67;
+                    var temp = weather.main.temp;
 
                     weatherIcon = '<i class="wi ' + wiclass + '"></i>';
                     if (settings['static_weathericons'] === 0) {
@@ -35,6 +42,14 @@ function loadWeatherFull(location, country) {
     if (typeof(settings['owm_api']) !== 'undefined' && settings['owm_api'] !== '' && settings['owm_api'] !== 0) {
         $('div.containsweatherfull').html('<div class="weatherfull"><div class="col-xs-2 transbg"></div><div class="col-xs-2 transbg"></div><div class="col-xs-2 transbg"></div><div class="col-xs-2 transbg"></div><div class="col-xs-2 transbg"></div><div class="col-xs-2 transbg"></div></div>');
 		var site = 'http://api.openweathermap.org/data/2.5/forecast?q=' + settings['owm_city'] + ',' + settings['owm_country'] + '&appid=' + settings['owm_api'] + '&cnt=6';
+
+        if (settings['use_fahrenheit'] === 1) {
+            site += '&units=imperial';
+        }
+        else {
+            site += '&units=metric';
+        }
+
 		var html = '';
         $.getJSON(site, function (currentforecast) {
             $('.containsweatherfull').each(function () {
@@ -50,10 +65,8 @@ function loadWeatherFull(location, country) {
                         curfor = currentforecast.list[i];
                         var date = moment.unix(curfor.dt).locale(settings['calendarlanguage']);
                         var wiclass = getIcon(curfor.weather[0].icon);
-                        var temp = curfor.main.temp-273.15;
-                        if (settings['use_fahrenheit'] === 1) {
-                            temp = (curfor.main.temp * 9/5) - 459.67;
-                        }
+                        var temp = curfor.main.temp;
+
 						var rain = 0;
 						if(typeof(curfor.rain) !== 'undefined'){
 							if(typeof(curfor.rain['3h']) !== 'undefined' ){
