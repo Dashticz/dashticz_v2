@@ -57,8 +57,8 @@ function loadWeatherFull(location, country) {
                         var lowtemp = curfor.low.celsius
                         var hightemp = curfor.high.celsius;
                         if (settings['use_fahrenheit'] === 1) {
-                            var lowtemp = curfor.low.fahrenheit
-                            var hightemp = curfor.high.fahrenheit;
+                            lowtemp = curfor.low.fahrenheit
+                            hightemp = curfor.high.fahrenheit;
                         }
 
                         html = '<div class="day">' + date.format(settings['weekday']) + '<br />' + date.format(settings['shortdate']) + '</div>';
