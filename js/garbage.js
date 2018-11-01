@@ -28,7 +28,7 @@ function loadGarbage() {
 
 function getPrefixUrl() {
     if (settings['garbage_use_cors_prefix']) {
-        return settings['default_cors_url'];
+        return _CORS_PATH;
     }
     return '';
 }
@@ -215,6 +215,11 @@ function getAfvalwijzerArnhemData(address, date, random) {
 }
 
 function getGeneralData(service,address, date, random, subservice){
+  if(!_PHP_INSTALLED) {
+    console.error("Domoticz error!\nGarbage requires a PHP enabled web server.");
+    infoMessage('<font color="red">Domoticz error!', 'Garbage requires a PHP enabled web server</font>', 0);
+    return;
+  }
   var cURI = settings['dashticz_php_path']+'garbage/?service='+service+'&sub='+subservice+'&zipcode=' + address.zipcode + '&nr=' + address.housenumber + '&t=' + address.housenumberSuffix;
 	$.getJSON(cURI, function (data) {
 		 data = data

@@ -4,7 +4,7 @@ var allchannels = [];
 function addTVGuide(tvobject, tvObjorg) {
     if (typeof(allchannels[1]) === 'undefined') {
         var cache = new Date().getTime();
-        curUrl=settings['default_cors_url']+'https://www.tvgids.nl/json/lists/channels.php';
+        curUrl=_CORS_PATH+'https://www.tvgids.nl/json/lists/channels.php';
         $.getJSON(curUrl, function (channels, textstatus, jqXHR) {
             for (num in channels) {
                 allchannels[channels[num]['id']] = channels[num]['name'];
@@ -33,7 +33,7 @@ function addTVGuide2(tvobject, tvObjorg) {
 
         var cache = new Date().getTime();
 
-        curUrl=settings['default_cors_url']+'http://www.tvgids.nl/json/lists/programs.php?day=0&channels=' + tvObj.channels.join(',') + '&time=' + cache;
+        curUrl= _CORS_PATH +'http://www.tvgids.nl/json/lists/programs.php?day=0&channels=' + tvObj.channels.join(',') + '&time=' + cache;
         moment.locale(settings['calendarlanguage']);
         $.getJSON(curUrl, function (data, textstatus, jqXHR) {
 

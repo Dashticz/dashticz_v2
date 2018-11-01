@@ -8,7 +8,7 @@ function getNews(divToFill, newsfeed) {
     if (typeof(settings['default_news_url']) !== 'undefined') {
         // Some RSS feed doesn't load trough crossorigin.me or vice versa
         //$.ajax('https://crossorigin.me/'+newsfeed, {
-        $.ajax(newsfeed, {
+        $.ajax(_CORS_PATH + newsfeed, {
             accepts: {
                 xml: 'application/rss+xml'
             },

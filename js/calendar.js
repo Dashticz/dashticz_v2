@@ -1,6 +1,11 @@
 var recurring = {};
 
 function addCalendar(calobject, icsUrlorg) {
+  if(!_PHP_INSTALLED) {
+    console.error("Domoticz error!\nCalendar requires a PHP enabled web server.");
+    infoMessage('<font color="red">Domoticz error!', 'Calendar requires a PHP enabled web server</font>', 0);
+    return;
+  }
     if (typeof(icsUrlorg.calendars) == 'undefined') {
         var icsUrl = {};
         icsUrl.calendars = [];

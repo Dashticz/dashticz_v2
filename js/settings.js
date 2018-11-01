@@ -468,6 +468,7 @@ settingList['about']['about_text4'] = {};
 settingList['about']['about_text4']['title'] = 'If you have any issues you can report them in our community thread <a href="https://www.domoticz.com/forum/viewtopic.php?f=67&t=17427" target="_blank">Bug report</a>.'
 
 var settings = {};
+var _CORS_PATH = '';
 doneSettings = false;
 if (typeof(Storage) !== "undefined") {
     $.each(localStorage, function (key, value) {
@@ -499,7 +500,6 @@ if (typeof(settings['pass_word']) === 'undefined') settings['pass_word'] = '';
 if (typeof(settings['app_title']) === 'undefined') settings['app_title'] = 'Dashticz';
 if (typeof(settings['domoticz_refresh']) === 'undefined') settings['domoticz_refresh'] = 5;
 if (typeof(settings['dashticz_refresh']) === 'undefined') settings['dashticz_refresh'] = 60;
-if (typeof(settings['default_cors_url']) === 'undefined') settings['default_cors_url'] = 'https://cors-anywhere.herokuapp.com/';
 if (typeof(settings['dashticz_php_path']) === 'undefined') settings['dashticz_php_path'] = './vendor/dashticz/';
 if (typeof(settings['wu_api']) === 'undefined') settings['wu_api'] = '';
 if (typeof(settings['wu_country']) === 'undefined') settings['wu_country'] = 'NL';
@@ -597,6 +597,7 @@ var _TEMP_SYMBOL = '°C';
 if (settings['use_fahrenheit'] === 1) _TEMP_SYMBOL = '°F';
 
 var phpversion = '<br>PHP not installed!!';
+var _PHP_INSTALLED = false;
 
 $.ajax({
     url: settings['dashticz_php_path']+'info.php?get=phpversion',
@@ -604,8 +605,25 @@ $.ajax({
     dataType: 'json',
     success: function (data) {
         phpversion = '<br> PHP version: ' + data;
-                }
+        _PHP_INSTALLED = true;
+      },
+    error: function () {
+      console.log('PHP not installed.');
+    }
 });
+
+if (typeof(settings['default_cors_url'])==='undefined') {
+  if(_PHP_INSTALLED)
+    _CORS_PATH = settings['dashticz_php_path']+'cors.php?'
+  else {
+    _CORS_PATH = 'https://cors-anywhere.herokuapp.com/';
+    console.log('PHP not enabled and default_cors_url not set.');
+    console.log('CORS proxy: ' + _CORS_PATH);
+  }
+//    _CORS_PATH = 'http://192.168.178.18:8081/';
+}
+else
+  _CORS_PATH = settings['default_cors_url'];
 
 settingList['about']['about_text5'] = {};
 settingList['about']['about_text5']['title'] = domoversion + dzVents + python + phpversion;
