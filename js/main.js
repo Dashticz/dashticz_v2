@@ -1183,10 +1183,8 @@ function getDevices(override) {
                     }
                     //Add all variables to device table
                     for(v in allVariables) {
-                      console.log(allVariables[v])
                       data.result.push(allVariables[v]);            
                     }
-                    console.log(data.result);
                     for (r in data.result) {
                         var device = data.result[r];
                         var idx = device['idx'];
