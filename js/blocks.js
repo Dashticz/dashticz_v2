@@ -42,6 +42,7 @@ blocktypes.Type['Temp'] = {
 };
 blocktypes.Type['Air Quality'] = {image: 'air.png', title: '<Name>', value: '<Data>'};
 blocktypes.Type['UV'] = {icon: 'fas fa-sun', title: '<Name>', value: '<Data>'};
+blocktypes.Type['Variable'] = {icon: 'fas fa-equals', title: '<Name>', value: '<Value>'};
 
 blocktypes.HardwareType = {};
 blocktypes.HardwareType['Motherboard sensors'] = {icon: 'fas fa-desktop', title: '<Name>', value: '<Data>'};
