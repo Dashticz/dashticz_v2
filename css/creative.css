@@ -186,6 +186,14 @@
 	border-bottom: 0px !important;
 }
 
+.customframe {
+margin: 0;
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+}
+
 .modal-body {
     position: relative;
     padding: 0px 0px 0px 0px;
