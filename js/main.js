@@ -550,6 +550,46 @@ function playAudio(file) {
     }
 }
 
+function createModalDialog(dialogClass, dialogId, myFrame) {
+    var setWidth = false;
+    var setHeight = false;
+    var mySetUrl = 'data-popup';
+    if (typeof(myFrame.framewidth) !== 'undefined') {
+      mywidth = myFrame.framewidth;
+      setWidth = true;
+      if(typeof(mywidth)==='number')
+        mywidth = mywidth + 'px'; 
+    }
+    if (typeof(myFrame.frameheight) !== 'undefined'){
+      myheight = myFrame.frameheight;
+      setHeight = true;
+      if(typeof(myheight)==='number')
+        myheight = myheight + 'px'; 
+    }
+    var html = '<div class="modal fade ' + dialogClass  + '" id="' + dialogId + '" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
+
+    html += '<div class="modal-dialog modal-dialog-custom" style="' 
+    html += setWidth ? 'width: ' + mywidth + '; ' : '';
+    html += '" >';
+
+    html += '<div class="modal-content">';
+    html += '<div class="modal-header frameclose">';
+    html += '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
+    html += '</div>';
+    html += '<div class="modal-body modalframe">';
+    if(dialogClass==='openpopup') {
+      mySetUrl = 'src';
+    }
+    html += '<iframe class="popupheight" ' + mySetUrl + '="' + myFrame.url + '" width="100%" height="100%" frameborder="0" allowtransparency="true" style="'
+    html += setHeight ? 'height: ' + myheight + '; ' : '';
+    html += '" ></iframe> ';
+    html += '</div>';
+    html += '</div>';
+    html += '</div>';
+    html += '</div>';
+    return html;
+}
+
 function triggerStatus(idx, value, device) {
     try {
         eval('getStatus_' + idx + '(idx,value,device)');
@@ -576,19 +616,8 @@ function triggerStatus(idx, value, device) {
 		var random = getRandomInt(1, 100000);
 		$('.modal.openpopup,.modal-backdrop').remove();
 
-		var html = '<div class="modal fade openpopup" id="popup_' + random + '" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
-		html += '<div class="modal-dialog">';
-		html += '<div class="modal-content">';
-		html += '<div class="modal-header">';
-		html += '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
-		html += '</div>';
-		html += '<div class="modal-body">';
-		html += '<iframe src="' + blocks[idx]['openpopupOn']['url'] + '" width="100%" height="570" frameborder="0" allowtransparency="true"></iframe> ';
-		html += '</div>';
-		html += '</div>';
-		html += '</div>';
-		html += '</div>';
-		$('body').append(html);
+    $('body').append(createModalDialog('openpopup', 'popup_' + random,blocks[idx]['openpopupOn']));
+
 		$('#popup_' + random).modal('show');
 
 		if (typeof(blocks[idx]['openpopupOn']['auto_close']) !== 'undefined') {
@@ -617,19 +646,8 @@ function triggerStatus(idx, value, device) {
 		var random = getRandomInt(1, 100000);
 		$('.modal.openpopup,.modal-backdrop').remove();
 
-		var html = '<div class="modal fade openpopup" id="popup_' + random + '" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
-		html += '<div class="modal-dialog">';
-		html += '<div class="modal-content">';
-		html += '<div class="modal-header">';
-		html += '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
-		html += '</div>';
-		html += '<div class="modal-body">';
-		html += '<iframe src="' + blocks[idx]['openpopupOff']['url'] + '" width="100%" height="570" frameborder="0" allowtransparency="true"></iframe> ';
-		html += '</div>';
-		html += '</div>';
-		html += '</div>';
-		html += '</div>';
-		$('body').append(html);
+    $('body').append(createModalDialog('openpopup', 'popup_' + random, blocks[idx]['openpopupOff']));
+
 		$('#popup_' + random).modal('show');
 
 		if (typeof(blocks[idx]['openpopupOff']['auto_close']) !== 'undefined') {
@@ -665,19 +683,8 @@ function triggerChange(idx, value, device) {
             var random = getRandomInt(1, 100000);
             $('.modal.openpopup,.modal-backdrop').remove();
 
-            var html = '<div class="modal fade openpopup" id="popup_' + random + '" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
-            html += '<div class="modal-dialog">';
-            html += '<div class="modal-content">';
-            html += '<div class="modal-header">';
-            html += '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
-            html += '</div>';
-            html += '<div class="modal-body">';
-            html += '<iframe src="' + blocks[idx]['openpopup']['url'] + '" width="100%" height="570" frameborder="0" allowtransparency="true"></iframe> ';
-            html += '</div>';
-            html += '</div>';
-            html += '</div>';
-            html += '</div>';
-            $('body').append(html);
+            $('body').append(createModalDialog('openpopup', 'popup_' + random, blocks[idx]['openpopup']));
+
             $('#popup_' + random).modal('show');
 
             if (typeof(blocks[idx]['openpopup']['auto_close']) !== 'undefined') {
@@ -715,19 +722,8 @@ function loadMaps(b, map) {
     var random = getRandomInt(1, 100000);
 
     if (typeof(map.link) !== 'undefined') {
-        var html = '<div class="modal fade" id="trafficmap_frame_' + b + '" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
-        html += '<div class="modal-dialog">';
-        html += '<div class="modal-content">';
-        html += '<div class="modal-header">';
-        html += '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
-        html += '</div>';
-        html += '<div class="modal-body">';
-        html += '<iframe data-popup="' + map.link + '" width="100%" height="570" frameborder="0" allowtransparency="true"></iframe> ';
-        html += '</div>';
-        html += '</div>';
-        html += '</div>';
-        html += '</div>';
-        $('body').append(html);
+      map['url'] = map.link;
+      $('body').append(createModalDialog('','trafficmap_frame_' + b, map));
     }
 
     var key = 'UNKNOWN';
@@ -750,20 +746,7 @@ function loadMaps(b, map) {
 function loadButton(b, button) {
     var random = getRandomInt(1, 100000);
     if ($('#button_' + b).length == 0) {
-        var html = '<div class="modal fade" id="button_' + b + '_' + random + '" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
-        html += '<div class="modal-dialog">';
-        html += '<div class="modal-content">';
-        html += '<div class="modal-header">';
-        html += '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
-        html += '</div>';
-        html += '<div class="modal-body">';
-        html += '<iframe data-popup="' + button.url + '" width="100%" height="570" frameborder="0" allowtransparency="true"></iframe> ';
-        html += '</div>';
-        html += '</div>';
-        html += '</div>';
-        html += '</div>';
-        $('body').append(html);
-
+        $('body').append(createModalDialog('','button_' + b + '_' + random, button));
         if (button.log == true) {
             if (typeof(getLog) !== 'function') $.ajax({url: 'js/log.js', async: false, dataType: 'script'});
             $('#button_' + b + '_' + random + ' .modal-body').html('');
@@ -851,19 +834,7 @@ function loadImage(i, image) {
     }
 
     if ($('.imgblockopens' + i).length == 0 && typeof(image.url) !== 'undefined') {
-        var html = '<div class="modal fade imgblockopens' + i + '" id="' + i + '" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
-        html += '<div class="modal-dialog">';
-        html += '<div class="modal-content">';
-        html += '<div class="modal-header">';
-        html += '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
-        html += '</div>';
-        html += '<div class="modal-body">';
-        html += '<iframe data-popup="' + image.url + '" width="100%" height="570" frameborder="0" allowtransparency="true"></iframe> ';
-        html += '</div>';
-        html += '</div>';
-        html += '</div>';
-        html += '</div>';
-        $('body').append(html);
+        $('body').append(createModalDialog('imgblockopens' + i, i, image));
     }
 
     var key = 'UNKNOWN';

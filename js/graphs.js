@@ -121,9 +121,9 @@ function getGraphByIDX(idx) {
 function getButtonGraphs(device) {
     if ($('#opengraph' + device['idx']).length === 0) {
         var html = '<div class="modal fade opengraph' + device['idx'] + '" data-idx="' + device['idx'] + '" id="opengraph' + device['idx'] + '" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
-        html += '<div class="modal-dialog">';
+        html += '<div class="modal-dialog graphwidth">';
         html += '<div class="modal-content">';
-        html += '<div class="modal-header">';
+        html += '<div class="modal-header graphclose">';
         html += '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
         html += '</div>';
         html += '<div class="modal-body block_graphpopup_' + device['idx'] + '">' + language.misc.loading;
@@ -186,7 +186,7 @@ function showGraph(idx, title, label, range, current, forced, sensor, popup) {
 
                 var html = '<div class="graph' + (popup ? 'popup' : '')  + '" id="graph' + idx + '">';
                 html += '<div class="transbg col-xs-12">';
-                html += title + '<br /><div style="margin-left:15px;">' + buttons + '</div><br /><div id="graphoutput' + idx + '"></div>';
+                html += title + '<br /><div style="margin-left:15px;">' + buttons + '</div><br /><div ' + (popup ? 'class="graphheight" ':'') +  'id="graphoutput' + idx + '"></div>';
                 html += '</div>';
                 html += '</div>';
 
