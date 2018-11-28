@@ -1,6 +1,6 @@
 function getTraffic() {
 
-    var rssurl = settings['default_cors_url'] + 'http://www.vid.nl/VI/_rss';
+    var rssurl = _CORS_PATH + 'http://www.vid.nl/VI/_rss';
 
     $.ajax(rssurl, {
         accepts: {

@@ -2264,13 +2264,15 @@ function addSlider(idx, sliderValues) {
         step: sliderValues.step,
         min: sliderValues.min,
         max: sliderValues.max,
-        slide: function (event, ui) {
+        start: function (event, ui) {
             sliding = true;
-            slideDevice($(this).data('light'), ui.value);
+            slideDeviceExt($(this).data('light'), ui.value,0);
+        },
+        slide: function (event, ui) {
+            slideDeviceExt($(this).data('light'), ui.value,1);
         },
         change: function (event, ui) {
-            sliding = true;
-            slideDevice($(this).data('light'), ui.value);
+            slideDeviceExt($(this).data('light'), ui.value,2);
         },
         stop: function (event, ui) {
             sliding = false;
