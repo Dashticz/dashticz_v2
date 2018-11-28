@@ -1098,8 +1098,12 @@ function getDevices(override) {
             url: settings['domoticz_ip'] + '/json.htm?'+usrinfo+'type=devices&plan=' + settings['room_plan'] + '&filter=all&used=true&order=Name',
             type: 'GET', async: true, contentType: "application/json",
             error: function (jqXHR, textStatus) {
-                console.error("Domoticz error!\nPlease, double check the path to Domoticz in Settings!");
-				infoMessage('<font color="red">Domoticz error!', 'double check the path to Domoticz in Settings!</font>', 0);
+                if(typeof(textStatus)!=='undefined' && textStatus === 'abort') {
+                  console.log('Domoticz request cancelled')
+                } else {
+                  console.error("Domoticz error code: " + jqXHR.status + ' ' + textStatus + "!\nPlease, double check the path to Domoticz in Settings!");
+				          infoMessage('<font color="red">Domoticz error code: ' + jqXHR.status + '!', 'double check the path to Domoticz in Settings!</font>');
+                }
             },
             success: function (data) {
 
