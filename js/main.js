@@ -833,13 +833,15 @@ function reloadFrame(i, frame) {
 
     if (typeof(frame.frameurl) !== 'undefined') {
         var img = frame.frameurl;
-        if (img.indexOf("?") != -1) var sep = '&';
+        if(img.indexOf("forecast.io")==-1) {
+            if (img.indexOf("?") != -1) var sep = '&';
 
-        if (img.indexOf("?") != -1) {
-            var newimg = img.split(sep + 't=');
-            img = newimg;
+            if (img.indexOf("?") != -1) {
+                var newimg = img.split(sep + 't=');
+                img = newimg;
+            }
+            img += sep + 't=' + (new Date()).getTime();
         }
-        img += sep + 't=' + (new Date()).getTime();
     }
 
     $('.imgblock' + i).find('iframe').attr('src', img);
