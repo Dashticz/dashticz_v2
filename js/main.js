@@ -855,34 +855,17 @@ function loadImage(i, image) {
     }
 
     if ($('.imgblockopens' + i).length == 0 && typeof(image.url) !== 'undefined') {
-        var mywidth = '100%';
-        var myheight = '570';
-        var customFrame = false;
-        if (typeof(image.framewidth) !== 'undefined') {
-          mywidth = image.framewidth;
-          customFrame = true;
-        }
-        if (typeof(image.frameheight) !== 'undefined'){
-          myheight = image.frameheight;
-          customFrame = true;
-        }
         var html = '<div class="modal fade imgblockopens' + i + '" id="' + i + '" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
-        if(customFrame) {
-          html += '<iframe class="customframe" data-popup="' + image.url + '" width="' + mywidth + '" height="' + myheight + '" frameborder="0" allowtransparency="true"></iframe> ';          
-        }
-        else {
-            html += '<div class="modal-dialog">';
-            html += '<div class="modal-content">';
-            html += '<div class="modal-header">';
-            html += '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
-            html += '</div>';
-            html += '<div class="modal-body">';
-            html += '<iframe data-popup="' + image.url + '" width="' + mywidth + '" height="' + myheight + '" frameborder="0" allowtransparency="true"></iframe> ';
-            html += '</div>';
-            html += '</div>';
-            html += '</div>';
-          
-        }
+        html += '<div class="modal-dialog">';
+        html += '<div class="modal-content">';
+        html += '<div class="modal-header">';
+        html += '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
+        html += '</div>';
+        html += '<div class="modal-body">';
+        html += '<iframe data-popup="' + image.url + '" width="100%" height="570" frameborder="0" allowtransparency="true"></iframe> ';
+        html += '</div>';
+        html += '</div>';
+        html += '</div>';
         html += '</div>';
         $('body').append(html);
     }
