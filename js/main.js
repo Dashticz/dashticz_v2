@@ -1099,7 +1099,7 @@ function getDevices(override) {
             type: 'GET', async: true, contentType: "application/json",
             error: function (jqXHR, textStatus) {
                 console.error("Domoticz error!\nPlease, double check the path to Domoticz in Settings!");
-				infoMessage('<font color="red">Domoticz error!', 'double check the path to Domoticz in Settings!</font>', 0);
+				/*infoMessage('<font color="red">Domoticz error!', 'double check the path to Domoticz in Settings!</font>', 0);*/
             },
             success: function (data) {
 
