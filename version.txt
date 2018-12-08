@@ -1,8 +1,10 @@
 {
-"version": "2.4.7",
+"version": "2.5.1",
 "branch": "beta",
-"last_changes": "Addition of internal PHP based cors proxy",
+"last_changes": "Fix for TV Guide",
 "changelog" : {
+            "2.5.0": "New beta",
+            "2.4.7": "Addition of internal PHP based cors proxy",
             "2.4.6": "Small change in garbage name mapping rules to support Dordrecht",
             "2.4.5": "Fix for cross origin issues with php",
             "2.4.4": "Fix HVC garbage data",
