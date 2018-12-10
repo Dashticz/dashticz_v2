@@ -131,7 +131,6 @@ function switchScene(cur) {
 function slideDevice(idx, status) {
     if (typeof(slide) !== 'undefined') slide.abort();
 
-    var doStatus = 'On';
     $('.block_' + idx).find('.icon').removeClass('off');
     $('.block_' + idx).find('.icon').addClass('on');
 
@@ -148,6 +147,66 @@ function slideDevice(idx, status) {
             getDevices(true);
         }
     });
+}
+
+
+
+/*
+The following slider functions are used to set the slider while sliding.
+On the first change an async request is send to Domoticz.
+On succuueding changes first itś checked whether the previous request did finish.
+If not, the new value is buffered, and will be send by sliderCallback after the previous request finished..
+*/
+
+var sliderAction = {
+  "state" : "idle",
+  "idx" : 0,
+  "value" : 0,
+  "request" : 0
+}
+
+function sliderSetValue(p_idx, p_value, p_Callback) {
+    return $.ajax({
+        url: settings['domoticz_ip'] + '/json.htm?username=' + usrEnc + '&password=' + pwdEnc + '&type=command&param=switchlight&idx=' + p_idx + '&switchcmd=Set%20Level&level=' + p_value + '&jsoncallback=?',
+        type: 'GET', async: true, contentType: 'application/json', dataType: 'jsonp',
+        success: function (data) {
+                p_Callback();
+        }  
+      });
+}
+
+function sliderCallback() {
+  if (sliderAction.state == "set") { //check whether we have to set another value
+    sliderAction.request = sliderSetValue(sliderAction.idx, sliderAction.value, sliderCallback);
+    sliderAction.state = "idle";
+  }
+}
+
+function slideDeviceExt(idx, value, sliderState) {
+    if(sliderState==0) { //start sliding 
+        $('.block_' + idx).find('.icon').removeClass('off');
+        $('.block_' + idx).find('.icon').addClass('on');
+
+        if ($('.block_' + idx).find('.fa-toggle-off').length > 0) {
+            $('.block_' + idx).find('.fa-toggle-off').addClass('fa-toggle-on').removeClass('fa-toggle-off');
+        }
+  
+        $('.block_' + idx).find('.state').html(language.switches.state_on);
+    
+        sliderAction.request = sliderSetValue(idx, value, sliderCallback);
+        return;
+      }
+      if(sliderState==1 || sliderState == 2) { //sliding or change at the end
+          if(sliderAction.request.readyState == 4) {
+            sliderAction.request = sliderSetValue(idx, value, sliderCallback);
+          }
+          else {
+             sliderAction.state = 'set';
+             sliderAction.idx = idx;
+             sliderAction.value = value;
+           }
+          return;
+      }
 }
 
 function ziggoRemote(key) {
