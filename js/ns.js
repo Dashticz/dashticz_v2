@@ -1,5 +1,5 @@
 function getTrainInfo() {
-    var rssurl = settings['default_cors_url'] + 'https://www.rijdendetreinen.nl/rss/';
+    var rssurl = _CORS_PATH + 'https://www.rijdendetreinen.nl/rss/';
 
     $.ajax(rssurl, {
         accepts: {

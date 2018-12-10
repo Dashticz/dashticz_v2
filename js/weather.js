@@ -1,7 +1,7 @@
 function loadWeather(location, country) {
     var html = '';
     if (typeof(settings['wu_api']) !== 'undefined' && settings['wu_api'] !== '' && settings['wu_api'] !== 0) {
-        $.getJSON(settings['default_cors_url'] + 'https://api.wunderground.com/api/' + settings['wu_api'] + '/conditions/q/' + country + '/' + location + '.json', function (weather) {
+        $.getJSON(_CORS_PATH + 'https://api.wunderground.com/api/' + settings['wu_api'] + '/conditions/q/' + country + '/' + location + '.json', function (weather) {
 
             $('.containsweather').each(function () {
                 var curfull = $(this);
@@ -36,7 +36,7 @@ function loadWeatherFull(location, country) {
         $('div.containsweatherfull').html('<div class="weatherfull"><div class="col-xs-3 transbg"></div><div class="col-xs-3 transbg"></div><div class="col-xs-3 transbg"></div><div class="col-xs-3 transbg"></div></div>');
 
         var html = '';
-        $.getJSON(settings['default_cors_url'] + 'https://api.wunderground.com/api/' + settings['wu_api'] + '/forecast10day/q/' + country + '/' + location + '.json', function (currentforecast) {
+        $.getJSON(_CORS_PATH + 'https://api.wunderground.com/api/' + settings['wu_api'] + '/forecast10day/q/' + country + '/' + location + '.json', function (currentforecast) {
             $('.containsweatherfull').each(function () {
                 var curfull = $(this);
                 if (typeof(currentforecast.forecast) === 'undefined') {

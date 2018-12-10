@@ -247,7 +247,7 @@ function handleStringBlock(block, columndiv, width, c) {
             return;
 		case 'longfonds':
 			$(columndiv).append('<div data-id="longfonds" class="mh transbg block_longfonds col-xs-'+width+'"></div>');
-			$.getJSON(settings['default_cors_url'] + 'https://www.longfonds.nl/gezondelucht/api/zipcode-check?zipcode='+settings['longfonds_zipcode']+'&houseNumber='+settings['longfonds_housenumber'],function(data){
+			$.getJSON(_CORS_PATH + 'https://www.longfonds.nl/gezondelucht/api/zipcode-check?zipcode='+settings['longfonds_zipcode']+'&houseNumber='+settings['longfonds_housenumber'],function(data){
 				var stateBlock = '<div class="col-xs-4 col-icon">';
 				stateBlock += '<em class="fas fa-cloud"></em>';
 				stateBlock += '</div>';
