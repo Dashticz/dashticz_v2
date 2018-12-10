@@ -237,6 +237,20 @@ function getGeneralData(service,address, date, random, subservice){
 	});
 }
 
+function getKatwijkData(address, date, random, fetchType) {
+    var prefix = 'https://afval.katwijk.nl/';
+    $.post(getPrefixUrl() + prefix + 'nc/afvalkalender/', {
+      'tx_windwastecalendar_pi1[action]': 'search',
+      'tx_windwastecalendar_pi1[controller]': 'Zipcode',
+      'tx_windwastecalendar_pi1[Hash]': '40c183c983706ba359f1122b44881a5e',
+        'tx_windwastecalendar_pi1[zipcode]': address.zipcode,
+        'tx_windwastecalendar_pi1[housenumber]': address.housenumber,
+    }, function (data) {
+                var elementHref = $(data).find('.ical .link a').attr('href');
+                return getIcalData(address, date, random, prefix + elementHref);
+    });
+}
+
 function getZuidhornData(address, date, random, fetchType) {
     var prefix = 'https://afvalkalender.zuidhorn.nl/';
 
@@ -485,6 +499,7 @@ function loadDataForService(service, random) {
         afvalwijzerarnhem: {dataHandler: 'getAfvalwijzerArnhemData', identifier: ''},
         zuidhornical: {dataHandler: 'getZuidhornData', identifier: 'ical'},
         zuidhorn: {dataHandler: 'getZuidhornData', identifier: 'scrape'},
+        katwijk: {dataHandler: 'getKatwijkData', identifier: ''},
         deafvalapp: {dataHandler: 'getDeAfvalAppData', identifier: ''},
         cure: {dataHandler: 'getAfvalstromenData', identifier: 'cure'},
         cyclusnv: {dataHandler: 'getAfvalstromenData', identifier: 'cyclusnv'},
