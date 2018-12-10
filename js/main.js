@@ -32,6 +32,7 @@ var _DECIMAL_POINT = ',';
 var _STANDBY_CALL_URL = '';
 var _END_STANDBY_CALL_URL = '';
 var lastGetDevicesTime = 0;
+var allVariables = {};
 
 function loadFiles() {
     $.ajax({url: customfolder + '/CONFIG.js', async: false, dataType: 'script'}).done(function () {
@@ -159,6 +160,7 @@ function onLoad() {
     }, settings['hide_seconds'] ? 30000 : 1000);
 
     enableRefresh();
+    getVariables();
     getDevices();
     setClassByTime();
 	
@@ -1181,7 +1183,10 @@ function getDevices(override) {
                         $('div.newblocks.plugins').append('<div data-id="weather"><span class="title">' + language.settings.weather.title + '</span></div>');
                         $('div.newblocks.plugins').append('<div data-id="news"><span class="title">' + language.editmode.news + '</span></div>');
                     }
-
+                    //Add all variables to device table
+                    for(v in allVariables) {
+                      data.result.push(allVariables[v]);            
+                    }
                     for (r in data.result) {
                         var device = data.result[r];
                         var idx = device['idx'];
@@ -1298,11 +1303,32 @@ function getDevices(override) {
 }
 
 
+function getVariables() {
+  var usrinfo ='';
+  if(typeof(usrEnc)!=='undefined' && usrEnc!=='') usrinfo = 'username=' + usrEnc + '&password=' + pwdEnc + '&';
+      $.get({
+          url: settings['domoticz_ip'] + '/json.htm?'+usrinfo+'type=command&param=getuservariables',
+          type: 'GET', async: true, contentType: "application/json",
+          error: function (jqXHR, textStatus) {
+              console.error("Domoticz error!\nPlease, double check the path to Domoticz in Settings!");
+              infoMessage('<font color="red">Domoticz error!', 'double check the path to Domoticz in Settings!</font>', 0);
+          },
+          success: function (data) {
+            allVariables= data.result;
+            for(v in allVariables) {
+              allVariables[v].idx='v'+allVariables[v].idx;
+              allVariables[v].Type='Variable';
+            }
+          }
+        });
+}
+
 function getDevicesTmr() {
 	if ( settings['edit_mode']) return;
 	var tmpnow = new Date();
 	if (tmpnow.getTime()>=lastGetDevicesTime + settings['domoticz_refresh'] * 1000-50) {
 		getDevices();
+    getVariables();
 	} 
 }
 
