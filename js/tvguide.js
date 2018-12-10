@@ -36,10 +36,7 @@ function addTVGuide2(tvobject, tvObjorg) {
         curUrl= _CORS_PATH +'http://json.tvgids.nl/v4/programs/?day=0&channels=' + tvObj.channels.join(',') + '&time=' + cache;
         moment.locale(settings['calendarlanguage']);
         $.getJSON(curUrl, function (data, textstatus, jqXHR) {
-            console.log(data);
             for (channel in data.data) {
-              console.log("channel");
-              console.log(data.data[channel]);
                 for (e in data.data[channel].prog) {
                     event = data.data[channel].prog[e];
                     var enddateStamp = event.e;
