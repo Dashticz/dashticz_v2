@@ -317,6 +317,17 @@ settingList['weather']['static_weathericons'] = {};
 settingList['weather']['static_weathericons']['title'] = language.settings.weather.static_weathericons;
 settingList['weather']['static_weathericons']['type'] = 'checkbox';
 
+settingList['weather']['longfonds_zipcode'] = {};
+settingList['weather']['longfonds_zipcode'] = {
+  title: language.settings.weather.longfonds_zipcode,
+  type: 'text'
+}
+settingList['weather']['longfonds_housenumber'] = {};
+settingList['weather']['longfonds_housenumber'] = {
+  title: language.settings.weather.longfonds_housenumber,
+  type: 'text'
+}
+
 settingList['media'] = {};
 settingList['media']['title'] = language.settings.media.title;
 

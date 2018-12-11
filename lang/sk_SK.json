@@ -185,7 +185,9 @@
             "owm_city": "Stanica Open Weather Map (mesto alebo kód)",
             "owm_cnt": "Open Weather Map počet predpovedí (4 - 40)",
             "owm_country": "Open Weather Map Country",
-            "owm_name": "Zobraziť meno Open Weather Map"
+            "owm_name": "Zobraziť meno Open Weather Map",           
+            "longfonds_zipcode": "Longfonds zipcode",
+            "longfonds_housenumber": "Longfonds housenumber"
         }
     },
     "switches": {

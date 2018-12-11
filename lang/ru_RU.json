@@ -185,7 +185,9 @@
             "owm_city": "Open Weather Map станция (город или код)",
             "owm_cnt": "Open Weather Map количество прогнозов (4 - 40)",
             "owm_country": "Open Weather Map страна",
-            "owm_name": "Отображаемое имя Open Weather Map"
+            "owm_name": "Отображаемое имя Open Weather Map",           
+            "longfonds_zipcode": "Longfonds zipcode",
+            "longfonds_housenumber": "Longfonds housenumber"
         }
     },
     "switches": {

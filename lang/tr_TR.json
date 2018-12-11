@@ -185,7 +185,9 @@
             "owm_city": "Open Weather Map İstasyonu (Şehir veya Kod)",
             "owm_cnt": "Open Weather Map tahmin sayısı (4 - 40)",
             "owm_country": "Open Weather Map Ülke",
-            "owm_name": "Görüntü Adı Open Weather Map"
+            "owm_name": "Görüntü Adı Open Weather Map",           
+            "longfonds_zipcode": "Longfonds zipcode",
+            "longfonds_housenumber": "Longfonds housenumber"
         }
     },
     "switches": {

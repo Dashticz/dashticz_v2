@@ -185,7 +185,9 @@
             "owm_city": "Open Weather Map Station (Stad of Code)",
             "owm_cnt": "Open Weather Map voorspelling tellen (4 - 40)",
             "owm_country": "Open Weather Map Land",
-            "owm_name": "Weergavenaam Open Weather Map"
+            "owm_name": "Weergavenaam Open Weather Map",
+            "longfonds_zipcode": "Longfonds postcode",
+            "longfonds_housenumber": "Longfonds huisnummer"
         }
     },
     "switches": {

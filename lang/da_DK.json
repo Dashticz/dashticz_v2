@@ -185,7 +185,9 @@
             "owm_city": "Open Weather Map Station (by eller kode)",
             "owm_cnt": "Open Weather Map prognose tæller (4 - 40)",
             "owm_country": "Open Weather Map land",
-            "owm_name": "Visningsnavn Open Weather Map"
+            "owm_name": "Visningsnavn Open Weather Map",           
+            "longfonds_zipcode": "Longfonds zipcode",
+            "longfonds_housenumber": "Longfonds housenumber"
         }
     },
     "switches": {

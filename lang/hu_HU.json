@@ -185,7 +185,9 @@
             "owm_city": "Open Weather Map (város vagy kód)",
             "owm_cnt": "Open Weather Map előrejelzés számít (4 - 40)",
             "owm_country": "Open Weather Map Ország",
-            "owm_name": "Megjelenítendő név Open Weather Map"
+            "owm_name": "Megjelenítendő név Open Weather Map",           
+            "longfonds_zipcode": "Longfonds zipcode",
+            "longfonds_housenumber": "Longfonds housenumber"
         }
     },
     "switches": {
