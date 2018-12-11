@@ -317,6 +317,17 @@ settingList['weather']['static_weathericons'] = {};
 settingList['weather']['static_weathericons']['title'] = language.settings.weather.static_weathericons;
 settingList['weather']['static_weathericons']['type'] = 'checkbox';
 
+settingList['weather']['longfonds_zipcode'] = {};
+settingList['weather']['longfonds_zipcode'] = {
+  title: language.settings.weather.longfonds_zipcode,
+  type: 'text'
+}
+settingList['weather']['longfonds_housenumber'] = {};
+settingList['weather']['longfonds_housenumber'] = {
+  title: language.settings.weather.longfonds_housenumber,
+  type: 'text'
+}
+
 settingList['media'] = {};
 settingList['media']['title'] = language.settings.media.title;
 
@@ -379,6 +390,7 @@ settingList['garbage']['garbage_company']['options']['gemertbakeldinsdag'] = 'Ge
 settingList['garbage']['garbage_company']['options']['gemertbakelwoensdag'] = 'Gemert-Bakel, woensdag (NL)';
 settingList['garbage']['garbage_company']['options']['goes'] = 'Goes (NL)';
 settingList['garbage']['garbage_company']['options']['hvc'] = 'HVC Groep (NL)';
+settingList['garbage']['garbage_company']['options']['katwijk'] = 'Katwijk (NL)';
 settingList['garbage']['garbage_company']['options']['meerlanden'] = 'Meerlanden (NL)';
 settingList['garbage']['garbage_company']['options']['mijnafvalwijzer'] = 'Mijn Afval Wijzer (NL)';
 settingList['garbage']['garbage_company']['options']['recyclemanager'] = 'Recycle Manager';
@@ -612,7 +624,7 @@ $.ajax({
     }
 });
 
-if (typeof(settings['default_cors_url'])==='undefined') {
+if (typeof(settings['default_cors_url'])==='undefined' || settings['default_cors_url']==='') {
   if(_PHP_INSTALLED)
     _CORS_PATH = settings['dashticz_php_path']+'cors.php?'
   else {

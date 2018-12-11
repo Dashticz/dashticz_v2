@@ -3,8 +3,10 @@ $config=file_get_contents('../custom/CONFIG.js');
 list($before,$conf) = explode('var config = {}',$config);
 $rows = explode("\n",$conf);
 foreach($rows as $r => $row){
-	if(substr($row,0,6)=='config' || substr($row,0,8)=='//config'){
-		unset($rows[$r]);
+	if(substr($row,0,17)!='config[\'garbage\']') {
+		if(substr($row,0,6)=='config' || substr($row,0,8)=='//config'){
+			unset($rows[$r]);
+		}
 	}
 }
 

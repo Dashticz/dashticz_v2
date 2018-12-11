@@ -77,7 +77,6 @@ function loadFiles() {
 				}
 			}
 
-            $('<link href="css/creative.css?v=' + cache + '" rel="stylesheet">').appendTo('head');
             $('<link href="vendor/weather/css/weather-icons.min.css?v=' + cache + '" rel="stylesheet">').appendTo('head');
 
             if (settings['theme'] !== 'default') {
@@ -152,11 +151,10 @@ function onLoad() {
 		$('#loaderHolder').fadeOut();
 		$('body').css('overflow','auto');
 	},2000);
-
+  
+    setClockDateWeekday();
     setInterval(function () {
-        $('.clock').html(moment().locale(settings['language']).format(settings['hide_seconds'] ? settings['shorttime'] : settings['longtime']));
-        $('.date').html(moment().locale(settings['language']).format(settings['longdate']));
-        $('.weekday').html(moment().locale(settings['language']).format(settings['weekday']));
+      setClockDateWeekday();
     }, settings['hide_seconds'] ? 30000 : 1000);
 
     enableRefresh();
@@ -249,6 +247,12 @@ function onLoad() {
             }
         }, 5000);
     }
+}
+
+function setClockDateWeekday() {
+  $('.clock').html(moment().locale(settings['language']).format(settings['hide_seconds'] ? settings['shorttime'] : settings['longtime']));
+  $('.date').html(moment().locale(settings['language']).format(settings['longdate']));
+  $('.weekday').html(moment().locale(settings['language']).format(settings['weekday']));  
 }
 
 function toSlide(num) {
@@ -1228,6 +1232,8 @@ function getDevices(override) {
                             for (var i = 1; i <= 5; i++) {
                                 if ($('div.block_' + idx + '_' + i).length > 0) {
                                     $('div.block_' + idx + '_' + i).data('light', idx);
+                                    if (typeof(blocks[idx + '_' + i]) !== 'undefined' && typeof(blocks[idx + '_' + i]['width']) !== 'undefined')
+                    									width = blocks[idx+ '_' + i]['width'];
                                     $('div.block_' + idx + '_' + i).addClass('col-xs-' + width);
                                     $('div.block_' + idx + '_' + i).html('');
                                 }

@@ -185,7 +185,9 @@
             "owm_city": "Stacja Open Weather Map (miasto lub kod)",
             "owm_cnt": "Open Weather liczba prognoz (4 - 40)",
             "owm_country": "Kraj Open Weather Map",
-            "owm_name": "Wyświetlana nazwa Open Weather Map"
+            "owm_name": "Wyświetlana nazwa Open Weather Map",           
+            "longfonds_zipcode": "Longfonds zipcode",
+            "longfonds_housenumber": "Longfonds housenumber"
         }
     },
     "switches": {

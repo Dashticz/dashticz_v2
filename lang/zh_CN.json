@@ -185,7 +185,9 @@
             "owm_city": "Open Weather Map 站（城市或代码）",
             "owm_cnt": "Open Weather Map 預測計數（4-40）",
             "owm_country": "Open Weather Map Country",
-            "owm_name": "显示名称 Open Weather Map"
+            "owm_name": "显示名称 Open Weather Map",           
+            "longfonds_zipcode": "Longfonds zipcode",
+            "longfonds_housenumber": "Longfonds housenumber"
         }
     },
     "switches": {

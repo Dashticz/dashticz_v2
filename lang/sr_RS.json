@@ -185,7 +185,9 @@
             "owm_city": "Open Weather Map stanica (Grad ili kod)",
             "owm_cnt": "Open Weather Map broj prognoze (4 - 40)",
             "owm_country": "Open Weather Map Država",
-            "owm_name": "Ime za prikaz Open Weather Map"
+            "owm_name": "Ime za prikaz Open Weather Map",           
+            "longfonds_zipcode": "Longfonds zipcode",
+            "longfonds_housenumber": "Longfonds housenumber"
         }
     },
     "switches": {

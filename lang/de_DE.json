@@ -185,7 +185,9 @@
             "owm_city": "Open Weather Map Messstation (Stadt oder Code)",
             "owm_cnt": "Open Weather Map Prognose zählen (4 - 40)",
             "owm_country": "Open Weather Map Land",
-            "owm_name": "Anzeigename Open Weather Map"
+            "owm_name": "Anzeigename Open Weather Map",           
+            "longfonds_zipcode": "Longfonds zipcode",
+            "longfonds_housenumber": "Longfonds housenumber"
         }
     },
     "switches": {

@@ -185,7 +185,9 @@
             "owm_city": "Open Weather Map asema (kaupunki tai koodi)",
             "owm_cnt": "Open Weather Map ennuste lasketaan (4 - 40)",
             "owm_country": "Open Weather Map Maa",
-            "owm_name": "Näyttönimi Open Weather Map"
+            "owm_name": "Näyttönimi Open Weather Map",           
+            "longfonds_zipcode": "Longfonds zipcode",
+            "longfonds_housenumber": "Longfonds housenumber"
         }
     },
     "switches": {
