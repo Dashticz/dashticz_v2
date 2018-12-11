@@ -151,11 +151,10 @@ function onLoad() {
 		$('#loaderHolder').fadeOut();
 		$('body').css('overflow','auto');
 	},2000);
-
+  
+    setClockDateWeekday();
     setInterval(function () {
-        $('.clock').html(moment().locale(settings['language']).format(settings['hide_seconds'] ? settings['shorttime'] : settings['longtime']));
-        $('.date').html(moment().locale(settings['language']).format(settings['longdate']));
-        $('.weekday').html(moment().locale(settings['language']).format(settings['weekday']));
+      setClockDateWeekday();
     }, settings['hide_seconds'] ? 30000 : 1000);
 
     enableRefresh();
@@ -248,6 +247,12 @@ function onLoad() {
             }
         }, 5000);
     }
+}
+
+function setClockDateWeekday() {
+  $('.clock').html(moment().locale(settings['language']).format(settings['hide_seconds'] ? settings['shorttime'] : settings['longtime']));
+  $('.date').html(moment().locale(settings['language']).format(settings['longdate']));
+  $('.weekday').html(moment().locale(settings['language']).format(settings['weekday']));  
 }
 
 function toSlide(num) {
