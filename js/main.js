@@ -77,7 +77,6 @@ function loadFiles() {
 				}
 			}
 
-            $('<link href="css/creative.css?v=' + cache + '" rel="stylesheet">').appendTo('head');
             $('<link href="vendor/weather/css/weather-icons.min.css?v=' + cache + '" rel="stylesheet">').appendTo('head');
 
             if (settings['theme'] !== 'default') {
