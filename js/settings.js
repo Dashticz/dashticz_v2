@@ -613,7 +613,7 @@ $.ajax({
     }
 });
 
-if (typeof(settings['default_cors_url'])==='undefined') {
+if (typeof(settings['default_cors_url'])==='undefined' || settings['default_cors_url']==='') {
   if(_PHP_INSTALLED)
     _CORS_PATH = settings['dashticz_php_path']+'cors.php?'
   else {
