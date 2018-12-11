@@ -1232,6 +1232,8 @@ function getDevices(override) {
                             for (var i = 1; i <= 5; i++) {
                                 if ($('div.block_' + idx + '_' + i).length > 0) {
                                     $('div.block_' + idx + '_' + i).data('light', idx);
+                                    if (typeof(blocks[idx + '_' + i]) !== 'undefined' && typeof(blocks[idx + '_' + i]['width']) !== 'undefined')
+                    									width = blocks[idx+ '_' + i]['width'];
                                     $('div.block_' + idx + '_' + i).addClass('col-xs-' + width);
                                     $('div.block_' + idx + '_' + i).html('');
                                 }
