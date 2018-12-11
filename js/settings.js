@@ -379,6 +379,7 @@ settingList['garbage']['garbage_company']['options']['gemertbakeldinsdag'] = 'Ge
 settingList['garbage']['garbage_company']['options']['gemertbakelwoensdag'] = 'Gemert-Bakel, woensdag (NL)';
 settingList['garbage']['garbage_company']['options']['goes'] = 'Goes (NL)';
 settingList['garbage']['garbage_company']['options']['hvc'] = 'HVC Groep (NL)';
+settingList['garbage']['garbage_company']['options']['katwijk'] = 'Katwijk (NL)';
 settingList['garbage']['garbage_company']['options']['meerlanden'] = 'Meerlanden (NL)';
 settingList['garbage']['garbage_company']['options']['mijnafvalwijzer'] = 'Mijn Afval Wijzer (NL)';
 settingList['garbage']['garbage_company']['options']['recyclemanager'] = 'Recycle Manager';
