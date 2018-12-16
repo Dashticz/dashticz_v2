@@ -97,7 +97,9 @@
             "use_favorites": "Sólo utilice dispositivos favoritos",
             "use_favorites_help": "Sólo se utiliza cuando se utiliza el posicionamiento automático",
             "user_name": "Username",
-            "user_name_help": "Set Dashticz username and password"
+            "user_name_help": "Set Dashticz username and password",
+            "default_cors_url": "Default CORS URL",
+            "dashticz_php_path": "Dashticz PHP Path"
         },
         "infosave": "De forma predeterminada, la configuración se almacena en su navegador. Lo malo de este método es que sólo funcionará en su navegador actual. Si eso no es un problema, puede continuar. De lo contrario, copie el código a continuación en su CONFIG.JS para mantener la configuración en todos los navegadores y dispositivos.",
         "localize": {
@@ -181,8 +183,11 @@
             "wu_name": "Nombre para mostrar",
             "owm_api": "Open Weather Map Clave de API",
             "owm_city": "Open Weather Map de la Estación (Ciudad o Código)",
+            "owm_cnt": "Open Weather Map recuento del pronóstico (4 - 40)",
             "owm_country": "Open Weather Map País",
-            "owm_name": "Nombre para mostrar Open Weather Map"
+            "owm_name": "Nombre para mostrar Open Weather Map",           
+            "longfonds_zipcode": "Longfonds zipcode",
+            "longfonds_housenumber": "Longfonds housenumber"
         }
     },
     "switches": {

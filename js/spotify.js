@@ -185,29 +185,29 @@ var SpotifyModule = function() {
 			$('a.change').show();
 			$('select.devices').show();
 
-			html += '<a href="javascript:SpotifyModule.trackAction(\'Rewind\');"><em class="fa fa-arrow-circle-left fa-small"></em></a> ';
+			html += '<a href="javascript:SpotifyModule.trackAction(\'Rewind\');"><em class="fas fa-arrow-circle-left fa-small"></em></a> ';
 			//html += '<a href="javascript:SpotifyModule.trackAction(\'Stop\');"><em class="fa fa-stop-circle fa-small"></em></a> ';
 			if (currently.is_playing) {
-				html += '<a class="spotpause" href="javascript:SpotifyModule.trackAction(\'Pause\');"><em class="fa fa-pause-circle fa-small"></em></a> ';
-				html += '<a class="spotplay" style="display:none;" href="javascript:SpotifyModule.trackAction(\'Play\');"><em class="fa fa-play-circle fa-small"></em></a> ';
+				html += '<a class="spotpause" href="javascript:SpotifyModule.trackAction(\'Pause\');"><em class="fas fa-pause-circle fa-small"></em></a> ';
+				html += '<a class="spotplay" style="display:none;" href="javascript:SpotifyModule.trackAction(\'Play\');"><em class="fas fa-play-circle fa-small"></em></a> ';
 			} else {
-				html += '<a class="spotpause" style="display:none;" href="javascript:SpotifyModule.trackAction(\'Pause\');"><em class="fa fa-pause-circle fa-small"></em></a> ';
-				html += '<a class="spotplay" href="javascript:SpotifyModule.trackAction(\'Play\');"><em class="fa fa-play-circle fa-small"></em></a> ';
+				html += '<a class="spotpause" style="display:none;" href="javascript:SpotifyModule.trackAction(\'Pause\');"><em class="fas fa-pause-circle fa-small"></em></a> ';
+				html += '<a class="spotplay" href="javascript:SpotifyModule.trackAction(\'Play\');"><em class="fas fa-play-circle fa-small"></em></a> ';
 			}
-			html += '<a href="javascript:SpotifyModule.trackAction(\'Forward\');"><em class="fa fa-arrow-circle-right fa-small"></em></a>';
+			html += '<a href="javascript:SpotifyModule.trackAction(\'Forward\');"><em class="fas fa-arrow-circle-right fa-small"></em></a>';
 
 			html += '&nbsp;&nbsp;';
 
 			if(currently.shuffle_state) {
-				html += '<a id="shuffle" href="javascript:SpotifyModule.trackAction(\'ShuffleOff\');"><em class="fa fa-random fa-small"></em></a> ';			
+				html += '<a id="shuffle" href="javascript:SpotifyModule.trackAction(\'ShuffleOff\');"><em class="fas fa-random fa-small"></em></a> ';			
 			}
 			else {
-				html += '<a id="shuffle" class="shuffleoff" href="javascript:SpotifyModule.trackAction(\'ShuffleOn\');"><em class="fa fa-random fa-small"></em></a> ';			
+				html += '<a id="shuffle" class="shuffleoff" href="javascript:SpotifyModule.trackAction(\'ShuffleOn\');"><em class="fas fa-random fa-small"></em></a> ';			
 			}
 			html += '&nbsp;&nbsp;';
-			html += '<a href="javascript:SpotifyModule.trackAction(\'VolumeDown\');"><em class="fa fa-minus-circle fa-small"></em></a>';
+			html += '<a href="javascript:SpotifyModule.trackAction(\'VolumeDown\');"><em class="fas fa-minus-circle fa-small"></em></a>';
 			html += '&nbsp;';
-			html += '<a href="javascript:SpotifyModule.trackAction(\'VolumeUp\');"><em class="fa fa-plus-circle fa-small"></em></a>';
+			html += '<a href="javascript:SpotifyModule.trackAction(\'VolumeUp\');"><em class="fas fa-plus-circle fa-small"></em></a>';
 
 			html += '</div>';
 		}

@@ -97,7 +97,9 @@
             "use_favorites": "Csak a kedvenc eszközök használata",
             "use_favorites_help": "Csak akkor használatos, ha az automatikus pozícionálást használja",
             "user_name": "Username",
-            "user_name_help": "Set Dashticz username and password"
+            "user_name_help": "Set Dashticz username and password",
+            "default_cors_url": "Default CORS URL",
+            "dashticz_php_path": "Dashticz PHP Path"
         },
         "infosave": "Alapértelmezés szerint a beállítások a böngészőben tárolódnak. E módszer hátránya, hogy csak a jelenlegi böngészőben fog működni. Ha ez nem jelent problémát, továbbléphet. Ellenkező esetben másolja a kódot a CONFIG.JS fájlba, hogy megőrizze a beállításokat az összes böngészőben és eszközön.",
         "localize": {
@@ -181,8 +183,11 @@
             "wu_name": "Megjelenítendő név",
             "owm_api": "Open Weather Map API Kulcs",
             "owm_city": "Open Weather Map (város vagy kód)",
+            "owm_cnt": "Open Weather Map előrejelzés számít (4 - 40)",
             "owm_country": "Open Weather Map Ország",
-            "owm_name": "Megjelenítendő név Open Weather Map"
+            "owm_name": "Megjelenítendő név Open Weather Map",           
+            "longfonds_zipcode": "Longfonds zipcode",
+            "longfonds_housenumber": "Longfonds housenumber"
         }
     },
     "switches": {

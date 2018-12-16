@@ -97,7 +97,9 @@
             "use_favorites": "Only use favorite devices",
             "use_favorites_help": "Only used when using auto positioning",
             "user_name": "Username",
-            "user_name_help": "Set Dashticz username and password"
+            "user_name_help": "Set Dashticz username and password",
+            "default_cors_url": "Default CORS URL",
+            "dashticz_php_path": "Dashticz PHP Path"
         },
         "infosave": "By default, settings are stored in your browser. Downside of this method is it will only work in your current browser. If that's not a problem, you can proceed. Otherwise, copy code below to your CONFIG.JS to keep settings across all browsers and devices.",
         "localize": {
@@ -181,8 +183,11 @@
             "wu_name": "Відображуване ім'я",
             "owm_api": "Open Weather Map Ключ під ключ під ключ",
             "owm_city": "Open Weather Map Станція підземелля (місто або код)",
+            "owm_cnt": "Open Weather Map прогнозний підрахунок (4 - 40)",
             "owm_country": "Open Weather Map Country",
-            "owm_name": "Відображуване ім'я Open Weather Map"
+            "owm_name": "Відображуване ім'я Open Weather Map",           
+            "longfonds_zipcode": "Longfonds zipcode",
+            "longfonds_housenumber": "Longfonds housenumber"
         }
     },
     "switches": {

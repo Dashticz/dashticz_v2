@@ -97,7 +97,9 @@
             "use_favorites": "Only use favorite devices",
             "use_favorites_help": "Only used when using auto positioning",
             "user_name": "Username",
-            "user_name_help": "Set Dashticz username and password"
+            "user_name_help": "Set Dashticz username and password",
+            "default_cors_url": "Default CORS URL",
+            "dashticz_php_path": "Dashticz PHP Path"
         },
         "infosave": "By default, settings are stored in your browser. Downside of this method is it will only work in your current browser. If that's not a problem, you can proceed. Otherwise, copy code below to your CONFIG.JS to keep settings across all browsers and devices.",
         "localize": {
@@ -181,8 +183,11 @@
             "wu_name": "显示名称",
             "owm_api": "Open Weather Map API密钥",
             "owm_city": "Open Weather Map 站（城市或代码）",
+            "owm_cnt": "Open Weather Map 預測計數（4-40）",
             "owm_country": "Open Weather Map Country",
-            "owm_name": "显示名称 Open Weather Map"
+            "owm_name": "显示名称 Open Weather Map",           
+            "longfonds_zipcode": "Longfonds zipcode",
+            "longfonds_housenumber": "Longfonds housenumber"
         }
     },
     "switches": {

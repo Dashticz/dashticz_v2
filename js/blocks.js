@@ -42,6 +42,19 @@ blocktypes.Type['Temp'] = {
 };
 blocktypes.Type['Air Quality'] = {image: 'air.png', title: '<Name>', value: '<Data>'};
 blocktypes.Type['UV'] = {icon: 'fas fa-sun', title: '<Name>', value: '<Data>'};
+blocktypes.Type['Variable'] = {icon: 'fas fa-equals', title: '<Name>', value: '<Value>'};
+
+//Recognition of
+//"HardwareType" : "RFXCOM - RFXtrx433 USB 433.92MHz Transceiver",
+//"Type" : "Energy",
+//"SubType" : "CM180",
+blocktypes.Type['Energy'] = {icon: 'fas fa-plug', title: '<Name>', value: '<Data>'};
+
+//Recognition of
+//"HardwareType" : "RFXCOM - RFXtrx433 USB 433.92MHz Transceiver",
+//"Type" : "Current/Energy",
+//"SubType" : "CM180i",
+blocktypes.Type['Current/Energy'] = {icon: 'fas fa-plug', title: '<Name>', value: '<Data>'};
 
 blocktypes.HardwareType = {};
 blocktypes.HardwareType['Motherboard sensors'] = {icon: 'fas fa-desktop', title: '<Name>', value: '<Data>'};
@@ -247,7 +260,7 @@ function handleStringBlock(block, columndiv, width, c) {
             return;
 		case 'longfonds':
 			$(columndiv).append('<div data-id="longfonds" class="mh transbg block_longfonds col-xs-'+width+'"></div>');
-			$.getJSON('https://cors-anywhere.herokuapp.com/https://www.longfonds.nl/gezondelucht/api/zipcode-check?zipcode='+settings['longfonds_zipcode']+'&houseNumber='+settings['longfonds_housenumber'],function(data){
+			$.getJSON(_CORS_PATH + 'https://www.longfonds.nl/gezondelucht/api/zipcode-check?zipcode='+settings['longfonds_zipcode']+'&houseNumber='+settings['longfonds_housenumber'],function(data){
 				var stateBlock = '<div class="col-xs-4 col-icon">';
 				stateBlock += '<em class="fas fa-cloud"></em>';
 				stateBlock += '</div>';

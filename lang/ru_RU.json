@@ -97,7 +97,9 @@
             "use_favorites": "Использовать только избранные устройства",
             "use_favorites_help": "Используется только при авто-позиционировании",
             "user_name": "Имя пользователя",
-            "user_name_help": "Задайте имя пользователя и пароль для Dashticz"
+            "user_name_help": "Задайте имя пользователя и пароль для Dashticz",
+            "default_cors_url": "Default CORS URL",
+            "dashticz_php_path": "Dashticz PHP Path"
         },
         "infosave": "По умолчанию настройки хранятся в Вашем браузере. Недостатком этого метода является то, что он будет работать только в текущем браузере. Если это не проблема, Вы можете продолжить. В противном случае скопируйте код ниже в CONFIG.JS для сохранения настроек во всех браузерах и устройствах.",
         "localize": {
@@ -181,8 +183,11 @@
             "wu_name": "Отображаемое имя",
             "owm_api": "Open Weather Map API-ключ",
             "owm_city": "Open Weather Map станция (город или код)",
+            "owm_cnt": "Open Weather Map количество прогнозов (4 - 40)",
             "owm_country": "Open Weather Map страна",
-            "owm_name": "Отображаемое имя Open Weather Map"
+            "owm_name": "Отображаемое имя Open Weather Map",           
+            "longfonds_zipcode": "Longfonds zipcode",
+            "longfonds_housenumber": "Longfonds housenumber"
         }
     },
     "switches": {

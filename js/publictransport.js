@@ -26,8 +26,10 @@ function loadPublicTransport(random,transportobject,key){
 	//Get data every interval and call function to create block
 	var interval = 60;
 	if(typeof(transportobject.interval)!=='undefined') interval = transportobject.interval;
-	getData(random,transportobject);
-	setTimeout(function(){$('.publictransport'+random+' .state').html(language.misc.loading);},100);
+	setTimeout(function(){
+		$('.publictransport'+random+' .state').html(language.misc.loading);
+		getData(random,transportobject);
+	},100);
 	
 	if(transportobject.provider.toLowerCase() == 'ns'){
 		if(parseFloat(interval)<60) interval=60; // limit request because of limitations in NS api for my private key ;)
@@ -46,10 +48,10 @@ function getData(random,transportobject){
 		dataURL = 'https://efa-api.asw.io/api/v1/station/'+transportobject.station+'/departures/';
 	}
 	else if(provider == 'mobiliteit'){
-		dataURL = settings['default_cors_url'] + 'http://travelplanner.mobiliteit.lu/restproxy/departureBoard?accessId=cdt&duration=1439&maxJourneys='+transportobject.results+'&format=json&id=A=1@O='+transportobject.station;
+		dataURL = _CORS_PATH + 'http://travelplanner.mobiliteit.lu/restproxy/departureBoard?accessId=cdt&duration=1439&maxJourneys='+transportobject.results+'&format=json&id=A=1@O='+transportobject.station;
 	}
 	else if(provider == '9292' || provider == '9292-train' || provider == '9292-bus' || provider == '9292-metro' || provider == '9292-tram-bus'){
-		dataURL = settings['default_cors_url'] + 'https://dashticz.nl/ov/ov.php?station='+transportobject.station+'&time='+$.now();
+		dataURL = _CORS_PATH + 'http://api.9292.nl/0.1/locations/'+transportobject.station+'/departure-times?lang=nl-NL';
 	}
 	else if(provider == 'irailbe'){
 		var date = new Date($.now());

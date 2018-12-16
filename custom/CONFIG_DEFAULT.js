@@ -11,7 +11,7 @@ var publictransport = {}
 publictransport.ovinfobus = { show_via: false, station: 'son-en-breugel/bushalte-penseelkever', provider: '9292-bus', icon: 'bus', width:5, results: 6 }
 
 var tvguide = {}
-tvguide.dutch = { key:'dutch', icon: 'fa-television', width:7, channels: [1,3,4,31,46,92], maxitems: 5 }
+tvguide.dutch = { key:'dutch', icon: 'fas fa-tv', width:7, channels: [1,3,4,31,46,92], maxitems: 5 }
 
 var _STREAMPLAYER_TRACKS  	= [
 	{"track":1,"name":"Q-music","file":"http://icecast-qmusic.cdp.triple-it.nl/Qmusic_nl_live_96.mp3"},

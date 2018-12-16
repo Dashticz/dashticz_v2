@@ -8,7 +8,7 @@ function loadGarbage() {
     if (typeof(settings['garbage_hideicon']) !== 'undefined' && parseFloat(settings['garbage_hideicon']) === 1) {
         html += '<div class="col-xs-12 col-data">';
     } else {
-        html += '<div class="col-xs-4 col-icon-trash">';
+        html += '<div class="col-xs-4 col-icon">';
         html += '<img class="trashcan" src="img/garbage/kliko.png" style="opacity:0.1" />';
         html += '</div>';
         html += '<div class="col-xs-8 col-data">';
@@ -28,7 +28,7 @@ function loadGarbage() {
 
 function getPrefixUrl() {
     if (settings['garbage_use_cors_prefix']) {
-        return settings['default_cors_url'];
+        return _CORS_PATH;
     }
     return '';
 }
@@ -215,7 +215,13 @@ function getAfvalwijzerArnhemData(address, date, random) {
 }
 
 function getGeneralData(service,address, date, random, subservice){
-	$.getJSON(getPrefixUrl() + 'https://dashticz.nl/afval/?service='+service+'&sub='+subservice+'&zipcode=' + address.zipcode + '&nr=' + address.housenumber + '&t=' + address.housenumberSuffix, function (data) {
+  if(!_PHP_INSTALLED) {
+    console.error("Domoticz error!\nGarbage requires a PHP enabled web server.");
+    infoMessage('<font color="red">Domoticz error!', 'Garbage requires a PHP enabled web server</font>', 0);
+    return;
+  }
+  var cURI = settings['dashticz_php_path']+'garbage/?service='+service+'&sub='+subservice+'&zipcode=' + address.zipcode + '&nr=' + address.housenumber + '&t=' + address.housenumberSuffix;
+	$.getJSON(cURI, function (data) {
 		 data = data
             .filter(function (element) {
                 return moment(element.date).isBetween(date.start, date.end, null, '[]');
@@ -229,6 +235,20 @@ function getGeneralData(service,address, date, random, subservice){
             });
         addToContainer(random, data);
 	});
+}
+
+function getKatwijkData(address, date, random, fetchType) {
+    var prefix = 'https://afval.katwijk.nl/';
+    $.post(getPrefixUrl() + prefix + 'nc/afvalkalender/', {
+      'tx_windwastecalendar_pi1[action]': 'search',
+      'tx_windwastecalendar_pi1[controller]': 'Zipcode',
+      'tx_windwastecalendar_pi1[Hash]': '40c183c983706ba359f1122b44881a5e',
+        'tx_windwastecalendar_pi1[zipcode]': address.zipcode,
+        'tx_windwastecalendar_pi1[housenumber]': address.housenumber,
+    }, function (data) {
+                var elementHref = $(data).find('.ical .link a').attr('href');
+                return getIcalData(address, date, random, prefix + elementHref);
+    });
 }
 
 function getZuidhornData(address, date, random, fetchType) {
@@ -363,11 +383,6 @@ function getMijnAfvalwijzerData(address, date, random) {
     getGeneralData('mijnafvalwijzer',address, date, random);
 }
 
-//http://dashticz.nl/afval/?service=hvc&zipcode=1671jv&nr=22&t=
-function getHvcData(address, date, random) {
-    getGeneralData('hvc',address, date, random);
-}
-
 //http://dashticz.nl/afval/?service=rova&zipcode=7731ZT&nr=84&t=
 function getRovaData(address, date, random) {
     getGeneralData('rova',address, date, random);
@@ -384,7 +399,7 @@ function getEdgData(address, date, random) {
 
 function getTrashRow(garbage) {
     this.rowClass = 'trashrow';
-    this.displayDate = garbage.date.locale(settings['calendarlanguage']).format(settings['calendarformat']);
+    this.displayDate = garbage.date.locale(settings['calendarlanguage']).format('l');
     if (garbage.date.isSame(moment(), 'day')) {
         this.displayDate = language.weekdays.today;
         this.rowClass = 'trashtoday';
@@ -484,6 +499,7 @@ function loadDataForService(service, random) {
         afvalwijzerarnhem: {dataHandler: 'getAfvalwijzerArnhemData', identifier: ''},
         zuidhornical: {dataHandler: 'getZuidhornData', identifier: 'ical'},
         zuidhorn: {dataHandler: 'getZuidhornData', identifier: 'scrape'},
+        katwijk: {dataHandler: 'getKatwijkData', identifier: ''},
         deafvalapp: {dataHandler: 'getDeAfvalAppData', identifier: ''},
         cure: {dataHandler: 'getAfvalstromenData', identifier: 'cure'},
         cyclusnv: {dataHandler: 'getAfvalstromenData', identifier: 'cyclusnv'},
@@ -497,7 +513,7 @@ function loadDataForService(service, random) {
         dar: {dataHandler: 'getAfvalstromenData', identifier: 'dar'},
         waalre: {dataHandler: 'getAfvalstromenData', identifier: 'waalre'},
         avalex: {dataHandler: 'getAfvalstromenData', identifier: 'avalex'},
-        hvc: {dataHandler: 'getHvcData', identifier: ''},
+        hvc: {dataHandler: 'getAfvalstromenData', identifier: 'hvc'},
         rova: {dataHandler: 'getRovaData', identifier: ''},
         mijnafvalwijzer: {dataHandler: 'getMijnAfvalwijzerData', identifier: ''},
         recyclemanager: {dataHandler: 'getRecycleManagerData', identifier: ''},

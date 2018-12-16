@@ -12,7 +12,7 @@ function getCoin(coin) {
 }
 
 function appendLiteBit(coin) {
-    $.getJSON('https://cors-anywhere.herokuapp.com/https://www.litebit.eu/system/live-updates', function (data) {
+    $.getJSON(_CORS_PATH + 'https://www.litebit.eu/system/live-updates', function (data) {
 
         var symbol = '€';
         var varname = coin['key'] + 'RateBuyRound';

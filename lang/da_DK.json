@@ -97,7 +97,9 @@
             "use_favorites": "Brug kun foretrukne enheder",
             "use_favorites_help": "Anvendes kun ved automatisk positionering",
             "user_name": "Username",
-            "user_name_help": "Set Dashticz username and password"
+            "user_name_help": "Set Dashticz username and password",
+            "default_cors_url": "Default CORS URL",
+            "dashticz_php_path": "Dashticz PHP Path"
         },
         "infosave": "Som standard gemmes indstillingerne i din browser. Ulempen ved denne metode er det kun vil virke i din nuværende browser. Hvis det ikke er et problem, kan du fortsætte. Ellers, kopier nedenstående kode til din CONFIG.JS for at beholde indstillinger på tværs af alle browsere og enheder.",
         "localize": {
@@ -181,8 +183,11 @@
             "wu_name": "Visningsnavn",
             "owm_api": "Open Weather Map API-Nøgle",
             "owm_city": "Open Weather Map Station (by eller kode)",
+            "owm_cnt": "Open Weather Map prognose tæller (4 - 40)",
             "owm_country": "Open Weather Map land",
-            "owm_name": "Visningsnavn Open Weather Map"
+            "owm_name": "Visningsnavn Open Weather Map",           
+            "longfonds_zipcode": "Longfonds zipcode",
+            "longfonds_housenumber": "Longfonds housenumber"
         }
     },
     "switches": {

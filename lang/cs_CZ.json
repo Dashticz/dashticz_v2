@@ -97,7 +97,9 @@
             "use_favorites": "Používat pouze oblíbené položky",
             "use_favorites_help": "Funguje pouze pokud se používá Automatické přidávání všech zařízení",
             "user_name": "Username",
-            "user_name_help": "Set Dashticz username and password"
+            "user_name_help": "Set Dashticz username and password",
+            "default_cors_url": "Default CORS URL",
+            "dashticz_php_path": "Dashticz PHP Path"
         },
         "infosave": "Nastavení se ukládá pouze do právě používaného prohlížeče. Pokud si přejete toto nastavení používat na všech počítačích a prohlížečích, je důležité zkopírovat nastavení do souboru CONFIG.JS",
         "localize": {
@@ -178,11 +180,14 @@
             "wu_api": "Wunderground API Key",
             "wu_city": "Wunderground Station (City or Code)",
             "wu_country": "Wunderground Country",
-            "wu_name": "Zobrazované jméno"
+            "wu_name": "Zobrazované jméno",
             "owm_api": "Open Weather Map API Key",
             "owm_city": "Open Weather Map Station (City or Code)",
+            "owm_cnt": "Open Weather Map počet předpovědí (4 - 40)",
             "owm_country": "Open Weather Map Country",
-            "owm_name": "Zobrazované jméno Open Weather Map"
+            "owm_name": "Zobrazované jméno Open Weather Map",           
+            "longfonds_zipcode": "Longfonds zipcode",
+            "longfonds_housenumber": "Longfonds housenumber"
         }
     },
     "switches": {

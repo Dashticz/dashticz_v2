@@ -97,7 +97,9 @@
             "use_favorites": "Koristite samo omiljene uređaje",
             "use_favorites_help": "Koristi se samo kada se koristi automatsko pozicioniranje",
             "user_name": "Korisničko ime",
-            "user_name_help": "Postavi Dashticz korisničko ime i lozinku"
+            "user_name_help": "Postavi Dashticz korisničko ime i lozinku",
+            "default_cors_url": "Default CORS URL",
+            "dashticz_php_path": "Dashticz PHP Path"
         },
         "infosave": "Po podrazumevanim postavkama, postavke se skladište u vašem pregledaču. Negativna strana ove metode je da će raditi samo u trenutnom pregledaču. Ako to nije problem, možete nastaviti. U suprotnom, kopirajte kôd ispod u vaš CONFIG.JS da bi ste zadržali postavke za sve pregledače i uređaje.",
         "localize": {
@@ -181,8 +183,11 @@
             "wu_name": "Ime za prikaz",
             "owm_api": "Open Weather Map API Ključ",
             "owm_city": "Open Weather Map stanica (Grad ili kod)",
+            "owm_cnt": "Open Weather Map broj prognoze (4 - 40)",
             "owm_country": "Open Weather Map Država",
-            "owm_name": "Ime za prikaz Open Weather Map"
+            "owm_name": "Ime za prikaz Open Weather Map",           
+            "longfonds_zipcode": "Longfonds zipcode",
+            "longfonds_housenumber": "Longfonds housenumber"
         }
     },
     "switches": {

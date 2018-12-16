@@ -76,6 +76,10 @@ settingList['general']['default_cors_url'] = {};
 settingList['general']['default_cors_url']['title'] = language.settings.general.default_cors_url;
 settingList['general']['default_cors_url']['type'] = 'text';
 
+settingList['general']['dashticz_php_path'] = {};
+settingList['general']['dashticz_php_path']['title'] = language.settings.general.dashticz_php_path;
+settingList['general']['dashticz_php_path']['type'] = 'text';
+
 /*
 settingList['general']['hide_off_button'] = {}
 settingList['general']['hide_off_button']['title'] = language.settings.general.hide_off_button;
@@ -205,9 +209,11 @@ settingList['localize']['calendarurl'] = {};
 settingList['localize']['calendarurl']['title'] = language.settings.localize.calendarurl;
 settingList['localize']['calendarurl']['type'] = 'text';
 
+/* Not used anymore
 settingList['localize']['calendar_parse_localy'] = {};
 settingList['localize']['calendar_parse_localy']['title'] = language.settings.localize.calendar_parse_localy;
 settingList['localize']['calendar_parse_localy']['type'] = 'checkbox';
+*/
 
 settingList['localize']['hide_seconds'] = {};
 settingList['localize']['hide_seconds']['title'] = language.settings.localize.hide_seconds;
@@ -285,6 +291,10 @@ settingList['weather']['owm_country'] = {};
 settingList['weather']['owm_country']['title'] = language.settings.weather.owm_country;
 settingList['weather']['owm_country']['type'] = 'text';
 
+settingList['weather']['owm_cnt'] = {};
+settingList['weather']['owm_cnt']['title'] = language.settings.weather.owm_cnt;
+settingList['weather']['owm_cnt']['type'] = 'text';
+
 settingList['weather']['idx_moonpicture'] = {};
 settingList['weather']['idx_moonpicture']['title'] = language.settings.weather.idx_moonpicture;
 settingList['weather']['idx_moonpicture']['type'] = 'text';
@@ -306,6 +316,17 @@ settingList['weather']['translate_windspeed']['help'] = language.settings.weathe
 settingList['weather']['static_weathericons'] = {};
 settingList['weather']['static_weathericons']['title'] = language.settings.weather.static_weathericons;
 settingList['weather']['static_weathericons']['type'] = 'checkbox';
+
+settingList['weather']['longfonds_zipcode'] = {};
+settingList['weather']['longfonds_zipcode'] = {
+  title: language.settings.weather.longfonds_zipcode,
+  type: 'text'
+}
+settingList['weather']['longfonds_housenumber'] = {};
+settingList['weather']['longfonds_housenumber'] = {
+  title: language.settings.weather.longfonds_housenumber,
+  type: 'text'
+}
 
 settingList['media'] = {};
 settingList['media']['title'] = language.settings.media.title;
@@ -369,6 +390,7 @@ settingList['garbage']['garbage_company']['options']['gemertbakeldinsdag'] = 'Ge
 settingList['garbage']['garbage_company']['options']['gemertbakelwoensdag'] = 'Gemert-Bakel, woensdag (NL)';
 settingList['garbage']['garbage_company']['options']['goes'] = 'Goes (NL)';
 settingList['garbage']['garbage_company']['options']['hvc'] = 'HVC Groep (NL)';
+settingList['garbage']['garbage_company']['options']['katwijk'] = 'Katwijk (NL)';
 settingList['garbage']['garbage_company']['options']['meerlanden'] = 'Meerlanden (NL)';
 settingList['garbage']['garbage_company']['options']['mijnafvalwijzer'] = 'Mijn Afval Wijzer (NL)';
 settingList['garbage']['garbage_company']['options']['recyclemanager'] = 'Recycle Manager';
@@ -457,10 +479,8 @@ settingList['about']['about_text3']['title'] = 'Do you appreciate my work and wa
 settingList['about']['about_text4'] = {};
 settingList['about']['about_text4']['title'] = 'If you have any issues you can report them in our community thread <a href="https://www.domoticz.com/forum/viewtopic.php?f=67&t=17427" target="_blank">Bug report</a>.'
 
-settingList['about']['about_text5'] = {};
-settingList['about']['about_text5']['title'] = domoversion + dzVents + python;
-
 var settings = {};
+var _CORS_PATH = '';
 doneSettings = false;
 if (typeof(Storage) !== "undefined") {
     $.each(localStorage, function (key, value) {
@@ -485,20 +505,21 @@ if (typeof(settings['shorttime']) === 'undefined') settings['shorttime'] = 'HH:m
 if (typeof(settings['longtime']) === 'undefined') settings['longtime'] = 'HH:mm:ss';
 if (typeof(settings['weekday']) === 'undefined') settings['weekday'] = 'dddd';
 if (typeof(settings['calendarlanguage']) === 'undefined') settings['calendarlanguage'] = 'en_US';
-if (typeof(settings['calendar_parse_localy']) === 'undefined') settings['calendar_parse_localy'] = 0;
+//if (typeof(settings['calendar_parse_localy']) === 'undefined') settings['calendar_parse_localy'] = 0;
 if (typeof(settings['domoticz_ip']) === 'undefined') settings['domoticz_ip'] = 'http://192.168.1.10:1407';
 if (typeof(settings['user_name']) === 'undefined') settings['user_name'] = '';
 if (typeof(settings['pass_word']) === 'undefined') settings['pass_word'] = '';
 if (typeof(settings['app_title']) === 'undefined') settings['app_title'] = 'Dashticz';
 if (typeof(settings['domoticz_refresh']) === 'undefined') settings['domoticz_refresh'] = 5;
 if (typeof(settings['dashticz_refresh']) === 'undefined') settings['dashticz_refresh'] = 60;
-if (typeof(settings['default_cors_url']) === 'undefined') settings['default_cors_url'] = 'https://cors-anywhere.herokuapp.com/';
+if (typeof(settings['dashticz_php_path']) === 'undefined') settings['dashticz_php_path'] = './vendor/dashticz/';
 if (typeof(settings['wu_api']) === 'undefined') settings['wu_api'] = '';
 if (typeof(settings['wu_country']) === 'undefined') settings['wu_country'] = 'NL';
 if (typeof(settings['wu_city']) === 'undefined') settings['wu_city'] = 'Amsterdam';
 if (typeof(settings['owm_api']) === 'undefined') settings['owm_api'] = '';
 if (typeof(settings['owm_country']) === 'undefined') settings['owm_country'] = 'de';
 if (typeof(settings['owm_city']) === 'undefined') settings['owm_city'] = 'Mainaschaff';
+if (typeof(settings['owm_cnt']) === 'undefined') settings['owm_cnt'] = 4;
 if (typeof(settings['boss_stationclock']) === 'undefined') settings['boss_stationclock'] = 'RedBoss';
 if (typeof(settings['use_fahrenheit']) === 'undefined') settings['use_fahrenheit'] = 0;
 if (typeof(settings['use_beaufort']) === 'undefined') settings['use_beaufort'] = 0;
@@ -551,9 +572,9 @@ if (typeof(settings['garbage']) === 'undefined') {
 }
 if (typeof(settings['garbage_mapping']) === 'undefined') {
     settings['garbage_mapping'] = {
+        rest: ['grof', 'grey', 'rest', 'grijs','grijze'],
         gft: ['gft', 'tuin', 'refuse bin', 'green', 'groen', 'Biodégradables', 'snoei'],
         pmd: ['plastic', 'pmd', 'verpakking', 'kunststof', 'valorlux'],
-        rest: ['grof', 'grey', 'rest', 'grijs','grijze'],
         papier: ['papier', 'blauw', 'blue', 'recycling bin collection'],
         kca: ['chemisch', 'kca','kga'],
         brown: ['brown', 'verre'],
@@ -586,6 +607,40 @@ for (var s in settingList){
 
 var _TEMP_SYMBOL = '°C';
 if (settings['use_fahrenheit'] === 1) _TEMP_SYMBOL = '°F';
+
+var phpversion = '<br>PHP not installed!!';
+var _PHP_INSTALLED = false;
+
+$.ajax({
+    url: settings['dashticz_php_path']+'info.php?get=phpversion',
+    async: false,
+    dataType: 'json',
+    success: function (data) {
+        phpversion = '<br> PHP version: ' + data;
+        _PHP_INSTALLED = true;
+      },
+    error: function () {
+      console.log('PHP not installed.');
+    }
+});
+
+if (typeof(settings['default_cors_url'])==='undefined' || settings['default_cors_url']==='') {
+  if(_PHP_INSTALLED)
+    _CORS_PATH = settings['dashticz_php_path']+'cors.php?'
+  else {
+    _CORS_PATH = 'https://cors-anywhere.herokuapp.com/';
+    console.log('PHP not enabled and default_cors_url not set.');
+    console.log('CORS proxy: ' + _CORS_PATH);
+  }
+//    _CORS_PATH = 'http://192.168.178.18:8081/';
+}
+else
+  _CORS_PATH = settings['default_cors_url'];
+
+settingList['about']['about_text5'] = {};
+settingList['about']['about_text5']['title'] = domoversion + dzVents + python + phpversion;
+
+
 
 function loadSettings() {
 

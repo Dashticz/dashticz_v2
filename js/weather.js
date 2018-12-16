@@ -1,11 +1,11 @@
 function loadWeather(location, country) {
     var html = '';
     if (typeof(settings['wu_api']) !== 'undefined' && settings['wu_api'] !== '' && settings['wu_api'] !== 0) {
-        $.getJSON('https://api.wunderground.com/api/' + settings['wu_api'] + '/conditions/q/' + country + '/' + location + '.json', function (weather) {
+        $.getJSON(_CORS_PATH + 'https://api.wunderground.com/api/' + settings['wu_api'] + '/conditions/q/' + country + '/' + location + '.json', function (weather) {
 
             $('.containsweather').each(function () {
                 var curfull = $(this);
-                if (typeof(weather.current_observation) == 'undefined') {
+                if (typeof(weather.current_observation) === 'undefined') {
                     curfull.remove();
                     currentweather = false;
                     curfull.find('.weather').html('<p style="font-size:10px; width:100px;">Location ERROR</p>');
@@ -13,10 +13,10 @@ function loadWeather(location, country) {
                     currentweather = weather.current_observation;
                     var wiclass = getIcon(currentweather.icon);
                     var temp = currentweather.temp_c;
-                    if (settings['use_fahrenheit'] == 1) temp = currentweather.temp_f;
+                    if (settings['use_fahrenheit'] === 1) temp = currentweather.temp_f;
 
                     weatherIcon = '<i class="wi ' + wiclass + '"></i>';
-                    if (settings['static_weathericons'] == 0) {
+                    if (settings['static_weathericons'] === 0) {
                         weatherIcon = getSkycon(currentweather.icon, 'skyconsmall');
                     }
                     html += '<h2><span>' + Math.round(temp) + _TEMP_SYMBOL + '</span> ' + weatherIcon + '</h2>';
@@ -36,10 +36,10 @@ function loadWeatherFull(location, country) {
         $('div.containsweatherfull').html('<div class="weatherfull"><div class="col-xs-3 transbg"></div><div class="col-xs-3 transbg"></div><div class="col-xs-3 transbg"></div><div class="col-xs-3 transbg"></div></div>');
 
         var html = '';
-        $.getJSON('https://api.wunderground.com/api/' + settings['wu_api'] + '/forecast10day/q/' + country + '/' + location + '.json', function (currentforecast) {
+        $.getJSON(_CORS_PATH + 'https://api.wunderground.com/api/' + settings['wu_api'] + '/forecast10day/q/' + country + '/' + location + '.json', function (currentforecast) {
             $('.containsweatherfull').each(function () {
                 var curfull = $(this);
-                if (typeof(currentforecast.forecast) == 'undefined') {
+                if (typeof(currentforecast.forecast) === 'undefined') {
                     curfull.remove();
                 }
                 else {
@@ -56,13 +56,13 @@ function loadWeatherFull(location, country) {
                         var wiclass = getIcon(curfor.icon);
                         var lowtemp = curfor.low.celsius
                         var hightemp = curfor.high.celsius;
-                        if (settings['use_fahrenheit'] == 1) {
-                            var lowtemp = curfor.low.fahrenheit
-                            var hightemp = curfor.high.fahrenheit;
+                        if (settings['use_fahrenheit'] === 1) {
+                            lowtemp = curfor.low.fahrenheit
+                            hightemp = curfor.high.fahrenheit;
                         }
 
                         html = '<div class="day">' + date.format(settings['weekday']) + '<br />' + date.format(settings['shortdate']) + '</div>';
-                        if (settings['static_weathericons'] == 1) html += '<div class="icon"><i class="wi ' + wiclass + '"></i></div>';
+                        if (settings['static_weathericons'] === 1) html += '<div class="icon"><i class="wi ' + wiclass + '"></i></div>';
                         else html += getSkycon(curfor.icon, 'skycon');
                         html += '<div class="temp"><span class="dayT">' + hightemp + _TEMP_SYMBOL + '</span><span class="nightT">' + lowtemp + _TEMP_SYMBOL + '</span></div>';
 

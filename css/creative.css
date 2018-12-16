@@ -186,9 +186,11 @@
 	border-bottom: 0px !important;
 }
 
-.modal-body {
-    position: relative;
-    padding: 0px 0px 0px 0px;
+/*
+next css sets the default height of the frame popup
+*/
+.popupheight {
+	height: calc(95vh - 150px);
 }
 
 .modal-body .glyphicon {
@@ -196,7 +198,7 @@
 	cursor:help;
 }
 .modal-dialog-settings {
-	min-width: 50% !important;
+	width: 70%;
 	margin: 80px auto;
 }
 
@@ -245,8 +247,12 @@
 }
 
 .modal-dialog {
-    min-width: 80% !important;
-    margin: 80px auto;
+    min-width: 80%;
+}
+
+.modal-dialog-custom {
+	min-width: 10px;
+	width: 80%;
 }
 
 .material-switch > input[type="checkbox"] {
@@ -589,6 +595,30 @@ a.playlist {
 		white-space:nowrap
 }
 .graphpopup {overflow:hidden;}
+
+/*To change the default height of the graph popup adapt the height value*/
+.graphheight {
+	width: 100%;
+	height: calc(80vh - 200px);
+}
+
+/*To remove the close button of the graph popup:
+.graphclose {
+	display: none;
+}
+*/
+
+.graphwidth {
+	min-width: 30px;
+	width: 70vw;
+}
+
+/*To remove the close button of a popup frame:
+.frameclose {
+	display: none;
+}
+*/
+
 html,
 body {
 	height: 100%;
@@ -1062,6 +1092,7 @@ img.icon {
 	.fas,.far,.fab,.wi {
 		font-size:15px !important;
 	}
+	.fa-tv:before  {font-size:12px;}
 	#weather .wi {
 		font-size:24px !important;
 	}
@@ -1096,6 +1127,7 @@ img.icon {
 	.fas,.far,.fab,.wi {
 		font-size:15px !important;
 	}
+	.fa-tv:before  {font-size:12px;}
 	
 	.big .wi {
 		font-size:30px !important;
@@ -1113,9 +1145,6 @@ img.icon {
 
 }
 
-.modal-dialog {
-    min-width: 90% !important;
-}
 div.screen {
   -webkit-background-size: cover;
   -moz-background-size: cover;
