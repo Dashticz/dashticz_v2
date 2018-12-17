@@ -40,7 +40,15 @@ function loadWeather(location, country) {
 
 function loadWeatherFull(location, country) {
     if (typeof(settings['owm_api']) !== 'undefined' && settings['owm_api'] !== '' && settings['owm_api'] !== 0) {
-        var containsweatherfull = '<div class="col-xs-3 transbg"></div>'.repeat(settings['owm_cnt']);
+        if (settings['owm_cnt'] > 4) {
+            var ColXs = 'col-xs-2';
+        } else {
+            var ColXs = 'col-xs-3';
+        }
+        var containsweatherfull = '' ;
+        for (count = 0; count < settings['owm_cnt']; count++) {
+            containsweatherfull += '<div class="' + ColXs + ' transbg"></div>';
+        }
         $('div.containsweatherfull').html('<div class="weatherfull">' + containsweatherfull + '</div>');
 		var site = 'http://api.openweathermap.org/data/2.5/forecast?q=' + settings['owm_city'] + ',' + settings['owm_country'] + '&appid=' + settings['owm_api'] + '&cnt=' + settings['owm_cnt'];
 
@@ -59,7 +67,7 @@ function loadWeatherFull(location, country) {
                     curfull.remove();
                 }
                 else {
-                    curfull.find(".weatherfull .col-xs-3").html('');
+                    curfull.find(".weatherfull ." + ColXs).html('');
                     var start = 0;
 
                     for (var i = start; i < (start + settings['owm_cnt']); i++) {
@@ -80,7 +88,7 @@ function loadWeatherFull(location, country) {
                         html += '<div class="temp"><span class="av_temp">' + Math.round(temp) + _TEMP_SYMBOL + '</span><span class="rain">' + (Math.round(rain*100)/100) + " mm" + '</span></div>';
 
                         curfull.find('.weatherfull').each(function () {
-                           $(this).find('.col-xs-3:eq(' + i + ')').html(html);
+                           $(this).find('.'+ ColXs + ':eq(' + i + ')').html(html);
                         });
 
                     }
