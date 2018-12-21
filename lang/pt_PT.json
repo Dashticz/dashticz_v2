@@ -99,7 +99,9 @@
             "user_name": "Username",
             "user_name_help": "Set Dashticz username and password",
             "default_cors_url": "Default CORS URL",
-            "dashticz_php_path": "Dashticz PHP Path"
+            "dashticz_php_path": "Dashticz PHP Path",
+            "standby_call_url": "URL to be called at start of standby",
+            "standby_call_url_on_end": "URL to be called at end of standby"
         },
         "infosave": "By default, settings are stored in your browser. Downside of this method is it will only work in your current browser. If that's not a problem, you can proceed. Otherwise, copy code below to your CONFIG.JS to keep settings across all browsers and devices.",
         "localize": {

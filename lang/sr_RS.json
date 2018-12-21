@@ -99,7 +99,9 @@
             "user_name": "Korisničko ime",
             "user_name_help": "Postavi Dashticz korisničko ime i lozinku",
             "default_cors_url": "Default CORS URL",
-            "dashticz_php_path": "Dashticz PHP Path"
+            "dashticz_php_path": "Dashticz PHP Path",
+            "standby_call_url": "URL to be called at start of standby",
+            "standby_call_url_on_end": "URL to be called at end of standby"
         },
         "infosave": "Po podrazumevanim postavkama, postavke se skladište u vašem pregledaču. Negativna strana ove metode je da će raditi samo u trenutnom pregledaču. Ako to nije problem, možete nastaviti. U suprotnom, kopirajte kôd ispod u vaš CONFIG.JS da bi ste zadržali postavke za sve pregledače i uređaje.",
         "localize": {

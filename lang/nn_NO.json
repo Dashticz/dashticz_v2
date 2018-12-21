@@ -99,7 +99,9 @@
             "user_name": "Brukernavn",
             "user_name_help": "Sett Dashticz brukernavn og passord",
             "default_cors_url": "Default CORS URL",
-            "dashticz_php_path": "Dashticz PHP Path"
+            "dashticz_php_path": "Dashticz PHP Path",
+            "standby_call_url": "URL to be called at start of standby",
+            "standby_call_url_on_end": "URL to be called at end of standby"
         },
         "infosave": "Som standard lagres innstillingene i nettleseren din. Ulempen med denne metoden er at den bare vil fungere i din nåværende nettleser. Hvis det ikke er et problem, kan du fortsette. Ellers kopier koden nedenfor til CONFIG.JS for å holde innstillingene over alle nettlesere og enheter.",
         "localize": {

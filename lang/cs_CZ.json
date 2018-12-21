@@ -99,7 +99,9 @@
             "user_name": "Username",
             "user_name_help": "Set Dashticz username and password",
             "default_cors_url": "Default CORS URL",
-            "dashticz_php_path": "Dashticz PHP Path"
+            "dashticz_php_path": "Dashticz PHP Path",
+            "standby_call_url": "URL to be called at start of standby",
+            "standby_call_url_on_end": "URL to be called at end of standby"
         },
         "infosave": "Nastavení se ukládá pouze do právě používaného prohlížeče. Pokud si přejete toto nastavení používat na všech počítačích a prohlížečích, je důležité zkopírovat nastavení do souboru CONFIG.JS",
         "localize": {
