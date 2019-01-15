@@ -1,8 +1,9 @@
 {
-"version": "2.5.1",
+"version": "2.5.2",
 "branch": "beta",
-"last_changes": "Fix for TV Guide",
+"last_changes": "Add Standby URL settings to configuration window",
 "changelog" : {
+            "2.5.1": "Fix for TV Guide and several other small fixes",
             "2.5.0": "New beta",
             "2.4.7": "Addition of internal PHP based cors proxy",
             "2.4.6": "Small change in garbage name mapping rules to support Dordrecht",

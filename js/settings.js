@@ -80,6 +80,17 @@ settingList['general']['dashticz_php_path'] = {};
 settingList['general']['dashticz_php_path']['title'] = language.settings.general.dashticz_php_path;
 settingList['general']['dashticz_php_path']['type'] = 'text';
 
+settingList['general']['standby_call_url'] = {
+  title : language.settings.general.standby_call_url,
+  type: 'text'
+};
+
+settingList['general']['standby_call_url_on_end'] = {
+  title : language.settings.general.standby_call_url_on_end,
+  type: 'text'
+};
+
+
 /*
 settingList['general']['hide_off_button'] = {}
 settingList['general']['hide_off_button']['title'] = language.settings.general.hide_off_button;
@@ -471,7 +482,7 @@ settingList['about']['about_text'] = {};
 settingList['about']['about_text']['title'] = 'Dashticz V' + dashticz_version + ' ' + dashticz_branch + ' by Rob Geerts<br>' + newVersion;
 
 settingList['about']['about_text2'] = {};
-settingList['about']['about_text2']['title'] = 'Years after developing the old and original Dashticz, I decided to start over.<br><br>For more help visit: <a href="http://www.domoticz.com/wiki/Dashticz_V2" target="_blank">http://www.domoticz.com/wiki/Dashticz_V2</a><br>You can also check out our helpful <a href="https://www.domoticz.com/forum/viewforum.php?f=67" target="_blank">community</a> in Dashticz topic on the Domoticz forum.';
+settingList['about']['about_text2']['title'] = 'Years after developing the old and original Dashticz, I decided to start over.<br><br>For more help visit: <a href="https://www.domoticz.com/wiki/Dashticz_V2" target="_blank">https://www.domoticz.com/wiki/Dashticz_V2</a><br>You can also check out our helpful <a href="https://www.domoticz.com/forum/viewforum.php?f=67" target="_blank">community</a> in Dashticz topic on the Domoticz forum.';
 
 settingList['about']['about_text3'] = {};
 settingList['about']['about_text3']['title'] = 'Do you appreciate my work and want to buy me a beer? You can send me Bitcoins (17Qy4bsLM9J238fCZt5kaRc2bD5S1Aw6og) or donate via PayPal: <a href="https://www.paypal.me/robgeerts" target="_blank">https://www.paypal.me/robgeerts</a>'
