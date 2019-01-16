@@ -1,8 +1,9 @@
 {
-"version": "2.5.2",
+"version": "2.5.3",
 "branch": "beta",
-"last_changes": "Add Standby URL settings to configuration window",
+"last_changes": "Add the possibility to show several weather forecast days with OWM",
 "changelog" : {
+            "2.5.2": "Add Standby URL settings to configuration window",
             "2.5.1": "Fix for TV Guide and several other small fixes",
             "2.5.0": "New beta",
             "2.4.7": "Addition of internal PHP based cors proxy",
