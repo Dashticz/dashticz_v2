@@ -161,7 +161,7 @@ function getWasteApi2Data(address, date, random, companyCode) {
 
 function getOphaalkalenderData(address, date, random) {
     $('.trash' + random + ' .state').html('');
-    var baseURL = 'http://www.ophaalkalender.be';
+    var baseURL = 'https://www.ophaalkalender.be';
 
     $.getJSON(getPrefixUrl() + baseURL + '/calendar/findstreets/?query=' + address.street + '&zipcode=' + address.zipcode, function (data) {
         $.getJSON(getPrefixUrl() + baseURL + '/api/rides?id=' + data[0].Id + '&housenumber=0&zipcode=' + address.zipcode, function (data) {
