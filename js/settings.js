@@ -305,6 +305,12 @@ settingList['weather']['owm_country']['type'] = 'text';
 settingList['weather']['owm_cnt'] = {};
 settingList['weather']['owm_cnt']['title'] = language.settings.weather.owm_cnt;
 settingList['weather']['owm_cnt']['type'] = 'text';
+settingList['weather']['owm_cnt']['help'] = language.settings.weather.owm_cnt_help;
+
+settingList['weather']['owm_days'] = {};
+settingList['weather']['owm_days']['title'] = language.settings.weather.owm_days;
+settingList['weather']['owm_days']['type'] = 'text';
+settingList['weather']['owm_days']['help'] = language.settings.weather.owm_days_help;
 
 settingList['weather']['idx_moonpicture'] = {};
 settingList['weather']['idx_moonpicture']['title'] = language.settings.weather.idx_moonpicture;
