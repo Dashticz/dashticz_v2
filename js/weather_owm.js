@@ -70,7 +70,7 @@ function loadWeatherFull(location, country) {
                     curfull.find(".weatherfull ." + ColXs).html('');
                     var start = 0;
 
-                    if(typeof(settings['owm_days']) == 'undefined' || settings['owm_days'] == '' || settings['owm_days'] == 0) { //torov3
+                    if(typeof(settings['owm_days']) == 'undefined' || settings['owm_days'] == '' || settings['owm_days'] == 0) { //torov4
 						for (var i = start; i < (start + settings['owm_cnt']); i++) {
 							curfor = currentforecast.list[i];
 							var date = moment.unix(curfor.dt).locale(settings['calendarlanguage']);
@@ -86,7 +86,7 @@ function loadWeatherFull(location, country) {
 							html = '<div class="day">' + date.format('HH')+':' +date.format('mm') + '<br />' + date.format(settings['weekday']) + '</div>';
 							if (settings['static_weathericons'] === 1) html += '<div class="icon"><i class="wi ' + wiclass + '"></i></div>';
 							else html += getSkycon(curfor.weather[0].icon, 'skycon');
-							html += '<div class="temp"><span class="av_temp">' + Math.round(temp) + _TEMP_SYMBOL + '</span><span class="rain">' + (Math.round(rain*100)/100) + " mm" + '</span></div>';
+							html += '<div class="temp"><span class="av_temp">' + Math.round(temp) + _TEMP_SYMBOL + '</span><br /><span class="rain">' + (Math.round(rain*100)/100) + " mm" + '</span></div>';
 
 							curfull.find('.weatherfull').each(function () {
 							   $(this).find('.'+ ColXs + ':eq(' + i + ')').html(html);
@@ -128,8 +128,8 @@ function loadWeatherFull(location, country) {
 								if (settings['static_weathericons'] === 1) html += '<div class="icon"><i class="wi ' + wiclass + '"></i></div>';
 								else html += getSkycon(curfor.weather[0].icon, 'skycon');
 								html += '<div class="day">' + Wdescription + '</div><div class="temp"><span class="av_temp">' + Math.round(temp) + _TEMP_SYMBOL + '</div>';
-								if (settings['owm_min'] === 1) html += '<div class="day">Min</div><div class="temp"><span class="av_temp">' + Math.round(minTemp[i]) + _TEMP_SYMBOL + '</div>';
-
+								if (settings['owm_min'] === 1) html += '<div class="temp"><span class="nightT">' + Math.round(minTemp[i]) + _TEMP_SYMBOL + '</div>';
+								
 								curfull.find('.weatherfull').each(function () {
 									$(this).find('.'+ ColXs + ':eq(' + i + ')').html(html);
 								});
