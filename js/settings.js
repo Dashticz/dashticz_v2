@@ -302,15 +302,25 @@ settingList['weather']['owm_country'] = {};
 settingList['weather']['owm_country']['title'] = language.settings.weather.owm_country;
 settingList['weather']['owm_country']['type'] = 'text';
 
+settingList['weather']['owm_lang'] = {};
+settingList['weather']['owm_lang']['title'] = language.settings.weather.owm_lang;
+settingList['weather']['owm_lang']['type'] = 'text';
+settingList['weather']['owm_lang']['help'] = language.settings.weather.owm_lang_help;
+
+settingList['weather']['owm_days'] = {};
+settingList['weather']['owm_days']['title'] = language.settings.weather.owm_days;
+settingList['weather']['owm_days']['type'] = 'checkbox';
+settingList['weather']['owm_days']['help'] = language.settings.weather.owm_days_help;
+
 settingList['weather']['owm_cnt'] = {};
 settingList['weather']['owm_cnt']['title'] = language.settings.weather.owm_cnt;
 settingList['weather']['owm_cnt']['type'] = 'text';
 settingList['weather']['owm_cnt']['help'] = language.settings.weather.owm_cnt_help;
 
-settingList['weather']['owm_days'] = {};
-settingList['weather']['owm_days']['title'] = language.settings.weather.owm_days;
-settingList['weather']['owm_days']['type'] = 'text';
-settingList['weather']['owm_days']['help'] = language.settings.weather.owm_days_help;
+settingList['weather']['owm_min'] = {};
+settingList['weather']['owm_min']['title'] = language.settings.weather.owm_min;
+settingList['weather']['owm_min']['type'] = 'checkbox';
+settingList['weather']['owm_min']['help'] = language.settings.weather.owm_min_help;
 
 settingList['weather']['idx_moonpicture'] = {};
 settingList['weather']['idx_moonpicture']['title'] = language.settings.weather.idx_moonpicture;
@@ -536,6 +546,7 @@ if (typeof(settings['wu_city']) === 'undefined') settings['wu_city'] = 'Amsterda
 if (typeof(settings['owm_api']) === 'undefined') settings['owm_api'] = '';
 if (typeof(settings['owm_country']) === 'undefined') settings['owm_country'] = 'de';
 if (typeof(settings['owm_city']) === 'undefined') settings['owm_city'] = 'Mainaschaff';
+if (typeof(settings['owm_days']) === 'undefined') settings['owm_days'] = 0;
 if (typeof(settings['owm_cnt']) === 'undefined') settings['owm_cnt'] = 4;
 if (typeof(settings['boss_stationclock']) === 'undefined') settings['boss_stationclock'] = 'RedBoss';
 if (typeof(settings['use_fahrenheit']) === 'undefined') settings['use_fahrenheit'] = 0;
