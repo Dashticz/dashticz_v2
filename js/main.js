@@ -817,23 +817,25 @@ function loadFrame(f, frame) {
     return html;
 }
 
-function reloadFrame(i, frame) {
+function checkForceRefresh(m_instance, url){
+//adds current time to an url if forcerefresh is set
+  if(typeof(m_instance.forcerefresh)!=='undefined' && m_instance.forcerefresh) {
     var sep = '?';
+    if (url.indexOf("?") != -1) var sep = '&';
 
-    if (typeof(frame.frameurl) !== 'undefined') {
-        var img = frame.frameurl;
-        if(img.indexOf("forecast.io")==-1) {
-            if (img.indexOf("?") != -1) var sep = '&';
-
-            if (img.indexOf("?") != -1) {
-                var newimg = img.split(sep + 't=');
-                img = newimg;
-            }
-            img += sep + 't=' + (new Date()).getTime();
-        }
+    if (url.indexOf("?") != -1) {
+        var newurl = url.split(sep + 't=');
+        url = newurl;
     }
+    url += sep + 't=' + (new Date()).getTime();
+  }
+  return url;  
+}
 
-    $('.imgblock' + i).find('iframe').attr('src', img);
+function reloadFrame(i, frame) {
+    if (typeof(frame.frameurl) !== 'undefined') {
+        $('.imgblock' + i).find('iframe').attr('src', checkForceRefresh(frame, frame.frameurl));
+    }
 }
 
 function loadImage(i, image) {
@@ -883,38 +885,16 @@ function loadImage(i, image) {
 }
 
 function reloadImage(i, image) {
-    var sep = '?';
-
     if (typeof(image.image) !== 'undefined') {
-        var img = image.image;
-        if (img.indexOf("?") != -1) var sep = '&';
-
-        if (img.indexOf("?") != -1) {
-            var newimg = img.split(sep + 't=');
-            img = newimg;
-        }
-        img += sep + 't=' + (new Date()).getTime();
+        $('.imgblock' + i).find('img').attr('src', checkForceRefresh(image, image.image));
     }
-
-    $('.imgblock' + i).find('img').attr('src', img);
 }
 
 function reloadIframe(i, image) {
-    var sep = '?';
-
     if (typeof(image.url) !== 'undefined') {
-        var url = image.url;
-        if (url.indexOf("?") != -1) var sep = '&';
-
-        if (url.indexOf("?") != -1) {
-            var newurl = url.split(sep + 't=');
-            url = newurl;
+        if (typeof($('.imgblockopens' + i + ' iframe').attr('src') !== 'undefined')) {
+            $('.imgblockopens' + i + ' iframe').attr('src', checkForceRefresh(image, image.url));
         }
-        url += sep + 't=' + (new Date()).getTime();
-    }
-
-    if (typeof($('.imgblockopens' + i + ' iframe').attr('src') !== 'undefined')) {
-        $('.imgblockopens' + i + ' iframe').attr('src', url);
     }
 }
 
