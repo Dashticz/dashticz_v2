@@ -40,13 +40,16 @@ function loadWeather(location, country) {
 
 function loadWeatherFull(location, country) {
     if (typeof(settings['owm_api']) !== 'undefined' && settings['owm_api'] !== '' && settings['owm_api'] !== 0) {
-        if (settings['owm_cnt'] > 4) {
+		var cntSetting = settings['owm_cnt'];
+		if (cntSetting > 40) cntSetting = 40;
+		if (cntSetting > 5 && settings['owm_days'] == 1) cntSetting = 5;
+        if (cntSetting > 4) {
             var ColXs = 'col-xs-2';
         } else {
             var ColXs = 'col-xs-3';
         }
         var containsweatherfull = '' ;
-        for (count = 0; count < settings['owm_cnt']; count++) {
+        for (count = 0; count < cntSetting; count++) {
             containsweatherfull += '<div class="' + ColXs + ' transbg"></div>';
         }
         $('div.containsweatherfull').html('<div class="weatherfull">' + containsweatherfull + '</div>');
@@ -70,8 +73,8 @@ function loadWeatherFull(location, country) {
                     curfull.find(".weatherfull ." + ColXs).html('');
                     var start = 0;
 
-                    if(typeof(settings['owm_days']) == 'undefined' || settings['owm_days'] == '' || settings['owm_days'] == 0) { //torov4
-						for (var i = start; i < (start + settings['owm_cnt']); i++) {
+                    if(typeof(settings['owm_days']) == 'undefined' || settings['owm_days'] == '' || settings['owm_days'] == 0) { //torov5
+						for (var i = start; i < (start + cntSetting); i++) {
 							curfor = currentforecast.list[i];
 							var date = moment.unix(curfor.dt).locale(settings['calendarlanguage']);
 							var wiclass = getIcon(curfor.weather[0].icon);
@@ -94,10 +97,11 @@ function loadWeatherFull(location, country) {
 						}
 					}
 					else {
+						var fcNumber = currentforecast.cnt;
 						var minTemp = [199,199,199,199,199];
 						var tempTemp = 199;
 						var x = -1;
-						for (var i = 0; i < 39; i++) {
+						for (var i = 0; i < fcNumber; i++) {
 							curfor = currentforecast.list[i];
 							var date = moment.unix(curfor.dt).locale(settings['calendarlanguage']);
 							var temp = curfor.main.temp;
@@ -111,7 +115,7 @@ function loadWeatherFull(location, country) {
 						if (minTemp[4] == 199) minTemp[4] = tempTemp;
 						
 						var i = 0;
-						while (start < 40){
+						while (start < fcNumber){
 							curfor = currentforecast.list[start];
 							var date = moment.unix(curfor.dt).locale(settings['calendarlanguage']);
 							if (date.format('HH') == '12' || date.format('HH') == '13' || date.format('HH') == '14'){
