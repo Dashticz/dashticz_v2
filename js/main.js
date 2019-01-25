@@ -387,6 +387,7 @@ function buildScreens() {
                             $('.col3 .auto_sunrise').html('<div class="block_sunrise col-xs-12 transbg text-center sunriseholder"><em class="wi wi-sunrise"></em><span id="sunrise" class="sunrise"></span><em class="wi wi-sunset"></em><span id="sunset" class="sunset"></span></div>');
                             if (typeof(buttons) !== 'undefined') {
                                 for (b in buttons) {
+                                    console.log('loop ' + b);
                                     if (buttons[b].isimage) $('.col3 .auto_buttons').append(loadImage(b, buttons[b]));
                                     else $('.col3 .auto_buttons').append(loadButton(b, buttons[b]));
                                 }
@@ -749,10 +750,115 @@ function loadMaps(b, map) {
     return html;
 }
 
+function buttonLoadFrame(button) //Displays the frame of a button after pressing is
+{
+  
+  console.log('buttonLoadFrame ');
+  console.log(button);
+//  console.log(Object.keys(buttons[1]);
+//  var button=buttons[Object.keys(buttons)[b]];
+//  console.log(button);
+  var random = getRandomInt(1, 100000);
+  $('body').append(createModalDialog('openpopup','button_' + random , button));
+  if (button.log == true) {
+      if (typeof(getLog) !== 'function') $.ajax({url: 'js/log.js', async: false, dataType: 'script'});
+      $('#button_' + random  + ' .modal-body').html('');
+      getLog($('#button_' + random + ' .modal-body'), button.level, true);
+  }
+  $('#button_' + random ).modal('show');
+
+}
+
+function buttonOnClick(m_event)
+{
+  var button = m_event.data;
+  console.log(button);
+  if (typeof(button.newwindow) !== 'undefined') {
+      window.open(button.url);
+  }
+  else if (typeof(button.slide) !== 'undefined') {
+    toSlide(button.slide);
+  }
+  else {
+//        var html = '<div class="col-xs-' + width + ' hover transbg buttons-' + key + '" data-id="buttons.' + key + '" data-toggle="modal" data-target="#button_' + b + '_' + random + '" onclick="setSrc(this);">';
+        buttonLoadFrame(button);
+  }
+
+}
 function loadButton(b, button) {
+
+/*
     var random = getRandomInt(1, 100000);
     if ($('#button_' + b).length == 0) {
         $('body').append(createModalDialog('','button_' + b + '_' + random, button));
+        if (button.log == true) {
+            if (typeof(getLog) !== 'function') $.ajax({url: 'js/log.js', async: false, dataType: 'script'});
+            $('#button_' + b + '_' + random + ' .modal-body').html('');
+            getLog($('#button_' + b + '_' + random + ' .modal-body'), button.level, true);
+        }
+
+    }
+    */
+    var width = 12;
+    if (typeof(button.width) !== 'undefined') width = button.width;
+
+    var key = 'UNKNOWN';
+    if (typeof(button.key) !== 'undefined') key = button.key;
+
+/*
+    if (typeof(button.newwindow) !== 'undefined') {
+        html = '<div class="col-xs-' + width + ' hover transbg buttons-' + key + '" data-id="buttons.' + key + '" onclick="window.open(\'' + button.url + '\')">';
+    }
+    else if (typeof(button.slide) !== 'undefined') {
+        html = '<div class="col-xs-' + width + ' hover transbg buttons-' + key + '" data-id="buttons.' + key + '" onclick="toSlide(' + (parseFloat(button.slide) - 1) + ')">';
+    }
+    else {
+//        var html = '<div class="col-xs-' + width + ' hover transbg buttons-' + key + '" data-id="buttons.' + key + '" data-toggle="modal" data-target="#button_' + b + '_' + random + '" onclick="setSrc(this);">';
+//          console.log(b);
+//          console.log(cols['blocks'][b]);
+//          console.log(button);
+          html = '<div class="col-xs-' + width + ' hover transbg buttons-' + key + '" data-id="buttons.' + key + '" data-toggle="modal" data-target="#button_' + b + '" onclick="buttonLoadFrame('+b+');">';
+    }
+  */
+    html = '<div class="col-xs-' + width + ' hover transbg buttons-' + key + '" data-id="buttons.' + key + '">';
+
+    if (typeof(button.title) !== 'undefined') {
+        html += '<div class="col-xs-4 col-icon">';
+    }
+    else {
+        html += '<div class="col-xs-12 col-icon">';
+    }
+    if (typeof(button.image) !== 'undefined') html += '<img class="buttonimg" src="' + button.image + '" />';
+    else html += '<em class="' + button.icon + ' fa-small"></em>';
+    html += '</div>';
+    if (typeof(button.title) !== 'undefined') {
+        html += '<div class="col-xs-8 col-data">';
+        html += '<strong class="title">' + button.title + '</strong><br>';
+        html += '<span class="state"></span>';
+        html += '</div>';
+    }
+    html += '</div>';
+    return html;
+}
+
+
+function loadButtonTEMP(b, button) {
+    var random = getRandomInt(1, 100000);
+    if ($('#button_' + b).length == 0) {
+        var html = '<div class="modal fade" id="button_' + b + '_' + random + '" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
+        html += '<div class="modal-dialog">';
+        html += '<div class="modal-content">';
+        html += '<div class="modal-header">';
+        html += '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
+        html += '</div>';
+        html += '<div class="modal-body">';
+        html += '<iframe data-popup="' + button.url + '" width="100%" height="570" frameborder="0" allowtransparency="true"></iframe> ';
+        html += '</div>';
+        html += '</div>';
+        html += '</div>';
+        html += '</div>';
+        $('body').append(html);
+
         if (button.log == true) {
             if (typeof(getLog) !== 'function') $.ajax({url: 'js/log.js', async: false, dataType: 'script'});
             $('#button_' + b + '_' + random + ' .modal-body').html('');
@@ -794,6 +900,7 @@ function loadButton(b, button) {
     html += '</div>';
     return html;
 }
+
 
 function loadFrame(f, frame) {
 

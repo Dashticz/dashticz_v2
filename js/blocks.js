@@ -83,6 +83,7 @@ blocktypes.Name['Mondphase'] = {icon: 'fas fa-moon', title: '<Data>', value: '<N
 
 blocktypes = getExtendedBlockTypes(blocktypes);
 
+var myBlockNumbering=0;  //To give all blocks a unique number
 
 function getBlock(cols, c, columndiv, standby) {
     if (typeof(cols) !== 'undefined') {
@@ -113,19 +114,23 @@ function getBlock(cols, c, columndiv, standby) {
                     continue;
                 }
             }
+            $(columndiv).append('<div id="block_' + myBlockNumbering + '"</div>');
+            //var myblockselector = $('#block_' + myBlockNumbering++);
+            var myblockselector = '#block_' + myBlockNumbering++;
 
             switch (typeof(cols['blocks'][b])) {
                 case 'object':
-                    handleObjectBlock(cols['blocks'][b], b, columndiv, width, c);
+                    handleObjectBlock(cols['blocks'][b], b, myblockselector, width, c);
                     continue;
 
                 case 'string':
-                    handleStringBlock(cols['blocks'][b], columndiv, width, c);
+                    handleStringBlock(cols['blocks'][b], myblockselector, width, c);
                     continue;
 
-                default:
-                    $(columndiv).append('<div data-id="' + cols['blocks'][b] + '" class="mh transbg block_' + cols['blocks'][b] + '"></div>');
-                    break;
+                    default:
+                        //$(columndiv).append('<div data-id="' + cols['blocks'][b] + '" class="mh transbg block_' + cols['blocks'][b] + '"></div>');
+                        $(myblockselector).html('<div data-id="' + cols['blocks'][b] + '" class="mh transbg block_' + cols['blocks'][b] + '"></div>');
+                        break;
             }
         }
     }
@@ -405,6 +410,9 @@ function handleObjectBlock(block, index, columndiv, width, c) {
         addCalendar($('.containsicalendar' + random), block);
     } else {
         $(columndiv).append(loadButton(index, block));
+//        console.log("lok add clickhandler");
+      console.log(block);
+        $(columndiv).click(block, buttonOnClick);
     }
 }
 
