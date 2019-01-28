@@ -277,6 +277,7 @@ function buildStandby(){
 }
 
 function buildScreens() {
+//    console.log("start of build screens");
     var num = 1;
     var allscreens = {}
     for (t in screens) {
@@ -297,7 +298,10 @@ function buildScreens() {
     keys = Object.keys(screens);
     len = keys.length;
     keys.sort(function(a, b){return a-b});
+//    console.log(2);
     for (i = 0; i < len; i++) {
+//      console.log("i "+i);
+
         t = keys[i];
         if (
             typeof(screens[t]['maxwidth']) == 'undefined' ||
@@ -309,9 +313,9 @@ function buildScreens() {
             for (s in screens[t]) {
                 if (s !== 'maxwidth' && s !== 'maxheight') {
                     var screenhtml = '<div class="screen screen' + s + ' swiper-slide slide' + s + '"';
-					if (typeof(screens[t][s]['background']) === 'undefined') {
-						screens[t][s]['background'] = settings['background_image'];
-					}
+          					if (typeof(screens[t][s]['background']) === 'undefined') {
+          						screens[t][s]['background'] = settings['background_image'];
+          					}
                     if (typeof(screens[t][s]['background']) !== 'undefined') {
                         if (screens[t][s]['background'].indexOf("/") > 0) screenhtml += 'style="background-image:url(\'' + screens[t][s]['background'] + '\');"';
                         else screenhtml += 'style="background-image:url(\'img/' + screens[t][s]['background'] + '\');"';
@@ -325,6 +329,7 @@ function buildScreens() {
                     $('div.contents').append(screenhtml);
 
                     if (defaultcolumns === false) {
+  //                    console.log("not default columns");
                         if (!parseFloat(settings['hide_topbar']) == 1) {
                             if (typeof(columns['bar']) == 'undefined') {
                                 columns['bar'] = {}
@@ -335,13 +340,13 @@ function buildScreens() {
 
                         for (cs in screens[t][s]['columns']) {
                            if(typeof(screens[t])!=='undefined'){
-
-						   	c = screens[t][s]['columns'][cs];
-                            getBlock(columns[c], c, 'div.screen' + s + ' .row .col' + c, false);
-						   }
+						   	                   c = screens[t][s]['columns'][cs];
+                                   getBlock(columns[c], c, 'div.screen' + s + ' .row .col' + c, false);
+						                }
                         }
                     }
                     else {
+//                      console.log("else ");
 
                         if (parseFloat(settings['hide_topbar']) == 0) $('body .row').append('<div class="col-sm-undefined col-xs-12 sortable colbar transbg dark"><div data-id="logo" class="logo col-xs-2">' + settings['app_title'] + '<div></div></div><div data-id="miniclock" class="miniclock col-xs-8 text-center"><span class="weekday"></span> <span class="date"></span> <span>&nbsp;&nbsp;&nbsp;&nbsp;</span> <span class="clock"></span></div><div data-id="settings" class="settings settingsicon text-right" data-toggle="modal" data-target="#settingspopup"><em class="fas fa-cog" /></div></div></div>');
                         if (typeof(settings['default_columns']) == 'undefined' || parseFloat(settings['default_columns']) == 3) {
@@ -387,7 +392,7 @@ function buildScreens() {
                             $('.col3 .auto_sunrise').html('<div class="block_sunrise col-xs-12 transbg text-center sunriseholder"><em class="wi wi-sunrise"></em><span id="sunrise" class="sunrise"></span><em class="wi wi-sunset"></em><span id="sunset" class="sunset"></span></div>');
                             if (typeof(buttons) !== 'undefined') {
                                 for (b in buttons) {
-                                    console.log('loop ' + b);
+  //                                  console.log('loop ' + b);
                                     if (buttons[b].isimage) $('.col3 .auto_buttons').append(loadImage(b, buttons[b]));
                                     else $('.col3 .auto_buttons').append(loadButton(b, buttons[b]));
                                 }
@@ -753,8 +758,8 @@ function loadMaps(b, map) {
 function buttonLoadFrame(button) //Displays the frame of a button after pressing is
 {
   
-  console.log('buttonLoadFrame ');
-  console.log(button);
+//  console.log('buttonLoadFrame ');
+//  console.log(button);
 //  console.log(Object.keys(buttons[1]);
 //  var button=buttons[Object.keys(buttons)[b]];
 //  console.log(button);
@@ -765,6 +770,13 @@ function buttonLoadFrame(button) //Displays the frame of a button after pressing
       $('#button_' + random  + ' .modal-body').html('');
       getLog($('#button_' + random + ' .modal-body'), button.level, true);
   }
+  //console.log("adding delete handler " + '#button_' + random);
+  $('#button_'+random).on('hidden.bs.modal', function () {
+        $(this).data('bs.modal', null);
+        $(this).remove();
+  //  console.log("destroyed button");
+  });
+
   $('#button_' + random ).modal('show');
 
 }
@@ -772,7 +784,7 @@ function buttonLoadFrame(button) //Displays the frame of a button after pressing
 function buttonOnClick(m_event)
 {
   var button = m_event.data;
-  console.log(button);
+  //console.log(button);
   if (typeof(button.newwindow) !== 'undefined') {
       window.open(button.url);
   }
@@ -802,7 +814,7 @@ function loadButton(b, button) {
     var width = 12;
     if (typeof(button.width) !== 'undefined') width = button.width;
 
-    var key = 'UNKNOWN';
+    var key = b;
     if (typeof(button.key) !== 'undefined') key = button.key;
 
 /*
@@ -822,20 +834,44 @@ function loadButton(b, button) {
   */
     html = '<div class="col-xs-' + width + ' hover transbg buttons-' + key + '" data-id="buttons.' + key + '">';
 
-    if (typeof(button.title) !== 'undefined') {
-        html += '<div class="col-xs-4 col-icon">';
+    if (button.hasOwnProperty('isimage')) {
+      var img='';
+      if (typeof(button.image) !== 'undefined') {
+          img = button.image;
+      }
+      if (img == 'moon') {
+          html += '<div class="moon">';
+          img = getMoonInfo(image);
+          html += '</div>';
+      } else {
+          html += '<img src="' + img + '" style="max-width:100%;" />';
+      }
+      var refreshtime = 60000;
+      if (typeof(button.refresh) !== 'undefined') refreshtime = button.refresh;
+      if (typeof(button.refreshimage) !== 'undefined') refreshtime = button.refreshimage;
+    //  console.log("add image refreshhandler "+key + " "+refreshtime);
+      setInterval(function () {
+          reloadImage(key, button, true);
+      }, refreshtime);
+
     }
     else {
-        html += '<div class="col-xs-12 col-icon">';
-    }
-    if (typeof(button.image) !== 'undefined') html += '<img class="buttonimg" src="' + button.image + '" />';
-    else html += '<em class="' + button.icon + ' fa-small"></em>';
-    html += '</div>';
-    if (typeof(button.title) !== 'undefined') {
-        html += '<div class="col-xs-8 col-data">';
-        html += '<strong class="title">' + button.title + '</strong><br>';
-        html += '<span class="state"></span>';
-        html += '</div>';
+      if (typeof(button.title) !== 'undefined') {
+          html += '<div class="col-xs-4 col-icon">';
+      }
+      else {
+          html += '<div class="col-xs-12 col-icon">';
+      }
+
+      if (typeof(button.image) !== 'undefined') html += '<img class="buttonimg" src="' + button.image + '" />';
+      else html += '<em class="' + button.icon + ' fa-small"></em>';
+      html += '</div>';
+      if (typeof(button.title) !== 'undefined') {
+          html += '<div class="col-xs-8 col-data">';
+          html += '<strong class="title">' + button.title + '</strong><br>';
+          html += '<span class="state"></span>';
+          html += '</div>';
+      }
     }
     html += '</div>';
     return html;
@@ -888,6 +924,7 @@ function loadButtonTEMP(b, button) {
     else {
         html += '<div class="col-xs-12 col-icon">';
     }
+  
     if (typeof(button.image) !== 'undefined') html += '<img class="buttonimg" src="' + button.image + '" />';
     else html += '<em class="' + button.icon + ' fa-small"></em>';
     html += '</div>';
@@ -982,18 +1019,24 @@ function loadImage(i, image) {
         reloadImage(i, image, true);
     }, refreshtime);
 
+/*check: if it is a frame, then it should reload ...*/
+/*
     var refreshtime = 60000;
     if (typeof(image.refreshiframe) !== 'undefined') refreshtime = image.refreshiframe;
     setInterval(function () {
         reloadIframe(i, image, true);
     }, refreshtime);
-
+*/
     return html;
 }
 
 function reloadImage(i, image) {
+//  console.log("reload image " + i);
+//  console.log(image);
     if (typeof(image.image) !== 'undefined') {
-        $('.imgblock' + i).find('img').attr('src', checkForceRefresh(image, image.image));
+//        var obj = $('.buttons-' + i).find('img');
+//        console.log(obj);
+        $('.buttons-' + i).find('img').attr('src', checkForceRefresh(image, image.image));
     }
 }
 

@@ -366,10 +366,13 @@ function handleObjectBlock(block, index, columndiv, width, c) {
     if (block.hasOwnProperty('latitude')) {
         $(columndiv).append(loadMaps(random, block));
         return;
-    } else if (block.hasOwnProperty('isimage')) {
+/*    } else if (block.hasOwnProperty('isimage')) {
+      //load image also adds the modal dialog including background refresh ...
         $(columndiv).append(loadImage(random, block));
         return;
     }
+    */
+  }
     var key = 'UNKNOWN';
     if (block.hasOwnProperty('key')) key = block['key'];
     if (block.hasOwnProperty('width')) width = block['width'];
@@ -410,8 +413,9 @@ function handleObjectBlock(block, index, columndiv, width, c) {
         addCalendar($('.containsicalendar' + random), block);
     } else {
         $(columndiv).append(loadButton(index, block));
-//        console.log("lok add clickhandler");
-      console.log(block);
+
+      //  console.log("add clickhandler");
+      //console.log(block);
         $(columndiv).click(block, buttonOnClick);
     }
 }
