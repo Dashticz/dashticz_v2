@@ -680,7 +680,8 @@ function triggerChange(idx, value, device) {
             var flash_value = blocks[idx]['flash'];
             if(flash_value>0) {
               var cur_bc = $('div.block_'+idx).css('background-color');
-              $('div.block_'+idx).animate({'background-color': 'rgba(255, 255, 255, 1)'}, flash_value).animate({'background-color': cur_bc},flash_value); 
+              var flash_color = settings['blink_color'];
+              $('div.block_'+idx).animate({'background-color': 'rgba( ' + flash_color +')'}, flash_value).animate({'background-color': cur_bc},flash_value);
             }
         }
         

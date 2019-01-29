@@ -168,7 +168,9 @@
             "slide_effect": "Эффект прокрутки",
             "standard_graph": "Стандартный график",
             "standby_after": "Выключить через (минут, 0 = никогда)",
-            "title": "Интерфейс"
+            "title": "Интерфейс",
+            "blink_color": "Flash color and opacity (RGBA)",
+            "blink_color_help": "Set flash color and opacity (red, green, blue, alpha)"
         },
         "weather": {
             "idx_moonpicture": "IDX картинки луны",

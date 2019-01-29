@@ -153,6 +153,11 @@ settingList['screen']['security_button_icons'] = {};
 settingList['screen']['security_button_icons']['title'] = language.settings.screen.security_button_icons;
 settingList['screen']['security_button_icons']['type'] = 'checkbox';
 
+settingList['screen']['blink_color'] = {};
+settingList['screen']['blink_color']['title'] = language.settings.screen.blink_color;
+settingList['screen']['blink_color']['type'] = 'text';
+settingList['screen']['blink_color']['help'] = language.settings.screen.blink_color_help;
+
 settingList['screen']['edit_mode'] = {};
 settingList['screen']['edit_mode']['title'] = language.settings.screen.edit_mode;
 settingList['screen']['edit_mode']['type'] = 'checkbox';
@@ -566,6 +571,7 @@ if (typeof(settings['selector_instead_of_buttons']) === 'undefined') settings['s
 if (typeof(settings['default_news_url']) === 'undefined') settings['default_news_url'] = 'http://www.nu.nl/rss/algemeen';
 if (typeof(settings['news_scroll_after']) === 'undefined') settings['news_scroll_after'] = 7;
 if (typeof(settings['standard_graph']) === 'undefined') settings['standard_graph'] = 'hours';
+if (typeof(settings['blink_color']) === 'undefined') settings['blink_color'] = '255, 255, 255, 1';
 if (typeof(settings['edit_mode']) === 'undefined') settings['edit_mode'] = 0;
 if (typeof(settings['units']) === 'undefined') {
     settings['units'] = {

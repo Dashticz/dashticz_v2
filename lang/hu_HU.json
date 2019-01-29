@@ -168,7 +168,9 @@
             "slide_effect": "Dia hatás",
             "standard_graph": "Standard grafikon",
             "standby_after": "Készenléti állapot (perc, 0 = soha)",
-            "title": "Képernyő"
+            "title": "Képernyő",
+            "blink_color": "Flash color and opacity (RGBA)",
+            "blink_color_help": "Set flash color and opacity (red, green, blue, alpha)"
         },
         "weather": {
             "idx_moonpicture": "Holdfotó idxje",

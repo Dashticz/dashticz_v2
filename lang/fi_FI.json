@@ -168,7 +168,9 @@
             "slide_effect": "Slide-vaikutus",
             "standard_graph": "Standardi kuvaaja",
             "standby_after": "Valmiustila (minuutit, 0 = ei koskaan)",
-            "title": "Näytön otsikko"
+            "title": "Näytön otsikko",
+            "blink_color": "Flash color and opacity (RGBA)",
+            "blink_color_help": "Set flash color and opacity (red, green, blue, alpha)"
         },
         "weather": {
             "idx_moonpicture": "Kuun IDX-numero",

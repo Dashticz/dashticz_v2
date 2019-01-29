@@ -168,7 +168,9 @@
             "slide_effect": "Effetto scorrimento",
             "standard_graph": "Grafico standard",
             "standby_after": "Standby dopo (minuti, 0=mai)",
-            "title": "Schermata"
+            "title": "Schermata",
+            "blink_color": "Flash color and opacity (RGBA)",
+            "blink_color_help": "Set flash color and opacity (red, green, blue, alpha)"
         },
         "weather": {
             "idx_moonpicture": "IDX faselunare",

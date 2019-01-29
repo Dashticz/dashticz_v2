@@ -168,7 +168,9 @@
             "slide_effect": "幻灯片效果",
             "standard_graph": "Standard graph",
             "standby_after": "Standby after (minutes, 0 = never)",
-            "title": "Screen"
+            "title": "Screen",
+            "blink_color": "Flash color and opacity (RGBA)",
+            "blink_color_help": "Set flash color and opacity (red, green, blue, alpha)"
         },
         "weather": {
             "idx_moonpicture": "IDX of moonpicture",

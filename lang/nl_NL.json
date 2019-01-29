@@ -168,7 +168,9 @@
             "slide_effect": "Schuif effect",
             "standard_graph": "Standaard grafiek",
             "standby_after": "Standby na (minuteen, 0 = nooit)",
-            "title": "Weergave"
+            "title": "Weergave",
+            "blink_color": "Knipperkleur en ondoorzichtigheid (RBGA)",
+            "blink_color_help": "Stel de knipperkleur en ondoorzichtigheid in (rood, groen, blauw, ondoorzichtigheid)"
         },
         "weather": {
             "idx_moonpicture": "IDX van maanfoto",

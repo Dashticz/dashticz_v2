@@ -168,7 +168,9 @@
             "slide_effect": "Slide effekt",
             "standard_graph": "Standarddiagram",
             "standby_after": "Standby efter (minutter, 0 = aldrig)",
-            "title": "Skærm"
+            "title": "Skærm",
+            "blink_color": "Flash color and opacity (RGBA)",
+            "blink_color_help": "Set flash color and opacity (red, green, blue, alpha)"
         },
         "weather": {
             "idx_moonpicture": "IDX af månebillede",
