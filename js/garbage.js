@@ -159,6 +159,42 @@ function getWasteApi2Data(address, date, random, companyCode) {
     });
 }
 
+function getWasteApi3Data(address, date, random, companyCode) {
+    $.post('https://wasteapi.2go-mobile.com/api/FetchAdress', {
+        'companyCode': companyCode,
+        'postCode': address.zipcode,
+        'houseNumber': address.housenumber,
+        'houseLetter': '',
+        'houseNumberAddition': address.housenumberSuffix
+    }, function (data) {
+        $.post('https://wasteapi.2go-mobile.com/api/GetCalendar', {
+            'companyCode': companyCode,
+            'uniqueAddressID': data['dataList'][0]['UniqueId'],
+            'startDate': date.start.format('YYYY-MM-DD'),
+            'endDate': date.end.format('YYYY-MM-DD')
+        }, function (data) {
+            var dataFiltered = [];
+            data.dataList.forEach(function (element) {
+                element.pickupDates.forEach(function (dateElement) {
+                    var pickupTypes = {
+                        'GREY': 'Restafval',
+                        'GREEN': 'GFT',
+                        'BLUE': 'Papier',
+                        'PACKAGES': 'Plastic',
+                    };
+                    dataFiltered.push({
+                        date: moment(dateElement),
+                        summary: pickupTypes[element.pickupType],
+                        garbageType: mapGarbageType(pickupTypes[element._pickupTypeText]),
+                    });
+                });
+            });
+
+            addToContainer(random, dataFiltered);
+        });
+    });
+}
+
 function getOphaalkalenderData(address, date, random) {
     $('.trash' + random + ' .state').html('');
     var baseURL = 'https://www.ophaalkalender.be';
