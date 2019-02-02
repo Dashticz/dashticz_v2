@@ -115,7 +115,6 @@ function getBlock(cols, c, columndiv, standby) {
                 }
             }
             $(columndiv).append('<div id="block_' + myBlockNumbering + '"</div>');
-            //var myblockselector = $('#block_' + myBlockNumbering++);
             var myblockselector = '#block_' + myBlockNumbering++;
 
             switch (typeof(cols['blocks'][b])) {
@@ -128,7 +127,6 @@ function getBlock(cols, c, columndiv, standby) {
                     continue;
 
                     default:
-                        //$(columndiv).append('<div data-id="' + cols['blocks'][b] + '" class="mh transbg block_' + cols['blocks'][b] + '"></div>');
                         $(myblockselector).html('<div data-id="' + cols['blocks'][b] + '" class="mh transbg block_' + cols['blocks'][b] + '"></div>');
                         break;
             }
@@ -366,12 +364,6 @@ function handleObjectBlock(block, index, columndiv, width, c) {
     if (block.hasOwnProperty('latitude')) {
         $(columndiv).append(loadMaps(random, block));
         return;
-/*    } else if (block.hasOwnProperty('isimage')) {
-      //load image also adds the modal dialog including background refresh ...
-        $(columndiv).append(loadImage(random, block));
-        return;
-    }
-    */
   }
     var key = 'UNKNOWN';
     if (block.hasOwnProperty('key')) key = block['key'];
@@ -413,9 +405,6 @@ function handleObjectBlock(block, index, columndiv, width, c) {
         addCalendar($('.containsicalendar' + random), block);
     } else {
         $(columndiv).append(loadButton(index, block));
-
-      //  console.log("add clickhandler");
-      //console.log(block);
         $(columndiv).click(block, buttonOnClick);
     }
 }

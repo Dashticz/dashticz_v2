@@ -277,7 +277,6 @@ function buildStandby(){
 }
 
 function buildScreens() {
-//    console.log("start of build screens");
     var num = 1;
     var allscreens = {}
     for (t in screens) {
@@ -298,10 +297,7 @@ function buildScreens() {
     keys = Object.keys(screens);
     len = keys.length;
     keys.sort(function(a, b){return a-b});
-//    console.log(2);
     for (i = 0; i < len; i++) {
-//      console.log("i "+i);
-
         t = keys[i];
         if (
             typeof(screens[t]['maxwidth']) == 'undefined' ||
@@ -329,7 +325,6 @@ function buildScreens() {
                     $('div.contents').append(screenhtml);
 
                     if (defaultcolumns === false) {
-  //                    console.log("not default columns");
                         if (!parseFloat(settings['hide_topbar']) == 1) {
                             if (typeof(columns['bar']) == 'undefined') {
                                 columns['bar'] = {}
@@ -346,7 +341,6 @@ function buildScreens() {
                         }
                     }
                     else {
-//                      console.log("else ");
 
                         if (parseFloat(settings['hide_topbar']) == 0) $('body .row').append('<div class="col-sm-undefined col-xs-12 sortable colbar transbg dark"><div data-id="logo" class="logo col-xs-2">' + settings['app_title'] + '<div></div></div><div data-id="miniclock" class="miniclock col-xs-8 text-center"><span class="weekday"></span> <span class="date"></span> <span>&nbsp;&nbsp;&nbsp;&nbsp;</span> <span class="clock"></span></div><div data-id="settings" class="settings settingsicon text-right" data-toggle="modal" data-target="#settingspopup"><em class="fas fa-cog" /></div></div></div>');
                         if (typeof(settings['default_columns']) == 'undefined' || parseFloat(settings['default_columns']) == 3) {
@@ -392,9 +386,9 @@ function buildScreens() {
                             $('.col3 .auto_sunrise').html('<div class="block_sunrise col-xs-12 transbg text-center sunriseholder"><em class="wi wi-sunrise"></em><span id="sunrise" class="sunrise"></span><em class="wi wi-sunset"></em><span id="sunset" class="sunset"></span></div>');
                             if (typeof(buttons) !== 'undefined') {
                                 for (b in buttons) {
-  //                                  console.log('loop ' + b);
-                                    if (buttons[b].isimage) $('.col3 .auto_buttons').append(loadImage(b, buttons[b]));
-                                    else $('.col3 .auto_buttons').append(loadButton(b, buttons[b]));
+                                    $('.col3 .auto_buttons').append('<div id="block_' + myBlockNumbering + '"</div>');
+                                    var myblockselector = '#block_' + myBlockNumbering++;
+                                    handleObjectBlock(buttons[b], b, myblockselector, 12, null);
                                 }
                             }
                         }
@@ -561,6 +555,9 @@ function playAudio(file) {
         ion.sound.play(filename);
     }
 }
+function removeLoading() {
+  $('#loadingMessage').css('display', 'none');
+}
 
 function createModalDialog(dialogClass, dialogId, myFrame) {
     var setWidth = false;
@@ -592,9 +589,10 @@ function createModalDialog(dialogClass, dialogId, myFrame) {
     if(dialogClass==='openpopup') {
       mySetUrl = 'src';
     }
+    html += '<div id="loadingMessage">' + language.misc.loading + '</div>';
     html += '<iframe class="popupheight" ' + mySetUrl + '="' + myFrame.url + '" width="100%" height="100%" frameborder="0" allowtransparency="true" style="'
     html += setHeight ? 'height: ' + myheight + '; ' : '';
-    html += '" ></iframe> ';
+    html += '" onload="removeLoading()" ></iframe> ';
     html += '</div>';
     html += '</div>';
     html += '</div>';
@@ -758,11 +756,6 @@ function loadMaps(b, map) {
 function buttonLoadFrame(button) //Displays the frame of a button after pressing is
 {
   
-//  console.log('buttonLoadFrame ');
-//  console.log(button);
-//  console.log(Object.keys(buttons[1]);
-//  var button=buttons[Object.keys(buttons)[b]];
-//  console.log(button);
   var random = getRandomInt(1, 100000);
   $('body').append(createModalDialog('openpopup','button_' + random , button));
   if (button.log == true) {
@@ -770,11 +763,9 @@ function buttonLoadFrame(button) //Displays the frame of a button after pressing
       $('#button_' + random  + ' .modal-body').html('');
       getLog($('#button_' + random + ' .modal-body'), button.level, true);
   }
-  //console.log("adding delete handler " + '#button_' + random);
   $('#button_'+random).on('hidden.bs.modal', function () {
         $(this).data('bs.modal', null);
         $(this).remove();
-  //  console.log("destroyed button");
   });
 
   $('#button_' + random ).modal('show');
@@ -784,7 +775,6 @@ function buttonLoadFrame(button) //Displays the frame of a button after pressing
 function buttonOnClick(m_event)
 {
   var button = m_event.data;
-  //console.log(button);
   if (typeof(button.newwindow) !== 'undefined') {
       window.open(button.url);
   }
@@ -792,46 +782,17 @@ function buttonOnClick(m_event)
     toSlide(button.slide);
   }
   else {
-//        var html = '<div class="col-xs-' + width + ' hover transbg buttons-' + key + '" data-id="buttons.' + key + '" data-toggle="modal" data-target="#button_' + b + '_' + random + '" onclick="setSrc(this);">';
         buttonLoadFrame(button);
   }
-
 }
+
 function loadButton(b, button) {
-
-/*
-    var random = getRandomInt(1, 100000);
-    if ($('#button_' + b).length == 0) {
-        $('body').append(createModalDialog('','button_' + b + '_' + random, button));
-        if (button.log == true) {
-            if (typeof(getLog) !== 'function') $.ajax({url: 'js/log.js', async: false, dataType: 'script'});
-            $('#button_' + b + '_' + random + ' .modal-body').html('');
-            getLog($('#button_' + b + '_' + random + ' .modal-body'), button.level, true);
-        }
-
-    }
-    */
     var width = 12;
     if (typeof(button.width) !== 'undefined') width = button.width;
 
     var key = b;
     if (typeof(button.key) !== 'undefined') key = button.key;
 
-/*
-    if (typeof(button.newwindow) !== 'undefined') {
-        html = '<div class="col-xs-' + width + ' hover transbg buttons-' + key + '" data-id="buttons.' + key + '" onclick="window.open(\'' + button.url + '\')">';
-    }
-    else if (typeof(button.slide) !== 'undefined') {
-        html = '<div class="col-xs-' + width + ' hover transbg buttons-' + key + '" data-id="buttons.' + key + '" onclick="toSlide(' + (parseFloat(button.slide) - 1) + ')">';
-    }
-    else {
-//        var html = '<div class="col-xs-' + width + ' hover transbg buttons-' + key + '" data-id="buttons.' + key + '" data-toggle="modal" data-target="#button_' + b + '_' + random + '" onclick="setSrc(this);">';
-//          console.log(b);
-//          console.log(cols['blocks'][b]);
-//          console.log(button);
-          html = '<div class="col-xs-' + width + ' hover transbg buttons-' + key + '" data-id="buttons.' + key + '" data-toggle="modal" data-target="#button_' + b + '" onclick="buttonLoadFrame('+b+');">';
-    }
-  */
     html = '<div class="col-xs-' + width + ' hover transbg buttons-' + key + '" data-id="buttons.' + key + '">';
 
     if (button.hasOwnProperty('isimage')) {
@@ -841,7 +802,7 @@ function loadButton(b, button) {
       }
       if (img == 'moon') {
           html += '<div class="moon">';
-          img = getMoonInfo(image);
+          img = getMoonInfo(button);
           html += '</div>';
       } else {
           html += '<img src="' + img + '" style="max-width:100%;" />';
@@ -849,7 +810,6 @@ function loadButton(b, button) {
       var refreshtime = 60000;
       if (typeof(button.refresh) !== 'undefined') refreshtime = button.refresh;
       if (typeof(button.refreshimage) !== 'undefined') refreshtime = button.refreshimage;
-    //  console.log("add image refreshhandler "+key + " "+refreshtime);
       setInterval(function () {
           reloadImage(key, button, true);
       }, refreshtime);
@@ -876,68 +836,6 @@ function loadButton(b, button) {
     html += '</div>';
     return html;
 }
-
-
-function loadButtonTEMP(b, button) {
-    var random = getRandomInt(1, 100000);
-    if ($('#button_' + b).length == 0) {
-        var html = '<div class="modal fade" id="button_' + b + '_' + random + '" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
-        html += '<div class="modal-dialog">';
-        html += '<div class="modal-content">';
-        html += '<div class="modal-header">';
-        html += '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
-        html += '</div>';
-        html += '<div class="modal-body">';
-        html += '<iframe data-popup="' + button.url + '" width="100%" height="570" frameborder="0" allowtransparency="true"></iframe> ';
-        html += '</div>';
-        html += '</div>';
-        html += '</div>';
-        html += '</div>';
-        $('body').append(html);
-
-        if (button.log == true) {
-            if (typeof(getLog) !== 'function') $.ajax({url: 'js/log.js', async: false, dataType: 'script'});
-            $('#button_' + b + '_' + random + ' .modal-body').html('');
-            getLog($('#button_' + b + '_' + random + ' .modal-body'), button.level, true);
-        }
-
-    }
-    var width = 12;
-    if (typeof(button.width) !== 'undefined') width = button.width;
-
-    var key = 'UNKNOWN';
-    if (typeof(button.key) !== 'undefined') key = button.key;
-
-    if (typeof(button.newwindow) !== 'undefined') {
-        var html = '<div class="col-xs-' + width + ' hover transbg buttons-' + key + '" data-id="buttons.' + key + '" onclick="window.open(\'' + button.url + '\')">';
-    }
-    else if (typeof(button.slide) !== 'undefined') {
-        var html = '<div class="col-xs-' + width + ' hover transbg buttons-' + key + '" data-id="buttons.' + key + '" onclick="toSlide(' + (parseFloat(button.slide) - 1) + ')">';
-    }
-    else {
-        var html = '<div class="col-xs-' + width + ' hover transbg buttons-' + key + '" data-id="buttons.' + key + '" data-toggle="modal" data-target="#button_' + b + '_' + random + '" onclick="setSrc(this);">';
-    }
-
-    if (typeof(button.title) !== 'undefined') {
-        html += '<div class="col-xs-4 col-icon">';
-    }
-    else {
-        html += '<div class="col-xs-12 col-icon">';
-    }
-  
-    if (typeof(button.image) !== 'undefined') html += '<img class="buttonimg" src="' + button.image + '" />';
-    else html += '<em class="' + button.icon + ' fa-small"></em>';
-    html += '</div>';
-    if (typeof(button.title) !== 'undefined') {
-        html += '<div class="col-xs-8 col-data">';
-        html += '<strong class="title">' + button.title + '</strong><br>';
-        html += '<span class="state"></span>';
-        html += '</div>';
-    }
-    html += '</div>';
-    return html;
-}
-
 
 function loadFrame(f, frame) {
 
@@ -982,60 +880,8 @@ function reloadFrame(i, frame) {
     }
 }
 
-function loadImage(i, image) {
-    if (typeof(image.image) !== 'undefined') {
-        var img = image.image;
-    }
-
-    if ($('.imgblockopens' + i).length == 0 && typeof(image.url) !== 'undefined') {
-        $('body').append(createModalDialog('imgblockopens' + i, i, image));
-    }
-
-    var key = 'UNKNOWN';
-    if (typeof(image.key) !== 'undefined') key = image.key;
-
-    var width = 12;
-    if (typeof(image.width) !== 'undefined') width = image.width;
-    var html = '';
-
-    if (typeof(image.url) !== 'undefined') html += '<div data-id="buttons.' + key + '" class="col-xs-' + width + ' hover transbg imgblock imgblock' + i + '" data-toggle="modal" data-target="#' + i + '" onclick="setSrc(this);">';
-    else html += '<div class="col-xs-' + width + ' transbg imgblock imgblock' + i + '" data-id="buttons.' + key + '">';
-    html += '<div class="col-xs-12">';
-
-    if (img == 'moon') {
-        html += '<div class="moon">';
-        img = getMoonInfo(image);
-        html += '</div>';
-    } else {
-        html += '<img src="' + img + '" style="max-width:100%;" />';
-    }
-    html += '</div>';
-    html += '</div>';
-
-    var refreshtime = 60000;
-    if (typeof(image.refresh) !== 'undefined') refreshtime = image.refresh;
-    if (typeof(image.refreshimage) !== 'undefined') refreshtime = image.refreshimage;
-    setInterval(function () {
-        reloadImage(i, image, true);
-    }, refreshtime);
-
-/*check: if it is a frame, then it should reload ...*/
-/*
-    var refreshtime = 60000;
-    if (typeof(image.refreshiframe) !== 'undefined') refreshtime = image.refreshiframe;
-    setInterval(function () {
-        reloadIframe(i, image, true);
-    }, refreshtime);
-*/
-    return html;
-}
-
 function reloadImage(i, image) {
-//  console.log("reload image " + i);
-//  console.log(image);
     if (typeof(image.image) !== 'undefined') {
-//        var obj = $('.buttons-' + i).find('img');
-//        console.log(obj);
         $('.buttons-' + i).find('img').attr('src', checkForceRefresh(image, image.image));
     }
 }
@@ -1215,66 +1061,7 @@ function getDevices(override) {
                 }
             },
             success: function (data) {
-
-				/*
-				data = `{
-"ActTime" : 1525604220,
-"AstrTwilightEnd" : "23:46",
-"AstrTwilightStart" : "03:25",
-"CivTwilightEnd" : "21:48",
-"CivTwilightStart" : "05:23",
-"DayLength" : "15:07",
-"NautTwilightEnd" : "22:39",
-"NautTwilightStart" : "04:31",
-"ServerTime" : "2018-05-06 12:57:00",
-"SunAtSouth" : "13:05",
-"Sunrise" : "06:02",
-"Sunset" : "21:09",
-"result" : [
-{
-"AddjMulti" : 1.0,
-"AddjMulti2" : 1.0,
-"AddjValue" : 0.0,
-"AddjValue2" : 0.0,
-"BatteryLevel" : 100,
-"CustomImage" : 0,
-"Data" : "27.2 C, 35 %",
-"Description" : "",
-"DewPoint" : "10.41",
-"Favorite" : 1,
-"HardwareID" : 6,
-"HardwareName" : "RFXcom",
-"HardwareType" : "RFXCOM - RFXtrx433 USB 433.92MHz Transceiver",
-"HardwareTypeVal" : 1,
-"HaveTimeout" : false,
-"Humidity" : 35,
-"HumidityStatus" : "Dry",
-"ID" : "1603",
-"LastUpdate" : "2018-05-06 12:56:57",
-"Name" : "Buiten",
-"Notifications" : "true",
-"PlanID" : "1",
-"PlanIDs" : [ 1 ],
-"Protected" : false,
-"ShowNotifications" : true,
-"SignalLevel" : 5,
-"SubType" : "Alecto WS1700",
-"Temp" : 27.199999999999999,
-"Timers" : "false",
-"Type" : "Temp + Humidity",
-"TypeImg" : "temperature",
-"Unit" : 3,
-"Used" : 1,
-"XOffset" : "21",
-"YOffset" : "150",
-"idx" : "16"
-}
-],
-"status" : "OK",
-"title" : "Devices"
-}`
-				data=$.parseJSON(data);*/
-				gettingDevices = false;
+				        gettingDevices = false;
                 if (!sliding || override) {
                     $('.solar').remove();
                     if ($('.sunrise').length > 0) $('.sunrise').html(data.Sunrise);
