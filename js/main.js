@@ -106,6 +106,7 @@ function loadFiles() {
             $.ajax({url: 'js/blocks.js', async: false, dataType: 'script'});
             $.ajax({url: 'js/graphs.js', async: false, dataType: 'script'});
             $.ajax({url: 'js/login.js', async: false, dataType: 'script'});
+            $.ajax({url: 'js/moon.js', async: false, dataType: 'script'});
 
             sessionValid();
 
@@ -773,6 +774,7 @@ function buttonLoadFrame(button) //Displays the frame of a button after pressing
 }
 
 function buttonOnClick(m_event)
+//button clickhandler. Assumption: button is clickable
 {
   var button = m_event.data;
   if (typeof(button.newwindow) !== 'undefined') {
@@ -786,14 +788,20 @@ function buttonOnClick(m_event)
   }
 }
 
+function buttonIsClickable(button) {
+  var clickable = typeof(button.url) !== 'undefined' || button.log == true || typeof(button.slide)!=='undefined';
+  return clickable;
+}
+
 function loadButton(b, button) {
     var width = 12;
     if (typeof(button.width) !== 'undefined') width = button.width;
 
     var key = b;
     if (typeof(button.key) !== 'undefined') key = button.key;
+    
 
-    html = '<div class="col-xs-' + width + ' hover transbg buttons-' + key + '" data-id="buttons.' + key + '">';
+    html = '<div class="col-xs-' + width + (buttonIsClickable(button) ? ' hover ' : ' ') +  ' transbg buttons-' + key + '" data-id="buttons.' + key + '">';
 
     if (button.hasOwnProperty('isimage')) {
       var img='';
@@ -801,12 +809,10 @@ function loadButton(b, button) {
           img = button.image;
       }
       if (img == 'moon') {
-          html += '<div class="moon">';
           img = getMoonInfo(button);
-          html += '</div>';
-      } else {
-          html += '<img src="' + img + '" style="max-width:100%;" />';
       }
+      html += '<img src="' + img + '" style="max-width:100%;" />';
+      
       var refreshtime = 60000;
       if (typeof(button.refresh) !== 'undefined') refreshtime = button.refresh;
       if (typeof(button.refreshimage) !== 'undefined') refreshtime = button.refreshimage;
@@ -882,7 +888,11 @@ function reloadFrame(i, frame) {
 
 function reloadImage(i, image) {
     if (typeof(image.image) !== 'undefined') {
-        $('.buttons-' + i).find('img').attr('src', checkForceRefresh(image, image.image));
+      if (image.image === 'moon') 
+        src = getMoonInfo(image)
+      else
+        src = checkForceRefresh(image, image.image);
+      $('.buttons-' + i).find('img').attr('src', src);
     }
 }
 
@@ -895,21 +905,10 @@ function reloadIframe(i, image) {
 }
 
 function getMoonInfo(image) {
-    req = $.getJSONP({
-        url: settings['domoticz_ip'] + "/json.htm?username=" + usrEnc + "&password=" + pwdEnc + "&type=command&param=getuservariable&idx=" + settings['idx_moonpicture'] + "&jsoncallback=?",
-        type: 'GET', async: true, contentType: "application/json", dataType: 'jsonp',
-        format: "json",
-        success: function (data) {
-            for (r in data.result) {
-                var src = '';
-                var device = data.result[r];
-                var value = device['Value'];
-                src = 'img/moon/' + value;
-                image.image = 'img/moon/' + value;
-                $("div.moon").replaceWith('<div class="moon"><img src="' + src + '" style="width:100%;" /></div>');
-            }
-        }
-    });
+  var mymoon = new MoonPhase(new Date());
+  var myphase = parseInt(mymoon.phase() *100 + 50) % 100;
+  src = 'img/moon/moon.' + ("0" + myphase).slice (-2)+'.png';
+  return src;
 }
 
 function appendHorizon(columndiv) {

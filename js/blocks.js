@@ -405,7 +405,8 @@ function handleObjectBlock(block, index, columndiv, width, c) {
         addCalendar($('.containsicalendar' + random), block);
     } else {
         $(columndiv).append(loadButton(index, block));
-        $(columndiv).click(block, buttonOnClick);
+        if(buttonIsClickable(block))
+          $(columndiv).click(block, buttonOnClick);
     }
 }
 
