@@ -115,11 +115,12 @@ function getBlock(cols, c, columndiv, standby) {
                 }
             }
             $(columndiv).append('<div id="block_' + myBlockNumbering + '"</div>');
-            var myblockselector = '#block_' + myBlockNumbering++;
-
+            var myIndex = myBlockNumbering++;
+            var myblockselector = '#block_' + myIndex;
+            
             switch (typeof(cols['blocks'][b])) {
                 case 'object':
-                    handleObjectBlock(cols['blocks'][b], b, myblockselector, width, c);
+                    handleObjectBlock(cols['blocks'][b], myIndex, myblockselector, width, c);
                     continue;
 
                 case 'string':

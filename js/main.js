@@ -811,13 +811,13 @@ function loadButton(b, button) {
       if (img == 'moon') {
           img = getMoonInfo(button);
       }
-      html += '<img src="' + img + '" style="max-width:100%;" />';
+      html += '<img id="buttonimg_'+ b + '" src="' + img + '" style="max-width:100%;" />';
       
       var refreshtime = 60000;
       if (typeof(button.refresh) !== 'undefined') refreshtime = button.refresh;
       if (typeof(button.refreshimage) !== 'undefined') refreshtime = button.refreshimage;
       setInterval(function () {
-          reloadImage(key, button, true);
+          reloadImage(b, button, true);
       }, refreshtime);
 
     }
@@ -892,7 +892,7 @@ function reloadImage(i, image) {
         src = getMoonInfo(image)
       else
         src = checkForceRefresh(image, image.image);
-      $('.buttons-' + i).find('img').attr('src', src);
+      $('#buttonimg_' + i).attr('src', src);
     }
 }
 
