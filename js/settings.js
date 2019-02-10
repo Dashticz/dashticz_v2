@@ -623,6 +623,8 @@ if (typeof(settings['background_image']) === 'undefined') settings['background_i
 if (typeof(settings['loginEnabled']) === 'undefined') settings['loginEnabled'] = 0;
 if (typeof(settings['security_button_icons']) === 'undefined') settings['security_button_icons'] = 0;
 if (typeof(settings['disable_update_check']) === 'undefined') settings['disable_update_check'] = 0;
+if (typeof(settings['setpoint_min']) === 'undefined') settings['setpoint_min'] = 5;
+if (typeof(settings['setpoint_max']) === 'undefined') settings['setpoint_max'] = 40;
 
 //The Config settings for all checkbox items will be converted to a number
 for (var s in settingList){

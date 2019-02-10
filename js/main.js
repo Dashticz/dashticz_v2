@@ -34,6 +34,13 @@ var _END_STANDBY_CALL_URL = '';
 var lastGetDevicesTime = 0;
 var allVariables = {};
 
+function utf8_to_b64( str ) {
+    return window.btoa(unescape(encodeURIComponent( str )));
+}
+function b64_to_utf8( str ) {
+    return decodeURIComponent(escape(window.atob( str )));
+}
+
 function loadFiles() {
     $.ajax({url: customfolder + '/CONFIG.js', async: false, dataType: 'script'}).done(function () {
         if (objectlength(columns) === 0) defaultcolumns = true;
@@ -1539,9 +1546,9 @@ function handleDevice(device, idx) {
     }
 
     if (typeof(device['LevelActions']) !== 'undefined' && device['LevelNames'] !== "") {
-	var names;
-        if (levelNamesEncoded === true) names =  window.atob(device['LevelNames']).split('|');
-	else names = device['LevelNames'].split('|');
+    var names;
+        if (levelNamesEncoded === true) names = b64_to_utf8(device['LevelNames']).split('|');
+    else names = device['LevelNames'].split('|');
 
         if(device['Status'] === 'Off') html += iconORimage(idx, 'far fa-lightbulb', buttonimg, getIconStatusClass(device['Status']) + ' icon');
 	else html += iconORimage(idx, 'fas fa-lightbulb', buttonimg, getIconStatusClass(device['Status']) + ' icon');
@@ -2058,7 +2065,7 @@ function getThermostatBlock(device, idx) {
         this.title = device['Name'];
         this.value = number_format(device['Data'], 1) + _TEMP_SYMBOL;
     }
-    this.html += '<strong class="title input-number title-input" min="12" max="25" data-light="' + device['idx'] + '">' + this.title + '</strong>';
+    this.html += '<strong class="title input-number title-input" min="' + settings['setpoint_min'] + '" max="' + settings['setpoint_max'] + '" data-light="' + device['idx'] + '">' + this.title + '</strong>';
     this.html += '<div class="state stateheating">' + this.value + '</div>';
     this.html += '</div>';
 
