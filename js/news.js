@@ -74,7 +74,7 @@ function getNews(divToFill, newsfeed) {
         });
 
         setTimeout(function () {
-            getNews(divToFill);
+          getNews(divToFill, newsfeed);
         }, (60000 * 5));
     }
 }
