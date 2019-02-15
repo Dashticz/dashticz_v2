@@ -600,6 +600,9 @@ a.playlist {
 }
 */
 
+.selectedbutton {
+	background-color: #abc !important;
+}
 html,
 body {
 	height: 100%;
