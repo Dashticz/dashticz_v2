@@ -67,7 +67,9 @@ function getNews(divToFill, newsfeed) {
                     maxHeight = maxHeight > $(this).height() ? maxHeight : $(this).height();
                 });
 
-                $('#rss-styled_' + divToFill).parents('.transbg').height(maxHeight);
+                if(maxHeight > 0) {
+                  $('#rss-styled_' + divToFill).parents('.transbg').height(maxHeight);
+                }
             },error: function(data){
 		infoMessage('<font color="red">News Error!</font>','RSS feed ' + data.statusText +'. Check rss url.', 10000);
 		}
