@@ -27,7 +27,6 @@
     },
     "misc": {
         "download": "Kliknite ovde za preuzimanje",
-        "enter_pincode": "Enter pin code",
         "last_update": "Poslednje ažuriranje",
         "loading": "Učitavanje...",
         "mediaplayer_nothing_playing": "Trenutno se ništa ne reprodukuje",
@@ -39,6 +38,7 @@
         "spotify_select_device": "Izaberi uređaj",
         "spotify_select_playlist": "Izaberite spisak numera",
         "value": "Vrednost",
+        "enter_pincode": "Enter pin code",
         "wrong_code": "Wrong pin code"
     },
     "settings": {
@@ -77,7 +77,6 @@
             "default_news_url": "Podrazumevani URL vesti",
             "disable_googleanalytics": "Onemogućite Google Analytics",
             "disable_googleanalytics_help": "Koristi samo developer za praćenje broja korisnika i vrstu uređaja koju koristite za fino podešavanje Dashticz-a.",
-            "disable_update_check": "Disable update check",
             "domoticz_ip": "URL adresa Domoticz-a",
             "domoticz_ip_help": "Unesite URL adresu Domoticz-a, na primer: http:\/\/192.168.1.1:8080. Možete uneti korisnika i lozinke, na primer: http:\/\/user:password@192.168.1.1:8080",
             "domoticz_refresh": "Osveži Domoticz (u sekundama)",
@@ -98,6 +97,7 @@
             "use_favorites_help": "Koristi se samo kada se koristi automatsko pozicioniranje",
             "user_name": "Korisničko ime",
             "user_name_help": "Postavi Dashticz korisničko ime i lozinku",
+            "disable_update_check": "Disable update check",
             "default_cors_url": "Default CORS URL",
             "dashticz_php_path": "Dashticz PHP Path",
             "standby_call_url": "URL to be called at start of standby",
@@ -134,11 +134,11 @@
             "sk": "Slovački",
             "sl": "Slovenački",
             "speak_language": "Jezik teksta u govor",
-            "sr": "Srpski",
             "sv": "Švedski",
             "timeformat": "Format datuma i vremena",
             "title": "Lokalizovati",
-            "uk": "Ukrajinski"
+            "uk": "Ukrajinski",
+            "sr": "Srpski"
         },
         "media": {
             "hide_mediaplayer": "Sakrij mediaplayer kada je isključen",
@@ -164,11 +164,11 @@
             "dashticz_themes_help": "Postavite ime teme (npr. belo), tema će biti nadlvadana od custom.css-a",
             "edit_mode": "Idi u režim za uređivanje",
             "hide_topbar": "Sakrij topbar",
-            "security_button_icons": "Icons instead of text on security switch",
             "slide_effect": "Efekat slajda",
             "standard_graph": "Standardni grafikon",
             "standby_after": "Idi u stanje pripravnosti nakon (minuta, 0 = nikada)",
-            "title": "Ekran"
+            "title": "Ekran",
+            "security_button_icons": "Icons instead of text on security switch"
         },
         "weather": {
             "idx_moonpicture": "IDX slike meseca",
@@ -192,31 +192,31 @@
             "owm_min": "Minimum temperature on 2nd row",
             "owm_min_help": "Only shown when forecast in days",
             "owm_lang": "Set language for de description of the forecast (rain, cloudy, etc.)",
-            "owm_lang_help": "For available languages, see https://openweathermap.org/forecast5/#multi",
+            "owm_lang_help": "For available languages, see https:\/\/openweathermap.org\/forecast5\/#multi",
             "owm_country": "Open Weather Map Država",
-            "owm_name": "Ime za prikaz Open Weather Map",           
+            "owm_name": "Ime za prikaz Open Weather Map",
             "longfonds_zipcode": "Longfonds zipcode",
             "longfonds_housenumber": "Longfonds housenumber"
         }
     },
     "switches": {
-        "state_armaway": "Arm Away",
-        "state_armedaway": "Armed Away",
-        "state_armedhome": "Armed Home",
-        "state_armhome": "Arm Home",
         "state_closed": "ZATVORENO",
-        "state_disarm": "Disarm",
-        "state_disarmed": "Disarmed",
-        "state_locked": "LOCKED",
         "state_movement": "POKRET",
         "state_nomovement": "NEMA POKRETA",
         "state_nosmoke": "Nema dima",
         "state_off": "ISKLJUČENO",
         "state_on": "UKLJUČENO",
         "state_open": "OTVORENO",
+        "state_locked": "LOCKED",
+        "state_unlocked": "UNLOCKED",
         "state_smoke": "DIM JE OTKRIVEN",
         "state_switch": "Prekidač",
-        "state_unlocked": "UNLOCKED"
+        "state_armaway": "Arm Away",
+        "state_armedaway": "Armed Away",
+        "state_armedhome": "Armed Home",
+        "state_armhome": "Arm Home",
+        "state_disarm": "Disarm",
+        "state_disarmed": "Disarmed"
     },
     "weekdays": {
         "entire_day": "Čitav dan",
