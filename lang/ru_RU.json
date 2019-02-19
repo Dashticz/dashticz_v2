@@ -27,7 +27,6 @@
     },
     "misc": {
         "download": "Нажмите, чтобы скачать",
-        "enter_pincode": "Enter pin code",
         "last_update": "Последнее обновление",
         "loading": "Загрузка...",
         "mediaplayer_nothing_playing": "Ничего не проигрывается в данный момент",
@@ -39,6 +38,7 @@
         "spotify_select_device": "Выбрать устройство",
         "spotify_select_playlist": "Выбрать плейлист",
         "value": "Значение",
+        "enter_pincode": "Enter pin code",
         "wrong_code": "Wrong pin code"
     },
     "settings": {
@@ -77,7 +77,6 @@
             "default_news_url": "URL-адрес новостей по умолчанию",
             "disable_googleanalytics": "Отключить Google Analytics",
             "disable_googleanalytics_help": "Используется только разработчиком для отслеживания количества пользователей и того устройства, которое вы используете для отладки Dashticz.",
-            "disable_update_check": "Disable update check",
             "domoticz_ip": "URL-адрес Domoticz",
             "domoticz_ip_help": "Введите Domoticz URL, например: http:\/\/192.168.1.1:8080. Вы также можете указать имя пользователя и пароль, например: http:\/\/user:password@192.168.1.1:8080",
             "domoticz_refresh": "Обновление Domoticz (в секундах)",
@@ -98,6 +97,7 @@
             "use_favorites_help": "Используется только при авто-позиционировании",
             "user_name": "Имя пользователя",
             "user_name_help": "Задайте имя пользователя и пароль для Dashticz",
+            "disable_update_check": "Disable update check",
             "default_cors_url": "Default CORS URL",
             "dashticz_php_path": "Dashticz PHP Path",
             "standby_call_url": "URL to be called at start of standby",
@@ -134,11 +134,11 @@
             "sk": "Словацкий",
             "sl": "Словенский",
             "speak_language": "Язык озвучки текста",
-            "sr": "Сербский",
             "sv": "Шведский",
             "timeformat": "Формат даты и времени",
             "title": "Язык",
-            "uk": "Украинский"
+            "uk": "Украинский",
+            "sr": "Сербский"
         },
         "media": {
             "hide_mediaplayer": "Скрывать выключенный медиаплеер",
@@ -164,11 +164,11 @@
             "dashticz_themes_help": "Укажите название темы (например, белый), тема будет переопределена в custom.css",
             "edit_mode": "Перейти в режим редактирования",
             "hide_topbar": "Скрыть верхнюю панель",
-            "security_button_icons": "Icons instead of text on security switch",
             "slide_effect": "Эффект прокрутки",
             "standard_graph": "Стандартный график",
             "standby_after": "Выключить через (минут, 0 = никогда)",
-            "title": "Интерфейс"
+            "title": "Интерфейс",
+            "security_button_icons": "Icons instead of text on security switch"
         },
         "weather": {
             "idx_moonpicture": "IDX картинки луны",
@@ -192,31 +192,31 @@
             "owm_min": "Minimum temperature on 2nd row",
             "owm_min_help": "Only shown when forecast in days",
             "owm_lang": "Set language for de description of the forecast (rain, cloudy, etc.)",
-            "owm_lang_help": "For available languages, see https://openweathermap.org/forecast5/#multi",
+            "owm_lang_help": "For available languages, see https:\/\/openweathermap.org\/forecast5\/#multi",
             "owm_country": "Open Weather Map страна",
-            "owm_name": "Отображаемое имя Open Weather Map",           
+            "owm_name": "Отображаемое имя Open Weather Map",
             "longfonds_zipcode": "Longfonds zipcode",
             "longfonds_housenumber": "Longfonds housenumber"
         }
     },
     "switches": {
-        "state_armaway": "Arm Away",
-        "state_armedaway": "Armed Away",
-        "state_armedhome": "Armed Home",
-        "state_armhome": "Arm Home",
         "state_closed": "ЗАКРЫТО",
-        "state_disarm": "Disarm",
-        "state_disarmed": "Disarmed",
-        "state_locked": "LOCKED",
         "state_movement": "ДВИЖЕНИЕ",
         "state_nomovement": "Нет движения",
         "state_nosmoke": "Дыма нет",
         "state_off": "ВЫКЛ",
         "state_on": "ВКЛ",
         "state_open": "ОТКРЫТО",
+        "state_locked": "LOCKED",
+        "state_unlocked": "UNLOCKED",
         "state_smoke": "ЗАДЫМЛЕНИЕ",
         "state_switch": "Переключатель",
-        "state_unlocked": "UNLOCKED"
+        "state_armaway": "Arm Away",
+        "state_armedaway": "Armed Away",
+        "state_armedhome": "Armed Home",
+        "state_armhome": "Arm Home",
+        "state_disarm": "Disarm",
+        "state_disarmed": "Disarmed"
     },
     "weekdays": {
         "entire_day": "Весь день",

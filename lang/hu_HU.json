@@ -27,7 +27,6 @@
     },
     "misc": {
         "download": "Kattintson ide a letöltéshez",
-        "enter_pincode": "Enter pin code",
         "last_update": "Utolsó frissítés",
         "loading": "Betöltés...",
         "mediaplayer_nothing_playing": "Semmi sem játszódik most",
@@ -39,6 +38,7 @@
         "spotify_select_device": "Eszköz kiválasztása",
         "spotify_select_playlist": "Válasszon lejátszási listát",
         "value": "Érték",
+        "enter_pincode": "Enter pin code",
         "wrong_code": "Wrong pin code"
     },
     "settings": {
@@ -77,7 +77,6 @@
             "default_news_url": "Alapértelmezett hír URL",
             "disable_googleanalytics": "Disable Google Analytics",
             "disable_googleanalytics_help": "Only used for developer to track the amount of users and wich device you are using for finetuning Dashticz.",
-            "disable_update_check": "Disable update check",
             "domoticz_ip": "Domoticz URL",
             "domoticz_ip_help": "Enter Domoticz url, for example: http:\/\/192.168.1.1:8080. You can also enter users and password, for example: http:\/\/user:password@192.168.1.1:8080",
             "domoticz_refresh": "Domoticz frissítése (másodperc)",
@@ -98,6 +97,7 @@
             "use_favorites_help": "Csak akkor használatos, ha az automatikus pozícionálást használja",
             "user_name": "Username",
             "user_name_help": "Set Dashticz username and password",
+            "disable_update_check": "Disable update check",
             "default_cors_url": "Default CORS URL",
             "dashticz_php_path": "Dashticz PHP Path",
             "standby_call_url": "URL to be called at start of standby",
@@ -134,11 +134,11 @@
             "sk": "Szlovák",
             "sl": "Szlovén",
             "speak_language": "Text to speech language",
-            "sr": "Serbian",
             "sv": "Svéd",
             "timeformat": "Datetime formátum",
             "title": "Lokalizálni",
-            "uk": "Ukrán"
+            "uk": "Ukrán",
+            "sr": "Serbian"
         },
         "media": {
             "hide_mediaplayer": "Médialejátszó elrejtése, amikor ki van kapcsolva",
@@ -164,11 +164,11 @@
             "dashticz_themes_help": "Set the name of the theme (eg. white) the theme will be overide by custom.css",
             "edit_mode": "Ugrás a szerkesztési módba",
             "hide_topbar": "A felső sáv elrejtése",
-            "security_button_icons": "Icons instead of text on security switch",
             "slide_effect": "Dia hatás",
             "standard_graph": "Standard grafikon",
             "standby_after": "Készenléti állapot (perc, 0 = soha)",
-            "title": "Képernyő"
+            "title": "Képernyő",
+            "security_button_icons": "Icons instead of text on security switch"
         },
         "weather": {
             "idx_moonpicture": "Holdfotó idxje",
@@ -192,31 +192,31 @@
             "owm_min": "Minimum temperature on 2nd row",
             "owm_min_help": "Only shown when forecast in days",
             "owm_lang": "Set language for de description of the forecast (rain, cloudy, etc.)",
-            "owm_lang_help": "For available languages, see https://openweathermap.org/forecast5/#multi",
+            "owm_lang_help": "For available languages, see https:\/\/openweathermap.org\/forecast5\/#multi",
             "owm_country": "Open Weather Map Ország",
-            "owm_name": "Megjelenítendő név Open Weather Map",           
+            "owm_name": "Megjelenítendő név Open Weather Map",
             "longfonds_zipcode": "Longfonds zipcode",
             "longfonds_housenumber": "Longfonds housenumber"
         }
     },
     "switches": {
-        "state_armaway": "Arm Away",
-        "state_armedaway": "Armed Away",
-        "state_armedhome": "Armed Home",
-        "state_armhome": "Arm Home",
         "state_closed": "ZÁRVA",
-        "state_disarm": "Disarm",
-        "state_disarmed": "Disarmed",
-        "state_locked": "LOCKED",
         "state_movement": "MOZGÁS",
         "state_nomovement": "NINCS MOZGÁS",
         "state_nosmoke": "Nincs füst",
         "state_off": "KI",
         "state_on": "BE",
         "state_open": "NYITVA",
+        "state_locked": "LOCKED",
+        "state_unlocked": "UNLOCKED",
         "state_smoke": "FÜST ÉRZÉKELVE",
         "state_switch": "Kapcsoló",
-        "state_unlocked": "UNLOCKED"
+        "state_armaway": "Arm Away",
+        "state_armedaway": "Armed Away",
+        "state_armedhome": "Armed Home",
+        "state_armhome": "Arm Home",
+        "state_disarm": "Disarm",
+        "state_disarmed": "Disarmed"
     },
     "weekdays": {
         "entire_day": "egész nap",
