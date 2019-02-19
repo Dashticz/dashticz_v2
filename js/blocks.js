@@ -448,11 +448,19 @@ function getStateBlock(id, icon, title, value, device) {
     stateBlock += '<div class="col-xs-8 col-data">';
 
     if (titleAndValueSwitch(id)) {
-        stateBlock += '<strong class="title">' + title + '</strong><br />';
-        stateBlock += '<span class="value">' + value + '</span>';
+		if (hideTitle(id)) {
+			stateBlock += '<span class="value">' + value + '</span>';
+		} else {
+			stateBlock += '<strong class="title">' + title + '</strong><br />';
+			stateBlock += '<span class="value">' + value + '</span>';			
+		}
     } else {
-        stateBlock += '<strong class="title">' + value + '</strong><br />';
-        stateBlock += '<span class="value">' + title + '</span>';
+		if (hideTitle(id)) {
+			stateBlock += '<strong class="title">' + value + '</strong>';
+		} else {
+			stateBlock += '<strong class="title">' + value + '</strong><br />';		
+			stateBlock += '<span class="value">' + title + '</span>';		
+		}			
     }
     if (showUpdateInformation(id)) {
         stateBlock += '<br /><span class="lastupdate">' + moment(device['LastUpdate']).format(settings['timeformat']) + '</span>';
@@ -516,12 +524,20 @@ function getStatusBlock(idx, device, block, c) {
 
     stateBlock += '<div class="col-xs-8 col-data">';
     if (titleAndValueSwitch(idx)) {
-        stateBlock += '<strong class="title">' + title + '</strong><br />';
-        stateBlock += '<span class="value">' + value + '</span>';
+		if (hideTitle(idx)) {
+			stateBlock += '<span class="value">' + value + '</span>';
+		} else {
+			stateBlock += '<strong class="title">' + title + '</strong><br />';
+			stateBlock += '<span class="value">' + value + '</span>';			
+		}
     } else {
-        stateBlock += '<strong class="title">' + value + '</strong><br />';
-        stateBlock += '<span class="value">' + title + '</span>';
-    }
+		if (hideTitle(idx)) {
+			stateBlock += '<strong class="title">' + value + '</strong>';
+		} else {
+			stateBlock += '<strong class="title">' + value + '</strong><br />';		
+			stateBlock += '<span class="value">' + title + '</span>';		
+		}			
+    }	
 
     if (showUpdateInformation(idx)) {
         stateBlock += '<br /><span class="lastupdate">' + moment(device['LastUpdate']).format(settings['timeformat']) + '</span>';
@@ -646,6 +662,12 @@ function titleAndValueSwitch(idx) {
     return typeof(blocks[idx]) !== 'undefined'
         && typeof(blocks[idx]['switch']) !== 'undefined'
         && blocks[idx]['switch'];
+}
+
+function hideTitle(idx) {
+    return typeof(blocks[idx]) !== 'undefined'
+        && typeof(blocks[idx]['hide_title']) !== 'undefined'
+        && blocks[idx]['hide_title'];
 }
 
 function showUpdateInformation(idx) {
