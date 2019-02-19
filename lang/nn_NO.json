@@ -27,7 +27,6 @@
     },
     "misc": {
         "download": "Klikk her for å laste ned",
-        "enter_pincode": "Enter pin code",
         "last_update": "Siste oppdatering",
         "loading": "Laster...",
         "mediaplayer_nothing_playing": "Ingenting spilles akkurat nå",
@@ -39,6 +38,7 @@
         "spotify_select_device": "Velg enhet",
         "spotify_select_playlist": "Velg spilleliste",
         "value": "Verdi",
+        "enter_pincode": "Enter pin code",
         "wrong_code": "Wrong pin code"
     },
     "settings": {
@@ -77,7 +77,6 @@
             "default_news_url": "Standard nyhetsadresse",
             "disable_googleanalytics": "Deaktiver Google Analytics",
             "disable_googleanalytics_help": "Brukes kun for utvikler til å spore mengden brukere og hvilken enhet du bruker til finetuning Dashticz.",
-            "disable_update_check": "Disable update check",
             "domoticz_ip": "Domoticz URL",
             "domoticz_ip_help": "Skriv inn Domoticz url, for eksempel http:\/\/192.168.1.1:8080. Du kan også legge til brukernavn og passord, for eksempel http:\/\/brukernavn:passord@192.168.1.1:8080",
             "domoticz_refresh": "Oppdater Domoticz (sekunder)",
@@ -98,6 +97,7 @@
             "use_favorites_help": "Brukes kun når du bruker automatisk posisjonering",
             "user_name": "Brukernavn",
             "user_name_help": "Sett Dashticz brukernavn og passord",
+            "disable_update_check": "Disable update check",
             "default_cors_url": "Default CORS URL",
             "dashticz_php_path": "Dashticz PHP Path",
             "standby_call_url": "URL to be called at start of standby",
@@ -134,11 +134,11 @@
             "sk": "Slovakisk",
             "sl": "Slovensk",
             "speak_language": "Tekst til talespråk",
-            "sr": "Serbian",
             "sv": "Svensk",
             "timeformat": "Datetime format",
             "title": "Lokalisere",
-            "uk": "ukrainsk"
+            "uk": "ukrainsk",
+            "sr": "Serbian"
         },
         "media": {
             "hide_mediaplayer": "Skjul mediaplayer når den er av",
@@ -164,11 +164,11 @@
             "dashticz_themes_help": "Angi navnet på temaet (f.eks. Hvitt) temaet vil være skrevet over av custom.css",
             "edit_mode": "Gå til redigeringsmodus",
             "hide_topbar": "Skjul toppbar",
-            "security_button_icons": "Icons instead of text on security switch",
             "slide_effect": "Skyve effekt",
             "standard_graph": "Standard graf",
             "standby_after": "Standby etter (minutter, 0 = aldri)",
-            "title": "Skjerm"
+            "title": "Skjerm",
+            "security_button_icons": "Icons instead of text on security switch"
         },
         "weather": {
             "idx_moonpicture": "IDX av moonpicture",
@@ -192,31 +192,31 @@
             "owm_min": "Minimum temperature on 2nd row",
             "owm_min_help": "Only shown when forecast in days",
             "owm_lang": "Set language for de description of the forecast (rain, cloudy, etc.)",
-            "owm_lang_help": "For available languages, see https://openweathermap.org/forecast5/#multi",
+            "owm_lang_help": "For available languages, see https:\/\/openweathermap.org\/forecast5\/#multi",
             "owm_country": "Open Weather Map Land",
-            "owm_name": "Visningsnavn Open Weather Map",           
+            "owm_name": "Visningsnavn Open Weather Map",
             "longfonds_zipcode": "Longfonds zipcode",
             "longfonds_housenumber": "Longfonds housenumber"
         }
     },
     "switches": {
-        "state_armaway": "Arm Away",
-        "state_armedaway": "Armed Away",
-        "state_armedhome": "Armed Home",
-        "state_armhome": "Arm Home",
         "state_closed": "LUKKET",
-        "state_disarm": "Disarm",
-        "state_disarmed": "Disarmed",
-        "state_locked": "LOCKED",
         "state_movement": "BEVEGELSE",
         "state_nomovement": "Ingen bevegelse",
         "state_nosmoke": "Ingen Røyk",
         "state_off": "AV",
         "state_on": "PÅ",
         "state_open": "ÅPEN",
+        "state_locked": "LOCKED",
+        "state_unlocked": "UNLOCKED",
         "state_smoke": "RØYK DETEKTERT",
         "state_switch": "Bryter",
-        "state_unlocked": "UNLOCKED"
+        "state_armaway": "Arm Away",
+        "state_armedaway": "Armed Away",
+        "state_armedhome": "Armed Home",
+        "state_armhome": "Arm Home",
+        "state_disarm": "Disarm",
+        "state_disarmed": "Disarmed"
     },
     "weekdays": {
         "entire_day": "Hele dagen",
