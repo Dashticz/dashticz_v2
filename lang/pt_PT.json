@@ -168,7 +168,9 @@
             "standard_graph": "Standard graph",
             "standby_after": "Standby after (minutes, 0 = never)",
             "title": "Screen",
-            "security_button_icons": "Icons instead of text on security switch"
+            "security_button_icons": "Icons instead of text on security switch",
+            "blink_color": "Flash color and opacity (RGBA)",
+            "blink_color_help": "Set flash color and opacity (red, green, blue, alpha)"
         },
         "weather": {
             "idx_moonpicture": "IDX of moonpicture",
@@ -197,6 +199,11 @@
             "owm_name": "Mostrar nome Open Weather Map",
             "longfonds_zipcode": "Longfonds zipcode",
             "longfonds_housenumber": "Longfonds housenumber"
+        },
+        "other": {
+            "title": "Other",
+            "setpoint_min": "Thermostat setpoint minimum value",
+            "setpoint_max": "Thermostat setpoint maximum value"
         }
     },
     "switches": {

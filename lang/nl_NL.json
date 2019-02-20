@@ -168,7 +168,9 @@
             "standard_graph": "Standaard grafiek",
             "standby_after": "Standby na (minuteen, 0 = nooit)",
             "title": "Weergave",
-            "security_button_icons": "Pictogrammen in plaats van tekst op beveiligingsschakelaar"
+            "security_button_icons": "Pictogrammen in plaats van tekst op beveiligingsschakelaar",
+            "blink_color": "Knipperkleur en ondoorzichtigheid (RBGA)",
+            "blink_color_help": "Stel de knipperkleur en ondoorzichtigheid in (rood, groen, blauw, ondoorzichtigheid)"
         },
         "weather": {
             "idx_moonpicture": "IDX van maanfoto",
@@ -197,6 +199,11 @@
             "owm_name": "Weergavenaam Open Weather Map",
             "longfonds_zipcode": "Longfonds postcode",
             "longfonds_housenumber": "Longfonds huisnummer"
+        },
+        "other": {
+            "title": "Overige",
+            "setpoint_min": "Thermostaatinstelling minimum waarde",
+            "setpoint_max": "Thermostaatinstelling maximum waarde"
         }
     },
     "switches": {
