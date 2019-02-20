@@ -168,7 +168,9 @@
             "standard_graph": "Standartinis grafikas",
             "standby_after": "Budėjimo režimas po (minutės, 0 = niekada)",
             "title": "Ekranas",
-            "security_button_icons": "Piktogramos vietoj teksto apsaugos jungiklių"
+            "security_button_icons": "Piktogramos vietoj teksto apsaugos jungiklių",
+            "blink_color": "Flash color and opacity (RGBA)",
+            "blink_color_help": "Set flash color and opacity (red, green, blue, alpha)"
         },
         "weather": {
             "idx_moonpicture": "Mėnulio piktogramų IDX",
@@ -197,6 +199,11 @@
             "owm_name": "Rodomas pavadinimas Open Wehater Map",
             "longfonds_zipcode": "Longfonds pašto kodas",
             "longfonds_housenumber": "Longfonds namųonumeris"
+        },
+        "other": {
+            "title": "Other",
+            "setpoint_min": "Thermostat setpoint minimum value",
+            "setpoint_max": "Thermostat setpoint maximum value"
         }
     },
     "switches": {
