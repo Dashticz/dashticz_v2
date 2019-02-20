@@ -168,7 +168,9 @@
             "standard_graph": "Standardni grafikon",
             "standby_after": "Idi u stanje pripravnosti nakon (minuta, 0 = nikada)",
             "title": "Ekran",
-            "security_button_icons": "Icons instead of text on security switch"
+            "security_button_icons": "Icons instead of text on security switch",
+            "blink_color": "Flash color and opacity (RGBA)",
+            "blink_color_help": "Set flash color and opacity (red, green, blue, alpha)"
         },
         "weather": {
             "idx_moonpicture": "IDX slike meseca",
@@ -197,6 +199,11 @@
             "owm_name": "Ime za prikaz Open Weather Map",
             "longfonds_zipcode": "Longfonds zipcode",
             "longfonds_housenumber": "Longfonds housenumber"
+        },
+        "other": {
+            "title": "Other",
+            "setpoint_min": "Thermostat setpoint minimum value",
+            "setpoint_max": "Thermostat setpoint maximum value"
         }
     },
     "switches": {
