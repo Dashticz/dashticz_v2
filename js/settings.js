@@ -500,6 +500,19 @@ settingList['garbage']['garbage_use_cors_prefix']['title'] = language.settings.g
 settingList['garbage']['garbage_use_cors_prefix']['type'] = 'checkbox';
 settingList['garbage']['garbage_use_cors_prefix']['help'] = language.settings.garbage.garbage_use_prefix_help;
 
+settingList['other'] = {};
+settingList['other']['title'] = language.settings.other.title;
+
+settingList['other']['setpoint_min'] = {};
+settingList['other']['setpoint_min']['title'] = language.settings.other.setpoint_min;
+settingList['other']['setpoint_min']['type'] = 'text';
+/* settingList['other']['setpoint_min']['help'] = language.settings.other.setpoint_min_help; */
+
+settingList['other']['setpoint_max'] = {};
+settingList['other']['setpoint_max']['title'] = language.settings.other.setpoint_max;
+settingList['other']['setpoint_max']['type'] = 'text';
+/* settingList['other']['setpoint_max']['help'] = language.settings.other.setpoint_max_help; */
+
 settingList['about'] = {};
 settingList['about']['title'] = language.settings.about.title;
 
