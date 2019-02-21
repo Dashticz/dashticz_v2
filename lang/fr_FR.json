@@ -27,7 +27,6 @@
     },
     "misc": {
         "download": "Cliquez ici pour télécharger",
-        "enter_pincode": "Enter pin code",
         "last_update": "Dernière mise à jour",
         "loading": "Chargement...",
         "mediaplayer_nothing_playing": "Il n'y a pas de jeu",
@@ -39,6 +38,7 @@
         "spotify_select_device": "Sélectionnez le périphérique",
         "spotify_select_playlist": "Sélectionnez playlist",
         "value": "Valeur",
+        "enter_pincode": "Enter pin code",
         "wrong_code": "Wrong pin code"
     },
     "settings": {
@@ -77,7 +77,6 @@
             "default_news_url": "URL d'actualité par défaut",
             "disable_googleanalytics": "Disable Google Analytics",
             "disable_googleanalytics_help": "Only used for developer to track the amount of users and wich device you are using for finetuning Dashticz.",
-            "disable_update_check": "Disable update check",
             "domoticz_ip": "Domoticz URL",
             "domoticz_ip_help": "Enter Domoticz url, for example: http:\/\/192.168.1.1:8080. You can also enter users and password, for example: http:\/\/user:password@192.168.1.1:8080",
             "domoticz_refresh": "Actualiser Domoticz (secondes)",
@@ -98,6 +97,7 @@
             "use_favorites_help": "Utilisé uniquement lors de l'utilisation du positionnement automatique",
             "user_name": "Username",
             "user_name_help": "Set Dashticz username and password",
+            "disable_update_check": "Disable update check",
             "default_cors_url": "Default CORS URL",
             "dashticz_php_path": "Dashticz PHP Path",
             "standby_call_url": "URL to be called at start of standby",
@@ -134,11 +134,13 @@
             "sk": "Slovaque",
             "sl": "Slovène",
             "speak_language": "Text to speech language",
-            "sr": "Serbian",
             "sv": "Suédois",
             "timeformat": "Format datetime",
             "title": "Localiser",
-            "uk": "Ukrainien"
+            "uk": "Ukrainien",
+            "sr": "Serbian",
+            "lt": "lituanien",
+            "ro": "roumain"
         },
         "media": {
             "hide_mediaplayer": "Masquer le mediaplayer quand il est éteint",
@@ -164,13 +166,13 @@
             "dashticz_themes_help": "Set the name of the theme (eg. white) the theme will be overide by custom.css",
             "edit_mode": "Passez en mode edit",
             "hide_topbar": "Masquer la barre supérieure",
-            "security_button_icons": "Icons instead of text on security switch",
             "slide_effect": "Effet de glissement",
             "standard_graph": "Graphique standard",
             "standby_after": "Veille après (minutes, 0 = jamais)",
             "title": "Écran",
-            "blink_color": "Flash color and opacity (RGBA)",
-            "blink_color_help": "Set flash color and opacity (red, green, blue, alpha)"
+            "security_button_icons": "Icons instead of text on security switch",
+            "blink_color": "Couleur et opacité du flash (RGBA)",
+            "blink_color_help": "Définir la couleur et l'opacité du flash (rouge, vert, bleu, alpha)"
         },
         "weather": {
             "idx_moonpicture": "IDX de la photo de la lune",
@@ -194,31 +196,36 @@
             "owm_min": "Minimum temperature on 2nd row",
             "owm_min_help": "Only shown when forecast in days",
             "owm_lang": "Set language for de description of the forecast (rain, cloudy, etc.)",
-            "owm_lang_help": "For available languages, see https://openweathermap.org/forecast5/#multi",
+            "owm_lang_help": "For available languages, see https:\/\/openweathermap.org\/forecast5\/#multi",
             "owm_country": "Open Weather Map Pays",
-            "owm_name": "Nom D'Affichage Open Weather Map",           
+            "owm_name": "Nom D'Affichage Open Weather Map",
             "longfonds_zipcode": "Longfonds zipcode",
             "longfonds_housenumber": "Longfonds housenumber"
+        },
+        "other": {
+            "title": "Autre",
+            "setpoint_min": "Valeur minimale du point de consigne du thermostat",
+            "setpoint_max": "Valeur maximale du point de consigne du thermostat"
         }
     },
     "switches": {
-        "state_armaway": "Arm Away",
-        "state_armedaway": "Armed Away",
-        "state_armedhome": "Armed Home",
-        "state_armhome": "Arm Home",
         "state_closed": "FERMÉ",
-        "state_disarm": "Disarm",
-        "state_disarmed": "Disarmed",
-        "state_locked": "LOCKED",
         "state_movement": "MOUVEMENT",
         "state_nomovement": "Aucun mouvement",
         "state_nosmoke": "Pas de fumée",
         "state_off": "Eteint",
         "state_on": "Allumé",
         "state_open": "OUVERT",
+        "state_locked": "LOCKED",
+        "state_unlocked": "UNLOCKED",
         "state_smoke": "FUMÉE DÉTECTÉE",
         "state_switch": "Commuter",
-        "state_unlocked": "UNLOCKED"
+        "state_armaway": "Arm Away",
+        "state_armedaway": "Armed Away",
+        "state_armedhome": "Armed Home",
+        "state_armhome": "Arm Home",
+        "state_disarm": "Disarm",
+        "state_disarmed": "Disarmed"
     },
     "weekdays": {
         "entire_day": "Toute la journée",

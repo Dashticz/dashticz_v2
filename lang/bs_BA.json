@@ -27,7 +27,6 @@
     },
     "misc": {
         "download": "Kliknite ovde da biste preuzeli",
-        "enter_pincode": "Enter pin code",
         "last_update": "Posljednje ažuriranje",
         "loading": "Učitavanje...",
         "mediaplayer_nothing_playing": "Trenutno ne svira ništa",
@@ -39,6 +38,7 @@
         "spotify_select_device": "Odaberite uređaj",
         "spotify_select_playlist": "Odaberite playlistu",
         "value": "Vrijednost",
+        "enter_pincode": "Enter pin code",
         "wrong_code": "Wrong pin code"
     },
     "settings": {
@@ -77,7 +77,6 @@
             "default_news_url": "Zadani URL vijesti",
             "disable_googleanalytics": "Onemogućite Google analitiku",
             "disable_googleanalytics_help": "Samo za programera da prate broj korisnika i koje uređaje koristite za fino podešavanje Dashticz-a.",
-            "disable_update_check": "Disable update check",
             "domoticz_ip": "URL Domoticz-a",
             "domoticz_ip_help": "Unesite Domoticz url, na primjer: http:\/\/192.168.1.1:8080. Također možete unijeti korisničke nazive i lozinke, na primjer: http: \/\/ korisnik:lozinka@192.168.1.1: 8080",
             "domoticz_refresh": "Osvježavanje Domoticz-a (u sekundama)",
@@ -98,6 +97,7 @@
             "use_favorites_help": "Koristi se samo kada koristite automatsko pozicioniranje",
             "user_name": "Korisničko ime",
             "user_name_help": "Postavite Dashticz korisničko ime i lozinku",
+            "disable_update_check": "Disable update check",
             "default_cors_url": "Default CORS URL",
             "dashticz_php_path": "Dashticz PHP Path",
             "standby_call_url": "URL to be called at start of standby",
@@ -134,11 +134,13 @@
             "sk": "Slovački",
             "sl": "Slovenački",
             "speak_language": "Jezik teksta u govor",
-            "sr": "Srpski",
             "sv": "Švedski",
             "timeformat": "Format datuma i vremena",
             "title": "Lokalizirati",
-            "uk": "Ukrajinski"
+            "uk": "Ukrajinski",
+            "sr": "Srpski",
+            "lt": "Litvanski",
+            "ro": "Rumunski"
         },
         "media": {
             "hide_mediaplayer": "Sakrij medijaplayer kada je isključen",
@@ -164,13 +166,13 @@
             "dashticz_themes_help": "Postavite naziv teme (npr. Bijela) tema će biti nadjačana od custom.css",
             "edit_mode": "Idi na uređivanje",
             "hide_topbar": "Sakrij topbar",
-            "security_button_icons": "Icons instead of text on security switch",
             "slide_effect": "Slajd efekt",
             "standard_graph": "Standardni grafikon",
             "standby_after": "Stanje pripravnosti (minuta, 0 = nikada)",
             "title": "Ekran",
-            "blink_color": "Flash color and opacity (RGBA)",
-            "blink_color_help": "Set flash color and opacity (red, green, blue, alpha)"
+            "security_button_icons": "Icons instead of text on security switch",
+            "blink_color": "Boja i neprozirnost bljeskalice (RGBA)",
+            "blink_color_help": "Postavite boju i neprozirnost bljeskalice (crvena, zelena, plava, alfa)"
         },
         "weather": {
             "idx_moonpicture": "IDX slike mjeseca",
@@ -194,31 +196,36 @@
             "owm_min": "Minimum temperature on 2nd row",
             "owm_min_help": "Only shown when forecast in days",
             "owm_lang": "Set language for de description of the forecast (rain, cloudy, etc.)",
-            "owm_lang_help": "For available languages, see https://openweathermap.org/forecast5/#multi",
+            "owm_lang_help": "For available languages, see https:\/\/openweathermap.org\/forecast5\/#multi",
             "owm_country": "Država za Open Weather Map",
-            "owm_name": "Prikaži naziv Open Weather Map",           
+            "owm_name": "Prikaži naziv Open Weather Map",
             "longfonds_zipcode": "Longfonds zipcode",
             "longfonds_housenumber": "Longfonds housenumber"
+        },
+        "other": {
+            "title": "Drugo",
+            "setpoint_min": "Minimalna vrijednost zadane vrijednosti termostata",
+            "setpoint_max": "Maksimalna vrijednost zadane vrijednosti termostata"
         }
     },
     "switches": {
-        "state_armaway": "Arm Away",
-        "state_armedaway": "Armed Away",
-        "state_armedhome": "Armed Home",
-        "state_armhome": "Arm Home",
         "state_closed": "ZATVORENO",
-        "state_disarm": "Disarm",
-        "state_disarmed": "Disarmed",
-        "state_locked": "LOCKED",
         "state_movement": "KRETANJE",
         "state_nomovement": "NEMA KRETANJA",
         "state_nosmoke": "Nema dima",
         "state_off": "ISKLJUČENO",
         "state_on": "UKLJUČENO",
         "state_open": "OTVORENO",
+        "state_locked": "LOCKED",
+        "state_unlocked": "UNLOCKED",
         "state_smoke": "DETEKTOR DIMA",
         "state_switch": "Prekidač",
-        "state_unlocked": "UNLOCKED"
+        "state_armaway": "Arm Away",
+        "state_armedaway": "Armed Away",
+        "state_armedhome": "Armed Home",
+        "state_armhome": "Arm Home",
+        "state_disarm": "Disarm",
+        "state_disarmed": "Disarmed"
     },
     "weekdays": {
         "entire_day": "Cijeli dan",

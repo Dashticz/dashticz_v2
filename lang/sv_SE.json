@@ -27,7 +27,6 @@
     },
     "misc": {
         "download": "Klicka här för att ladda ner",
-        "enter_pincode": "Ange PIN-kod",
         "last_update": "Senast uppdaterad",
         "loading": "Laddar...",
         "mediaplayer_nothing_playing": "Inget att spela upp just nu",
@@ -39,6 +38,7 @@
         "spotify_select_device": "Välj enhet",
         "spotify_select_playlist": "Välj spellista",
         "value": "Värde",
+        "enter_pincode": "Ange PIN-kod",
         "wrong_code": "Fel PIN-kod"
     },
     "settings": {
@@ -77,7 +77,6 @@
             "default_news_url": "Standard nyhets\/rss URL",
             "disable_googleanalytics": "Inaktivera Google Analytics",
             "disable_googleanalytics_help": "Används endast för utvecklare för att spåra antalet användare och vilken enhet du använder för att finjustera Dashticz.",
-            "disable_update_check": "Disable update check",
             "domoticz_ip": "Domoticz URL",
             "domoticz_ip_help": "Ange Domoticz url, till exempel: http:\/\/192.168.1.1:8080. Du kan också ange användare och lösenord, till exempel: http:\/\/user:password@192.168.1.1:8080",
             "domoticz_refresh": "Uppdatera Domoticz (sekunder)",
@@ -98,6 +97,7 @@
             "use_favorites_help": "Används endast när du använder automatisk positionering",
             "user_name": "Användarnamn",
             "user_name_help": "Ange Dashticz användarnamn och lösenord",
+            "disable_update_check": "Disable update check",
             "default_cors_url": "Default CORS URL",
             "dashticz_php_path": "Dashticz PHP Path",
             "standby_call_url": "URL to be called at start of standby",
@@ -134,11 +134,13 @@
             "sk": "Slovakiska",
             "sl": "Slovenska",
             "speak_language": "Text till tal språk",
-            "sr": "Serbiska",
             "sv": "Svenska",
             "timeformat": "Datum\/tids format",
             "title": "Plats",
-            "uk": "Ukrainska"
+            "uk": "Ukrainska",
+            "sr": "Serbiska",
+            "lt": "litauisk",
+            "ro": "rumänska"
         },
         "media": {
             "hide_mediaplayer": "Dölj mediaplayer när den är avstängd",
@@ -164,13 +166,13 @@
             "dashticz_themes_help": "Ange namnet på temat (t.ex. vit). Temat ersätts av custom.css om den används ",
             "edit_mode": "Gå till redigeringsläget",
             "hide_topbar": "Dölj topbar",
-            "security_button_icons": "Ikoner istället för text på säkerhetsbrytare",
             "slide_effect": "Slideffekt",
             "standard_graph": "Standard graf",
             "standby_after": "Standby efter (minuter, 0 = aldrig)",
             "title": "Skärm",
-            "blink_color": "Flash color and opacity (RGBA)",
-            "blink_color_help": "Set flash color and opacity (red, green, blue, alpha)"
+            "security_button_icons": "Ikoner istället för text på säkerhetsbrytare",
+            "blink_color": "Flashfärg och opacitet (RGBA)",
+            "blink_color_help": "Ställ in blixtfärg och opacitet (röd, grön, blå, alfa)"
         },
         "weather": {
             "idx_moonpicture": "IDX på månbild",
@@ -194,31 +196,36 @@
             "owm_min": "Minimum temperature on 2nd row",
             "owm_min_help": "Only shown when forecast in days",
             "owm_lang": "Set language for de description of the forecast (rain, cloudy, etc.)",
-            "owm_lang_help": "For available languages, see https://openweathermap.org/forecast5/#multi",
+            "owm_lang_help": "For available languages, see https:\/\/openweathermap.org\/forecast5\/#multi",
             "owm_country": "Open Weather Map Land",
-            "owm_name": "Visningsnamn Open Weather Map",           
+            "owm_name": "Visningsnamn Open Weather Map",
             "longfonds_zipcode": "Longfonds zipcode",
             "longfonds_housenumber": "Longfonds housenumber"
+        },
+        "other": {
+            "title": "Andra",
+            "setpoint_min": "Termostat börvärde minsta värde",
+            "setpoint_max": "Termostat börvärde maxvärde"
         }
     },
     "switches": {
-        "state_armaway": "Larma Borta",
-        "state_armedaway": "Larmad Borta",
-        "state_armedhome": "Larmad Hemma",
-        "state_armhome": "Larma Hemma",
         "state_closed": "STÄNGD",
-        "state_disarm": "Larma Av",
-        "state_disarmed": "Larm Av",
-        "state_locked": "LÅST",
         "state_movement": "RÖRELSE",
         "state_nomovement": "INGEN RÖRELSE",
         "state_nosmoke": "Ingen rök",
         "state_off": "AV",
         "state_on": "PÅ",
         "state_open": "ÖPPEN",
+        "state_locked": "LÅST",
+        "state_unlocked": "OLÅST",
         "state_smoke": "RÖK DETEKTERAD",
         "state_switch": "Brytare",
-        "state_unlocked": "OLÅST"
+        "state_armaway": "Larma Borta",
+        "state_armedaway": "Larmad Borta",
+        "state_armedhome": "Larmad Hemma",
+        "state_armhome": "Larma Hemma",
+        "state_disarm": "Larma Av",
+        "state_disarmed": "Larm Av"
     },
     "weekdays": {
         "entire_day": "Hela dagen",
