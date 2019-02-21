@@ -790,7 +790,7 @@ function buttonOnClick(m_event)
       window.open(button.url);
   }
   else if (typeof(button.slide) !== 'undefined') {
-    toSlide(button.slide);
+    toSlide(button.slide-1);
   }
   else {
         buttonLoadFrame(button);
