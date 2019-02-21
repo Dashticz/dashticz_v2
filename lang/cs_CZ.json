@@ -27,7 +27,6 @@
     },
     "misc": {
         "download": "Click here to download",
-        "enter_pincode": "Enter pin code",
         "last_update": "Poslední změna",
         "loading": "Nahrávám...",
         "mediaplayer_nothing_playing": "Právě teď nic nehraje",
@@ -39,6 +38,7 @@
         "spotify_select_device": "Select device",
         "spotify_select_playlist": "Vyberte playlist",
         "value": "Hodnota",
+        "enter_pincode": "Enter pin code",
         "wrong_code": "Wrong pin code"
     },
     "settings": {
@@ -77,7 +77,6 @@
             "default_news_url": "Výchozí URL pro zprávy (RSS feed)",
             "disable_googleanalytics": "Disable Google Analytics",
             "disable_googleanalytics_help": "Only used for developer to track the amount of users and wich device you are using for finetuning Dashticz.",
-            "disable_update_check": "Disable update check",
             "domoticz_ip": "Domoticz URL",
             "domoticz_ip_help": "Enter Domoticz url, for example: http:\/\/192.168.1.1:8080. You can also enter users and password, for example: http:\/\/user:password@192.168.1.1:8080",
             "domoticz_refresh": "Obnovovat Domoticz (v sekundách)",
@@ -98,6 +97,7 @@
             "use_favorites_help": "Funguje pouze pokud se používá Automatické přidávání všech zařízení",
             "user_name": "Username",
             "user_name_help": "Set Dashticz username and password",
+            "disable_update_check": "Disable update check",
             "default_cors_url": "Default CORS URL",
             "dashticz_php_path": "Dashticz PHP Path",
             "standby_call_url": "URL to be called at start of standby",
@@ -134,11 +134,13 @@
             "sk": "Slovak",
             "sl": "Slovenian",
             "speak_language": "Text to speech language",
-            "sr": "Serbian",
             "sv": "Swedish",
             "timeformat": "Formát data a času",
             "title": "Lokalizace",
-            "uk": "Ukrainian"
+            "uk": "Ukrainian",
+            "sr": "Serbian",
+            "lt": "Lithuanian",
+            "ro": "rumunština"
         },
         "media": {
             "hide_mediaplayer": "Skrýt multimediální přehrávač pokud je vypnutý",
@@ -164,11 +166,13 @@
             "dashticz_themes_help": "Set the name of the theme (eg. white) the theme will be overide by custom.css",
             "edit_mode": "Go to edit mode",
             "hide_topbar": "Skrýt nadpis",
-            "security_button_icons": "Icons instead of text on security switch",
             "slide_effect": "Slide efekt",
             "standard_graph": "Standardní graf",
             "standby_after": "Přepnout do pohotovostního režimu po (minut, 0 = nikdy)",
-            "title": "Obrazovka"
+            "title": "Obrazovka",
+            "security_button_icons": "Icons instead of text on security switch",
+            "blink_color": "Barva a neprůhlednost blesku (RGBA)",
+            "blink_color_help": "Nastavení barvy a opacity blesku (červená, zelená, modrá, alfa)"
         },
         "weather": {
             "idx_moonpicture": "IDX měsíce",
@@ -192,31 +196,36 @@
             "owm_min": "Minimum temperature on 2nd row",
             "owm_min_help": "Only shown when forecast in days",
             "owm_lang": "Set language for de description of the forecast (rain, cloudy, etc.)",
-            "owm_lang_help": "For available languages, see https://openweathermap.org/forecast5/#multi",
+            "owm_lang_help": "For available languages, see https:\/\/openweathermap.org\/forecast5\/#multi",
             "owm_country": "Open Weather Map Country",
-            "owm_name": "Zobrazované jméno Open Weather Map",           
+            "owm_name": "Zobrazované jméno Open Weather Map",
             "longfonds_zipcode": "Longfonds zipcode",
             "longfonds_housenumber": "Longfonds housenumber"
+        },
+        "other": {
+            "title": "jiný",
+            "setpoint_min": "Minimální požadovaná hodnota termostatu",
+            "setpoint_max": "Maximální hodnota žádané teploty termostatu"
         }
     },
     "switches": {
-        "state_armaway": "Arm Away",
-        "state_armedaway": "Armed Away",
-        "state_armedhome": "Armed Home",
-        "state_armhome": "Arm Home",
         "state_closed": "UZAVŘENO",
-        "state_disarm": "Disarm",
-        "state_disarmed": "Disarmed",
-        "state_locked": "LOCKED",
         "state_movement": "POHYB",
         "state_nomovement": "BEZ POHYBU",
         "state_nosmoke": "Žádný kouř",
         "state_off": "VYPNUTO",
         "state_on": "ZAPNUTO",
         "state_open": "OTEVŘENO",
+        "state_locked": "LOCKED",
+        "state_unlocked": "UNLOCKED",
         "state_smoke": "NALEZEN KOUŘ",
         "state_switch": "Vypínač",
-        "state_unlocked": "UNLOCKED"
+        "state_armaway": "Arm Away",
+        "state_armedaway": "Armed Away",
+        "state_armedhome": "Armed Home",
+        "state_armhome": "Arm Home",
+        "state_disarm": "Disarm",
+        "state_disarmed": "Disarmed"
     },
     "weekdays": {
         "entire_day": "Celý den",

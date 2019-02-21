@@ -50,7 +50,7 @@ function getData(random,transportobject){
 	else if(provider == 'mobiliteit'){
 		dataURL = _CORS_PATH + 'http://travelplanner.mobiliteit.lu/restproxy/departureBoard?accessId=cdt&duration=1439&maxJourneys='+transportobject.results+'&format=json&id=A=1@O='+transportobject.station;
 	}
-	else if(provider == '9292' || provider == '9292-train' || provider == '9292-bus' || provider == '9292-metro' || provider == '9292-tram-bus'){
+	else if(provider.slice(0,4) == '9292'){
 		dataURL = _CORS_PATH + 'http://api.9292.nl/0.1/locations/'+transportobject.station+'/departure-times?lang=nl-NL';
 	}
 	else if(provider == 'irailbe'){
@@ -75,12 +75,16 @@ function dataPublicTransport(random,data,transportobject){
 	for(d in data){
 		if(provider == '9292' || provider == '9292-train' || provider == '9292-bus' || provider =='9292-metro' || provider == '9292-tram-bus'){
 			for(t in data[d]){
+				var l_id= data[d][t]['id'];
 				if(provider == '9292' || 
-				   (data[d][t]['id']=='bus' && provider == '9292-bus') || 
-				   (data[d][t]['id']=='metro' && provider == '9292-metro') || 
-				   (data[d][t]['id']=='tram-bus' && provider == '9292-tram-bus') || 
-				   (data[d][t]['id']=='trein' && provider == '9292-train') || 
-				   (data[d][t]['id']=='veerboot' && provider == '9292-boat')
+				   (l_id=='bus' && provider == '9292-bus') || 
+					 (l_id=='tram' && provider == '9292-tram')  ||
+					 (l_id=='bus' && provider == '9292-tram-bus')  ||
+					 (l_id=='tram' && provider == '9292-tram-bus')  ||
+					 (l_id=='tram-bus' && provider == '9292-tram-bus') || 
+				   (l_id=='metro' && provider == '9292-metro') || 
+				   (l_id=='trein' && provider == '9292-train') || 
+				   (l_id=='veerboot' && provider == '9292-boat')
 				){
 					deps = data[d][t]['departures'];
 					for(de in deps){

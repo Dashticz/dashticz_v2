@@ -1,8 +1,10 @@
 {
-"version": "2.5.3",
+"version": "2.5.5",
 "branch": "beta",
-"last_changes": "Add the possibility to show several weather forecast days with OWM",
+"last_changes": "Calendar recurrence improvement",
 "changelog" : {
+            "2.5.4": "Fix for OWM sometimes not showing up",
+            "2.5.3": "Add the possibility to show several weather forecast days with OWM",
             "2.5.2": "Add Standby URL settings to configuration window",
             "2.5.1": "Fix for TV Guide and several other small fixes",
             "2.5.0": "New beta",

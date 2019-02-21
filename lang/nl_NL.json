@@ -27,7 +27,6 @@
     },
     "misc": {
         "download": "Klik hier om te downloaden",
-        "enter_pincode": "Voer de pincode in",
         "last_update": "Laatste update",
         "loading": "Laden...",
         "mediaplayer_nothing_playing": "Er wordt momenteel niets afgespeeld",
@@ -39,6 +38,7 @@
         "spotify_select_device": "Selecteer apparaat",
         "spotify_select_playlist": "Selecteer afspeellijst",
         "value": "Waarde",
+        "enter_pincode": "Voer de pincode in",
         "wrong_code": "Verkeerde pincode"
     },
     "settings": {
@@ -77,7 +77,6 @@
             "default_news_url": "Standaard nieuws URL",
             "disable_googleanalytics": "Schakel Google Analytics uit",
             "disable_googleanalytics_help": "Alleen gebruikt voor deontwikkelaars om het aantal gebruikers bij te houden en welk apparaat je gebruikt voor het verbeteren van Dashticz.",
-            "disable_update_check": "Schakel update controle uit",
             "domoticz_ip": "Domoticz URL",
             "domoticz_ip_help": "Voer de URL van Domoticz in, bijvoorbeeld: http:\/\/192.168.1.1:8080. U kunt ook gebruikersnaam en wachtwoord meegeven, bijvoorbeeld: http:\/\/user:password@192.168.1.1: 8080",
             "domoticz_refresh": "Ververs Domoticz (seconden)",
@@ -98,6 +97,7 @@
             "use_favorites_help": "Wordt alleen gebruikt wanneer de schakelaars automatisch toegevoegd worden",
             "user_name": "Gebruikersnaam",
             "user_name_help": "Stel Dashticz-gebruikersnaam en -wachtwoord in",
+            "disable_update_check": "Schakel update controle uit",
             "default_cors_url": "Default CORS URL",
             "dashticz_php_path": "Dashticz PHP Path",
             "standby_call_url": "URL to be called at start of standby",
@@ -134,11 +134,13 @@
             "sk": "Slowaaks",
             "sl": "Sloveens",
             "speak_language": "Tekst-naar-spraak-taal",
-            "sr": "Servisch",
             "sv": "Zweeds",
             "timeformat": "Datum\/tijd weergave",
             "title": "Lokaliseren",
-            "uk": "Oekraïens"
+            "uk": "Oekraïens",
+            "sr": "Servisch",
+            "lt": "Litouws",
+            "ro": "Roemeense"
         },
         "media": {
             "hide_mediaplayer": "Verberg mediaspeler wanneer het uit is",
@@ -164,11 +166,13 @@
             "dashticz_themes_help": "Stel de naam van het thema in (bijvoorbeeld wit) het thema zal overschreven worden door custom.css",
             "edit_mode": "Ga naar de bewerkingsmodus",
             "hide_topbar": "Verberg titelbalk",
-            "security_button_icons": "Pictogrammen in plaats van tekst op beveiligingsschakelaar",
             "slide_effect": "Schuif effect",
             "standard_graph": "Standaard grafiek",
             "standby_after": "Standby na (minuteen, 0 = nooit)",
-            "title": "Weergave"
+            "title": "Weergave",
+            "security_button_icons": "Pictogrammen in plaats van tekst op beveiligingsschakelaar",
+            "blink_color": "Knipperkleur en ondoorzichtigheid (RBGA)",
+            "blink_color_help": "Stel de knipperkleur en ondoorzichtigheid in (rood, groen, blauw, ondoorzichtigheid)"
         },
         "weather": {
             "idx_moonpicture": "IDX van maanfoto",
@@ -192,31 +196,36 @@
             "owm_min": "Minimum temperatuur op 2e regel",
             "owm_min_help": "Wordt alleen weergegeven bij voorspelling in dagen",
             "owm_lang": "Taal voor de beschrijving (regen, bewolkt, etc.)",
-            "owm_lang_help": "Zie voor beschikbare talen https://openweathermap.org/forecast5/#multi",
+            "owm_lang_help": "Zie voor beschikbare talen https:\/\/openweathermap.org\/forecast5\/#multi",
             "owm_country": "Open Weather Map Land",
             "owm_name": "Weergavenaam Open Weather Map",
             "longfonds_zipcode": "Longfonds postcode",
             "longfonds_housenumber": "Longfonds huisnummer"
+        },
+        "other": {
+            "title": "Overige",
+            "setpoint_min": "Thermostaatinstelling minimum waarde",
+            "setpoint_max": "Thermostaatinstelling maximum waarde"
         }
     },
     "switches": {
-        "state_armaway": "Arm Away",
-        "state_armedaway": "Armed Away",
-        "state_armedhome": "Armed Home",
-        "state_armhome": "Arm Home",
         "state_closed": "DICHT",
-        "state_disarm": "Disarm",
-        "state_disarmed": "Disarmed",
-        "state_locked": "VERGRENDELD",
         "state_movement": "BEWEGING",
         "state_nomovement": "Geen beweging",
         "state_nosmoke": "Geen rook",
         "state_off": "UIT",
         "state_on": "AAN",
         "state_open": "OPEN",
+        "state_locked": "VERGRENDELD",
+        "state_unlocked": "ONTGRENDELD",
         "state_smoke": "ROOK GEDETECTEERD",
         "state_switch": "Schakelen",
-        "state_unlocked": "ONTGRENDELD"
+        "state_armaway": "Arm Away",
+        "state_armedaway": "Armed Away",
+        "state_armedhome": "Armed Home",
+        "state_armhome": "Arm Home",
+        "state_disarm": "Disarm",
+        "state_disarmed": "Disarmed"
     },
     "weekdays": {
         "entire_day": "Hele dag",

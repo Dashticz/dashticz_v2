@@ -27,7 +27,6 @@
     },
     "misc": {
         "download": "Click here to download",
-        "enter_pincode": "Enter pin code",
         "last_update": "Viimeisin päivitys",
         "loading": "Ladataan...",
         "mediaplayer_nothing_playing": "Mitään ei toisteta tällä hetkellä",
@@ -39,6 +38,7 @@
         "spotify_select_device": "Select device",
         "spotify_select_playlist": "Valitse soittolista",
         "value": "Arvo",
+        "enter_pincode": "Enter pin code",
         "wrong_code": "Wrong pin code"
     },
     "settings": {
@@ -77,7 +77,6 @@
             "default_news_url": "Oletusarvoinen uutisosoite",
             "disable_googleanalytics": "Disable Google Analytics",
             "disable_googleanalytics_help": "Only used for developer to track the amount of users and wich device you are using for finetuning Dashticz.",
-            "disable_update_check": "Disable update check",
             "domoticz_ip": "Domoticz:n osoite",
             "domoticz_ip_help": "Enter Domoticz url, for example: http:\/\/192.168.1.1:8080. You can also enter users and password, for example: http:\/\/user:password@192.168.1.1:8080",
             "domoticz_refresh": "Päivitä Domoticz (sekuntia)",
@@ -98,6 +97,7 @@
             "use_favorites_help": "Käytetään vain, kun käytät automaattista sijaintien määritystä",
             "user_name": "Username",
             "user_name_help": "Set Dashticz username and password",
+            "disable_update_check": "Disable update check",
             "default_cors_url": "Default CORS URL",
             "dashticz_php_path": "Dashticz PHP Path",
             "standby_call_url": "URL to be called at start of standby",
@@ -134,11 +134,13 @@
             "sk": "Slovakia",
             "sl": "Slovenia",
             "speak_language": "Text to speech language",
-            "sr": "Serbian",
             "sv": "Ruotsi",
             "timeformat": "Aikamuoto",
             "title": "Paikallistaa",
-            "uk": "Ukraina"
+            "uk": "Ukraina",
+            "sr": "Serbian",
+            "lt": "liettualainen",
+            "ro": "romanialainen"
         },
         "media": {
             "hide_mediaplayer": "Piilota mediasoitin, kun se on pois päältä",
@@ -164,11 +166,13 @@
             "dashticz_themes_help": "Set the name of the theme (eg. white) the theme will be overide by custom.css",
             "edit_mode": "Go to edit mode",
             "hide_topbar": "Piilota yläpalkki",
-            "security_button_icons": "Icons instead of text on security switch",
             "slide_effect": "Slide-vaikutus",
             "standard_graph": "Standardi kuvaaja",
             "standby_after": "Valmiustila (minuutit, 0 = ei koskaan)",
-            "title": "Näytön otsikko"
+            "title": "Näytön otsikko",
+            "security_button_icons": "Icons instead of text on security switch",
+            "blink_color": "Salaman väri ja opasiteetti (RGBA)",
+            "blink_color_help": "Aseta salaman väri ja opasiteetti (punainen, vihreä, sininen, alfa)"
         },
         "weather": {
             "idx_moonpicture": "Kuun IDX-numero",
@@ -192,31 +196,36 @@
             "owm_min": "Minimum temperature on 2nd row",
             "owm_min_help": "Only shown when forecast in days",
             "owm_lang": "Set language for de description of the forecast (rain, cloudy, etc.)",
-            "owm_lang_help": "For available languages, see https://openweathermap.org/forecast5/#multi",
+            "owm_lang_help": "For available languages, see https:\/\/openweathermap.org\/forecast5\/#multi",
             "owm_country": "Open Weather Map Maa",
-            "owm_name": "Näyttönimi Open Weather Map",           
+            "owm_name": "Näyttönimi Open Weather Map",
             "longfonds_zipcode": "Longfonds zipcode",
             "longfonds_housenumber": "Longfonds housenumber"
+        },
+        "other": {
+            "title": "muut",
+            "setpoint_min": "Termostaatin ohjearvon minimiarvo",
+            "setpoint_max": "Termostaatin asetusarvon enimmäisarvo"
         }
     },
     "switches": {
-        "state_armaway": "Arm Away",
-        "state_armedaway": "Armed Away",
-        "state_armedhome": "Armed Home",
-        "state_armhome": "Arm Home",
         "state_closed": "Kiinni",
-        "state_disarm": "Disarm",
-        "state_disarmed": "Disarmed",
-        "state_locked": "LOCKED",
         "state_movement": "Liikettä",
         "state_nomovement": "Ei liikettä",
         "state_nosmoke": "Ei savua",
         "state_off": "Pois",
         "state_on": "Päällä",
         "state_open": "Auki",
+        "state_locked": "LOCKED",
+        "state_unlocked": "UNLOCKED",
         "state_smoke": "Savua havaittu",
         "state_switch": "Kytkin",
-        "state_unlocked": "UNLOCKED"
+        "state_armaway": "Arm Away",
+        "state_armedaway": "Armed Away",
+        "state_armedhome": "Armed Home",
+        "state_armhome": "Arm Home",
+        "state_disarm": "Disarm",
+        "state_disarmed": "Disarmed"
     },
     "weekdays": {
         "entire_day": "Koko päivä",

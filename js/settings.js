@@ -153,6 +153,11 @@ settingList['screen']['security_button_icons'] = {};
 settingList['screen']['security_button_icons']['title'] = language.settings.screen.security_button_icons;
 settingList['screen']['security_button_icons']['type'] = 'checkbox';
 
+settingList['screen']['blink_color'] = {};
+settingList['screen']['blink_color']['title'] = language.settings.screen.blink_color;
+settingList['screen']['blink_color']['type'] = 'text';
+settingList['screen']['blink_color']['help'] = language.settings.screen.blink_color_help;
+
 settingList['screen']['edit_mode'] = {};
 settingList['screen']['edit_mode']['title'] = language.settings.screen.edit_mode;
 settingList['screen']['edit_mode']['type'] = 'checkbox';
@@ -174,10 +179,12 @@ settingList['localize']['language']['options']['fi_FI'] = language.settings.loca
 settingList['localize']['language']['options']['fr_FR'] = language.settings.localize.fr;
 settingList['localize']['language']['options']['hu_HU'] = language.settings.localize.hu;
 settingList['localize']['language']['options']['it_IT'] = language.settings.localize.it;
+settingList['localize']['language']['options']['lt_LT'] = language.settings.localize.lt;
 settingList['localize']['language']['options']['nl_NL'] = language.settings.localize.nl;
 settingList['localize']['language']['options']['nn_NO'] = language.settings.localize.no;
 settingList['localize']['language']['options']['pl_PL'] = language.settings.localize.pl;
 settingList['localize']['language']['options']['pt_PT'] = language.settings.localize.pt;
+settingList['localize']['language']['options']['ro_RO'] = language.settings.localize.ro;
 settingList['localize']['language']['options']['ru_RU'] = language.settings.localize.ru;
 settingList['localize']['language']['options']['sk_SK'] = language.settings.localize.sk;
 settingList['localize']['language']['options']['sl_SL'] = language.settings.localize.sl;
@@ -206,10 +213,12 @@ settingList['localize']['calendarlanguage']['options']['fi_FI'] = language.setti
 settingList['localize']['calendarlanguage']['options']['fr_FR'] = language.settings.localize.fr;
 settingList['localize']['calendarlanguage']['options']['hu_HU'] = language.settings.localize.hu;
 settingList['localize']['calendarlanguage']['options']['it_IT'] = language.settings.localize.it;
+settingList['localize']['calendarlanguage']['options']['lt_LT'] = language.settings.localize.lt;
 settingList['localize']['calendarlanguage']['options']['nl_NL'] = language.settings.localize.nl;
 settingList['localize']['calendarlanguage']['options']['nn_NO'] = language.settings.localize.no;
 settingList['localize']['calendarlanguage']['options']['pl_PL'] = language.settings.localize.pl;
 settingList['localize']['calendarlanguage']['options']['pt_PT'] = language.settings.localize.pt;
+settingList['localize']['calendarlanguage']['options']['ro_RO'] = language.settings.localize.ro;
 settingList['localize']['calendarlanguage']['options']['ru_RU'] = language.settings.localize.ru;
 settingList['localize']['calendarlanguage']['options']['sk_SK'] = language.settings.localize.sk;
 settingList['localize']['calendarlanguage']['options']['sl_SL'] = language.settings.localize.sl;
@@ -566,6 +575,7 @@ if (typeof(settings['selector_instead_of_buttons']) === 'undefined') settings['s
 if (typeof(settings['default_news_url']) === 'undefined') settings['default_news_url'] = 'http://www.nu.nl/rss/algemeen';
 if (typeof(settings['news_scroll_after']) === 'undefined') settings['news_scroll_after'] = 7;
 if (typeof(settings['standard_graph']) === 'undefined') settings['standard_graph'] = 'hours';
+if (typeof(settings['blink_color']) === 'undefined') settings['blink_color'] = '255, 255, 255, 1';
 if (typeof(settings['edit_mode']) === 'undefined') settings['edit_mode'] = 0;
 if (typeof(settings['units']) === 'undefined') {
     settings['units'] = {

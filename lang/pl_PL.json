@@ -27,7 +27,6 @@
     },
     "misc": {
         "download": "Kliknij tutaj, aby pobrać",
-        "enter_pincode": "Enter pin code",
         "last_update": "Ostatnia aktualizacja",
         "loading": "Ładowanie...",
         "mediaplayer_nothing_playing": "Odtwarzanie wyłączone",
@@ -39,6 +38,7 @@
         "spotify_select_device": "Wybierz urządzenie",
         "spotify_select_playlist": "Wybierz listę odtwarzania",
         "value": "Wartość",
+        "enter_pincode": "Enter pin code",
         "wrong_code": "Wrong pin code"
     },
     "settings": {
@@ -77,7 +77,6 @@
             "default_news_url": "Domyślny adres URL wiadomości",
             "disable_googleanalytics": "Wyłącz Google Analytics",
             "disable_googleanalytics_help": "Używane przez developera do śledzenia liczby użytkowników, używanych urządzeń oraz do ulepszania Dashticz",
-            "disable_update_check": "Disable update check",
             "domoticz_ip": "Adres URL Domoticz",
             "domoticz_ip_help": "Wprowadź URL Domoticz, na przykład http:\/\/192.168.1.1:8080. Możesz dodać użytkownika i hasło, np. http:\/\/user:password@192.168.1.1:8080",
             "domoticz_refresh": "Odświeżanie Domoticz (sekundy)",
@@ -98,6 +97,7 @@
             "use_favorites_help": "Używane wyłącznie przy autopozycjonowaniu",
             "user_name": "Nazwa użytkownika",
             "user_name_help": "Ustaw nazwę użytkownika i hasło Dashticz",
+            "disable_update_check": "Disable update check",
             "default_cors_url": "Default CORS URL",
             "dashticz_php_path": "Dashticz PHP Path",
             "standby_call_url": "URL to be called at start of standby",
@@ -134,11 +134,13 @@
             "sk": "Słowacki",
             "sl": "Słoweński",
             "speak_language": "Język TTS",
-            "sr": "Serbski",
             "sv": "Szwedzki",
             "timeformat": "Format daty i czasu",
             "title": "Lokalizacja",
-            "uk": "Ukraiński"
+            "uk": "Ukraiński",
+            "sr": "Serbski",
+            "lt": "litewski",
+            "ro": "rumuński"
         },
         "media": {
             "hide_mediaplayer": "Ukryj odtwarzacz, gdy jest wyłączony",
@@ -164,11 +166,13 @@
             "dashticz_themes_help": "Określ nazwę motywu (np. Biały), motyw zostanie zastąpiony przez custom.css",
             "edit_mode": "Przejść w tryb edycji",
             "hide_topbar": "Ukryj pasek górny",
-            "security_button_icons": "Icons instead of text on security switch",
             "slide_effect": "Efekt przewijania",
             "standard_graph": "Wykres standardowy",
             "standby_after": "Przejdź w tryb czuwania po (minuty, 0 = nigdy)",
-            "title": "Ekran"
+            "title": "Ekran",
+            "security_button_icons": "Icons instead of text on security switch",
+            "blink_color": "Kolor i moc krycia (RGBA)",
+            "blink_color_help": "Ustaw kolor błysku i krycie (czerwony, zielony, niebieski, alfa)"
         },
         "weather": {
             "idx_moonpicture": "IDX dla obrazu księżyca",
@@ -192,31 +196,36 @@
             "owm_min": "Minimum temperature on 2nd row",
             "owm_min_help": "Only shown when forecast in days",
             "owm_lang": "Set language for de description of the forecast (rain, cloudy, etc.)",
-            "owm_lang_help": "For available languages, see https://openweathermap.org/forecast5/#multi",
+            "owm_lang_help": "For available languages, see https:\/\/openweathermap.org\/forecast5\/#multi",
             "owm_country": "Kraj Open Weather Map",
-            "owm_name": "Wyświetlana nazwa Open Weather Map",           
+            "owm_name": "Wyświetlana nazwa Open Weather Map",
             "longfonds_zipcode": "Longfonds zipcode",
             "longfonds_housenumber": "Longfonds housenumber"
+        },
+        "other": {
+            "title": "Inny",
+            "setpoint_min": "Minimalna wartość zadana termostatu",
+            "setpoint_max": "Maksymalna wartość zadana termostatu"
         }
     },
     "switches": {
-        "state_armaway": "Arm Away",
-        "state_armedaway": "Armed Away",
-        "state_armedhome": "Armed Home",
-        "state_armhome": "Arm Home",
         "state_closed": "ZAMKNIĘTE",
-        "state_disarm": "Disarm",
-        "state_disarmed": "Disarmed",
-        "state_locked": "LOCKED",
         "state_movement": "WYKRYTO RUCH",
         "state_nomovement": "BRAK RUCHU",
         "state_nosmoke": "Brak zadymienia",
         "state_off": "Wył.",
         "state_on": "Wł.",
         "state_open": "OTWARTE",
+        "state_locked": "LOCKED",
+        "state_unlocked": "UNLOCKED",
         "state_smoke": "WYKRYTO DYM",
         "state_switch": "Przełącznik",
-        "state_unlocked": "UNLOCKED"
+        "state_armaway": "Arm Away",
+        "state_armedaway": "Armed Away",
+        "state_armedhome": "Armed Home",
+        "state_armhome": "Arm Home",
+        "state_disarm": "Disarm",
+        "state_disarmed": "Disarmed"
     },
     "weekdays": {
         "entire_day": "cały dzień",

@@ -83,6 +83,7 @@ blocktypes.Name['Mondphase'] = {icon: 'fas fa-moon', title: '<Data>', value: '<N
 
 blocktypes = getExtendedBlockTypes(blocktypes);
 
+var myBlockNumbering=0;  //To give all blocks a unique number
 
 function getBlock(cols, c, columndiv, standby) {
     if (typeof(cols) !== 'undefined') {
@@ -113,19 +114,22 @@ function getBlock(cols, c, columndiv, standby) {
                     continue;
                 }
             }
-
+            $(columndiv).append('<div id="block_' + myBlockNumbering + '"</div>');
+            var myIndex = myBlockNumbering++;
+            var myblockselector = '#block_' + myIndex;
+            
             switch (typeof(cols['blocks'][b])) {
                 case 'object':
-                    handleObjectBlock(cols['blocks'][b], b, columndiv, width, c);
+                    handleObjectBlock(cols['blocks'][b], myIndex, myblockselector, width, c);
                     continue;
 
                 case 'string':
-                    handleStringBlock(cols['blocks'][b], columndiv, width, c);
+                    handleStringBlock(cols['blocks'][b], myblockselector, width, c);
                     continue;
 
-                default:
-                    $(columndiv).append('<div data-id="' + cols['blocks'][b] + '" class="mh transbg block_' + cols['blocks'][b] + '"></div>');
-                    break;
+                    default:
+                        $(myblockselector).html('<div data-id="' + cols['blocks'][b] + '" class="mh transbg block_' + cols['blocks'][b] + '"></div>');
+                        break;
             }
         }
     }
@@ -361,10 +365,7 @@ function handleObjectBlock(block, index, columndiv, width, c) {
     if (block.hasOwnProperty('latitude')) {
         $(columndiv).append(loadMaps(random, block));
         return;
-    } else if (block.hasOwnProperty('isimage')) {
-        $(columndiv).append(loadImage(random, block));
-        return;
-    }
+  }
     var key = 'UNKNOWN';
     if (block.hasOwnProperty('key')) key = block['key'];
     if (block.hasOwnProperty('width')) width = block['width'];
@@ -405,6 +406,8 @@ function handleObjectBlock(block, index, columndiv, width, c) {
         addCalendar($('.containsicalendar' + random), block);
     } else {
         $(columndiv).append(loadButton(index, block));
+        if(buttonIsClickable(block))
+          $(columndiv).click(block, buttonOnClick);
     }
 }
 

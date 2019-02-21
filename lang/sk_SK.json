@@ -27,7 +27,6 @@
     },
     "misc": {
         "download": "Click here to download",
-        "enter_pincode": "Enter pin code",
         "last_update": "Posledná aktualizácia",
         "loading": "Načítava...",
         "mediaplayer_nothing_playing": "Nothing is playing right now",
@@ -39,6 +38,7 @@
         "spotify_select_device": "Select device",
         "spotify_select_playlist": "Select playlist",
         "value": "Hodnota",
+        "enter_pincode": "Enter pin code",
         "wrong_code": "Wrong pin code"
     },
     "settings": {
@@ -77,7 +77,6 @@
             "default_news_url": "Default news URL",
             "disable_googleanalytics": "Disable Google Analytics",
             "disable_googleanalytics_help": "Only used for developer to track the amount of users and wich device you are using for finetuning Dashticz.",
-            "disable_update_check": "Disable update check",
             "domoticz_ip": "Domoticz URL",
             "domoticz_ip_help": "Enter Domoticz url, for example: http:\/\/192.168.1.1:8080. You can also enter users and password, for example: http:\/\/user:password@192.168.1.1:8080",
             "domoticz_refresh": "Refresh Domoticz (seconds)",
@@ -98,6 +97,7 @@
             "use_favorites_help": "Only used when using auto positioning",
             "user_name": "Username",
             "user_name_help": "Set Dashticz username and password",
+            "disable_update_check": "Disable update check",
             "default_cors_url": "Default CORS URL",
             "dashticz_php_path": "Dashticz PHP Path",
             "standby_call_url": "URL to be called at start of standby",
@@ -134,11 +134,13 @@
             "sk": "Slovak",
             "sl": "Slovenian",
             "speak_language": "Text to speech language",
-            "sr": "Serbian",
             "sv": "Swedish",
             "timeformat": "Datetime format",
             "title": "Localize",
-            "uk": "Ukrainian"
+            "uk": "Ukrainian",
+            "sr": "Serbian",
+            "lt": "litovský",
+            "ro": "rumunský"
         },
         "media": {
             "hide_mediaplayer": "Hide mediaplayer when it's off",
@@ -164,11 +166,13 @@
             "dashticz_themes_help": "Set the name of the theme (eg. white) the theme will be overide by custom.css",
             "edit_mode": "Go to edit mode",
             "hide_topbar": "Hide topbar",
-            "security_button_icons": "Icons instead of text on security switch",
             "slide_effect": "Slide effect",
             "standard_graph": "Standard graph",
             "standby_after": "Standby after (minutes, 0 = never)",
-            "title": "Screen"
+            "title": "Screen",
+            "security_button_icons": "Icons instead of text on security switch",
+            "blink_color": "Farba a opacita blesku (RGBA)",
+            "blink_color_help": "Nastavte farbu a opacitu blesku (červená, zelená, modrá, alfa)"
         },
         "weather": {
             "idx_moonpicture": "IDX of moonpicture",
@@ -192,31 +196,36 @@
             "owm_min": "Minimum temperature on 2nd row",
             "owm_min_help": "Only shown when forecast in days",
             "owm_lang": "Set language for de description of the forecast (rain, cloudy, etc.)",
-            "owm_lang_help": "For available languages, see https://openweathermap.org/forecast5/#multi",
+            "owm_lang_help": "For available languages, see https:\/\/openweathermap.org\/forecast5\/#multi",
             "owm_country": "Open Weather Map Country",
-            "owm_name": "Zobraziť meno Open Weather Map",           
+            "owm_name": "Zobraziť meno Open Weather Map",
             "longfonds_zipcode": "Longfonds zipcode",
             "longfonds_housenumber": "Longfonds housenumber"
+        },
+        "other": {
+            "title": "ostatné",
+            "setpoint_min": "Minimálna hodnota požadovanej teploty termostatu",
+            "setpoint_max": "Maximálna hodnota žiadanej hodnoty termostatu"
         }
     },
     "switches": {
-        "state_armaway": "Arm Away",
-        "state_armedaway": "Armed Away",
-        "state_armedhome": "Armed Home",
-        "state_armhome": "Arm Home",
         "state_closed": "CLOSED",
-        "state_disarm": "Disarm",
-        "state_disarmed": "Disarmed",
-        "state_locked": "LOCKED",
         "state_movement": "MOVEMENT",
         "state_nomovement": "NO MOVEMENT",
         "state_nosmoke": "No Smoke",
         "state_off": "OFF",
         "state_on": "ON",
         "state_open": "OPEN",
+        "state_locked": "LOCKED",
+        "state_unlocked": "UNLOCKED",
         "state_smoke": "SMOKE DETECTED",
         "state_switch": "Switch",
-        "state_unlocked": "UNLOCKED"
+        "state_armaway": "Arm Away",
+        "state_armedaway": "Armed Away",
+        "state_armedhome": "Armed Home",
+        "state_armhome": "Arm Home",
+        "state_disarm": "Disarm",
+        "state_disarmed": "Disarmed"
     },
     "weekdays": {
         "entire_day": "Entire day",
