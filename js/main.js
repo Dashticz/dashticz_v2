@@ -106,6 +106,7 @@ function loadFiles() {
             $.ajax({url: 'js/blocks.js', async: false, dataType: 'script'});
             $.ajax({url: 'js/graphs.js', async: false, dataType: 'script'});
             $.ajax({url: 'js/login.js', async: false, dataType: 'script'});
+            $.ajax({url: 'js/moon.js', async: false, dataType: 'script'});
 
             sessionValid();
 
@@ -309,9 +310,9 @@ function buildScreens() {
             for (s in screens[t]) {
                 if (s !== 'maxwidth' && s !== 'maxheight') {
                     var screenhtml = '<div class="screen screen' + s + ' swiper-slide slide' + s + '"';
-					if (typeof(screens[t][s]['background']) === 'undefined') {
-						screens[t][s]['background'] = settings['background_image'];
-					}
+          					if (typeof(screens[t][s]['background']) === 'undefined') {
+          						screens[t][s]['background'] = settings['background_image'];
+          					}
                     if (typeof(screens[t][s]['background']) !== 'undefined') {
                         if (screens[t][s]['background'].indexOf("/") > 0) screenhtml += 'style="background-image:url(\'' + screens[t][s]['background'] + '\');"';
                         else screenhtml += 'style="background-image:url(\'img/' + screens[t][s]['background'] + '\');"';
@@ -335,10 +336,9 @@ function buildScreens() {
 
                         for (cs in screens[t][s]['columns']) {
                            if(typeof(screens[t])!=='undefined'){
-
-						   	c = screens[t][s]['columns'][cs];
-                            getBlock(columns[c], c, 'div.screen' + s + ' .row .col' + c, false);
-						   }
+						   	                   c = screens[t][s]['columns'][cs];
+                                   getBlock(columns[c], c, 'div.screen' + s + ' .row .col' + c, false);
+						                }
                         }
                     }
                     else {
@@ -387,8 +387,9 @@ function buildScreens() {
                             $('.col3 .auto_sunrise').html('<div class="block_sunrise col-xs-12 transbg text-center sunriseholder"><em class="wi wi-sunrise"></em><span id="sunrise" class="sunrise"></span><em class="wi wi-sunset"></em><span id="sunset" class="sunset"></span></div>');
                             if (typeof(buttons) !== 'undefined') {
                                 for (b in buttons) {
-                                    if (buttons[b].isimage) $('.col3 .auto_buttons').append(loadImage(b, buttons[b]));
-                                    else $('.col3 .auto_buttons').append(loadButton(b, buttons[b]));
+                                    $('.col3 .auto_buttons').append('<div id="block_' + myBlockNumbering + '"</div>');
+                                    var myblockselector = '#block_' + myBlockNumbering++;
+                                    handleObjectBlock(buttons[b], b, myblockselector, 12, null);
                                 }
                             }
                         }
@@ -555,6 +556,9 @@ function playAudio(file) {
         ion.sound.play(filename);
     }
 }
+function removeLoading() {
+  $('#loadingMessage').css('display', 'none');
+}
 
 function createModalDialog(dialogClass, dialogId, myFrame) {
     var setWidth = false;
@@ -586,9 +590,10 @@ function createModalDialog(dialogClass, dialogId, myFrame) {
     if(dialogClass==='openpopup') {
       mySetUrl = 'src';
     }
+    html += '<div id="loadingMessage">' + language.misc.loading + '</div>';
     html += '<iframe class="popupheight" ' + mySetUrl + '="' + myFrame.url + '" width="100%" height="100%" frameborder="0" allowtransparency="true" style="'
     html += setHeight ? 'height: ' + myheight + '; ' : '';
-    html += '" ></iframe> ';
+    html += '" onload="removeLoading()" ></iframe> ';
     html += '</div>';
     html += '</div>';
     html += '</div>';
@@ -758,47 +763,90 @@ function loadMaps(b, map) {
     return html;
 }
 
-function loadButton(b, button) {
-    var random = getRandomInt(1, 100000);
-    if ($('#button_' + b).length == 0) {
-        $('body').append(createModalDialog('','button_' + b + '_' + random, button));
-        if (button.log == true) {
-            if (typeof(getLog) !== 'function') $.ajax({url: 'js/log.js', async: false, dataType: 'script'});
-            $('#button_' + b + '_' + random + ' .modal-body').html('');
-            getLog($('#button_' + b + '_' + random + ' .modal-body'), button.level, true);
-        }
+function buttonLoadFrame(button) //Displays the frame of a button after pressing is
+{
+  
+  var random = getRandomInt(1, 100000);
+  $('body').append(createModalDialog('openpopup','button_' + random , button));
+  if (button.log == true) {
+      if (typeof(getLog) !== 'function') $.ajax({url: 'js/log.js', async: false, dataType: 'script'});
+      $('#button_' + random  + ' .modal-body').html('');
+      getLog($('#button_' + random + ' .modal-body'), button.level, true);
+  }
+  $('#button_'+random).on('hidden.bs.modal', function () {
+        $(this).data('bs.modal', null);
+        $(this).remove();
+  });
 
-    }
+  $('#button_' + random ).modal('show');
+
+}
+
+function buttonOnClick(m_event)
+//button clickhandler. Assumption: button is clickable
+{
+  var button = m_event.data;
+  if (typeof(button.newwindow) !== 'undefined') {
+      window.open(button.url);
+  }
+  else if (typeof(button.slide) !== 'undefined') {
+    toSlide(button.slide);
+  }
+  else {
+        buttonLoadFrame(button);
+  }
+}
+
+function buttonIsClickable(button) {
+  var clickable = typeof(button.url) !== 'undefined' || button.log == true || typeof(button.slide)!=='undefined';
+  return clickable;
+}
+
+function loadButton(b, button) {
     var width = 12;
     if (typeof(button.width) !== 'undefined') width = button.width;
 
-    var key = 'UNKNOWN';
+    var key = b;
     if (typeof(button.key) !== 'undefined') key = button.key;
+    
 
-    if (typeof(button.newwindow) !== 'undefined') {
-        var html = '<div class="col-xs-' + width + ' hover transbg buttons-' + key + '" data-id="buttons.' + key + '" onclick="window.open(\'' + button.url + '\')">';
-    }
-    else if (typeof(button.slide) !== 'undefined') {
-        var html = '<div class="col-xs-' + width + ' hover transbg buttons-' + key + '" data-id="buttons.' + key + '" onclick="toSlide(' + (parseFloat(button.slide) - 1) + ')">';
+    html = '<div class="col-xs-' + width + (buttonIsClickable(button) ? ' hover ' : ' ') +  ' transbg buttons-' + key + '" data-id="buttons.' + key + '">';
+
+    if (button.hasOwnProperty('isimage')) {
+      var img='';
+      if (typeof(button.image) !== 'undefined') {
+          img = button.image;
+      }
+      if (img == 'moon') {
+          img = getMoonInfo(button);
+      }
+      html += '<img id="buttonimg_'+ b + '" src="' + img + '" style="max-width:100%;" />';
+      
+      var refreshtime = 60000;
+      if (typeof(button.refresh) !== 'undefined') refreshtime = button.refresh;
+      if (typeof(button.refreshimage) !== 'undefined') refreshtime = button.refreshimage;
+      setInterval(function () {
+          reloadImage(b, button, true);
+      }, refreshtime);
+
     }
     else {
-        var html = '<div class="col-xs-' + width + ' hover transbg buttons-' + key + '" data-id="buttons.' + key + '" data-toggle="modal" data-target="#button_' + b + '_' + random + '" onclick="setSrc(this);">';
-    }
+      if (typeof(button.title) !== 'undefined') {
+          html += '<div class="col-xs-4 col-icon">';
+      }
+      else {
+          html += '<div class="col-xs-12 col-icon">';
+      }
 
-    if (typeof(button.title) !== 'undefined') {
-        html += '<div class="col-xs-4 col-icon">';
-    }
-    else {
-        html += '<div class="col-xs-12 col-icon">';
-    }
-    if (typeof(button.image) !== 'undefined') html += '<img class="buttonimg" src="' + button.image + '" />';
-    else html += '<em class="' + button.icon + ' fa-small"></em>';
-    html += '</div>';
-    if (typeof(button.title) !== 'undefined') {
-        html += '<div class="col-xs-8 col-data">';
-        html += '<strong class="title">' + button.title + '</strong><br>';
-        html += '<span class="state"></span>';
-        html += '</div>';
+      if (typeof(button.image) !== 'undefined') html += '<img class="buttonimg" src="' + button.image + '" />';
+      else html += '<em class="' + button.icon + ' fa-small"></em>';
+      html += '</div>';
+      if (typeof(button.title) !== 'undefined') {
+          html += '<div class="col-xs-8 col-data">';
+          html += '<strong class="title">' + button.title + '</strong><br>';
+          html += '<span class="state"></span>';
+          html += '</div>';
+      }
     }
     html += '</div>';
     return html;
@@ -847,55 +895,13 @@ function reloadFrame(i, frame) {
     }
 }
 
-function loadImage(i, image) {
-    if (typeof(image.image) !== 'undefined') {
-        var img = image.image;
-    }
-
-    if ($('.imgblockopens' + i).length == 0 && typeof(image.url) !== 'undefined') {
-        $('body').append(createModalDialog('imgblockopens' + i, i, image));
-    }
-
-    var key = 'UNKNOWN';
-    if (typeof(image.key) !== 'undefined') key = image.key;
-
-    var width = 12;
-    if (typeof(image.width) !== 'undefined') width = image.width;
-    var html = '';
-
-    if (typeof(image.url) !== 'undefined') html += '<div data-id="buttons.' + key + '" class="col-xs-' + width + ' hover transbg imgblock imgblock' + i + '" data-toggle="modal" data-target="#' + i + '" onclick="setSrc(this);">';
-    else html += '<div class="col-xs-' + width + ' transbg imgblock imgblock' + i + '" data-id="buttons.' + key + '">';
-    html += '<div class="col-xs-12">';
-
-    if (img == 'moon') {
-        html += '<div class="moon">';
-        img = getMoonInfo(image);
-        html += '</div>';
-    } else {
-        html += '<img src="' + img + '" style="max-width:100%;" />';
-    }
-    html += '</div>';
-    html += '</div>';
-
-    var refreshtime = 60000;
-    if (typeof(image.refresh) !== 'undefined') refreshtime = image.refresh;
-    if (typeof(image.refreshimage) !== 'undefined') refreshtime = image.refreshimage;
-    setInterval(function () {
-        reloadImage(i, image, true);
-    }, refreshtime);
-
-    var refreshtime = 60000;
-    if (typeof(image.refreshiframe) !== 'undefined') refreshtime = image.refreshiframe;
-    setInterval(function () {
-        reloadIframe(i, image, true);
-    }, refreshtime);
-
-    return html;
-}
-
 function reloadImage(i, image) {
     if (typeof(image.image) !== 'undefined') {
-        $('.imgblock' + i).find('img').attr('src', checkForceRefresh(image, image.image));
+      if (image.image === 'moon') 
+        src = getMoonInfo(image)
+      else
+        src = checkForceRefresh(image, image.image);
+      $('#buttonimg_' + i).attr('src', src);
     }
 }
 
@@ -908,21 +914,10 @@ function reloadIframe(i, image) {
 }
 
 function getMoonInfo(image) {
-    req = $.getJSONP({
-        url: settings['domoticz_ip'] + "/json.htm?username=" + usrEnc + "&password=" + pwdEnc + "&type=command&param=getuservariable&idx=" + settings['idx_moonpicture'] + "&jsoncallback=?",
-        type: 'GET', async: true, contentType: "application/json", dataType: 'jsonp',
-        format: "json",
-        success: function (data) {
-            for (r in data.result) {
-                var src = '';
-                var device = data.result[r];
-                var value = device['Value'];
-                src = 'img/moon/' + value;
-                image.image = 'img/moon/' + value;
-                $("div.moon").replaceWith('<div class="moon"><img src="' + src + '" style="width:100%;" /></div>');
-            }
-        }
-    });
+  var mymoon = new MoonPhase(new Date());
+  var myphase = parseInt(mymoon.phase() *100 + 50) % 100;
+  src = 'img/moon/moon.' + ("0" + myphase).slice (-2)+'.png';
+  return src;
 }
 
 function appendHorizon(columndiv) {
@@ -1074,66 +1069,7 @@ function getDevices(override) {
                 }
             },
             success: function (data) {
-
-				/*
-				data = `{
-"ActTime" : 1525604220,
-"AstrTwilightEnd" : "23:46",
-"AstrTwilightStart" : "03:25",
-"CivTwilightEnd" : "21:48",
-"CivTwilightStart" : "05:23",
-"DayLength" : "15:07",
-"NautTwilightEnd" : "22:39",
-"NautTwilightStart" : "04:31",
-"ServerTime" : "2018-05-06 12:57:00",
-"SunAtSouth" : "13:05",
-"Sunrise" : "06:02",
-"Sunset" : "21:09",
-"result" : [
-{
-"AddjMulti" : 1.0,
-"AddjMulti2" : 1.0,
-"AddjValue" : 0.0,
-"AddjValue2" : 0.0,
-"BatteryLevel" : 100,
-"CustomImage" : 0,
-"Data" : "27.2 C, 35 %",
-"Description" : "",
-"DewPoint" : "10.41",
-"Favorite" : 1,
-"HardwareID" : 6,
-"HardwareName" : "RFXcom",
-"HardwareType" : "RFXCOM - RFXtrx433 USB 433.92MHz Transceiver",
-"HardwareTypeVal" : 1,
-"HaveTimeout" : false,
-"Humidity" : 35,
-"HumidityStatus" : "Dry",
-"ID" : "1603",
-"LastUpdate" : "2018-05-06 12:56:57",
-"Name" : "Buiten",
-"Notifications" : "true",
-"PlanID" : "1",
-"PlanIDs" : [ 1 ],
-"Protected" : false,
-"ShowNotifications" : true,
-"SignalLevel" : 5,
-"SubType" : "Alecto WS1700",
-"Temp" : 27.199999999999999,
-"Timers" : "false",
-"Type" : "Temp + Humidity",
-"TypeImg" : "temperature",
-"Unit" : 3,
-"Used" : 1,
-"XOffset" : "21",
-"YOffset" : "150",
-"idx" : "16"
-}
-],
-"status" : "OK",
-"title" : "Devices"
-}`
-				data=$.parseJSON(data);*/
-				gettingDevices = false;
+				        gettingDevices = false;
                 if (!sliding || override) {
                     $('.solar').remove();
                     if ($('.sunrise').length > 0) $('.sunrise').html(data.Sunrise);
