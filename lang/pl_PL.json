@@ -138,7 +138,9 @@
             "timeformat": "Format daty i czasu",
             "title": "Lokalizacja",
             "uk": "Ukraiński",
-            "sr": "Serbski"
+            "sr": "Serbski",
+            "lt": "litewski",
+            "ro": "rumuński"
         },
         "media": {
             "hide_mediaplayer": "Ukryj odtwarzacz, gdy jest wyłączony",
@@ -169,8 +171,8 @@
             "standby_after": "Przejdź w tryb czuwania po (minuty, 0 = nigdy)",
             "title": "Ekran",
             "security_button_icons": "Icons instead of text on security switch",
-            "blink_color": "Flash color and opacity (RGBA)",
-            "blink_color_help": "Set flash color and opacity (red, green, blue, alpha)"
+            "blink_color": "Kolor i moc krycia (RGBA)",
+            "blink_color_help": "Ustaw kolor błysku i krycie (czerwony, zielony, niebieski, alfa)"
         },
         "weather": {
             "idx_moonpicture": "IDX dla obrazu księżyca",
@@ -201,9 +203,9 @@
             "longfonds_housenumber": "Longfonds housenumber"
         },
         "other": {
-            "title": "Other",
-            "setpoint_min": "Thermostat setpoint minimum value",
-            "setpoint_max": "Thermostat setpoint maximum value"
+            "title": "Inny",
+            "setpoint_min": "Minimalna wartość zadana termostatu",
+            "setpoint_max": "Maksymalna wartość zadana termostatu"
         }
     },
     "switches": {
