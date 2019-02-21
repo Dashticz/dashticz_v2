@@ -138,7 +138,9 @@
             "timeformat": "Formato de fecha y hora",
             "title": "Localizar",
             "uk": "Ucrania",
-            "sr": "Serbian"
+            "sr": "Serbian",
+            "lt": "lituano",
+            "ro": "rumano"
         },
         "media": {
             "hide_mediaplayer": "Ocultar mediaplayer cuando está apagado",
@@ -169,8 +171,8 @@
             "standby_after": "Espera después (minutos, 0 = nunca)",
             "title": "Pantalla",
             "security_button_icons": "Icons instead of text on security switch",
-            "blink_color": "Flash color and opacity (RGBA)",
-            "blink_color_help": "Set flash color and opacity (red, green, blue, alpha)"
+            "blink_color": "Color flash y opacidad (RGBA)",
+            "blink_color_help": "Ajuste el color del flash y la opacidad (rojo, verde, azul, alfa)"
         },
         "weather": {
             "idx_moonpicture": "IDX de la imagen de la luna",
@@ -201,9 +203,9 @@
             "longfonds_housenumber": "Longfonds housenumber"
         },
         "other": {
-            "title": "Other",
-            "setpoint_min": "Thermostat setpoint minimum value",
-            "setpoint_max": "Thermostat setpoint maximum value"
+            "title": "Otro",
+            "setpoint_min": "Valor mínimo del punto de ajuste del termostato",
+            "setpoint_max": "Valor máximo de consigna del termostato"
         }
     },
     "switches": {

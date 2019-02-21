@@ -138,7 +138,9 @@
             "timeformat": "Datetime format",
             "title": "本土化",
             "uk": "Ukrainian",
-            "sr": "Serbian"
+            "sr": "Serbian",
+            "lt": "立陶宛",
+            "ro": "罗马尼亚"
         },
         "media": {
             "hide_mediaplayer": "Hide mediaplayer when it's off",
@@ -169,8 +171,8 @@
             "standby_after": "Standby after (minutes, 0 = never)",
             "title": "Screen",
             "security_button_icons": "Icons instead of text on security switch",
-            "blink_color": "Flash color and opacity (RGBA)",
-            "blink_color_help": "Set flash color and opacity (red, green, blue, alpha)"
+            "blink_color": "闪光颜色和不透明度（RGBA）",
+            "blink_color_help": "设置闪光颜色和不透明度（红色，绿色，蓝色，alpha）"
         },
         "weather": {
             "idx_moonpicture": "IDX of moonpicture",
@@ -201,9 +203,9 @@
             "longfonds_housenumber": "Longfonds housenumber"
         },
         "other": {
-            "title": "Other",
-            "setpoint_min": "Thermostat setpoint minimum value",
-            "setpoint_max": "Thermostat setpoint maximum value"
+            "title": "其他",
+            "setpoint_min": "恒温器设定值最小值",
+            "setpoint_max": "恒温器设定值最大值"
         }
     },
     "switches": {

@@ -138,7 +138,9 @@
             "timeformat": "Format datetime",
             "title": "Localiser",
             "uk": "Ukrainien",
-            "sr": "Serbian"
+            "sr": "Serbian",
+            "lt": "lituanien",
+            "ro": "roumain"
         },
         "media": {
             "hide_mediaplayer": "Masquer le mediaplayer quand il est éteint",
@@ -169,8 +171,8 @@
             "standby_after": "Veille après (minutes, 0 = jamais)",
             "title": "Écran",
             "security_button_icons": "Icons instead of text on security switch",
-            "blink_color": "Flash color and opacity (RGBA)",
-            "blink_color_help": "Set flash color and opacity (red, green, blue, alpha)"
+            "blink_color": "Couleur et opacité du flash (RGBA)",
+            "blink_color_help": "Définir la couleur et l'opacité du flash (rouge, vert, bleu, alpha)"
         },
         "weather": {
             "idx_moonpicture": "IDX de la photo de la lune",
@@ -201,9 +203,9 @@
             "longfonds_housenumber": "Longfonds housenumber"
         },
         "other": {
-            "title": "Other",
-            "setpoint_min": "Thermostat setpoint minimum value",
-            "setpoint_max": "Thermostat setpoint maximum value"
+            "title": "Autre",
+            "setpoint_min": "Valeur minimale du point de consigne du thermostat",
+            "setpoint_max": "Valeur maximale du point de consigne du thermostat"
         }
     },
     "switches": {

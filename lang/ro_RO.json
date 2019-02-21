@@ -138,7 +138,9 @@
             "timeformat": "Datetime format",
             "title": "Localize",
             "uk": "Ukrainian",
-            "sr": "Serbian"
+            "sr": "Serbian",
+            "lt": "lituanian",
+            "ro": "Română"
         },
         "media": {
             "hide_mediaplayer": "Hide mediaplayer when it's off",
@@ -169,8 +171,8 @@
             "standby_after": "Standby after (minutes, 0 = never)",
             "title": "Screen",
             "security_button_icons": "Icons instead of text on security switch",
-            "blink_color": "Flash color and opacity (RGBA)",
-            "blink_color_help": "Set flash color and opacity (red, green, blue, alpha)"
+            "blink_color": "Culoarea și opacitatea blițului (RGBA)",
+            "blink_color_help": "Setați culoarea și opacitatea blițului (roșu, verde, albastru, alfa)"
         },
         "weather": {
             "idx_moonpicture": "IDX of moonpicture",
@@ -201,9 +203,9 @@
             "longfonds_housenumber": "Longfonds housenumber"
         },
         "other": {
-            "title": "Other",
-            "setpoint_min": "Thermostat setpoint minimum value",
-            "setpoint_max": "Thermostat setpoint maximum value"
+            "title": "Alte",
+            "setpoint_min": "Valoarea minimă a valorii de referință a termostatului",
+            "setpoint_max": "Valoarea maximă a valorii de referință a termostatului"
         }
     },
     "switches": {

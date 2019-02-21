@@ -136,9 +136,11 @@
             "speak_language": "Tekstas į balsą",
             "sv": "Švedų",
             "timeformat": "Datos ir laiko formatas",
-            "title": "Lokalizuoti",
+            "title": "Regionas ir kalba",
             "uk": "Ukrainiečių",
-            "sr": "Serbų"
+            "sr": "Serbų",
+            "lt": "Lietuvių",
+            "ro": "Rumunų"
         },
         "media": {
             "hide_mediaplayer": "Slėpti grotuvą, kai jis išjungtas",
@@ -154,7 +156,7 @@
         },
         "save": "Išsaugoti",
         "screen": {
-            "auto_slide_pages": "Automatinis ekronų keitimas (sekundės, 0=išjungta)",
+            "auto_slide_pages": "Automatinis ekranų keitimas (sekundės, 0=išjungta)",
             "auto_swipe_back_after": "Automatinis grįžimas po (sekundžių)",
             "auto_swipe_back_to": "Automatinis grįžimas į ekraną #",
             "auto_swipe_back_to_help": "Kai jokia veikla nevyksta, grįžti į pagrindinį ekraną po x sekundžių",
@@ -169,8 +171,8 @@
             "standby_after": "Budėjimo režimas po (minutės, 0 = niekada)",
             "title": "Ekranas",
             "security_button_icons": "Piktogramos vietoj teksto apsaugos jungiklių",
-            "blink_color": "Flash color and opacity (RGBA)",
-            "blink_color_help": "Set flash color and opacity (red, green, blue, alpha)"
+            "blink_color": "Blykstės spalva ir neskaidrumas (RGBA)",
+            "blink_color_help": "Nustatykite blykstės spalvą ir neskaidrumą (raudona, žalia, mėlyna, alfa)"
         },
         "weather": {
             "idx_moonpicture": "Mėnulio piktogramų IDX",
@@ -184,7 +186,7 @@
             "wu_api": "Wunderground API Raktas",
             "wu_city": "Wunderground Stotis (Miesto arba Kodas)",
             "wu_country": "Wunderground šalis",
-            "wu_name": "Rodomas pavadinimas",
+            "wu_name": "Wunderground rodomas pavadinimas",
             "owm_api": "Open Weahter map API raktas",
             "owm_city": "Open Weather Map Stotis (Miesto arba Kodas)",
             "owm_cnt": "Open Weahter Map prognozių skaičius (4 - 40)",
@@ -196,14 +198,14 @@
             "owm_lang": "Nustatyti kalbą, skirtą prognozei (lietus, debesuota ir kt.)",
             "owm_lang_help": "Galimos kalbos, ieškokite https:\/\/openweathermap.org\/forecast5\/#multi",
             "owm_country": "Open Weather Map Šalis",
-            "owm_name": "Rodomas pavadinimas Open Wehater Map",
+            "owm_name": "Open Wehater Map rodomas pavadinimas ",
             "longfonds_zipcode": "Longfonds pašto kodas",
             "longfonds_housenumber": "Longfonds namųonumeris"
         },
         "other": {
-            "title": "Other",
-            "setpoint_min": "Thermostat setpoint minimum value",
-            "setpoint_max": "Thermostat setpoint maximum value"
+            "title": "Kita",
+            "setpoint_min": "Termostato nustatytoji minimali vertė",
+            "setpoint_max": "Termostato nustatytoji maksimali vertė"
         }
     },
     "switches": {

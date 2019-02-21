@@ -138,7 +138,9 @@
             "timeformat": "Datetime format",
             "title": "Localize",
             "uk": "Ukrainian",
-            "sr": "Serbian"
+            "sr": "Serbian",
+            "lt": "Lithuanian",
+            "ro": "Romanian"
         },
         "media": {
             "hide_mediaplayer": "Hide mediaplayer when it's off",

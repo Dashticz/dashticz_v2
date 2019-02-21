@@ -138,7 +138,9 @@
             "timeformat": "Tarih\/Saat biçimi",
             "title": "Yerelleştir",
             "uk": "Ukrayna dili",
-            "sr": "Serbian"
+            "sr": "Serbian",
+            "lt": "Litvanyalı",
+            "ro": "Romen"
         },
         "media": {
             "hide_mediaplayer": "Mediaplayer kapalıyken gizle",
@@ -169,8 +171,8 @@
             "standby_after": "Bekleme modu (dakika, 0= bekleme modu kapalı)",
             "title": "Ekran",
             "security_button_icons": "Icons instead of text on security switch",
-            "blink_color": "Flash color and opacity (RGBA)",
-            "blink_color_help": "Set flash color and opacity (red, green, blue, alpha)"
+            "blink_color": "Flaş rengi ve opaklığı (RGBA)",
+            "blink_color_help": "Flaş rengini ve opaklığını ayarla (kırmızı, yeşil, mavi, alfa)"
         },
         "weather": {
             "idx_moonpicture": "Ay Evresi Simge IDX",
@@ -201,9 +203,9 @@
             "longfonds_housenumber": "Longfonds housenumber"
         },
         "other": {
-            "title": "Other",
-            "setpoint_min": "Thermostat setpoint minimum value",
-            "setpoint_max": "Thermostat setpoint maximum value"
+            "title": "Diğer",
+            "setpoint_min": "Termostat ayar noktası minimum değeri",
+            "setpoint_max": "Termostat ayar noktası maksimum değeri"
         }
     },
     "switches": {
