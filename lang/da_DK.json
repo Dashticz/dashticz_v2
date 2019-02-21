@@ -138,7 +138,9 @@
             "timeformat": "Dato\/tid format",
             "title": "Lokaliser",
             "uk": "Ukrainske",
-            "sr": "Serbian"
+            "sr": "Serbian",
+            "lt": "litauisk",
+            "ro": "rumænsk"
         },
         "media": {
             "hide_mediaplayer": "Skjul mediaplayer, når den er slukket",
@@ -169,8 +171,8 @@
             "standby_after": "Standby efter (minutter, 0 = aldrig)",
             "title": "Skærm",
             "security_button_icons": "Icons instead of text on security switch",
-            "blink_color": "Flash color and opacity (RGBA)",
-            "blink_color_help": "Set flash color and opacity (red, green, blue, alpha)"
+            "blink_color": "Flash farve og opacitet (RGBA)",
+            "blink_color_help": "Indstil flash farve og opacitet (rød, grøn, blå, alfa)"
         },
         "weather": {
             "idx_moonpicture": "IDX af månebillede",
@@ -201,9 +203,9 @@
             "longfonds_housenumber": "Longfonds housenumber"
         },
         "other": {
-            "title": "Other",
-            "setpoint_min": "Thermostat setpoint minimum value",
-            "setpoint_max": "Thermostat setpoint maximum value"
+            "title": "Andet",
+            "setpoint_min": "Termostat sætpunktsværdi",
+            "setpoint_max": "Termostat sætpunkt maksimal værdi"
         }
     },
     "switches": {
