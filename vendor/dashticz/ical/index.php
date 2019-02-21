@@ -35,20 +35,14 @@ if($evts){
 			$currentdate = time();
 			while (($next = $freq->nextOccurrence($start)) > 0 ) {
 				if (!$next or $count >= $MAXITEMS) break;
-				//$count++;
-				//echo "currentdate ".$currentdate." ";
-				//echo $start."\n";
 				$start = $next;
 				$jsEvt["start"] = $start;
 				$jsEvt["end"] = $start + $ev->getDuration()-1;
 				$jsEvt["startt"] = date('Y-m-d H:i:s',$jsEvt["start"]);
 				$jsEvt["endt"] = date('Y-m-d H:i:s',$jsEvt["end"]);
-				//echo "why".$ev->getProperty('summary')."\n";
 				if($jsEvt["end"]>$currentdate) {
 					$data[$start] = $jsEvt;
 					$count++;
-					//echo "added\n";
-					//echo $ev->getProperty('summary');
 				}
 			}
 		} else {
