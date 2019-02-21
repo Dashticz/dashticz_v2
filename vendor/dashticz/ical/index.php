@@ -3,6 +3,7 @@ header("Access-Control-Allow-Origin: *");
 header('Content-Type: application/json');
 require_once('SG_iCal.php');
 $ICS = $_GET['url'];
+$MAXITEMS = $_GET['maxitems'];
 $ICS = str_replace('#','%23',urldecode($ICS));
 $ical = new SG_iCalReader($ICS);
 $evts = $ical->getEvents();
@@ -31,16 +32,18 @@ if($evts){
 			$freq = $ev->getFrequency();
 			if ($freq->firstOccurrence() == $start)
 				$data[] = $jsEvt;
+			$currentdate = time();
 			while (($next = $freq->nextOccurrence($start)) > 0 ) {
-				if (!$next or $count >= 10) break;
-				$count++;
+				if (!$next or $count >= $MAXITEMS) break;
 				$start = $next;
 				$jsEvt["start"] = $start;
 				$jsEvt["end"] = $start + $ev->getDuration()-1;
 				$jsEvt["startt"] = date('Y-m-d H:i:s',$jsEvt["start"]);
 				$jsEvt["endt"] = date('Y-m-d H:i:s',$jsEvt["end"]);
-
-				if(date('Y',$start)>2016) $data[$start] = $jsEvt;
+				if($jsEvt["end"]>$currentdate) {
+					$data[$start] = $jsEvt;
+					$count++;
+				}
 			}
 		} else {
 			if(date('Y',$start)>2016) $data[$start] = $jsEvt;
