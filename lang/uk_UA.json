@@ -138,7 +138,9 @@
             "timeformat": "Datetime format",
             "title": "Localize",
             "uk": "Ukrainian",
-            "sr": "Serbian"
+            "sr": "Serbian",
+            "lt": "Литовська",
+            "ro": "Румунська"
         },
         "media": {
             "hide_mediaplayer": "Hide mediaplayer when it's off",
@@ -169,8 +171,8 @@
             "standby_after": "Standby after (minutes, 0 = never)",
             "title": "Screen",
             "security_button_icons": "Icons instead of text on security switch",
-            "blink_color": "Flash color and opacity (RGBA)",
-            "blink_color_help": "Set flash color and opacity (red, green, blue, alpha)"
+            "blink_color": "Колір і непрозорість спалаху (RGBA)",
+            "blink_color_help": "Встановити колір і непрозорість спалаху (червоний, зелений, синій, альфа)"
         },
         "weather": {
             "idx_moonpicture": "IDX of moonpicture",
@@ -201,9 +203,9 @@
             "longfonds_housenumber": "Longfonds housenumber"
         },
         "other": {
-            "title": "Other",
-            "setpoint_min": "Thermostat setpoint minimum value",
-            "setpoint_max": "Thermostat setpoint maximum value"
+            "title": "Інший",
+            "setpoint_min": "Мінімальне значення заданого значення термостата",
+            "setpoint_max": "Максимальне значення заданого значення термостата"
         }
     },
     "switches": {
