@@ -138,7 +138,9 @@
             "timeformat": "Format datuma i vremena",
             "title": "Lokalizovati",
             "uk": "Ukrajinski",
-            "sr": "Srpski"
+            "sr": "Srpski",
+            "lt": "Литхуаниан",
+            "ro": "Румунски"
         },
         "media": {
             "hide_mediaplayer": "Sakrij mediaplayer kada je isključen",
@@ -169,8 +171,8 @@
             "standby_after": "Idi u stanje pripravnosti nakon (minuta, 0 = nikada)",
             "title": "Ekran",
             "security_button_icons": "Icons instead of text on security switch",
-            "blink_color": "Flash color and opacity (RGBA)",
-            "blink_color_help": "Set flash color and opacity (red, green, blue, alpha)"
+            "blink_color": "Фласх боја и непрозирност (РГБА)",
+            "blink_color_help": "Подеси боју и непрозирност блица (црвена, зелена, плава, алфа)"
         },
         "weather": {
             "idx_moonpicture": "IDX slike meseca",
@@ -201,9 +203,9 @@
             "longfonds_housenumber": "Longfonds housenumber"
         },
         "other": {
-            "title": "Other",
-            "setpoint_min": "Thermostat setpoint minimum value",
-            "setpoint_max": "Thermostat setpoint maximum value"
+            "title": "Друго",
+            "setpoint_min": "Минимална вредност задате вредности термостата",
+            "setpoint_max": "Максимална вредност задате вредности термостата"
         }
     },
     "switches": {
