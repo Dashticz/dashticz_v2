@@ -675,7 +675,16 @@ function triggerChange(idx, value, device) {
         }
         catch (err) {
         }
-
+        
+        if (typeof(blocks[idx]) !== 'undefined' && typeof(blocks[idx]['flash']) !=='undefined') {
+            var flash_value = blocks[idx]['flash'];
+            if(flash_value>0) {
+              var cur_bc = $('div.block_'+idx).css('background-color');
+              var flash_color = settings['blink_color'];
+              $('div.block_'+idx).animate({'background-color': 'rgba( ' + flash_color +')'}, flash_value).animate({'background-color': cur_bc},flash_value);
+            }
+        }
+        
         if (typeof(blocks[idx]) !== 'undefined' && typeof(blocks[idx]['playsound']) !== 'undefined') {
             playAudio(blocks[idx]['playsound']);
         }

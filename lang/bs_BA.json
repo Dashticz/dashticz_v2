@@ -168,7 +168,9 @@
             "slide_effect": "Slajd efekt",
             "standard_graph": "Standardni grafikon",
             "standby_after": "Stanje pripravnosti (minuta, 0 = nikada)",
-            "title": "Ekran"
+            "title": "Ekran",
+            "blink_color": "Flash color and opacity (RGBA)",
+            "blink_color_help": "Set flash color and opacity (red, green, blue, alpha)"
         },
         "weather": {
             "idx_moonpicture": "IDX slike mjeseca",

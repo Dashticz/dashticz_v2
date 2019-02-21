@@ -168,7 +168,9 @@
             "slide_effect": "Efekt przewijania",
             "standard_graph": "Wykres standardowy",
             "standby_after": "Przejdź w tryb czuwania po (minuty, 0 = nigdy)",
-            "title": "Ekran"
+            "title": "Ekran",
+            "blink_color": "Flash color and opacity (RGBA)",
+            "blink_color_help": "Set flash color and opacity (red, green, blue, alpha)"
         },
         "weather": {
             "idx_moonpicture": "IDX dla obrazu księżyca",

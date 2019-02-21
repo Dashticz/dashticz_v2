@@ -168,7 +168,9 @@
             "slide_effect": "Skyve effekt",
             "standard_graph": "Standard graf",
             "standby_after": "Standby etter (minutter, 0 = aldri)",
-            "title": "Skjerm"
+            "title": "Skjerm",
+            "blink_color": "Flash color and opacity (RGBA)",
+            "blink_color_help": "Set flash color and opacity (red, green, blue, alpha)"
         },
         "weather": {
             "idx_moonpicture": "IDX av moonpicture",

@@ -168,7 +168,9 @@
             "slide_effect": "Effet de glissement",
             "standard_graph": "Graphique standard",
             "standby_after": "Veille après (minutes, 0 = jamais)",
-            "title": "Écran"
+            "title": "Écran",
+            "blink_color": "Flash color and opacity (RGBA)",
+            "blink_color_help": "Set flash color and opacity (red, green, blue, alpha)"
         },
         "weather": {
             "idx_moonpicture": "IDX de la photo de la lune",
