@@ -138,7 +138,9 @@
             "timeformat": "Datum\/tijd weergave",
             "title": "Lokaliseren",
             "uk": "Oekraïens",
-            "sr": "Servisch"
+            "sr": "Servisch",
+            "lt": "Litouws",
+            "ro": "Roemeense"
         },
         "media": {
             "hide_mediaplayer": "Verberg mediaspeler wanneer het uit is",
