@@ -138,7 +138,9 @@
             "timeformat": "Formát data a času",
             "title": "Lokalizace",
             "uk": "Ukrainian",
-            "sr": "Serbian"
+            "sr": "Serbian",
+            "lt": "Lithuanian",
+            "ro": "rumunština"
         },
         "media": {
             "hide_mediaplayer": "Skrýt multimediální přehrávač pokud je vypnutý",
@@ -169,8 +171,8 @@
             "standby_after": "Přepnout do pohotovostního režimu po (minut, 0 = nikdy)",
             "title": "Obrazovka",
             "security_button_icons": "Icons instead of text on security switch",
-            "blink_color": "Flash color and opacity (RGBA)",
-            "blink_color_help": "Set flash color and opacity (red, green, blue, alpha)"
+            "blink_color": "Barva a neprůhlednost blesku (RGBA)",
+            "blink_color_help": "Nastavení barvy a opacity blesku (červená, zelená, modrá, alfa)"
         },
         "weather": {
             "idx_moonpicture": "IDX měsíce",
@@ -201,9 +203,9 @@
             "longfonds_housenumber": "Longfonds housenumber"
         },
         "other": {
-            "title": "Other",
-            "setpoint_min": "Thermostat setpoint minimum value",
-            "setpoint_max": "Thermostat setpoint maximum value"
+            "title": "jiný",
+            "setpoint_min": "Minimální požadovaná hodnota termostatu",
+            "setpoint_max": "Maximální hodnota žádané teploty termostatu"
         }
     },
     "switches": {
