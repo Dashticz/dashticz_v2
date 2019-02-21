@@ -138,7 +138,9 @@
             "timeformat": "Формат даты и времени",
             "title": "Язык",
             "uk": "Украинский",
-            "sr": "Сербский"
+            "sr": "Сербский",
+            "lt": "Литовский язык",
+            "ro": "румынский"
         },
         "media": {
             "hide_mediaplayer": "Скрывать выключенный медиаплеер",
@@ -169,8 +171,8 @@
             "standby_after": "Выключить через (минут, 0 = никогда)",
             "title": "Интерфейс",
             "security_button_icons": "Icons instead of text on security switch",
-            "blink_color": "Flash color and opacity (RGBA)",
-            "blink_color_help": "Set flash color and opacity (red, green, blue, alpha)"
+            "blink_color": "Цвет вспышки и непрозрачность (RGBA)",
+            "blink_color_help": "Установите цвет вспышки и непрозрачность (красный, зеленый, синий, альфа)"
         },
         "weather": {
             "idx_moonpicture": "IDX картинки луны",
@@ -201,9 +203,9 @@
             "longfonds_housenumber": "Longfonds housenumber"
         },
         "other": {
-            "title": "Other",
-            "setpoint_min": "Thermostat setpoint minimum value",
-            "setpoint_max": "Thermostat setpoint maximum value"
+            "title": "Другой",
+            "setpoint_min": "Минимальное значение уставки термостата",
+            "setpoint_max": "Максимальное значение уставки термостата"
         }
     },
     "switches": {
