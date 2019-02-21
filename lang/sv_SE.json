@@ -138,7 +138,9 @@
             "timeformat": "Datum\/tids format",
             "title": "Plats",
             "uk": "Ukrainska",
-            "sr": "Serbiska"
+            "sr": "Serbiska",
+            "lt": "litauisk",
+            "ro": "rumänska"
         },
         "media": {
             "hide_mediaplayer": "Dölj mediaplayer när den är avstängd",
@@ -169,8 +171,8 @@
             "standby_after": "Standby efter (minuter, 0 = aldrig)",
             "title": "Skärm",
             "security_button_icons": "Ikoner istället för text på säkerhetsbrytare",
-            "blink_color": "Flash color and opacity (RGBA)",
-            "blink_color_help": "Set flash color and opacity (red, green, blue, alpha)"
+            "blink_color": "Flashfärg och opacitet (RGBA)",
+            "blink_color_help": "Ställ in blixtfärg och opacitet (röd, grön, blå, alfa)"
         },
         "weather": {
             "idx_moonpicture": "IDX på månbild",
@@ -201,9 +203,9 @@
             "longfonds_housenumber": "Longfonds housenumber"
         },
         "other": {
-            "title": "Other",
-            "setpoint_min": "Thermostat setpoint minimum value",
-            "setpoint_max": "Thermostat setpoint maximum value"
+            "title": "Andra",
+            "setpoint_min": "Termostat börvärde minsta värde",
+            "setpoint_max": "Termostat börvärde maxvärde"
         }
     },
     "switches": {
