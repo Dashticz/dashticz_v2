@@ -170,6 +170,8 @@ function showGraph(idx, title, label, range, current, forced, sensor, popup) {
         realrange = range;
         if (range === 'last') realrange = 'day';
 
+        var blocksConfig = typeof(blocks['graph_' + idx]) !== 'undefined' ? blocks['graph_' + idx] : null;
+
         $.ajax({
             url: settings['domoticz_ip'] + '/json.htm?username=' + usrEnc + '&password=' + pwdEnc + '&type=graph&sensor=' + sensor + '&idx=' + idx + '&range=' + realrange + '&time=' + new Date().getTime() + '&jsoncallback=?',
             type: 'GET', async: true, contentType: "application/json", dataType: 'jsonp',
@@ -179,13 +181,24 @@ function showGraph(idx, title, label, range, current, forced, sensor, popup) {
                     return;
                 }
                 var buttons = createButtons(idx, title, label, range, current, sensor, popup);
+                var baseTitle = title;
 
-                title = '<h4>' + title;
+                if (blocksConfig && typeof(blocksConfig['title']) !== 'undefined') {
+                    baseTitle = blocksConfig['title'];
+                }
+
+                title = '<h4>' + baseTitle;
                 if (typeof(current) !== 'undefined' && current !== 'undefined') title += ': <B class="graphcurrent' + idx + '">' + current + ' ' + label + '</B>';
                 title += '</h4>';
 
                 var html = '<div class="graph' + (popup ? 'popup' : '')  + '" id="graph' + idx + '">';
-                html += '<div class="transbg col-xs-12">';
+
+                var width = 12;
+                if(blocksConfig && typeof(blocksConfig['width']) !== 'undefined') {
+                    width = blocksConfig['width'];
+                }
+
+                html += '<div class="transbg col-xs-' + width + '">';
                 html += title + '<br /><div style="margin-left:15px;">' + buttons + '</div><br /><div ' + (popup ? 'class="graphheight" ':'') +  'id="graphoutput' + idx + '"></div>';
                 html += '</div>';
                 html += '</div>';
