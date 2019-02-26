@@ -2127,11 +2127,9 @@ function getDimmerBlock(device, idx, buttonimg) {
 function getBlindsBlock(device, idx, withPercentage) {
     if (typeof(withPercentage) === 'undefined') withPercentage = false;
     this.html = '';
-    this.html += '<div class="col-xs-4 col-icon">';
     if(device['Status'] === 'Closed') this.html += iconORimage(idx, '', 'blinds_closed.png', 'off icon', '', 2);
     else this.html += iconORimage(idx, '', 'blinds_open.png', 'on icon', '', 2);
-    this.html += '</div>';
-    this.html += '<div class="col-xs-8 col-data">';
+    this.html += '<div class="col-xs-8 col-datablinds">';
     this.title = device['Name'];
     if (withPercentage) {
         if (typeof(blocks[idx]) == 'undefined' || typeof(blocks[idx]['hide_data']) == 'undefined' || blocks[idx]['hide_data'] == false) {

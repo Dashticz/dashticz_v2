@@ -964,6 +964,10 @@ Only add this hover on NON touch devices
 	width: calc(100% - 45px);
 }
 
+.col-datablinds {
+	width: calc(100% - 115px);
+}
+
 .col-no-icon {
 	width: calc(100% - 15px);
 }
@@ -1107,6 +1111,9 @@ img.icon {
 	.cast-button-container {
 		padding: 11px !important;
 	}
+	.col-datablinds {
+		width: calc(100% - 100px);
+	}
 }
 @media (max-width: 975px) {
 	div.mh {
@@ -1145,6 +1152,10 @@ img.icon {
 	}
 	.col-data {
 		width: calc(100% - 30px);
+	}
+	
+	.col-datablinds {
+		width: calc(100% - 85px);
 	}
 
 	.trashcan {
