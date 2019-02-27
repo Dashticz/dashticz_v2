@@ -470,61 +470,69 @@ a.playlist {
 	position:absolute;
 	z-index:9999;
 }
-.input-groupBtn .btn-number {
+
+.mh .btn-number {
     opacity: 0.5;
     color: white;
     background-color: rgb(34, 34, 34);
 	border-radius: 0px;
-    padding: 6px 10px 6px 10px;
-    line-height: 20px;
+		padding:5px 5px 5px 5px;
+		font-size: 20px;
+		width: 30px;
+		height: 100%;
+		margin: auto;
 }
-.input-groupBtn.input-chevron .btn-number {
-	padding: 5px 10px 5px 10px
+
+.btn.plus {
 	
 }
-.input-groupBtn .btn-number.plus{
-	border-bottom:0px;
-	padding-bottom:7px;
+
+.btn.min {
+	
 }
-.input-groupBtn li {
-	position: -webkit-sticky;
-  	position: sticky;
-	z-index:9997;
-	right:1px;
-}
-.input-groupBtn li.down {
-	top:35px;
-}
-.input-groupBtn .stop {
-	z-index:9997;
-	-ms-transform: rotate(45deg); /* IE 9 */
-    -webkit-transform: rotate(45deg); /* Chrome, Safari, Opera */
-      
-	transform: rotate(45deg);
-    top: 0;
-    width: 71px;
+
+.btn.stop {
+	transform: rotate(90deg);
+    top: 19px;
+    width: 70px;
     height: 33px;
     position: absolute;
-    right: 0;
-    margin-right: -27px;
-    margin-top: 0px;
-
+    right: -20px;
+		padding-left: 0px;
+		padding-right: 0px;
+		padding-top: 10px;
 }
 
-.input-groupBtn.input-chevron {
-	right:27px;
+.col-button2 {
+	z-index:10;
+	position:absolute;
+	width: 62px;
+	height: 100%;
+	right: 0px;
+	top: 0px;
 }
-.input-groupBtn.input-chevron.hidestop {
-	right:-5px;
+
+.col-button1 {
+	z-index:10;
+	position:absolute;
+	width: 31px;
+	height: 100%;
+	right: 0px;
+	top: 0px;
 }
-.input-groupBtn .btn-number:active,.btn-number:hover {
+
+
+.up,.down {
+	height: 50%;
+	width: 31px;
+}
+
+.btn-number:hover {
 	color: black; 
 	background: rgba(255, 255, 255, 0.3) none repeat scroll 0 0 padding-box;
 }
-.input-groupBtn .fa-thermostat {
-	vertical-align: middle;
-	font-size: 20px !important;
-}
+
+
 .title-input {
 	font-size: 20px !important; 
 	margin-top:-2px;
@@ -545,43 +553,8 @@ a.playlist {
 .iconheating {
 	margin-top: 2px;
 }
-.input-groupBtn {
-    position: absolute;
-	z-index:9999;
-    right: -5px;
-    list-style: outside none none;
-    padding: 0px;
-    margin: 0;
-    top: 0px;
-}
-@media only screen and (max-width: 1400px) {
 
-	.input-groupBtn.input-chevron .btn-number {
-		padding: 7px 10px 7px 10px;
-
-	}
-}
 @media only screen and (max-width: 1000px) {
-	.input-groupBtn .stop {
-		width: 60px;
-		margin-right: -23px;
-		margin-top: -1px;
-	}
-	.input-groupBtn li {
-		top:1px;
-	}
-	.input-groupBtn li.down {
-		top:30px;
-	}
-	.input-groupBtn .btn-number {
-   		padding: 4px 5px 3px 5px;
-		line-height: 19px;
-	}
-	.input-groupBtn.input-chevron .btn-number {
-		padding: 5px 7px 5px 7px !important;
-
-	}
-	
 	.title-input {
 		font-size: 14px !important;
 		margin-top: 7px;
@@ -923,8 +896,8 @@ Only add this hover on NON touch devices
 	.col-xs-10,
 	.col-xs-11,
 	.col-xs-12 {
-		padding-right: 5px !important;
-		padding-left: 5px !important;
+		padding-right: 5px;
+		padding-left: 5px;
 	}
 
 .containsicalendar .transbg {
@@ -958,18 +931,29 @@ Only add this hover on NON touch devices
 
 .col-icon {
 	width:40px !important;
+	float: left;
+	z-index:10;
 }
 
 .col-data {
 	width: calc(100% - 45px);
+	float: left;
 }
 
-.col-datablinds {
-	width: calc(100% - 115px);
+.right2col {
+	padding-right: 70px;
+}
+
+.right1col {
+	padding-right: 40px;
 }
 
 .col-no-icon {
 	width: calc(100% - 15px);
+}
+
+.col-data.no-icon {
+	width: 100%;
 }
 
 .slider {
@@ -1111,10 +1095,13 @@ img.icon {
 	.cast-button-container {
 		padding: 11px !important;
 	}
-	.col-datablinds {
-		width: calc(100% - 100px);
+	.col-data {
+		width: calc(100% - 34px);
+//		padding-left: 34px;
 	}
+
 }
+
 @media (max-width: 975px) {
 	div.mh {
 		height: 75px;
@@ -1154,9 +1141,12 @@ img.icon {
 		width: calc(100% - 30px);
 	}
 	
-	.col-datablinds {
-		width: calc(100% - 85px);
+	.btn.stop {
+	    top: 14px;
+	    width: 60px;
+	    right: -14px;
 	}
+
 
 	.trashcan {
 		height: 25px !important;

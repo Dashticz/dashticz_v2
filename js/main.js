@@ -1992,6 +1992,7 @@ function getThermostatBlock(device, idx) {
     $('div.block_' + idx + '_1').html(this.html);
 
     this.html = '';
+/*
     this.html += '<ul class="col-thermostat input-groupBtn">';
     this.html += '<li class="up"><a href="javascript:void(0)" class="btn btn-number plus" data-type="plus" data-field="quant[' + device['idx'] + ']" onclick="this.blur();">';
     this.html += '<em class="fas fa-plus fa-small fa-thermostat"></em>';
@@ -2000,9 +2001,18 @@ function getThermostatBlock(device, idx) {
     this.html += '<em class="fas fa-minus fa-small fa-thermostat"></em>';
     this.html += '</a></li>';
     this.html += '</ul>';
-
+*/
+    this.html += '<div class="col-button1">';
+    this.html += '<div class="up"><a href="javascript:void(0)" class="btn btn-number plus" data-type="plus" data-field="quant[' + device['idx'] + ']" onclick="this.blur();">';
+    this.html += '<em class="fas fa-plus fa-small fa-thermostat"></em>';
+    this.html += '</a></div>';
+    this.html += '<div class="down"><a href="javascript:void(0)" class="btn btn-number min" data-type="minus" data-field="quant[' + device['idx'] + ']" onclick="this.blur();">';
+    this.html += '<em class="fas fa-minus fa-small fa-thermostat"></em>';
+    this.html += '</a></div>';
+    this.html += '</div>';
+    
     this.html += iconORimage(idx + '_2', '', 'heating.png', 'on icon iconheating', '', '2');
-    this.html += '<div class="col-xs-8 col-data">';
+    this.html += '<div class="col-xs-8 col-data right1col">';
 
     this.title = number_format(device['Data'], 1) + _TEMP_SYMBOL;
     this.value = device['Name'];
@@ -2127,9 +2137,26 @@ function getDimmerBlock(device, idx, buttonimg) {
 function getBlindsBlock(device, idx, withPercentage) {
     if (typeof(withPercentage) === 'undefined') withPercentage = false;
     this.html = '';
+
+    var hidestop = false;
+    var data_class = 'col-data blinds';
+    var button_class;
+    if (typeof(blocks[idx]) == 'undefined' || typeof(blocks[idx]['hide_stop']) == 'undefined' || blocks[idx]['hide_stop'] === false) {
+      data_class += ' right2col';
+      button_class = 'col-button2';
+
+//        this.html += '<div class="col-button">';
+    } else {
+        hidestop = true;
+        data_class += ' right1col';
+        button_class = 'col-button1';
+  //      this.html += '<div class="col-button hidestop">';
+    }
+
+
     if(device['Status'] === 'Closed') this.html += iconORimage(idx, '', 'blinds_closed.png', 'off icon', '', 2);
     else this.html += iconORimage(idx, '', 'blinds_open.png', 'on icon', '', 2);
-    this.html += '<div class="col-xs-8 col-datablinds">';
+    this.html += '<div class="' + data_class + '">';
     this.title = device['Name'];
     if (withPercentage) {
         if (typeof(blocks[idx]) == 'undefined' || typeof(blocks[idx]['hide_data']) == 'undefined' || blocks[idx]['hide_data'] == false) {
@@ -2152,6 +2179,7 @@ function getBlindsBlock(device, idx, withPercentage) {
     this.html += this.value;
     this.html += '</div>';
 
+/*
     if (typeof(blocks[idx]) == 'undefined' || typeof(blocks[idx]['hide_stop']) == 'undefined' || blocks[idx]['hide_stop'] === false) {
         var hidestop = false;
         this.html += '<ul class="input-groupBtn input-chevron">';
@@ -2181,6 +2209,30 @@ function getBlindsBlock(device, idx, withPercentage) {
     }
 
     this.html += '</ul>';
+*/
+  this.html += '<div class="' + button_class + '">';
+
+    this.upAction = 'Off';
+    this.downAction = 'On';
+    if (device['SwitchType'].toLowerCase().indexOf('inverted') >= 0) {
+        this.upAction = 'On';
+        this.downAction = 'Off';
+    }
+    this.html += '<div class="up"><a href="javascript:void(0)" class="btn btn-number plus" onclick="switchBlinds(' + device['idx'] + ',\'' + this.upAction + '\');">';
+    this.html += '<em class="fas fa-chevron-up fa-small"></em>';
+    this.html += '</a></div>';
+
+    this.html += '<div class="down"><a href="javascript:void(0)" class="btn btn-number min" onclick="switchBlinds(' + device['idx'] + ',\'' + this.downAction + '\');">';
+    this.html += '<em class="fas fa-chevron-down fa-small"></em>';
+    this.html += '</a></div>';
+
+    if (!hidestop) {
+        this.html += '<div class="stop"><a href="javascript:void(0)" class="btn btn-number stop" onclick="switchBlinds(' + device['idx'] + ',\'Stop\');">';
+        this.html += 'STOP';
+        this.html += '</a></div>';
+    }
+
+    this.html += '</div>';
 
     $('div.block_' + idx).html(this.html);
 
