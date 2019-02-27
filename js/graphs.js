@@ -209,6 +209,10 @@ function showGraph(idx, title, label, range, current, forced, sensor, popup) {
                 $('.block_graph' + (popup ? 'popup' : '') + '_' + idx).html(html);
 
                 var graphProperties = getGraphProperties(data.result[0], label);
+                if (blocksConfig && typeof(blocksConfig['graphTypes']) !== 'undefined') {
+                    graphProperties.keys = blocksConfig['graphTypes'];
+                }
+
                 graphProperties.dateFormat = settings['shorttime'];
                 if (range === 'month' || range === 'year') {
                     graphProperties.dateFormat = settings['shortdate'];
