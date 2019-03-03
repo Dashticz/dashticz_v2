@@ -882,16 +882,25 @@ function loadFrame(f, frame) {
 }
 
 function checkForceRefresh(m_instance, url){
-//adds current time to an url if forcerefresh is set
-  if(typeof(m_instance.forcerefresh)!=='undefined' && m_instance.forcerefresh) {
-    var sep = '?';
-    if (url.indexOf("?") != -1) var sep = '&';
-
-    if (url.indexOf("?") != -1) {
-        var newurl = url.split(sep + 't=');
-        url = newurl;
-    }
-    url += sep + 't=' + (new Date()).getTime();
+//adds current time to an url if forcerefresh is set to 1 or true
+//calls nocache.php in case forcerefresh is 2.
+  if(typeof(m_instance.forcerefresh)!=='undefined') {
+    
+    switch (m_instance.forcerefresh) {
+      case true:
+      case 1:
+        var sep = '?';
+        if (url.indexOf("?") != -1) {
+            sep = '&';
+            var newurl = url.split(sep + 't=');
+            url = newurl;
+        }
+        url += sep + 't=' + (new Date()).getTime();
+        break;
+      case 2:
+        url = settings['dashticz_php_path']+'nocache.php?'+url;
+        break;
+      }
   }
   return url;  
 }
