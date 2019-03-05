@@ -1,8 +1,9 @@
 {
-"version": "2.5.6",
+"version": "2.5.7",
 "branch": "beta",
-"last_changes": "Improved layout for blinds",
+"last_changes": "Improved flash behavior for changing block",
 "changelog" : {
+            "2.5.6": "Improved layout for blinds",
             "2.5.5": "Calendar recurrence improvement",        
             "2.5.4": "Fix for OWM sometimes not showing up",
             "2.5.3": "Add the possibility to show several weather forecast days with OWM",

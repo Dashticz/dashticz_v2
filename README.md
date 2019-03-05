@@ -50,11 +50,13 @@ You'll have to re-install Dashticz in that case.
 
 ### Where can I get any help?
 You can check out our helpful community in the [Dashticz subforum](https://www.domoticz.com/forum/viewforum.php?f=67) on the Domoticz forum. Various topics on the various parts of Dashticz can give you lots of help and examples on configuration. Feel free to ask you question.
-See also the [Wiki](http://www.domoticz.com/wiki/Dashticz_V2) for the various options in dashticz.
+See also the [Wiki](https://www.domoticz.com/wiki/Dashticz_V2) for the various options in dashticz.
 
 ### Contribute to Dashticz
 If you want to contribute to Dashticz: Just create a pull request with you bugfix, addition, typofix or something else you think is valuable. If you have no idea of what to fix: Look at the issues on Github, or visit the [Dashticz subforum](https://www.domoticz.com/forum/viewforum.php?f=67) where users describing bugs or requesting features can be found.
 
-Improving the [Wiki](http://www.domoticz.com/wiki/Dashticz_V2) is also a good way to contribute.
+Improving the [Wiki](https://www.domoticz.com/wiki/Dashticz_V2) is also a good way to contribute.
 
+The translation files for Dashticz are managed in the cloud via https://lokalise.co. If you want to contribute to the translations please check the [Dasticz translation subforum](https://www.domoticz.com/forum/viewtopic.php?f=67&t=18697&start=20#p207286)
+ 
 Thanks for your help!

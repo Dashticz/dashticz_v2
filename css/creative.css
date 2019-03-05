@@ -603,6 +603,10 @@ a.playlist {
 .selectedbutton {
 	background-color: #abc !important;
 }
+.blockchange {
+	background-color: #aaa !important;	
+}
+
 html,
 body {
 	height: 100%;
