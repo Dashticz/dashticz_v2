@@ -264,7 +264,7 @@ function setClockDateWeekday() {
 }
 
 function toSlide(num) {
-    if (typeof(myswiper) !== 'undefined') myswiper.slideTo(num, 1000, false);
+    if (typeof(myswiper) !== 'undefined') myswiper.slideTo(num, 1000, true);
 }
 
 
@@ -436,7 +436,19 @@ function startSwiper() {
                         paginationClickable: true,
                         loop: false,
                         effect: settings['slide_effect'],
-                        keyboardControl: true
+                        keyboardControl: true,
+                        onSlideChangeStart: function (swiper) {
+                          $('.slide').removeClass('selectedbutton');
+                        },
+                        onSlideChangeEnd: function (swiper) {
+                    //after Event use it for your purpose
+                          $('.slide'+(1+swiper.activeIndex)).addClass('selectedbutton');
+                        },
+                        onInit: function() {
+                          $('.slide1').addClass('selectedbutton');                            
+                        }
+
+                        
                     });
 
                 }, 2000);
@@ -814,8 +826,13 @@ function loadButton(b, button) {
     var key = b;
     if (typeof(button.key) !== 'undefined') key = button.key;
     
-
-    html = '<div class="col-xs-' + width + (buttonIsClickable(button) ? ' hover ' : ' ') +  ' transbg buttons-' + key + '" data-id="buttons.' + key + '">';
+    var slideToext ='';
+    
+    if (typeof(button.slide) !== 'undefined') {
+      slideToext = ' slide slide'+button.slide;
+    }
+    
+    html = '<div class="col-xs-' + width + (buttonIsClickable(button) ? ' hover ' : ' ') +  ' transbg buttons-' + key + slideToext +'" data-id="buttons.' + key + '">';
 
     if (button.hasOwnProperty('isimage')) {
       var img='';
