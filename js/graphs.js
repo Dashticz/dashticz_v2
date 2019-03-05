@@ -3,7 +3,6 @@ function getGraphs(device, popup) {
     var txtUnit = '?';
     var currentValue = device['Data'];
     var decimals = 2;
-
     switch (device['Type']) {
         case 'Rain':
             sensor = 'rain';
@@ -40,6 +39,28 @@ function getGraphs(device, popup) {
             txtUnit = '%';
             decimals = 1;
             break;
+        case 'RFXMeter':
+            txtUnit = device['CounterToday'].split(' ')[1];
+            currentValue = device['CounterToday'].split(' ')[0];
+          switch (device['SwitchTypeVal']) {
+
+            case 0: //Energy
+              break;
+            case 1: //Gas
+              break;
+            case 2: //Water
+              decimals = 0;
+              break;
+            case 3: //Counter
+              break;
+            case 4: //Energy generated
+              break;
+            case 5: //Time
+              break;
+          }
+          
+          break;
+
     }
 
     switch (device['SubType']) {
@@ -109,7 +130,6 @@ function getGraphs(device, popup) {
             currentValue = device['CounterToday'].split(' ')[0];
             break;
     }
-
     currentValue = number_format(currentValue, decimals);
     showGraph(device['idx'], device['Name'], txtUnit, 'initial', currentValue, false, sensor, popup);
 }
