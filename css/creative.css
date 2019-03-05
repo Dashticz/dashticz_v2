@@ -600,6 +600,10 @@ a.playlist {
 }
 */
 
+.blockchange {
+	background-color: #aaa !important;	
+}
+
 html,
 body {
 	height: 100%;
