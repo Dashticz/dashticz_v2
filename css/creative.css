@@ -554,6 +554,11 @@ a.playlist {
 	margin-top: 2px;
 }
 
+.owmdescription {
+	height: 2.5em; 
+	line-height: 1em; 
+}
+
 @media only screen and (max-width: 1000px) {
 	.title-input {
 		font-size: 14px !important;
