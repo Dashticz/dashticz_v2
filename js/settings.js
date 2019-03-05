@@ -181,7 +181,7 @@ settingList['localize']['language']['options']['hu_HU'] = language.settings.loca
 settingList['localize']['language']['options']['it_IT'] = language.settings.localize.it;
 settingList['localize']['language']['options']['lt_LT'] = language.settings.localize.lt;
 settingList['localize']['language']['options']['nl_NL'] = language.settings.localize.nl;
-settingList['localize']['language']['options']['nn_NO'] = language.settings.localize.no;
+settingList['localize']['language']['options']['nb_NO'] = language.settings.localize.no;
 settingList['localize']['language']['options']['pl_PL'] = language.settings.localize.pl;
 settingList['localize']['language']['options']['pt_PT'] = language.settings.localize.pt;
 settingList['localize']['language']['options']['ro_RO'] = language.settings.localize.ro;
@@ -215,7 +215,7 @@ settingList['localize']['calendarlanguage']['options']['hu_HU'] = language.setti
 settingList['localize']['calendarlanguage']['options']['it_IT'] = language.settings.localize.it;
 settingList['localize']['calendarlanguage']['options']['lt_LT'] = language.settings.localize.lt;
 settingList['localize']['calendarlanguage']['options']['nl_NL'] = language.settings.localize.nl;
-settingList['localize']['calendarlanguage']['options']['nn_NO'] = language.settings.localize.no;
+settingList['localize']['calendarlanguage']['options']['nb_NO'] = language.settings.localize.no;
 settingList['localize']['calendarlanguage']['options']['pl_PL'] = language.settings.localize.pl;
 settingList['localize']['calendarlanguage']['options']['pt_PT'] = language.settings.localize.pt;
 settingList['localize']['calendarlanguage']['options']['ro_RO'] = language.settings.localize.ro;
@@ -499,6 +499,19 @@ settingList['garbage']['garbage_use_cors_prefix'] = {};
 settingList['garbage']['garbage_use_cors_prefix']['title'] = language.settings.garbage.garbage_use_cors_prefix;
 settingList['garbage']['garbage_use_cors_prefix']['type'] = 'checkbox';
 settingList['garbage']['garbage_use_cors_prefix']['help'] = language.settings.garbage.garbage_use_prefix_help;
+
+settingList['other'] = {};
+settingList['other']['title'] = language.settings.other.title;
+
+settingList['other']['setpoint_min'] = {};
+settingList['other']['setpoint_min']['title'] = language.settings.other.setpoint_min;
+settingList['other']['setpoint_min']['type'] = 'text';
+/* settingList['other']['setpoint_min']['help'] = language.settings.other.setpoint_min_help; */
+
+settingList['other']['setpoint_max'] = {};
+settingList['other']['setpoint_max']['title'] = language.settings.other.setpoint_max;
+settingList['other']['setpoint_max']['type'] = 'text';
+/* settingList['other']['setpoint_max']['help'] = language.settings.other.setpoint_max_help; */
 
 settingList['about'] = {};
 settingList['about']['title'] = language.settings.about.title;
