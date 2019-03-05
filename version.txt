@@ -1,8 +1,9 @@
 {
-"version": "2.5.7",
+"version": "2.5.8",
 "branch": "beta",
-"last_changes": "Improved flash behavior for changing block",
+"last_changes": "No caching of version.txt",
 "changelog" : {
+            "2.5.7": "Improved flash behavior for changing block",
             "2.5.6": "Improved layout for blinds",
             "2.5.5": "Calendar recurrence improvement",        
             "2.5.4": "Fix for OWM sometimes not showing up",

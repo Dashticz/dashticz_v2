@@ -18,6 +18,7 @@ var levelNamesEncodeVersion = '3.9476'; /* Domoticz version above this, level na
         url: 'version.txt',
         async: false,
         dataType: 'json',
+        cache:false,
         success: function (localdata) {
             dashticz_version = localdata.version;
             dashticz_branch = localdata.branch
@@ -60,4 +61,3 @@ if (typeof(config) === 'undefined'
             levelNamesEncoded = (Number(data.version) >= Number(levelNamesEncodeVersion));
         }
     });
-
