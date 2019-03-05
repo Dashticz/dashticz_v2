@@ -1,8 +1,9 @@
 {
-"version": "2.5.5",
+"version": "2.5.6",
 "branch": "beta",
-"last_changes": "Calendar recurrence improvement",
+"last_changes": "Improved layout for blinds",
 "changelog" : {
+            "2.5.5": "Calendar recurrence improvement",        
             "2.5.4": "Fix for OWM sometimes not showing up",
             "2.5.3": "Add the possibility to show several weather forecast days with OWM",
             "2.5.2": "Add Standby URL settings to configuration window",
