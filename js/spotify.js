@@ -133,7 +133,9 @@ var SpotifyModule = function() {
 	}
 
 	function _changeDevice(deviceID){
-		spotifyApi.transferMyPlayback(deviceID,{},function(err, result) {
+		var deviceIDs = [];
+		deviceIDs.push(deviceID);
+		spotifyApi.transferMyPlayback(deviceIDs,{},function(err, result) {
 
 		});
 	}
