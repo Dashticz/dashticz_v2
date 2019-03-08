@@ -2186,7 +2186,7 @@ function getBlindsBlock(device, idx, withPercentage) {
         if (typeof(blocks[idx]) == 'undefined' || typeof(blocks[idx]['hide_data']) == 'undefined' || blocks[idx]['hide_data'] == false) {
             this.title += ' ' + device['Level'] + '%';
         }
-        this.value = '<div class="slider slider' + device['idx'] + '" data-light="' + device['idx'] + '"></div>';
+        this.value = '<div class="slider slider' + device['idx'] + '  swiper-no-swiping" data-light="' + device['idx'] + '"></div>';
     } else {
         if (device['Status'] === 'Closed') this.value = '<span class="state">' + language.switches.state_closed + '</span>';
         else this.value = '<span class="state">' + language.switches.state_open + '</span>';
