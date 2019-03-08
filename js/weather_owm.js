@@ -43,14 +43,10 @@ function loadWeatherFull(location, country) {
 		var cntSetting = settings['owm_cnt'];
 		if (cntSetting > 40) cntSetting = 40;
 		if (cntSetting > 5 && settings['owm_days'] == 1) cntSetting = 5;
-        if (cntSetting > 4) {
-            var ColXs = 'col-xs-2';
-        } else {
-            var ColXs = 'col-xs-3';
-        }
+        var ColXs = 'col-xs-2';
         var containsweatherfull = '' ;
         for (count = 0; count < cntSetting; count++) {
-            containsweatherfull += '<div class="' + ColXs + ' transbg"></div>';
+              containsweatherfull += '<div class="col-xs-2 transbg" style="width: ' + Math.round(1/cntSetting*100) + '%"></div>';
         }
         $('div.containsweatherfull').html('<div class="weatherfull">' + containsweatherfull + '</div>');
 		var site = 'http://api.openweathermap.org/data/2.5/forecast?q=' + settings['owm_city'] + ',' + settings['owm_country'] + '&appid=' + settings['owm_api'] + '&lang=' + settings['owm_lang'];
@@ -131,7 +127,7 @@ function loadWeatherFull(location, country) {
 								html = '<div class="day">' + date.format(settings['weekday']) + '</div>';
 								if (settings['static_weathericons'] === 1) html += '<div class="icon"><i class="wi ' + wiclass + '"></i></div>';
 								else html += getSkycon(curfor.weather[0].icon, 'skycon');
-								html += '<div class="day">' + Wdescription + '</div><div class="temp"><span class="av_temp">' + Math.round(temp) + _TEMP_SYMBOL + '</div>';
+								html += '<div class="day owmdescription">' + Wdescription + '</div><div class="temp"><span class="av_temp">' + Math.round(temp) + _TEMP_SYMBOL + '</div>';
 								if (settings['owm_min'] === 1) html += '<div class="temp"><span class="nightT">' + Math.round(minTemp[i]) + _TEMP_SYMBOL + '</div>';
 								
 								curfull.find('.weatherfull').each(function () {
