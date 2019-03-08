@@ -214,7 +214,7 @@ function showGraph(idx, title, label, range, current, forced, sensor, popup) {
                 var html = '<div class="graph' + (popup ? 'popup' : '')  + '" id="graph' + idx + '">';
 
                 var width = 12;
-                if(blocksConfig && typeof(blocksConfig['width']) !== 'undefined') {
+                if(blocksConfig && typeof(blocksConfig['width']) !== 'undefined' && !popup) {
                     width = blocksConfig['width'];
                 }
 
