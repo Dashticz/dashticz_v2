@@ -860,7 +860,11 @@ function loadButton(b, button) {
       if (img == 'moon') {
           img = getMoonInfo(button);
       }
-      html += '<img id="buttonimg_'+ b + '" src="' + img + '" style="max-width:100%;" />';
+	  if (typeof(button.forceheight)!=='undefined') {
+		  html+='<img id="buttonimg_'+ b + '"src="' + img + '" style="max-width:100%;" width=100% height="' + button.forceheight + '" />';
+	  } else {
+		  html += '<img id="buttonimg_'+ b + '"src="' + img + '" style="max-width:100%;" />';
+	  }	  
       
       var refreshtime = 60000;
       if (typeof(button.refresh) !== 'undefined') refreshtime = button.refresh;
@@ -922,13 +926,19 @@ function checkForceRefresh(m_instance, url){
     switch (m_instance.forcerefresh) {
       case true:
       case 1:
-        var sep = '?';
-        if (url.indexOf("?") != -1) {
-            sep = '&';
-            var newurl = url.split(sep + 't=');
-            url = newurl;
-        }
-        url += sep + 't=' + (new Date()).getTime();
+		if (url.indexOf("?") != -1) var sep='&';		
+		if((typeof(m_instance.cheapwebcam)!=='undefined') && (m_instance.cheapwebcam == true)){
+			var newurl = url.split(sep);
+			url = newurl[0];
+			var str = "" + (new Date()).getTime();
+			url += sep + 't=' + str.substr(str.length - 8, 5);
+			url += sep + newurl[1];
+		} else {
+			if (url.indexOf("?") != -1){
+				var newurl = url.split(sep + 't=');
+			}
+			url += sep + 't=' + (new Date()).getTime();
+		}
         break;
       case 2:
         url = settings['dashticz_php_path']+'nocache.php?'+url;
