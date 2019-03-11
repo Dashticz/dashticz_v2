@@ -43,7 +43,6 @@ function getGraphs(device, popup) {
             txtUnit = device['CounterToday'].split(' ')[1];
             currentValue = device['CounterToday'].split(' ')[0];
           switch (device['SwitchTypeVal']) {
-
             case 0: //Energy
               break;
             case 1: //Gas
@@ -57,10 +56,13 @@ function getGraphs(device, popup) {
               break;
             case 5: //Time
               break;
-          }
-          
+          }          
           break;
-
+        case 'Air Quality':
+            sensor = 'counter';
+            txtUnit = 'ppm';
+            decimals = 1;
+            break;
     }
 
     switch (device['SubType']) {
@@ -392,6 +394,11 @@ function getGraphProperties(result, label) {
             keys: ['u_max', 'u_min'],
             labels: ['?', '?'],
         };
+    } else if (result.hasOwnProperty('co2')) {
+		graphProperties = {
+			keys: ['co2'],
+			labels: ['ppm'],
+		};		
     }
     return graphProperties;
 }
