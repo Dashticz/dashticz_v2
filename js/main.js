@@ -794,9 +794,27 @@ function buttonLoadFrame(button) //Displays the frame of a button after pressing
         $(this).data('bs.modal', null);
         $(this).remove();
   });
-
+  
   $('#button_' + random ).modal('show');
 
+  if (!button.log && typeof(button.refreshiframe)!=='undefined' && button.refreshiframe >0) {
+    setTimeout(function()
+    {
+      refreshButtonFrame(button, random);
+    }, button.refreshiframe);
+  }
+}
+
+function refreshButtonFrame(button, buttonid)
+{
+  var mydiv = $('#button_' + buttonid).find('iframe');
+  if (mydiv.length > 0) {
+      mydiv.attr('src', checkForceRefresh(button, button.url));
+      setTimeout(function()
+      {
+        refreshButtonFrame(button, buttonid);
+      }, button.refreshiframe);
+  }
 }
 
 function buttonOnClick(m_event)
@@ -936,13 +954,16 @@ function reloadImage(i, image) {
     }
 }
 
-function reloadIframe(i, image) {
-    if (typeof(image.url) !== 'undefined') {
+/*not used anymore
+function reloadIframe(button, i) {
+//reloads the Iframe of a button if it exists
+    if (typeof(button.url) !== 'undefined') {
         if (typeof($('.imgblockopens' + i + ' iframe').attr('src') !== 'undefined')) {
             $('.imgblockopens' + i + ' iframe').attr('src', checkForceRefresh(image, image.url));
         }
     }
 }
+*/
 
 function getMoonInfo(image) {
   var mymoon = new MoonPhase(new Date());
