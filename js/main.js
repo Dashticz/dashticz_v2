@@ -1623,9 +1623,15 @@ function handleDevice(device, idx) {
         html += getBlockData(device, idx, language.switches.state_on, language.switches.state_off);
     } else {
         if (!isProtected(device, idx)) {
-            if (device['SwitchType'] == 'Push On Button') $('.block_' + idx).attr('onclick', 'switchOnOff(this,\'on\')');
-            else if (device['SwitchType'] == 'Push Off Button') $('.block_' + idx).attr('onclick', 'switchOnOff(this,\'off\')');
-            else $('.block_' + idx).attr('onclick', 'switchDevice(this)');
+			var confirmswitch=0;
+			if (typeof(blocks[idx]['confirmation']) !== 'undefined'){
+				confirmswitch = blocks[idx]['confirmation'];
+			}
+			var confirm='';
+			if(confirmswitch==1) confirm='Confirm';
+            if (device['SwitchType'] == 'Push On Button') $('.block_' + idx).attr('onclick', 'switchOnOff'+confirm+'(this,\'on\')');
+            else if (device['SwitchType'] == 'Push Off Button') $('.block_' + idx).attr('onclick', 'switchOnOff'+confirm+'(this,\'off\')');
+            else $('.block_' + idx).attr('onclick', 'switchDevice'+confirm+'(this)');
         }
 		if(device['Status'] === 'Off') html += iconORimage(idx, 'far fa-lightbulb', buttonimg, getIconStatusClass(device['Status']) + ' icon');
 		else html += iconORimage(idx, 'fas fa-lightbulb', buttonimg, getIconStatusClass(device['Status']) + ' icon');

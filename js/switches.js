@@ -1,3 +1,17 @@
+function switchDeviceConfirm(cur) {
+	var r = confirm("Are you sure you want to switch?");
+	if (r == true) {
+		switchDevice(cur)
+	}
+}
+
+function switchOnOffConfirm(cur) {
+	var r = confirm("Are you sure you want to switch?");
+	if (r == true) {
+		switchDevice(cur)
+	}
+}
+
 function switchDevice(cur) {
     var idx = $(cur).data('light');
     var doStatus = '';
@@ -15,6 +29,8 @@ function switchDevice(cur) {
         idx = idx.replace('s', '');
         param = 'switchscene';
     }
+	
+	
     $.ajax({
         url: settings['domoticz_ip'] + '/json.htm?username=' + usrEnc + '&password=' + pwdEnc + '&type=command&param=' + param + '&idx=' + idx + '&switchcmd=' + doStatus + '&level=0&passcode=&jsoncallback=?',
         type: 'GET', async: false, contentType: 'application/json', dataType: 'jsonp',
@@ -22,6 +38,7 @@ function switchDevice(cur) {
             getDevices(true);
         }
     });
+	
 }
 
 function switchOnOff(cur, onOrOff) {
