@@ -105,18 +105,19 @@ function getWasteApiData(address, date, random, companyCode) {
             data.dataList.forEach(function (element) {
                 element.pickupDates.forEach(function (dateElement) {
                     var pickupTypes = {
-                        0: 'Restafval',
-                        1: 'GFT',
-                        2: 'Papier',
-                        3: 'Plastic',
-                        6: 'Kerstbomen',
-                        7: 'Restgoed',
-                        10: 'Verpakkingen',
+                        'GREY': 'Restafval',
+                        'GREEN': 'GFT',
+                        'GREENGREY': 'GFT & Rest',
+                        'NOTAVAILABLE1': 'Papier',
+                        'ORANGE': 'Plastic',
+                        'NOTAVAILABLE2': 'Kerstbomen',
+                        'NOTAVAILABLE3': 'Restgoed',
+                        'PACKAGES': 'Verpakkingen',
                     };
                     dataFiltered.push({
                         date: moment(dateElement),
-                        summary: pickupTypes[element.pickupType],
-                        garbageType: mapGarbageType(pickupTypes[element.pickupType]),
+                        summary: pickupTypes[element._pickupTypeText],
+                        garbageType: mapGarbageType(pickupTypes[element._pickupTypeText]),
                     });
                 });
             });

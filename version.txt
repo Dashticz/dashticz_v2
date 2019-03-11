@@ -1,8 +1,9 @@
 {
-"version": "2.5.8",
+"version": "2.5.9",
 "branch": "beta",
-"last_changes": "No caching of version.txt",
+"last_changes": "Small fix for TwenteMilieu garbage pickup dates",
 "changelog" : {
+            "2.5.8": "No caching of version.txt",
             "2.5.7": "Improved flash behavior for changing block",
             "2.5.6": "Improved layout for blinds",
             "2.5.5": "Calendar recurrence improvement",        
