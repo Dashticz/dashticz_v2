@@ -2318,5 +2318,5 @@ function isRGBDeviceAndEnabled(device) {
     return (typeof(settings['no_rgb']) === 'undefined'
             || (typeof(settings['no_rgb']) !== 'undefined'
                 && parseFloat(settings['no_rgb']) === 0))
-        && (device['SubType'] === 'RGBW' || device['SubType'] === 'RGBWW');
+        && (device['SubType'] === 'RGBW' || device['SubType'] === 'RGBWW' || device['SubType'] === 'RGB');
 }
