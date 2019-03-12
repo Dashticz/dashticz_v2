@@ -1624,9 +1624,10 @@ function handleDevice(device, idx) {
     } else {
         if (!isProtected(device, idx)) {
 			var confirmswitch=0;
-			if (typeof(blocks[idx]['confirmation']) !== 'undefined'){
-				confirmswitch = blocks[idx]['confirmation'];
-			}
+      if(typeof(blocks[idx])!=='undefined')
+  			if (typeof(blocks[idx]['confirmation']) !== 'undefined'){
+  				confirmswitch = blocks[idx]['confirmation'];
+  			}
 			var confirm='';
 			if(confirmswitch==1) confirm='Confirm';
             if (device['SwitchType'] == 'Push On Button') $('.block_' + idx).attr('onclick', 'switchOnOff'+confirm+'(this,\'on\')');
