@@ -10,7 +10,7 @@ Welcome to Dashticz's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-
+Dashticz documentation will come here.
 
 Indices and tables
 ==================
