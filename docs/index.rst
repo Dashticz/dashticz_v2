@@ -9,23 +9,14 @@ Welcome to Dashticz's documentation!
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
-   
-   Introduction
-   Installation
-   Dashticz Configuration
-   Blocks
-       Introduction
-       Domoticz blocks
-       Buttons
-       Frames
-       Specials
-   Columns
-   Screens
-   Customization
-      Styling via custom.css
-      Functionality via custom.jss
-   Tips and tricks
-   Release notes
+
+   introduction
+   installation
+   configuration
+   customization
+   tipsandtricks
+   releasenotes
+   develop/develop
    
 
 Dashticz documentation will come here.
