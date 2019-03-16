@@ -1,4 +1,0 @@
-Garbage
-=======
-
-Garbage info

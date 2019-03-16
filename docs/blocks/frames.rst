@@ -1,4 +1,0 @@
-Frames
-======
-
-Description of frames.
