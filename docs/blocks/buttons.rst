@@ -1,4 +1,0 @@
-Buttons
-=======
-
-Description of buttons.
