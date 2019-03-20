@@ -36,7 +36,7 @@ Parameters
    width, "``1..12``: The width of the button relative to the column width"
    title, "``'<string>'``: Custom title for the button"   
    slide, ``1..99``: Slide to specified screen on click.
-   isimage, Set to ``true`` if the image should be shows in the full button width (default ``false``).
+   isimage, Set to ``true`` if the image should be shown in the full button width (default ``false``).
    image, ``'<url>'``: URL of the image to show in the button.
    url, ``'<url>'``: URL of the page to open in a popup window on click. 
    forcerefresh,"| Control the caching-prevention mechanism of the images for a button.

@@ -5,37 +5,24 @@ A link to the release notes will be posted in the Dashticz support forum. The to
 2.5.6 and 2.5.7
 ---------------
 
-Graph improvements
-~~~~~~~~~~~~~~~~~~
+* Graph improvements. See :ref:`dom_graphs` for usage description. 
 
-* Selection of values you want to show in a graph via the graphTypes parameter. See :ref:`dom_blockparameters`.
-* Support for the ``title`` and ``width`` parameter in a graph block.
+  * Selection of values you want to show in a graph via the graphTypes parameter. See :ref:`dom_blockparameters`.
+  * Support for the ``title`` and ``width`` parameter in a graph block.
 
-See :ref:`dom_graphs` for usage description. 
+* Additional mechanism to prevent caching of images in a button via the ``forcerefresh`` parameter. See :ref:`forcerefresh`.
 
-Additional mechanism to prevent caching of images in a button
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* Change background color for active 'slide' button. See :ref:`slidebutton`.
 
-See the ``forcerefresh`` parameter of a button-block. :ref:`forcerefresh`.
+* Flash on change. See  :ref:`Flashonchange`.
+  
+  If you have defined the flash parameter for a device-block, then the block will flash on change.
+  The formatting of the flash can be modified via the class ``.blockchange`` in your ``custom.css``.
 
-Change background color for active 'slide' button
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-See :ref:`slidebutton`.
+  The parameter ``config['blink_color']`` is (temporarily?) not used anymore.
+  (reason: the apply background mechanism didn't work for non-touch devices)
 
-
-Flash on change
-~~~~~~~~~~~~~~~
-If you have defined the flash parameter for a device-block, then the block will flash on change.
-The formatting of the flash can be modified via the class ``.blockchange`` in your ``custom.css``.
-
-The parameter ``config['blink_color']`` is (temporarily?) not used anymore.
-(reason: the apply background mechanism didn't work for non-touch devices)
-
-See  :ref:`Flashonchange`.
-
-Additional changes
-~~~~~~~~~~~~~~~~~~
-- Improved layout of blinds
-- Update of Romanian language
-- Update to FontAwesome 5.7.2
-- Fix for some RFX meters (incl. water meter)
+* Improved layout of blinds
+* Update of Romanian language
+* Update to FontAwesome 5.7.2
+* Fix for some RFX meters (incl. water meter)
