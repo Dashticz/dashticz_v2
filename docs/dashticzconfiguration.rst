@@ -62,3 +62,13 @@ loginEnabled
 Possible values: 0 or 1
 
 Enable if you want a login form to dashticz
+
+Usage
+#####
+
+.. _dom_CORS_proxy:
+
+CORS proxy
+------------
+
+Text to be added ...
