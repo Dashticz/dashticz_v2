@@ -6,4 +6,6 @@ Specials
    :caption: Special blocks
 
    specials/garbage
+   specials/spotify
+   specials/topbar
            

@@ -1,7 +1,7 @@
 .. _Installation :
 
-Setting up
-============
+Getting started
+===============
 
 The setup instructions consist of two steps:
 
@@ -79,3 +79,20 @@ Example of CONFIG.js:
     config['dashticz_refresh'] = '60';
 
 You can read more about the connection configurtion :ref:`config-connection`.
+
+Then create a symbolic link from the root of the www folder of your web server to the previously created Dashticz location::
+
+  sudo ln -s /home/pi/dashticz_v2/ /var/www/html
+
+Set the correct permissions to the files and folders::
+
+  chmod -R a+rX /home/pi/dashticz_v2
+
+If you want to be able to save the settings via Dashticz to CONFIG.js then you have to give write permission to CONFIG.js for root::
+
+  chmod a+w /home/pi/dashticz_v2/custom/CONFIG.js
+
+Now you can browse to the dashboard: http://192.168.1.3/dashticz_v2/index.html
+Replace 192.168.1.3 with the IP Address (and Port number) for your web server, NOT your Domoticz IP!
+
+By default, Dashticz V2 will show all your Domoticz favorites on the dashboard.

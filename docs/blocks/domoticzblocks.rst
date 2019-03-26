@@ -35,24 +35,30 @@ Variables
 Parameters
 ----------
 
-.. csv-table:: 
-   :header: Parameter, Description
-   :widths: 5, 30
-   :class: tight-table
+.. list-table:: 
+  :header-rows: 1
+  :widths: 5 30
+  :class: tight-table
 
-   width, "``1..12``: The width of the block relative to the column width"
-   title, "``'<string>'``: Custom title for the block"
-   flash,"| Controls the flashing of the block when it's value changes.
-   | ``0`` : No flashing (=default)
-   | ``1..1000`` : Duration (in ms) of the flashing effect"
-   graphTypes, "| Array of values you want to show in the graph
-   | ``['te']``: Temperature
-   | ``['hu']``: Humidity
-   | ``['ba']``: Barometer
-   | ``['gu', 'sp']``: wind guts and speed
-   | ``['uvi']``, ``['lux']``, ``['lux_avg']``, ``['mm']``, ``['v_max']``
-   | ``['v2']``, ``['mm']``, ``['eu']``, ``['u']``, ``['u_max']``
-   "
+  * - Parameter
+    - Description
+  * - width
+    - ``1..12``: The width of the block relative to the column width
+  * - title
+    - ``'<string>'``: Custom title for the block
+  * - flash
+    - | Controls the flashing of the block when it's value changes.
+      | ``0`` : No flashing (=default)
+      | ``1..1000`` : Duration (in ms) of the flashing effect
+  * - graphTypes
+    - | Array of values you want to show in the graph
+      | ``['te']``: Temperature
+      | ``['hu']``: Humidity
+      | ``['ba']``: Barometer
+      | ``['gu', 'sp']``: wind guts and speed
+      | ``['uvi']``, ``['lux']``, ``['lux_avg']``, ``['mm']``, ``['v_max']``
+      | ``['v2']``, ``['mm']``, ``['eu']``, ``['u']``, ``['u_max']``
+   
    
 Usage
 -----

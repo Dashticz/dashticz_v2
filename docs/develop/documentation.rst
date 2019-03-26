@@ -61,6 +61,20 @@ Tables
 
 Preferred method for defining a parameter table::
 
+    .. list-table:: 
+      :header-rows: 1
+      :widths: 5, 30
+      :class: tight-table
+          
+      * - Parameter
+        - Description
+      * - width
+        - ``1..12``: The width of the block relative to the column width
+      * - title
+        - ``'<string>'``: Custom title for the block
+
+Alternative 1::
+
     .. csv-table:: 
        :header: Parameter, Description
        :widths: 5, 30
@@ -74,7 +88,7 @@ Preferred method for defining a parameter table::
 The previous example will not show a horizontal scroll bar.
 If you want to have a horizontal scroll bar then remove ``:class: tight-table``
    
-Alternative::
+Alternative 2::
 
     ============   ===============================
     Parameter      Description 

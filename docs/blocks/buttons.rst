@@ -27,22 +27,30 @@ Buttons are clickable elements that may show an image. First you have to define 
 Parameters
 ----------
 
-.. csv-table:: 
-   :header: Parameter, Description
-   :widths: 5, 30
-   :class: tight-table
-   
-   
-   width, "``1..12``: The width of the button relative to the column width"
-   title, "``'<string>'``: Custom title for the button"   
-   slide, ``1..99``: Slide to specified screen on click.
-   isimage, Set to ``true`` if the image should be shown in the full button width (default ``false``).
-   image, ``'<url>'``: URL of the image to show in the button.
-   url, ``'<url>'``: URL of the page to open in a popup window on click. 
-   forcerefresh,"| Control the caching-prevention mechanism of the images for a button.
-   | ``0`` : Normal caching behavior (=default)
-   | ``1``,  ``true`` : Prevent caching by adding t=<timestamp> parameter to the url. Not all webservers will handle this correctly
-   | ``2`` : The image is loaded via php, preventing caching. (php must be enabled on your Dashticz server)"
+.. list-table:: 
+  :header-rows: 1
+  :widths: 5, 30
+  :class: tight-table
+      
+  * - Parameter
+    - Description
+  * - width
+    - ``1..12``: The width of the block relative to the column width
+  * - title
+    - ``'<string>'``: Custom title for the block
+  * - slide
+    - ``1..99``: Slide to specified screen on click.
+  * - isimage
+    - Set to ``true`` if the image should be shown in the full button width (default ``false``).
+  * - image
+    - ``'<url>'``: URL of the image to show in the button.
+  * - url
+    - ``'<url>'``: URL of the page to open in a popup window on click. 
+  * - forcerefresh
+    - | Control the caching-prevention mechanism of the images for a button.
+      | ``0`` : Normal caching behavior (=default)
+      | ``1``,  ``true`` : Prevent caching by adding t=<timestamp> parameter to the url. Not all webservers will handle this correctly
+      | ``2`` : The image is loaded via php, preventing caching. (php must be enabled on your Dashticz server)
 
 Usage
 -----
