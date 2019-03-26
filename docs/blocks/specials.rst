@@ -8,4 +8,5 @@ Specials
    specials/garbage
    specials/spotify
    specials/topbar
+   specials/weather
            
