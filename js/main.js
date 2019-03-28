@@ -926,7 +926,8 @@ function checkForceRefresh(m_instance, url){
     switch (m_instance.forcerefresh) {
       case true:
       case 1:
-		if (url.indexOf("?") != -1) var sep='&';		
+		var sep = '?';
+		if (url.indexOf("?") != -1) sep='&';		
 		if((typeof(m_instance.cheapwebcam)!=='undefined') && (m_instance.cheapwebcam == true)){
 			var newurl = url.split(sep);
 			url = newurl[0];
@@ -934,9 +935,8 @@ function checkForceRefresh(m_instance, url){
 			url += sep + 't=' + str.substr(str.length - 8, 5);
 			url += sep + newurl[1];
 		} else {
-			if (url.indexOf("?") != -1){
-				var newurl = url.split(sep + 't=');
-			}
+			var newurl = url.split(sep + 't=');
+			url = newurl[0];
 			url += sep + 't=' + (new Date()).getTime();
 		}
         break;
