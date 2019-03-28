@@ -37,18 +37,18 @@ Troubleshooting
     config['user_name'] = '<Domoticz Username>';
     config['pass_word'] = '<Domoticz Password>';
 
-If your initial is working then let's continue with step 2.
+If your initial dashboard is working then let's continue with step 2.
 
 Step 2: Creating a custom layout
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 In this example we'll create a simple dashboard, consisting of
 
-- one screen
-- two columns, consisting of 1/3 and 2/3 of the screen widths
+- one screen.
+- two columns, consisting of 1/3 and 2/3 of the screen width.
 - two devices in the second column next to each other.
 
-First we have to add the definition for the devices.
+First we have to add the block definition for the devices.
 For this you have to know the Domoticz device ID. You can find your device ID in the Settings->Devices overview of Domoticz.
 Choose two switch devices. In this example we'll use device id 120 and 121.
 
@@ -70,7 +70,7 @@ This means we want to use device id 120 and device id 121. We give them width of
 Explanation of width
   For setting the width of blocks (and columns) the grid system is used.
   The total available width is 12. If you set the width of a block to 6
-  then 50% of the column width will be used for the block width
+  then 50% of the column width will be used for the block width.
 
 So in the previous example both blocks will have a width of 50% of the column we will place them in,
 meaning they will fit into one row.
