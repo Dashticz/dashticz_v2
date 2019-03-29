@@ -8,6 +8,7 @@ Specials
    specials/calendar
    specials/garbage
    specials/moon
+   specials/publictransport
    specials/spotify
    specials/topbar
    specials/weather

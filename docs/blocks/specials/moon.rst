@@ -21,6 +21,6 @@ Dashticz will automatically use the correct image for the current moon phase fro
 ``<dashticz>/img/moon``
 
 We have 100 moon images. A moon cycle takes approximately 28 days.
-That means that the moon picture will refresh approximiately 4 times a day.
+That means that the moon picture will refresh approximately 4 times a day.
 
 .. image:: moon.17.png
