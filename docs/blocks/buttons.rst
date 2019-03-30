@@ -51,6 +51,13 @@ Parameters
       | ``0`` : Normal caching behavior (=default)
       | ``1``,  ``true`` : Prevent caching by adding t=<timestamp> parameter to the url. Not all webservers will handle this correctly
       | ``2`` : The image is loaded via php, preventing caching. (php must be enabled on your Dashticz server)
+  * - log
+    - | ``true`` Button will show the Domoticz log info
+      | ``false`` Default
+  * - level
+    - Domoticz log level used by the log-button.
+    
+     
 
 Usage
 -----
@@ -101,7 +108,24 @@ Example on how to use menu buttons::
     }
 
 
+.. _logbutton :
 
+Domoticz log button
+~~~~~~~~~~~~~~~~~~~
+
+With a log-button you can show the Domoticz log in a popup window::
+
+    var buttons = {}
+    buttons.log = {
+      key:'log',
+      width:12,
+      icon:'fas fa-microchip',
+      title: 'Domoticz Log',
+      log:true,
+      level: 2
+    }
+
+It's also possible to show the Domoticz log directly in the Dashticz dashboard. See :ref:`customlog`
 
 .. _forcerefresh:
 
