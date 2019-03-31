@@ -139,3 +139,14 @@ forcerefresh
    ``1`` (or ``true``) : Prevent caching by adding t=<timestamp> parameter to the url. Not all webservers will handle this correctly
 
    ``2`` :               The image is loaded via php, preventing caching. (php must be enabled on your Dashticz server)
+
+Examples
+--------
+
+Additional examples of button definitions::
+
+    var buttons = {}
+    buttons.buienradar = {width:12, isimage:true, refreshimage:60000, image: 'http://api.buienradar.nl/image/1.0/RadarMapNL?w=285&h=256', url: 'http://www.weer.nl/verwachting/nederland/son/189656/'}
+    buttons.radio = {width:12, image: 'img/radio_on.png', title: 'Radio', url: 'http://nederland.fm'}
+    buttons.nunl = {width:12, icon: 'far fa-newspaper', title: 'Nu.nl', url: 'http://www.nu.nl'}
+    buttons.webcam = {width:12, isimage:true, refresh:2000, image: 'http://ip_url_to_webcam', url: 'http://ip_url_to_webcam'}

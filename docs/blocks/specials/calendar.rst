@@ -98,7 +98,7 @@ Example
 
 This will give:
 
-.. image :: calendar.png
+.. image :: calendar.jpg
 
 Usage
 -----
