@@ -142,7 +142,7 @@ Usage
 Block title
 ~~~~~~~~~~~
 
-A special block type is a block title. A block title only contaiins a title element.
+A special block type is a block title. A block title only contains a title element.
 You define a block title as follows::
 
   blocks['blocktitle_1'] = {  //'blocktitle_1' must be an unique name
