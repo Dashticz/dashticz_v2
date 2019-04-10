@@ -919,29 +919,49 @@ function loadFrame(f, frame) {
 }
 
 function checkForceRefresh(m_instance, url){
-//adds current time to an url if forcerefresh is set to 1 or true
-//calls nocache.php in case forcerefresh is 2.
+//forcerefresh is set to 1 or true:
+//   adds current time to an url as second parameter (for webcams)
+//   adds the timestamp as first parameter if there are no parameters yet
+//forcerefresh:2
+//   calls nocache.php and prevent caching by setting headers in php.
+//forcerefresh:3
+//   adds timestamp parameter to the end of the url
+
+
   if(typeof(m_instance.forcerefresh)!=='undefined') {
-    
+    var str = "" + (new Date()).getTime();
+    var mytimestamp = 't='+str.substr(str.length - 8, 5);
     switch (m_instance.forcerefresh) {
       case true:
       case 1:
-		var sep = '?';
-		if (url.indexOf("?") != -1) sep='&';		
-		if((typeof(m_instance.cheapwebcam)!=='undefined') && (m_instance.cheapwebcam == true)){
-			var newurl = url.split(sep);
-			url = newurl[0];
-			var str = "" + (new Date()).getTime();
-			url += sep + 't=' + str.substr(str.length - 8, 5);
-			url += sep + newurl[1];
-		} else {
-			var newurl = url.split(sep + 't=');
-			url = newurl[0];
-			url += sep + 't=' + (new Date()).getTime();
-		}
-        break;
+      //try to add the timestamp as second parameter
+      //it there are no parameters the timestamp will be added.
+      //behavior changed to support cheap webcams
+		  if (url.indexOf("?") == -1) //no parameters. We will add the timestamp
+          url += '?'+mytimestamp;
+      else { //we have at least one parameters
+          var pos = url.indexOf("&");
+          if (pos>0) {
+            //we have more than one parameter
+            //insert the timestamp as second
+            url = url.substr(0, pos+1) + '&' + mytimestamp + url.substr(pos);
+          }
+          else {
+            //there is only one parameter so we add it to the end
+            url += '&' + mytimestamp;
+          }
+        
+      }
+      break;
       case 2:
         url = settings['dashticz_php_path']+'nocache.php?'+url;
+        break;
+      case 3: //add timestamp to the end
+        var sep = '&';
+        if (url.indexOf("?") == -1) { //there is no parameter yet
+            sep = '?';
+        }
+        url += sep + mytimestamp;
         break;
       }
   }
