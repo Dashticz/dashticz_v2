@@ -63,6 +63,9 @@ So remember, blocks can have classes, parameters and id's associated with them. 
 Domoticz blocks
 ---------------
 
+Used classes for Domoticz blocks
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 Example block definition::
 
     blocks[120] = {
@@ -78,6 +81,9 @@ First line: ``title``
 Second line: ``state``
 Third line: ``lastupdate``
 
+Background color
+~~~~~~~~~~~~~~~~
+
 To change the background color of all Domoticz blocks::
 
     div[class*='block_'] {
@@ -91,13 +97,19 @@ To change the height of only this block::
     }
 
 
+Styling of lastupdate text
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 To change the font-size and color of the lastupdate text of this block::
 
   .block_120 .lastupdate {
     font-size: 20px;
     color: blue;
   }
-  
+
+Icon colors of a Domoticz switch
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 To change the icon colors for only this block::
 
     .block_120 .on {
