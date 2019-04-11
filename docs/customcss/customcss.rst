@@ -97,6 +97,18 @@ To change the font-size and color of the lastupdate text of this block::
     font-size: 20px;
     color: blue;
   }
+  
+To change the icon colors for only this block::
+
+    .block_120 .on {
+      color:#F1C300;
+    }
+
+    .block_120 .off {
+      color:#fff;
+    }
+
+In the previous example you can see the ``on`` class or ``off`` class can be used to select a block depending on the state of the Domoticz device.
       
 Block titles
 ------------
