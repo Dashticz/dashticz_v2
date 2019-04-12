@@ -176,3 +176,8 @@ Based on the command ``unix()-(3600*2)`` where 3600*2 = 2 hours it will check th
     }
 
 More about other json commands, you can find in the Domoticz wiki: https://www.domoticz.com/wiki/Domoticz_API/JSON_URL%27s#Get_all_devices_of_a_certain_type
+
+``function getChange_IDX(idx,value,device)``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This function gets called when the value of a Domoticz device changes.
