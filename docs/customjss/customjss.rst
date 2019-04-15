@@ -13,6 +13,29 @@ You can enter code inside this function which you want to be called.
 
 Of course, you can also use stuff like $(document).ready() etc...
 
+The following example shows how you can change the styling of a Domoticz device based on the status::
+
+    function afterGetDevices(){
+        if (alldevices[120].Data == 'Off') {
+      		$('.block_120 .title').addClass('warningblue');
+      		$('.block_120 .state').addClass('warningblue');
+       	}
+       	else {	 
+      		$('.block_120 .title').removeClass('warningblue');
+      		$('.block_120 .state').removeClass('warningblue');
+       	}	
+    }
+
+In this example the CSS style 'warningblue' is applied to the title and state part of Domoticz block 120 if the state is 'Off' (as used by switches).
+For this example to work you must also add the definition for ``warningblue`` to ``custom.css``. For instance as follows::
+
+    .warningblue {
+      color: blue !important;
+    }
+
+
+
+
 ``function getExtendedBlockTypes(blocktypes)``
 ----------------------------------------------
 
