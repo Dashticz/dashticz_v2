@@ -251,7 +251,18 @@ function showGraph(idx, title, label, range, current, forced, sensor, popup) {
                 });
 
                 if ($('#graphoutput' + idx).length > 0) {
-                    makeMorrisGraph(idx, graphProperties);
+                    var graphtype='line';
+                    if (blocksConfig && typeof(blocksConfig['graph']) !== 'undefined'){
+                        graphtype = blocksConfig.graph;
+                    }
+                    
+                    switch(graphtype) {
+                        case 'bar':
+                            makeMorrisGraphBar(idx, graphProperties);
+                            break;
+                        default:
+                            makeMorrisGraph(idx, graphProperties);
+                    }
                 }
             }
         });
@@ -267,6 +278,35 @@ function makeMorrisGraph(idx, graphProperties) {
         gridTextColor: '#fff',
         lineWidth: 2,
         xkey: ['d'],
+        ykeys: graphProperties.keys,
+        labels: graphProperties.labels,
+        xLabelFormat: function (x) { return moment(x.src.d, 'YYYY-MM-DD HH:mm').locale(settings['calendarlanguage']).format(graphProperties.dateFormat); },
+        lineColors: settings['lineColors'],
+        pointFillColors: ['none'],
+        pointSize: 3,
+        hideHover: 'auto',
+        resize: true,
+        hoverCallback: function (index, options, content, row) {
+            var datePoint = moment(row.d, 'YYYY-MM-DD HH:mm').locale(settings['calendarlanguage']).format(graphProperties.dateFormat);
+            var text = datePoint + ": ";
+            graphProperties.keys.forEach(function (element, index) {
+                text += (index > 0 ? ' / ' : '') + number_format(row[element], 2) + ' ' + graphProperties.labels[index];
+            });
+            return text;
+        }
+    });
+}
+
+function makeMorrisGraphBar(idx, graphProperties) {
+    Morris.Bar({
+        parseTime: false,
+        element: 'graphoutput' + idx,
+        data: graphProperties.data,
+        fillOpacity: 0.2,
+        gridTextColor: '#fff',
+        lineWidth: 2,
+        xkey: ['d'],
+        //ymin: 'auto',    
         ykeys: graphProperties.keys,
         labels: graphProperties.labels,
         xLabelFormat: function (x) { return moment(x.src.d, 'YYYY-MM-DD HH:mm').locale(settings['calendarlanguage']).format(graphProperties.dateFormat); },
