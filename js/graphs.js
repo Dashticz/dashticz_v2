@@ -252,13 +252,33 @@ function showGraph(idx, title, label, range, current, forced, sensor, popup) {
 
                 if ($('#graphoutput' + idx).length > 0) {
                     var graphtype='line';
-                    if (blocksConfig && typeof(blocksConfig['graph']) !== 'undefined'){
-                        graphtype = blocksConfig.graph;
+                    graphProperties.pointFillColors= ['none'];
+                    graphProperties.pointSize=3;
+                    graphProperties.lineColors=settings['lineColors'];
+
+                    if (blocksConfig) {
+
+                        if (typeof(blocksConfig['graph']) !== 'undefined'){
+                            graphtype = blocksConfig.graph;
+                        }
+
+                        if(typeof(blocksConfig['pointFillColors']) !== 'undefined') {
+                            graphProperties.pointFillColors = blocksConfig['pointFillColors']
+                        }
+
+
+                        if(typeof(blocksConfig['pointSize']) !== 'undefined') {
+                            graphProperties.pointSize = blocksConfig['pointSize']
+                        }
+                        if(typeof(blocksConfig['lineColors']) !== 'undefined') {
+                            graphProperties.lineColors = blocksConfig['lineColors']
+                        }
+
                     }
-                    
+                        
                     switch(graphtype) {
                         case 'bar':
-                            makeMorrisGraphBar(idx, graphProperties);
+                            makeMorrisGraphBar(idx,  graphProperties);
                             break;
                         default:
                             makeMorrisGraph(idx, graphProperties);
@@ -281,9 +301,9 @@ function makeMorrisGraph(idx, graphProperties) {
         ykeys: graphProperties.keys,
         labels: graphProperties.labels,
         xLabelFormat: function (x) { return moment(x.src.d, 'YYYY-MM-DD HH:mm').locale(settings['calendarlanguage']).format(graphProperties.dateFormat); },
-        lineColors: settings['lineColors'],
-        pointFillColors: ['none'],
-        pointSize: 3,
+        lineColors: graphProperties.lineColors,
+        pointFillColors: graphProperties.pointFillColors,
+        pointSize: graphProperties.pointSize,
         hideHover: 'auto',
         resize: true,
         hoverCallback: function (index, options, content, row) {
@@ -309,9 +329,9 @@ function makeMorrisGraphBar(idx, graphProperties) {
         ykeys: graphProperties.keys,
         labels: graphProperties.labels,
         xLabelFormat: function (x) { return moment(x.src.d, 'YYYY-MM-DD HH:mm').locale(settings['calendarlanguage']).format(graphProperties.dateFormat); },
-        lineColors: settings['lineColors'],
-        pointFillColors: ['none'],
-        pointSize: 3,
+        lineColors: graphProperties.lineColors,
+        pointFillColors: graphProperties.pointFillColors,
+        pointSize: graphProperties.pointSize,
         hideHover: 'auto',
         resize: true,
         hoverCallback: function (index, options, content, row) {
