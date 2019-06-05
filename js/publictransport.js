@@ -77,33 +77,67 @@ function dataPublicTransport(random,data,transportobject){
 			for(t in data[d]){
 				var l_id= data[d][t]['id'];
 				if(provider == '9292' || 
-				   (l_id=='bus' && provider == '9292-bus') || 
-					 (l_id=='tram' && provider == '9292-tram')  ||
-					 (l_id=='bus' && provider == '9292-tram-bus')  ||
-					 (l_id=='tram' && provider == '9292-tram-bus')  ||
-					 (l_id=='tram-bus' && provider == '9292-tram-bus') || 
-				   (l_id=='metro' && provider == '9292-metro') || 
-				   (l_id=='trein' && provider == '9292-train') || 
-				   (l_id=='veerboot' && provider == '9292-boat')
+					(l_id=='bus' && provider == '9292-bus') || 
+					(l_id=='tram' && provider == '9292-tram')  ||
+					(l_id=='bus' && provider == '9292-tram-bus')  ||
+					(l_id=='tram' && provider == '9292-tram-bus')  ||
+					(l_id=='tram-bus' && provider == '9292-tram-bus') || 
+					(l_id=='bus-tram' && provider == '9292-tram-bus') || 
+					(l_id=='tram-metro' && provider == '9292-tram-bus') || 
+					(l_id=='metro' && provider == '9292-metro') || 
+					(l_id=='trein' && provider == '9292-train') || 
+					(l_id=='veerboot' && provider == '9292-boat')
 				){
 					deps = data[d][t]['departures'];
 					for(de in deps){
 						key = deps[de]['time'];
-						if(typeof(dataPart[key])=='undefined') dataPart[key]=[];
-						dataPart[key][i]='';
-						dataPart[key][i]+='<div><b>'+deps[de]['time']+'</b> ';
-						if(deps[de]['realtimeText']!=null) dataPart[key][i]+='<span id="latetrain">'+deps[de]['realtimeText'].replace(' min.','')+'</span> ';
-						if(deps[de]['platform']!=null) dataPart[key][i]+='- Spoor '+deps[de]['platform'];
-						else dataPart[key][i]+='- Lijn '+deps[de]['service'];
-						
-						dest = deps[de]['destinationName'].split(' via ');
-						dataPart[key][i]+=' - '+dest[0];
-						if(typeof(transportobject.show_via)=='undefined' || transportobject.show_via==true){
-							if(typeof(dest[1])!=='undefined') dataPart[key][i]+=' via '+dest[1];
-							else if(typeof(deps[de]['RouteTekst'])!=='undefined') dataPart[key][i]+=' via '+deps[de]['viaNames'];
+						if(typeof(transportobject.destination)!='undefined'){
+							var destinationArray = [];
+							if(transportobject.destination.indexOf(',')){
+							   destinationArray = transportobject.destination.split(',')
+							} else {
+							   destinationArray.push(transportobject.destination)
+							}
 						}
-						dataPart[key][i]+=' </div>';
-						i++;
+						if(typeof(transportobject.service)!='undefined'){
+							var serviceArray = [];
+							if(transportobject.service.indexOf(',')){
+							   serviceArray = transportobject.service.split(',')
+							} else {
+							   serviceArray.push(transportobject.service)
+							}
+						}
+						if(typeof(transportobject.destination)=='undefined' && typeof(transportobject.service)=='undefined' ||
+							((typeof(transportobject.destination)!='undefined' && destinationArray.indexOf(deps[de]['destinationName']) > -1) && typeof(transportobject.service)=='undefined') ||
+							((typeof(transportobject.service)!='undefined' && serviceArray.indexOf(deps[de]['service']) > -1) && typeof(transportobject.destination)=='undefined') ||
+							((typeof(transportobject.destination)!='undefined' && destinationArray.indexOf(deps[de]['destinationName']) > -1) && (typeof(transportobject.service)!='undefined' && serviceArray.indexOf(deps[de]['service']) > -1))
+							)
+						{
+							if(typeof(dataPart[key])=='undefined') {
+								dataPart[key]=[];
+							}
+							dataPart[key][i]='';
+							dataPart[key][i]+='<div><b>'+deps[de]['time']+'</b> ';
+							if(deps[de]['realtimeText']!=null) {
+								dataPart[key][i]+='<span id="latetrain">'+deps[de]['realtimeText'].replace(' min.','')+'</span> ';
+							}	
+							if(deps[de]['platform']!=null) {
+								dataPart[key][i]+='- Spoor '+deps[de]['platform'];
+							} else {
+								dataPart[key][i]+='- Lijn '+deps[de]['service'];
+							}
+							dest = deps[de]['destinationName'].split(' via ');
+							dataPart[key][i]+=' - '+dest[0];
+							if(typeof(transportobject.show_via)=='undefined' || transportobject.show_via==true){
+								if(typeof(dest[1])!=='undefined') {
+									dataPart[key][i]+=' via '+dest[1];
+								} else if(typeof(deps[de]['RouteTekst'])!=='undefined') {
+									dataPart[key][i]+=' via '+deps[de]['viaNames'];
+								}	
+							}
+							dataPart[key][i]+=' </div>';
+							i++;
+						}
 					}
 				}
 			}
