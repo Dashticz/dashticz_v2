@@ -94,17 +94,17 @@ function dataPublicTransport(random,data,transportobject){
 						if(typeof(transportobject.destination)!='undefined'){
 							var destinationArray = [];
 							if(transportobject.destination.indexOf(',')){
-							   destinationArray = transportobject.destination.split(',')
+							   destinationArray = transportobject.destination.split(/, |,/);
 							} else {
-							   destinationArray.push(transportobject.destination)
+							   destinationArray.push(transportobject.destination);
 							}
 						}
 						if(typeof(transportobject.service)!='undefined'){
 							var serviceArray = [];
 							if(transportobject.service.indexOf(',')){
-							   serviceArray = transportobject.service.split(',')
+							   serviceArray = transportobject.service.split(/, |,/);
 							} else {
-							   serviceArray.push(transportobject.service)
+							   serviceArray.push(transportobject.service);
 							}
 						}
 						if(typeof(transportobject.destination)=='undefined' && typeof(transportobject.service)=='undefined' ||
