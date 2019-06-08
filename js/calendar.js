@@ -41,9 +41,8 @@ function addCalendar(calobject, icsUrlorg) {
             html += '</div>';
             html += '</div>';
             $('body').append(html);
-            calobject.find('.transbg').addClass('hover');
+            calobject.addClass('hover');
             calobject.attr('data-toggle', 'modal');
-            calobject.attr('data-id', '');
             calobject.attr('data-target', '#calendar_' + random);
             calobject.attr('onclick', 'setSrc(this);');
         }
