@@ -64,7 +64,6 @@ function dataTrafficInfo(random,data,trafficobject){
 	for(d in data){
 		if(provider == 'anwb'){
 			if(d == 'roadEntries'){
-				// still a bug to fix if you define multiple roads in one block and for one of the roads no traffic info is found. Something with 'i'.
 				if (typeof(trafficobject.road)!='undefined'){
 					var roadArray = [];
 					if (trafficobject.road.indexOf(',')){
