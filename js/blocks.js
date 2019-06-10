@@ -382,6 +382,13 @@ function handleObjectBlock(block, index, columndiv, width, c) {
             dataType: 'script'
         });
         $(columndiv).append(loadPublicTransport(random, block, key));
+    } else if (block.hasOwnProperty('trafficJams') || block.hasOwnProperty('roadWorks') || block.hasOwnProperty('radars')) {
+        if (typeof(loadTrafficInfo) !== 'function') $.ajax({
+            url: 'js/trafficinfo.js',
+            async: false,
+            dataType: 'script'
+        });
+        $(columndiv).append(loadTrafficInfo(random, block, key));
     } else if (block.hasOwnProperty('currency')) {
         if (typeof(getCoin) !== 'function') $.ajax({url: 'js/coins.js', async: false, dataType: 'script'});
         var html = '<div class="col-xs-' + width + ' transbg coins-' + block['key'] + '" data-id="coins.' + block['key'] + '"></div>';
