@@ -1064,6 +1064,7 @@ function appendStreamPlayer(columndiv) {
     $(columndiv).append(this.html);
 
     var streamelement = '.containsstreamplayer' + random;
+    var connecting = null;
 
     var supportsAudio = !!document.createElement('audio').canPlayType;
     if (supportsAudio) {
@@ -1075,11 +1076,16 @@ function appendStreamPlayer(columndiv) {
             audio = $(streamelement + ' .audio1').bind('play', function () {
                 $(streamelement + ' .stateicon').removeClass('fas fa-play');
                 $(streamelement + ' .stateicon').addClass('fas fa-pause');
+                $(streamelement).addClass('playing')
                 playing = true;
+                connecting = setTimeout(function () {
+                    infoMessage("StreamPlayer", "connecting ... ", 0);
+                }, 1000);
             }).bind('pause', function () {
-
                 $(streamelement + ' .stateicon').removeClass('fas fa-pause');
                 $(streamelement + ' .stateicon').addClass('fas fa-play');
+                $(streamelement).removeClass('playing')
+
                 playing = false;
             }).get(0),
             btnPrev = $(streamelement + ' .btnPrev').click(function () {
@@ -1091,41 +1097,45 @@ function appendStreamPlayer(columndiv) {
                     loadTrack(trackCount - 1);
                 }
                 if (playing) {
-                    audio.play();
+                    doPlay();
                 }
-                audio.pause();
             }),
             btnNext = $(streamelement + ' .btnNext').click(function () {
                 if ((index + 1) < trackCount) index++;
                 else index = 0;
 
                 loadTrack(index);
-
                 if (playing) {
-                    audio.play();
+                    doPlay();
                 }
-                audio.pause();
+            }),
+            btnPlay = $(streamelement + ' .playStream').click(function () {
+                if (audio.paused) {
+                    doPlay();
+                } else {
+                    audio.pause();
+                }
             }),
             loadTrack = function (id) {
                 npTitle.text(tracks[id].name);
                 index = id;
                 audio.src = tracks[id].file;
+            },
+            doPlay = function () {
+                audio.play()
+                .then(function() {
+                    clearTimeout(connecting);
+                    $(".update").remove();
+                })
+                .catch(function (err) {
+                    console.log(err);
+                    console.log(err.message);
+                    infoMessage("Streamplayer", err.message);
+
+                })
             };
         loadTrack(index);
     }
-
-    $(streamelement + ' .playStream').click(function () {
-        var myAudio = $(streamelement + ' .audio1').get(0);
-        if (myAudio.paused) {
-            $(streamelement + ' .stateicon').removeClass('fas fa-play');
-            $(streamelement + ' .stateicon').addClass('fas fa-pause');
-            myAudio.play();
-        } else {
-            $(streamelement + ' .stateicon').removeClass('fas fa-pause');
-            $(streamelement + ' .stateicon').addClass('fas fa-play');
-            myAudio.pause();
-        }
-    });
 }
 
 function getDevices(override) {
