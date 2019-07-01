@@ -1,79 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
-    <meta name="description" content="Dashticz - v2, Custom dashboard for Domoticz">
-    <meta name="author" content="Rob Geerts">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes">
+	<head>
 
-    <link rel="shortcut icon" href="img/favicon/favicon.ico" type="image/x-icon" />
-    <link rel="apple-touch-icon" sizes="57x57" href="img/favicon/apple-touch-icon-57x57.png">
-    <link rel="apple-touch-icon" sizes="60x60" href="img/favicon/apple-touch-icon-60x60.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="img/favicon/apple-touch-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="76x76" href="img/favicon/apple-touch-icon-76x76.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="img/favicon/apple-touch-icon-114x114.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="img/favicon/apple-touch-icon-120x120.png">
-    <link rel="apple-touch-icon" sizes="144x144" href="img/favicon/apple-touch-icon-144x144.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="img/favicon/apple-touch-icon-152x152.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="img/favicon/apple-touch-icon-180x180.png">
-    <link rel="icon" type="image/png" href="img/favicon/favicon-16x16.png" sizes="16x16">
-    <link rel="icon" type="image/png" href="img/favicon/favicon-32x32.png" sizes="32x32">
-    <link rel="icon" type="image/png" href="img/favicon/favicon-96x96.png" sizes="96x96">
-    <link rel="icon" type="image/png" href="img/favicon/android-chrome-192x192.png" sizes="192x192">
-    <meta name="msapplication-square70x70logo" content="img/favicon/smalltile.png" />
-    <meta name="msapplication-square150x150logo" content="img/favicon/mediumtile.png" />
-    <meta name="msapplication-wide310x150logo" content="img/favicon/widetile.png" />
-    <meta name="msapplication-square310x310logo" content="img/favicon/largetile.png" />
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
+		<meta name="description" content="Dashticz - v2, Custom dashboard for Domoticz">
+		<meta name="author" content="Rob Geerts">
+		<meta name="mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		
+		<link rel="shortcut icon" href="img/favicon/favicon.ico" type="image/x-icon" />
+		<link rel="apple-touch-icon" sizes="57x57" href="img/favicon/apple-touch-icon-57x57.png">
+		<link rel="apple-touch-icon" sizes="60x60" href="img/favicon/apple-touch-icon-60x60.png">
+		<link rel="apple-touch-icon" sizes="72x72" href="img/favicon/apple-touch-icon-72x72.png">
+		<link rel="apple-touch-icon" sizes="76x76" href="img/favicon/apple-touch-icon-76x76.png">
+		<link rel="apple-touch-icon" sizes="114x114" href="img/favicon/apple-touch-icon-114x114.png">
+		<link rel="apple-touch-icon" sizes="120x120" href="img/favicon/apple-touch-icon-120x120.png">
+		<link rel="apple-touch-icon" sizes="144x144" href="img/favicon/apple-touch-icon-144x144.png">
+		<link rel="apple-touch-icon" sizes="152x152" href="img/favicon/apple-touch-icon-152x152.png">
+		<link rel="apple-touch-icon" sizes="180x180" href="img/favicon/apple-touch-icon-180x180.png">
+		<link rel="icon" type="image/png" href="img/favicon/favicon-16x16.png" sizes="16x16">
+		<link rel="icon" type="image/png" href="img/favicon/favicon-32x32.png" sizes="32x32">
+		<link rel="icon" type="image/png" href="img/favicon/favicon-96x96.png" sizes="96x96">
+		<link rel="icon" type="image/png" href="img/favicon/android-chrome-192x192.png" sizes="192x192">
+		<meta name="msapplication-square70x70logo" content="img/favicon/smalltile.png" />
+		<meta name="msapplication-square150x150logo" content="img/favicon/mediumtile.png" />
+		<meta name="msapplication-wide310x150logo" content="img/favicon/widetile.png" />
+		<meta name="msapplication-square310x310logo" content="img/favicon/largetile.png" />
+       
+       	<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+		<link href="vendor/font-awesome/css/all.min.css" rel="stylesheet" type="text/css">
+		<link href="css/fonts/opensans/open-sans.css" rel="stylesheet" type="text/css">
+		<link href="vendor/jquery/jquery-ui.css" rel="stylesheet">
+		
+		<script src="vendor/head.js"></script>
+		<title>Dashticz</title>
 
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="vendor/font-awesome/css/fontawesome-all.min.css" rel="stylesheet" type="text/css">
-    <link href="css/fonts/opensans/open-sans.css" rel="stylesheet" type="text/css">
-    <link href="vendor/jquery/jquery-ui.css" rel="stylesheet">
+	</head>
 
-    <script src="vendor/head.js"></script>
-    <title>Dashticz</title>
+	<body id="page-top">
+		
+		<div id="loaderHolder">
+			<div class="loaderHeader">Dashticz v2 is loading...</div>
+			<div class="loader"></div>
+			<div id="hide" style="visibility: hidden">Timeout! Something is wrong please check your CONFIG.js<br>For more help visit <a href="http://www.domoticz.com/wiki/Dashticz_V2">Dashticz v2 wiki</a></div>
+		</div>
+		<div class="swiper-container">
+			<div class="contents swiper-wrapper"> </div>
+        	<div class="swiper-pagination"></div>
+		</div>
 
-</head>
-
-<body id="page-top">
-    <div id="loaderHolder">
-        <div class="loaderHeader">Dashticz v2 is loading...</div>
-        <div class="loader"></div>
-        <div id="hide" style="visibility: hidden">
-            Timeout! Something is wrong please check your CONFIG.js<br>
-            For more help visit <a href="http://www.domoticz.com/wiki/Dashticz_V2">Dashticz v2 wiki</a>
-        </div>
-    </div>
-    <div class="swiper-container">
-        <div class="contents swiper-wrapper"> </div>
-        <div class="swiper-pagination"></div>
-    </div>
-
-    <script>
-        var dashtype = 2;
-
-        //DO NOT EDIT BELOW
-        var customfolder = 'custom';
-        if (typeof(dashtype) !== 'undefined' && parseFloat(dashtype) > 1) {
-            customfolder = 'custom_' + dashtype;
-        }
-
-        var cache = new Date().getTime();
-        head.load(
-            "vendor/jquery/jquery.min.js",
-            "vendor/spotify/spotify-web-api.js",
-            "vendor/plugins.js",
-            "vendor/moment.js",
-            "js/functions.js",
-            "css/creative.css?v=" + cache,            
-            "js/main.js?v=" + cache, function() {
-                loadFiles();
-            }
-        );
-    </script>
-</body>
+		<script>
+			var dashtype=2;	
+			
+			//DO NOT EDIT BELOW
+			var customfolder = 'custom';
+			if(typeof(dashtype)!=='undefined' && parseFloat(dashtype)>1){
+				customfolder = 'custom_'+dashtype;
+			}
+			
+            var cache = new Date().getTime();
+			head.load(
+				"vendor/jquery/jquery.min.js",
+				"vendor/spotify/spotify-web-api.js",
+				"vendor/plugins.js",
+				"vendor/moment.js",
+				"js/functions.js",
+				"css/creative.css?v=" + cache,
+				"js/main.js?v="+cache, function() {
+					loadFiles();
+				}
+			);
+        </script>
+	</body>
 </html>
