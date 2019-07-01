@@ -9,7 +9,7 @@ For more information see:
 
 * sphinx
 * readthedocs
-* rst: Reflow Structured, the markup language we use
+* rst: reStructuredText, the markup language we use
 
 .. rubric:: Basic
 

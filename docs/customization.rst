@@ -1,8 +1,8 @@
 Customizations
 ==============
 
-Styling via custom.css
-----------------------
+.. toctree::
+  :maxdepth: 2
 
-Functionality via custom.jss
-----------------------------
+  customcss/customcss
+  customjss/customjss
