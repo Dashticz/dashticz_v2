@@ -79,7 +79,10 @@ function getGraphs(device, popup) {
         case 'Gas':
             txtUnit = 'm3';
             break;
-        case 'Energy':
+        case 'Electric':
+            txtUnit = 'Watt';
+            break;
+	case 'Energy':
         case 'kWh':
         case 'YouLess counter':
             txtUnit = 'kWh';
@@ -102,10 +105,10 @@ function getGraphs(device, popup) {
         case 'Leaf Wetness':
             txtUnit = 'Range';
             break;
-        case 'Voltage':
-        case 'A/D':
+	case 'A/D':
             txtUnit = 'mV';
             break;
+        case 'Voltage':		    
         case 'VoltageGeneral':
             txtUnit = 'V';
             break;
@@ -117,6 +120,7 @@ function getGraphs(device, popup) {
             txtUnit = 'dB';
             break;
         case 'CurrentGeneral':
+	case 'CM113, Electrisave':	    
         case 'Current':
             txtUnit = 'A';
             break;
