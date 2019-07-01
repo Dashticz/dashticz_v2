@@ -1332,6 +1332,7 @@ function getAutoAppendSelector(device) {
         case 'Thermostat':
         case 'Temp + Humidity':
         case 'Temp + Humidity + Baro':
+        case 'Temp + Baro':
         case 'Usage':
         case 'Temp':
         case 'Humidity':
@@ -1425,6 +1426,7 @@ function handleDevice(device, idx) {
           return getHumBlock(device, idx);
         case 'Temp + Humidity + Baro':
         case 'Temp + Humidity':
+        case 'Temp + Baro': 
         case 'Heating':
         case 'Radiator 1':
             return getTempHumBarBlock(device, idx);
