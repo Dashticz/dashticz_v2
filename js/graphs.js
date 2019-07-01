@@ -267,6 +267,7 @@ function makeMorrisGraph(idx, graphProperties) {
         gridTextColor: '#fff',
         lineWidth: 2,
         xkey: ['d'],
+	ymin: 'auto',    
         ykeys: graphProperties.keys,
         labels: graphProperties.labels,
         xLabelFormat: function (x) { return moment(x.src.d, 'YYYY-MM-DD HH:mm').locale(settings['calendarlanguage']).format(graphProperties.dateFormat); },
